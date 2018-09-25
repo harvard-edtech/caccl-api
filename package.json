@@ -1,0 +1,26 @@
+{
+  "name": "caccl-smart-canvas-endpoints",
+  "version": "1.0.0",
+  "description": "A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harvard-edtech/caccl-smart-canvas-endpoints.git"
+  },
+  "keywords": [
+    "Canvas",
+    "API",
+    "endpoints",
+    "smart",
+    "CACCL"
+  ],
+  "author": "Gabriel Abrams <gabeabrams@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/harvard-edtech/caccl-smart-canvas-endpoints/issues"
+  },
+  "homepage": "https://github.com/harvard-edtech/caccl-smart-canvas-endpoints#readme"
+}
