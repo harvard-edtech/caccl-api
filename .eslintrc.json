@@ -1,0 +1,22 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "arrow-body-style": [
+      "warn",
+      "always"
+    ],
+    "arrow-parens": ["warn", "always"],
+    "consistent-return": "off",
+    "id-length": "off",
+    "max-len": ["error", { "code": 80, "ignoreStrings": true }],
+    "no-plusplus": ["warn", { "allowForLoopAfterthoughts": true }],
+    "prefer-template": "off",
+    "radix": "off",
+    "no-underscore-dangle": "off",
+    "max-params": ["warn", {"max": 3}]
+  }
+}

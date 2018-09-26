@@ -5,7 +5,7 @@ Follow this structure:
 {
 	name: 'getStudentRoster',
 	action: 'get the student roster from a course',
-	run: (courseID) => {
+	run: (courseId, options) => {
 		// ...
 	},
 }
@@ -17,17 +17,17 @@ Follow this structure:
 
 The action should fit in the following sentences:
 
-- Due to a network error, we could not ___. 
+- Due to a network error, we could not ___.
 - While we were attempting to ___, we encountered an unknown error.
 
 ### `run(...)` should return a promise that resolves to:
 
-If uncaching anything: 
+If uncaching anything:
 
 ```js
 {
 	response: /* Returned to caller of getStudentRoster(...) */,
-	uncache: /* Tags to uncache (string or list of strings) */,
+	uncache: /* Tags to uncache (list of paths) */,
 }
 ```
 
