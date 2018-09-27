@@ -12,10 +12,10 @@ describe('SmartEndpoints', function () {
       });
     });
 
-    it('Gets enrollments', function () {
-      return se.course.getStudents({
+    it('Gets apps', function () {
+      return se.course.listApps({
         courseId: environment.testCourseId,
-      }).then(console.log);
+      });
     });
   });
 });

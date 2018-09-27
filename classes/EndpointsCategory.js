@@ -55,21 +55,27 @@ class EndpointsCategory {
     });
 
     // Turn each endpoint into a function
-    options.endpointsDefinition(this, visitEndpoint).forEach((endpoint) => {
-      this[endpoint.name] = (...args) => {
-        return endpoint.run(...args)
-          .catch((err) => {
-            // Turn into CACCLError if not already
-            let newError = err;
-            if (!err.isCACCLError) {
-              newError = new CACCLError(err);
-            }
+    let { endpointsDefinitions } = options;
+    if (!Array.isArray(options.endpointsDefinitions)) {
+      endpointsDefinitions = [options.endpointsDefinitions];
+    }
+    endpointsDefinitions.forEach((endpointsDefinition) => {
+      endpointsDefinition(this, visitEndpoint).forEach((endpoint) => {
+        this[endpoint.name] = (...args) => {
+          return endpoint.run(...args)
+            .catch((err) => {
+              // Turn into CACCLError if not already
+              let newError = err;
+              if (!err.isCACCLError) {
+                newError = new CACCLError(err);
+              }
 
-            // Add on action to the error
-            newError.message = 'While attempting to ' + endpoint.action + ', we ran into an error: ' + err.message;
-            throw newError;
-          });
-      };
+              // Add on action to the error
+              newError.message = 'While attempting to ' + endpoint.action + ', we ran into an error: ' + err.message;
+              throw newError;
+            });
+        };
+      });
     });
   }
 }

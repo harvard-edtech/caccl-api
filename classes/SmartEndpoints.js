@@ -7,10 +7,18 @@ const SessionCache = require('./SessionCache.js');
 
 // Endpoints categories
 const EndpointsCategory = require('./EndpointsCategory.js');
-const courseEndpointDefinitions = require('../endpoints/course.js');
-
+// > Course endpoints
+const appsEndpoints = require('../endpoints/course/apps.js');
+const enrollmentsEndpoints = require('../endpoints/course/enrollments.js');
+// > Put endpoint definitions into a map.
+//    Each key is an EndpointCategory.
+//    Each value should be a list of endpoint definition files. All endpoints
+//      in these files will be merged and included in the EndpointCategory.
 const endpointDefinitionsMap = {
-  course: courseEndpointDefinitions,
+  course: [
+    appsEndpoints,
+    enrollmentsEndpoints,
+  ],
 };
 
 class SmartEndpoints {
@@ -56,12 +64,11 @@ class SmartEndpoints {
     }
 
     // Initialize apps endpoints
-    const ctx = this;
     Object.keys(endpointDefinitionsMap).forEach((categoryName) => {
-      ctx[categoryName] = new EndpointsCategory({
+      this[categoryName] = new EndpointsCategory({
         visitEndpoint,
         accessToken: options.accessToken,
-        endpointsDefinition: endpointDefinitionsMap[categoryName],
+        endpointsDefinitions: endpointDefinitionsMap[categoryName],
       });
     });
   }

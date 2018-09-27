@@ -1,11 +1,22 @@
-const utils = require('./utils.js');
+const utils = require('../utils.js');
 
 module.exports = (self, visitEndpoint) => {
   return [
 
-    /*------------------------------------------------------------------------*/
-    /*                          Apps (External Tools)                         */
-    /*------------------------------------------------------------------------*/
+    /**
+     * Deletes an LTI app from a Canvas course
+     * @param {number} courseId - Canvas course Id to delete app from
+     */
+    {
+      name: 'listApps',
+      action: 'get the list of apps installed into a course',
+      run: (options) => {
+        return visitEndpoint({
+          path: '/api/v1/courses/' + options.courseId + '/external_tools',
+          method: 'GET',
+        });
+      },
+    },
 
     /**
      * Adds an LTI app to a Canvas course
@@ -88,59 +99,6 @@ module.exports = (self, visitEndpoint) => {
             ],
           };
         });
-      },
-    },
-
-    /*------------------------------------------------------------------------*/
-    /*                          Enrollments and Users                         */
-    /*------------------------------------------------------------------------*/
-
-    {
-      name: 'getEnrollments',
-      action: 'gets enrollments from a course',
-      run: (options) => {
-        const params = {};
-
-        // Enrollment types
-        if (options.types) {
-          params.type = options.types.map((type) => {
-            return type.charAt(0).toUpperCase() + type.substr(1) + 'Enrollment';
-          });
-        }
-
-        // Filter to only active
-        if (options.activeOnly) {
-          params.state = ['active'];
-        }
-
-        // Include avatar
-        if (options.includeAvatar) {
-          params.include = ['avatar_url'];
-        }
-
-        // Include groups
-        if (options.includeGroups) {
-          if (!params.include) {
-            params.include = [];
-          }
-          params.include.push('group_ids');
-        }
-
-        return visitEndpoint({
-          params,
-          path: '/api/v1/courses/' + options.courseId + '/enrollments',
-          method: 'GET',
-        });
-      },
-    },
-
-    {
-      name: 'getStudents',
-      action: 'get the list of students in a course',
-      run: (options) => {
-        const newOptions = options;
-        newOptions.types = ['student'];
-        return self.getEnrollments(newOptions);
       },
     },
 
