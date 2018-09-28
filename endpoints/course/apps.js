@@ -1,4 +1,4 @@
-const utils = require('../utils.js');
+const utils = require('../helpers/utils.js');
 
 module.exports = (self, visitEndpoint) => {
   return [
