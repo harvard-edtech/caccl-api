@@ -63,7 +63,22 @@ function wrapVisitEndpoint(config) {
         // > Uncache if applicable
         if (!uncacheExcluded && config.cache) {
           endpointResults.uncache.forEach((key) => {
-            config.cache.clear(key);
+            // Handle prefix-based keys
+            if (key.endsWith('*')) {
+              // Extract prefix
+              const prefix = key.split('*')[0];
+              // This is a prefix-based key
+              const cacheObject = config.cache.getAll();
+              Object.keys(cacheObject).forEach((cachedKey) => {
+                if (cachedKey.startsWith(prefix)) {
+                  // Found a match. Clear it.
+                  config.cache.clear(cachedKey);
+                }
+              });
+            } else {
+              // This is a simple key, just uncache it
+              config.cache.clear(key);
+            }
           });
         }
         // > Resolve with result
