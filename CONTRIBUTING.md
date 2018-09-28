@@ -55,7 +55,7 @@ module.exports = {
 };
 ```
 
-If we were to add another category called "user" that has two files: `endpoints/user/info.js` and `endpoints/user/files.js`, we would update the config:
+If we were to add another category called "user" that has two files: `/endpoints/user/info.js` and `/endpoints/user/files.js`, we would update the config:
 
 ```js
 // Import "course" category files
@@ -80,7 +80,7 @@ module.exports = {
 
 ## Adding an endpoint
 
-1. In the `./endpoints` file, choose the category (each category is a subfolder) that best represents the new endpoint. If you want to create a new category, follow the instructions below.
+1. In the `/endpoints` folder, choose the category (each category is a subfolder) that best represents the new endpoint. If you want to create a new category, follow the instructions below.
 2. Choose a file in the category (subfolder) that best represents the new endpoint. If you want to create a new file, follow the instructions below.
 3. Within the file, add a new object to the list, following this structure:
 
@@ -88,7 +88,7 @@ module.exports = {
 {
 	name: 'listStudents',
 	action: 'get the student roster from a course',
-	run: (courseId, options) => {
+	run: (options, visitEndpoint) => {
 		// ...
 	},
 }
@@ -101,6 +101,7 @@ Naming conventions:
 - If returning a list, start the name with "list". Examples: `listQuizzes`, `listAssignments`, etc.
 - If returning a single object, start the name with "get". Examples: `getQuiz`, `getAssignment`, etc.
 - If creating new content, start the name with "create". Examples: `createQuiz`, `createAssignment`, etc.
+- If updating/changing existing content, start the name with "update". Examples: `updateQuiz`, `updateAssignment`, etc.
 - If deleting content, start the name with "delete". Examples: `deleteQuiz`, `deleteAssignment`, etc.
 - If content/items already exist and you're just _adding_ them to a new context, start the name with "add". Examples: `addApp`, etc.
 - If you're removing content/items that will continue to exist after they're removed from the current context, start the name with "remove". Examples: `removeApp`, etc.
@@ -117,45 +118,115 @@ Example actions:
 - "get an assignment in a course"
 - "upload a file to a student's submission"
 
-### `run(...)` should return a promise:
-The returned promise should...
+### `run(options, visitEndpoint)` is the function that'll run when the endpoint is called
 
-- reject on failure with a `CACCLError`
-- resolve on success with the following response types:
+#### Arguments
 
-#### Response type if uncaching any paths:
+The run function must take _at most two_ arguments called `options` and `visitEndpoint`. If your endpoint has no options but requires `visitEndpoint`, you may ignore options: `run(_, visitEndpoint)`.
 
-```js
-{
-	response: /* result to return to caller */,
-	uncache: /* list of endpoint paths to uncache */,
-}
-```
+`options` should be an object that contains all info passed from the endpoint caller.
 
-When you want to uncache paths:
-
-- You just created a new assignment. You'll want to uncache `/courses/:course/assignments`, which lists assignments
-
-///
-
-If not uncaching anything, just return the response.
-
-
-In this function, you should call `visitEndpoint` to send requests to Canvas:
+`visitEndpoint` is a function you can use to visit a specific Canvas API endpoint. Call it as follows:
 
 ```js
 visitEndpoint({
 	path: '/api/v1/courses/' + courseID + '/enrollments',
 	method: 'GET',
+	// ^ If method excluded, defaults to 'GET'
 	params: {
-		// ...
+		...
 	},
+	// ^ params optional
 }).then((response) => {
 	// ...
 }).catch((err) => {
-	// ...
+    // ^ err is a CACCLError
 });
 ```
 
+#### Response type: run(options) should return a promise
+
+The returned promise should...
+
+- reject on failure with a `CACCLError`
+- resolve on success with the following response types:
+
+##### Response type if uncaching any paths:
+
+```js
+{
+	response: /* result to return to caller */,
+	uncache: [
+		`/api/v1/courses/195620/assignments`,
+		`/api/v1/courses/195620/assignments/57184',
+	],
+}
+```
+
+When you want to uncache paths:
+
+- You just created a new assignment. You'll want to uncache `/api/v1/courses/:course/assignments`, which lists assignments
+- You just edited an assignment. You'll want to uncache `/api/v1/courses/:course/assignments` AND `/api/v1/courses/:course/assignments/:assignment_you_just_edited`
+
+**Tip:** If you _end_ an uncache path with `*`, we'll uncache everything that starts with the prefix before the `*`. Note: we do not handle `*` in the middle of a path. Examples:
+
+`/api/v1/courses/:course/assignments*` – uncaches the list of assignments and all endpoints that start with `/api/v1/courses/:course/assignments`
+
+`/api/v1/courses/:course/assignments/*` – uncaches all endpoints that start with `/api/v1/courses/:course/assignments/`  
+_^ Note that the only difference is the ending /_
+
+##### Response type if not uncaching any paths:
+
+If not uncaching anything, just return the response.
+
+## Calling other endpoints in the category from within an endpoint
+
+Within an endpoints file (inside a category folder), if any of the endpoints in the file need to call other endpoints in the category, include `self` as an argument to the exported function in the file. In other words, your endpoints file `/endpoints/categoryname/filename.js` should look like:
+
+```js
+module.exports = (self) => {
+    return [
+        // Endpoint definitions go here
+    ];
+});
+```
+
+Then, inside the `run(options,visitEndpoint)` function, you may use `self` to call other endpoints.
+
+**Note:** You do not need to include `visitEndpoint` when calling other endpoints (it's included automatically). See example:
+
+```js
+...
+    {
+      name: 'listStudents',
+      action: 'get the list of students in a course',
+      run: (options) => {
+        const newOptions = options;
+        newOptions.types = ['student'];
+        return self.getEnrollments(newOptions);
+      },
+    },
+...
+```
+
+**Note:** You can only call endpoints within the same category.
+
 
 ## Creating a new endpoint category
+
+1. Create a new subfolder for the category: `/endpoints/categoryname`
+
+**Note:** You should delete endpoint categories if they contain no files (git will not include them anyway)
+
+## Creating a new endpoint category file
+
+1. Create a file in your category `/endpoints/categoryname/filename.js`
+2. Fill the file with this skeleton:
+
+```js
+module.exports = () => {
+    return [
+        // Endpoint definitions go here
+    ];
+});
+```
