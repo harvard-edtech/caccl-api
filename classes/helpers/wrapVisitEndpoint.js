@@ -5,8 +5,17 @@ const EXCLUDED_PARAM = '-=EXCLUDED_PARAMETER=-';
 // > Caches/uncaches values if cache was included
 function wrapVisitEndpoint(config) {
   return (options) => {
+    // Check if this request is cacheable
+    // > Only cache if we have a cache
+    // > and
+    // > Only cache if the method is "GET"
+    const cacheThis = (
+      (!options.method || options.method === 'GET')
+      && config.cache
+    );
+
     // Check for cached value
-    if (config.cache) {
+    if (cacheThis) {
       const cachedValue = config.cache.get(options.path);
       if (cachedValue) {
         // Resolve with cached value
@@ -42,7 +51,7 @@ function wrapVisitEndpoint(config) {
           uncacheExcluded ? endpointResults : endpointResults.response
         );
         // > Save in cache
-        if (config.cache) {
+        if (cacheThis) {
           if (config.cache.storePromises) {
             // Store the promise
             config.cache.set(options.path, valuePromise);
