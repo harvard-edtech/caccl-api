@@ -1,3 +1,5 @@
+const EXCLUDED_PARAM = '-=EXCLUDED_PARAMETER=-';
+
 // Wrap visitEndpoint to add two new features:
 // > Adds access tokens to each request
 // > Caches/uncaches values if cache was included
@@ -12,10 +14,20 @@ function wrapVisitEndpoint(config) {
       }
     }
 
+    // Remove excluded parameters
+    const newParams = {};
+    Object.keys(options.params || {}).forEach((key) => {
+      if (options.params[key] !== EXCLUDED_PARAM) {
+        newParams[key] = options.params[key];
+      }
+    });
+
     // Add access token to request
+    if (config.accessToken) {
+      newParams.access_token = config.accessToken;
+    }
     const requestOptions = options;
-    requestOptions.params = requestOptions.params || {};
-    requestOptions.params.access_token = config.accessToken;
+    requestOptions.params = newParams;
 
     // Send new request
     const valuePromise = config.visitEndpoint(requestOptions)
