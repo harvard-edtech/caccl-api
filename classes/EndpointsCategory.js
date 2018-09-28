@@ -20,25 +20,35 @@ function wrapVisitEndpoint(config) {
     requestOptions.params.access_token = config.accessToken;
 
     // Send new request
-    return config.visitEndpoint(requestOptions)
+    const valuePromise = config.visitEndpoint(requestOptions)
       .then((endpointResults) => {
         // Success!
-        // > Just resolve if no results or if no endpoints to uncache
-        if (
+        const uncacheExcluded = (
           !endpointResults
           || !endpointResults.uncache
           || !Array.isArray(endpointResults.uncache)
-        ) {
-          return Promise.resolve(endpointResults);
+        );
+        const response = (
+          uncacheExcluded ? endpointResults : endpointResults.response
+        );
+        // > Save in cache
+        if (config.cache) {
+          if (config.cache.storePromises) {
+            // Store the promise
+            config.cache.set(options.path, valuePromise);
+          } else {
+            // Store the value
+            config.cache.set(options.path, response);
+          }
         }
         // > Uncache if applicable
-        if (config.cache) {
+        if (!uncacheExcluded && config.cache) {
           endpointResults.uncache.forEach((key) => {
             config.cache.clear(key);
           });
         }
-        // > Extract and resolve with endpoint response
-        return Promise.resolve(endpointResults.response);
+        // > Resolve with result
+        return Promise.resolve(response);
       });
   };
 }

@@ -7,7 +7,7 @@ class SessionCache {
       req.session.cache = {};
     }
 
-    this.canStorePromiseValues = false;
+    this.storePromises = false;
   }
 
   get(key) {

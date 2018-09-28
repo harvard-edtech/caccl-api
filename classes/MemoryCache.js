@@ -1,7 +1,7 @@
 class MemoryCache {
   constructor() {
     this.cache = {};
-    this.canStorePromiseValue = true;
+    this.storePromises = true;
   }
 
   get(key) {
