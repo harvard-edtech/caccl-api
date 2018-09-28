@@ -1,6 +1,6 @@
 const utils = require('../helpers/utils.js');
 
-module.exports = (self, visitEndpoint) => {
+module.exports = () => {
   return [
 
     /**
@@ -10,7 +10,7 @@ module.exports = (self, visitEndpoint) => {
     {
       name: 'listApps',
       action: 'get the list of apps installed into a course',
-      run: (options) => {
+      run: (options, visitEndpoint) => {
         return visitEndpoint({
           path: '/api/v1/courses/' + options.courseId + '/external_tools',
           method: 'GET',
@@ -31,7 +31,7 @@ module.exports = (self, visitEndpoint) => {
     {
       name: 'addApp',
       action: 'add an LTI app to a course',
-      run: (options) => {
+      run: (options, visitEndpoint) => {
         return visitEndpoint({
           path: '/api/v1/courses/' + options.courseId + '/external_tools',
           method: 'POST',
@@ -65,7 +65,7 @@ module.exports = (self, visitEndpoint) => {
     {
       name: 'getApp',
       action: 'get info on a specific LTI app in a course',
-      run: (options) => {
+      run: (options, visitEndpoint) => {
         return visitEndpoint({
           path: '/api/v1/courses/' + options.courseId
             + '/external_tools/' + options.appId,
@@ -82,7 +82,7 @@ module.exports = (self, visitEndpoint) => {
     {
       name: 'deleteApp',
       action: 'delete an LTI app from a course',
-      run: (options) => {
+      run: (options, visitEndpoint) => {
         return visitEndpoint({
           path: '/api/v1/courses/' + options.courseId
             + '/external_tools/' + options.appId,

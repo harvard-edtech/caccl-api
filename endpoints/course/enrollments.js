@@ -1,4 +1,4 @@
-module.exports = (self, visitEndpoint) => {
+module.exports = (self) => {
   return [
 
     /**
@@ -14,7 +14,7 @@ module.exports = (self, visitEndpoint) => {
     {
       name: 'listEnrollments',
       action: 'gets enrollments from a course',
-      run: (options) => {
+      run: (options, visitEndpoint) => {
         const params = {};
 
         // Enrollment types

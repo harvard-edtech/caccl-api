@@ -2,23 +2,26 @@ const EXCLUDED_PARAM = '-=EXCLUDED_PARAMETER=-';
 
 // Wrap visitEndpoint to add two new features:
 // > Adds access tokens to each request
-// > Caches/uncaches values if cache was included
+// > Looks up/stores values in cache, if applicable
+// > Ignores excluded parameters
 function wrapVisitEndpoint(config) {
   return (options) => {
-    // Check if this request is cacheable
-    // > Only cache if we have a cache
-    // > and
-    // > Only cache if the method is "GET"
-    const cacheThis = (
-      (!options.method || options.method === 'GET')
-      && config.cache
-    );
+    let { lookupInCache, storeInCache } = config;
 
-    // Check for cached value
-    if (cacheThis) {
+    // Only GET requests are cacheable
+    if (options.method && options.method !== 'GET') {
+      lookupInCache = false;
+      storeInCache = false;
+    }
+
+    // Check for cached value, resolve if it exists
+    if (lookupInCache) {
       const cachedValue = config.cache.get(options.path);
       if (cachedValue) {
         // Resolve with cached value
+        // > Cached value may be a promise or a value. Either way,
+        //   Promise.resolve(...) turns the value into a Promise, so our
+        //   returned value is always a Promise.
         return Promise.resolve(cachedValue);
       }
     }
@@ -35,23 +38,19 @@ function wrapVisitEndpoint(config) {
     if (config.accessToken) {
       newParams.access_token = config.accessToken;
     }
+
+    // Create new options
     const requestOptions = options;
     requestOptions.params = newParams;
+    requestOptions.method = options.method || 'GET';
 
     // Send new request
     const valuePromise = config.visitEndpoint(requestOptions)
-      .then((endpointResults) => {
+      .then((response) => {
         // Success!
-        const uncacheExcluded = (
-          !endpointResults
-          || !endpointResults.uncache
-          || !Array.isArray(endpointResults.uncache)
-        );
-        const response = (
-          uncacheExcluded ? endpointResults : endpointResults.response
-        );
-        // > Save in cache
-        if (cacheThis) {
+
+        // Cache if applicable
+        if (storeInCache) {
           if (config.cache.storePromises) {
             // Store the promise
             config.cache.set(options.path, valuePromise);
@@ -60,28 +59,8 @@ function wrapVisitEndpoint(config) {
             config.cache.set(options.path, response);
           }
         }
-        // > Uncache if applicable
-        if (!uncacheExcluded && config.cache) {
-          endpointResults.uncache.forEach((key) => {
-            // Handle prefix-based keys
-            if (key.endsWith('*')) {
-              // Extract prefix
-              const prefix = key.split('*')[0];
-              // This is a prefix-based key
-              const cacheObject = config.cache.getAll();
-              Object.keys(cacheObject).forEach((cachedKey) => {
-                if (cachedKey.startsWith(prefix)) {
-                  // Found a match. Clear it.
-                  config.cache.clear(cachedKey);
-                }
-              });
-            } else {
-              // This is a simple key, just uncache it
-              config.cache.clear(key);
-            }
-          });
-        }
-        // > Resolve with result
+
+        // Resolve with result
         return Promise.resolve(response);
       });
   };

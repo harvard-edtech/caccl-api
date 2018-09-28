@@ -7,7 +7,7 @@ const SessionCache = require('./SessionCache.js');
 
 // Endpoints categories
 const EndpointsCategory = require('./EndpointsCategory.js');
-const endpointCategoriesMap = require('../endpoints/config.js');
+const categoryToEndpointsFilesMap = require('../endpoints/config.js');
 
 class SmartEndpoints {
   /**
@@ -52,13 +52,45 @@ class SmartEndpoints {
     }
 
     // Initialize apps endpoints
-    Object.keys(endpointCategoriesMap).forEach((categoryName) => {
+    Object.keys(categoryToEndpointsFilesMap).forEach((categoryName) => {
       this[categoryName] = new EndpointsCategory({
         visitEndpoint,
         accessToken: options.accessToken,
-        endpointsDefinitions: endpointCategoriesMap[categoryName],
+        enpointsFiles: categoryToEndpointsFilesMap[categoryName],
       });
     });
+  }
+
+  /*------------------------------------------------------------------------*/
+  /*                             Cache Functions                            */
+  /*------------------------------------------------------------------------*/
+
+  // TODO: add docs
+  uncacheAll() {
+    if (this.cache) {
+      this.cache.clearAll();
+    }
+  }
+
+  // TODO: add docs
+  uncache(path) {
+    // Handle prefix-based keys
+    if (path.endsWith('*')) {
+      // Extract prefix
+      const prefix = path.split('*')[0];
+      // This is a prefix-based key
+      // > Loop through all cached keys and check their prefixes
+      const cacheObject = this.cache.getAll();
+      Object.keys(cacheObject).forEach((cachedPath) => {
+        if (cachedPath.startsWith(prefix)) {
+          // Found a match. Clear it.
+          this.cache.clear(cachedPath);
+        }
+      });
+    } else {
+      // This is a simple key, just uncache it
+      this.cache.clear(path);
+    }
   }
 }
 
