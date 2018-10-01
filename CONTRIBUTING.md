@@ -81,8 +81,8 @@ module.exports = {
 ## Adding an endpoint
 
 1. In the `/endpoints` folder, choose the category (each category is a subfolder) that best represents the new endpoint. If you want to create a new category, follow the instructions below.
-2. Choose a file in the category (subfolder) that best represents the new endpoint. If you want to create a new file, follow the instructions below.
-3. Within the file, add a new object to the list, following this structure:
+1. Choose a file in the category (subfolder) that best represents the new endpoint. If you want to create a new file, follow the instructions below.
+1. Within the file, add a new object to the list, following this structure:
 
 ```js
 {
@@ -105,6 +105,14 @@ Naming conventions:
 - If deleting content, start the name with "delete". Examples: `deleteQuiz`, `deleteAssignment`, etc.
 - If content/items already exist and you're just _adding_ them to a new context, start the name with "add". Examples: `addApp`, etc.
 - If you're removing content/items that will continue to exist after they're removed from the current context, start the name with "remove". Examples: `removeApp`, etc.
+
+**Note:** Please keep the following ordering convention:
+
+1. `listItems`
+1. `getItem`
+1. `updateItem`
+1. `createItem`/`addItem`
+1. `deleteItem`/`removeItem`
 
 ### `action` should be a present-tense action sentence
 
