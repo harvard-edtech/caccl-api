@@ -56,7 +56,7 @@ class SmartEndpoints {
       this[categoryName] = new EndpointsCategory({
         visitEndpoint,
         accessToken: options.accessToken,
-        enpointsFiles: categoryToEndpointsFilesMap[categoryName],
+        endpointsFiles: categoryToEndpointsFilesMap[categoryName],
       });
     });
   }
