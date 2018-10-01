@@ -1,10 +1,16 @@
 // Course
-const apps = require('./course/apps.js');
-const enrollments = require('./course/enrollments.js');
+const courseApps = require('./course/apps.js');
+const courseEnrollments = require('./course/enrollments.js');
+
+// User
+const userCourse = require('./user/course.js');
 
 module.exports = {
   course: [
-    apps,
-    enrollments,
+    courseApps,
+    courseEnrollments,
+  ],
+  user: [
+    userCourse,
   ],
 };
