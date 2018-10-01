@@ -55,8 +55,14 @@ class EndpointsCategory {
           }
 
           // Run the endpoint with the correct visitEndpoint function
-          return endpoint.run(options, visitEndpoint)
-            .then((endpointResults) => {
+          const runPromise = endpoint.run(options, visitEndpoint);
+
+          if (
+            runPromise
+            && runPromise.then
+            && runPromise.catch
+          ) {
+            return runPromise.then((endpointResults) => {
               // endpointResults will either be equal to the endpoint response
               // OR, if we need to uncache some paths, endpointResults will be:
               // {
@@ -67,14 +73,14 @@ class EndpointsCategory {
               // }
 
               // Check if the endpoint returned a list of paths to uncache
-              const uncacheIncluded = (
+              const uncacheListIncluded = (
                 endpointResults
                 && endpointResults.uncache
                 && Array.isArray(endpointResults.uncache)
               );
 
               // Uncache if applicable (always uncache if there's a cache)
-              if (uncacheIncluded && config.cache) {
+              if (uncacheListIncluded && config.cache) {
                 // Uncaching
                 endpointResults.uncache.forEach((key) => {
                   // Handle prefix-based keys
@@ -111,9 +117,16 @@ class EndpointsCategory {
               }
 
               // Add on action to the error
-              newError.message = 'While attempting to ' + endpoint.action + ', we ran into an error: ' + err.message;
+              newError.message = 'While attempting to ' + endpoint.action + ', we ran into an error: ' + (err.message || 'unknown');
               throw newError;
             });
+          }
+
+          // Endpoint didn't return promise
+          return Promise.reject(new CACCLError({
+            message: 'The "' + endpoint.action + '" endpoint malfunctioned: it didn\'t return a promise. Please contact an admin.',
+            code: errorCodes.endpointDidntReturnPromise,
+          }));
         };
       });
     });
