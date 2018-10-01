@@ -3,7 +3,8 @@ const EXCLUDED_PARAM = '-=EXCLUDED_PARAMETER=-';
 // Wrap visitEndpoint to add two new features:
 // > Adds access tokens to each request
 // > Looks up/stores values in cache, if applicable
-// > Ignores excluded parameters
+// > Ignores (filters out) excluded parameters
+//     excluded parameters are added via endpoints helpers
 function wrapVisitEndpoint(config) {
   return (options) => {
     let { lookupInCache, storeInCache } = config;
@@ -63,6 +64,9 @@ function wrapVisitEndpoint(config) {
         // Resolve with result
         return Promise.resolve(response);
       });
+
+    // Resolve with value
+    return valuePromise;
   };
 }
 
