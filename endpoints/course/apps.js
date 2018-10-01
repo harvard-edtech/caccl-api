@@ -4,8 +4,8 @@ module.exports = () => {
   return [
 
     /**
-     * Deletes an LTI app from a Canvas course
-     * @param {number} courseId - Canvas course Id to delete app from
+     * Gets the list of apps installed into a course
+     * @param {number} courseId - Canvas course Id to query
      */
     {
       name: 'listApps',
@@ -13,6 +13,23 @@ module.exports = () => {
       run: (options, visitEndpoint) => {
         return visitEndpoint({
           path: '/api/v1/courses/' + options.courseId + '/external_tools',
+          method: 'GET',
+        });
+      },
+    },
+
+    /**
+     * Gets info on a single LTI tool
+     * @param {number} courseId - Canvas course Id
+     * @param {number} appId - The LTI app Id to get
+     */
+    {
+      name: 'getApp',
+      action: 'get info on a specific LTI app in a course',
+      run: (options, visitEndpoint) => {
+        return visitEndpoint({
+          path: '/api/v1/courses/' + options.courseId
+            + '/external_tools/' + options.appId,
           method: 'GET',
         });
       },
@@ -58,30 +75,13 @@ module.exports = () => {
     },
 
     /**
-     * Gets info on a single LTI tool
-     * @param {number} courseId - Canvas course Id
-     * @param {number} appId - The LTI app Id to get
+     * Removes an LTI app from a Canvas course
+     * @param {number} courseId - Canvas course Id to remove app from
+     * @param {number} appId - The LTI app Id to remove
      */
     {
-      name: 'getApp',
-      action: 'get info on a specific LTI app in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId
-            + '/external_tools/' + options.appId,
-          method: 'GET',
-        });
-      },
-    },
-
-    /**
-     * Deletes an LTI app from a Canvas course
-     * @param {number} courseId - Canvas course Id to delete app from
-     * @param {number} appId - The LTI app Id to delete
-     */
-    {
-      name: 'deleteApp',
-      action: 'delete an LTI app from a course',
+      name: 'removeApp',
+      action: 'remove an LTI app from a course',
       run: (options, visitEndpoint) => {
         return visitEndpoint({
           path: '/api/v1/courses/' + options.courseId
