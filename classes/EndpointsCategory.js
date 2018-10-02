@@ -80,27 +80,30 @@ class EndpointsCategory {
               );
 
               // Uncache if applicable (always uncache if there's a cache)
-              if (uncacheListIncluded && config.cache) {
-                // Uncaching
-                endpointResults.uncache.forEach((key) => {
-                  // Handle prefix-based keys
-                  if (key.endsWith('*')) {
-                    // Extract prefix
-                    const prefix = key.split('*')[0];
-                    // This is a prefix-based key
-                    // > Loop through all cached keys and check their prefixes
-                    const cacheObject = config.cache.getAll();
-                    Object.keys(cacheObject).forEach((cachedKey) => {
-                      if (cachedKey.startsWith(prefix)) {
-                        // Found a match. Clear it.
-                        config.cache.clear(cachedKey);
-                      }
-                    });
-                  } else {
-                    // This is a simple key, just uncache it
-                    options.cache.clear(key);
-                  }
-                });
+              if (uncacheListIncluded) {
+                // Uncache if we have a cache
+                if (config.cache) {
+                  // Uncache included paths
+                  endpointResults.uncache.forEach((key) => {
+                    // Handle prefix-based keys
+                    if (key.endsWith('*')) {
+                      // Extract prefix
+                      const prefix = key.split('*')[0];
+                      // This is a prefix-based key
+                      // > Loop through all cached keys and check their prefixes
+                      const cacheObject = config.cache.getAll();
+                      Object.keys(cacheObject).forEach((cachedKey) => {
+                        if (cachedKey.startsWith(prefix)) {
+                          // Found a match. Clear it.
+                          config.cache.clear(cachedKey);
+                        }
+                      });
+                    } else {
+                      // This is a simple key, just uncache it
+                      options.cache.clear(key);
+                    }
+                  });
+                }
 
                 // Resolve with embedded response
                 return Promise.resolve(endpointResults.response);
