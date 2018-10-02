@@ -44,10 +44,10 @@ module.exports = () => {
      * @param {string} editingRoles - New usertype(s) who can edit
      *   (default: unchanged)
      * @param {boolean} notifyOfUpdate - if true, send notification
-     * @param {boolean} published - New publish status of page
-     *   (default: unchanged)
-     * @param {boolean} frontPage - New front page status of page
-     *   (defulat: unchanged)
+     * @param {boolean} published - New publish status of page. Must be a
+     *   boolean (default: unchanged)
+     * @param {boolean} frontPage - New front page status of page. Must be a
+     *   boolean (defulat: unchanged)
      */
     {
       name: 'updatePage',
