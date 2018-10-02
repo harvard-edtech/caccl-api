@@ -51,19 +51,20 @@ function wrapVisitEndpoint(config) {
         // Success!
 
         // Cache if applicable
-        if (storeInCache) {
-          if (config.cache.storePromises) {
-            // Store the promise
-            config.cache.set(options.path, valuePromise);
-          } else {
-            // Store the value
-            config.cache.set(options.path, response);
-          }
+        if (storeInCache && !config.cache.storePromises) {
+          // Store the value
+          config.cache.set(options.path, response);
         }
 
         // Resolve with result
         return Promise.resolve(response);
       });
+
+    // Immediately store the promise, if possible
+    if (storeInCache && config.cache.storePromises) {
+      // Store the promise
+      config.cache.set(options.path, valuePromise);
+    }
 
     // Resolve with value
     return valuePromise;
