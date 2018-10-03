@@ -6,6 +6,7 @@ module.exports = () => {
     /**
      * Gets the list of pages in a course
      * @param {number} courseId - Canvas course Id to query
+     * @return list of Pages (see: https://canvas.instructure.com/doc/api/pages.html#Page)
      */
     {
       name: 'listPages',
@@ -22,6 +23,7 @@ module.exports = () => {
      * Get info on a specific page in a course
      * @param {number} courseId - Canvas course Id to query
      * @param {string} pageURL - Canvas page url (just the last part of path)
+     * @return Page (see: https://canvas.instructure.com/doc/api/pages.html#Page)
      */
     {
       name: 'getPage',
@@ -48,6 +50,7 @@ module.exports = () => {
      *   boolean (default: unchanged)
      * @param {boolean} frontPage - New front page status of page. Must be a
      *   boolean (defulat: unchanged)
+     * @return Page (see: https://canvas.instructure.com/doc/api/pages.html#Page)
      */
     {
       name: 'updatePage',
@@ -81,6 +84,7 @@ module.exports = () => {
      * @param {boolean} notifyOfUpdate - if true, sends notification
      * @param {boolean} published - if true, publishes page upon creation
      * @param {boolean} frontPage - if true, sets page as front page
+     * @return Page (see: https://canvas.instructure.com/doc/api/pages.html#Page)
      */
     {
       name: 'createPage',
@@ -117,6 +121,7 @@ module.exports = () => {
      * Deletes a page from a course
      * @param {number} courseId - Canvas course Id to query
      * @param {string} pageURL - Page url to delete (just last part of path)
+     * @return Page (see: https://canvas.instructure.com/doc/api/pages.html#Page)
      */
     {
       name: 'deletePage',
