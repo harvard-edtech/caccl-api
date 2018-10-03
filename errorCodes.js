@@ -3,6 +3,11 @@ module.exports = {
   unnamedEndpointError: 'SCE2',
   endpointDidntReturnPromise: 'SCE3',
 
+  // Errors for helpers
+  // > endpoints/waitForCompletion.js
+  waitForCompletionTimeout: 'SCE11',
+  waitForCompletionCheckError: 'SCE12',
+
   // Errors for specific endpoints
 
   // course/assignments.js
@@ -15,6 +20,4 @@ module.exports = {
   invalidSubmissionType: 'SCE9',
   // > updateAssignmentGrades
   noRubricOnBatchGradeUpload: 'SCE10',
-  gradeUploadTimeout: 'SCE11',
-  gradeUploadStatusError: 'SCE12',
 };
