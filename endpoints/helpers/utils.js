@@ -57,4 +57,16 @@ module.exports = {
   isTruthy: (value) => {
     return !(!value);
   },
+
+  extractIdsIfApplicable: (arr) => {
+    let ids = (arr || []);
+    if (ids.length > 0 && ids[0].id !== undefined) {
+      // Need to extract Ids
+      ids = ids.map((obj) => {
+        return obj.id;
+      });
+    }
+    return ids;
+  },
+
 };
