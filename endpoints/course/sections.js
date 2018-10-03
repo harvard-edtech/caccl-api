@@ -3,6 +3,7 @@ module.exports = () => {
     /**
      * Gets the list of sections in a course
      * @param {number} courseId - Canvas course Id to query
+     * @return list of Sections (see: https://canvas.instructure.com/doc/api/sections.html#Section)
      */
     {
       name: 'listSections',
@@ -19,6 +20,7 @@ module.exports = () => {
      * Gets info on a specific section
      * @param {number} courseId - Canvas course Id to query
      * @param {number} sectionId - Section Id to retrieve
+     * @return Section (see: https://canvas.instructure.com/doc/api/sections.html#Section)
      */
     {
       name: 'getSection',
