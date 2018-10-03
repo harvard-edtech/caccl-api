@@ -23,7 +23,8 @@
     "max-len": [ "error",
       {
         "code": 80,
-        "ignoreStrings": true
+        "ignoreStrings": true,
+        "ignoreUrls": true
       }
     ],
     "no-plusplus": [ "warn", { "allowForLoopAfterthoughts": true }],
