@@ -11,7 +11,7 @@ module.exports = () => {
     /**
      * Gets the list of custom gradebook columns in a course
      * @param {number} courseId - Canvas course Id to query
-     * @return List of CustomColumns (see https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
+     * @return List of CustomColumns (see: https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
      */
     {
       name: 'listGradebookColumns',
@@ -36,7 +36,7 @@ module.exports = () => {
      * @param {boolean} hidden - If set, updates whether the custom gradebook
      *   column is hidden from everyone. Must be a boolean
      *   (default: previous value)
-     * @return CustomColumn (see https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
+     * @return CustomColumn (see: https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
      */
     {
       name: 'updateGradebookColumn',
@@ -73,7 +73,7 @@ module.exports = () => {
      *   list of custom gradebook columns (default: last)
      * @param {boolean} hidden - If true, hides the gradebook column from
      *   everyone, not just instructor as usual (default: false)
-     * @return CustomColumn (see https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
+     * @return CustomColumn (see: https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
      */
     {
       name: 'createGradebookColumn',
@@ -108,7 +108,7 @@ module.exports = () => {
      * Deletes a gradebook column from a course
      * @param {number} courseId - Canvas course Id to query
      * @param {number} columnId - Gradebook column Id
-     * @return CustomColumn (see https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
+     * @return CustomColumn (see: https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
      */
     {
       name: 'deleteGradebookColumn',
@@ -142,7 +142,7 @@ module.exports = () => {
      * Gets the list of entries in a specific gradebook column in a course
      * @param {number} courseId - Canvas course Id to query
      * @param {number} columnId - Gradebook column Id
-     * @return list of ColumnDatum objects (https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum)
+     * @return list of ColumnDatum objects (see: https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum)
      */
     {
       name: 'listGradebookColumnEntries',
@@ -164,7 +164,7 @@ module.exports = () => {
      * @param {number} courseId - Canvas course Id to query
      * @param {number} columnId - Gradebook column Id
      * @param {array} entries - list of ColumnDatum objects:
-     *   [{user_id: <Canvas User Id>, text: <New Entry Text>}, ...]
+     *   `[{user_id: <Canvas User Id>, text: <New Entry Text>}, ...]`
      * @param {boolean} waitForCompletion - If true, waits for completion of
      *   batch update request
      * @param {number} waitForCompletionTimeout - Number of minutes to wait for

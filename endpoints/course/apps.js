@@ -6,7 +6,7 @@ module.exports = () => {
     /**
      * Gets the list of apps installed into a course
      * @param {number} courseId - Canvas course Id to query
-     * @return list of external tools (see https://canvas.instructure.com/doc/api/external_tools.html)
+     * @return list of external tools (see: https://canvas.instructure.com/doc/api/external_tools.html)
      */
     {
       name: 'listApps',
@@ -23,7 +23,7 @@ module.exports = () => {
      * Gets info on a single LTI tool
      * @param {number} courseId - Canvas course Id
      * @param {number} appId - The LTI app Id to get
-     * @return external tool (see https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show)
+     * @return external tool (see: https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show)
      */
     {
       name: 'getApp',
@@ -46,7 +46,7 @@ module.exports = () => {
      * @param {string} secret - Installation consumer secret
      * @param {string} xml - XML configuration file, standard LTI format
      * @param {string} description - A human-readable description of the app
-     * @return external tool (see https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show)
+     * @return external tool (see: https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show)
      */
     {
       name: 'addApp',
@@ -81,7 +81,7 @@ module.exports = () => {
      * Removes an LTI app from a Canvas course
      * @param {number} courseId - Canvas course Id to remove app from
      * @param {number} appId - The LTI app Id to remove
-     * @return external tool (see https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show)
+     * @return external tool (see: https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show)
      */
     {
       name: 'removeApp',
