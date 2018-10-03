@@ -10,6 +10,7 @@ module.exports = (self) => {
      * @param {string} activeOnly - If true, only active enrollments included
      * @param {string} includeAvatar - If true, avatar_url is included
      * @param {string} includeGroups - If true, group_ids is included
+     * @return list of Enrollments (see: https://canvas.instructure.com/doc/api/enrollments.html#Enrollment)
      */
     {
       name: 'listEnrollments',
@@ -76,6 +77,7 @@ module.exports = (self) => {
      * @param {string} activeOnly - If true, only active enrollments included
      * @param {string} includeAvatar - If true, avatar_url is included
      * @param {string} includeGroups - If true, group_ids is included
+     * @return list of Enrollments (see: https://canvas.instructure.com/doc/api/enrollments.html#Enrollment)
      */
     {
       name: 'listTeachingTeamMembers',
@@ -93,6 +95,7 @@ module.exports = (self) => {
      * @param {string} activeOnly - If true, only active enrollments included
      * @param {string} includeAvatar - If true, avatar_url is included
      * @param {string} includeGroups - If true, group_ids is included
+     * @return list of Enrollments (see: https://canvas.instructure.com/doc/api/enrollments.html#Enrollment)
      */
     {
       name: 'listDesigners',
@@ -110,6 +113,7 @@ module.exports = (self) => {
      * @param {string} activeOnly - If true, only active enrollments included
      * @param {string} includeAvatar - If true, avatar_url is included
      * @param {string} includeGroups - If true, group_ids is included
+     * @return list of Enrollments (see: https://canvas.instructure.com/doc/api/enrollments.html#Enrollment)
      */
     {
       name: 'listObserver',
