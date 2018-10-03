@@ -6,6 +6,7 @@ module.exports = () => {
     /**
      * Lists assignment groups in a course
      * @param {number} courseId - Canvas course Id to query
+     * @return list of AssignmentGroups (see: https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
      */
     {
       name: 'listAssignmentGroups',
@@ -23,6 +24,7 @@ module.exports = () => {
      * @param {number} courseId - Canvas course Id to query
      * @param {number} assignmentGroupId - Assignment group to get
      * @param {number} courseId - Canvas course Id to query
+     * @return AssignmentGroup (see: https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
      */
     {
       name: 'getAssignmentGroup',
@@ -42,6 +44,7 @@ module.exports = () => {
      * @param {number} assignmentGroupId - Assignment group to update
      * @param {string} name - New assignment group name (default: current value)
      * @param {number} weight - New weight (default: current value)
+     * @return AssignmentGroup (see: https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
      */
     {
       name: 'updateAssignmentGroup',
@@ -75,6 +78,7 @@ module.exports = () => {
      * @param {number} courseId - Canvas course Id to query
      * @param {string} name - New assignment group name
      * @param {number} weight - Optional. New weight (default: 0)
+     * @return AssignmentGroup (see: https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
      */
     {
       name: 'createAssignmentGroup',
@@ -109,6 +113,7 @@ module.exports = () => {
      * @param {integer} moveAssignmentsTo - Optional. Assignment group to move
      *   assignments to. If this parameter isn't included, assignments in the
      *   assignment group will be deleted.
+     * @return AssignmentGroup (see: https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
      */
     {
       name: 'deleteAssignmentGroup',
