@@ -8,6 +8,7 @@ module.exports = () => {
     /**
      * Lists the quizzes in a course
      * @param {number} courseId - Canvas course Id to query
+     * @return list of Quizzes (see: https://canvas.instructure.com/doc/api/quizzes.html#Quiz)
      */
     {
       name: 'listQuizzes',
@@ -24,6 +25,7 @@ module.exports = () => {
      * Get info on a specific quiz in a course
      * @param {number} courseId - Canvas course Id to query
      * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
+     * @return Quiz (see: https://canvas.instructure.com/doc/api/quizzes.html#Quiz)
      */
     {
       name: 'getQuiz',
@@ -45,6 +47,7 @@ module.exports = () => {
      * Lists the submissions to a quiz in a course
      * @param {number} courseId - Canvas course Id to query
      * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
+     * @return list of QuizSubmissions (see: https://canvas.instructure.com/doc/api/quiz_submissions.html)
      */
     {
       name: 'listQuizSubmissions',
@@ -63,6 +66,7 @@ module.exports = () => {
      * @param {number} courseId - Canvas course Id to query
      * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
      * @param {number} submissionId - Canvas quiz submission Id
+     * @return QuizSubmission (see: https://canvas.instructure.com/doc/api/quiz_submissions.html)
      */
     {
       name: 'getQuizSubmission',
