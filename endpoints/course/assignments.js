@@ -6,6 +6,7 @@ const async = require('async');
 
 const utils = require('../helpers/utils.js');
 const errorCodes = require('../../errorCodes.js');
+const waitForCompletion = require('../helpers/waitForCompletion.js');
 const CACCLError = require('../../../caccl-error/index.js'); // TODO: use actual library
 
 module.exports = (self) => {
@@ -16,8 +17,9 @@ module.exports = (self) => {
     /*------------------------------------------------------------------------*/
 
     /**
-     * Lists the quizzes in a course
+     * Lists the assignments in a course
      * @param {number} courseId - Canvas course Id to query
+     * @return list of Assignments (see: https://canvas.instructure.com/doc/api/assignments.html#Assignment)
      */
     {
       name: 'listAssignments',
@@ -34,6 +36,7 @@ module.exports = (self) => {
      * Get info on a specific assignment in a course
      * @param {number} courseId - Canvas course Id to query
      * @param {number} assignmentId - Canvas assignment Id
+     * @return Assignment (see: https://canvas.instructure.com/doc/api/assignments.html#Assignment)
      */
     {
       name: 'getAssignment',
@@ -82,6 +85,7 @@ module.exports = (self) => {
      *   groups can be given separate grades and when one student in a group
      *   gets a grade, other students do not get graded. Must be a boolean
      *   (default: unchanged)
+     * @return Assignment (see: https://canvas.instructure.com/doc/api/assignments.html#Assignment)
      */
     {
       name: 'updateAssignment',
@@ -170,6 +174,7 @@ module.exports = (self) => {
      * @param {boolean} gradeGroupStudentsIndividually - If true, students in
      *   groups can be given separate grades and when one student in a group
      *   gets a grade, other students do not get graded (default: false)
+     * @return Assignment (see: https://canvas.instructure.com/doc/api/assignments.html#Assignment)
      */
     {
       name: 'createAssignment',
@@ -216,6 +221,7 @@ module.exports = (self) => {
      * Delete an assignment
      * @param {number} courseId - Canvas course Id
      * @param {number} assignmentId - Canvas assignment Id
+     * @return Assignment (see: https://canvas.instructure.com/doc/api/assignments.html#Assignment)
      */
     {
       name: 'deleteAssignment',
@@ -890,47 +896,11 @@ module.exports = (self) => {
 
         /* --- 3. Wait for completion (if applicable) --- */
         if (options.waitForCompletion) {
-          promiseChain = promiseChain.then((response) => {
-            return new Promise((resolve, reject) => {
-              // Prep for timeout
-              const timeout = (60000 * (options.waitForCompletionTimeout || 2));
-              const stopTime = new Date().getTime() + timeout;
-              // Prep to check
-              const checkPath = urlLib.parse(response.url).path;
-              const checkStatus = () => {
-                visitEndpoint({
-                  path: checkPath,
-                  params: {
-                    ignoreCache: true,
-                    dontCache: true,
-                  },
-                }).then((statusResponse) => {
-                  if (statusResponse.workflow_state !== 'completed') {
-                    // Not yet completed. Try again
-                    if (new Date().getTime() > stopTime) {
-                      // Timed out
-                      return reject(new CACCLError({
-                        message: 'Grade and/or comment upload timed out. This does not mean that grades did not upload, just that the queued grade and/or comment updates did not finish within our timeout window.',
-                        code: errorCodes.gradeUploadTimeout,
-                      }));
-                    }
-                    // We can try again
-                    // > Try every 1/4 second
-                    return setTimeout(checkStatus, 250);
-                  }
-
-                  // Success!
-                  return resolve(statusResponse);
-                }).catch((err) => {
-                  // Error while checking status
-                  return reject(new CACCLError({
-                    message: 'We encountered an error while checking the status of queued grade and/or comment changes: "' + err.message + '"',
-                    code: errorCodes.gradeUploadStatusError,
-                  }));
-                });
-              };
-              // Kick off check process
-              checkStatus();
+          promiseChain = promiseChain.then((progress) => {
+            return waitForCompletion({
+              visitEndpoint,
+              progress,
+              timeout: options.waitForCompletionTimeout,
             });
           });
         }
