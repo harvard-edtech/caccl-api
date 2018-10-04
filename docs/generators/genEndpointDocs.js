@@ -1,8 +1,9 @@
 const fs = require('fs');
-const config = require('../endpoints/config.js');
+const config = require('../../endpoints/config.js');
 const doctrine = require('doctrine');
+const path = require('path');
 
-const endpointsPath = __dirname + '/../endpoints';
+const endpointsPath = path.join(__dirname, '../../endpoints');
 
 fs.readdir(endpointsPath, (categoryError, items) => {
   if (categoryError) {
@@ -11,6 +12,15 @@ fs.readdir(endpointsPath, (categoryError, items) => {
   }
 
   let doc = '# Endpoints Documentation\n\n';
+
+  // Add normal intro
+  doc += 'Things to know:\n\n';
+  doc += '* Each endpoint accepts an `options` object that holds all inputs as properties.\n';
+  doc += '* In addition to defined inputs, you can always include any of the following:\n';
+  doc += '  * `ignoreCache` - If true, endpoint won\'t return the cached version if it exists.\n';
+  doc += '  * `dontCache` - If true, endpoint response won\'t be cached.\n';
+  doc += '  * `perPage` - If defined, overwrites the default #objects/page.\n';
+  doc += '  * `maxPages` - If defined, only requests this many pages.\n';
 
   items.forEach((category) => {
     if (!fs.lstatSync(endpointsPath + '/' + category).isDirectory()) {
@@ -31,12 +41,13 @@ fs.readdir(endpointsPath, (categoryError, items) => {
 
     for (let fileIndex = 0; fileIndex < endpointsFiles.length; fileIndex++) {
       const endpointsFile = endpointsFiles[fileIndex];
-      const lines = fs.readFileSync('../endpoints/' + category + '/'
+      const lines = fs.readFileSync('../../endpoints/' + category + '/'
         + endpointsFile, 'utf-8').split('\n');
 
       doc += '## Subcategory: ' + endpointsFile.split('.')[0] + '\n\n';
-      const endpointDefinitions =
-        require('../endpoints/' + category + '/' + endpointsFile)({});
+      const endpointDefinitions = (
+        require('../../endpoints/' + category + '/' + endpointsFile)({})
+      );
 
       // Split file into endpoints
       const endpointParts = [];
@@ -105,7 +116,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
           doc += '**Inputs:**\n\n';
 
           params.forEach((param) => {
-            let description = param.description;
+            let { description } = param;
 
             // Extract default
             let defDescription = description.match(/\(default: .*\)/g);
@@ -125,7 +136,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
               isOptional = true;
             }
 
-            doc += '* **' + param.name + '** – ' + description;
+            doc += '* **' + param.name + '** [' + param.type.name + '] – ' + description;
 
             if (defDescription) {
               doc += '<br>&nbsp;&nbsp;_- Optional. Defaults to: ' + defDescription + '_';
@@ -156,17 +167,10 @@ fs.readdir(endpointsPath, (categoryError, items) => {
             // Couldn't parse out link. Just include as plain text
             doc += ' \n' + returnDescription + '\n\n';
           }
-
-          if (returnDescription.includes('(see: http')) {
-              // Parse link
-              const link = returnDescription
-          }
-
         }
-
       }
     }
 
-    fs.writeFileSync(__dirname + '/endpoints.md', doc);
+    fs.writeFileSync(path.join(__dirname, '../endpoints.md'), doc);
   });
 });
