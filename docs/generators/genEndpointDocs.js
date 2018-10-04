@@ -5,22 +5,44 @@ const path = require('path');
 
 const endpointsPath = path.join(__dirname, '../../endpoints');
 
+const genH1 = (body) => {
+  return '<h1 title="' + body + '"></h1>';
+};
+const genH2 = (body, noLine) => {
+  if (noLine) {
+    return '## ' + body;
+  }
+  return '<h2 body="' + body + '" class="horizontalLined">' + body + '<span></span></h2>';
+};
+
 fs.readdir(endpointsPath, (categoryError, items) => {
   if (categoryError) {
     console.log('An error occurred while reading categories:', categoryError);
     return;
   }
 
-  let doc = '# Endpoints Documentation\n\n';
+  // Create introduction
+  let intro = genH1('Endpoints Documentation') + '\n\n';
+
+  intro += '<!-- Embedded styles: -->\n';
+  intro += '<style>\n' + fs.readFileSync(path.join(__dirname, 'style.css'), 'utf-8') + '\n</style>\n';
 
   // Add normal intro
-  doc += 'Things to know:\n\n';
-  doc += '* Each endpoint accepts an `options` object that holds all inputs as properties.\n';
-  doc += '* In addition to defined inputs, you can always include any of the following:\n';
-  doc += '  * `ignoreCache` - If true, endpoint won\'t return the cached version if it exists.\n';
-  doc += '  * `dontCache` - If true, endpoint response won\'t be cached.\n';
-  doc += '  * `perPage` - If defined, overwrites the default #objects/page.\n';
-  doc += '  * `maxPages` - If defined, only requests this many pages.\n';
+  intro += 'Usefule endpoint facts:\n\n';
+  intro += '* Each endpoint accepts an `options` object that contains all inputs as properties.\n';
+  intro += '* Each endpoint returns a promise.\n';
+  intro += '* To call a endpoint, use: `category.funcName(...)`. The subcategory does not affect how you call the endpoint.\n';
+  intro += '* In addition to defined inputs, you can always include any of the following options:\n';
+  intro += '  * `ignoreCache` - If true, endpoint won\'t return the cached version if it exists.\n';
+  intro += '  * `dontCache` - If true, endpoint response won\'t be cached.\n';
+  intro += '  * `perPage` - If defined, overwrites the default #objects/page.\n';
+  intro += '  * `maxPages` - If defined, only requests this many pages.\n\n';
+
+  // Add table of contents
+  intro += genH2('Table of Contents');
+  let firstTOCCreated = false;
+
+  let doc = '';
 
   items.forEach((category) => {
     if (!fs.lstatSync(endpointsPath + '/' + category).isDirectory()) {
@@ -37,14 +59,26 @@ fs.readdir(endpointsPath, (categoryError, items) => {
     // Get all files inside it
     const endpointsFiles = fs.readdirSync(endpointsPath + '/' + category);
 
-    doc += '# Category: ' + category + '\n\n';
+    const catId = 'category-' + category;
+    doc += '<a name="' + catId + '"></a>\n';
+    doc += genH1('Category: ' + category) + '\n\n';
+    if (firstTOCCreated) {
+      // Add toc divider
+      intro += '\n\n<hr>\n';
+    }
+    firstTOCCreated = true;
+    intro += '\n\n**Category: [' + category + '](#' + catId + ')**\n\n';
 
     for (let fileIndex = 0; fileIndex < endpointsFiles.length; fileIndex++) {
       const endpointsFile = endpointsFiles[fileIndex];
       const lines = fs.readFileSync('../../endpoints/' + category + '/'
         + endpointsFile, 'utf-8').split('\n');
 
-      doc += '## Subcategory: ' + endpointsFile.split('.')[0] + '\n\n';
+      const subcatName = endpointsFile.split('.')[0];
+      const subcatId = 'subcategory-' + category + '-' + subcatName;
+      doc += '<a name="' + subcatId + '"></a>\n';
+      doc += genH2('Subcategory: ' + subcatName, fileIndex === 0) + '\n\n';
+      intro += '* Subcategory: [' + subcatName + '](#' + subcatId + ')\n';
       const endpointDefinitions = (
         require('../../endpoints/' + category + '/' + endpointsFile)({})
       );
@@ -94,7 +128,10 @@ fs.readdir(endpointsPath, (categoryError, items) => {
         // Add title
         const endpointDefinition = endpointDefinitions[i];
         const functionName = endpointDefinition.name;
+        const funcId = 'function-' + category + '-' + subcatName + '-' + functionName + '\n';
+        doc += '<a name="' + funcId + '"></a>\n';
         doc += '### ' + category + '.' + functionName + '(options)\n';
+        intro += '    * [' + category + '.' + functionName + '(options)](#' + funcId + ')\n';
 
         // Add description
         doc += jsdocParsed.description + '\n\n';
@@ -171,6 +208,6 @@ fs.readdir(endpointsPath, (categoryError, items) => {
       }
     }
 
-    fs.writeFileSync(path.join(__dirname, '../endpoints.md'), doc);
+    fs.writeFileSync(path.join(__dirname, '../endpoints.md'), intro + '\n\n' + doc);
   });
 });

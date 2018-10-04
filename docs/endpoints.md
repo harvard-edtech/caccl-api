@@ -1,9 +1,213 @@
-# Endpoints Documentation
+<h1 title="Endpoints Documentation"></h1>
 
-# Category: course
+<!-- Embedded styles: -->
+<style>
+h1 {
+    border-bottom: solid black 4px;
+    text-align: center;
+    color: white;
+    padding: 0;
+    line-height: 1em;
+}
+h1:before {
+    content: attr(title);
+    top: 0;
+    left: 0;
+    text-align: center;
+    background-color: black;
+    border-radius: 10px 10px 0 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+}
 
+/* Remove bottom line for normal h2 */
+h2 {
+    position: relative;
+    border-bottom: 0;
+}
+
+/* Add white background to text (to obscure line) */
+.horizontalLined:after {
+    content: attr(body);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    padding-right: 10px;
+}
+
+/* Style for horizontal line */
+.horizontalLined span {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 49%;
+    bottom: 49%;
+    width: 100%;
+    border-bottom: 4px solid #ccc;
+}
+
+</style>
+Usefule endpoint facts:
+
+* Each endpoint accepts an `options` object that contains all inputs as properties.
+* Each endpoint returns a promise.
+* To call a endpoint, use: `category.funcName(...)`. The subcategory does not affect how you call the endpoint.
+* In addition to defined inputs, you can always include any of the following options:
+  * `ignoreCache` - If true, endpoint won't return the cached version if it exists.
+  * `dontCache` - If true, endpoint response won't be cached.
+  * `perPage` - If defined, overwrites the default #objects/page.
+  * `maxPages` - If defined, only requests this many pages.
+
+<h2 body="Table of Contents" class="horizontalLined">Table of Contents<span></span></h2>
+
+**Category: [course](#category-course)**
+
+* Subcategory: [apps](#subcategory-course-apps)
+    * [course.listApps(options)](#function-course-apps-listApps
+)
+    * [course.getApp(options)](#function-course-apps-getApp
+)
+    * [course.addApp(options)](#function-course-apps-addApp
+)
+    * [course.removeApp(options)](#function-course-apps-removeApp
+)
+* Subcategory: [assignmentGroups](#subcategory-course-assignmentGroups)
+    * [course.listAssignmentGroups(options)](#function-course-assignmentGroups-listAssignmentGroups
+)
+    * [course.getAssignmentGroup(options)](#function-course-assignmentGroups-getAssignmentGroup
+)
+    * [course.updateAssignmentGroup(options)](#function-course-assignmentGroups-updateAssignmentGroup
+)
+    * [course.createAssignmentGroup(options)](#function-course-assignmentGroups-createAssignmentGroup
+)
+    * [course.deleteAssignmentGroup(options)](#function-course-assignmentGroups-deleteAssignmentGroup
+)
+* Subcategory: [assignments](#subcategory-course-assignments)
+    * [course.listAssignments(options)](#function-course-assignments-listAssignments
+)
+    * [course.getAssignment(options)](#function-course-assignments-getAssignment
+)
+    * [course.updateAssignment(options)](#function-course-assignments-updateAssignment
+)
+    * [course.createAssignment(options)](#function-course-assignments-createAssignment
+)
+    * [course.deleteAssignment(options)](#function-course-assignments-deleteAssignment
+)
+    * [course.listAssignmentSubmissions(options)](#function-course-assignments-listAssignmentSubmissions
+)
+    * [course.getAssignmentSubmission(options)](#function-course-assignments-getAssignmentSubmission
+)
+    * [course.createAssignmentSubmission(options)](#function-course-assignments-createAssignmentSubmission
+)
+    * [course.listGradeableStudents(options)](#function-course-assignments-listGradeableStudents
+)
+    * [course.createAssignmentSubmissionComment(options)](#function-course-assignments-createAssignmentSubmissionComment
+)
+    * [course.createAssignmentSubmissionComment(options)](#function-course-assignments-createAssignmentSubmissionComment
+)
+    * [course.updateAssignmentGrades(options)](#function-course-assignments-updateAssignmentGrades
+)
+* Subcategory: [course](#subcategory-course-course)
+    * [course.getCourse(options)](#function-course-course-getCourse
+)
+* Subcategory: [enrollments](#subcategory-course-enrollments)
+    * [course.listEnrollments(options)](#function-course-enrollments-listEnrollments
+)
+    * [course.listStudents(options)](#function-course-enrollments-listStudents
+)
+    * [course.listTeachingTeamMembers(options)](#function-course-enrollments-listTeachingTeamMembers
+)
+    * [course.listDesigners(options)](#function-course-enrollments-listDesigners
+)
+    * [course.listObserver(options)](#function-course-enrollments-listObserver
+)
+* Subcategory: [gradebookColumns](#subcategory-course-gradebookColumns)
+    * [course.listGradebookColumns(options)](#function-course-gradebookColumns-listGradebookColumns
+)
+    * [course.updateGradebookColumn(options)](#function-course-gradebookColumns-updateGradebookColumn
+)
+    * [course.createGradebookColumn(options)](#function-course-gradebookColumns-createGradebookColumn
+)
+    * [course.deleteGradebookColumn(options)](#function-course-gradebookColumns-deleteGradebookColumn
+)
+    * [course.listGradebookColumnEntries(options)](#function-course-gradebookColumns-listGradebookColumnEntries
+)
+    * [course.updateGradebookColumnEntries(options)](#function-course-gradebookColumns-updateGradebookColumnEntries
+)
+* Subcategory: [groupSets](#subcategory-course-groupSets)
+    * [course.listGroupSets(options)](#function-course-groupSets-listGroupSets
+)
+    * [course.getGroupSet(options)](#function-course-groupSets-getGroupSet
+)
+    * [course.createGroupSet(options)](#function-course-groupSets-createGroupSet
+)
+    * [course.deleteGroupSet(options)](#function-course-groupSets-deleteGroupSet
+)
+    * [course.listGroupSetGroups(options)](#function-course-groupSets-listGroupSetGroups
+)
+    * [course.getGroupSetGroup(options)](#function-course-groupSets-getGroupSetGroup
+)
+    * [course.createGroupSetGroup(options)](#function-course-groupSets-createGroupSetGroup
+)
+    * [course.deleteGroupSetGroup(options)](#function-course-groupSets-deleteGroupSetGroup
+)
+* Subcategory: [groups](#subcategory-course-groups)
+    * [course.getGroup(options)](#function-course-groups-getGroup
+)
+    * [course.listGroupMembers(options)](#function-course-groups-listGroupMembers
+)
+    * [course.updateGroupMembers(options)](#function-course-groups-updateGroupMembers
+)
+* Subcategory: [pages](#subcategory-course-pages)
+    * [course.listPages(options)](#function-course-pages-listPages
+)
+    * [course.getPage(options)](#function-course-pages-getPage
+)
+    * [course.updatePage(options)](#function-course-pages-updatePage
+)
+    * [course.createPage(options)](#function-course-pages-createPage
+)
+    * [course.deletePage(options)](#function-course-pages-deletePage
+)
+* Subcategory: [quizzes](#subcategory-course-quizzes)
+    * [course.listQuizzes(options)](#function-course-quizzes-listQuizzes
+)
+    * [course.getQuiz(options)](#function-course-quizzes-getQuiz
+)
+    * [course.listQuizSubmissions(options)](#function-course-quizzes-listQuizSubmissions
+)
+    * [course.getQuizSubmission(options)](#function-course-quizzes-getQuizSubmission
+)
+* Subcategory: [sections](#subcategory-course-sections)
+    * [course.listSections(options)](#function-course-sections-listSections
+)
+    * [course.getSection(options)](#function-course-sections-getSection
+)
+
+
+<hr>
+
+
+**Category: [user](#category-user)**
+
+* Subcategory: [course](#subcategory-user-course)
+    * [user.listCourses(options)](#function-user-course-listCourses
+)
+* Subcategory: [self](#subcategory-user-self)
+    * [user.getCurrentUser(options)](#function-user-self-getCurrentUser
+)
+
+
+<a name="category-course"></a>
+<h1 title="Category: course"></h1>
+
+<a name="subcategory-course-apps"></a>
 ## Subcategory: apps
 
+<a name="function-course-apps-listApps
+"></a>
 ### course.listApps(options)
 Gets the list of apps installed into a course
 
@@ -16,6 +220,8 @@ Gets the list of apps installed into a course
 
 <hr>
 
+<a name="function-course-apps-getApp
+"></a>
 ### course.getApp(options)
 Gets info on a single LTI tool
 
@@ -29,6 +235,8 @@ Gets info on a single LTI tool
 
 <hr>
 
+<a name="function-course-apps-addApp
+"></a>
 ### course.addApp(options)
 Adds an LTI app to a Canvas course
 
@@ -47,6 +255,8 @@ Adds an LTI app to a Canvas course
 
 <hr>
 
+<a name="function-course-apps-removeApp
+"></a>
 ### course.removeApp(options)
 Removes an LTI app from a Canvas course
 
@@ -58,8 +268,11 @@ Removes an LTI app from a Canvas course
 
 **Resolves to:** [external tool](https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show)
 
-## Subcategory: assignmentGroups
+<a name="subcategory-course-assignmentGroups"></a>
+<h2 body="Subcategory: assignmentGroups" class="horizontalLined">Subcategory: assignmentGroups<span></span></h2>
 
+<a name="function-course-assignmentGroups-listAssignmentGroups
+"></a>
 ### course.listAssignmentGroups(options)
 Lists assignment groups in a course
 
@@ -72,6 +285,8 @@ Lists assignment groups in a course
 
 <hr>
 
+<a name="function-course-assignmentGroups-getAssignmentGroup
+"></a>
 ### course.getAssignmentGroup(options)
 Gets info on a specific assignment group in a course
 
@@ -86,6 +301,8 @@ Gets info on a specific assignment group in a course
 
 <hr>
 
+<a name="function-course-assignmentGroups-updateAssignmentGroup
+"></a>
 ### course.updateAssignmentGroup(options)
 Updates an assignment group in a course
 
@@ -101,6 +318,8 @@ Updates an assignment group in a course
 
 <hr>
 
+<a name="function-course-assignmentGroups-createAssignmentGroup
+"></a>
 ### course.createAssignmentGroup(options)
 Create a new assignment group in a course
 
@@ -115,6 +334,8 @@ Create a new assignment group in a course
 
 <hr>
 
+<a name="function-course-assignmentGroups-deleteAssignmentGroup
+"></a>
 ### course.deleteAssignmentGroup(options)
 Deletes an assignment group from a course
 
@@ -127,8 +348,11 @@ Deletes an assignment group from a course
 
 **Resolves to:** [AssignmentGroup](https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
 
-## Subcategory: assignments
+<a name="subcategory-course-assignments"></a>
+<h2 body="Subcategory: assignments" class="horizontalLined">Subcategory: assignments<span></span></h2>
 
+<a name="function-course-assignments-listAssignments
+"></a>
 ### course.listAssignments(options)
 Lists the assignments in a course
 
@@ -141,6 +365,8 @@ Lists the assignments in a course
 
 <hr>
 
+<a name="function-course-assignments-getAssignment
+"></a>
 ### course.getAssignment(options)
 Get info on a specific assignment in a course
 
@@ -154,6 +380,8 @@ Get info on a specific assignment in a course
 
 <hr>
 
+<a name="function-course-assignments-updateAssignment
+"></a>
 ### course.updateAssignment(options)
 Updates a Canvas assignment
 
@@ -185,6 +413,8 @@ Updates a Canvas assignment
 
 <hr>
 
+<a name="function-course-assignments-createAssignment
+"></a>
 ### course.createAssignment(options)
 Creates a Canvas assignment
 
@@ -215,6 +445,8 @@ Creates a Canvas assignment
 
 <hr>
 
+<a name="function-course-assignments-deleteAssignment
+"></a>
 ### course.deleteAssignment(options)
 Delete an assignment
 
@@ -228,6 +460,8 @@ Delete an assignment
 
 <hr>
 
+<a name="function-course-assignments-listAssignmentSubmissions
+"></a>
 ### course.listAssignmentSubmissions(options)
 Lists the submissions to a specific assignment in a course
 
@@ -243,6 +477,8 @@ Lists the submissions to a specific assignment in a course
 
 <hr>
 
+<a name="function-course-assignments-getAssignmentSubmission
+"></a>
 ### course.getAssignmentSubmission(options)
 Gets a single submission for an assignment
 
@@ -258,6 +494,8 @@ Gets a single submission for an assignment
 
 <hr>
 
+<a name="function-course-assignments-createAssignmentSubmission
+"></a>
 ### course.createAssignmentSubmission(options)
 Submits assignment on behalf of the current user
 
@@ -273,6 +511,8 @@ Submits assignment on behalf of the current user
 
 <hr>
 
+<a name="function-course-assignments-listGradeableStudents
+"></a>
 ### course.listGradeableStudents(options)
 List gradeable students for a specific assignment
 
@@ -284,6 +524,8 @@ List gradeable students for a specific assignment
 
 <hr>
 
+<a name="function-course-assignments-createAssignmentSubmissionComment
+"></a>
 ### course.createAssignmentSubmissionComment(options)
 Adds a comment to a submission
 
@@ -297,6 +539,8 @@ Adds a comment to a submission
 
 <hr>
 
+<a name="function-course-assignments-createAssignmentSubmissionComment
+"></a>
 ### course.createAssignmentSubmissionComment(options)
 Adds a comment to a submission
 
@@ -310,6 +554,8 @@ Adds a comment to a submission
 
 <hr>
 
+<a name="function-course-assignments-updateAssignmentGrades
+"></a>
 ### course.updateAssignmentGrades(options)
 Batch updates grades and/or comments. Also supports updating rubric items
 
@@ -323,8 +569,11 @@ Batch updates grades and/or comments. Also supports updating rubric items
 * **dontMergeRubricItemUpdates** [boolean] – When uploading grades to a rubric item, we intelligently merge rubric item updates with previous rubric assessments. For instance, if the assignment's rubric is: { grammar, argument, formatting } And the student of interest has the following rubric assessment so far: { grammar: 10/10, argument: 8/10, formatting: ungraded } When we upload a new gradeItem (9/10 points) to the student's formatting rubric item, the result is: { grammar: 10/10, argument: 8/10, formatting: 9/10 } However, if dontMergeRubricItemUpdates=true, the result is: { grammar: ungraded, argument: ungraded, formatting: 9/10 } Note: merging is an added feature. By default, the Canvas API does not merge rubric assessments.
 
 
-## Subcategory: course
+<a name="subcategory-course-course"></a>
+<h2 body="Subcategory: course" class="horizontalLined">Subcategory: course<span></span></h2>
 
+<a name="function-course-course-getCourse
+"></a>
 ### course.getCourse(options)
 Gets info on a specific course
 
@@ -343,8 +592,11 @@ Gets info on a specific course
 
 **Resolves to:** [Course](https://canvas.instructure.com/doc/api/courses.html#Course)
 
-## Subcategory: enrollments
+<a name="subcategory-course-enrollments"></a>
+<h2 body="Subcategory: enrollments" class="horizontalLined">Subcategory: enrollments<span></span></h2>
 
+<a name="function-course-enrollments-listEnrollments
+"></a>
 ### course.listEnrollments(options)
 Gets the list of enrollments in a course
 
@@ -361,6 +613,8 @@ Gets the list of enrollments in a course
 
 <hr>
 
+<a name="function-course-enrollments-listStudents
+"></a>
 ### course.listStudents(options)
 Gets the list of students in a course
 
@@ -374,6 +628,8 @@ Gets the list of students in a course
 
 <hr>
 
+<a name="function-course-enrollments-listTeachingTeamMembers
+"></a>
 ### course.listTeachingTeamMembers(options)
 Gets the list of TAs and Teachers in a course
 
@@ -389,6 +645,8 @@ Gets the list of TAs and Teachers in a course
 
 <hr>
 
+<a name="function-course-enrollments-listDesigners
+"></a>
 ### course.listDesigners(options)
 Gets the list of designers in a course
 
@@ -404,6 +662,8 @@ Gets the list of designers in a course
 
 <hr>
 
+<a name="function-course-enrollments-listObserver
+"></a>
 ### course.listObserver(options)
 Gets the list of observers in a course
 
@@ -417,8 +677,11 @@ Gets the list of observers in a course
 
 **Resolves to:** [list of Enrollments](https://canvas.instructure.com/doc/api/enrollments.html#Enrollment)
 
-## Subcategory: gradebookColumns
+<a name="subcategory-course-gradebookColumns"></a>
+<h2 body="Subcategory: gradebookColumns" class="horizontalLined">Subcategory: gradebookColumns<span></span></h2>
 
+<a name="function-course-gradebookColumns-listGradebookColumns
+"></a>
 ### course.listGradebookColumns(options)
 Gets the list of custom gradebook columns in a course
 
@@ -431,6 +694,8 @@ Gets the list of custom gradebook columns in a course
 
 <hr>
 
+<a name="function-course-gradebookColumns-updateGradebookColumn
+"></a>
 ### course.updateGradebookColumn(options)
 Updates a gradebook column's information
 
@@ -447,6 +712,8 @@ Updates a gradebook column's information
 
 <hr>
 
+<a name="function-course-gradebookColumns-createGradebookColumn
+"></a>
 ### course.createGradebookColumn(options)
 Creates a new gradebook column in a course
 
@@ -462,6 +729,8 @@ Creates a new gradebook column in a course
 
 <hr>
 
+<a name="function-course-gradebookColumns-deleteGradebookColumn
+"></a>
 ### course.deleteGradebookColumn(options)
 Deletes a gradebook column from a course
 
@@ -475,6 +744,8 @@ Deletes a gradebook column from a course
 
 <hr>
 
+<a name="function-course-gradebookColumns-listGradebookColumnEntries
+"></a>
 ### course.listGradebookColumnEntries(options)
 Gets the list of entries in a specific gradebook column in a course
 
@@ -488,6 +759,8 @@ Gets the list of entries in a specific gradebook column in a course
 
 <hr>
 
+<a name="function-course-gradebookColumns-updateGradebookColumnEntries
+"></a>
 ### course.updateGradebookColumnEntries(options)
 Update the list of entries in a specific gradebook column in a course
 
@@ -502,8 +775,11 @@ Update the list of entries in a specific gradebook column in a course
 
 **Resolves to:** [Progress](https://canvas.instructure.com/doc/api/progress.html#Progress)
 
-## Subcategory: groupSets
+<a name="subcategory-course-groupSets"></a>
+<h2 body="Subcategory: groupSets" class="horizontalLined">Subcategory: groupSets<span></span></h2>
 
+<a name="function-course-groupSets-listGroupSets
+"></a>
 ### course.listGroupSets(options)
 Lists the group sets in the course
 
@@ -516,6 +792,8 @@ Lists the group sets in the course
 
 <hr>
 
+<a name="function-course-groupSets-getGroupSet
+"></a>
 ### course.getGroupSet(options)
 Gets info on a specific group set
 
@@ -528,6 +806,8 @@ Gets info on a specific group set
 
 <hr>
 
+<a name="function-course-groupSets-createGroupSet
+"></a>
 ### course.createGroupSet(options)
 Create a group set in a course
 
@@ -541,6 +821,8 @@ Create a group set in a course
 
 <hr>
 
+<a name="function-course-groupSets-deleteGroupSet
+"></a>
 ### course.deleteGroupSet(options)
 Deletes a group set
 
@@ -554,6 +836,8 @@ Deletes a group set
 
 <hr>
 
+<a name="function-course-groupSets-listGroupSetGroups
+"></a>
 ### course.listGroupSetGroups(options)
 Gets the list of groups in a group set
 
@@ -566,6 +850,8 @@ Gets the list of groups in a group set
 
 <hr>
 
+<a name="function-course-groupSets-getGroupSetGroup
+"></a>
 ### course.getGroupSetGroup(options)
 Gets info on a specific group in a group set (alias to groups.js/getGroup)
 
@@ -578,6 +864,8 @@ Gets info on a specific group in a group set (alias to groups.js/getGroup)
 
 <hr>
 
+<a name="function-course-groupSets-createGroupSetGroup
+"></a>
 ### course.createGroupSetGroup(options)
 Creates a new group in a group set
 
@@ -594,6 +882,8 @@ Creates a new group in a group set
 
 <hr>
 
+<a name="function-course-groupSets-deleteGroupSetGroup
+"></a>
 ### course.deleteGroupSetGroup(options)
 Deletes a specific group from a group set
 
@@ -605,8 +895,11 @@ Deletes a specific group from a group set
 
 **Resolves to:** [Group](https://canvas.instructure.com/doc/api/groups.html#Group)
 
-## Subcategory: groups
+<a name="subcategory-course-groups"></a>
+<h2 body="Subcategory: groups" class="horizontalLined">Subcategory: groups<span></span></h2>
 
+<a name="function-course-groups-getGroup
+"></a>
 ### course.getGroup(options)
 Gets info on a specific group in a course
 
@@ -619,6 +912,8 @@ Gets info on a specific group in a course
 
 <hr>
 
+<a name="function-course-groups-listGroupMembers
+"></a>
 ### course.listGroupMembers(options)
 Gets the list of members in a group
 
@@ -631,6 +926,8 @@ Gets the list of members in a group
 
 <hr>
 
+<a name="function-course-groups-updateGroupMembers
+"></a>
 ### course.updateGroupMembers(options)
 Gets the list of members in a group
 
@@ -642,8 +939,11 @@ Gets the list of members in a group
 
 **Resolves to:** [list of Users](https://canvas.instructure.com/doc/api/users.html#User)
 
-## Subcategory: pages
+<a name="subcategory-course-pages"></a>
+<h2 body="Subcategory: pages" class="horizontalLined">Subcategory: pages<span></span></h2>
 
+<a name="function-course-pages-listPages
+"></a>
 ### course.listPages(options)
 Gets the list of pages in a course
 
@@ -656,6 +956,8 @@ Gets the list of pages in a course
 
 <hr>
 
+<a name="function-course-pages-getPage
+"></a>
 ### course.getPage(options)
 Get info on a specific page in a course
 
@@ -669,6 +971,8 @@ Get info on a specific page in a course
 
 <hr>
 
+<a name="function-course-pages-updatePage
+"></a>
 ### course.updatePage(options)
 Updates a Canvas page
 
@@ -688,6 +992,8 @@ Updates a Canvas page
 
 <hr>
 
+<a name="function-course-pages-createPage
+"></a>
 ### course.createPage(options)
 Creates a new page in a course
 
@@ -706,6 +1012,8 @@ Creates a new page in a course
 
 <hr>
 
+<a name="function-course-pages-deletePage
+"></a>
 ### course.deletePage(options)
 Deletes a page from a course
 
@@ -717,8 +1025,11 @@ Deletes a page from a course
 
 **Resolves to:** [Page](https://canvas.instructure.com/doc/api/pages.html#Page)
 
-## Subcategory: quizzes
+<a name="subcategory-course-quizzes"></a>
+<h2 body="Subcategory: quizzes" class="horizontalLined">Subcategory: quizzes<span></span></h2>
 
+<a name="function-course-quizzes-listQuizzes
+"></a>
 ### course.listQuizzes(options)
 Lists the quizzes in a course
 
@@ -731,6 +1042,8 @@ Lists the quizzes in a course
 
 <hr>
 
+<a name="function-course-quizzes-getQuiz
+"></a>
 ### course.getQuiz(options)
 Get info on a specific quiz in a course
 
@@ -744,6 +1057,8 @@ Get info on a specific quiz in a course
 
 <hr>
 
+<a name="function-course-quizzes-listQuizSubmissions
+"></a>
 ### course.listQuizSubmissions(options)
 Lists the submissions to a quiz in a course
 
@@ -757,6 +1072,8 @@ Lists the submissions to a quiz in a course
 
 <hr>
 
+<a name="function-course-quizzes-getQuizSubmission
+"></a>
 ### course.getQuizSubmission(options)
 Gets info on a specific submission to a quiz in a course
 
@@ -769,8 +1086,11 @@ Gets info on a specific submission to a quiz in a course
 
 **Resolves to:** [QuizSubmission](https://canvas.instructure.com/doc/api/quiz_submissions.html)
 
-## Subcategory: sections
+<a name="subcategory-course-sections"></a>
+<h2 body="Subcategory: sections" class="horizontalLined">Subcategory: sections<span></span></h2>
 
+<a name="function-course-sections-listSections
+"></a>
 ### course.listSections(options)
 Gets the list of sections in a course
 
@@ -783,6 +1103,8 @@ Gets the list of sections in a course
 
 <hr>
 
+<a name="function-course-sections-getSection
+"></a>
 ### course.getSection(options)
 Gets info on a specific section
 
@@ -794,15 +1116,22 @@ Gets info on a specific section
 
 **Resolves to:** [Section](https://canvas.instructure.com/doc/api/sections.html#Section)
 
-# Category: user
+<a name="category-user"></a>
+<h1 title="Category: user"></h1>
 
+<a name="subcategory-user-course"></a>
 ## Subcategory: course
 
+<a name="function-user-course-listCourses
+"></a>
 ### user.listCourses(options)
 Gets the list of courses associated with the current user
 
-## Subcategory: self
+<a name="subcategory-user-self"></a>
+<h2 body="Subcategory: self" class="horizontalLined">Subcategory: self<span></span></h2>
 
+<a name="function-user-self-getCurrentUser
+"></a>
 ### user.getCurrentUser(options)
 Gets info on the current user
 

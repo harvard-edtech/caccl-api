@@ -1,0 +1,47 @@
+/* Invert and add tab style */
+h1 {
+    border-bottom: solid black 4px;
+    text-align: center;
+    color: white;
+    padding: 0;
+    line-height: 1em;
+}
+h1:before {
+    content: attr(title);
+    top: 0;
+    left: 0;
+    text-align: center;
+    background-color: black;
+    border-radius: 10px 10px 0 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+
+
+/* Remove bottom line for normal h2 */
+h2 {
+    position: relative;
+    border-bottom: 0;
+}
+
+/* Add white background to text (to obscure line) */
+.horizontalLined:after {
+    content: attr(body);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    padding-right: 10px;
+}
+
+/* Style for horizontal line */
+.horizontalLined span {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 49%;
+    bottom: 49%;
+    width: 100%;
+    border-bottom: 4px solid #ccc;
+}
