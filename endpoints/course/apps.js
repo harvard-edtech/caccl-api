@@ -11,9 +11,9 @@ module.exports = () => {
     {
       name: 'listApps',
       action: 'get the list of apps installed into a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/external_tools',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/external_tools',
           method: 'GET',
         });
       },
@@ -28,10 +28,10 @@ module.exports = () => {
     {
       name: 'getApp',
       action: 'get info on a specific LTI app in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId
-            + '/external_tools/' + options.appId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId
+            + '/external_tools/' + cg.options.appId,
           method: 'GET',
         });
       },
@@ -51,28 +51,26 @@ module.exports = () => {
     {
       name: 'addApp',
       action: 'add an LTI app to a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/external_tools',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/external_tools',
           method: 'POST',
           params: {
-            name: options.name,
-            privacy_level: options.launchPrivacy || 'public',
-            consumer_key: options.key,
-            consumer_secret: options.secret,
+            name: cg.options.name,
+            privacy_level: cg.options.launchPrivacy || 'public',
+            consumer_key: cg.options.key,
+            consumer_secret: cg.options.secret,
             config_type: 'by_xml',
-            config_xml: options.xml,
-            description: utils.includeIfTruthy(options.description),
-            icon_url: utils.includeIfTruthy(options.icon),
+            config_xml: cg.options.xml,
+            description: utils.includeIfTruthy(cg.options.description),
+            icon_url: utils.includeIfTruthy(cg.options.icon),
           },
         }).then((response) => {
-          return {
-            response,
-            uncache: [
-              // Uncache app list endpoint
-              '/api/v1/courses/' + options.courseId + '/external_tools',
-            ],
-          };
+          cg.uncache([
+            // Uncache app list endpoint
+            '/api/v1/courses/' + cg.options.courseId + '/external_tools',
+          ]);
+          return Promise.resolve(response);
         });
       },
     },
@@ -86,22 +84,20 @@ module.exports = () => {
     {
       name: 'removeApp',
       action: 'remove an LTI app from a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId
-            + '/external_tools/' + options.appId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId
+            + '/external_tools/' + cg.options.appId,
           method: 'DELETE',
         }).then((response) => {
-          return {
-            response,
-            uncache: [
-              // Uncache get app endpoint
-              '/api/v1/courses/' + options.courseId
-                + '/external_tools/' + options.appId,
-              // Uncache app list endpoint
-              '/api/v1/courses/' + options.courseId + '/external_tools',
-            ],
-          };
+          cg.uncache([
+            // Uncache get app endpoint
+            '/api/v1/courses/' + cg.options.courseId
+              + '/external_tools/' + cg.options.appId,
+            // Uncache app list endpoint
+            '/api/v1/courses/' + cg.options.courseId + '/external_tools',
+          ]);
+          return Promise.resolve(response);
         });
       },
     },

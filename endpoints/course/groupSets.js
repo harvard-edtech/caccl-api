@@ -18,9 +18,9 @@ module.exports = (self) => {
     {
       name: 'listGroupSets',
       action: 'get the list of group sets in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/group_categories',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/group_categories',
           method: 'GET',
         });
       },
@@ -34,9 +34,9 @@ module.exports = (self) => {
     {
       name: 'getGroupSet',
       action: 'get info on a specific group set in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/group_categories/' + options.groupSetId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/group_categories/' + cg.options.groupSetId,
           method: 'GET',
         });
       },
@@ -51,23 +51,21 @@ module.exports = (self) => {
     {
       name: 'createGroupSet',
       action: 'create a new group set in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/group_categories',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/group_categories',
           method: 'POST',
           params: {
-            name: options.name || 'Unnamed Group Set',
+            name: cg.options.name || 'Unnamed Group Set',
           },
         }).then((response) => {
-          return {
-            response,
-            uncache: [
-              // Uncache list of group sets
-              '/api/v1/courses/' + options.courseId + '/group_categories',
-              // Uncache specific group set (in case it was already hit)
-              '/api/v1/group_categories/' + response.id,
-            ],
-          };
+          cg.uncache([
+            // Uncache list of group sets
+            '/api/v1/courses/' + cg.options.courseId + '/group_categories',
+            // Uncache specific group set (in case it was already hit)
+            '/api/v1/group_categories/' + response.id,
+          ]);
+          return Promise.resolve(response);
         });
       },
     },
@@ -81,20 +79,18 @@ module.exports = (self) => {
     {
       name: 'deleteGroupSet',
       action: 'delete a specific group set from a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/group_categories/' + options.groupSetId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/group_categories/' + cg.options.groupSetId,
           method: 'DELETE',
         }).then((response) => {
-          return {
-            response,
-            uncache: [
-              // Uncache list of group sets
-              '/api/v1/courses/' + options.courseId + '/group_categories',
-              // Uncache specific group set
-              '/api/v1/group_categories/' + options.groupSetId,
-            ],
-          };
+          cg.uncache([
+            // Uncache list of group sets
+            '/api/v1/courses/' + cg.options.courseId + '/group_categories',
+            // Uncache specific group set
+            '/api/v1/group_categories/' + cg.options.groupSetId,
+          ]);
+          return Promise.resolve(response);
         });
       },
     },
@@ -111,9 +107,9 @@ module.exports = (self) => {
     {
       name: 'listGroupSetGroups',
       action: 'get the list of groups in a group set',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/group_categories/' + options.groupSetId + '/groups',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/group_categories/' + cg.options.groupSetId + '/groups',
           method: 'GET',
         });
       },
@@ -128,8 +124,8 @@ module.exports = (self) => {
     {
       name: 'getGroupSetGroup',
       action: 'get info on a specific group in a group set',
-      run: (options) => {
-        return self.getGroup(options);
+      run: (cg) => {
+        return self.getGroup(cg.options);
       },
     },
 
@@ -146,25 +142,23 @@ module.exports = (self) => {
     {
       name: 'createGroupSetGroup',
       action: 'create a new group in a group set',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/group_categories/' + options.groupSetId + '/groups',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/group_categories/' + cg.options.groupSetId + '/groups',
           method: 'POST',
           params: {
-            name: options.name || 'Unnamed Group',
-            description: options.description || '',
-            is_public: utils.isTruthy(options.isPublic),
+            name: cg.options.name || 'Unnamed Group',
+            description: cg.options.description || '',
+            is_public: utils.isTruthy(cg.options.isPublic),
           },
         }).then((response) => {
-          return {
-            response,
-            uncache: [
-              // Uncache group set list
-              '/api/v1/courses/' + options.courseId + '/group_categories',
-              // Uncache group set
-              '/api/v1/group_categories/' + options.groupSetId,
-            ],
-          };
+          cg.uncache([
+            // Uncache group set list
+            '/api/v1/courses/' + cg.options.courseId + '/group_categories',
+            // Uncache group set
+            '/api/v1/group_categories/' + cg.options.groupSetId,
+          ]);
+          return Promise.resolve(response);
         });
       },
     },
@@ -179,20 +173,18 @@ module.exports = (self) => {
     {
       name: 'deleteGroupSetGroup',
       action: 'delete a specific group from a group set',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/groups/' + options.groupId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/groups/' + cg.options.groupId,
           method: 'DELETE',
         }).then((response) => {
-          return {
-            response,
-            uncache: [
-              // Uncache group
-              '/api/v1/groups/' + options.groupId,
-              // Uncache group set list of group
-              '/api/v1/group_categories/' + options.groupSetId + '/groups',
-            ],
-          };
+          cg.uncache([
+            // Uncache group
+            '/api/v1/groups/' + cg.options.groupId,
+            // Uncache group set list of group
+            '/api/v1/group_categories/' + cg.options.groupSetId + '/groups',
+          ]);
+          return Promise.resolve(response);
         });
       },
     },

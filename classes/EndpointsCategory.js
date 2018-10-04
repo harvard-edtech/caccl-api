@@ -18,6 +18,51 @@ class EndpointsCategory {
       accessToken: config.accessToken,
     });
 
+    // Create an uncache function
+    // > Use dummy function
+    let uncache;
+    if (config.cache) {
+      // > Create uncache function that changes the cache
+      uncache = (pathOrPaths = {}) => {
+        const paths = (
+          Array.isArray(pathOrPaths) ? pathOrPaths : [pathOrPaths]
+        );
+
+        // Pre-process so we can do one sweep through cache
+        const pathIsBeingUncached = {};
+        const pathPrefixesToUncache = [];
+        paths.forEach((path) => {
+          if (path.endsWith('*')) {
+            // This is a prefix-based path
+            pathPrefixesToUncache.push(path.split('*')[0]);
+          } else {
+            // This is a normal path
+            pathIsBeingUncached[path] = true;
+          }
+        });
+
+        // Uncache individual paths
+        pathPrefixesToUncache.forEach(config.cache.clear);
+
+        // Uncache based on path prefixes
+        if (pathPrefixesToUncache.length > 0) {
+          const cachedKeys = Object.keys(config.cache.getAll());
+          cachedKeys.forEach((key) => {
+            for (let i = 0; i < pathPrefixesToUncache.length; i++) {
+              if (key.startsWith(pathPrefixesToUncache[i])) {
+                // Uncache this path
+                config.cache.clear(key);
+                break;
+              }
+            }
+          });
+        }
+      };
+    } else {
+      // > Use a dummy function so uncaching doesn't crash
+      uncache = () => {};
+    }
+
     // Turn each endpoint into a function
     const { endpointsFiles } = config;
     // Loop through all endpoint definition files in the category
@@ -32,8 +77,8 @@ class EndpointsCategory {
         //     the customized visitEndpoint function
         this[endpoint.name] = (options = {}) => {
           // Check if we're caching
-          const lookupInCache = (config.cache && options.ignoreCache);
-          const storeInCache = (config.cache && options.dontCache);
+          const lookupInCache = (config.cache && !options.ignoreCache);
+          const storeInCache = (config.cache && !options.dontCache);
 
           // Generate a visitEndpoint function
           let visitEndpoint;
@@ -55,63 +100,20 @@ class EndpointsCategory {
           }
 
           // Run the endpoint with the correct visitEndpoint function
-          const runPromise = endpoint.run(options, visitEndpoint);
+          // > Create a cg (config) object for the endpoint
+          const cg = {
+            options,
+            visitEndpoint,
+            uncache,
+          };
+          const runPromise = endpoint.run(cg);
 
           if (
             runPromise
             && runPromise.then
             && runPromise.catch
           ) {
-            return runPromise.then((endpointResults) => {
-              // endpointResults will either be equal to the endpoint response
-              // OR, if we need to uncache some paths, endpointResults will be:
-              // {
-              //   response: /* the endpoint response */,
-              //   uncache: [
-              //     // List of paths to uncache
-              //   ],
-              // }
-
-              // Check if the endpoint returned a list of paths to uncache
-              const uncacheListIncluded = (
-                endpointResults
-                && endpointResults.uncache
-                && Array.isArray(endpointResults.uncache)
-              );
-
-              // Uncache if applicable (always uncache if there's a cache)
-              if (uncacheListIncluded) {
-                // Uncache if we have a cache
-                if (config.cache) {
-                  // Uncache included paths
-                  endpointResults.uncache.forEach((key) => {
-                    // Handle prefix-based keys
-                    if (key.endsWith('*')) {
-                      // Extract prefix
-                      const prefix = key.split('*')[0];
-                      // This is a prefix-based key
-                      // > Loop through all cached keys and check their prefixes
-                      const cacheObject = config.cache.getAll();
-                      Object.keys(cacheObject).forEach((cachedKey) => {
-                        if (cachedKey.startsWith(prefix)) {
-                          // Found a match. Clear it.
-                          config.cache.clear(cachedKey);
-                        }
-                      });
-                    } else {
-                      // This is a simple key, just uncache it
-                      options.cache.clear(key);
-                    }
-                  });
-                }
-
-                // Resolve with embedded response
-                return Promise.resolve(endpointResults.response);
-              }
-
-              // Not uncaching
-              return Promise.resolve(endpointResults);
-            }).catch((err) => {
+            return runPromise.catch((err) => {
               // Turn into CACCLError if not already
               let newError = err;
               if (!err.isCACCLError) {

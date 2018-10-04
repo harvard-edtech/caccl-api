@@ -8,9 +8,9 @@ module.exports = () => {
     {
       name: 'listSections',
       action: 'get the list of sections in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/sections',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/sections',
           method: 'GET',
         });
       },
@@ -25,10 +25,10 @@ module.exports = () => {
     {
       name: 'getSection',
       action: 'get info on a specific section in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/sections/'
-            + options.sectionId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/sections/'
+            + cg.options.sectionId,
           method: 'GET',
         });
       },

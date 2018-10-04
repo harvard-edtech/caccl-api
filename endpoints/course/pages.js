@@ -11,9 +11,9 @@ module.exports = () => {
     {
       name: 'listPages',
       action: 'get the list of pages in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/pages',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/pages',
           method: 'GET',
         });
       },
@@ -28,10 +28,10 @@ module.exports = () => {
     {
       name: 'getPage',
       action: 'get info on a specific page in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/pages/'
-            + options.pageURL,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/pages/'
+            + cg.options.pageURL,
           method: 'GET',
         });
       },
@@ -55,21 +55,30 @@ module.exports = () => {
     {
       name: 'updatePage',
       action: 'update a specific page in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/pages/'
-            + options.pageURL,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/pages/'
+            + cg.options.pageURL,
           method: 'PUT',
           params: {
-            'wiki_page[title]': utils.includeIfTruthy(options.title),
-            'wiki_page[body]': utils.includeIfTruthy(options.body),
+            'wiki_page[title]': utils.includeIfTruthy(cg.options.title),
+            'wiki_page[body]': utils.includeIfTruthy(cg.options.body),
             'wiki_page[editing_roles]':
-               utils.includeIfTruthy(options.editingRoles),
+               utils.includeIfTruthy(cg.options.editingRoles),
             'wiki_page[notify_of_update]':
-               utils.includeIfTruthy(options.notify_of_update),
-            'wiki_page[published]': utils.includeIfBoolean(options.published),
-            'wiki_page[front_page]': utils.includeIfBoolean(options.frontPage),
+               utils.includeIfTruthy(cg.options.notify_of_update),
+            'wiki_page[published]': utils.includeIfBoolean(cg.options.published),
+            'wiki_page[front_page]': utils.includeIfBoolean(cg.options.frontPage),
           },
+        }).then((response) => {
+          cg.uncache([
+            // Uncache list of pages
+            '/api/v1/courses/' + cg.options.courseId + '/pages',
+            // Uncache this specific page (in case someone pinged it before)
+            '/api/v1/courses/' + cg.options.courseId + '/pages/'
+              + cg.options.pageURL,
+          ]);
+          return Promise.resolve(response);
         });
       },
     },
@@ -89,30 +98,28 @@ module.exports = () => {
     {
       name: 'createPage',
       action: 'create a new page in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/pages',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/pages',
           method: 'POST',
           params: {
-            'wiki_page[title]': (options.title || 'Untitled Page'),
-            'wiki_page[body]': (options.body || ''),
-            'wiki_page[editing_roles]': (options.editingRoles || 'teachers'),
+            'wiki_page[title]': (cg.options.title || 'Untitled Page'),
+            'wiki_page[body]': (cg.options.body || ''),
+            'wiki_page[editing_roles]': (cg.options.editingRoles || 'teachers'),
             'wiki_page[notify_of_update]':
-              utils.isTruthy(options.notifyOfUpdate),
-            'wiki_page[published]': utils.isTruthy(options.published),
-            'wiki_page[front_page]': utils.isTruthy(options.frontPage),
+              utils.isTruthy(cg.options.notifyOfUpdate),
+            'wiki_page[published]': utils.isTruthy(cg.options.published),
+            'wiki_page[front_page]': utils.isTruthy(cg.options.frontPage),
           },
         }).then((response) => {
-          return {
-            response,
-            uncache: [
-              // Uncache list of pages
-              '/api/v1/courses/' + options.courseId + '/pages',
-              // Uncache this specific page (in case someone pinged it before)
-              '/api/v1/courses/' + options.courseId + '/pages/'
-                + response.url,
-            ],
-          };
+          cg.uncache([
+            // Uncache list of pages
+            '/api/v1/courses/' + cg.options.courseId + '/pages',
+            // Uncache this specific page (in case someone pinged it before)
+            '/api/v1/courses/' + cg.options.courseId + '/pages/'
+              + response.url,
+          ]);
+          return Promise.resolve(response);
         });
       },
     },
@@ -126,22 +133,20 @@ module.exports = () => {
     {
       name: 'deletePage',
       action: 'delete a page from a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/pages/'
-            + options.pageURL,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/pages/'
+            + cg.options.pageURL,
           method: 'DELETE',
         }).then((response) => {
-          return {
-            response,
-            uncache: [
-              // Uncache list of pages
-              '/api/v1/courses/' + options.courseId + '/pages',
-              // Uncache this specific page
-              '/api/v1/courses/' + options.courseId + '/pages/'
-                + options.pageURL,
-            ],
-          };
+          cg.uncache([
+            // Uncache list of pages
+            '/api/v1/courses/' + cg.options.courseId + '/pages',
+            // Uncache this specific page
+            '/api/v1/courses/' + cg.options.courseId + '/pages/'
+              + cg.options.pageURL,
+          ]);
+          return Promise.resolve(response);
         });
       },
     },

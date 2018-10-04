@@ -15,9 +15,9 @@ module.exports = () => {
     {
       name: 'getGroup',
       action: 'get info on a specific group in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/groups/' + options.groupId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/groups/' + cg.options.groupId,
           method: 'GET',
         });
       },
@@ -37,9 +37,9 @@ module.exports = () => {
     {
       name: 'listGroupMembers',
       action: 'get the list of members in a specific group',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/groups/' + options.groupId + '/users',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/groups/' + cg.options.groupId + '/users',
           method: 'GET',
         });
       },
@@ -55,21 +55,19 @@ module.exports = () => {
     {
       name: 'updateGroupMembers',
       action: 'update the list of members in a group',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/groups/' + options.groupId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/groups/' + cg.options.groupId,
           method: 'GET',
           params: {
-            members: utils.extractIdsIfApplicable(options.users),
+            members: utils.extractIdsIfApplicable(cg.options.users),
           },
         }).then((response) => {
-          return {
-            response,
-            uncache: [
-              // Uncache the list of group members
-              '/api/v1/groups/' + options.groupId + '/users',
-            ],
-          };
+          cg.uncache([
+            // Uncache the list of group members
+            '/api/v1/groups/' + cg.options.groupId + '/users',
+          ]);
+          return Promise.resolve(response);
         });
       },
     },

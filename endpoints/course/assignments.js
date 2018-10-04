@@ -24,9 +24,9 @@ module.exports = (self) => {
     {
       name: 'listAssignments',
       action: 'get the list of assignments in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/assignments',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/assignments',
           method: 'GET',
         });
       },
@@ -41,10 +41,10 @@ module.exports = (self) => {
     {
       name: 'getAssignment',
       action: 'get info on a specific assignment in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/assignments/'
-            + options.assignmentId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+            + cg.options.assignmentId,
           method: 'GET',
         });
       },
@@ -90,54 +90,52 @@ module.exports = (self) => {
     {
       name: 'updateAssignment',
       action: 'updates an assignment in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/assignments/'
-            + options.assignmentId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+            + cg.options.assignmentId,
           method: 'PUT',
           params: {
-            'assignment[name]': utils.includeIfTruthy(options.name),
+            'assignment[name]': utils.includeIfTruthy(cg.options.name),
             'assignment[submission_types]':
-              utils.includeIfTruthy(options.submissionTypes),
+              utils.includeIfTruthy(cg.options.submissionTypes),
             'assignment[grading_type]':
-              utils.includeIfTruthy(options.gradingType),
-            position: utils.includeIfTruthy(options.position),
+              utils.includeIfTruthy(cg.options.gradingType),
+            position: utils.includeIfTruthy(cg.options.position),
             'assignment[peer_reviews]':
-              utils.includeIfBoolean(options.peerReviewsEnabled),
+              utils.includeIfBoolean(cg.options.peerReviewsEnabled),
             'assignment[automatic_peer_reviews]':
-              utils.includeIfBoolean(options.automaticPeerReviewsEnabled),
+              utils.includeIfBoolean(cg.options.automaticPeerReviewsEnabled),
             'assignment[grade_group_students_individually]':
-              utils.includeIfBoolean(options.gradeGroupStudentsIndividually),
+              utils.includeIfBoolean(cg.options.gradeGroupStudentsIndividually),
             'assignment[description]':
-              utils.includeIfTruthy(options.description),
+              utils.includeIfTruthy(cg.options.description),
             'assignment[allowed_extensions]':
-              utils.includeIfTruthy(options.allowedExtensions),
+              utils.includeIfTruthy(cg.options.allowedExtensions),
             'assignment[group_category_id]':
-              utils.includeIfTruthy(options.groupSetId),
+              utils.includeIfTruthy(cg.options.groupSetId),
             'assignment[points_possible]':
-              utils.includeIfNumber(options.pointsPossible),
-            'assignment[due_at]': utils.includeIfDate(options.dueAt),
-            'assignment[lock_at]': utils.includeIfDate(options.lockAt),
-            'assignment[unlock_at]': utils.includeIfDate(options.unlockAt),
+              utils.includeIfNumber(cg.options.pointsPossible),
+            'assignment[due_at]': utils.includeIfDate(cg.options.dueAt),
+            'assignment[lock_at]': utils.includeIfDate(cg.options.lockAt),
+            'assignment[unlock_at]': utils.includeIfDate(cg.options.unlockAt),
             'assignment[published]':
-              utils.includeIfBoolean(options.published),
+              utils.includeIfBoolean(cg.options.published),
             'assignment[assignment_group_id]':
-              utils.includeIfNumber(options.assignmentGroupId),
+              utils.includeIfNumber(cg.options.assignmentGroupId),
             'assignment[omit_from_final_grade]':
-              utils.includeIfBoolean(options.omitFromFinalGrade),
-            'assignment[muted]': utils.includeIfBoolean(options.muted),
+              utils.includeIfBoolean(cg.options.omitFromFinalGrade),
+            'assignment[muted]': utils.includeIfBoolean(cg.options.muted),
           },
         }).then((response) => {
-          return {
-            response,
-            uncache: [
-              // Uncache assignment and sub-endpoints
-              '/api/v1/courses/' + options.courseId + '/assignments/'
-                + options.assignmentId + '*',
-              // Uncache assignment list
-              '/api/v1/courses/' + options.courseId + '/assignments',
-            ],
-          };
+          cg.uncache([
+            // Uncache assignment and sub-endpoints
+            '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+              + cg.options.assignmentId + '*',
+            // Uncache assignment list
+            '/api/v1/courses/' + cg.options.courseId + '/assignments',
+          ]);
+          return Promise.resolve(response);
         });
       },
     },
@@ -179,40 +177,49 @@ module.exports = (self) => {
     {
       name: 'createAssignment',
       action: 'create a new assignment in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/assignments',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/assignments',
           method: 'POST',
           params: {
-            'assignment[name]': options.name || 'Unnamed Assignment',
-            'assignment[submission_types]': options.submissionTypes || ['none'],
-            'assignment[grading_type]': options.gradingType || 'points',
-            position: utils.includeIfTruthy(options.position),
+            'assignment[name]': cg.options.name || 'Unnamed Assignment',
+            'assignment[submission_types]': cg.options.submissionTypes || ['none'],
+            'assignment[grading_type]': cg.options.gradingType || 'points',
+            position: utils.includeIfTruthy(cg.options.position),
             'assignment[peer_reviews]':
-              utils.isTruthy(options.peerReviewsEnabled),
+              utils.isTruthy(cg.options.peerReviewsEnabled),
             'assignment[automatic_peer_reviews]':
-              utils.isTruthy(options.automaticPeerReviewsEnabled),
+              utils.isTruthy(cg.options.automaticPeerReviewsEnabled),
             'assignment[grade_group_students_individually]':
-              utils.isTruthy(options.gradeGroupStudentsIndividually),
+              utils.isTruthy(cg.options.gradeGroupStudentsIndividually),
             'assignment[description]':
-              utils.includeIfTruthy(options.description),
+              utils.includeIfTruthy(cg.options.description),
             'assignment[allowed_extensions]':
-              utils.includeIfTruthy(options.allowedExtensions),
+              utils.includeIfTruthy(cg.options.allowedExtensions),
             'assignment[group_category_id]':
-              utils.includeIfTruthy(options.groupSetId),
+              utils.includeIfTruthy(cg.options.groupSetId),
             'assignment[points_possible]':
-              utils.includeIfNumber(options.pointsPossible),
-            'assignment[due_at]': utils.includeIfDate(options.dueAt),
-            'assignment[lock_at]': utils.includeIfDate(options.lockAt),
-            'assignment[unlock_at]': utils.includeIfDate(options.unlockAt),
+              utils.includeIfNumber(cg.options.pointsPossible),
+            'assignment[due_at]': utils.includeIfDate(cg.options.dueAt),
+            'assignment[lock_at]': utils.includeIfDate(cg.options.lockAt),
+            'assignment[unlock_at]': utils.includeIfDate(cg.options.unlockAt),
             'assignment[published]':
-              utils.isTruthy(options.published),
+              utils.isTruthy(cg.options.published),
             'assignment[assignment_group_id]':
-              utils.includeIfNumber(options.assignmentGroupId),
+              utils.includeIfNumber(cg.options.assignmentGroupId),
             'assignment[omit_from_final_grade]':
-              utils.isTruthy(options.omitFromFinalGrade),
-            'assignment[muted]': utils.isTruthy(options.muted),
+              utils.isTruthy(cg.options.omitFromFinalGrade),
+            'assignment[muted]': utils.isTruthy(cg.options.muted),
           },
+        }).then((response) => {
+          cg.uncache([
+            // Uncache assignment and sub-endpoints
+            '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+              + cg.options.assignmentId + '*',
+            // Uncache assignment list
+            '/api/v1/courses/' + cg.options.courseId + '/assignments',
+          ]);
+          return Promise.resolve(response);
         });
       },
     },
@@ -226,22 +233,20 @@ module.exports = (self) => {
     {
       name: 'deleteAssignment',
       action: 'deletes an assignment from a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/assignments/'
-            + options.assignmentId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+            + cg.options.assignmentId,
           method: 'DELETE',
         }).then((response) => {
-          return {
-            response,
-            uncache: [
-              // Uncache assignment and sub-endpoints
-              '/api/v1/courses/' + options.courseId + '/assignments/'
-                + options.assignmentId + '*',
-              // Uncache assignment list
-              '/api/v1/courses/' + options.courseId + '/assignments',
-            ],
-          };
+          cg.uncache([
+            // Uncache assignment and sub-endpoints
+            '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+              + cg.options.assignmentId + '*',
+            // Uncache assignment list
+            '/api/v1/courses/' + cg.options.courseId + '/assignments',
+          ]);
+          return Promise.resolve(response);
         });
       },
     },
@@ -266,33 +271,36 @@ module.exports = (self) => {
     {
       name: 'listAssignmentSubmissions',
       action: 'list the submissions to a specific assignment in a course',
-      run: (options, visitEndpoint) => {
+      run: (cg) => {
         // Fetch the user info if we're not excluding user info OR if we're
         // filtering out the test student (we need user info to filter)
-        const fetchUser = !options.includeTestStudent || !options.excludeUser;
+        const fetchUser = (
+          !cg.options.includeTestStudent
+          || !cg.options.excludeUser
+        );
 
-        const fetchPromise = visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/assignments/'
-            + options.assignmentId + '/submissions',
+        const fetchPromise = cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+            + cg.options.assignmentId + '/submissions',
           method: 'GET',
           params: {
             include: utils.includeTruthyElementsExcludeIfEmpty([
-              (options.includeComments ? 'submission_comments' : null),
-              (options.includeRubricAssessment ? 'rubric_assessment' : null),
+              (cg.options.includeComments ? 'submission_comments' : null),
+              (cg.options.includeRubricAssessment ? 'rubric_assessment' : null),
               (fetchUser ? 'user' : null),
             ]),
           },
         });
 
         // Filter test student if applicable
-        if (!options.includeTestStudent) {
+        if (!cg.options.includeTestStudent) {
           return fetchPromise.then((response) => {
             // Filter out test student
             const realSubs = response.filter((sub) => {
               return sub.user.name !== 'Test Student';
             });
 
-            if (options.excludeUser) {
+            if (cg.options.excludeUser) {
               // We had to request users just to filter out the test student but
               // we the caller wanted to exclude users (remove them now)
               return Promise.resolve(realSubs.map((sub) => {
@@ -326,16 +334,16 @@ module.exports = (self) => {
     {
       name: 'getAssignmentSubmission',
       action: 'Gets a specific submission to an assignment in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/assignments/'
-            + options.assignmentId + '/submissions/' + options.studentId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+            + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
           method: 'GET',
           params: {
             include: utils.includeTruthyElementsExcludeIfEmpty([
-              (options.includeComments ? 'submission_comments' : null),
-              (options.includeRubricAssessment ? 'rubric_assessment' : null),
-              (!options.excludeUser ? 'user' : null),
+              (cg.options.includeComments ? 'submission_comments' : null),
+              (cg.options.includeRubricAssessment ? 'rubric_assessment' : null),
+              (!cg.options.excludeUser ? 'user' : null),
             ]),
           },
         });
@@ -359,15 +367,15 @@ module.exports = (self) => {
     {
       name: 'createAssignmentSubmission',
       action: 'create a submission to a specific assignment in a course on behalf of the current user',
-      run: (options, visitEndpoint) => {
+      run: (cg) => {
         // Create a promise that resolves with the submitter/current user's id
         let getSubmitterIdPromise;
-        if (options.currentUserId) {
+        if (cg.options.currentUserId) {
           //  included!
-          getSubmitterIdPromise = Promise.resolve(options.currentUserId);
+          getSubmitterIdPromise = Promise.resolve(cg.options.currentUserId);
         } else {
           // Not included
-          getSubmitterIdPromise = visitEndpoint({
+          getSubmitterIdPromise = cg.visitEndpoint({
             path: '/api/v1/users/self/profile',
             method: 'GET',
           }).then((response) => {
@@ -382,34 +390,34 @@ module.exports = (self) => {
 
           // Text or Url submissions
           if (
-            options.submissionType === 'text'
-            || options.submissionType === 'url'
+            cg.options.submissionType === 'text'
+            || cg.options.submissionType === 'url'
           ) {
             // Detect submission type
             let submissionType = 'online_text_entry';
-            if (options.submissionType) {
+            if (cg.options.submissionType) {
               submissionType = 'online_url';
             }
-            sendSubmissionPromise = visitEndpoint({
+            sendSubmissionPromise = cg.visitEndpoint({
               'submission[submission_type]': submissionType,
-              'submission[body]': options.body || '',
+              'submission[body]': cg.options.body || '',
               'comment[text_comment]':
-                utils.includeIfTruthy(options.comment),
+                utils.includeIfTruthy(cg.options.comment),
             });
-          } else if (options.submissionType === 'upload') {
+          } else if (cg.options.submissionType === 'upload') {
             // File submission
 
             // Get list of filenames
-            const body = options.body || {};
+            const body = cg.options.body || {};
             const filenames = body.filenames || [];
 
             sendSubmissionPromise = new Promise((resolve, reject) => {
               // Function that uploads an individual file
               const uploadFile = (filename, next) => {
                 // 1. Prepare the file upload (create a slot to upload into)
-                visitEndpoint({
-                  path: '/api/v1/courses/' + options.courseId + '/assignments/'
-                    + options.assignmentId + '/submissions/self/files',
+                cg.visitEndpoint({
+                  path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+                    + cg.options.assignmentId + '/submissions/self/files',
                   method: 'POST',
                   params: {
                     name: path.basename(filename),
@@ -447,7 +455,7 @@ module.exports = (self) => {
                       if (res.statusCode >= 300 && res.statusCode < 400) {
                         // Need to send POST request to activate the file
                         const parsed = urlLib.parse(res.headers.location);
-                        visitEndpoint({
+                        cg.visitEndpoint({
                           host: parsed.hostname,
                           path: parsed.path,
                           method: 'POST',
@@ -503,15 +511,15 @@ module.exports = (self) => {
                 }
 
                 // All files succeeded! Continue and submit the assignment
-                visitEndpoint({
-                  path: '/api/v1/courses/' + options.courseId + '/assignments/'
-                    + options.assignmentId + '/submissions',
+                cg.visitEndpoint({
+                  path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+                    + cg.options.assignmentId + '/submissions',
                   method: 'POST',
                   params: {
                     'submission[submission_type]': 'online_upload',
                     'submission[file_ids]': fileIds,
                     'comment[text_comment]':
-                      utils.includeIfTruthy(options.comment),
+                      utils.includeIfTruthy(cg.options.comment),
                   },
                 }).then((response) => {
                   // Resolve the sendSubmissionPromise now that actual
@@ -523,24 +531,22 @@ module.exports = (self) => {
           } else {
             // Invalid submissionType
             return Promise.reject(new CACCLError({
-              message: 'We could not create a submission to an assignment because the submission type was invalid: "' + options.submissionType + '". Please contact an admin.',
+              message: 'We could not create a submission to an assignment because the submission type was invalid: "' + cg.options.submissionType + '". Please contact an admin.',
               code: errorCodes.invalidSubmissionType,
             }));
           }
 
           // Submission created. Now, create response and uncache paths
           return sendSubmissionPromise.then((response) => {
-            return {
-              response,
-              uncache: [
-                // Uncache list of submissions
-                '/api/v1/courses/' + options.courseId + '/assignments/'
-                  + options.assignmentId + '/submissions',
-                // Uncache this person's submission
-                '/api/v1/courses/' + options.courseId + '/assignments/'
-                  + options.assignmentId + '/submissions/' + submitterId,
-              ],
-            };
+            cg.uncache([
+              // Uncache list of submissions
+              '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+                + cg.options.assignmentId + '/submissions',
+              // Uncache this person's submission
+              '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+                + cg.options.assignmentId + '/submissions/' + submitterId,
+            ]);
+            return Promise.resolve(response);
           });
         });
       },
@@ -558,10 +564,10 @@ module.exports = (self) => {
     {
       name: 'listGradeableStudents',
       action: 'get the list of students who are gradeable in a specific assignment in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/assignments/'
-            + options.assignmentId + '/gradeable_students',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+            + cg.options.assignmentId + '/gradeable_students',
           method: 'GET',
         });
       },
@@ -577,26 +583,24 @@ module.exports = (self) => {
     {
       name: 'createAssignmentSubmissionComment',
       action: 'create a new comment on a submission',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/assignments/'
-            + options.assignmentId + '/submissions/' + options.studentId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+            + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
           method: 'PUT',
           params: {
-            'comment[text_comment]': options.comment,
+            'comment[text_comment]': cg.options.comment,
           },
         }).then((response) => {
-          return {
-            response,
-            uncache: [
-              // Uncache submission
-              '/api/v1/courses/' + options.courseId + '/assignments/'
-                + options.assignmentId + '/submissions/' + options.studentId,
-              // Uncache list of submissions
-              '/api/v1/courses/' + options.courseId + '/assignments/'
-                + options.assignmentId + '/submissions',
-            ],
-          };
+          cg.uncache([
+            // Uncache submission
+            '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+              + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
+            // Uncache list of submissions
+            '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+              + cg.options.assignmentId + '/submissions',
+          ]);
+          return Promise.resolve(response);
         });
       },
     },
@@ -611,26 +615,24 @@ module.exports = (self) => {
     {
       name: 'createAssignmentSubmissionComment',
       action: 'create a new comment on a submission',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/assignments/'
-            + options.assignmentId + '/submissions/' + options.studentId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+            + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
           method: 'PUT',
           params: {
-            'comment[text_comment]': options.comment,
+            'comment[text_comment]': cg.options.comment,
           },
         }).then((response) => {
-          return {
-            response,
-            uncache: [
-              // Uncache submission
-              '/api/v1/courses/' + options.courseId + '/assignments/'
-                + options.assignmentId + '/submissions/' + options.studentId,
-              // Uncache list of submissions
-              '/api/v1/courses/' + options.courseId + '/assignments/'
-                + options.assignmentId + '/submissions',
-            ],
-          };
+          cg.uncache([
+            // Uncache submission
+            '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+              + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
+            // Uncache list of submissions
+            '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+              + cg.options.assignmentId + '/submissions',
+          ]);
+          return Promise.resolve(response);
         });
       },
     },
@@ -668,21 +670,21 @@ module.exports = (self) => {
     {
       name: 'updateAssignmentGrades',
       action: 'update student grades, comments, and/or rubric assessments for a specific assignment in a course',
-      run: (options, visitEndpoint) => {
+      run: (cg) => {
         // Create a promise chain so we can queue promises
         let promiseChain;
 
         /* --- 1. Check if we need to merge --- */
 
         // Check if we need to merge rubric item updates
-        let performRubricItemMerge = !options.dontMergeRubricItemUpdates;
+        let performRubricItemMerge = !cg.options.dontMergeRubricItemUpdates;
         const studentsToMerge = [];
         // Check if merge is necessary
         // > not necessary if no rubric item updates
         if (performRubricItemMerge) {
           performRubricItemMerge = false;
-          for (let i = 0; i < options.gradeItems.length; i++) {
-            if (options.gradeItems[i].rubricId) {
+          for (let i = 0; i < cg.options.gradeItems.length; i++) {
+            if (cg.options.gradeItems[i].rubricId) {
               // Found one rubric item. We may need to merge.
               performRubricItemMerge = true;
               break;
@@ -693,8 +695,8 @@ module.exports = (self) => {
         // Pull assignment so we can get rubric information
         if (performRubricItemMerge) {
           promiseChain = self.getAssignment({
-            courseId: options.courseId,
-            assignmentId: options.assignmentId,
+            courseId: cg.options.courseId,
+            assignmentId: cg.options.assignmentId,
           }).then((assignment) => {
             if (!assignment.rubric) {
               // This assignment doesn't have a rubric
@@ -715,7 +717,7 @@ module.exports = (self) => {
             // > Figure out which students have which rubric items
             const studentToRubricItemsIncluded = {};
             // ^ {studentId => { rubricId => true if being updated }}
-            options.gradeItem.forEach((gradeItem) => {
+            cg.options.gradeItem.forEach((gradeItem) => {
               const { rubricId, studentId } = gradeItem;
 
               // Skip if this item isn't a (real) rubric item
@@ -753,9 +755,9 @@ module.exports = (self) => {
             // Pull student submissions that need to be merged
             const fetchSub = (studentId, next) => {
               self.getAssignmentSubmission({
-                courseId: options.courseId,
-                assignmentId: options.assignmentId,
-                studentId: options.studentId,
+                courseId: cg.options.courseId,
+                assignmentId: cg.options.assignmentId,
+                studentId: cg.options.studentId,
                 includeRubricAssessment: true,
                 excludeUser: true, // Save request space
               }).then((response) => {
@@ -781,7 +783,7 @@ module.exports = (self) => {
                 //      points: true/false, is being overwritten,
                 //      comment: true/false, is being overwritten
                 //    }}
-                options.gradeItem.forEach((gradeItem) => {
+                cg.options.gradeItem.forEach((gradeItem) => {
                   if (!gradeItem.rubricId) {
                     // No need to keep track of non-rubric item updates
                     // (these are not being merged)
@@ -848,7 +850,7 @@ module.exports = (self) => {
               }
 
               // Add rest of grade item updates to params
-              options.gradeItems.forEach((gradeItem) => {
+              cg.options.gradeItems.forEach((gradeItem) => {
                 if (gradeItem.rubricId) {
                   if (gradeItem.points !== undefined) {
                     params['grade_data[' + gradeItem.studentId
@@ -873,20 +875,18 @@ module.exports = (self) => {
               });
 
               // Send request
-              visitEndpoint({
+              cg.visitEndpoint({
                 params,
-                path: '/api/v1/courses/' + options.courseId + '/assignments/'
-                  + options.assignmentId + '/submissions/update_grades',
+                path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+                  + cg.options.assignmentId + '/submissions/update_grades',
                 method: 'POST',
               }).then((response) => {
-                return resolve({
-                  response,
-                  uncache: [
-                    // Uncache submissions endpoint
-                    '/api/v1/courses/' + options.courseId + '/assignments/'
-                      + options.assignmentId + '/submissions',
-                  ],
-                });
+                cg.uncache([
+                  // Uncache submissions endpoint
+                  '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+                    + cg.options.assignmentId + '/submissions',
+                ]);
+                return resolve(response);
               }).catch((updateGradesErr) => {
                 return reject(updateGradesErr);
               });
@@ -895,12 +895,12 @@ module.exports = (self) => {
         });
 
         /* --- 3. Wait for completion (if applicable) --- */
-        if (options.waitForCompletion) {
+        if (cg.options.waitForCompletion) {
           promiseChain = promiseChain.then((progress) => {
             return waitForCompletion({
-              visitEndpoint,
               progress,
-              timeout: options.waitForCompletionTimeout,
+              visitEndpoint: cg.visitEndpoint,
+              timeout: cg.options.waitForCompletionTimeout,
             });
           });
         }

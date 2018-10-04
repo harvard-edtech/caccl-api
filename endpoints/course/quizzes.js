@@ -13,9 +13,9 @@ module.exports = () => {
     {
       name: 'listQuizzes',
       action: 'get the list of quizzes in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/quizzes',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/quizzes',
           method: 'GET',
         });
       },
@@ -30,10 +30,10 @@ module.exports = () => {
     {
       name: 'getQuiz',
       action: 'get info on a specific quiz in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/quizzes/'
-            + options.quizId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/quizzes/'
+            + cg.options.quizId,
           method: 'GET',
         });
       },
@@ -52,10 +52,10 @@ module.exports = () => {
     {
       name: 'listQuizSubmissions',
       action: 'get the list of submissions to a specific quiz in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/quizzes/'
-            + options.quizId + '/submissions',
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/quizzes/'
+            + cg.options.quizId + '/submissions',
           method: 'GET',
         });
       },
@@ -71,10 +71,10 @@ module.exports = () => {
     {
       name: 'getQuizSubmission',
       action: 'get the list of submissions to a specific quiz in a course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId + '/quizzes/'
-            + options.quizId + '/submissions/' + options.submissionId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId + '/quizzes/'
+            + cg.options.quizId + '/submissions/' + cg.options.submissionId,
           method: 'GET',
         });
       },

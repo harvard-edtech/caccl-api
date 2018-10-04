@@ -22,20 +22,21 @@ module.exports = () => {
     {
       name: 'getCourse',
       action: 'get info on a specific course',
-      run: (options, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses/' + options.courseId,
+      run: (cg) => {
+        return cg.visitEndpoint({
+          path: '/api/v1/courses/' + cg.options.courseId,
           method: 'GET',
           params: {
             include: utils.includeTruthyElementsExcludeIfEmpty([
-              (options.includeSyllabus ? 'syllabus_body' : null),
-              (options.includeTerm ? 'term' : null),
-              (options.includeAccount ? 'account' : null),
-              (options.includeDescription ? 'public_description' : null),
-              (options.includeSections ? 'sections' : null),
-              (options.includeTeachers ? 'teachers' : null),
-              (options.includeCourseImage ? 'course_image' : null),
-              (options.includeNeedsGradingCount ? 'needs_grading_count' : null),
+              (cg.options.includeSyllabus ? 'syllabus_body' : null),
+              (cg.options.includeTerm ? 'term' : null),
+              (cg.options.includeAccount ? 'account' : null),
+              (cg.options.includeDescription ? 'public_description' : null),
+              (cg.options.includeSections ? 'sections' : null),
+              (cg.options.includeTeachers ? 'teachers' : null),
+              (cg.options.includeCourseImage ? 'course_image' : null),
+              (cg.options.includeNeedsGradingCount
+                ? 'needs_grading_count' : null),
             ]),
           },
         });

@@ -15,12 +15,12 @@ module.exports = (self) => {
     {
       name: 'listEnrollments',
       action: 'gets enrollments from a course',
-      run: (options, visitEndpoint) => {
+      run: (cg) => {
         const params = {};
 
         // Enrollment types
-        if (options.types) {
-          params.type = options.types.map((type) => {
+        if (cg.options.types) {
+          params.type = cg.options.types.map((type) => {
             if (type.includes('Enrollment')) {
               return type;
             }
@@ -29,26 +29,26 @@ module.exports = (self) => {
         }
 
         // Filter to only active
-        if (options.activeOnly) {
+        if (cg.options.activeOnly) {
           params.state = ['active'];
         }
 
         // Include avatar
-        if (options.includeAvatar) {
+        if (cg.options.includeAvatar) {
           params.include = ['avatar_url'];
         }
 
         // Include groups
-        if (options.includeGroups) {
+        if (cg.options.includeGroups) {
           if (!params.include) {
             params.include = [];
           }
           params.include.push('group_ids');
         }
 
-        return visitEndpoint({
+        return cg.visitEndpoint({
           params,
-          path: '/api/v1/courses/' + options.courseId + '/enrollments',
+          path: '/api/v1/courses/' + cg.options.courseId + '/enrollments',
           method: 'GET',
         });
       },
@@ -64,8 +64,8 @@ module.exports = (self) => {
     {
       name: 'listStudents',
       action: 'get the list of students in a course',
-      run: (options) => {
-        const newOptions = options;
+      run: (cg) => {
+        const newOptions = cg.options;
         newOptions.types = ['student'];
         return self.getEnrollments(newOptions);
       },
@@ -82,8 +82,8 @@ module.exports = (self) => {
     {
       name: 'listTeachingTeamMembers',
       action: 'get the list of TAs and Teachers in a course',
-      run: (options) => {
-        const newOptions = options;
+      run: (cg) => {
+        const newOptions = cg.options;
         newOptions.types = ['ta', 'teacher'];
         return self.getEnrollments(newOptions);
       },
@@ -100,8 +100,8 @@ module.exports = (self) => {
     {
       name: 'listDesigners',
       action: 'get the list of designers in a course',
-      run: (options) => {
-        const newOptions = options;
+      run: (cg) => {
+        const newOptions = cg.options;
         newOptions.types = ['designer'];
         return self.getEnrollments(newOptions);
       },
@@ -118,8 +118,8 @@ module.exports = (self) => {
     {
       name: 'listObserver',
       action: 'get the list of observers in a course',
-      run: (options) => {
-        const newOptions = options;
+      run: (cg) => {
+        const newOptions = cg.options;
         newOptions.types = ['observer'];
         return self.getEnrollments(newOptions);
       },
