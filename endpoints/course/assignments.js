@@ -666,6 +666,7 @@ module.exports = (self) => {
      *     { grammar: ungraded, argument: ungraded, formatting: 9/10 }
      *   Note: merging is an added feature. By default, the Canvas API does not
      *   merge rubric assessments.
+     * @return Progress (see: https://canvas.instructure.com/doc/api/progress.html#Progress)
      */
     {
       name: 'updateAssignmentGrades',

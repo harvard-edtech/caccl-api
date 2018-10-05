@@ -23,44 +23,38 @@ class EndpointsCategory {
     let uncache;
     if (config.cache) {
       // > Create uncache function that changes the cache
-      uncache = (pathOrPaths = {}) => {
-        const paths = (
-          Array.isArray(pathOrPaths) ? pathOrPaths : [pathOrPaths]
-        );
-
-        // Pre-process so we can do one sweep through cache
-        const pathIsBeingUncached = {};
-        const pathPrefixesToUncache = [];
-        paths.forEach((path) => {
-          if (path.endsWith('*')) {
-            // This is a prefix-based path
-            pathPrefixesToUncache.push(path.split('*')[0]);
-          } else {
-            // This is a normal path
-            pathIsBeingUncached[path] = true;
-          }
-        });
-
-        // Uncache individual paths
-        pathPrefixesToUncache.forEach(config.cache.clear);
-
-        // Uncache based on path prefixes
-        if (pathPrefixesToUncache.length > 0) {
-          const cachedKeys = Object.keys(config.cache.getAll());
-          cachedKeys.forEach((key) => {
-            for (let i = 0; i < pathPrefixesToUncache.length; i++) {
-              if (key.startsWith(pathPrefixesToUncache[i])) {
-                // Uncache this path
-                config.cache.clear(key);
-                break;
-              }
+      uncache = (paths, response) => {
+        return config.cache.getAllPaths().then((cachedPaths) => {
+          // Find paths that need to be uncached
+          const pathsToUncache = [];
+          paths.forEach((path) => {
+            if (path.endsWith('*')) {
+              // This is a prefix-based path. Loop to find paths that match.
+              const prefix = path.split('*')[0];
+              cachedPaths.forEach((cachedPath) => {
+                if (cachedPath.startsWith(prefix)) {
+                  // Prefix matches! Uncache this!
+                  pathsToUncache.push(cachedPath);
+                }
+              });
+            } else {
+              // This is a normal path. Just add it.
+              pathsToUncache.push(path);
             }
           });
-        }
+
+          // Uncache
+          return config.cache.deletePaths(pathsToUncache);
+        }).then(() => {
+          // Finally resolve with response
+          return Promise.resolve(response);
+        });
       };
     } else {
       // > Use a dummy function so uncaching doesn't crash
-      uncache = () => {};
+      uncache = (_, response) => {
+        return Promise.resolve(response);
+      };
     }
 
     // Turn each endpoint into a function

@@ -14,7 +14,7 @@ module.exports = (self) => {
      */
     {
       name: 'listEnrollments',
-      action: 'gets enrollments from a course',
+      action: 'get enrollments from a course',
       run: (cg) => {
         const params = {};
 

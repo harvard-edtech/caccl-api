@@ -1,4 +1,8 @@
-const EXCLUDED_PARAM = '-=EXCLUDED_PARAMETER=-';
+const EXCLUDED_NAMES = [
+  'dontCache',
+  'ignoreCache',
+];
+const EXCLUDED_VALUE = '-=EXCLUDED_PARAMETER=-';
 
 // Wrap visitEndpoint to add two new features:
 // > Adds access tokens to each request
@@ -15,59 +19,77 @@ function wrapVisitEndpoint(config) {
       storeInCache = false;
     }
 
-    // Check for cached value, resolve if it exists
+    // Check for cached value
+    let getCachedValue;
     if (lookupInCache) {
-      const cachedValue = config.cache.get(options.path);
+      getCachedValue = config.cache.get(options.path);
+    } else {
+      getCachedValue = Promise.resolve(null);
+    }
+
+    return getCachedValue.then((cachedValue) => {
       if (cachedValue) {
-        // Resolve with cached value
-        // > Cached value may be a promise or a value. Either way,
-        //   Promise.resolve(...) turns the value into a Promise, so our
-        //   returned value is always a Promise.
+        // Convert to promise and resolve
         return Promise.resolve(cachedValue);
       }
-    }
 
-    // Remove excluded parameters
-    const newParams = {};
-    Object.keys(options.params || {}).forEach((key) => {
-      if (options.params[key] !== EXCLUDED_PARAM) {
-        newParams[key] = options.params[key];
-      }
-    });
+      // No cached value. Need to visit the endpoint
 
-    // Add access token to request
-    if (config.accessToken) {
-      newParams.access_token = config.accessToken;
-    }
-
-    // Create new options
-    const requestOptions = options;
-    requestOptions.params = newParams;
-    requestOptions.method = options.method || 'GET';
-
-    // Send new request
-    const valuePromise = config.visitEndpoint(requestOptions)
-      .then((response) => {
-        // Success!
-
-        // Cache if applicable
-        if (storeInCache && !config.cache.storePromises) {
-          // Store the value
-          config.cache.set(options.path, response);
+      // Pre-process params
+      // > Remove excluded parameters
+      const newParams = {};
+      Object.keys(options.params || {}).forEach((key) => {
+        // Exclude by name
+        if (EXCLUDED_NAMES.indexOf(key) >= 0) {
+          return;
         }
-
-        // Resolve with result
-        return Promise.resolve(response);
+        // Exclude by value
+        if (EXCLUDED_VALUE === options.params[key]) {
+          return;
+        }
+        // Not excluded. Include this.
+        newParams[key] = options.params[key];
       });
+      // > Add access token to request (if we have one)
+      if (config.accessToken) {
+        newParams.access_token = config.accessToken;
+      }
 
-    // Immediately store the promise, if possible
-    if (storeInCache && config.cache.storePromises) {
-      // Store the promise
-      config.cache.set(options.path, valuePromise);
-    }
+      // Pre-process options
+      const requestOptions = options;
+      requestOptions.params = newParams;
+      requestOptions.method = options.method || 'GET';
 
-    // Resolve with value
-    return valuePromise;
+      // Send request
+      const valuePromise = config.visitEndpoint(requestOptions)
+        .then((response) => {
+          // Success!
+
+          // Cache value if applicable
+          if (storeInCache && !config.cache.storePromises) {
+            // Save to cache and then resolve with response
+            return config.cache.set(options.path, newParams, response)
+              .then(() => {
+                return Promise.resolve(response);
+              });
+          }
+
+          // Not caching value. Just resolve.
+          return Promise.resolve(response);
+        });
+
+      // Cache promise if applicable
+      if (storeInCache && config.cache.storePromises) {
+        // Save promise to cache then resolve with promise
+        return config.cache.set(options.path, newParams, valuePromise)
+          .then(() => {
+            return valuePromise;
+          });
+      }
+
+      // Not caching promise. Just return value promise.
+      return valuePromise;
+    });
   };
 }
 
