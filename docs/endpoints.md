@@ -2,6 +2,7 @@
 
 <!-- Embedded styles: -->
 <style>
+/* Invert and add tab style */
 h1 {
     border-bottom: solid black 4px;
     text-align: center;
@@ -20,6 +21,7 @@ h1:before {
     padding-right: 10px;
     padding-top: 5px;
 }
+
 
 /* Remove bottom line for normal h2 */
 h2 {
