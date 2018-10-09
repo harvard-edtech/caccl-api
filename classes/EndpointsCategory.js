@@ -62,7 +62,7 @@ class EndpointsCategory {
     // Loop through all endpoint definition files in the category
     endpointsFiles.forEach((endpointsFile) => {
       // For each endpoint definition file, loop through all endpoints
-      endpointsFile(this).forEach((endpoint) => {
+      endpointsFile.forEach((endpoint) => {
         // Add this endpoint to the current EntpointsCategory instance
         // > Use endpoint.name as the function name
         // > Before running, create a visitEndpoint function that caches
@@ -99,6 +99,7 @@ class EndpointsCategory {
             options,
             visitEndpoint,
             uncache,
+            self: this,
           };
           const runPromise = endpoint.run(cg);
 

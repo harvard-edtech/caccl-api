@@ -88,7 +88,7 @@ module.exports = {
 {
 	name: 'listStudents',
 	action: 'get the student roster from a course',
-	run: (options, visitEndpoint) => {
+	run: (cg) => {
 		// ...
 	},
 }
@@ -126,13 +126,13 @@ Example actions:
 - "get an assignment in a course"
 - "upload a file to a student's submission"
 
-### `run(options, visitEndpoint)` is the function that'll run when the endpoint is called
+### `run(cg)` is the function that'll run when the endpoint is called
 
-#### Arguments
-
-The run function must take _at most two_ arguments called `options` and `visitEndpoint`. If your endpoint has no options but requires `visitEndpoint`, you may ignore options: `run(_, visitEndpoint)`.
+#### cg properties
 
 `options` should be an object that contains all info passed from the endpoint caller.
+
+`self` is the current endpoint category object.
 
 `visitEndpoint` is a function you can use to visit a specific Canvas API endpoint. Call it as follows:
 
@@ -189,29 +189,19 @@ If not uncaching anything, just return the response.
 
 ## Calling other endpoints in the category from within an endpoint
 
-Within an endpoints file (inside a category folder), if any of the endpoints in the file need to call other endpoints in the category, include `self` as an argument to the exported function in the file. In other words, your endpoints file `/endpoints/categoryname/filename.js` should look like:
+Use the `cg.self` to call other endpoints within the category.
 
-```js
-module.exports = (self) => {
-    return [
-        // Endpoint definitions go here
-    ];
-});
-```
-
-Then, inside the `run(options,visitEndpoint)` function, you may use `self` to call other endpoints.
-
-**Note:** You do not need to include `visitEndpoint` when calling other endpoints (it's included automatically). See example:
+**Note:** Only include `options`. Do not include the whole `cg` object. See example:
 
 ```js
 ...
     {
       name: 'listStudents',
       action: 'get the list of students in a course',
-      run: (options) => {
+      run: (cg) => {
         const newOptions = options;
         newOptions.types = ['student'];
-        return self.getEnrollments(newOptions);
+        return cg.self.getEnrollments(newOptions);
       },
     },
 ...
@@ -232,9 +222,7 @@ Then, inside the `run(options,visitEndpoint)` function, you may use `self` to ca
 2. Fill the file with this skeleton:
 
 ```js
-module.exports = () => {
-    return [
-        // Endpoint definitions go here
-    ];
-});
+module.exports = [
+  // Endpoint definitions go here
+];
 ```
