@@ -21,6 +21,12 @@ class SessionCache {
     }
   }
 
+  /**
+   * Gets a value given the key pair (path, param)
+   * @param {string} path - The url path that is cached
+   * @param {object} params - The get parameters for the cached request
+   * @return Promise that resolves with cached value
+   */
   get(path, params) {
     if (
       path
@@ -34,6 +40,13 @@ class SessionCache {
     return Promise.resolve();
   }
 
+  /**
+   * Saves a value to the key pair (path, param), fetchable using get function
+   * @param {string} path - The url path to cache
+   * @param {object} params - The get parameters to cache
+   * @param {string} value - The value to cache
+   * @return Promise that resolves when set and save are complete
+   */
   set(path, params, value) {
     if (
       !path
@@ -57,6 +70,10 @@ class SessionCache {
     return this._save();
   }
 
+  /**
+   * Deletes a specific path (and all associated params) from the cache
+   * @return Promise that resolves when the path is deleted
+   */
   deletePaths(paths) {
     if (!paths) {
       // Nothing to delete (no paths)
@@ -71,15 +88,27 @@ class SessionCache {
     return this._save();
   }
 
+  /**
+   * Gets the list of all cached paths
+   * @return Promise that resolves with the list of cached paths
+   */
   getAllPaths() {
     return Promise.resolve(Object.keys(this._req.session.cache));
   }
 
+  /**
+   * Deletes the entire cache
+   * @return Promise that resolves when delete is complete
+   */
   deleteAllPaths() {
     this._req.session.cache = {};
     return this._save();
   }
 
+  /**
+   * Saves the current state of the session via express session
+   * @return Promise that resolves when save is complete
+   */
   _save() {
     return new Promise((resolve, reject) => {
       this._req.session.save((err) => {
