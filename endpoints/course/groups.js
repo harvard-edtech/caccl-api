@@ -62,11 +62,10 @@ module.exports = [
           members: utils.extractIdsIfApplicable(cg.options.users),
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache the list of group members
           '/api/v1/groups/' + cg.options.groupId + '/users',
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },

@@ -58,13 +58,12 @@ module.exports = [
           name: cg.options.name || 'Unnamed Group Set',
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache list of group sets
           '/api/v1/courses/' + cg.options.courseId + '/group_categories',
           // Uncache specific group set (in case it was already hit)
           '/api/v1/group_categories/' + response.id,
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -83,13 +82,12 @@ module.exports = [
         path: '/api/v1/group_categories/' + cg.options.groupSetId,
         method: 'DELETE',
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache list of group sets
           '/api/v1/courses/' + cg.options.courseId + '/group_categories',
           // Uncache specific group set
           '/api/v1/group_categories/' + cg.options.groupSetId,
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -151,13 +149,12 @@ module.exports = [
           is_public: utils.isTruthy(cg.options.isPublic),
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache group set list
           '/api/v1/courses/' + cg.options.courseId + '/group_categories',
           // Uncache group set
           '/api/v1/group_categories/' + cg.options.groupSetId,
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -177,13 +174,12 @@ module.exports = [
         path: '/api/v1/groups/' + cg.options.groupId,
         method: 'DELETE',
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache group
           '/api/v1/groups/' + cg.options.groupId,
           // Uncache group set list of group
           '/api/v1/group_categories/' + cg.options.groupSetId + '/groups',
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },

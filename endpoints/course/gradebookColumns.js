@@ -51,12 +51,11 @@ module.exports = [
           'column[hidden]': utils.includeIfBoolean(cg.options.hidden),
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache custom gradebook column list
           '/api/v1/courses/' + cg.options.courseId
             + '/custom_gradebook_columns/' + cg.options.columnId,
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -86,15 +85,14 @@ module.exports = [
           'column[position]': utils.includeIfNumber(cg.options.position),
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache custom gradebook column list
           '/api/v1/courses/' + cg.options.courseId
             + '/custom_gradebook_columns',
           // Uncache custom gradebook column
           '/api/v1/courses/' + cg.options.courseId
             + '/custom_gradebook_columns/' + response.id,
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -114,15 +112,14 @@ module.exports = [
           + '/custom_gradebook_columns/' + cg.options.columnId,
         method: 'DELETE',
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache custom gradebook column list
           '/api/v1/courses/' + cg.options.courseId
             + '/custom_gradebook_columns',
           // Uncache custom gradebook column
           '/api/v1/courses/' + cg.options.courseId
             + '/custom_gradebook_columns/' + cg.options.columnId,
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -183,20 +180,19 @@ module.exports = [
           column_data: columnData,
         },
       }).then((progress) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache column data
           '/api/v1/courses/' + cg.options.courseId
             + '/custom_gradebook_columns/' + cg.options.columnId + '/data',
-        ]);
-        if (cg.options.waitForCompletion) {
-          return waitForCompletion({
-            visitEndpoint: cg.visitEndpoint,
-            progress,
-            timeout: cg.options.waitForCompletionTimeout,
-          });
-        }
-        // Not waiting. Just return current progress
-        return Promise.resolve(progress);
+        ]).then(() => {
+          if (cg.options.waitForCompletion) {
+            return waitForCompletion({
+              visitEndpoint: cg.visitEndpoint,
+              progress,
+              timeout: cg.options.waitForCompletionTimeout,
+            });
+          }
+        });
       });
     },
   },

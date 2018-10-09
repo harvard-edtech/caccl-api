@@ -70,14 +70,13 @@ module.exports = [
           'wiki_page[front_page]': utils.includeIfBoolean(cg.options.frontPage),
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache list of pages
           '/api/v1/courses/' + cg.options.courseId + '/pages',
           // Uncache this specific page (in case someone pinged it before)
           '/api/v1/courses/' + cg.options.courseId + '/pages/'
             + cg.options.pageURL,
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -111,14 +110,13 @@ module.exports = [
           'wiki_page[front_page]': utils.isTruthy(cg.options.frontPage),
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache list of pages
           '/api/v1/courses/' + cg.options.courseId + '/pages',
           // Uncache this specific page (in case someone pinged it before)
           '/api/v1/courses/' + cg.options.courseId + '/pages/'
             + response.url,
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -138,14 +136,13 @@ module.exports = [
           + cg.options.pageURL,
         method: 'DELETE',
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache list of pages
           '/api/v1/courses/' + cg.options.courseId + '/pages',
           // Uncache this specific page
           '/api/v1/courses/' + cg.options.courseId + '/pages/'
             + cg.options.pageURL,
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },

@@ -58,14 +58,13 @@ module.exports = [
           group_weight: utils.includeIfNumber(cg.options.weight),
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache list of assignment groups
           '/api/v1/courses/' + cg.options.courseId + '/assignment_groups',
           // Uncache specific assignment group
           '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/'
             + cg.options.assignmentGroupId + '*',
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -89,14 +88,13 @@ module.exports = [
           group_weight: utils.includeIfNumber(cg.options.weight),
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache list of assignment groups
           '/api/v1/courses/' + cg.options.courseId + '/assignment_groups',
           // Uncache specific assignment group
           '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/'
             + response.id + '*',
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -136,8 +134,7 @@ module.exports = [
           uncachePaths.push('/api/v1/courses/' + cg.options.courseId
             + '/assignment_groups/' + cg.options.moveAssignmentsTo + '*');
         }
-        cg.uncache(uncachePaths);
-        return Promise.resolve(response);
+        return cg.uncache(uncachePaths, response);
       });
     },
   },

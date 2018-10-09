@@ -127,14 +127,13 @@ module.exports = [
           'assignment[muted]': utils.includeIfBoolean(cg.options.muted),
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache assignment and sub-endpoints
           '/api/v1/courses/' + cg.options.courseId + '/assignments/'
             + cg.options.assignmentId + '*',
           // Uncache assignment list
           '/api/v1/courses/' + cg.options.courseId + '/assignments',
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -211,14 +210,13 @@ module.exports = [
           'assignment[muted]': utils.isTruthy(cg.options.muted),
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache assignment and sub-endpoints
           '/api/v1/courses/' + cg.options.courseId + '/assignments/'
             + cg.options.assignmentId + '*',
           // Uncache assignment list
           '/api/v1/courses/' + cg.options.courseId + '/assignments',
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -238,14 +236,13 @@ module.exports = [
           + cg.options.assignmentId,
         method: 'DELETE',
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache assignment and sub-endpoints
           '/api/v1/courses/' + cg.options.courseId + '/assignments/'
             + cg.options.assignmentId + '*',
           // Uncache assignment list
           '/api/v1/courses/' + cg.options.courseId + '/assignments',
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -537,15 +534,14 @@ module.exports = [
 
         // Submission created. Now, create response and uncache paths
         return sendSubmissionPromise.then((response) => {
-          cg.uncache([
+          return cg.uncache([
             // Uncache list of submissions
             '/api/v1/courses/' + cg.options.courseId + '/assignments/'
               + cg.options.assignmentId + '/submissions',
             // Uncache this person's submission
             '/api/v1/courses/' + cg.options.courseId + '/assignments/'
               + cg.options.assignmentId + '/submissions/' + submitterId,
-          ]);
-          return Promise.resolve(response);
+          ], response);
         });
       });
     },
@@ -591,15 +587,14 @@ module.exports = [
           'comment[text_comment]': cg.options.comment,
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache submission
           '/api/v1/courses/' + cg.options.courseId + '/assignments/'
             + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
           // Uncache list of submissions
           '/api/v1/courses/' + cg.options.courseId + '/assignments/'
             + cg.options.assignmentId + '/submissions',
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -623,15 +618,14 @@ module.exports = [
           'comment[text_comment]': cg.options.comment,
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache submission
           '/api/v1/courses/' + cg.options.courseId + '/assignments/'
             + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
           // Uncache list of submissions
           '/api/v1/courses/' + cg.options.courseId + '/assignments/'
             + cg.options.assignmentId + '/submissions',
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -881,11 +875,12 @@ module.exports = [
                 + cg.options.assignmentId + '/submissions/update_grades',
               method: 'POST',
             }).then((response) => {
-              cg.uncache([
+              return cg.uncache([
                 // Uncache submissions endpoint
                 '/api/v1/courses/' + cg.options.courseId + '/assignments/'
                   + cg.options.assignmentId + '/submissions',
-              ]);
+              ], response);
+            }).then((response) => {
               return resolve(response);
             }).catch((updateGradesErr) => {
               return reject(updateGradesErr);

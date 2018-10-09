@@ -65,11 +65,10 @@ module.exports = [
           icon_url: utils.includeIfTruthy(cg.options.icon),
         },
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache app list endpoint
           '/api/v1/courses/' + cg.options.courseId + '/external_tools',
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
@@ -89,14 +88,13 @@ module.exports = [
           + '/external_tools/' + cg.options.appId,
         method: 'DELETE',
       }).then((response) => {
-        cg.uncache([
+        return cg.uncache([
           // Uncache get app endpoint
           '/api/v1/courses/' + cg.options.courseId
             + '/external_tools/' + cg.options.appId,
           // Uncache app list endpoint
           '/api/v1/courses/' + cg.options.courseId + '/external_tools',
-        ]);
-        return Promise.resolve(response);
+        ], response);
       });
     },
   },
