@@ -1,7 +1,6 @@
-function _hashParams(params) {
-  return JSON.stringify(params);
-}
+const hashParams = require('./helpers/hashParams.js');
 
+// Class that stores cache in memory
 class MemoryCache {
   constructor() {
     this._map = new Map();
@@ -15,7 +14,7 @@ class MemoryCache {
       && this._map.has(path)
     ) {
       // This path has some cached values. Look up based on params
-      const paramsKey = _hashParams(params);
+      const paramsKey = hashParams(params);
       return Promise.resolve(this._map.get(path).get(paramsKey));
     }
     return Promise.resolve();
@@ -37,7 +36,7 @@ class MemoryCache {
     }
 
     // Store new triplet
-    const paramsKey = _hashParams(params);
+    const paramsKey = hashParams(params);
     this._map.get(path).set(paramsKey, value);
     return Promise.resolve();
   }

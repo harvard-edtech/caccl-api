@@ -2,8 +2,8 @@ const CACCLError = require('../../caccl-error/index.js'); // TODO: Switch to act
 const errorCodes = require('../errorCodes.js');
 
 const genVisitEndpoint = require('../../caccl-visit-endpoint/index.js'); // TODO: Switch to actual node module
-const MemoryCache = require('./MemoryCache.js');
-const SessionCache = require('./SessionCache.js');
+const MemoryCache = require('./caches/MemoryCache.js');
+const SessionCache = require('./caches/SessionCache.js');
 
 // Endpoints categories
 const EndpointsCategory = require('./EndpointsCategory.js');

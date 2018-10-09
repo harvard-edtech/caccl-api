@@ -1,9 +1,6 @@
-const CACCLError = require('../../caccl-error/index.js');
-const errorCodes = require('../errorCodes.js');
-
-function _hashParams(params) {
-  return JSON.stringify(params);
-}
+const CACCLError = require('../../../caccl-error/index.js');
+const errorCodes = require('../../errorCodes.js');
+const hashParams = require('./helpers/hashParams.js');
 
 class SessionCache {
   constructor(req) {
@@ -31,7 +28,7 @@ class SessionCache {
       && this._req.session.cache[path]
     ) {
       // This path has some cached values. Look up based on params
-      const paramsKey = _hashParams(params);
+      const paramsKey = hashParams(params);
       return Promise.resolve(this._req.session.cache[path][paramsKey]);
     }
     return Promise.resolve();
@@ -53,7 +50,7 @@ class SessionCache {
     }
 
     // Store new triplet
-    const paramsKey = _hashParams(params);
+    const paramsKey = hashParams(params);
     this._req.session.cache[path][paramsKey] = value;
 
     // Save
