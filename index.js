@@ -1,3 +1,3 @@
-const SmartEndpoints = require('./classes/SmartEndpoints.js');
+const CanvasAPI = require('./classes/CanvasAPI.js');
 
-module.exports = SmartEndpoints;
+module.exports = CanvasAPI;
