@@ -1,19 +1,17 @@
-module.exports = () => {
-  return [
+module.exports = [
 
-    /**
-     * Gets the list of courses associated with the current user
-     */
-    {
-      name: 'listCourses',
-      action: 'get the list of courses associated with the current user',
-      run: (_, visitEndpoint) => {
-        return visitEndpoint({
-          path: '/api/v1/courses',
-          method: 'GET',
-        });
-      },
+  /**
+   * Gets the list of courses associated with the current user
+   */
+  {
+    name: 'listCourses',
+    action: 'get the list of courses associated with the current user',
+    run: (_, visitEndpoint) => {
+      return visitEndpoint({
+        path: '/api/v1/courses',
+        method: 'GET',
+      });
     },
+  },
 
-  ];
-};
+];
