@@ -389,16 +389,22 @@ module.exports = [
           cg.options.submissionType === 'text'
           || cg.options.submissionType === 'url'
         ) {
-          // Detect submission type
-          let submissionType = 'online_text_entry';
-          if (cg.options.submissionType) {
-            submissionType = 'online_url';
-          }
-          sendSubmissionPromise = cg.visitEndpoint({
-            'submission[submission_type]': submissionType,
-            'submission[body]': cg.options.body || '',
+          const subParams = {
             'comment[text_comment]':
               utils.includeIfTruthy(cg.options.comment),
+          };
+          if (cg.options.submissionType === 'url') {
+            subParams['submission[url]'] = cg.options.body;
+            subParams['submission[submission_type]'] = 'online_url';
+          } else {
+            subParams['submission[body]'] = cg.options.body;
+            subParams['submission[submission_type]'] = 'online_text_entry';
+          }
+          sendSubmissionPromise = cg.visitEndpoint({
+            path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
+              + cg.options.assignmentId + '/submissions',
+            method: 'POST',
+            params: subParams,
           });
         } else if (cg.options.submissionType === 'upload') {
           // File submission
