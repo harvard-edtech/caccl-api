@@ -59,8 +59,6 @@ Usefule endpoint facts:
 * In addition to defined inputs, you can always include any of the following options:
   * `ignoreCache` - If true, endpoint won't return the cached version if it exists.
   * `dontCache` - If true, endpoint response won't be cached.
-  * `perPage` - If defined, overwrites the default #objects/page.
-  * `maxPages` - If defined, only requests this many pages.
 
 <h2 body="Table of Contents" class="horizontalLined">Table of Contents<span></span></h2>
 
@@ -85,6 +83,13 @@ Usefule endpoint facts:
     * [course.createAssignmentGroup(options)](#function-course-assignmentGroups-createAssignmentGroup
 )
     * [course.deleteAssignmentGroup(options)](#function-course-assignmentGroups-deleteAssignmentGroup
+)
+* Subcategory: [assignmentOverrides](#subcategory-course-assignmentOverrides)
+    * [course.listAssignmentOverrides(options)](#function-course-assignmentOverrides-listAssignmentOverrides
+)
+    * [course.getAssignmentOverride(options)](#function-course-assignmentOverrides-getAssignmentOverride
+)
+    * [course.createAssignmentOverride(options)](#function-course-assignmentOverrides-createAssignmentOverride
 )
 * Subcategory: [assignments](#subcategory-course-assignments)
     * [course.listAssignments(options)](#function-course-assignments-listAssignments
@@ -181,6 +186,9 @@ Usefule endpoint facts:
     * [course.listQuizSubmissions(options)](#function-course-quizzes-listQuizSubmissions
 )
     * [course.getQuizSubmission(options)](#function-course-quizzes-getQuizSubmission
+)
+* Subcategory: [rubrics](#subcategory-course-rubrics)
+    * [course.createRubric(options)](#function-course-rubrics-createRubric
 )
 * Subcategory: [sections](#subcategory-course-sections)
     * [course.listSections(options)](#function-course-sections-listSections
@@ -349,6 +357,60 @@ Deletes an assignment group from a course
 
 
 **Resolves to:** [AssignmentGroup](https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
+
+<a name="subcategory-course-assignmentOverrides"></a>
+<h2 body="Subcategory: assignmentOverrides" class="horizontalLined">Subcategory: assignmentOverrides<span></span></h2>
+
+<a name="function-course-assignmentOverrides-listAssignmentOverrides
+"></a>
+### course.listAssignmentOverrides(options)
+Gets the list of overrides for an assignment
+
+**Inputs:**
+
+* **courseId** [number] – Canvas course id to query
+* **assignmentId** [number] – Canvas assignment id to look up
+
+
+**Resolves to:** [list of AssignmentOverrides](https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
+
+<hr>
+
+<a name="function-course-assignmentOverrides-getAssignmentOverride
+"></a>
+### course.getAssignmentOverride(options)
+Get a specific override on an assignment in a course
+
+**Inputs:**
+
+* **courseId** [number] – Canvas course id to query
+* **assignmentId** [number] – Canvas assignment id to query
+* **overrideId** [number] – Canvas override id to look up
+
+
+**Resolves to:** [AssignmentOverride](https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
+
+<hr>
+
+<a name="function-course-assignmentOverrides-createAssignmentOverride
+"></a>
+### course.createAssignmentOverride(options)
+Create student override // TODO: continue writing endpoints
+
+**Inputs:**
+
+* **courseId** [number] – Canvas course id
+* **assignmentId** [number] – Canvas assignment id
+* **studentIDs** [array] – List of Canvas student IDs to override
+* **groupId** [number] – Group to override (must be a group assignment)
+* **sectionId** [number] – Section to override
+* **title** [string] – Title of the override<br>&nbsp;&nbsp;_- Optional. Defaults to:  "Override for student <studentID> in assignment <assignmentID>" if only one student or "Override for X students in assignment <assignmentID>" if many students_
+* **dueAt** [string] – New due date for student<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
+* **unlockAt** [string] – New unlock date for student<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
+* **lockAt** [string] – New lock date for student<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
+
+
+**Resolves to:** [AssignmentOverride](https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
 
 <a name="subcategory-course-assignments"></a>
 <h2 body="Subcategory: assignments" class="horizontalLined">Subcategory: assignments<span></span></h2>
@@ -570,6 +632,8 @@ Batch updates grades and/or comments. Also supports updating rubric items
 * **waitForCompletionTimeout** [number] – The number of minutes to wait before timing out the grade update job<br>&nbsp;&nbsp;_- Optional. Defaults to:  2 mins_
 * **dontMergeRubricItemUpdates** [boolean] – When uploading grades to a rubric item, we intelligently merge rubric item updates with previous rubric assessments. For instance, if the assignment's rubric is: { grammar, argument, formatting } And the student of interest has the following rubric assessment so far: { grammar: 10/10, argument: 8/10, formatting: ungraded } When we upload a new gradeItem (9/10 points) to the student's formatting rubric item, the result is: { grammar: 10/10, argument: 8/10, formatting: 9/10 } However, if dontMergeRubricItemUpdates=true, the result is: { grammar: ungraded, argument: ungraded, formatting: 9/10 } Note: merging is an added feature. By default, the Canvas API does not merge rubric assessments.
 
+
+**Resolves to:** [Progress](https://canvas.instructure.com/doc/api/progress.html#Progress)
 
 <a name="subcategory-course-course"></a>
 <h2 body="Subcategory: course" class="horizontalLined">Subcategory: course<span></span></h2>
@@ -1087,6 +1151,21 @@ Gets info on a specific submission to a quiz in a course
 
 
 **Resolves to:** [QuizSubmission](https://canvas.instructure.com/doc/api/quiz_submissions.html)
+
+<a name="subcategory-course-rubrics"></a>
+<h2 body="Subcategory: rubrics" class="horizontalLined">Subcategory: rubrics<span></span></h2>
+
+<a name="function-course-rubrics-createRubric
+"></a>
+### course.createRubric(options)
+Creates a new rubric
+
+**Inputs:**
+
+* **courseId** [number] – Canvas course Id to get info on
+
+
+**Resolves to:** [Course](https://canvas.instructure.com/doc/api/courses.html#Course)
 
 <a name="subcategory-course-sections"></a>
 <h2 body="Subcategory: sections" class="horizontalLined">Subcategory: sections<span></span></h2>

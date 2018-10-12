@@ -34,9 +34,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
   intro += '* To call a endpoint, use: `category.funcName(...)`. The subcategory does not affect how you call the endpoint.\n';
   intro += '* In addition to defined inputs, you can always include any of the following options:\n';
   intro += '  * `ignoreCache` - If true, endpoint won\'t return the cached version if it exists.\n';
-  intro += '  * `dontCache` - If true, endpoint response won\'t be cached.\n';
-  intro += '  * `perPage` - If defined, overwrites the default #objects/page.\n';
-  intro += '  * `maxPages` - If defined, only requests this many pages.\n\n';
+  intro += '  * `dontCache` - If true, endpoint response won\'t be cached.\n\n';
 
   // Add table of contents
   intro += genH2('Table of Contents');
@@ -80,7 +78,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
       doc += genH2('Subcategory: ' + subcatName, fileIndex === 0) + '\n\n';
       intro += '* Subcategory: [' + subcatName + '](#' + subcatId + ')\n';
       const endpointDefinitions = (
-        require('../../endpoints/' + category + '/' + endpointsFile)({})
+        require('../../endpoints/' + category + '/' + endpointsFile)
       );
 
       // Split file into endpoints
