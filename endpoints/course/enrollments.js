@@ -66,7 +66,7 @@ module.exports = [
     run: (cg) => {
       const newOptions = cg.options;
       newOptions.types = ['student'];
-      return cg.self.getEnrollments(newOptions);
+      return cg.self.listEnrollments(newOptions);
     },
   },
 
@@ -84,7 +84,7 @@ module.exports = [
     run: (cg) => {
       const newOptions = cg.options;
       newOptions.types = ['ta', 'teacher'];
-      return cg.self.getEnrollments(newOptions);
+      return cg.self.listEnrollments(newOptions);
     },
   },
 
@@ -102,7 +102,7 @@ module.exports = [
     run: (cg) => {
       const newOptions = cg.options;
       newOptions.types = ['designer'];
-      return cg.self.getEnrollments(newOptions);
+      return cg.self.listEnrollments(newOptions);
     },
   },
 
@@ -120,7 +120,7 @@ module.exports = [
     run: (cg) => {
       const newOptions = cg.options;
       newOptions.types = ['observer'];
-      return cg.self.getEnrollments(newOptions);
+      return cg.self.listEnrollments(newOptions);
     },
   },
 
