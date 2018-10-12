@@ -2,8 +2,19 @@ const api = require('./genInstructorAPI.js')();
 const courseId = require('./environment.js').testCourseId;
 
 describe('Enrollments Endpoints', function () {
-  this.timeout(5000);
+  it('Lists enrollments', function () {
+    this.timeout(5000);
+    return api.course.listEnrollments({
+      courseId,
+    }).then((enrollments) => {
+      if (!enrollments || enrollments.length === 0) {
+        throw new Error('No enrollments returned');
+      }
+    });
+  });
+
   it('Lists students', function () {
+    this.timeout(5000);
     return api.course.listStudents({
       courseId,
     }).then((students) => {
