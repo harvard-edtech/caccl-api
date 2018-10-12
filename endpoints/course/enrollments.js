@@ -115,7 +115,7 @@ module.exports = [
    * @return list of Enrollments (see: https://canvas.instructure.com/doc/api/enrollments.html#Enrollment)
    */
   {
-    name: 'listObserver',
+    name: 'listObservers',
     action: 'get the list of observers in a course',
     run: (cg) => {
       const newOptions = cg.options;
