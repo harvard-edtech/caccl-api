@@ -2,6 +2,7 @@ const CACCLError = require('../../../caccl-error/index.js'); // TODO: use actual
 const errorCodes = require('../../errorCodes.js');
 const defaultSendRequest = require('./helpers/defaultSendRequest.js');
 const interpretCanvasError = require('./helpers/interpretCanvasError.js');
+const preProcessParams = require('./helpers/preProcessParams.js');
 
 /*
 config:
@@ -10,6 +11,7 @@ config:
   - itemsPerPage
   - host
 - sendRequest
+- accessToken
 */
 module.exports = (config = {}) => {
   // Initialize defaults if excluded
@@ -24,7 +26,6 @@ module.exports = (config = {}) => {
     return new Promise((resolve, reject) => {
       // Extract options, set defaults
       const { path, dontParse } = options;
-      let params = options.params || {};
       const method = options.method || 'GET';
       const numRetries = options.numRetries || defaults.numRetries;
       const apiPathPrefix = (
@@ -33,23 +34,13 @@ module.exports = (config = {}) => {
         || ''
       );
       const { maxPages } = options; // Fetch all pages if 0/null/undefined
-      const host = params.host || defaults.host;
+      const host = options.host || defaults.host;
 
-      // Set up number of entries per page
-      if (method === 'GET' && !params.per_page) {
-        params.per_page = (params.itemsPerPage || defaults.itemsPerPage);
-      }
-
-      // Reformat params for Canvas (use repeat array format)
-      const newParams = {};
-      Object.keys(params).forEach((key) => {
-        if (Array.isArray(params[key])) {
-          newParams[key + '[]'] = params[key];
-        } else {
-          newParams[key] = params[key];
-        }
+      const params = preProcessParams({
+        options,
+        defaults,
+        accessToken: config.accessToken,
       });
-      params = newParams;
 
       // Fetch all pages
       const pages = [];
