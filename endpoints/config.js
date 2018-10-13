@@ -1,6 +1,7 @@
 // Course
 const courseApps = require('./course/apps.js');
 const courseAssignmentGroups = require('./course/assignmentGroups.js');
+const courseAssignmentOverrides = require('./course/assignmentOverrides.js');
 const courseAssignments = require('./course/assignments.js');
 const courseCourse = require('./course/course.js');
 const courseEnrollments = require('./course/enrollments.js');
@@ -9,6 +10,7 @@ const courseGroups = require('./course/groups.js');
 const courseGroupSets = require('./course/groupSets.js');
 const coursePages = require('./course/pages.js');
 const courseQuizzes = require('./course/quizzes.js');
+const courseRubrics = require('./course/rubrics.js');
 const courseSections = require('./course/sections.js');
 
 // User
@@ -19,6 +21,7 @@ module.exports = {
   course: [
     courseApps,
     courseAssignmentGroups,
+    courseAssignmentOverrides,
     courseAssignments,
     courseCourse,
     courseEnrollments,
@@ -27,6 +30,7 @@ module.exports = {
     courseGroupSets,
     coursePages,
     courseQuizzes,
+    courseRubrics,
     courseSections,
   ],
   user: [
