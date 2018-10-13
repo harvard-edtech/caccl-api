@@ -13,8 +13,7 @@ module.exports = [
     action: 'get a list of assignment overrides for a specific assignment in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-          + cg.options.assignmentId + '/overrides',
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides',
         method: 'GET',
       });
     },
@@ -32,37 +31,98 @@ module.exports = [
     action: 'get a list of assignment overrides for a specific assignment in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-          + cg.options.assignmentId + '/overrides',
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides',
         method: 'GET',
       });
     },
   },
 
   /**
-   * Create student override // TODO: continue writing endpoints
+   * Create assignment override.
    * @param {number} courseId - Canvas course id
    * @param {number} assignmentId - Canvas assignment id
-   * @param {array} studentIDs - List of Canvas student IDs to override
-   * @param {number} groupId - Group to override (must be a group assignment)
-   * @param {number} sectionId - Section to override
-   * @param {string} title - Title of the override (default: "Override for
-   *   student <studentID> in assignment <assignmentID>" if only one student or
-   *   "Override for X students in assignment <assignmentID>" if many students)
-   * @param {string} dueAt - New due date for student (default: current value)
-   * @param {string} unlockAt - New unlock date for student (default: current
-   *   value)
-   * @param {string} lockAt - New lock date for student (default: current value)
+   * @param {array} studentIds - List of Canvas student IDs to override (Note:
+   *   either studentIds, groupId, or sectionId must be included)
+   * @param {number} groupId - Group to override, must be a group assignment
+   *   (Note: either studentIds, groupId, or sectionId must be included)
+   * @param {number} sectionId - Section to override (Note: either studentIds,
+   *   groupId, or sectionId must be included)
+   * @param {string} title - Title of the override (default: "Override for X
+   *   students", if studentIds is included)
+   * @param {string} dueAt - New due date or null to remove due date (default:
+   *   current value)
+   * @param {string} unlockAt - New unlock date or null to remove unlock date
+   *   (default: current value)
+   * @param {string} lockAt - New lock date or null to remove lock date
+   *   (default: current value)
    * @return AssignmentOverride (see: https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
    */
   {
     name: 'createAssignmentOverride',
-    action: 'get a list of assignment overrides for a specific assignment in a course',
+    action: 'create a new override for a specific assignment in a course',
+    run: (cg) => {
+      const title = (
+        cg.options.title
+        || (
+          cg.options.studentIds
+            ? 'Override for ' + cg.option.studentIds.length + ' student' + (cg.option.studentIds.length === 1 ? '' : 's')
+            : null
+        )
+      );
+      return cg.visitEndpoint({
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides',
+        method: 'POST',
+        params: {
+          'assignment_override[title]': utils.includeIfTruthy(title),
+          'assignment_override[student_ids][]':
+            utils.includeIfTruthy(cg.options.studentIds),
+          'assignment_override[group_id]':
+            utils.includeIfTruthy(cg.options.groupId),
+          'assignment_override[course_section_id]':
+            utils.includeIfTruthy(cg.options.sectionId),
+          'assignment_override[due_at]':
+            utils.includeIfDate(cg.options.dueAt),
+          'assignment_override[unlock_at]':
+            utils.includeIfDate(cg.options.unlockAt),
+          'assignment_override[lock_at]':
+            utils.includeIfDate(cg.options.lockAt),
+        },
+      }).then((response) => {
+        return cg.uncache([
+          // Uncache list of overrides
+          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides',
+          // Uncache specific override id
+          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides/' + response.id,
+          // Uncache batch override list
+          '/api/v1/courses/' + cg.options.courseId + '/assignments/overrides',
+        ], response);
+      });
+    },
+  },
+
+  /**
+   * Deletes an assignment override
+   * @param {number} courseId - Canvas course id to query
+   * @param {number} assignmentId - Canvas assignment id to query
+   * @param {number} overrideId - Canvas override id to look up
+   * @return AssignmentOverride (see: https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
+   */
+  {
+    name: 'deleteAssignmentOverride',
+    action: 'delete an override for a specific assignment in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-          + cg.options.assignmentId + '/overrides',
-        method: 'GET',
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides/' + cg.options.overrideId,
+        method: 'DELETE',
+      }).then((response) => {
+        return cg.uncache([
+          // Uncache list of overrides
+          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides',
+          // Uncache specific override id
+          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides/' + cg.options.overrideId,
+          // Uncache batch override list
+          '/api/v1/courses/' + cg.options.courseId + '/assignments/overrides',
+        ], response);
       });
     },
   },
