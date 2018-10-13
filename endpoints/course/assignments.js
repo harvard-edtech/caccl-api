@@ -42,8 +42,7 @@ module.exports = [
     action: 'get info on a specific assignment in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-          + cg.options.assignmentId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId,
         method: 'GET',
       });
     },
@@ -91,8 +90,7 @@ module.exports = [
     action: 'updates an assignment in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-          + cg.options.assignmentId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId,
         method: 'PUT',
         params: {
           'assignment[name]': utils.includeIfTruthy(cg.options.name),
@@ -129,8 +127,7 @@ module.exports = [
       }).then((response) => {
         return cg.uncache([
           // Uncache assignment and sub-endpoints
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-            + cg.options.assignmentId + '*',
+          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '*',
           // Uncache assignment list
           '/api/v1/courses/' + cg.options.courseId + '/assignments',
         ], response);
@@ -212,8 +209,7 @@ module.exports = [
       }).then((response) => {
         return cg.uncache([
           // Uncache assignment and sub-endpoints
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-            + cg.options.assignmentId + '*',
+          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '*',
           // Uncache assignment list
           '/api/v1/courses/' + cg.options.courseId + '/assignments',
         ], response);
@@ -232,14 +228,12 @@ module.exports = [
     action: 'deletes an assignment from a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-          + cg.options.assignmentId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId,
         method: 'DELETE',
       }).then((response) => {
         return cg.uncache([
           // Uncache assignment and sub-endpoints
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-            + cg.options.assignmentId + '*',
+          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '*',
           // Uncache assignment list
           '/api/v1/courses/' + cg.options.courseId + '/assignments',
         ], response);
@@ -332,8 +326,7 @@ module.exports = [
     action: 'Gets a specific submission to an assignment in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-          + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
         method: 'GET',
         params: {
           include: utils.includeTruthyElementsExcludeIfEmpty([
@@ -401,8 +394,7 @@ module.exports = [
             subParams['submission[submission_type]'] = 'online_text_entry';
           }
           sendSubmissionPromise = cg.visitEndpoint({
-            path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-              + cg.options.assignmentId + '/submissions',
+            path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions',
             method: 'POST',
             params: subParams,
           });
@@ -418,8 +410,7 @@ module.exports = [
             const uploadFile = (filename, next) => {
               // 1. Prepare the file upload (create a slot to upload into)
               cg.visitEndpoint({
-                path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-                  + cg.options.assignmentId + '/submissions/self/files',
+                path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions/self/files',
                 method: 'POST',
                 params: {
                   name: path.basename(filename),
@@ -542,11 +533,9 @@ module.exports = [
         return sendSubmissionPromise.then((response) => {
           return cg.uncache([
             // Uncache list of submissions
-            '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-              + cg.options.assignmentId + '/submissions',
+            '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions',
             // Uncache this person's submission
-            '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-              + cg.options.assignmentId + '/submissions/' + submitterId,
+            '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions/' + submitterId,
           ], response);
         });
       });
@@ -567,8 +556,7 @@ module.exports = [
     action: 'get the list of students who are gradeable in a specific assignment in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-          + cg.options.assignmentId + '/gradeable_students',
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/gradeable_students',
         method: 'GET',
       });
     },
@@ -586,8 +574,7 @@ module.exports = [
     action: 'create a new comment on a submission',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-          + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
         method: 'PUT',
         params: {
           'comment[text_comment]': cg.options.comment,
@@ -595,11 +582,9 @@ module.exports = [
       }).then((response) => {
         return cg.uncache([
           // Uncache submission
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-            + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
+          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
           // Uncache list of submissions
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-            + cg.options.assignmentId + '/submissions',
+          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions',
         ], response);
       });
     },
@@ -617,8 +602,7 @@ module.exports = [
     action: 'create a new comment on a submission',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-          + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
         method: 'PUT',
         params: {
           'comment[text_comment]': cg.options.comment,
@@ -626,11 +610,9 @@ module.exports = [
       }).then((response) => {
         return cg.uncache([
           // Uncache submission
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-            + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
+          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
           // Uncache list of submissions
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-            + cg.options.assignmentId + '/submissions',
+          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions',
         ], response);
       });
     },
@@ -877,14 +859,12 @@ module.exports = [
             // Send request
             cg.visitEndpoint({
               params,
-              path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-                + cg.options.assignmentId + '/submissions/update_grades',
+              path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions/update_grades',
               method: 'POST',
             }).then((response) => {
               return cg.uncache([
                 // Uncache submissions endpoint
-                '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-                  + cg.options.assignmentId + '/submissions',
+                '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions',
               ], response);
             }).then((response) => {
               return resolve(response);

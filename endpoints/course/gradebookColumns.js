@@ -17,8 +17,7 @@ module.exports = [
     action: 'get the list of gradebook columns in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId
-          + '/custom_gradebook_columns',
+        path: '/api/v1/courses/' + cg.options.courseId + '/custom_gradebook_columns',
         method: 'GET',
       });
     },
@@ -53,8 +52,7 @@ module.exports = [
       }).then((response) => {
         return cg.uncache([
           // Uncache custom gradebook column list
-          '/api/v1/courses/' + cg.options.courseId
-            + '/custom_gradebook_columns/' + cg.options.columnId,
+          '/api/v1/courses/' + cg.options.courseId + '/custom_gradebook_columns/' + cg.options.columnId,
         ], response);
       });
     },
@@ -87,11 +85,9 @@ module.exports = [
       }).then((response) => {
         return cg.uncache([
           // Uncache custom gradebook column list
-          '/api/v1/courses/' + cg.options.courseId
-            + '/custom_gradebook_columns',
+          '/api/v1/courses/' + cg.options.courseId + '/custom_gradebook_columns',
           // Uncache custom gradebook column
-          '/api/v1/courses/' + cg.options.courseId
-            + '/custom_gradebook_columns/' + response.id,
+          '/api/v1/courses/' + cg.options.courseId + '/custom_gradebook_columns/' + response.id,
         ], response);
       });
     },
@@ -108,17 +104,14 @@ module.exports = [
     action: 'delete a gradebook column from a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId
-          + '/custom_gradebook_columns/' + cg.options.columnId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/custom_gradebook_columns/' + cg.options.columnId,
         method: 'DELETE',
       }).then((response) => {
         return cg.uncache([
           // Uncache custom gradebook column list
-          '/api/v1/courses/' + cg.options.courseId
-            + '/custom_gradebook_columns',
+          '/api/v1/courses/' + cg.options.courseId + '/custom_gradebook_columns',
           // Uncache custom gradebook column
-          '/api/v1/courses/' + cg.options.courseId
-            + '/custom_gradebook_columns/' + cg.options.columnId,
+          '/api/v1/courses/' + cg.options.courseId + '/custom_gradebook_columns/' + cg.options.columnId,
         ], response);
       });
     },
@@ -139,8 +132,7 @@ module.exports = [
     action: 'get the list of entries in a specific gradebook column in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId
-          + '/custom_gradebook_columns/' + cg.options.columnId + '/data',
+        path: '/api/v1/courses/' + cg.options.courseId + '/custom_gradebook_columns/' + cg.options.columnId + '/data',
         method: 'GET',
         params: {
           include_hidden: true,
@@ -173,8 +165,7 @@ module.exports = [
       });
       // Send batch update request
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId
-          + '/custom_gradebook_column_data',
+        path: '/api/v1/courses/' + cg.options.courseId + '/custom_gradebook_column_data',
         method: 'PUT',
         params: {
           column_data: columnData,
@@ -182,8 +173,7 @@ module.exports = [
       }).then((progress) => {
         return cg.uncache([
           // Uncache column data
-          '/api/v1/courses/' + cg.options.courseId
-            + '/custom_gradebook_columns/' + cg.options.columnId + '/data',
+          '/api/v1/courses/' + cg.options.courseId + '/custom_gradebook_columns/' + cg.options.columnId + '/data',
         ]).then(() => {
           if (cg.options.waitForCompletion) {
             return waitForCompletion({

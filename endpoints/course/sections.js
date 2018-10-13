@@ -26,8 +26,7 @@ module.exports = [
     action: 'get info on a specific section in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/sections/'
-          + cg.options.sectionId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/sections/' + cg.options.sectionId,
         method: 'GET',
       });
     },

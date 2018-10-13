@@ -31,8 +31,7 @@ module.exports = [
     action: 'get info on a specific quiz in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/quizzes/'
-          + cg.options.quizId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/quizzes/' + cg.options.quizId,
         method: 'GET',
       });
     },
@@ -53,8 +52,7 @@ module.exports = [
     action: 'get the list of submissions to a specific quiz in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/quizzes/'
-          + cg.options.quizId + '/submissions',
+        path: '/api/v1/courses/' + cg.options.courseId + '/quizzes/' + cg.options.quizId + '/submissions',
         method: 'GET',
       });
     },
@@ -72,8 +70,7 @@ module.exports = [
     action: 'get the list of submissions to a specific quiz in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/quizzes/'
-          + cg.options.quizId + '/submissions/' + cg.options.submissionId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/quizzes/' + cg.options.quizId + '/submissions/' + cg.options.submissionId,
         method: 'GET',
       });
     },

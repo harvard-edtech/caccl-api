@@ -30,8 +30,7 @@ module.exports = [
     action: 'get info on a specific assignment group in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/'
-          + cg.options.assignmentGroupId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/' + cg.options.assignmentGroupId,
         method: 'GET',
       });
     },
@@ -50,8 +49,7 @@ module.exports = [
     action: 'update an assignment group in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/'
-          + cg.options.assignmentGroupId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/' + cg.options.assignmentGroupId,
         method: 'PUT',
         params: {
           name: utils.includeIfTruthy(cg.options.name),
@@ -62,8 +60,7 @@ module.exports = [
           // Uncache list of assignment groups
           '/api/v1/courses/' + cg.options.courseId + '/assignment_groups',
           // Uncache specific assignment group
-          '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/'
-            + cg.options.assignmentGroupId + '*',
+          '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/' + cg.options.assignmentGroupId + '*',
         ], response);
       });
     },
@@ -92,8 +89,7 @@ module.exports = [
           // Uncache list of assignment groups
           '/api/v1/courses/' + cg.options.courseId + '/assignment_groups',
           // Uncache specific assignment group
-          '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/'
-            + response.id + '*',
+          '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/' + response.id + '*',
         ], response);
       });
     },
@@ -113,8 +109,7 @@ module.exports = [
     action: 'delete an assignment group from a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/'
-          + cg.options.assignmentGroupId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/' + cg.options.assignmentGroupId,
         method: 'DELETE',
         params: {
           move_assignments_to:
@@ -125,14 +120,12 @@ module.exports = [
           // Uncache list of assignment groups
           '/api/v1/courses/' + cg.options.courseId + '/assignment_groups',
           // Uncache deleted assignment group
-          '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/'
-            + cg.options.assignmentGroupId + '*',
+          '/api/v1/courses/' + cg.options.courseId + '/assignment_groups/' + cg.options.assignmentGroupId + '*',
         ];
         // Uncache destination assignment group if applicable
         if (cg.options.moveAssignmentsTo) {
           // Uncache the destination assignment group
-          uncachePaths.push('/api/v1/courses/' + cg.options.courseId
-            + '/assignment_groups/' + cg.options.moveAssignmentsTo + '*');
+          uncachePaths.push('/api/v1/courses/' + cg.options.courseId + '/assignment_groups/' + cg.options.moveAssignmentsTo + '*');
         }
         return cg.uncache(uncachePaths, response);
       });

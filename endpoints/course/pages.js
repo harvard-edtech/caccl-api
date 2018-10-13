@@ -29,8 +29,7 @@ module.exports = [
     action: 'get info on a specific page in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/pages/'
-          + cg.options.pageURL,
+        path: '/api/v1/courses/' + cg.options.courseId + '/pages/' + cg.options.pageURL,
         method: 'GET',
       });
     },
@@ -56,8 +55,7 @@ module.exports = [
     action: 'update a specific page in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/pages/'
-          + cg.options.pageURL,
+        path: '/api/v1/courses/' + cg.options.courseId + '/pages/' + cg.options.pageURL,
         method: 'PUT',
         params: {
           'wiki_page[title]': utils.includeIfTruthy(cg.options.title),
@@ -74,8 +72,7 @@ module.exports = [
           // Uncache list of pages
           '/api/v1/courses/' + cg.options.courseId + '/pages',
           // Uncache this specific page (in case someone pinged it before)
-          '/api/v1/courses/' + cg.options.courseId + '/pages/'
-            + cg.options.pageURL,
+          '/api/v1/courses/' + cg.options.courseId + '/pages/' + cg.options.pageURL,
         ], response);
       });
     },
@@ -114,8 +111,7 @@ module.exports = [
           // Uncache list of pages
           '/api/v1/courses/' + cg.options.courseId + '/pages',
           // Uncache this specific page (in case someone pinged it before)
-          '/api/v1/courses/' + cg.options.courseId + '/pages/'
-            + response.url,
+          '/api/v1/courses/' + cg.options.courseId + '/pages/' + response.url,
         ], response);
       });
     },
@@ -132,16 +128,14 @@ module.exports = [
     action: 'delete a page from a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/pages/'
-          + cg.options.pageURL,
+        path: '/api/v1/courses/' + cg.options.courseId + '/pages/' + cg.options.pageURL,
         method: 'DELETE',
       }).then((response) => {
         return cg.uncache([
           // Uncache list of pages
           '/api/v1/courses/' + cg.options.courseId + '/pages',
           // Uncache this specific page
-          '/api/v1/courses/' + cg.options.courseId + '/pages/'
-            + cg.options.pageURL,
+          '/api/v1/courses/' + cg.options.courseId + '/pages/' + cg.options.pageURL,
         ], response);
       });
     },

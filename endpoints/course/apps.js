@@ -29,8 +29,7 @@ module.exports = [
     action: 'get info on a specific LTI app in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId
-          + '/external_tools/' + cg.options.appId,
+        path: '/api/v1/courses/' + cg.options.courseId + '/external_tools/' + cg.options.appId,
         method: 'GET',
       });
     },
@@ -90,8 +89,7 @@ module.exports = [
       }).then((response) => {
         return cg.uncache([
           // Uncache get app endpoint
-          '/api/v1/courses/' + cg.options.courseId
-            + '/external_tools/' + cg.options.appId,
+          '/api/v1/courses/' + cg.options.courseId + '/external_tools/' + cg.options.appId,
           // Uncache app list endpoint
           '/api/v1/courses/' + cg.options.courseId + '/external_tools',
         ], response);
