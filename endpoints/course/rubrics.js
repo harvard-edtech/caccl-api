@@ -1,8 +1,8 @@
 module.exports = [
   /**
    * Creates a new rubric for grading with free form comments enabled.
-   * @param {number} courseId - Canvas course Id to query
-   * @param {number} assignmentId - Canvas course Id to query
+   * @param {number} courseId - Canvas course Id to add the rubric to
+   * @param {number} assignmentId - Canvas course Id to add the rubric to
    * @param {string} title - Title of the new rubric
    * @param {array} rubricItems - List of rubric item objects:
    *   [{description, longDescription (optional), points}, ...]
