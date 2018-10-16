@@ -26,4 +26,38 @@ module.exports = {
       description: description.trim(),
     };
   },
+
+  templateFound: (template, list) => {
+    for (let i = 0; i < list.length; i++) {
+      if (module.exports.checkTemplate(template, list[i]).isMatch) {
+        return true;
+      }
+    }
+    return false;
+  },
+
+  // Returns stringified list of templates from the given list that dont match
+  // any in the list. If none dont match, returns null
+  missingTemplatesToString: (templates, list) => {
+    const notFound = [];
+    for (let i = 0; i < templates.length; i++) {
+      if (!module.exports.templateFound(templates[i], list)) {
+        notFound.push(templates[i]);
+      }
+    }
+    if (notFound.length === 0) {
+      return null;
+    }
+    let message = '';
+    notFound.forEach((n) => {
+      message += '\n' + JSON.stringify(n);
+    });
+    return message;
+  },
+
+  wait: (seconds) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, seconds * 1000);
+    });
+  },
 };

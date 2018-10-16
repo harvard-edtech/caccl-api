@@ -25,7 +25,7 @@ describe('Endpoints > Course > Enrollments', function () {
     });
   });
 
-  it('Lists Teaching Team Members', function () {
+  it('Lists teaching team members', function () {
     return api.course.listTeachingTeamMembers({
       courseId,
     }).then((members) => {
