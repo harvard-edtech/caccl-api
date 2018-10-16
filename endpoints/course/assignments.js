@@ -540,6 +540,12 @@ module.exports = [
       return cg.visitEndpoint({
         path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/gradeable_students',
         method: 'GET',
+      }).then((students) => {
+        return Promise.resolve(
+          students.filter((s) => {
+            return !s.fake_student;
+          })
+        );
       });
     },
   },
