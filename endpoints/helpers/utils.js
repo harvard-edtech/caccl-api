@@ -7,6 +7,13 @@ module.exports = {
     return value || EXCLUDED_PARAM;
   },
 
+  includeIfBoolean: (value) => {
+    if (value === true || value === false) {
+      return value;
+    }
+    return EXCLUDED_PARAM;
+  },
+
   includeTruthyElements: (arr) => {
     // Exclude if this isn't an array
     if (!arr || !Array.isArray(arr)) {

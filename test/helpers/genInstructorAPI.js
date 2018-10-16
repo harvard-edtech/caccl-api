@@ -1,5 +1,5 @@
-const CanvasAPI = require('../index.js');
-const environment = require('./environment.js');
+const CanvasAPI = require('../../index.js');
+const environment = require('../environment.js');
 
 module.exports = () => {
   return new CanvasAPI({

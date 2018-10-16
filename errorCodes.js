@@ -1,6 +1,6 @@
 // Highest errors:
 // > SCE17
-// > CANV12 (exclude 404, 500)
+// > CANV13 (exclude 404, 500)
 
 
 module.exports = {
@@ -27,6 +27,7 @@ module.exports = {
   noValidFileIDs: 'CANV10',
   invalidSubmissionTypeFromCanvas: 'CANV11',
   unknown: 'CANV12',
+  noSubmissionFiles: 'CANV13',
   endpointNotFound: 'CANV404',
   canvasInternalError: 'CANV500',
 

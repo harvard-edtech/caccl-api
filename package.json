@@ -4,7 +4,7 @@
   "description": "A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit --reporter spec"
+    "test": "mocha --exit --recursive --timeout 5000 --reporter spec"
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,6 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
-    "fs": "0.0.1-security",
     "mocha": "^5.2.0"
   },
   "dependencies": {

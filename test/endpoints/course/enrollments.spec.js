@@ -1,9 +1,8 @@
-const api = require('./genInstructorAPI.js')();
-const courseId = require('./environment.js').testCourseId;
+const api = require('../../helpers/genInstructorAPI.js')();
+const courseId = require('../../environment.js').testCourseId;
 
-describe('Enrollments Endpoints', function () {
+describe('Endpoints > Course > Enrollments', function () {
   it('Lists enrollments', function () {
-    this.timeout(5000);
     return api.course.listEnrollments({
       courseId,
     }).then((enrollments) => {
@@ -14,7 +13,6 @@ describe('Enrollments Endpoints', function () {
   });
 
   it('Lists students', function () {
-    this.timeout(5000);
     return api.course.listStudents({
       courseId,
     }).then((students) => {
@@ -28,7 +26,6 @@ describe('Enrollments Endpoints', function () {
   });
 
   it('Lists Teaching Team Members', function () {
-    this.timeout(5000);
     return api.course.listTeachingTeamMembers({
       courseId,
     }).then((members) => {
@@ -45,7 +42,6 @@ describe('Enrollments Endpoints', function () {
   });
 
   it('Lists designers', function () {
-    this.timeout(5000);
     return api.course.listDesigners({
       courseId,
     }).then((designers) => {
@@ -59,7 +55,6 @@ describe('Enrollments Endpoints', function () {
   });
 
   it('Lists observers', function () {
-    this.timeout(5000);
     return api.course.listObservers({
       courseId,
     }).then((observers) => {

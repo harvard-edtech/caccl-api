@@ -34,7 +34,9 @@ module.exports = (config) => {
   }
 
   // Set up number of entries per page
-  newParams.per_page = options.itemsPerPage || defaults.itemsPerPage;
+  if (!options.method || options.method === 'GET') {
+    newParams.per_page = options.itemsPerPage || defaults.itemsPerPage;
+  }
 
   return newParams;
 };

@@ -398,12 +398,19 @@ module.exports = [
             method: 'POST',
             params: subParams,
           });
-        } else if (cg.options.submissionType === 'upload') {
+        } else if (cg.options.submissionType === 'files') {
           // File submission
 
           // Get list of filenames
-          const body = cg.options.body || {};
-          const filenames = body.filenames || [];
+          const filenames = cg.options.body || [];
+
+          // Throw error if no files were included
+          if (filenames.length === 0) {
+            throw new CACCLError({
+              message: 'Could not make a file submission because no files were included.',
+              code: errorCodes.noSubmissionFiles,
+            });
+          }
 
           sendSubmissionPromise = new Promise((resolve, reject) => {
             // Function that uploads an individual file
@@ -444,47 +451,21 @@ module.exports = [
                       }));
                     }
 
-                    // Activate file if needed
-                    if (res.statusCode >= 300 && res.statusCode < 400) {
-                      // Need to send POST request to activate the file
-                      const parsed = urlLib.parse(res.headers.location);
-                      cg.visitEndpoint({
-                        host: parsed.hostname,
-                        path: parsed.path,
-                        method: 'POST',
-                      }).then((verifyResponse) => {
-                        // File verified! Continue with file id
-                        return next(null, verifyResponse.id);
-                      }).catch((verifyError) => {
-                        return next(new CACCLError({
-                          message: 'We could not activate a submission file after it was uploaded because we ran into an error: "' + verifyError.message + '". If this isn\'t expected, please contact an admin.',
-                          code: errorCodes.submissionFileActivateFailed,
-                        }));
-                      });
-                    } else {
-                      // File is already activated. Just request info
-                      request.get(
-                        { url: res.headers.location },
-                        (getFileError) => {
-                          if (getFileError) {
-                            return next(new CACCLError({
-                              message: 'We could not check a submission file after it was uploaded because we ran into an error: "' + getFileError.message + '". If this isn\'t expected, please contact an admin.',
-                              code: errorCodes.submissionFileCheckFailed,
-                            }));
-                          }
-
-                          // Try to get the file id out of the body
-                          try {
-                            return next(null, JSON.parse(body).id);
-                          } catch (parseErr) {
-                            return next(new CACCLError({
-                              message: 'We could not check a submission file after it was uploaded because we could not understand Canvas\' response when we tried to verify the upload. If this isn\'t expected, please contact an admin.',
-                              code: errorCodes.submissionFileCheckParseFailed,
-                            }));
-                          }
-                        }
-                      );
-                    }
+                    // Send POST request to activate the file
+                    const parsed = urlLib.parse(res.headers.location);
+                    cg.visitEndpoint({
+                      host: parsed.hostname,
+                      path: parsed.path,
+                      method: 'POST',
+                    }).then((verifyResponse) => {
+                      // File verified! Continue with file id
+                      return next(null, verifyResponse.id);
+                    }).catch((verifyError) => {
+                      return next(new CACCLError({
+                        message: 'We could not activate a submission file after it was uploaded because we ran into an error: "' + verifyError.message + '". If this isn\'t expected, please contact an admin.',
+                        code: errorCodes.submissionFileActivateFailed,
+                      }));
+                    });
                   });
                 });
               }).catch((prepError) => {
@@ -505,8 +486,7 @@ module.exports = [
 
               // All files succeeded! Continue and submit the assignment
               cg.visitEndpoint({
-                path: '/api/v1/courses/' + cg.options.courseId + '/assignments/'
-                  + cg.options.assignmentId + '/submissions',
+                path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions',
                 method: 'POST',
                 params: {
                   'submission[submission_type]': 'online_upload',
@@ -518,6 +498,8 @@ module.exports = [
                 // Resolve the sendSubmissionPromise now that actual
                 // submission was made
                 return resolve(response);
+              }).catch((submitError) => {
+                return reject(submitError);
               });
             });
           });
@@ -558,34 +540,6 @@ module.exports = [
       return cg.visitEndpoint({
         path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/gradeable_students',
         method: 'GET',
-      });
-    },
-  },
-
-  /**
-   * Adds a comment to a submission
-   * @param {number} courseId - Canvas course Id
-   * @param {number} assignmentId - Canvas course Id
-   * @param {number} studentId - Canvas student Id of the sub to comment on
-   * @param {string} comment - The text of the comment
-   */
-  {
-    name: 'createAssignmentSubmissionComment',
-    action: 'create a new comment on a submission',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
-        method: 'PUT',
-        params: {
-          'comment[text_comment]': cg.options.comment,
-        },
-      }).then((response) => {
-        return cg.uncache([
-          // Uncache submission
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions/' + cg.options.studentId,
-          // Uncache list of submissions
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/submissions',
-        ], response);
       });
     },
   },
