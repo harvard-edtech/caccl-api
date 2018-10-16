@@ -65,8 +65,25 @@ module.exports = (config = {}) => {
           // Invalid syntax
           if (response.status === 400) {
             // Invalid API syntax
+
+            // Compile errors into string
+            let errors;
+            try {
+              JSON.parse(response.body).errors.forEach((err) => {
+                if (!errors) {
+                  errors = '';
+                } else {
+                  errors += ', ';
+                }
+                errors += err.split(':')[0];
+              });
+              errors += '.';
+            } catch (err) {
+              errors = 'unknown (could not parse Canvas response)';
+            }
+
             return reject(new CACCLError({
-              message: 'The endpoint https://' + host + pagePath + ' is invalid. Canvas responded with a 400 message (invalid syntax). Please check your endpoint path.',
+              message: 'The endpoint https://' + host + pagePath + ' or params are invalid. Canvas responded with a 400 message (invalid syntax): ' + errors,
               code: errorCodes.invalidSyntax,
             }));
           }
