@@ -31,7 +31,7 @@ module.exports = [
     action: 'get a list of assignment overrides for a specific assignment in a course',
     run: (cg) => {
       return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides',
+        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides/' + cg.options.overrideId,
         method: 'GET',
       });
     },
@@ -65,7 +65,7 @@ module.exports = [
         cg.options.title
         || (
           cg.options.studentIds
-            ? 'Override for ' + cg.option.studentIds.length + ' student' + (cg.option.studentIds.length === 1 ? '' : 's')
+            ? 'Override for ' + cg.options.studentIds.length + ' student' + (cg.options.studentIds.length === 1 ? '' : 's')
             : null
         )
       );
@@ -74,7 +74,7 @@ module.exports = [
         method: 'POST',
         params: {
           'assignment_override[title]': utils.includeIfTruthy(title),
-          'assignment_override[student_ids][]':
+          'assignment_override[student_ids]':
             utils.includeIfTruthy(cg.options.studentIds),
           'assignment_override[group_id]':
             utils.includeIfTruthy(cg.options.groupId),
