@@ -11,7 +11,6 @@ function sendRequest(options) {
 
     // Encode content
     const content = querystring.stringify(options.params || {});
-
     const request = {
       host: options.host,
       path: options.path,
