@@ -1,3 +1,6 @@
+const CACCLError = require('../../../caccl-error/index.js'); // TODO: use actual library
+const errorCodes = require('../../errorCodes.js');
+
 const utils = require('../helpers/utils.js');
 const waitForCompletion = require('../helpers/waitForCompletion.js');
 
@@ -10,6 +13,8 @@ module.exports = [
   /**
    * Gets the list of custom gradebook columns in a course
    * @param {number} courseId - Canvas course Id to query
+   * @param {boolean} includeHidden - If true, includes hidden gradebook
+   *   columns as well.
    * @return List of CustomColumns (see: https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
    */
   {
@@ -19,6 +24,42 @@ module.exports = [
       return cg.visitEndpoint({
         path: '/api/v1/courses/' + cg.options.courseId + '/custom_gradebook_columns',
         method: 'GET',
+        params: {
+          include_hidden: utils.isTruthy(cg.options.includeHidden),
+        },
+      });
+    },
+  },
+
+  /**
+   * Gets info on a specific gradebook column in a course. This is a simulated
+   *   endpoint: it does not exist. We are just pulling the list of columns and
+   *   returning one element.
+   * @param {number} courseId - Canvas course Id to query
+   * @param {number} columnId - Canvas column Id to return
+   * @param {boolean} isHidden - Must be set to true if the column you're
+   *   retrieving is a hidden column.
+   * @return CustomColumn (see: https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
+   */
+  {
+    name: 'getGradebookColumn',
+    action: 'get a specific gradebook column in a course',
+    run: (cg) => {
+      return cg.self.listGradebookColumns({
+        courseId: cg.options.courseId,
+        includeHidden: cg.options.isHidden,
+      }).then((columns) => {
+        for (let i = 0; i < columns.length; i++) {
+          if (columns[i].id === cg.options.columnId) {
+            // Found the column the caller was looking for
+            return Promise.resolve(columns[i]);
+          }
+        }
+        // Couldn't find the column
+        throw new CACCLError({
+          message: 'We couldn\'t find the column you were looking for. ' + (!cg.options.isHidden ? 'We were only searching through non-hidden columns. If the column you were looking for is hidden, you need to specify that.' : ''),
+          code: errorCodes.columnNotFound,
+        });
       });
     },
   },

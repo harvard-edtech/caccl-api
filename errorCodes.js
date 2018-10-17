@@ -51,4 +51,8 @@ module.exports = {
   invalidSubmissionType: 'SCE9',
   // > updateAssignmentGrades
   noRubricOnBatchGradeUpload: 'SCE10',
+
+  // course/gradebookColumns.js
+  // > getGradebookColumn
+  columnNotFound: 'SCE11',
 };
