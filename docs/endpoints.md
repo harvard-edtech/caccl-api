@@ -1,4 +1,4 @@
-<h1 title="Endpoints Documentation"></h1>
+#Endpoints Documentation
 
 <!-- Embedded styles: -->
 <style>
@@ -202,7 +202,7 @@ Usefule endpoint facts:
   * `ignoreCache` - If true, endpoint won't return the cached version if it exists.
   * `dontCache` - If true, endpoint response won't be cached.
 
-<h2 body="Table of Contents" class="horizontalLined">Table of Contents<span></span></h2>
+## Table of Contents
 
 **Category: [course](#category-course)**
 
@@ -369,7 +369,7 @@ Usefule endpoint facts:
 
 
 <a name="category-course"></a>
-<h1 title="Category: course"></h1>
+#Category: course
 
 <a name="subcategory-course-apps"></a>
 ## Subcategory: apps
@@ -437,7 +437,7 @@ Removes an LTI app from a Canvas course
 **Resolves to:** [external tool](https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show)
 
 <a name="subcategory-course-assignmentGroups"></a>
-<h2 body="Subcategory: assignmentGroups" class="horizontalLined">Subcategory: assignmentGroups<span></span></h2>
+## Subcategory: assignmentGroups
 
 <a name="function-course-assignmentGroups-listAssignmentGroups
 "></a>
@@ -517,7 +517,7 @@ Deletes an assignment group from a course
 **Resolves to:** [AssignmentGroup](https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
 
 <a name="subcategory-course-assignmentOverrides"></a>
-<h2 body="Subcategory: assignmentOverrides" class="horizontalLined">Subcategory: assignmentOverrides<span></span></h2>
+## Subcategory: assignmentOverrides
 
 <a name="function-course-assignmentOverrides-listAssignmentOverrides
 "></a>
@@ -587,7 +587,7 @@ Deletes an assignment override
 **Resolves to:** [AssignmentOverride](https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
 
 <a name="subcategory-course-assignments"></a>
-<h2 body="Subcategory: assignments" class="horizontalLined">Subcategory: assignments<span></span></h2>
+## Subcategory: assignments
 
 <a name="function-course-assignments-listAssignments
 "></a>
@@ -795,7 +795,7 @@ Batch updates grades and/or comments. Also supports updating rubric items
 **Resolves to:** [Progress](https://canvas.instructure.com/doc/api/progress.html#Progress)
 
 <a name="subcategory-course-course"></a>
-<h2 body="Subcategory: course" class="horizontalLined">Subcategory: course<span></span></h2>
+## Subcategory: course
 
 <a name="function-course-course-getCourse
 "></a>
@@ -818,7 +818,7 @@ Gets info on a specific course
 **Resolves to:** [Course](https://canvas.instructure.com/doc/api/courses.html#Course)
 
 <a name="subcategory-course-enrollments"></a>
-<h2 body="Subcategory: enrollments" class="horizontalLined">Subcategory: enrollments<span></span></h2>
+## Subcategory: enrollments
 
 <a name="function-course-enrollments-listEnrollments
 "></a>
@@ -903,7 +903,7 @@ Gets the list of observers in a course
 **Resolves to:** [list of Enrollments](https://canvas.instructure.com/doc/api/enrollments.html#Enrollment)
 
 <a name="subcategory-course-gradebookColumns"></a>
-<h2 body="Subcategory: gradebookColumns" class="horizontalLined">Subcategory: gradebookColumns<span></span></h2>
+## Subcategory: gradebookColumns
 
 <a name="function-course-gradebookColumns-listGradebookColumns
 "></a>
@@ -1018,7 +1018,7 @@ Update the list of entries in a specific gradebook column in a course
 **Resolves to:** [Progress](https://canvas.instructure.com/doc/api/progress.html#Progress)
 
 <a name="subcategory-course-groupSets"></a>
-<h2 body="Subcategory: groupSets" class="horizontalLined">Subcategory: groupSets<span></span></h2>
+## Subcategory: groupSets
 
 <a name="function-course-groupSets-listGroupSets
 "></a>
@@ -1138,7 +1138,7 @@ Deletes a specific group from a group set
 **Resolves to:** [Group](https://canvas.instructure.com/doc/api/groups.html#Group)
 
 <a name="subcategory-course-groups"></a>
-<h2 body="Subcategory: groups" class="horizontalLined">Subcategory: groups<span></span></h2>
+## Subcategory: groups
 
 <a name="function-course-groups-getGroup
 "></a>
@@ -1182,7 +1182,7 @@ Gets the list of members in a group
 **Resolves to:** [Group](https://canvas.instructure.com/doc/api/groups.html#Group)
 
 <a name="subcategory-course-pages"></a>
-<h2 body="Subcategory: pages" class="horizontalLined">Subcategory: pages<span></span></h2>
+## Subcategory: pages
 
 <a name="function-course-pages-listPages
 "></a>
@@ -1268,7 +1268,7 @@ Deletes a page from a course
 **Resolves to:** [Page](https://canvas.instructure.com/doc/api/pages.html#Page)
 
 <a name="subcategory-course-quizzes"></a>
-<h2 body="Subcategory: quizzes" class="horizontalLined">Subcategory: quizzes<span></span></h2>
+## Subcategory: quizzes
 
 <a name="function-course-quizzes-listQuizzes
 "></a>
@@ -1458,7 +1458,7 @@ Gets info on a specific submission to a quiz in a course
 **Resolves to:** [QuizSubmission](https://canvas.instructure.com/doc/api/quiz_submissions.html)
 
 <a name="subcategory-course-rubrics"></a>
-<h2 body="Subcategory: rubrics" class="horizontalLined">Subcategory: rubrics<span></span></h2>
+## Subcategory: rubrics
 
 <a name="function-course-rubrics-listRubrics
 "></a>
@@ -1509,7 +1509,7 @@ Creates a new rubric for grading with free form comments enabled and add it to a
 <div class="alert alert-danger"><strong>Danger: Endpoint Unlisted</strong><br>This endpoint is not documentated, supported by Instructure, or even listed in the Canvas online API docs. It may change, be removed, or completely stop working at any moment.</div>
 
 <a name="subcategory-course-sections"></a>
-<h2 body="Subcategory: sections" class="horizontalLined">Subcategory: sections<span></span></h2>
+## Subcategory: sections
 
 <a name="function-course-sections-listSections
 "></a>
@@ -1539,7 +1539,7 @@ Gets info on a specific section
 **Resolves to:** [Section](https://canvas.instructure.com/doc/api/sections.html#Section)
 
 <a name="category-user"></a>
-<h1 title="Category: user"></h1>
+#Category: user
 
 <a name="subcategory-user-course"></a>
 ## Subcategory: course
@@ -1550,7 +1550,7 @@ Gets info on a specific section
 Gets the list of courses associated with the current user
 
 <a name="subcategory-user-self"></a>
-<h2 body="Subcategory: self" class="horizontalLined">Subcategory: self<span></span></h2>
+## Subcategory: self
 
 <a name="function-user-self-getCurrentUser
 "></a>

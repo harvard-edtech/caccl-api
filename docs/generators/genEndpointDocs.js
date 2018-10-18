@@ -6,13 +6,10 @@ const path = require('path');
 const endpointsPath = path.join(__dirname, '../../endpoints');
 
 const genH1 = (body) => {
-  return '<h1 title="' + body + '"></h1>';
+  return '#' + body;
 };
 const genH2 = (body, noLine) => {
-  if (noLine) {
-    return '## ' + body;
-  }
-  return '<h2 body="' + body + '" class="horizontalLined">' + body + '<span></span></h2>';
+  return '## ' + body;
 };
 
 fs.readdir(endpointsPath, (categoryError, items) => {
