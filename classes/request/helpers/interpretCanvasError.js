@@ -135,6 +135,15 @@ module.exports = (body, status) => {
         });
       }
 
+      // Conflicting quiz submission
+      if (body.message === 'a quiz submission already exists') {
+        return new CACCLError({
+          message: 'A quiz submission already exists or a submission is already currently in progress. If a submission is open and in progress, please end it before trying to start another.',
+          code: errorCodes.quizSubmissionAlreadyExists,
+        });
+      }
+
+      console.log(body);
       // We couldn't identify this error. Report this as "unknown"
       return new CACCLError({
         message: 'Canvas responded with an unknown error.',
