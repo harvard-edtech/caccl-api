@@ -50,6 +50,148 @@ h2 {
     border-bottom: 4px solid #ccc;
 }
 
+/* Bootstrap alerts */
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+
+.alert-heading {
+  color: inherit;
+}
+
+.alert-link {
+  font-weight: 700;
+}
+
+.alert-dismissible {
+  padding-right: 4rem;
+}
+
+.alert-dismissible .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.75rem 1.25rem;
+  color: inherit;
+}
+
+.alert-primary {
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+}
+
+.alert-primary hr {
+  border-top-color: #9fcdff;
+}
+
+.alert-primary .alert-link {
+  color: #002752;
+}
+
+.alert-secondary {
+  color: #383d41;
+  background-color: #e2e3e5;
+  border-color: #d6d8db;
+}
+
+.alert-secondary hr {
+  border-top-color: #c8cbcf;
+}
+
+.alert-secondary .alert-link {
+  color: #202326;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-success hr {
+  border-top-color: #b1dfbb;
+}
+
+.alert-success .alert-link {
+  color: #0b2e13;
+}
+
+.alert-info {
+  color: #0c5460;
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+}
+
+.alert-info hr {
+  border-top-color: #abdde5;
+}
+
+.alert-info .alert-link {
+  color: #062c33;
+}
+
+.alert-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.alert-warning hr {
+  border-top-color: #ffe8a1;
+}
+
+.alert-warning .alert-link {
+  color: #533f03;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.alert-danger hr {
+  border-top-color: #f1b0b7;
+}
+
+.alert-danger .alert-link {
+  color: #491217;
+}
+
+.alert-light {
+  color: #818182;
+  background-color: #fefefe;
+  border-color: #fdfdfe;
+}
+
+.alert-light hr {
+  border-top-color: #ececf6;
+}
+
+.alert-light .alert-link {
+  color: #686868;
+}
+
+.alert-dark {
+  color: #1b1e21;
+  background-color: #d6d8d9;
+  border-color: #c6c8ca;
+}
+
+.alert-dark hr {
+  border-top-color: #b9bbbe;
+}
+
+.alert-dark .alert-link {
+  color: #040505;
+}
+
 </style>
 Usefule endpoint facts:
 
@@ -91,6 +233,8 @@ Usefule endpoint facts:
 )
     * [course.createAssignmentOverride(options)](#function-course-assignmentOverrides-createAssignmentOverride
 )
+    * [course.deleteAssignmentOverride(options)](#function-course-assignmentOverrides-deleteAssignmentOverride
+)
 * Subcategory: [assignments](#subcategory-course-assignments)
     * [course.listAssignments(options)](#function-course-assignments-listAssignments
 )
@@ -112,8 +256,6 @@ Usefule endpoint facts:
 )
     * [course.createAssignmentSubmissionComment(options)](#function-course-assignments-createAssignmentSubmissionComment
 )
-    * [course.createAssignmentSubmissionComment(options)](#function-course-assignments-createAssignmentSubmissionComment
-)
     * [course.updateAssignmentGrades(options)](#function-course-assignments-updateAssignmentGrades
 )
 * Subcategory: [course](#subcategory-course-course)
@@ -128,10 +270,12 @@ Usefule endpoint facts:
 )
     * [course.listDesigners(options)](#function-course-enrollments-listDesigners
 )
-    * [course.listObserver(options)](#function-course-enrollments-listObserver
+    * [course.listObservers(options)](#function-course-enrollments-listObservers
 )
 * Subcategory: [gradebookColumns](#subcategory-course-gradebookColumns)
     * [course.listGradebookColumns(options)](#function-course-gradebookColumns-listGradebookColumns
+)
+    * [course.getGradebookColumn(options)](#function-course-gradebookColumns-getGradebookColumn
 )
     * [course.updateGradebookColumn(options)](#function-course-gradebookColumns-updateGradebookColumn
 )
@@ -183,12 +327,26 @@ Usefule endpoint facts:
 )
     * [course.getQuiz(options)](#function-course-quizzes-getQuiz
 )
+    * [course.updateQuiz(options)](#function-course-quizzes-updateQuiz
+)
+    * [course.createQuiz(options)](#function-course-quizzes-createQuiz
+)
+    * [course.deleteQuiz(options)](#function-course-quizzes-deleteQuiz
+)
+    * [course.deleteQuiz(options)](#function-course-quizzes-deleteQuiz
+)
+    * [course.createMultipleChoiceQuizQuestion(options)](#function-course-quizzes-createMultipleChoiceQuizQuestion
+)
     * [course.listQuizSubmissions(options)](#function-course-quizzes-listQuizSubmissions
 )
     * [course.getQuizSubmission(options)](#function-course-quizzes-getQuizSubmission
 )
 * Subcategory: [rubrics](#subcategory-course-rubrics)
-    * [course.createRubric(options)](#function-course-rubrics-createRubric
+    * [course.listRubrics(options)](#function-course-rubrics-listRubrics
+)
+    * [course.getRubric(options)](#function-course-rubrics-getRubric
+)
+    * [course.createFreeFormGradingRubricInAssignment(options)](#function-course-rubrics-createFreeFormGradingRubricInAssignment
 )
 * Subcategory: [sections](#subcategory-course-sections)
     * [course.listSections(options)](#function-course-sections-listSections
@@ -395,19 +553,35 @@ Get a specific override on an assignment in a course
 <a name="function-course-assignmentOverrides-createAssignmentOverride
 "></a>
 ### course.createAssignmentOverride(options)
-Create student override // TODO: continue writing endpoints
+Create assignment override.
 
 **Inputs:**
 
 * **courseId** [number] – Canvas course id
 * **assignmentId** [number] – Canvas assignment id
-* **studentIDs** [array] – List of Canvas student IDs to override
-* **groupId** [number] – Group to override (must be a group assignment)
-* **sectionId** [number] – Section to override
-* **title** [string] – Title of the override<br>&nbsp;&nbsp;_- Optional. Defaults to:  "Override for student <studentID> in assignment <assignmentID>" if only one student or "Override for X students in assignment <assignmentID>" if many students_
-* **dueAt** [string] – New due date for student<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
-* **unlockAt** [string] – New unlock date for student<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
-* **lockAt** [string] – New lock date for student<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
+* **studentIds** [array] – List of Canvas student IDs to override (Note: either studentIds, groupId, or sectionId must be included)
+* **groupId** [number] – Group to override, must be a group assignment (Note: either studentIds, groupId, or sectionId must be included)
+* **sectionId** [number] – Section to override (Note: either studentIds, groupId, or sectionId must be included)
+* **title** [string] – Title of the override<br>&nbsp;&nbsp;_- Optional. Defaults to:  "Override for X students", if studentIds is included_
+* **dueAt** [date] – New due date or null to remove due date<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
+* **unlockAt** [date] – New unlock date or null to remove unlock date<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
+* **lockAt** [date] – New lock date or null to remove lock date<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
+
+
+**Resolves to:** [AssignmentOverride](https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
+
+<hr>
+
+<a name="function-course-assignmentOverrides-deleteAssignmentOverride
+"></a>
+### course.deleteAssignmentOverride(options)
+Deletes an assignment override
+
+**Inputs:**
+
+* **courseId** [number] – Canvas course id to query
+* **assignmentId** [number] – Canvas assignment id to query
+* **overrideId** [number] – Canvas override id to look up
 
 
 **Resolves to:** [AssignmentOverride](https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
@@ -455,9 +629,9 @@ Updates a Canvas assignment
 * **assignmentId** [number] – Canvas assignment Id to update
 * **name** [string] – The name of the assignment
 * **pointsPossible** [number] – Points possible<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **dueAt** [string] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **lockAt** [string] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **unlockAt** [string] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **dueAt** [date] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **lockAt** [date] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **unlockAt** [date] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
 * **description** [string] – html description of the assignment<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
 * **submissionTypes** [string] – Submission type(s)<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
 * **allowedExtensions** [string] – List of allowed file extensions (exclude period). Online upload must be enabled<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
@@ -487,9 +661,9 @@ Creates a Canvas assignment
 * **courseId** [number] – Canvas course Id to create an assignment in
 * **name** [string] – The name of the assignment<br>&nbsp;&nbsp;_- Optional. Defaults to:  Unnamed Assignment_
 * **pointsPossible** [number] – Points possible<br>&nbsp;&nbsp;_- Optional. Defaults to:  null_
-* **dueAt** [string] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **lockAt** [string] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **unlockAt** [string] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **dueAt** [date] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **lockAt** [date] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **unlockAt** [date] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
 * **description** [string] – html description of the assignment<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
 * **submissionTypes** [string] – Submission type(s)<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
 * **allowedExtensions** [string] – List of allowed file extensions (exclude period). Online upload must be enabled<br>&nbsp;&nbsp;_- Optional. Defaults to:  any_
@@ -584,21 +758,6 @@ List gradeable students for a specific assignment
 
 * **courseId** [number] – Canvas course Id to query
 * **assignmentId** [number] – Canvas assignment Id to query
-
-
-<hr>
-
-<a name="function-course-assignments-createAssignmentSubmissionComment
-"></a>
-### course.createAssignmentSubmissionComment(options)
-Adds a comment to a submission
-
-**Inputs:**
-
-* **courseId** [number] – Canvas course Id
-* **assignmentId** [number] – Canvas course Id
-* **studentId** [number] – Canvas student Id of the sub to comment on
-* **comment** [string] – The text of the comment
 
 
 <hr>
@@ -728,9 +887,9 @@ Gets the list of designers in a course
 
 <hr>
 
-<a name="function-course-enrollments-listObserver
+<a name="function-course-enrollments-listObservers
 "></a>
-### course.listObserver(options)
+### course.listObservers(options)
 Gets the list of observers in a course
 
 **Inputs:**
@@ -754,9 +913,26 @@ Gets the list of custom gradebook columns in a course
 **Inputs:**
 
 * **courseId** [number] – Canvas course Id to query
+* **includeHidden** [boolean] – If true, includes hidden gradebook columns as well.
 
 
 **Resolves to:** [List of CustomColumns](https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
+
+<hr>
+
+<a name="function-course-gradebookColumns-getGradebookColumn
+"></a>
+### course.getGradebookColumn(options)
+Gets info on a specific gradebook column in a course. This is a simulated endpoint: it does not exist. We are just pulling the list of columns and returning one element.
+
+**Inputs:**
+
+* **courseId** [number] – Canvas course Id to query
+* **columnId** [number] – Canvas column Id to return
+* **isHidden** [boolean] – Must be set to true if the column you're retrieving is a hidden column.
+
+
+**Resolves to:** [CustomColumn](https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
 
 <hr>
 
@@ -923,7 +1099,7 @@ Gets info on a specific group in a group set (alias to groups.js/getGroup)
 
 **Inputs:**
 
-* **groupSetId** [number] – Canvas group set Id to query
+* **groupId** [number] – Canvas group Id
 
 
 **Resolves to:** [Group](https://canvas.instructure.com/doc/api/groups.html#Group)
@@ -1000,10 +1176,10 @@ Gets the list of members in a group
 **Inputs:**
 
 * **groupId** [number] – Canvas group Id
-* **users** [array] – The list of user objects/user Ids that should be in the group<br>&nbsp;&nbsp;_- Optional. Defaults to:  empty list_
+* **members** [array] – The list of user objects/user Ids that should be in the group<br>&nbsp;&nbsp;_- Optional. Defaults to:  empty list_
 
 
-**Resolves to:** [list of Users](https://canvas.instructure.com/doc/api/users.html#User)
+**Resolves to:** [Group](https://canvas.instructure.com/doc/api/groups.html#Group)
 
 <a name="subcategory-course-pages"></a>
 <h2 body="Subcategory: pages" class="horizontalLined">Subcategory: pages<span></span></h2>
@@ -1123,6 +1299,135 @@ Get info on a specific quiz in a course
 
 <hr>
 
+<a name="function-course-quizzes-updateQuiz
+"></a>
+### course.updateQuiz(options)
+Updates a specific quiz in a course
+
+**Inputs:**
+
+* **courseId** [number] – Canvas course Id to create the quiz in
+* **quizId** [number] – Canvas course Id to create the quiz in
+* **suppressNotification** [boolean] – If true, does not notify users that the quiz has been updated
+* **title** [string] – New title of the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **description** [string] – New HTML description of the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **type** [string] – Quiz type. Allowed values: [ 'practice_quiz', 'assignment', 'graded_survey', 'survey']<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **dueAt** [date] – – Optional. Date the quiz is due<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **lockAt** [date] – – Optional. Date the quiz is lock<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **unlockAt** [date] – – Optional. Date the quiz is unlock<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **published** [boolean] – – Optional. If true, quiz is published<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **allowedAttempts** [number] – Number of times a student is allowed to take the quiz. Set to -1 or 'infinity' for unlimited attempts<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **scoringPolicy** [string] – – Optional. Required and only valid if allowedAttempts > 1. Allowed values: ['keep_highest', 'keep_latest']<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **oneQuestionAtATime** [boolean] – – Optional. If true, shows quiz to student one question at a time. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **cantGoBack** [boolean] – – Optional. If true, shows quiz to student one question at a time. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **accessCode** [string] – – Optional. If defined, restricts access to the quiz only to those with this access code<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **ipFilter** [string] – – Optional. If defined, restricts access to the quiz to computers in a specified IP range. Filters can be a comma-separated list of addresses, or an address followed by a mask<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **assignmentGroupId** [number] – The assignment group to put the quiz into. Only valid if type is "assignment" or "graded_survey"<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **timeLimitMins** [number] – Time limit for the quiz in minutes<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **shuffleAnswers** [boolean] – If true, quiz answers for multiple choice questions will be randomized for each student. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **hideResults** [string] – Allowed values: ['always', 'until_after_last_attempt'], determines whether the student can see their own submission and other results<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **hideCorrectAnswers** [boolean] – Only valid if hideResults is not defined. If true, hides correct answers from students when results are viewed. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **showCorrectAnswersAfterLastAttempt** [boolean] – Only valid if hideCorrectAnswers is not true and allowedAttemptes > 1. If true, hides correct answers from students when quiz results are viewed until they submit the last attempt for the quiz. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **showCorrectAnswersAt** [date] – Only valid if hideCorrectAnswers is not true. If set, correct answers will only be visible after this date<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **hideCorrectAnswersAt** [date] – Only valid if hideCorrectAnswers is not true. If set, correct answers will stop being visible after this date has passed<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **oneTimeResults** [boolean] – Whether students should be prevented from viewing their quiz results past the first time (right after they turn in the quiz)<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **onlyVisibleToOverrides** [boolean] – If true, the quiz is only visible to students with overrides. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+
+
+**Resolves to:** [Quiz](https://canvas.instructure.com/doc/api/quizzes.html#Quiz)
+
+<hr>
+
+<a name="function-course-quizzes-createQuiz
+"></a>
+### course.createQuiz(options)
+Creates a new quiz in a course
+
+**Inputs:**
+
+* **courseId** [number] – Canvas course Id to create the quiz in
+* **title** [string] – Title of the new quiz
+* **description** [string] – HTML description of the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  ''_
+* **type** [string] – Quiz type. Allowed values: [ 'practice_quiz', 'assignment', 'graded_survey', 'survey']<br>&nbsp;&nbsp;_- Optional_
+* **dueAt** [date] – – Optional. Date the quiz is due<br>&nbsp;&nbsp;_- Optional. Defaults to:  no due date_
+* **lockAt** [date] – – Optional. Date the quiz is lock<br>&nbsp;&nbsp;_- Optional. Defaults to:  no lock date_
+* **unlockAt** [date] – – Optional. Date the quiz is unlock<br>&nbsp;&nbsp;_- Optional. Defaults to:  no unlock date_
+* **published** [boolean] – – Optional. If true, quiz is published<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **allowedAttempts** [number] – Number of times a student is allowed to take the quiz. Set to -1 or 'infinity' for unlimited attempts<br>&nbsp;&nbsp;_- Optional. Defaults to:  1_
+* **scoringPolicy** [string] – – Optional. Required and only valid if allowedAttempts > 1. Allowed values: ['keep_highest', 'keep_latest']<br>&nbsp;&nbsp;_- Optional. Defaults to:  'keep_highest'_
+* **oneQuestionAtATime** [boolean] – – Optional. If true, shows quiz to student one question at a time<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **cantGoBack** [boolean] – – Optional. If true, shows quiz to student one question at a time<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **accessCode** [string] – – Optional. If defined, restricts access to the quiz only to those with this access code<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **ipFilter** [string] – – Optional. If defined, restricts access to the quiz to computers in a specified IP range. Filters can be a comma-separated list of addresses, or an address followed by a mask<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **assignmentGroupId** [number] – The assignment group to put the quiz into. Only valid if type is "assignment" or "graded_survey"<br>&nbsp;&nbsp;_- Optional. Defaults to:  top assignment group in the course_
+* **timeLimitMins** [number] – Time limit for the quiz in minutes<br>&nbsp;&nbsp;_- Optional. Defaults to:  no time limit_
+* **shuffleAnswers** [boolean] – If true, quiz answers for multiple choice questions will be randomized for each student<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **hideResults** [string] – Allowed values: ['always', 'until_after_last_attempt'], determines whether the student can see their own submission and other results<br>&nbsp;&nbsp;_- Optional. Defaults to:  results not hidden_
+* **hideCorrectAnswers** [boolean] – Only valid if hideResults is not defined. If true, hides correct answers from students when results are viewed<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **showCorrectAnswersAfterLastAttempt** [boolean] – Only valid if hideCorrectAnswers is not true and allowedAttemptes > 1. If true, hides correct answers from students when quiz results are viewed until they submit the last attempt for the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **showCorrectAnswersAt** [date] – Only valid if hideCorrectAnswers is not true. If set, correct answers will only be visible after this date<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **hideCorrectAnswersAt** [date] – Only valid if hideCorrectAnswers is not true. If set, correct answers will stop being visible after this date has passed<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **oneTimeResults** [boolean] – Whether students should be prevented from viewing their quiz results past the first time (right after they turn in the quiz)<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **onlyVisibleToOverrides** [boolean] – If true, the quiz is only visible to students with overrides<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+
+
+**Resolves to:** [Quiz](https://canvas.instructure.com/doc/api/quizzes.html#Quiz)
+
+<hr>
+
+<a name="function-course-quizzes-deleteQuiz
+"></a>
+### course.deleteQuiz(options)
+Deletes a quiz from a course
+
+**Inputs:**
+
+* **courseId** [number] – Canvas course Id to query
+* **quizId** [number] – Canvas quiz Id (not the quiz's assignment Id)
+
+
+**Resolves to:** [Quiz](https://canvas.instructure.com/doc/api/quizzes.html#Quiz)
+
+<hr>
+
+<a name="function-course-quizzes-deleteQuiz
+"></a>
+### course.deleteQuiz(options)
+Lists quiz questions
+
+**Inputs:**
+
+* **courseId** [number] – Canvas course Id to query
+* **quizId** [number] – Canvas quiz Id to query
+
+
+**Resolves to:** [Quiz](https://canvas.instructure.com/doc/api/quizzes.html#Quiz)
+
+<hr>
+
+<a name="function-course-quizzes-createMultipleChoiceQuizQuestion
+"></a>
+### course.createMultipleChoiceQuizQuestion(options)
+Creates a new multiple choice question to a quiz in a course
+
+**Inputs:**
+
+* **courseId** [number] – Canvas course Id to query
+* **quizId** [number] – Canvas quiz Id (not the quiz's assignment Id)
+* **name** [string] – Name of the question
+* **text** [string] – The text of the question, as displayed to the quiz
+* **position** [number] – Position of the question with respect to the other questions in the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  last_
+* **pointsPossible** [number] – Maximum number of points
+* **correctComment** [string] – Comment to display if the student answers correctly<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **incorrectComment** [string] – Comment to display if the student answers incorrectly<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **neutralComment** [string] – Comment to display regardless of how the student answers<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **answers** [array] – Array of answers: [{ text, correct, comment }]
+
+
+**Resolves to:** [QuizQuestion](https://canvas.instructure.com/doc/api/quiz_questions.html#QuizQuestion)
+
+<hr>
+
 <a name="function-course-quizzes-listQuizSubmissions
 "></a>
 ### course.listQuizSubmissions(options)
@@ -1155,17 +1460,53 @@ Gets info on a specific submission to a quiz in a course
 <a name="subcategory-course-rubrics"></a>
 <h2 body="Subcategory: rubrics" class="horizontalLined">Subcategory: rubrics<span></span></h2>
 
-<a name="function-course-rubrics-createRubric
+<a name="function-course-rubrics-listRubrics
 "></a>
-### course.createRubric(options)
-Creates a new rubric
+### course.listRubrics(options)
+Lists the set of rubrics in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to get info on
+* **courseId** [number] – Canvas course Id to add the rubric to
 
 
-**Resolves to:** [Course](https://canvas.instructure.com/doc/api/courses.html#Course)
+**Resolves to:** [list of Rubrics](https://canvas.instructure.com/doc/api/rubrics.html#Rubric)
+
+<hr>
+
+<a name="function-course-rubrics-getRubric
+"></a>
+### course.getRubric(options)
+Gets info on a specific rubric in a course
+
+**Inputs:**
+
+* **courseId** [number] – Canvas course Id to add the rubric to
+* **rubricId** [number] – Canvas course Id to add the rubric to
+* **include** [boolean] – Allowed values: ['assessments', 'graded_assessments', 'peer_assessments']. If excluded, no assessments will be included<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **assessmentStyle** [string] – Allowed values: ['full','comments_only'] (full = entire assessment, comments_only = only comment part of assessment). Only valid if including assessments<br>&nbsp;&nbsp;_- Optional. Defaults to:  both data and comments are omitted_
+
+
+**Resolves to:** [Rubric](https://canvas.instructure.com/doc/api/rubrics.html#Rubric)
+
+<hr>
+
+<a name="function-course-rubrics-createFreeFormGradingRubricInAssignment
+"></a>
+### course.createFreeFormGradingRubricInAssignment(options)
+Creates a new rubric for grading with free form comments enabled and add it to an assignment in a course.
+
+**Inputs:**
+
+* **courseId** [number] – Canvas course Id to add the rubric to
+* **assignmentId** [number] – Canvas course Id to add the rubric to
+* **title** [string] – Title of the new rubric
+* **rubricItems** [array] – List of rubric item objects: [{description, longDescription (optional), points}, ...]
+
+
+**Resolves to:** [Rubric](https://canvas.instructure.com/doc/api/rubrics.html#Rubric)
+
+<div class="alert alert-danger"><strong>Danger: Endpoint Unlisted</strong><br>This endpoint is not documentated, supported by Instructure, or even listed in the Canvas online API docs. It may change, be removed, or completely stop working at any moment.</div>
 
 <a name="subcategory-course-sections"></a>
 <h2 body="Subcategory: sections" class="horizontalLined">Subcategory: sections<span></span></h2>
