@@ -119,7 +119,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
         // Add title
         const endpointDefinition = endpointDefinitions[i];
         const functionName = endpointDefinition.name;
-        const funcId = 'function-' + category + '-' + subcatName + '-' + functionName + '\n';
+        const funcId = 'function-' + category + '-' + subcatName + '-' + functionName;
         doc += '<a id="user-content-' + funcId + '"></a>\n';
         doc += '### ' + category + '.' + functionName + '(options)\n';
         intro += '    * [' + category + '.' + functionName + '(options)](#user-content-' + funcId + ')\n';
