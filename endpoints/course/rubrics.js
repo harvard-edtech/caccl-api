@@ -1,6 +1,55 @@
+const utils = require('../helpers/utils.js');
+
 module.exports = [
   /**
-   * Creates a new rubric for grading with free form comments enabled.
+   * Lists the set of rubrics in a course
+   * @param {number} courseId - Canvas course Id to add the rubric to
+   * @return list of Rubrics (see: https://canvas.instructure.com/doc/api/rubrics.html#Rubric)
+   */
+  {
+    name: 'listRubrics',
+    action: 'list all the rubrics in a course',
+    run: (cg) => {
+      return cg.visitEndpoint({
+        path: '/api/v1/courses/' + cg.options.courseId + '/rubrics',
+        method: 'GET',
+      });
+    },
+  },
+
+  /**
+   * Gets info on a specific rubric in a course
+   * @param {number} courseId - Canvas course Id to add the rubric to
+   * @param {number} rubricId - Canvas course Id to add the rubric to
+   * @param {boolean} include - Optional. Allowed values: ['assessments',
+   *   'graded_assessments', 'peer_assessments']. If excluded, no assessments
+   *   will be included (default: none)
+   * @param {string} assessmentStyle - Optional. Allowed values:
+   *   ['full','comments_only']
+   *   (full = entire assessment, comments_only = only comment part of
+   *   assessment). Only valid if including assessments (default: both data and
+   *   comments are omitted)
+   * @return Rubric (see: https://canvas.instructure.com/doc/api/rubrics.html#Rubric)
+   */
+  {
+    name: 'getRubric',
+    action: 'get info on a specific rubric in a course',
+    run: (cg) => {
+      return cg.visitEndpoint({
+        path: '/api/v1/courses/' + cg.options.courseId + '/rubrics/' + cg.options.rubricId,
+        method: 'GET',
+        params: {
+          include: utils.includeIfTruthy(cg.options.include),
+          style: utils.includeIfTruthy(cg.options.assessmentStyle),
+        },
+      });
+    },
+  },
+
+  /**
+   * Creates a new rubric for grading with free form comments enabled and add it
+   *   to an assignment in a course.
+   * @status unlisted
    * @param {number} courseId - Canvas course Id to add the rubric to
    * @param {number} assignmentId - Canvas course Id to add the rubric to
    * @param {string} title - Title of the new rubric
@@ -8,12 +57,9 @@ module.exports = [
    *   [{description, longDescription (optional), points}, ...]
    * @return Rubric (see: https://canvas.instructure.com/doc/api/rubrics.html#Rubric)
    */
-  // WARNING: This endpoint is not documented, supported, or even listed in
-  // the Canvas online API. It may change, be removed, or completely stop
-  // working at any moment.
   {
-    name: 'createFreeFormGradingRubric_unlisted',
-    action: 'create a new free form grading rubric in a course',
+    name: 'createFreeFormGradingRubricInAssignment',
+    action: 'create a new free form grading rubric and add it to a specific assignment in a course',
     run: (cg) => {
       let pointsPossible = 0;
       cg.options.rubricItems.forEach((rubricItem) => {
@@ -63,6 +109,16 @@ module.exports = [
         params,
         path: '/api/v1/courses/' + cg.options.courseId + '/rubrics',
         method: 'POST',
+      }).then((response) => {
+        // Response is of form { rubric: <rubric object> } for no reason
+        // We just extract that rubric object
+        const { rubric } = response;
+        return cg.uncache([
+          // Uncache list of rubrics
+          '/api/v1/courses/' + cg.options.courseId + '/rubrics',
+          // Uncache rubric
+          '/api/v1/courses/' + cg.options.courseId + '/rubrics/' + response.id,
+        ], rubric);
       });
     },
   },
