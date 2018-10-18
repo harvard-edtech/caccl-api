@@ -5,6 +5,11 @@ const path = require('path');
 
 const endpointsPath = path.join(__dirname, '../../endpoints');
 
+String.prototype.replaceAll = function (search, replacement) {
+  var target = this;
+  return target.replace(new RegExp(search, 'g'), replacement);
+};
+
 fs.readdir(endpointsPath, (categoryError, items) => {
   if (categoryError) {
     console.log('An error occurred while reading categories:', categoryError);
@@ -47,15 +52,13 @@ fs.readdir(endpointsPath, (categoryError, items) => {
     // Get all files inside it
     const endpointsFiles = fs.readdirSync(endpointsPath + '/' + category);
 
-    const catId = 'category-' + category;
-    doc += '<a id="' + catId + '"></a>\n';
     doc += '# Category: ' + category + '\n\n';
     if (firstTOCCreated) {
       // Add toc divider
       intro += '\n\n<hr>\n';
     }
     firstTOCCreated = true;
-    intro += '\n\n**Category: [' + category + '](#user-content-' + catId + ')**\n\n';
+    intro += '\n\n**Category: [' + category + '](#Category:-' + category.replaceAll(' ', '-') + ')**\n\n';
 
     for (let fileIndex = 0; fileIndex < endpointsFiles.length; fileIndex++) {
       const endpointsFile = endpointsFiles[fileIndex];
@@ -64,9 +67,8 @@ fs.readdir(endpointsPath, (categoryError, items) => {
 
       const subcatName = endpointsFile.split('.')[0];
       const subcatId = 'subcategory-' + category + '-' + subcatName;
-      doc += '<a id="' + subcatId + '"></a>\n';
       doc += '## Subcategory: ' + subcatName + '\n\n';
-      intro += '* Subcategory: [' + subcatName + '](#user-content-' + subcatId + ')\n';
+      intro += '* Subcategory: [' + subcatName + '](#Subcategory:-' + subcatId.replaceAll(' ', '-') + ')\n';
       const endpointDefinitions = (
         require('../../endpoints/' + category + '/' + endpointsFile)
       );
@@ -121,10 +123,8 @@ fs.readdir(endpointsPath, (categoryError, items) => {
         // Add title
         const endpointDefinition = endpointDefinitions[i];
         const functionName = endpointDefinition.name;
-        const funcId = 'function-' + category + '-' + subcatName + '-' + functionName + '\n';
-        doc += '<a id="' + funcId + '"></a>\n';
         doc += '### ' + category + '.' + functionName + '(options)\n';
-        intro += '    * [' + category + '.' + functionName + '(options)](#user-content-' + funcId + ')\n';
+        intro += '    * [' + category + '.' + functionName + '(options)](#' + category.replaceAll(' ', '-') + '.' + functionName.replaceAll(' ', '-') + '(options))\n';
 
         // Add description
         doc += jsdocParsed.description + '\n\n';
