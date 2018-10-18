@@ -13,167 +13,167 @@ Usefule endpoint facts:
 
 
 
-**Category: [course](#category-course)**
+**Category: [course](#user-content-category-course)**
 
 * Subcategory: [apps](#user-content-subcategory-course-apps)
-    * [course.listApps(options)](#function-course-apps-listApps
+    * [course.listApps(options)](#user-content-function-course-apps-listApps
 )
-    * [course.getApp(options)](#function-course-apps-getApp
+    * [course.getApp(options)](#user-content-function-course-apps-getApp
 )
-    * [course.addApp(options)](#function-course-apps-addApp
+    * [course.addApp(options)](#user-content-function-course-apps-addApp
 )
-    * [course.removeApp(options)](#function-course-apps-removeApp
+    * [course.removeApp(options)](#user-content-function-course-apps-removeApp
 )
 * Subcategory: [assignmentGroups](#user-content-subcategory-course-assignmentGroups)
-    * [course.listAssignmentGroups(options)](#function-course-assignmentGroups-listAssignmentGroups
+    * [course.listAssignmentGroups(options)](#user-content-function-course-assignmentGroups-listAssignmentGroups
 )
-    * [course.getAssignmentGroup(options)](#function-course-assignmentGroups-getAssignmentGroup
+    * [course.getAssignmentGroup(options)](#user-content-function-course-assignmentGroups-getAssignmentGroup
 )
-    * [course.updateAssignmentGroup(options)](#function-course-assignmentGroups-updateAssignmentGroup
+    * [course.updateAssignmentGroup(options)](#user-content-function-course-assignmentGroups-updateAssignmentGroup
 )
-    * [course.createAssignmentGroup(options)](#function-course-assignmentGroups-createAssignmentGroup
+    * [course.createAssignmentGroup(options)](#user-content-function-course-assignmentGroups-createAssignmentGroup
 )
-    * [course.deleteAssignmentGroup(options)](#function-course-assignmentGroups-deleteAssignmentGroup
+    * [course.deleteAssignmentGroup(options)](#user-content-function-course-assignmentGroups-deleteAssignmentGroup
 )
 * Subcategory: [assignmentOverrides](#user-content-subcategory-course-assignmentOverrides)
-    * [course.listAssignmentOverrides(options)](#function-course-assignmentOverrides-listAssignmentOverrides
+    * [course.listAssignmentOverrides(options)](#user-content-function-course-assignmentOverrides-listAssignmentOverrides
 )
-    * [course.getAssignmentOverride(options)](#function-course-assignmentOverrides-getAssignmentOverride
+    * [course.getAssignmentOverride(options)](#user-content-function-course-assignmentOverrides-getAssignmentOverride
 )
-    * [course.createAssignmentOverride(options)](#function-course-assignmentOverrides-createAssignmentOverride
+    * [course.createAssignmentOverride(options)](#user-content-function-course-assignmentOverrides-createAssignmentOverride
 )
-    * [course.deleteAssignmentOverride(options)](#function-course-assignmentOverrides-deleteAssignmentOverride
+    * [course.deleteAssignmentOverride(options)](#user-content-function-course-assignmentOverrides-deleteAssignmentOverride
 )
 * Subcategory: [assignments](#user-content-subcategory-course-assignments)
-    * [course.listAssignments(options)](#function-course-assignments-listAssignments
+    * [course.listAssignments(options)](#user-content-function-course-assignments-listAssignments
 )
-    * [course.getAssignment(options)](#function-course-assignments-getAssignment
+    * [course.getAssignment(options)](#user-content-function-course-assignments-getAssignment
 )
-    * [course.updateAssignment(options)](#function-course-assignments-updateAssignment
+    * [course.updateAssignment(options)](#user-content-function-course-assignments-updateAssignment
 )
-    * [course.createAssignment(options)](#function-course-assignments-createAssignment
+    * [course.createAssignment(options)](#user-content-function-course-assignments-createAssignment
 )
-    * [course.deleteAssignment(options)](#function-course-assignments-deleteAssignment
+    * [course.deleteAssignment(options)](#user-content-function-course-assignments-deleteAssignment
 )
-    * [course.listAssignmentSubmissions(options)](#function-course-assignments-listAssignmentSubmissions
+    * [course.listAssignmentSubmissions(options)](#user-content-function-course-assignments-listAssignmentSubmissions
 )
-    * [course.getAssignmentSubmission(options)](#function-course-assignments-getAssignmentSubmission
+    * [course.getAssignmentSubmission(options)](#user-content-function-course-assignments-getAssignmentSubmission
 )
-    * [course.createAssignmentSubmission(options)](#function-course-assignments-createAssignmentSubmission
+    * [course.createAssignmentSubmission(options)](#user-content-function-course-assignments-createAssignmentSubmission
 )
-    * [course.listGradeableStudents(options)](#function-course-assignments-listGradeableStudents
+    * [course.listGradeableStudents(options)](#user-content-function-course-assignments-listGradeableStudents
 )
-    * [course.createAssignmentSubmissionComment(options)](#function-course-assignments-createAssignmentSubmissionComment
+    * [course.createAssignmentSubmissionComment(options)](#user-content-function-course-assignments-createAssignmentSubmissionComment
 )
-    * [course.updateAssignmentGrades(options)](#function-course-assignments-updateAssignmentGrades
+    * [course.updateAssignmentGrades(options)](#user-content-function-course-assignments-updateAssignmentGrades
 )
 * Subcategory: [course](#user-content-subcategory-course-course)
-    * [course.getCourse(options)](#function-course-course-getCourse
+    * [course.getCourse(options)](#user-content-function-course-course-getCourse
 )
 * Subcategory: [enrollments](#user-content-subcategory-course-enrollments)
-    * [course.listEnrollments(options)](#function-course-enrollments-listEnrollments
+    * [course.listEnrollments(options)](#user-content-function-course-enrollments-listEnrollments
 )
-    * [course.listStudents(options)](#function-course-enrollments-listStudents
+    * [course.listStudents(options)](#user-content-function-course-enrollments-listStudents
 )
-    * [course.listTeachingTeamMembers(options)](#function-course-enrollments-listTeachingTeamMembers
+    * [course.listTeachingTeamMembers(options)](#user-content-function-course-enrollments-listTeachingTeamMembers
 )
-    * [course.listDesigners(options)](#function-course-enrollments-listDesigners
+    * [course.listDesigners(options)](#user-content-function-course-enrollments-listDesigners
 )
-    * [course.listObservers(options)](#function-course-enrollments-listObservers
+    * [course.listObservers(options)](#user-content-function-course-enrollments-listObservers
 )
 * Subcategory: [gradebookColumns](#user-content-subcategory-course-gradebookColumns)
-    * [course.listGradebookColumns(options)](#function-course-gradebookColumns-listGradebookColumns
+    * [course.listGradebookColumns(options)](#user-content-function-course-gradebookColumns-listGradebookColumns
 )
-    * [course.getGradebookColumn(options)](#function-course-gradebookColumns-getGradebookColumn
+    * [course.getGradebookColumn(options)](#user-content-function-course-gradebookColumns-getGradebookColumn
 )
-    * [course.updateGradebookColumn(options)](#function-course-gradebookColumns-updateGradebookColumn
+    * [course.updateGradebookColumn(options)](#user-content-function-course-gradebookColumns-updateGradebookColumn
 )
-    * [course.createGradebookColumn(options)](#function-course-gradebookColumns-createGradebookColumn
+    * [course.createGradebookColumn(options)](#user-content-function-course-gradebookColumns-createGradebookColumn
 )
-    * [course.deleteGradebookColumn(options)](#function-course-gradebookColumns-deleteGradebookColumn
+    * [course.deleteGradebookColumn(options)](#user-content-function-course-gradebookColumns-deleteGradebookColumn
 )
-    * [course.listGradebookColumnEntries(options)](#function-course-gradebookColumns-listGradebookColumnEntries
+    * [course.listGradebookColumnEntries(options)](#user-content-function-course-gradebookColumns-listGradebookColumnEntries
 )
-    * [course.updateGradebookColumnEntries(options)](#function-course-gradebookColumns-updateGradebookColumnEntries
+    * [course.updateGradebookColumnEntries(options)](#user-content-function-course-gradebookColumns-updateGradebookColumnEntries
 )
 * Subcategory: [groupSets](#user-content-subcategory-course-groupSets)
-    * [course.listGroupSets(options)](#function-course-groupSets-listGroupSets
+    * [course.listGroupSets(options)](#user-content-function-course-groupSets-listGroupSets
 )
-    * [course.getGroupSet(options)](#function-course-groupSets-getGroupSet
+    * [course.getGroupSet(options)](#user-content-function-course-groupSets-getGroupSet
 )
-    * [course.createGroupSet(options)](#function-course-groupSets-createGroupSet
+    * [course.createGroupSet(options)](#user-content-function-course-groupSets-createGroupSet
 )
-    * [course.deleteGroupSet(options)](#function-course-groupSets-deleteGroupSet
+    * [course.deleteGroupSet(options)](#user-content-function-course-groupSets-deleteGroupSet
 )
-    * [course.listGroupSetGroups(options)](#function-course-groupSets-listGroupSetGroups
+    * [course.listGroupSetGroups(options)](#user-content-function-course-groupSets-listGroupSetGroups
 )
-    * [course.getGroupSetGroup(options)](#function-course-groupSets-getGroupSetGroup
+    * [course.getGroupSetGroup(options)](#user-content-function-course-groupSets-getGroupSetGroup
 )
-    * [course.createGroupSetGroup(options)](#function-course-groupSets-createGroupSetGroup
+    * [course.createGroupSetGroup(options)](#user-content-function-course-groupSets-createGroupSetGroup
 )
-    * [course.deleteGroupSetGroup(options)](#function-course-groupSets-deleteGroupSetGroup
+    * [course.deleteGroupSetGroup(options)](#user-content-function-course-groupSets-deleteGroupSetGroup
 )
 * Subcategory: [groups](#user-content-subcategory-course-groups)
-    * [course.getGroup(options)](#function-course-groups-getGroup
+    * [course.getGroup(options)](#user-content-function-course-groups-getGroup
 )
-    * [course.listGroupMembers(options)](#function-course-groups-listGroupMembers
+    * [course.listGroupMembers(options)](#user-content-function-course-groups-listGroupMembers
 )
-    * [course.updateGroupMembers(options)](#function-course-groups-updateGroupMembers
+    * [course.updateGroupMembers(options)](#user-content-function-course-groups-updateGroupMembers
 )
 * Subcategory: [pages](#user-content-subcategory-course-pages)
-    * [course.listPages(options)](#function-course-pages-listPages
+    * [course.listPages(options)](#user-content-function-course-pages-listPages
 )
-    * [course.getPage(options)](#function-course-pages-getPage
+    * [course.getPage(options)](#user-content-function-course-pages-getPage
 )
-    * [course.updatePage(options)](#function-course-pages-updatePage
+    * [course.updatePage(options)](#user-content-function-course-pages-updatePage
 )
-    * [course.createPage(options)](#function-course-pages-createPage
+    * [course.createPage(options)](#user-content-function-course-pages-createPage
 )
-    * [course.deletePage(options)](#function-course-pages-deletePage
+    * [course.deletePage(options)](#user-content-function-course-pages-deletePage
 )
 * Subcategory: [quizzes](#user-content-subcategory-course-quizzes)
-    * [course.listQuizzes(options)](#function-course-quizzes-listQuizzes
+    * [course.listQuizzes(options)](#user-content-function-course-quizzes-listQuizzes
 )
-    * [course.getQuiz(options)](#function-course-quizzes-getQuiz
+    * [course.getQuiz(options)](#user-content-function-course-quizzes-getQuiz
 )
-    * [course.updateQuiz(options)](#function-course-quizzes-updateQuiz
+    * [course.updateQuiz(options)](#user-content-function-course-quizzes-updateQuiz
 )
-    * [course.createQuiz(options)](#function-course-quizzes-createQuiz
+    * [course.createQuiz(options)](#user-content-function-course-quizzes-createQuiz
 )
-    * [course.deleteQuiz(options)](#function-course-quizzes-deleteQuiz
+    * [course.deleteQuiz(options)](#user-content-function-course-quizzes-deleteQuiz
 )
-    * [course.deleteQuiz(options)](#function-course-quizzes-deleteQuiz
+    * [course.deleteQuiz(options)](#user-content-function-course-quizzes-deleteQuiz
 )
-    * [course.createMultipleChoiceQuizQuestion(options)](#function-course-quizzes-createMultipleChoiceQuizQuestion
+    * [course.createMultipleChoiceQuizQuestion(options)](#user-content-function-course-quizzes-createMultipleChoiceQuizQuestion
 )
-    * [course.listQuizSubmissions(options)](#function-course-quizzes-listQuizSubmissions
+    * [course.listQuizSubmissions(options)](#user-content-function-course-quizzes-listQuizSubmissions
 )
-    * [course.getQuizSubmission(options)](#function-course-quizzes-getQuizSubmission
+    * [course.getQuizSubmission(options)](#user-content-function-course-quizzes-getQuizSubmission
 )
 * Subcategory: [rubrics](#user-content-subcategory-course-rubrics)
-    * [course.listRubrics(options)](#function-course-rubrics-listRubrics
+    * [course.listRubrics(options)](#user-content-function-course-rubrics-listRubrics
 )
-    * [course.getRubric(options)](#function-course-rubrics-getRubric
+    * [course.getRubric(options)](#user-content-function-course-rubrics-getRubric
 )
-    * [course.createFreeFormGradingRubricInAssignment(options)](#function-course-rubrics-createFreeFormGradingRubricInAssignment
+    * [course.createFreeFormGradingRubricInAssignment(options)](#user-content-function-course-rubrics-createFreeFormGradingRubricInAssignment
 )
 * Subcategory: [sections](#user-content-subcategory-course-sections)
-    * [course.listSections(options)](#function-course-sections-listSections
+    * [course.listSections(options)](#user-content-function-course-sections-listSections
 )
-    * [course.getSection(options)](#function-course-sections-getSection
+    * [course.getSection(options)](#user-content-function-course-sections-getSection
 )
 
 
 <hr>
 
 
-**Category: [user](#category-user)**
+**Category: [user](#user-content-category-user)**
 
 * Subcategory: [course](#user-content-subcategory-user-course)
-    * [user.listCourses(options)](#function-user-course-listCourses
+    * [user.listCourses(options)](#user-content-function-user-course-listCourses
 )
 * Subcategory: [self](#user-content-subcategory-user-self)
-    * [user.getCurrentUser(options)](#function-user-self-getCurrentUser
+    * [user.getCurrentUser(options)](#user-content-function-user-self-getCurrentUser
 )
 
 
