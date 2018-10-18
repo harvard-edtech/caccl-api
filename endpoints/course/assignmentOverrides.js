@@ -49,11 +49,11 @@ module.exports = [
    *   groupId, or sectionId must be included)
    * @param {string} title - Title of the override (default: "Override for X
    *   students", if studentIds is included)
-   * @param {string} dueAt - New due date or null to remove due date (default:
+   * @param {date} dueAt - New due date or null to remove due date (default:
    *   current value)
-   * @param {string} unlockAt - New unlock date or null to remove unlock date
+   * @param {date} unlockAt - New unlock date or null to remove unlock date
    *   (default: current value)
-   * @param {string} lockAt - New lock date or null to remove lock date
+   * @param {date} lockAt - New lock date or null to remove lock date
    *   (default: current value)
    * @return AssignmentOverride (see: https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
    */
