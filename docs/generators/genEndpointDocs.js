@@ -102,9 +102,14 @@ fs.readdir(endpointsPath, (categoryError, items) => {
         // Split off jsdoc
         const endIndex = endpointPart.indexOf('*/');
         let jsdoc = endpointPart.substring(0, endIndex + 2);
-        // Fix multiline strings
+        // Fix multiline strings and extract status
         const newDocLines = [];
+        let status = 'normal';
         jsdoc.split('\n').forEach((line) => {
+          if (line.trim().startsWith('* @status ')) {
+            status = line.split('@status')[1].trim().toLowerCase();
+            return;
+          }
           if (line.trim().startsWith('*   ')) {
             // Continued line
             const addon = ' ' + line.trim().substring(1).trim();
@@ -201,6 +206,15 @@ fs.readdir(endpointsPath, (categoryError, items) => {
           } catch (err) {
             // Couldn't parse out link. Just include as plain text
             doc += ' \n' + returnDescription + '\n\n';
+          }
+        }
+
+        // Add status (if not normal)
+        if (status !== 'normal') {
+          if (status === 'unlisted') {
+            doc += '<div class="alert alert-danger"><strong>Danger: Endpoint Unlisted</strong><br>This endpoint is not documentated, supported by Instructure, or even listed in the Canvas online API docs. It may change, be removed, or completely stop working at any moment.</div>\n\n';
+          } else if (status === 'beta') {
+            doc += '<div class="alert alert-warning"><strong>Warning: Endpoint in Beta</strong><br>Though this endpoint is officially documented by Instructure, they specifically noted that this endpoint is still in "beta". Thus, it may change or completely stop working at any moment.</div>\n\n';
           }
         }
       }
