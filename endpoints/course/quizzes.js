@@ -355,7 +355,7 @@ module.exports = [
    * @param {number} quizId - Canvas quiz Id to query
    * @return Quiz (see: https://canvas.instructure.com/doc/api/quizzes.html#Quiz)
    */
-  { // TODO: implement
+  {
     name: 'deleteQuiz',
     action: 'delete a specific quiz from a course',
     run: (cg) => {
