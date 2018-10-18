@@ -48,7 +48,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
     const endpointsFiles = fs.readdirSync(endpointsPath + '/' + category);
 
     const catId = 'category-' + category;
-    doc += '<a id="' + catId + '"></a>\n';
+    doc += '<a id="user-content-' + catId + '"></a>\n';
     doc += '# Category: ' + category + '\n\n';
     if (firstTOCCreated) {
       // Add toc divider
@@ -64,7 +64,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
 
       const subcatName = endpointsFile.split('.')[0];
       const subcatId = 'subcategory-' + category + '-' + subcatName;
-      doc += '<a id="' + subcatId + '"></a>\n';
+      doc += '<a id="user-content-' + subcatId + '"></a>\n';
       doc += '## Subcategory: ' + subcatName + '\n\n';
       intro += '* Subcategory: [' + subcatName + '](#' + subcatId + ')\n';
       const endpointDefinitions = (
@@ -122,7 +122,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
         const endpointDefinition = endpointDefinitions[i];
         const functionName = endpointDefinition.name;
         const funcId = 'function-' + category + '-' + subcatName + '-' + functionName + '\n';
-        doc += '<a id="' + funcId + '"></a>\n';
+        doc += '<a id="user-content-' + funcId + '"></a>\n';
         doc += '### ' + category + '.' + functionName + '(options)\n';
         intro += '    * [' + category + '.' + functionName + '(options)](#' + funcId + ')\n';
 

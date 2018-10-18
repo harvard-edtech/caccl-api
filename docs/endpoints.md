@@ -370,13 +370,13 @@ Usefule endpoint facts:
 )
 
 
-<a id="category-course"></a>
+<a id="user-content-category-course"></a>
 # Category: course
 
-<a id="subcategory-course-apps"></a>
+<a id="user-content-subcategory-course-apps"></a>
 ## Subcategory: apps
 
-<a id="function-course-apps-listApps
+<a id="user-content-function-course-apps-listApps
 "></a>
 ### course.listApps(options)
 Gets the list of apps installed into a course
@@ -390,7 +390,7 @@ Gets the list of apps installed into a course
 
 <hr>
 
-<a id="function-course-apps-getApp
+<a id="user-content-function-course-apps-getApp
 "></a>
 ### course.getApp(options)
 Gets info on a single LTI tool
@@ -405,7 +405,7 @@ Gets info on a single LTI tool
 
 <hr>
 
-<a id="function-course-apps-addApp
+<a id="user-content-function-course-apps-addApp
 "></a>
 ### course.addApp(options)
 Adds an LTI app to a Canvas course
@@ -425,7 +425,7 @@ Adds an LTI app to a Canvas course
 
 <hr>
 
-<a id="function-course-apps-removeApp
+<a id="user-content-function-course-apps-removeApp
 "></a>
 ### course.removeApp(options)
 Removes an LTI app from a Canvas course
@@ -438,10 +438,10 @@ Removes an LTI app from a Canvas course
 
 **Resolves to:** [external tool](https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show)
 
-<a id="subcategory-course-assignmentGroups"></a>
+<a id="user-content-subcategory-course-assignmentGroups"></a>
 ## Subcategory: assignmentGroups
 
-<a id="function-course-assignmentGroups-listAssignmentGroups
+<a id="user-content-function-course-assignmentGroups-listAssignmentGroups
 "></a>
 ### course.listAssignmentGroups(options)
 Lists assignment groups in a course
@@ -455,7 +455,7 @@ Lists assignment groups in a course
 
 <hr>
 
-<a id="function-course-assignmentGroups-getAssignmentGroup
+<a id="user-content-function-course-assignmentGroups-getAssignmentGroup
 "></a>
 ### course.getAssignmentGroup(options)
 Gets info on a specific assignment group in a course
@@ -471,7 +471,7 @@ Gets info on a specific assignment group in a course
 
 <hr>
 
-<a id="function-course-assignmentGroups-updateAssignmentGroup
+<a id="user-content-function-course-assignmentGroups-updateAssignmentGroup
 "></a>
 ### course.updateAssignmentGroup(options)
 Updates an assignment group in a course
@@ -488,7 +488,7 @@ Updates an assignment group in a course
 
 <hr>
 
-<a id="function-course-assignmentGroups-createAssignmentGroup
+<a id="user-content-function-course-assignmentGroups-createAssignmentGroup
 "></a>
 ### course.createAssignmentGroup(options)
 Create a new assignment group in a course
@@ -504,7 +504,7 @@ Create a new assignment group in a course
 
 <hr>
 
-<a id="function-course-assignmentGroups-deleteAssignmentGroup
+<a id="user-content-function-course-assignmentGroups-deleteAssignmentGroup
 "></a>
 ### course.deleteAssignmentGroup(options)
 Deletes an assignment group from a course
@@ -518,10 +518,10 @@ Deletes an assignment group from a course
 
 **Resolves to:** [AssignmentGroup](https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
 
-<a id="subcategory-course-assignmentOverrides"></a>
+<a id="user-content-subcategory-course-assignmentOverrides"></a>
 ## Subcategory: assignmentOverrides
 
-<a id="function-course-assignmentOverrides-listAssignmentOverrides
+<a id="user-content-function-course-assignmentOverrides-listAssignmentOverrides
 "></a>
 ### course.listAssignmentOverrides(options)
 Gets the list of overrides for an assignment
@@ -536,7 +536,7 @@ Gets the list of overrides for an assignment
 
 <hr>
 
-<a id="function-course-assignmentOverrides-getAssignmentOverride
+<a id="user-content-function-course-assignmentOverrides-getAssignmentOverride
 "></a>
 ### course.getAssignmentOverride(options)
 Get a specific override on an assignment in a course
@@ -552,7 +552,7 @@ Get a specific override on an assignment in a course
 
 <hr>
 
-<a id="function-course-assignmentOverrides-createAssignmentOverride
+<a id="user-content-function-course-assignmentOverrides-createAssignmentOverride
 "></a>
 ### course.createAssignmentOverride(options)
 Create assignment override.
@@ -574,7 +574,7 @@ Create assignment override.
 
 <hr>
 
-<a id="function-course-assignmentOverrides-deleteAssignmentOverride
+<a id="user-content-function-course-assignmentOverrides-deleteAssignmentOverride
 "></a>
 ### course.deleteAssignmentOverride(options)
 Deletes an assignment override
@@ -588,10 +588,10 @@ Deletes an assignment override
 
 **Resolves to:** [AssignmentOverride](https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
 
-<a id="subcategory-course-assignments"></a>
+<a id="user-content-subcategory-course-assignments"></a>
 ## Subcategory: assignments
 
-<a id="function-course-assignments-listAssignments
+<a id="user-content-function-course-assignments-listAssignments
 "></a>
 ### course.listAssignments(options)
 Lists the assignments in a course
@@ -605,7 +605,7 @@ Lists the assignments in a course
 
 <hr>
 
-<a id="function-course-assignments-getAssignment
+<a id="user-content-function-course-assignments-getAssignment
 "></a>
 ### course.getAssignment(options)
 Get info on a specific assignment in a course
@@ -620,7 +620,7 @@ Get info on a specific assignment in a course
 
 <hr>
 
-<a id="function-course-assignments-updateAssignment
+<a id="user-content-function-course-assignments-updateAssignment
 "></a>
 ### course.updateAssignment(options)
 Updates a Canvas assignment
@@ -653,7 +653,7 @@ Updates a Canvas assignment
 
 <hr>
 
-<a id="function-course-assignments-createAssignment
+<a id="user-content-function-course-assignments-createAssignment
 "></a>
 ### course.createAssignment(options)
 Creates a Canvas assignment
@@ -685,7 +685,7 @@ Creates a Canvas assignment
 
 <hr>
 
-<a id="function-course-assignments-deleteAssignment
+<a id="user-content-function-course-assignments-deleteAssignment
 "></a>
 ### course.deleteAssignment(options)
 Delete an assignment
@@ -700,7 +700,7 @@ Delete an assignment
 
 <hr>
 
-<a id="function-course-assignments-listAssignmentSubmissions
+<a id="user-content-function-course-assignments-listAssignmentSubmissions
 "></a>
 ### course.listAssignmentSubmissions(options)
 Lists the submissions to a specific assignment in a course
@@ -717,7 +717,7 @@ Lists the submissions to a specific assignment in a course
 
 <hr>
 
-<a id="function-course-assignments-getAssignmentSubmission
+<a id="user-content-function-course-assignments-getAssignmentSubmission
 "></a>
 ### course.getAssignmentSubmission(options)
 Gets a single submission for an assignment
@@ -734,7 +734,7 @@ Gets a single submission for an assignment
 
 <hr>
 
-<a id="function-course-assignments-createAssignmentSubmission
+<a id="user-content-function-course-assignments-createAssignmentSubmission
 "></a>
 ### course.createAssignmentSubmission(options)
 Submits assignment on behalf of the current user
@@ -751,7 +751,7 @@ Submits assignment on behalf of the current user
 
 <hr>
 
-<a id="function-course-assignments-listGradeableStudents
+<a id="user-content-function-course-assignments-listGradeableStudents
 "></a>
 ### course.listGradeableStudents(options)
 List gradeable students for a specific assignment
@@ -764,7 +764,7 @@ List gradeable students for a specific assignment
 
 <hr>
 
-<a id="function-course-assignments-createAssignmentSubmissionComment
+<a id="user-content-function-course-assignments-createAssignmentSubmissionComment
 "></a>
 ### course.createAssignmentSubmissionComment(options)
 Adds a comment to a submission
@@ -779,7 +779,7 @@ Adds a comment to a submission
 
 <hr>
 
-<a id="function-course-assignments-updateAssignmentGrades
+<a id="user-content-function-course-assignments-updateAssignmentGrades
 "></a>
 ### course.updateAssignmentGrades(options)
 Batch updates grades and/or comments. Also supports updating rubric items
@@ -796,10 +796,10 @@ Batch updates grades and/or comments. Also supports updating rubric items
 
 **Resolves to:** [Progress](https://canvas.instructure.com/doc/api/progress.html#Progress)
 
-<a id="subcategory-course-course"></a>
+<a id="user-content-subcategory-course-course"></a>
 ## Subcategory: course
 
-<a id="function-course-course-getCourse
+<a id="user-content-function-course-course-getCourse
 "></a>
 ### course.getCourse(options)
 Gets info on a specific course
@@ -819,10 +819,10 @@ Gets info on a specific course
 
 **Resolves to:** [Course](https://canvas.instructure.com/doc/api/courses.html#Course)
 
-<a id="subcategory-course-enrollments"></a>
+<a id="user-content-subcategory-course-enrollments"></a>
 ## Subcategory: enrollments
 
-<a id="function-course-enrollments-listEnrollments
+<a id="user-content-function-course-enrollments-listEnrollments
 "></a>
 ### course.listEnrollments(options)
 Gets the list of enrollments in a course
@@ -840,7 +840,7 @@ Gets the list of enrollments in a course
 
 <hr>
 
-<a id="function-course-enrollments-listStudents
+<a id="user-content-function-course-enrollments-listStudents
 "></a>
 ### course.listStudents(options)
 Gets the list of students in a course
@@ -855,7 +855,7 @@ Gets the list of students in a course
 
 <hr>
 
-<a id="function-course-enrollments-listTeachingTeamMembers
+<a id="user-content-function-course-enrollments-listTeachingTeamMembers
 "></a>
 ### course.listTeachingTeamMembers(options)
 Gets the list of TAs and Teachers in a course
@@ -872,7 +872,7 @@ Gets the list of TAs and Teachers in a course
 
 <hr>
 
-<a id="function-course-enrollments-listDesigners
+<a id="user-content-function-course-enrollments-listDesigners
 "></a>
 ### course.listDesigners(options)
 Gets the list of designers in a course
@@ -889,7 +889,7 @@ Gets the list of designers in a course
 
 <hr>
 
-<a id="function-course-enrollments-listObservers
+<a id="user-content-function-course-enrollments-listObservers
 "></a>
 ### course.listObservers(options)
 Gets the list of observers in a course
@@ -904,10 +904,10 @@ Gets the list of observers in a course
 
 **Resolves to:** [list of Enrollments](https://canvas.instructure.com/doc/api/enrollments.html#Enrollment)
 
-<a id="subcategory-course-gradebookColumns"></a>
+<a id="user-content-subcategory-course-gradebookColumns"></a>
 ## Subcategory: gradebookColumns
 
-<a id="function-course-gradebookColumns-listGradebookColumns
+<a id="user-content-function-course-gradebookColumns-listGradebookColumns
 "></a>
 ### course.listGradebookColumns(options)
 Gets the list of custom gradebook columns in a course
@@ -922,7 +922,7 @@ Gets the list of custom gradebook columns in a course
 
 <hr>
 
-<a id="function-course-gradebookColumns-getGradebookColumn
+<a id="user-content-function-course-gradebookColumns-getGradebookColumn
 "></a>
 ### course.getGradebookColumn(options)
 Gets info on a specific gradebook column in a course. This is a simulated endpoint: it does not exist. We are just pulling the list of columns and returning one element.
@@ -938,7 +938,7 @@ Gets info on a specific gradebook column in a course. This is a simulated endpoi
 
 <hr>
 
-<a id="function-course-gradebookColumns-updateGradebookColumn
+<a id="user-content-function-course-gradebookColumns-updateGradebookColumn
 "></a>
 ### course.updateGradebookColumn(options)
 Updates a gradebook column's information
@@ -956,7 +956,7 @@ Updates a gradebook column's information
 
 <hr>
 
-<a id="function-course-gradebookColumns-createGradebookColumn
+<a id="user-content-function-course-gradebookColumns-createGradebookColumn
 "></a>
 ### course.createGradebookColumn(options)
 Creates a new gradebook column in a course
@@ -973,7 +973,7 @@ Creates a new gradebook column in a course
 
 <hr>
 
-<a id="function-course-gradebookColumns-deleteGradebookColumn
+<a id="user-content-function-course-gradebookColumns-deleteGradebookColumn
 "></a>
 ### course.deleteGradebookColumn(options)
 Deletes a gradebook column from a course
@@ -988,7 +988,7 @@ Deletes a gradebook column from a course
 
 <hr>
 
-<a id="function-course-gradebookColumns-listGradebookColumnEntries
+<a id="user-content-function-course-gradebookColumns-listGradebookColumnEntries
 "></a>
 ### course.listGradebookColumnEntries(options)
 Gets the list of entries in a specific gradebook column in a course
@@ -1003,7 +1003,7 @@ Gets the list of entries in a specific gradebook column in a course
 
 <hr>
 
-<a id="function-course-gradebookColumns-updateGradebookColumnEntries
+<a id="user-content-function-course-gradebookColumns-updateGradebookColumnEntries
 "></a>
 ### course.updateGradebookColumnEntries(options)
 Update the list of entries in a specific gradebook column in a course
@@ -1019,10 +1019,10 @@ Update the list of entries in a specific gradebook column in a course
 
 **Resolves to:** [Progress](https://canvas.instructure.com/doc/api/progress.html#Progress)
 
-<a id="subcategory-course-groupSets"></a>
+<a id="user-content-subcategory-course-groupSets"></a>
 ## Subcategory: groupSets
 
-<a id="function-course-groupSets-listGroupSets
+<a id="user-content-function-course-groupSets-listGroupSets
 "></a>
 ### course.listGroupSets(options)
 Lists the group sets in the course
@@ -1036,7 +1036,7 @@ Lists the group sets in the course
 
 <hr>
 
-<a id="function-course-groupSets-getGroupSet
+<a id="user-content-function-course-groupSets-getGroupSet
 "></a>
 ### course.getGroupSet(options)
 Gets info on a specific group set
@@ -1050,7 +1050,7 @@ Gets info on a specific group set
 
 <hr>
 
-<a id="function-course-groupSets-createGroupSet
+<a id="user-content-function-course-groupSets-createGroupSet
 "></a>
 ### course.createGroupSet(options)
 Create a group set in a course
@@ -1065,7 +1065,7 @@ Create a group set in a course
 
 <hr>
 
-<a id="function-course-groupSets-deleteGroupSet
+<a id="user-content-function-course-groupSets-deleteGroupSet
 "></a>
 ### course.deleteGroupSet(options)
 Deletes a group set
@@ -1080,7 +1080,7 @@ Deletes a group set
 
 <hr>
 
-<a id="function-course-groupSets-listGroupSetGroups
+<a id="user-content-function-course-groupSets-listGroupSetGroups
 "></a>
 ### course.listGroupSetGroups(options)
 Gets the list of groups in a group set
@@ -1094,7 +1094,7 @@ Gets the list of groups in a group set
 
 <hr>
 
-<a id="function-course-groupSets-getGroupSetGroup
+<a id="user-content-function-course-groupSets-getGroupSetGroup
 "></a>
 ### course.getGroupSetGroup(options)
 Gets info on a specific group in a group set (alias to groups.js/getGroup)
@@ -1108,7 +1108,7 @@ Gets info on a specific group in a group set (alias to groups.js/getGroup)
 
 <hr>
 
-<a id="function-course-groupSets-createGroupSetGroup
+<a id="user-content-function-course-groupSets-createGroupSetGroup
 "></a>
 ### course.createGroupSetGroup(options)
 Creates a new group in a group set
@@ -1126,7 +1126,7 @@ Creates a new group in a group set
 
 <hr>
 
-<a id="function-course-groupSets-deleteGroupSetGroup
+<a id="user-content-function-course-groupSets-deleteGroupSetGroup
 "></a>
 ### course.deleteGroupSetGroup(options)
 Deletes a specific group from a group set
@@ -1139,10 +1139,10 @@ Deletes a specific group from a group set
 
 **Resolves to:** [Group](https://canvas.instructure.com/doc/api/groups.html#Group)
 
-<a id="subcategory-course-groups"></a>
+<a id="user-content-subcategory-course-groups"></a>
 ## Subcategory: groups
 
-<a id="function-course-groups-getGroup
+<a id="user-content-function-course-groups-getGroup
 "></a>
 ### course.getGroup(options)
 Gets info on a specific group in a course
@@ -1156,7 +1156,7 @@ Gets info on a specific group in a course
 
 <hr>
 
-<a id="function-course-groups-listGroupMembers
+<a id="user-content-function-course-groups-listGroupMembers
 "></a>
 ### course.listGroupMembers(options)
 Gets the list of members in a group
@@ -1170,7 +1170,7 @@ Gets the list of members in a group
 
 <hr>
 
-<a id="function-course-groups-updateGroupMembers
+<a id="user-content-function-course-groups-updateGroupMembers
 "></a>
 ### course.updateGroupMembers(options)
 Gets the list of members in a group
@@ -1183,10 +1183,10 @@ Gets the list of members in a group
 
 **Resolves to:** [Group](https://canvas.instructure.com/doc/api/groups.html#Group)
 
-<a id="subcategory-course-pages"></a>
+<a id="user-content-subcategory-course-pages"></a>
 ## Subcategory: pages
 
-<a id="function-course-pages-listPages
+<a id="user-content-function-course-pages-listPages
 "></a>
 ### course.listPages(options)
 Gets the list of pages in a course
@@ -1200,7 +1200,7 @@ Gets the list of pages in a course
 
 <hr>
 
-<a id="function-course-pages-getPage
+<a id="user-content-function-course-pages-getPage
 "></a>
 ### course.getPage(options)
 Get info on a specific page in a course
@@ -1215,7 +1215,7 @@ Get info on a specific page in a course
 
 <hr>
 
-<a id="function-course-pages-updatePage
+<a id="user-content-function-course-pages-updatePage
 "></a>
 ### course.updatePage(options)
 Updates a Canvas page
@@ -1236,7 +1236,7 @@ Updates a Canvas page
 
 <hr>
 
-<a id="function-course-pages-createPage
+<a id="user-content-function-course-pages-createPage
 "></a>
 ### course.createPage(options)
 Creates a new page in a course
@@ -1256,7 +1256,7 @@ Creates a new page in a course
 
 <hr>
 
-<a id="function-course-pages-deletePage
+<a id="user-content-function-course-pages-deletePage
 "></a>
 ### course.deletePage(options)
 Deletes a page from a course
@@ -1269,10 +1269,10 @@ Deletes a page from a course
 
 **Resolves to:** [Page](https://canvas.instructure.com/doc/api/pages.html#Page)
 
-<a id="subcategory-course-quizzes"></a>
+<a id="user-content-subcategory-course-quizzes"></a>
 ## Subcategory: quizzes
 
-<a id="function-course-quizzes-listQuizzes
+<a id="user-content-function-course-quizzes-listQuizzes
 "></a>
 ### course.listQuizzes(options)
 Lists the quizzes in a course
@@ -1286,7 +1286,7 @@ Lists the quizzes in a course
 
 <hr>
 
-<a id="function-course-quizzes-getQuiz
+<a id="user-content-function-course-quizzes-getQuiz
 "></a>
 ### course.getQuiz(options)
 Get info on a specific quiz in a course
@@ -1301,7 +1301,7 @@ Get info on a specific quiz in a course
 
 <hr>
 
-<a id="function-course-quizzes-updateQuiz
+<a id="user-content-function-course-quizzes-updateQuiz
 "></a>
 ### course.updateQuiz(options)
 Updates a specific quiz in a course
@@ -1340,7 +1340,7 @@ Updates a specific quiz in a course
 
 <hr>
 
-<a id="function-course-quizzes-createQuiz
+<a id="user-content-function-course-quizzes-createQuiz
 "></a>
 ### course.createQuiz(options)
 Creates a new quiz in a course
@@ -1377,7 +1377,7 @@ Creates a new quiz in a course
 
 <hr>
 
-<a id="function-course-quizzes-deleteQuiz
+<a id="user-content-function-course-quizzes-deleteQuiz
 "></a>
 ### course.deleteQuiz(options)
 Deletes a quiz from a course
@@ -1392,7 +1392,7 @@ Deletes a quiz from a course
 
 <hr>
 
-<a id="function-course-quizzes-deleteQuiz
+<a id="user-content-function-course-quizzes-deleteQuiz
 "></a>
 ### course.deleteQuiz(options)
 Lists quiz questions
@@ -1407,7 +1407,7 @@ Lists quiz questions
 
 <hr>
 
-<a id="function-course-quizzes-createMultipleChoiceQuizQuestion
+<a id="user-content-function-course-quizzes-createMultipleChoiceQuizQuestion
 "></a>
 ### course.createMultipleChoiceQuizQuestion(options)
 Creates a new multiple choice question to a quiz in a course
@@ -1430,7 +1430,7 @@ Creates a new multiple choice question to a quiz in a course
 
 <hr>
 
-<a id="function-course-quizzes-listQuizSubmissions
+<a id="user-content-function-course-quizzes-listQuizSubmissions
 "></a>
 ### course.listQuizSubmissions(options)
 Lists the submissions to a quiz in a course
@@ -1445,7 +1445,7 @@ Lists the submissions to a quiz in a course
 
 <hr>
 
-<a id="function-course-quizzes-getQuizSubmission
+<a id="user-content-function-course-quizzes-getQuizSubmission
 "></a>
 ### course.getQuizSubmission(options)
 Gets info on a specific submission to a quiz in a course
@@ -1459,10 +1459,10 @@ Gets info on a specific submission to a quiz in a course
 
 **Resolves to:** [QuizSubmission](https://canvas.instructure.com/doc/api/quiz_submissions.html)
 
-<a id="subcategory-course-rubrics"></a>
+<a id="user-content-subcategory-course-rubrics"></a>
 ## Subcategory: rubrics
 
-<a id="function-course-rubrics-listRubrics
+<a id="user-content-function-course-rubrics-listRubrics
 "></a>
 ### course.listRubrics(options)
 Lists the set of rubrics in a course
@@ -1476,7 +1476,7 @@ Lists the set of rubrics in a course
 
 <hr>
 
-<a id="function-course-rubrics-getRubric
+<a id="user-content-function-course-rubrics-getRubric
 "></a>
 ### course.getRubric(options)
 Gets info on a specific rubric in a course
@@ -1493,7 +1493,7 @@ Gets info on a specific rubric in a course
 
 <hr>
 
-<a id="function-course-rubrics-createFreeFormGradingRubricInAssignment
+<a id="user-content-function-course-rubrics-createFreeFormGradingRubricInAssignment
 "></a>
 ### course.createFreeFormGradingRubricInAssignment(options)
 Creates a new rubric for grading with free form comments enabled and add it to an assignment in a course.
@@ -1510,10 +1510,10 @@ Creates a new rubric for grading with free form comments enabled and add it to a
 
 <div class="alert alert-danger"><strong>Danger: Endpoint Unlisted</strong><br>This endpoint is not documentated, supported by Instructure, or even listed in the Canvas online API docs. It may change, be removed, or completely stop working at any moment.</div>
 
-<a id="subcategory-course-sections"></a>
+<a id="user-content-subcategory-course-sections"></a>
 ## Subcategory: sections
 
-<a id="function-course-sections-listSections
+<a id="user-content-function-course-sections-listSections
 "></a>
 ### course.listSections(options)
 Gets the list of sections in a course
@@ -1527,7 +1527,7 @@ Gets the list of sections in a course
 
 <hr>
 
-<a id="function-course-sections-getSection
+<a id="user-content-function-course-sections-getSection
 "></a>
 ### course.getSection(options)
 Gets info on a specific section
@@ -1540,21 +1540,21 @@ Gets info on a specific section
 
 **Resolves to:** [Section](https://canvas.instructure.com/doc/api/sections.html#Section)
 
-<a id="category-user"></a>
+<a id="user-content-category-user"></a>
 # Category: user
 
-<a id="subcategory-user-course"></a>
+<a id="user-content-subcategory-user-course"></a>
 ## Subcategory: course
 
-<a id="function-user-course-listCourses
+<a id="user-content-function-user-course-listCourses
 "></a>
 ### user.listCourses(options)
 Gets the list of courses associated with the current user
 
-<a id="subcategory-user-self"></a>
+<a id="user-content-subcategory-user-self"></a>
 ## Subcategory: self
 
-<a id="function-user-self-getCurrentUser
+<a id="user-content-function-user-self-getCurrentUser
 "></a>
 ### user.getCurrentUser(options)
 Gets info on the current user
