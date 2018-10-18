@@ -115,7 +115,7 @@ module.exports = [
   /**
    * Gets info on a specific group in a group set (alias to
    *   groups.js/getGroup)
-   * @param {number} groupSetId - Canvas group set Id to query
+   * @param {number} groupId - Canvas group Id
    * @return Group (see: https://canvas.instructure.com/doc/api/groups.html#Group)
    */
   {
