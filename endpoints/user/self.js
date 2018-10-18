@@ -6,8 +6,8 @@ module.exports = [
   {
     name: 'getCurrentUser',
     action: 'get info on the current user',
-    run: (_, visitEndpoint) => {
-      return visitEndpoint({
+    run: (cg) => {
+      return cg.visitEndpoint({
         path: '/api/v1/users/self/profile',
         method: 'GET',
       });

@@ -6,8 +6,8 @@ module.exports = [
   {
     name: 'listCourses',
     action: 'get the list of courses associated with the current user',
-    run: (_, visitEndpoint) => {
-      return visitEndpoint({
+    run: (cg) => {
+      return cg.visitEndpoint({
         path: '/api/v1/courses',
         method: 'GET',
       });
