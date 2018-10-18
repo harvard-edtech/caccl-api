@@ -54,9 +54,9 @@ module.exports = [
    * @param {number} assignmentId - Canvas assignment Id to update
    * @param {string} name - The name of the assignment
    * @param {number} pointsPossible - Points possible (default: unchanged)
-   * @param {string} dueAt - Due at datetime (default: unchanged)
-   * @param {string} lockAt - Due at datetime (default: unchanged)
-   * @param {string} unlockAt - Due at datetime (default: unchanged)
+   * @param {date} dueAt - Due at datetime (default: unchanged)
+   * @param {date} lockAt - Due at datetime (default: unchanged)
+   * @param {date} unlockAt - Due at datetime (default: unchanged)
    * @param {string} description - html description of
    *   the assignment (default: unchanged)
    * @param {string} submissionTypes - Submission type(s) (default: unchanged)
@@ -141,9 +141,9 @@ module.exports = [
    * @param {string} name - The name of the assignment
    *   (default: Unnamed Assignment)
    * @param {number} pointsPossible - Points possible (default: null)
-   * @param {string} dueAt - Due at datetime (default: none)
-   * @param {string} lockAt - Due at datetime (default: none)
-   * @param {string} unlockAt - Due at datetime (default: none)
+   * @param {date} dueAt - Due at datetime (default: none)
+   * @param {date} lockAt - Due at datetime (default: none)
+   * @param {date} unlockAt - Due at datetime (default: none)
    * @param {string} description - html description of
    *   the assignment (default: none)
    * @param {string} submissionTypes - Submission type(s) (default: none)
