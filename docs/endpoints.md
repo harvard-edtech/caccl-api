@@ -1,4 +1,4 @@
-#Endpoints Documentation
+# Endpoints Documentation
 
 <!-- Embedded styles: -->
 <style>
@@ -204,6 +204,8 @@ Usefule endpoint facts:
 
 ## Table of Contents
 
+
+
 **Category: [course](#category-course)**
 
 * Subcategory: [apps](#subcategory-course-apps)
@@ -369,7 +371,7 @@ Usefule endpoint facts:
 
 
 <a name="category-course"></a>
-#Category: course
+# Category: course
 
 <a name="subcategory-course-apps"></a>
 ## Subcategory: apps
@@ -1539,7 +1541,7 @@ Gets info on a specific section
 **Resolves to:** [Section](https://canvas.instructure.com/doc/api/sections.html#Section)
 
 <a name="category-user"></a>
-#Category: user
+# Category: user
 
 <a name="subcategory-user-course"></a>
 ## Subcategory: course

@@ -5,13 +5,6 @@ const path = require('path');
 
 const endpointsPath = path.join(__dirname, '../../endpoints');
 
-const genH1 = (body) => {
-  return '#' + body;
-};
-const genH2 = (body, noLine) => {
-  return '## ' + body;
-};
-
 fs.readdir(endpointsPath, (categoryError, items) => {
   if (categoryError) {
     console.log('An error occurred while reading categories:', categoryError);
@@ -19,7 +12,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
   }
 
   // Create introduction
-  let intro = genH1('Endpoints Documentation') + '\n\n';
+  let intro = '# Endpoints Documentation\n\n';
 
   intro += '<!-- Embedded styles: -->\n';
   intro += '<style>\n' + fs.readFileSync(path.join(__dirname, 'style.css'), 'utf-8') + '\n</style>\n';
@@ -34,7 +27,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
   intro += '  * `dontCache` - If true, endpoint response won\'t be cached.\n\n';
 
   // Add table of contents
-  intro += genH2('Table of Contents');
+  intro += '## Table of Contents\n\n';
   let firstTOCCreated = false;
 
   let doc = '';
@@ -56,7 +49,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
 
     const catId = 'category-' + category;
     doc += '<a name="' + catId + '"></a>\n';
-    doc += genH1('Category: ' + category) + '\n\n';
+    doc += '# Category: ' + category + '\n\n';
     if (firstTOCCreated) {
       // Add toc divider
       intro += '\n\n<hr>\n';
@@ -72,7 +65,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
       const subcatName = endpointsFile.split('.')[0];
       const subcatId = 'subcategory-' + category + '-' + subcatName;
       doc += '<a name="' + subcatId + '"></a>\n';
-      doc += genH2('Subcategory: ' + subcatName, fileIndex === 0) + '\n\n';
+      doc += '## Subcategory: ' + subcatName + '\n\n';
       intro += '* Subcategory: [' + subcatName + '](#' + subcatId + ')\n';
       const endpointDefinitions = (
         require('../../endpoints/' + category + '/' + endpointsFile)
