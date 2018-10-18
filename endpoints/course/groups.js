@@ -47,9 +47,9 @@ module.exports = [
   /**
    * Gets the list of members in a group
    * @param {number} groupId - Canvas group Id
-   * @param {array} users - The list of user objects/user Ids that should be
+   * @param {array} members - The list of user objects/user Ids that should be
    *   in the group (default: empty list)
-   * @return list of Users (see: https://canvas.instructure.com/doc/api/users.html#User)
+   * @return Group (see: https://canvas.instructure.com/doc/api/groups.html#Group)
    */
   {
     name: 'updateGroupMembers',
@@ -57,9 +57,9 @@ module.exports = [
     run: (cg) => {
       return cg.visitEndpoint({
         path: '/api/v1/groups/' + cg.options.groupId,
-        method: 'GET',
+        method: 'PUT',
         params: {
-          members: utils.extractIdsIfApplicable(cg.options.users),
+          members: utils.extractIdsIfApplicable(cg.options.members),
         },
       }).then((response) => {
         return cg.uncache([
