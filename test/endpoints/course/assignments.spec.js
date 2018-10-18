@@ -7,7 +7,7 @@ const utils = require('../../helpers/utils.js');
 
 const courseId = environment.testCourseId;
 const allStudentIds = environment.students.map((x) => {
-  return parseInt(x.canvasId);
+  return x.canvasId;
 });
 const studentInfo = environment.students[0];
 const studentInfo2 = environment.students[1];

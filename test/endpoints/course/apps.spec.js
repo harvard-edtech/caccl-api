@@ -15,7 +15,7 @@ const xml = fs.readFileSync(
   'utf-8'
 );
 
-// Generate the parameters for a test page
+// Generate the parameters for a test app
 function genTestApp(index = 0) {
   return {
     courseId,
@@ -27,7 +27,7 @@ function genTestApp(index = 0) {
   };
 }
 
-// Generate the template of a test assignment's canvas response
+// Generate the template of a test app's canvas response
 function genTestAppTemplate(index = 0) {
   return {
     domain: null,

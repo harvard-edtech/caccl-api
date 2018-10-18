@@ -9,7 +9,7 @@ const courseId = require('../../environment.js').testCourseId;
 
 const stamp = new Date().getTime();
 
-// Generate the parameters for a test page
+// Generate the parameters for a test assignment group
 function genTestAssignmentGroup(index = 0) {
   return {
     courseId,
@@ -18,7 +18,7 @@ function genTestAssignmentGroup(index = 0) {
   };
 }
 
-// Generate the template of a test assignment's canvas response
+// Generate the template of a test assignment group's canvas response
 function genTestAssignmentGroupTemplate(index = 0) {
   return {
     name: 'test-assignment-group-' + index + '-' + stamp,

@@ -4,7 +4,7 @@ const environment = require('../../environment.js');
 
 const courseId = environment.testCourseId;
 const studentIds = environment.students.map((s) => {
-  return parseInt(s.canvasId);
+  return s.canvasId;
 });
 /*------------------------------------------------------------------------*/
 /*                                 Helpers                                */
@@ -26,7 +26,7 @@ function genTestAssignment(index = 0) {
   };
 }
 
-// Generate the parameters for a test page
+// Generate the parameters for a test override
 function genTestAssignmentOverride(assignmentId, index = 0) {
   const studentIdsToOverride = studentIds.slice(
     Math.min(studentIds.length - 2, index * 2),
@@ -43,7 +43,7 @@ function genTestAssignmentOverride(assignmentId, index = 0) {
   };
 }
 
-// Generate the template of a test assignment's canvas response
+// Generate the template of a test override's canvas response
 function genTestAssignmentOverrideTemplate(assignmentId, index = 0) {
   return {
     assignment_id: assignmentId,

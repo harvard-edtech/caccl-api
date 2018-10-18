@@ -48,9 +48,15 @@ module.exports = {
     if (notFound.length === 0) {
       return null;
     }
+    // List what we couldn't find
     let message = '';
     notFound.forEach((n) => {
       message += '\n' + JSON.stringify(n);
+    });
+    // Print the list we're searching through
+    message += '\n\nWe were searching through this list:';
+    list.forEach((item) => {
+      message += '\n' + JSON.stringify(item);
     });
     return message;
   },

@@ -18,7 +18,7 @@ function genTestPage(index = 0) {
   };
 }
 
-// Generate the template of a test assignment's canvas response
+// Generate the template of a test page
 function genTestPageTemplate(index = 0) {
   return {
     title: 'test-page-' + index + '-' + stamp,

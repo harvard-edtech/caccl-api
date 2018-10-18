@@ -8,7 +8,7 @@ const courseId = require('../../environment.js').testCourseId;
 
 const stamp = new Date().getTime();
 
-// Generate the parameters for a test assignment
+// Generate the parameters for a test gradebook column
 function genTestGradebookColumn(index = 0) {
   return {
     courseId,
@@ -17,7 +17,7 @@ function genTestGradebookColumn(index = 0) {
   };
 }
 
-// Generate the template of a test assignment's canvas response
+// Generate the template of a test gradebook column
 function genTestGradebookColumnTemplate(index = 0) {
   return {
     title: 'temporary_test_' + index + '_' + stamp,
