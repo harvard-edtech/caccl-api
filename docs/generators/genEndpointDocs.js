@@ -64,7 +64,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
       const subcatId = 'subcategory-' + category + '-' + subcatName;
       doc += '<a id="user-content-' + subcatId + '"></a>\n';
       doc += '## Subcategory: ' + subcatName + '\n\n';
-      intro += '* Subcategory: [' + subcatName + '](#' + subcatId + ')\n';
+      intro += '* Subcategory: [' + subcatName + '](#user-content-' + subcatId + ')\n';
       const endpointDefinitions = (
         require('../../endpoints/' + category + '/' + endpointsFile)
       );

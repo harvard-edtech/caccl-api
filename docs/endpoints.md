@@ -15,7 +15,7 @@ Usefule endpoint facts:
 
 **Category: [course](#category-course)**
 
-* Subcategory: [apps](#subcategory-course-apps)
+* Subcategory: [apps](#user-content-subcategory-course-apps)
     * [course.listApps(options)](#function-course-apps-listApps
 )
     * [course.getApp(options)](#function-course-apps-getApp
@@ -24,7 +24,7 @@ Usefule endpoint facts:
 )
     * [course.removeApp(options)](#function-course-apps-removeApp
 )
-* Subcategory: [assignmentGroups](#subcategory-course-assignmentGroups)
+* Subcategory: [assignmentGroups](#user-content-subcategory-course-assignmentGroups)
     * [course.listAssignmentGroups(options)](#function-course-assignmentGroups-listAssignmentGroups
 )
     * [course.getAssignmentGroup(options)](#function-course-assignmentGroups-getAssignmentGroup
@@ -35,7 +35,7 @@ Usefule endpoint facts:
 )
     * [course.deleteAssignmentGroup(options)](#function-course-assignmentGroups-deleteAssignmentGroup
 )
-* Subcategory: [assignmentOverrides](#subcategory-course-assignmentOverrides)
+* Subcategory: [assignmentOverrides](#user-content-subcategory-course-assignmentOverrides)
     * [course.listAssignmentOverrides(options)](#function-course-assignmentOverrides-listAssignmentOverrides
 )
     * [course.getAssignmentOverride(options)](#function-course-assignmentOverrides-getAssignmentOverride
@@ -44,7 +44,7 @@ Usefule endpoint facts:
 )
     * [course.deleteAssignmentOverride(options)](#function-course-assignmentOverrides-deleteAssignmentOverride
 )
-* Subcategory: [assignments](#subcategory-course-assignments)
+* Subcategory: [assignments](#user-content-subcategory-course-assignments)
     * [course.listAssignments(options)](#function-course-assignments-listAssignments
 )
     * [course.getAssignment(options)](#function-course-assignments-getAssignment
@@ -67,10 +67,10 @@ Usefule endpoint facts:
 )
     * [course.updateAssignmentGrades(options)](#function-course-assignments-updateAssignmentGrades
 )
-* Subcategory: [course](#subcategory-course-course)
+* Subcategory: [course](#user-content-subcategory-course-course)
     * [course.getCourse(options)](#function-course-course-getCourse
 )
-* Subcategory: [enrollments](#subcategory-course-enrollments)
+* Subcategory: [enrollments](#user-content-subcategory-course-enrollments)
     * [course.listEnrollments(options)](#function-course-enrollments-listEnrollments
 )
     * [course.listStudents(options)](#function-course-enrollments-listStudents
@@ -81,7 +81,7 @@ Usefule endpoint facts:
 )
     * [course.listObservers(options)](#function-course-enrollments-listObservers
 )
-* Subcategory: [gradebookColumns](#subcategory-course-gradebookColumns)
+* Subcategory: [gradebookColumns](#user-content-subcategory-course-gradebookColumns)
     * [course.listGradebookColumns(options)](#function-course-gradebookColumns-listGradebookColumns
 )
     * [course.getGradebookColumn(options)](#function-course-gradebookColumns-getGradebookColumn
@@ -96,7 +96,7 @@ Usefule endpoint facts:
 )
     * [course.updateGradebookColumnEntries(options)](#function-course-gradebookColumns-updateGradebookColumnEntries
 )
-* Subcategory: [groupSets](#subcategory-course-groupSets)
+* Subcategory: [groupSets](#user-content-subcategory-course-groupSets)
     * [course.listGroupSets(options)](#function-course-groupSets-listGroupSets
 )
     * [course.getGroupSet(options)](#function-course-groupSets-getGroupSet
@@ -113,14 +113,14 @@ Usefule endpoint facts:
 )
     * [course.deleteGroupSetGroup(options)](#function-course-groupSets-deleteGroupSetGroup
 )
-* Subcategory: [groups](#subcategory-course-groups)
+* Subcategory: [groups](#user-content-subcategory-course-groups)
     * [course.getGroup(options)](#function-course-groups-getGroup
 )
     * [course.listGroupMembers(options)](#function-course-groups-listGroupMembers
 )
     * [course.updateGroupMembers(options)](#function-course-groups-updateGroupMembers
 )
-* Subcategory: [pages](#subcategory-course-pages)
+* Subcategory: [pages](#user-content-subcategory-course-pages)
     * [course.listPages(options)](#function-course-pages-listPages
 )
     * [course.getPage(options)](#function-course-pages-getPage
@@ -131,7 +131,7 @@ Usefule endpoint facts:
 )
     * [course.deletePage(options)](#function-course-pages-deletePage
 )
-* Subcategory: [quizzes](#subcategory-course-quizzes)
+* Subcategory: [quizzes](#user-content-subcategory-course-quizzes)
     * [course.listQuizzes(options)](#function-course-quizzes-listQuizzes
 )
     * [course.getQuiz(options)](#function-course-quizzes-getQuiz
@@ -150,14 +150,14 @@ Usefule endpoint facts:
 )
     * [course.getQuizSubmission(options)](#function-course-quizzes-getQuizSubmission
 )
-* Subcategory: [rubrics](#subcategory-course-rubrics)
+* Subcategory: [rubrics](#user-content-subcategory-course-rubrics)
     * [course.listRubrics(options)](#function-course-rubrics-listRubrics
 )
     * [course.getRubric(options)](#function-course-rubrics-getRubric
 )
     * [course.createFreeFormGradingRubricInAssignment(options)](#function-course-rubrics-createFreeFormGradingRubricInAssignment
 )
-* Subcategory: [sections](#subcategory-course-sections)
+* Subcategory: [sections](#user-content-subcategory-course-sections)
     * [course.listSections(options)](#function-course-sections-listSections
 )
     * [course.getSection(options)](#function-course-sections-getSection
@@ -169,10 +169,10 @@ Usefule endpoint facts:
 
 **Category: [user](#category-user)**
 
-* Subcategory: [course](#subcategory-user-course)
+* Subcategory: [course](#user-content-subcategory-user-course)
     * [user.listCourses(options)](#function-user-course-listCourses
 )
-* Subcategory: [self](#subcategory-user-self)
+* Subcategory: [self](#user-content-subcategory-user-self)
     * [user.getCurrentUser(options)](#function-user-self-getCurrentUser
 )
 
