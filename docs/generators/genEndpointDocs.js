@@ -1,14 +1,10 @@
 const fs = require('fs');
-const config = require('../../endpoints/config.js');
 const doctrine = require('doctrine');
 const path = require('path');
 
-const endpointsPath = path.join(__dirname, '../../endpoints');
+const config = require('../../endpoints/config.js');
 
-String.prototype.replaceAll = function (search, replacement) {
-  var target = this;
-  return target.replace(new RegExp(search, 'g'), replacement);
-};
+const endpointsPath = path.join(__dirname, '../../endpoints');
 
 fs.readdir(endpointsPath, (categoryError, items) => {
   if (categoryError) {
@@ -18,9 +14,6 @@ fs.readdir(endpointsPath, (categoryError, items) => {
 
   // Create introduction
   let intro = '# Endpoints Documentation\n\n';
-
-  intro += '<!-- Embedded styles: -->\n';
-  intro += '<style>\n' + fs.readFileSync(path.join(__dirname, 'style.css'), 'utf-8') + '\n</style>\n';
 
   // Add normal intro
   intro += 'Usefule endpoint facts:\n\n';
@@ -52,13 +45,15 @@ fs.readdir(endpointsPath, (categoryError, items) => {
     // Get all files inside it
     const endpointsFiles = fs.readdirSync(endpointsPath + '/' + category);
 
+    const catId = 'category-' + category;
+    doc += '<a id="user-content-' + catId + '"></a>\n';
     doc += '# Category: ' + category + '\n\n';
     if (firstTOCCreated) {
       // Add toc divider
       intro += '\n\n<hr>\n';
     }
     firstTOCCreated = true;
-    intro += '\n\n**Category: [' + category + '](#Category:-' + category.replaceAll(' ', '-') + ')**\n\n';
+    intro += '\n\n**Category: [' + category + '](#' + catId + ')**\n\n';
 
     for (let fileIndex = 0; fileIndex < endpointsFiles.length; fileIndex++) {
       const endpointsFile = endpointsFiles[fileIndex];
@@ -67,8 +62,9 @@ fs.readdir(endpointsPath, (categoryError, items) => {
 
       const subcatName = endpointsFile.split('.')[0];
       const subcatId = 'subcategory-' + category + '-' + subcatName;
+      doc += '<a id="user-content-' + subcatId + '"></a>\n';
       doc += '## Subcategory: ' + subcatName + '\n\n';
-      intro += '* Subcategory: [' + subcatName + '](#Subcategory:-' + subcatId.replaceAll(' ', '-') + ')\n';
+      intro += '* Subcategory: [' + subcatName + '](#' + subcatId + ')\n';
       const endpointDefinitions = (
         require('../../endpoints/' + category + '/' + endpointsFile)
       );
@@ -123,8 +119,10 @@ fs.readdir(endpointsPath, (categoryError, items) => {
         // Add title
         const endpointDefinition = endpointDefinitions[i];
         const functionName = endpointDefinition.name;
+        const funcId = 'function-' + category + '-' + subcatName + '-' + functionName + '\n';
+        doc += '<a id="user-content-' + funcId + '"></a>\n';
         doc += '### ' + category + '.' + functionName + '(options)\n';
-        intro += '    * [' + category + '.' + functionName + '(options)](#' + category.replaceAll(' ', '-') + '.' + functionName.replaceAll(' ', '-') + '(options))\n';
+        intro += '    * [' + category + '.' + functionName + '(options)](#' + funcId + ')\n';
 
         // Add description
         doc += jsdocParsed.description + '\n\n';
