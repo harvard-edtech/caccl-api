@@ -40,8 +40,11 @@ module.exports = (config) => {
           newError.code = errorCodes.unnamedEndpointError;
         }
 
-        // Add on action to the error
-        newError.message = 'While attempting to ' + config.endpoint.action + ', we ran into an error: ' + (err.message || 'unknown');
+        // Add on action to the error if not already describing an action
+        if (!newError.message.startsWith('While attempting to ')) {
+          newError.message = 'While attempting to ' + config.endpoint.action + ', we ran into an error: ' + (err.message || 'unknown');
+        }
+
         throw newError;
       });
     }
