@@ -1,4 +1,10 @@
+/**
+ * Groups endpoints module
+ * @module endpoints/course/groups
+ * @see module: endpoints/course/groups
+ */
 const utils = require('../helpers/utils.js');
+const prefix = require('../helpers/prefix.js');
 
 module.exports = [
 
@@ -9,14 +15,14 @@ module.exports = [
   /**
    * Gets info on a specific group in a course
    * @param {number} groupId - Canvas group Id
-   * @return Group (see: https://canvas.instructure.com/doc/api/groups.html#Group)
+   * @return Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
    */
   {
     name: 'getGroup',
     action: 'get info on a specific group in a course',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/groups/' + cg.options.groupId,
+    run(config) {
+      return config.visitEndpoint({
+        path: `${prefix.v1}/groups/${config.options.groupId}`,
         method: 'GET',
       });
     },
@@ -31,14 +37,14 @@ module.exports = [
   /**
    * Gets the list of members in a group
    * @param {number} groupId - Canvas group Id
-   * @return list of Users (see: https://canvas.instructure.com/doc/api/users.html#User)
+   * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
    */
   {
     name: 'listGroupMembers',
     action: 'get the list of members in a specific group',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/groups/' + cg.options.groupId + '/users',
+    run(config) {
+      return config.visitEndpoint({
+        path: `${prefix.v1}/groups/${config.options.groupId}/users`,
         method: 'GET',
       });
     },
@@ -47,24 +53,24 @@ module.exports = [
   /**
    * Gets the list of members in a group
    * @param {number} groupId - Canvas group Id
-   * @param {array} members - The list of user objects/user Ids that should be
-   *   in the group (default: empty list)
-   * @return Group (see: https://canvas.instructure.com/doc/api/groups.html#Group)
+   * @param {array} [members=[]] - The list of user objects/user Ids that should
+   *   be in the group
+   * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
    */
   {
     name: 'updateGroupMembers',
     action: 'update the list of members in a group',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/groups/' + cg.options.groupId,
+    run(config) {
+      return config.visitEndpoint({
+        path: `${prefix.v1}/groups/${config.options.groupId}`,
         method: 'PUT',
         params: {
-          members: utils.extractIdsIfApplicable(cg.options.members),
+          members: utils.extractIdsIfApplicable(config.options.members),
         },
       }).then((response) => {
-        return cg.uncache([
+        return config.uncache([
           // Uncache the list of group members
-          '/api/v1/groups/' + cg.options.groupId + '/users',
+          `${prefix.v1}/groups/${config.options.groupId}/users`,
         ], response);
       });
     },

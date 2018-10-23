@@ -57,7 +57,7 @@ module.exports = (config = {}) => {
           if (response.status === 404) {
             // No API endpoint
             return reject(new CACCLError({
-              message: 'The endpoint https://' + host + pagePath + ' does not exist: Canvas responded with a 404 message. Please check your endpoint path.',
+              message: `The endpoint https://${host}${pagePath} does not exist: Canvas responded with a 404 message. Please check your endpoint path.`,
               code: errorCodes.notfound,
             }));
           }
@@ -83,7 +83,7 @@ module.exports = (config = {}) => {
             }
 
             return reject(new CACCLError({
-              message: 'The endpoint https://' + host + pagePath + ' or params are invalid. Canvas responded with a 400 message (invalid syntax): ' + errors,
+              message: `The endpoint https://${host}${pagePath} or params are invalid. Canvas responded with a 400 message (invalid syntax): ${errors}`,
               code: errorCodes.invalidSyntax,
             }));
           }

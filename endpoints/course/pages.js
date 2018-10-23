@@ -1,18 +1,24 @@
+/**
+ * Page endpoints module
+ * @module endpoints/course/pages
+ * @see module: endpoints/course/pages
+ */
 const utils = require('../helpers/utils.js');
+const prefix = require('../helpers/prefix.js');
 
 module.exports = [
 
   /**
    * Gets the list of pages in a course
    * @param {number} courseId - Canvas course Id to query
-   * @return list of Pages (see: https://canvas.instructure.com/doc/api/pages.html#Page)
+   * @return {Promise.<Object[]>} list of Canvas Pages {@link https://canvas.instructure.com/doc/api/pages.html#Page}
    */
   {
     name: 'listPages',
     action: 'get the list of pages in a course',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/pages',
+    run(config) {
+      return config.visitEndpoint({
+        path: `${prefix.v1}/courses/${config.options.courseId}/pages`,
         method: 'GET',
       });
     },
@@ -22,14 +28,14 @@ module.exports = [
    * Get info on a specific page in a course
    * @param {number} courseId - Canvas course Id to query
    * @param {string} pageURL - Canvas page url (just the last part of path)
-   * @return Page (see: https://canvas.instructure.com/doc/api/pages.html#Page)
+   * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
    */
   {
     name: 'getPage',
     action: 'get info on a specific page in a course',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/pages/' + cg.options.pageURL,
+    run(config) {
+      return config.visitEndpoint({
+        path: `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
         method: 'GET',
       });
     },
@@ -39,40 +45,39 @@ module.exports = [
    * Updates a Canvas page
    * @param {number} courseID - Canvas course ID holding the page to update
    * @param {string} pageURL - Canvas page url (just the last part of path)
-   * @param {string} title - New title of the page (default: unchanged)
-   * @param {string} body - New html body of the page (default: unchanged)
-   * @param {string} editingRoles - New usertype(s) who can edit
-   *   (default: unchanged)
-   * @param {boolean} notifyOfUpdate - if true, send notification
-   * @param {boolean} published - New publish status of page. Must be a
-   *   boolean (default: unchanged)
-   * @param {boolean} frontPage - New front page status of page. Must be a
-   *   boolean (defulat: unchanged)
-   * @return Page (see: https://canvas.instructure.com/doc/api/pages.html#Page)
+   * @param {boolean} [notifyOfUpdate=false] - if true, send notification
+   * @param {string} [title=current value] - New title of the page
+   * @param {string} [body=current value] - New html body of the page
+   * @param {string} [editingRoles=current value] - New usertype(s) who can edit
+   * @param {boolean} [published=current value] - New publish status of page
+   *   Must be a boolean
+   * @param {boolean} [frontPage=current value] - New front page status of page.
+   *   Must be a boolean
+   * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
    */
   {
     name: 'updatePage',
     action: 'update a specific page in a course',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/pages/' + cg.options.pageURL,
+    run(config) {
+      return config.visitEndpoint({
+        path: `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
         method: 'PUT',
         params: {
-          'wiki_page[title]': utils.includeIfTruthy(cg.options.title),
-          'wiki_page[body]': utils.includeIfTruthy(cg.options.body),
+          'wiki_page[title]': utils.includeIfTruthy(config.options.title),
+          'wiki_page[body]': utils.includeIfTruthy(config.options.body),
           'wiki_page[editing_roles]':
-             utils.includeIfTruthy(cg.options.editingRoles),
+             utils.includeIfTruthy(config.options.editingRoles),
           'wiki_page[notify_of_update]':
-             utils.includeIfTruthy(cg.options.notify_of_update),
-          'wiki_page[published]': utils.includeIfBoolean(cg.options.published),
-          'wiki_page[front_page]': utils.includeIfBoolean(cg.options.frontPage),
+             utils.includeIfTruthy(config.options.notify_of_update),
+          'wiki_page[published]': utils.includeIfBoolean(config.options.published),
+          'wiki_page[front_page]': utils.includeIfBoolean(config.options.frontPage),
         },
       }).then((response) => {
-        return cg.uncache([
+        return config.uncache([
           // Uncache list of pages
-          '/api/v1/courses/' + cg.options.courseId + '/pages',
+          `${prefix.v1}/courses/${config.options.courseId}/pages`,
           // Uncache this specific page (in case someone pinged it before)
-          '/api/v1/courses/' + cg.options.courseId + '/pages/' + cg.options.pageURL,
+          `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
         ], response);
       });
     },
@@ -81,37 +86,36 @@ module.exports = [
   /**
    * Creates a new page in a course
    * @param {number} courseId - Canvas course Id to query
-   * @param {string} title - The title of the page (default: Untitled Page)
-   * @param {string} body - html body of the page (default: none)
-   * @param {string} editingRoles - usertype(s) who can edit
-   *   (default: teachers)
-   * @param {boolean} notifyOfUpdate - if true, sends notification
-   * @param {boolean} published - if true, publishes page upon creation
-   * @param {boolean} frontPage - if true, sets page as front page
-   * @return Page (see: https://canvas.instructure.com/doc/api/pages.html#Page)
+   * @param {string} [title=Untitled Page] - The title of the page
+   * @param {string} [body=null] - html body of the page
+   * @param {string} [editingRoles=teachers] - usertype(s) who can edit
+   * @param {boolean} [notifyOfUpdate=false] - if true, sends notification
+   * @param {boolean} [published=false] - if true, publishes page upon creation
+   * @param {boolean} [frontPage=false] - if true, sets page as front page
+   * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
    */
   {
     name: 'createPage',
     action: 'create a new page in a course',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/pages',
+    run(config) {
+      return config.visitEndpoint({
+        path: `${prefix.v1}/courses/${config.options.courseId}/pages`,
         method: 'POST',
         params: {
-          'wiki_page[title]': (cg.options.title || 'Untitled Page'),
-          'wiki_page[body]': (cg.options.body || ''),
-          'wiki_page[editing_roles]': (cg.options.editingRoles || 'teachers'),
+          'wiki_page[title]': (config.options.title || 'Untitled Page'),
+          'wiki_page[body]': (config.options.body || ''),
+          'wiki_page[editing_roles]': (config.options.editingRoles || 'teachers'),
           'wiki_page[notify_of_update]':
-            utils.isTruthy(cg.options.notifyOfUpdate),
-          'wiki_page[published]': utils.isTruthy(cg.options.published),
-          'wiki_page[front_page]': utils.isTruthy(cg.options.frontPage),
+            utils.isTruthy(config.options.notifyOfUpdate),
+          'wiki_page[published]': utils.isTruthy(config.options.published),
+          'wiki_page[front_page]': utils.isTruthy(config.options.frontPage),
         },
       }).then((response) => {
-        return cg.uncache([
+        return config.uncache([
           // Uncache list of pages
-          '/api/v1/courses/' + cg.options.courseId + '/pages',
+          `${prefix.v1}/courses/${config.options.courseId}/pages`,
           // Uncache this specific page (in case someone pinged it before)
-          '/api/v1/courses/' + cg.options.courseId + '/pages/' + response.url,
+          `${prefix.v1}/courses/${config.options.courseId}/pages/${response.url}`,
         ], response);
       });
     },
@@ -121,21 +125,21 @@ module.exports = [
    * Deletes a page from a course
    * @param {number} courseId - Canvas course Id to query
    * @param {string} pageURL - Page url to delete (just last part of path)
-   * @return Page (see: https://canvas.instructure.com/doc/api/pages.html#Page)
+   * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
    */
   {
     name: 'deletePage',
     action: 'delete a page from a course',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/pages/' + cg.options.pageURL,
+    run(config) {
+      return config.visitEndpoint({
+        path: `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
         method: 'DELETE',
       }).then((response) => {
-        return cg.uncache([
+        return config.uncache([
           // Uncache list of pages
-          '/api/v1/courses/' + cg.options.courseId + '/pages',
+          `${prefix.v1}/courses/${config.options.courseId}/pages`,
           // Uncache this specific page
-          '/api/v1/courses/' + cg.options.courseId + '/pages/' + cg.options.pageURL,
+          `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
         ], response);
       });
     },

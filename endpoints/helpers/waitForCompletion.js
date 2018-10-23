@@ -1,3 +1,9 @@
+/**
+ * Functionality to wait for Canvas progress object to complete
+ * @module endpoints/helpers/waitForCompletion
+ * @see module: endpoints/helpers/waitForCompletion
+ */
+
 const urlLib = require('url');
 const errorCodes = require('../../errorCodes.js');
 const CACCLError = require('../../../caccl-error/index.js');
@@ -51,7 +57,7 @@ module.exports = (options) => {
       }).catch((err) => {
         // Error occurred while checking status
         return reject(new CACCLError({
-          message: 'We encountered an error while checking the status of a queued project: "' + err.message + '"',
+          message: `We encountered an error while checking the status of a queued project: "${err.message}"`,
           code: errorCodes.waitForCompletionCheckError,
         }));
       });

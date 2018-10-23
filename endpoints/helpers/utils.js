@@ -1,3 +1,9 @@
+/**
+ * Useful utilities for use in defining endpoints
+ * @module endpoints/helpers/utils
+ * @see module: endpoints/helpers/utils
+ */
+
 // wrapVisitEndpoint filters out all parameters with value equal to
 // EXCLUDED_PARAM. To exclude a parameter, just set its value to EXCLUDED_PARAM
 const EXCLUDED_PARAM = '-=EXCLUDED_PARAMETER=-';
@@ -74,6 +80,10 @@ module.exports = {
       });
     }
     return ids;
+  },
+
+  sIfPlural: (num) => {
+    return (num === 1 ? '' : 's');
   },
 
 };

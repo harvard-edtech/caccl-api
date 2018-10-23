@@ -128,7 +128,15 @@ Example actions:
 
 ### `run(cg)` is the function that'll run when the endpoint is called
 
-#### cg properties
+#### cg properties (a.k.a. config)
+
+```js
+cg = {
+  options,
+  self,
+  visitEndpoint,
+};
+```
 
 `options` should be an object that contains all info passed from the endpoint caller.
 

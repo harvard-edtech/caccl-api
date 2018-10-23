@@ -1,15 +1,23 @@
+/**
+ * Sections endpoints module
+ * @module endpoints/course/sections
+ * @see module: endpoints/course/sections
+ */
+
+const prefix = require('../helpers/prefix.js');
+
 module.exports = [
   /**
    * Gets the list of sections in a course
    * @param {number} courseId - Canvas course Id to query
-   * @return list of Sections (see: https://canvas.instructure.com/doc/api/sections.html#Section)
+   * @return {Promise.<Object[]>} list of Canvas Sections {@link https://canvas.instructure.com/doc/api/sections.html#Section}
    */
   {
     name: 'listSections',
     action: 'get the list of sections in a course',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/sections',
+    run(config) {
+      return config.visitEndpoint({
+        path: `${prefix.v1}/courses/${config.options.courseId}/sections`,
         method: 'GET',
       });
     },
@@ -19,15 +27,14 @@ module.exports = [
    * Gets info on a specific section
    * @param {number} courseId - Canvas course Id to query
    * @param {number} sectionId - Section Id to retrieve
-   * @return Section (see: https://canvas.instructure.com/doc/api/sections.html#Section)
+   * @return {Promise.<Object>} Canvas Section {@link https://canvas.instructure.com/doc/api/sections.html#Section}
    */
   {
     name: 'getSection',
     action: 'get info on a specific section in a course',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/sections/'
-          + cg.options.sectionId,
+    run(config) {
+      return config.visitEndpoint({
+        path: `${prefix.v1}/courses/${config.options.courseId}/sections/${config.options.sectionId}`,
         method: 'GET',
       });
     },

@@ -42,7 +42,7 @@ module.exports = (config) => {
 
         // Add on action to the error if not already describing an action
         if (!newError.message.startsWith('While attempting to ')) {
-          newError.message = 'While attempting to ' + config.endpoint.action + ', we ran into an error: ' + (err.message || 'unknown');
+          newError.message = `While attempting to ${config.endpoint.action}, we ran into an error: ${(err.message || 'unknown')}`;
         }
 
         throw newError;
@@ -51,7 +51,7 @@ module.exports = (config) => {
 
     // Endpoint didn't return promise
     return Promise.reject(new CACCLError({
-      message: 'The "' + config.endpoint.action + '" endpoint malfunctioned: it didn\'t return a promise. Please contact an admin.',
+      message: `The "${config.endpoint.action}" endpoint malfunctioned: it didn't return a promise. Please contact an admin.`,
       code: errorCodes.endpointDidntReturnPromise,
     }));
   };

@@ -1,4 +1,10 @@
+/**
+ * Assignment overrides endpoints module
+ * @module endpoints/course/assignmentOverrides
+ * @see module: endpoints/course/assignmentOverrides
+ */
 const utils = require('../helpers/utils.js');
+const prefix = require('../helpers/prefix.js');
 
 module.exports = [
 
@@ -6,14 +12,14 @@ module.exports = [
    * Gets the list of overrides for an assignment
    * @param {number} courseId - Canvas course id to query
    * @param {number} assignmentId - Canvas assignment id to look up
-   * @return list of AssignmentOverrides (see: https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
+   * @return {Promise.<Object[]>} list of Canvas AssignmentOverrides {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
    */
   {
     name: 'listAssignmentOverrides',
     action: 'get a list of assignment overrides for a specific assignment in a course',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides',
+    run(config) {
+      return config.visitEndpoint({
+        path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides`,
         method: 'GET',
       });
     },
@@ -24,14 +30,14 @@ module.exports = [
    * @param {number} courseId - Canvas course id to query
    * @param {number} assignmentId - Canvas assignment id to query
    * @param {number} overrideId - Canvas override id to look up
-   * @return AssignmentOverride (see: https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
+   * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
    */
   {
     name: 'getAssignmentOverride',
     action: 'get a list of assignment overrides for a specific assignment in a course',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides/' + cg.options.overrideId,
+    run(config) {
+      return config.visitEndpoint({
+        path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides/${config.options.overrideId}`,
         method: 'GET',
       });
     },
@@ -47,54 +53,49 @@ module.exports = [
    *   (Note: either studentIds, groupId, or sectionId must be included)
    * @param {number} sectionId - Section to override (Note: either studentIds,
    *   groupId, or sectionId must be included)
-   * @param {string} title - Title of the override (default: "Override for X
-   *   students", if studentIds is included)
-   * @param {date} dueAt - New due date or null to remove due date (default:
-   *   current value)
-   * @param {date} unlockAt - New unlock date or null to remove unlock date
-   *   (default: current value)
-   * @param {date} lockAt - New lock date or null to remove lock date
-   *   (default: current value)
-   * @return AssignmentOverride (see: https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
+   * @param {string} [title=Override for X students] - Title of the override
+   * @param {date} [dueAt=current value] - New due date or null to remove due
+   *   date
+   * @param {date} [unlockAt=current value] - New unlock date or null to remove
+   *   unlock date
+   * @param {date} [lockAt=current value] - New lock date or null to remove lock
+   *   date
+   * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
    */
   {
     name: 'createAssignmentOverride',
     action: 'create a new override for a specific assignment in a course',
-    run: (cg) => {
-      const title = (
-        cg.options.title
-        || (
-          cg.options.studentIds
-            ? 'Override for ' + cg.options.studentIds.length + ' student' + (cg.options.studentIds.length === 1 ? '' : 's')
-            : null
-        )
-      );
-      return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides',
+    run(config) {
+      let { title } = config.options;
+      if (!title) {
+        title = `Override for ${config.options.studentIds.length} student${utils.sIfPlural(config.options.studentIds.length)}`;
+      }
+      return config.visitEndpoint({
+        path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides`,
         method: 'POST',
         params: {
           'assignment_override[title]': utils.includeIfTruthy(title),
           'assignment_override[student_ids]':
-            utils.includeIfTruthy(cg.options.studentIds),
+            utils.includeIfTruthy(config.options.studentIds),
           'assignment_override[group_id]':
-            utils.includeIfTruthy(cg.options.groupId),
+            utils.includeIfTruthy(config.options.groupId),
           'assignment_override[course_section_id]':
-            utils.includeIfTruthy(cg.options.sectionId),
+            utils.includeIfTruthy(config.options.sectionId),
           'assignment_override[due_at]':
-            utils.includeIfDate(cg.options.dueAt),
+            utils.includeIfDate(config.options.dueAt),
           'assignment_override[unlock_at]':
-            utils.includeIfDate(cg.options.unlockAt),
+            utils.includeIfDate(config.options.unlockAt),
           'assignment_override[lock_at]':
-            utils.includeIfDate(cg.options.lockAt),
+            utils.includeIfDate(config.options.lockAt),
         },
       }).then((response) => {
-        return cg.uncache([
+        return config.uncache([
           // Uncache list of overrides
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides',
+          `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides`,
           // Uncache specific override id
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides/' + response.id,
+          `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides/${response.id}`,
           // Uncache batch override list
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/overrides',
+          `${prefix.v1}/courses/${config.options.courseId}/assignments/overrides`,
         ], response);
       });
     },
@@ -105,23 +106,23 @@ module.exports = [
    * @param {number} courseId - Canvas course id to query
    * @param {number} assignmentId - Canvas assignment id to query
    * @param {number} overrideId - Canvas override id to look up
-   * @return AssignmentOverride (see: https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
+   * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
    */
   {
     name: 'deleteAssignmentOverride',
     action: 'delete an override for a specific assignment in a course',
-    run: (cg) => {
-      return cg.visitEndpoint({
-        path: '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides/' + cg.options.overrideId,
+    run(config) {
+      return config.visitEndpoint({
+        path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides/${config.options.overrideId}`,
         method: 'DELETE',
       }).then((response) => {
-        return cg.uncache([
+        return config.uncache([
           // Uncache list of overrides
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides',
+          `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides`,
           // Uncache specific override id
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/' + cg.options.assignmentId + '/overrides/' + cg.options.overrideId,
+          `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides/${config.options.overrideId}`,
           // Uncache batch override list
-          '/api/v1/courses/' + cg.options.courseId + '/assignments/overrides',
+          `${prefix.v1}/courses/${config.options.courseId}/assignments/overrides`,
         ], response);
       });
     },

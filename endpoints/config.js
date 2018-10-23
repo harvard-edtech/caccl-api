@@ -1,8 +1,15 @@
+/**
+ * Endpoints structure config file module
+ * @module config.js
+ */
+
 // Course
 const courseApps = require('./course/apps.js');
+const courseAssignmentGrading = require('./course/assignmentGrading.js');
 const courseAssignmentGroups = require('./course/assignmentGroups.js');
 const courseAssignmentOverrides = require('./course/assignmentOverrides.js');
 const courseAssignments = require('./course/assignments.js');
+const courseAssignmentSubmissions = require('./course/assignmentSubmissions.js');
 const courseCourse = require('./course/course.js');
 const courseEnrollments = require('./course/enrollments.js');
 const courseGradebookColumns = require('./course/gradebookColumns.js');
@@ -20,9 +27,11 @@ const userSelf = require('./user/self.js');
 module.exports = {
   course: [
     courseApps,
+    courseAssignmentGrading,
     courseAssignmentGroups,
     courseAssignmentOverrides,
     courseAssignments,
+    courseAssignmentSubmissions,
     courseCourse,
     courseEnrollments,
     courseGradebookColumns,
