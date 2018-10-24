@@ -7,11 +7,6 @@
 // Endpoint-related helpers
 const genEndpointFunction = require('./endpoint/genEndpointFunction.js');
 
-/*
-config:
-- cache
-- visitEndpoint
-*/
 /** A category of endpoints */
 class EndpointCategory {
   /**
