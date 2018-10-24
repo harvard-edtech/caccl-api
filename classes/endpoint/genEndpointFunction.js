@@ -17,7 +17,7 @@ const genCachedVisitEndpoint = require('./helpers/genCachedVisitEndpoint.js');
  *   passes through a response, or just passes through a response if not caching
  * @param {function} config.visitEndpoint - The visitEndpoint function created
  *   by classes/request/genVisitEndpoint
- * @param {object} config.categoryInstance – The EndpointCategory instance that
+ * @param {object} config.categoryInstance - The EndpointCategory instance that
  *   will act as the parent to this function
  * @param {object} [config.cache=null] - The cache instance. Does not cache if
  *   no cache is included

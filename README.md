@@ -30,7 +30,7 @@ For a full list of supported endpoints, check out the `/docs` folder.
 
 ### Required arguments:
 
-- **canvasHost** – Your Canvas instance host. E.g., `'canvas.instructure.com'`
+- **canvasHost** - Your Canvas instance host. E.g., `'canvas.instructure.com'`
 
 ### Optional arguments:
 
@@ -39,8 +39,8 @@ For a full list of supported endpoints, check out the `/docs` folder.
   * If `cacheType` equals `'session'`, `req` must be included and cache is stored in the express session.
   * If `cacheType` equals `'custom'`, your custom cache must be included as `cache` (see below).
 - **req** - Express request object with req.session support (required if using `'session'` cacheType.
-- **cache** – Custom cache manager instance (required if using `'custom'` cacheType (see below).
-- **visitEndpoint** – Optional function that sends requests to the Canvas API. By default, we use `caccl-visit-endpoint`. You can use your own visitEndpoint function, though we recommend using `caccl-visit-endpoint` anyway and just swapping out the `sendRequest` function when creating an instance of `caccl-visit-endpoint`.
+- **cache** - Custom cache manager instance (required if using `'custom'` cacheType (see below).
+- **visitEndpoint** - Optional function that sends requests to the Canvas API. By default, we use `caccl-visit-endpoint`. You can use your own visitEndpoint function, though we recommend using `caccl-visit-endpoint` anyway and just swapping out the `sendRequest` function when creating an instance of `caccl-visit-endpoint`.
 
 
 ## Custom Cache
@@ -73,11 +73,11 @@ cache.storePromises = true;
 Your cache should include the following functions (all return 
 Promises):
 
-- **get(path, params)** – returns a Promise that resolves with the value associated with the key pair: `(path [string], params [object])`. Resolves with `undefined` or `null` if no cached value
-- **set(path, params, value)** – returns a Promise that resolves when the value has been saved to the key pair: `(path [string], params [object])`
-- **deletePaths(paths)** – returns a Promise that resolves when the given list of paths (and all params associated with those paths) are deleted from the cache
-- **getAllPaths()** – returns a Promise that resolves with the list of cached paths
-- **deleteAllPaths()** – returns a Promise that resolves when all paths are deleted (entire cache is cleared)
+- **get(path, params)** - returns a Promise that resolves with the value associated with the key pair: `(path [string], params [object])`. Resolves with `undefined` or `null` if no cached value
+- **set(path, params, value)** - returns a Promise that resolves when the value has been saved to the key pair: `(path [string], params [object])`
+- **deletePaths(paths)** - returns a Promise that resolves when the given list of paths (and all params associated with those paths) are deleted from the cache
+- **getAllPaths()** - returns a Promise that resolves with the list of cached paths
+- **deleteAllPaths()** - returns a Promise that resolves when all paths are deleted (entire cache is cleared)
 
 Example of cache in use:
 

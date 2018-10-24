@@ -164,7 +164,7 @@ fs.readdir(endpointsPath, (categoryError, items) => {
               isOptional = true;
             }
 
-            doc += '* **' + param.name + '** [' + param.type.name + '] – ' + description;
+            doc += '* **' + param.name + '** [' + param.type.name + '] - ' + description;
 
             if (defDescription) {
               doc += '<br>&nbsp;&nbsp;_- Optional. Defaults to: ' + defDescription + '_';

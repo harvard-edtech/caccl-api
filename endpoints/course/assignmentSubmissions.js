@@ -20,7 +20,7 @@ const CACCLError = require('../../../caccl-error/index.js'); // TODO: use actual
 
 /**
  * Passes through or retrieves the current user's Canvas id
- * @param {function} visitEndpoint – The visitEndpoint function to use to send
+ * @param {function} visitEndpoint - The visitEndpoint function to use to send
  *   a getCurrentUser request with
  * @param {number} [userId] - The Canvas Id of the current user. Passed through
  *   by default if we already know it

@@ -19,9 +19,9 @@ You can always call `.uncache(canvasAPIPath)` or `uncacheAll()` to remove someth
 
 **Tip:** If you _end_ an uncache path with `*`, we'll uncache everything that starts with the prefix before the `*`. Note: we do not handle `*` in the middle of a path. Examples:
 
-`/api/v1/courses/:course/assignments*` – uncaches the list of assignments and all endpoints that start with `/api/v1/courses/:course/assignments`
+`/api/v1/courses/:course/assignments*` - uncaches the list of assignments and all endpoints that start with `/api/v1/courses/:course/assignments`
 
-`/api/v1/courses/:course/assignments/*` – uncaches all endpoints that start with `/api/v1/courses/:course/assignments/`  
+`/api/v1/courses/:course/assignments/*` - uncaches all endpoints that start with `/api/v1/courses/:course/assignments/`  
 
 ### Caveats
 

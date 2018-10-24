@@ -120,7 +120,7 @@ Gets the list of apps installed into a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
+* **courseId** [number] - Canvas course Id to query
 
 
 **Resolves to:** [list of external tools](https://canvas.instructure.com/doc/api/external_tools.html)
@@ -133,8 +133,8 @@ Gets info on a single LTI tool
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id
-* **appId** [number] – The LTI app Id to get
+* **courseId** [number] - Canvas course Id
+* **appId** [number] - The LTI app Id to get
 
 
 **Resolves to:** [external tool](https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show)
@@ -147,13 +147,13 @@ Adds an LTI app to a Canvas course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to install into
-* **name** [string] – The app name (for settings app list)
-* **launchPrivacy** [string] – 'public' by default
-* **key** [string] – Installation consumer key
-* **secret** [string] – Installation consumer secret
-* **xml** [string] – XML configuration file, standard LTI format
-* **description** [string] – A human-readable description of the app
+* **courseId** [number] - Canvas course Id to install into
+* **name** [string] - The app name (for settings app list)
+* **launchPrivacy** [string] - 'public' by default
+* **key** [string] - Installation consumer key
+* **secret** [string] - Installation consumer secret
+* **xml** [string] - XML configuration file, standard LTI format
+* **description** [string] - A human-readable description of the app
 
 
 **Resolves to:** [external tool](https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show)
@@ -166,8 +166,8 @@ Removes an LTI app from a Canvas course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to remove app from
-* **appId** [number] – The LTI app Id to remove
+* **courseId** [number] - Canvas course Id to remove app from
+* **appId** [number] - The LTI app Id to remove
 
 
 **Resolves to:** [external tool](https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show)
@@ -181,7 +181,7 @@ Lists assignment groups in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
+* **courseId** [number] - Canvas course Id to query
 
 
 **Resolves to:** [list of AssignmentGroups](https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
@@ -194,9 +194,9 @@ Gets info on a specific assignment group in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **assignmentGroupId** [number] – Assignment group to get
-* **courseId** [number] – Canvas course Id to query
+* **courseId** [number] - Canvas course Id to query
+* **assignmentGroupId** [number] - Assignment group to get
+* **courseId** [number] - Canvas course Id to query
 
 
 **Resolves to:** [AssignmentGroup](https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
@@ -209,10 +209,10 @@ Updates an assignment group in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **assignmentGroupId** [number] – Assignment group to update
-* **name** [string] – New assignment group name<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
-* **weight** [number] – New weight<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
+* **courseId** [number] - Canvas course Id to query
+* **assignmentGroupId** [number] - Assignment group to update
+* **name** [string] - New assignment group name<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
+* **weight** [number] - New weight<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
 
 
 **Resolves to:** [AssignmentGroup](https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
@@ -225,9 +225,9 @@ Create a new assignment group in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **name** [string] – New assignment group name
-* **weight** [number] – New weight<br>&nbsp;&nbsp;_- Optional. Defaults to:  0_
+* **courseId** [number] - Canvas course Id to query
+* **name** [string] - New assignment group name
+* **weight** [number] - New weight<br>&nbsp;&nbsp;_- Optional. Defaults to:  0_
 
 
 **Resolves to:** [AssignmentGroup](https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
@@ -240,9 +240,9 @@ Deletes an assignment group from a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **assignmentGroupId** [number] – Assignment group to delete
-* **moveAssignmentsTo** [integer] – Assignment group to move assignments to. If this parameter isn't included, assignments in the assignment group will be deleted.<br>&nbsp;&nbsp;_- Optional_
+* **courseId** [number] - Canvas course Id to query
+* **assignmentGroupId** [number] - Assignment group to delete
+* **moveAssignmentsTo** [integer] - Assignment group to move assignments to. If this parameter isn't included, assignments in the assignment group will be deleted.<br>&nbsp;&nbsp;_- Optional_
 
 
 **Resolves to:** [AssignmentGroup](https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup)
@@ -256,8 +256,8 @@ Gets the list of overrides for an assignment
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course id to query
-* **assignmentId** [number] – Canvas assignment id to look up
+* **courseId** [number] - Canvas course id to query
+* **assignmentId** [number] - Canvas assignment id to look up
 
 
 **Resolves to:** [list of AssignmentOverrides](https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
@@ -270,9 +270,9 @@ Get a specific override on an assignment in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course id to query
-* **assignmentId** [number] – Canvas assignment id to query
-* **overrideId** [number] – Canvas override id to look up
+* **courseId** [number] - Canvas course id to query
+* **assignmentId** [number] - Canvas assignment id to query
+* **overrideId** [number] - Canvas override id to look up
 
 
 **Resolves to:** [AssignmentOverride](https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
@@ -285,15 +285,15 @@ Create assignment override.
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course id
-* **assignmentId** [number] – Canvas assignment id
-* **studentIds** [array] – List of Canvas student IDs to override (Note: either studentIds, groupId, or sectionId must be included)
-* **groupId** [number] – Group to override, must be a group assignment (Note: either studentIds, groupId, or sectionId must be included)
-* **sectionId** [number] – Section to override (Note: either studentIds, groupId, or sectionId must be included)
-* **title** [string] – Title of the override<br>&nbsp;&nbsp;_- Optional. Defaults to:  "Override for X students", if studentIds is included_
-* **dueAt** [date] – New due date or null to remove due date<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
-* **unlockAt** [date] – New unlock date or null to remove unlock date<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
-* **lockAt** [date] – New lock date or null to remove lock date<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
+* **courseId** [number] - Canvas course id
+* **assignmentId** [number] - Canvas assignment id
+* **studentIds** [array] - List of Canvas student IDs to override (Note: either studentIds, groupId, or sectionId must be included)
+* **groupId** [number] - Group to override, must be a group assignment (Note: either studentIds, groupId, or sectionId must be included)
+* **sectionId** [number] - Section to override (Note: either studentIds, groupId, or sectionId must be included)
+* **title** [string] - Title of the override<br>&nbsp;&nbsp;_- Optional. Defaults to:  "Override for X students", if studentIds is included_
+* **dueAt** [date] - New due date or null to remove due date<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
+* **unlockAt** [date] - New unlock date or null to remove unlock date<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
+* **lockAt** [date] - New lock date or null to remove lock date<br>&nbsp;&nbsp;_- Optional. Defaults to:  current value_
 
 
 **Resolves to:** [AssignmentOverride](https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
@@ -306,9 +306,9 @@ Deletes an assignment override
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course id to query
-* **assignmentId** [number] – Canvas assignment id to query
-* **overrideId** [number] – Canvas override id to look up
+* **courseId** [number] - Canvas course id to query
+* **assignmentId** [number] - Canvas assignment id to query
+* **overrideId** [number] - Canvas override id to look up
 
 
 **Resolves to:** [AssignmentOverride](https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride)
@@ -322,7 +322,7 @@ Lists the assignments in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
+* **courseId** [number] - Canvas course Id to query
 
 
 **Resolves to:** [list of Assignments](https://canvas.instructure.com/doc/api/assignments.html#Assignment)
@@ -335,8 +335,8 @@ Get info on a specific assignment in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **assignmentId** [number] – Canvas assignment Id
+* **courseId** [number] - Canvas course Id to query
+* **assignmentId** [number] - Canvas assignment Id
 
 
 **Resolves to:** [Assignment](https://canvas.instructure.com/doc/api/assignments.html#Assignment)
@@ -349,26 +349,26 @@ Updates a Canvas assignment
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **assignmentId** [number] – Canvas assignment Id to update
-* **name** [string] – The name of the assignment
-* **pointsPossible** [number] – Points possible<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **dueAt** [date] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **lockAt** [date] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **unlockAt** [date] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **description** [string] – html description of the assignment<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **submissionTypes** [string] – Submission type(s)<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **allowedExtensions** [string] – List of allowed file extensions (exclude period). Online upload must be enabled<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **gradingType** [string] – Grading type<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **position** [number] – Position in assignment list<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **published** [boolean] – If true, publish page upon creation. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **muted** [boolean] – If true, assignment is muted. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **groupSetId** [number] – Student group set Id<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **assignmentGroupId** [number] – Assignment group Id<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **peerReviewsEnabled** [boolean] – If true, users asked to submit peer reviews. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **automaticPeerReviewsEnabled** [boolean] – If true, Canvas will automatically assign peer reviews. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **omitFromFinalGrade** [boolean] – If true, assignment is omitted from the final grade. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **gradeGroupStudentsIndividually** [boolean] – If true, students in groups can be given separate grades and when one student in a group gets a grade, other students do not get graded. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **courseId** [number] - Canvas course Id to query
+* **assignmentId** [number] - Canvas assignment Id to update
+* **name** [string] - The name of the assignment
+* **pointsPossible** [number] - Points possible<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **dueAt** [date] - Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **lockAt** [date] - Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **unlockAt** [date] - Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **description** [string] - html description of the assignment<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **submissionTypes** [string] - Submission type(s)<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **allowedExtensions** [string] - List of allowed file extensions (exclude period). Online upload must be enabled<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **gradingType** [string] - Grading type<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **position** [number] - Position in assignment list<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **published** [boolean] - If true, publish page upon creation. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **muted** [boolean] - If true, assignment is muted. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **groupSetId** [number] - Student group set Id<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **assignmentGroupId** [number] - Assignment group Id<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **peerReviewsEnabled** [boolean] - If true, users asked to submit peer reviews. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **automaticPeerReviewsEnabled** [boolean] - If true, Canvas will automatically assign peer reviews. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **omitFromFinalGrade** [boolean] - If true, assignment is omitted from the final grade. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **gradeGroupStudentsIndividually** [boolean] - If true, students in groups can be given separate grades and when one student in a group gets a grade, other students do not get graded. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
 
 
 **Resolves to:** [Assignment](https://canvas.instructure.com/doc/api/assignments.html#Assignment)
@@ -381,25 +381,25 @@ Creates a Canvas assignment
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to create an assignment in
-* **name** [string] – The name of the assignment<br>&nbsp;&nbsp;_- Optional. Defaults to:  Unnamed Assignment_
-* **pointsPossible** [number] – Points possible<br>&nbsp;&nbsp;_- Optional. Defaults to:  null_
-* **dueAt** [date] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **lockAt** [date] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **unlockAt** [date] – Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **description** [string] – html description of the assignment<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **submissionTypes** [string] – Submission type(s)<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **allowedExtensions** [string] – List of allowed file extensions (exclude period). Online upload must be enabled<br>&nbsp;&nbsp;_- Optional. Defaults to:  any_
-* **gradingType** [string] – Grading type<br>&nbsp;&nbsp;_- Optional. Defaults to:  points_
-* **position** [number] – Position in assignment list<br>&nbsp;&nbsp;_- Optional. Defaults to:  last_
-* **published** [boolean] – If true, publish page upon creation<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **muted** [boolean] – If true, assignment is muted<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **groupSetId** [number] – Student group set Id<br>&nbsp;&nbsp;_- Optional. Defaults to:  none/singleton_
-* **assignmentGroupId** [number] – Assignment group Id<br>&nbsp;&nbsp;_- Optional. Defaults to:  top assignment group in the course_
-* **peerReviewsEnabled** [boolean] – If true, users asked to submit peer reviews<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **automaticPeerReviewsEnabled** [boolean] – If true, Canvas will automatically assign peer reviews<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **omitFromFinalGrade** [boolean] – If true, assignment is omitted from the final grade<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **gradeGroupStudentsIndividually** [boolean] – If true, students in groups can be given separate grades and when one student in a group gets a grade, other students do not get graded<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **courseId** [number] - Canvas course Id to create an assignment in
+* **name** [string] - The name of the assignment<br>&nbsp;&nbsp;_- Optional. Defaults to:  Unnamed Assignment_
+* **pointsPossible** [number] - Points possible<br>&nbsp;&nbsp;_- Optional. Defaults to:  null_
+* **dueAt** [date] - Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **lockAt** [date] - Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **unlockAt** [date] - Due at datetime<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **description** [string] - html description of the assignment<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **submissionTypes** [string] - Submission type(s)<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **allowedExtensions** [string] - List of allowed file extensions (exclude period). Online upload must be enabled<br>&nbsp;&nbsp;_- Optional. Defaults to:  any_
+* **gradingType** [string] - Grading type<br>&nbsp;&nbsp;_- Optional. Defaults to:  points_
+* **position** [number] - Position in assignment list<br>&nbsp;&nbsp;_- Optional. Defaults to:  last_
+* **published** [boolean] - If true, publish page upon creation<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **muted** [boolean] - If true, assignment is muted<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **groupSetId** [number] - Student group set Id<br>&nbsp;&nbsp;_- Optional. Defaults to:  none/singleton_
+* **assignmentGroupId** [number] - Assignment group Id<br>&nbsp;&nbsp;_- Optional. Defaults to:  top assignment group in the course_
+* **peerReviewsEnabled** [boolean] - If true, users asked to submit peer reviews<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **automaticPeerReviewsEnabled** [boolean] - If true, Canvas will automatically assign peer reviews<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **omitFromFinalGrade** [boolean] - If true, assignment is omitted from the final grade<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **gradeGroupStudentsIndividually** [boolean] - If true, students in groups can be given separate grades and when one student in a group gets a grade, other students do not get graded<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
 
 
 **Resolves to:** [Assignment](https://canvas.instructure.com/doc/api/assignments.html#Assignment)
@@ -412,8 +412,8 @@ Delete an assignment
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id
-* **assignmentId** [number] – Canvas assignment Id
+* **courseId** [number] - Canvas course Id
+* **assignmentId** [number] - Canvas assignment Id
 
 
 **Resolves to:** [Assignment](https://canvas.instructure.com/doc/api/assignments.html#Assignment)
@@ -426,12 +426,12 @@ Lists the submissions to a specific assignment in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id
-* **assignmentId** [number] – The Canvas assignment Id to query
-* **includeComments** [boolean] – If true, includes all comments on submissions<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **includeRubricAssessment** [boolean] – If true, includes rubric assessments: breakdown of score for each rubric item<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **excludeUser** [boolean] – If false, includes a submission[i].user value with the submission's user information
-* **includeTestStudent** [boolean] – If true, includes dummy submission by test student (student view) if there is one<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **courseId** [number] - Canvas course Id
+* **assignmentId** [number] - The Canvas assignment Id to query
+* **includeComments** [boolean] - If true, includes all comments on submissions<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **includeRubricAssessment** [boolean] - If true, includes rubric assessments: breakdown of score for each rubric item<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **excludeUser** [boolean] - If false, includes a submission[i].user value with the submission's user information
+* **includeTestStudent** [boolean] - If true, includes dummy submission by test student (student view) if there is one<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
 
 
 <hr>
@@ -442,12 +442,12 @@ Gets a single submission for an assignment
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id
-* **assignmentId** [number] – The Canvas assignment Id
-* **studentId** [number] – The Canvas student Id
-* **includeComments** [boolean] – If true, includes all comments on submissions<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **includeRubricAssessment** [boolean] – If true, includes rubric assessments: breakdown of score for each rubric item<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **excludeUser** [boolean] – If false, includes a submission[i].user value with the submission's user information<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **courseId** [number] - Canvas course Id
+* **assignmentId** [number] - The Canvas assignment Id
+* **studentId** [number] - The Canvas student Id
+* **includeComments** [boolean] - If true, includes all comments on submissions<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **includeRubricAssessment** [boolean] - If true, includes rubric assessments: breakdown of score for each rubric item<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **excludeUser** [boolean] - If false, includes a submission[i].user value with the submission's user information<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
 
 
 <hr>
@@ -458,12 +458,12 @@ Submits assignment on behalf of the current user
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id
-* **assignmentId** [number] – The Canvas assignment Id
-* **currentUserId** [number] – The current user's Canvas Id. If not included, we call the current user endpoint<br>&nbsp;&nbsp;_- Optional_
-* **submissionType** [string] – Currently supported types: text - html/plain text submission (body must be string) url - web url (body must be string) files - upload file(s) to the submission (body must be filename array)
-* **body** [object] – The body of the submission. Depends on submissionType (see above)
-* **comment** [string] – A text comment to include<br>&nbsp;&nbsp;_- Optional_
+* **courseId** [number] - Canvas course Id
+* **assignmentId** [number] - The Canvas assignment Id
+* **currentUserId** [number] - The current user's Canvas Id. If not included, we call the current user endpoint<br>&nbsp;&nbsp;_- Optional_
+* **submissionType** [string] - Currently supported types: text - html/plain text submission (body must be string) url - web url (body must be string) files - upload file(s) to the submission (body must be filename array)
+* **body** [object] - The body of the submission. Depends on submissionType (see above)
+* **comment** [string] - A text comment to include<br>&nbsp;&nbsp;_- Optional_
 
 
 <hr>
@@ -474,8 +474,8 @@ List gradeable students for a specific assignment
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **assignmentId** [number] – Canvas assignment Id to query
+* **courseId** [number] - Canvas course Id to query
+* **assignmentId** [number] - Canvas assignment Id to query
 
 
 <hr>
@@ -486,10 +486,10 @@ Adds a comment to a submission
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id
-* **assignmentId** [number] – Canvas course Id
-* **studentId** [number] – Canvas student Id of the sub to comment on
-* **comment** [string] – The text of the comment
+* **courseId** [number] - Canvas course Id
+* **assignmentId** [number] - Canvas course Id
+* **studentId** [number] - Canvas student Id of the sub to comment on
+* **comment** [string] - The text of the comment
 
 
 <hr>
@@ -500,12 +500,12 @@ Batch updates grades and/or comments. Also supports updating rubric items
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id
-* **assignmentId** [number] – Canvas course Id
-* **gradeItems** [number] – List of grade items to upload to Canvas: [{ studentId: <student id>, points: <optional, points to overwrite with>, comment: <optional, comment to append>, rubricId: <optional, rubric item to upload to> },...]
-* **waitForCompletion** [boolean] – If true, promise won't resolve until Canvas has finished updating the grades, instead of resolving once the grade changes have been queued<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **waitForCompletionTimeout** [number] – The number of minutes to wait before timing out the grade update job<br>&nbsp;&nbsp;_- Optional. Defaults to:  2 mins_
-* **dontMergeRubricItemUpdates** [boolean] – When uploading grades to a rubric item, we intelligently merge rubric item updates with previous rubric assessments. For instance, if the assignment's rubric is: { grammar, argument, formatting } And the student of interest has the following rubric assessment so far: { grammar: 10/10, argument: 8/10, formatting: ungraded } When we upload a new gradeItem (9/10 points) to the student's formatting rubric item, the result is: { grammar: 10/10, argument: 8/10, formatting: 9/10 } However, if dontMergeRubricItemUpdates=true, the result is: { grammar: ungraded, argument: ungraded, formatting: 9/10 } Note: merging is an added feature. By default, the Canvas API does not merge rubric assessments.
+* **courseId** [number] - Canvas course Id
+* **assignmentId** [number] - Canvas course Id
+* **gradeItems** [number] - List of grade items to upload to Canvas: [{ studentId: <student id>, points: <optional, points to overwrite with>, comment: <optional, comment to append>, rubricId: <optional, rubric item to upload to> },...]
+* **waitForCompletion** [boolean] - If true, promise won't resolve until Canvas has finished updating the grades, instead of resolving once the grade changes have been queued<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **waitForCompletionTimeout** [number] - The number of minutes to wait before timing out the grade update job<br>&nbsp;&nbsp;_- Optional. Defaults to:  2 mins_
+* **dontMergeRubricItemUpdates** [boolean] - When uploading grades to a rubric item, we intelligently merge rubric item updates with previous rubric assessments. For instance, if the assignment's rubric is: { grammar, argument, formatting } And the student of interest has the following rubric assessment so far: { grammar: 10/10, argument: 8/10, formatting: ungraded } When we upload a new gradeItem (9/10 points) to the student's formatting rubric item, the result is: { grammar: 10/10, argument: 8/10, formatting: 9/10 } However, if dontMergeRubricItemUpdates=true, the result is: { grammar: ungraded, argument: ungraded, formatting: 9/10 } Note: merging is an added feature. By default, the Canvas API does not merge rubric assessments.
 
 
 **Resolves to:** [Progress](https://canvas.instructure.com/doc/api/progress.html#Progress)
@@ -519,15 +519,15 @@ Gets info on a specific course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to get info on
-* **includeSyllabus** [boolean] – If truthy, includes syllabus body
-* **includeTerm** [boolean] – If truthy, includes term
-* **includeAccount** [boolean] – If truthy, includes account Id
-* **includeDescription** [boolean] – If truthy, includes public description
-* **includeSections** [boolean] – If truthy, includes sections
-* **includeTeachers** [boolean] – If truthy, includes teachers
-* **includeCourseImage** [boolean] – If truthy, includes the course image
-* **includeNeedsGradingCount** [boolean] – If truthy, includes the number of students who still need to be graded
+* **courseId** [number] - Canvas course Id to get info on
+* **includeSyllabus** [boolean] - If truthy, includes syllabus body
+* **includeTerm** [boolean] - If truthy, includes term
+* **includeAccount** [boolean] - If truthy, includes account Id
+* **includeDescription** [boolean] - If truthy, includes public description
+* **includeSections** [boolean] - If truthy, includes sections
+* **includeTeachers** [boolean] - If truthy, includes teachers
+* **includeCourseImage** [boolean] - If truthy, includes the course image
+* **includeNeedsGradingCount** [boolean] - If truthy, includes the number of students who still need to be graded
 
 
 **Resolves to:** [Course](https://canvas.instructure.com/doc/api/courses.html#Course)
@@ -541,11 +541,11 @@ Gets the list of enrollments in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **types** [string] – list of enrollment types to include: ['student', 'ta', 'teacher', 'designer', 'observer'] Defaults to all types.
-* **activeOnly** [string] – If true, only active enrollments included
-* **includeAvatar** [string] – If true, avatar_url is included
-* **includeGroups** [string] – If true, group_ids is included
+* **courseId** [number] - Canvas course Id to query
+* **types** [string] - list of enrollment types to include: ['student', 'ta', 'teacher', 'designer', 'observer'] Defaults to all types.
+* **activeOnly** [string] - If true, only active enrollments included
+* **includeAvatar** [string] - If true, avatar_url is included
+* **includeGroups** [string] - If true, group_ids is included
 
 
 **Resolves to:** [list of Enrollments](https://canvas.instructure.com/doc/api/enrollments.html#Enrollment)
@@ -558,10 +558,10 @@ Gets the list of students in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **activeOnly** [string] – If true, only active enrollments included
-* **includeAvatar** [string] – If true, avatar_url is included
-* **includeGroups** [string] – If true, group_ids is included
+* **courseId** [number] - Canvas course Id to query
+* **activeOnly** [string] - If true, only active enrollments included
+* **includeAvatar** [string] - If true, avatar_url is included
+* **includeGroups** [string] - If true, group_ids is included
 
 
 <hr>
@@ -572,10 +572,10 @@ Gets the list of TAs and Teachers in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **activeOnly** [string] – If true, only active enrollments included
-* **includeAvatar** [string] – If true, avatar_url is included
-* **includeGroups** [string] – If true, group_ids is included
+* **courseId** [number] - Canvas course Id to query
+* **activeOnly** [string] - If true, only active enrollments included
+* **includeAvatar** [string] - If true, avatar_url is included
+* **includeGroups** [string] - If true, group_ids is included
 
 
 **Resolves to:** [list of Enrollments](https://canvas.instructure.com/doc/api/enrollments.html#Enrollment)
@@ -588,10 +588,10 @@ Gets the list of designers in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **activeOnly** [string] – If true, only active enrollments included
-* **includeAvatar** [string] – If true, avatar_url is included
-* **includeGroups** [string] – If true, group_ids is included
+* **courseId** [number] - Canvas course Id to query
+* **activeOnly** [string] - If true, only active enrollments included
+* **includeAvatar** [string] - If true, avatar_url is included
+* **includeGroups** [string] - If true, group_ids is included
 
 
 **Resolves to:** [list of Enrollments](https://canvas.instructure.com/doc/api/enrollments.html#Enrollment)
@@ -604,10 +604,10 @@ Gets the list of observers in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **activeOnly** [string] – If true, only active enrollments included
-* **includeAvatar** [string] – If true, avatar_url is included
-* **includeGroups** [string] – If true, group_ids is included
+* **courseId** [number] - Canvas course Id to query
+* **activeOnly** [string] - If true, only active enrollments included
+* **includeAvatar** [string] - If true, avatar_url is included
+* **includeGroups** [string] - If true, group_ids is included
 
 
 **Resolves to:** [list of Enrollments](https://canvas.instructure.com/doc/api/enrollments.html#Enrollment)
@@ -621,8 +621,8 @@ Gets the list of custom gradebook columns in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **includeHidden** [boolean] – If true, includes hidden gradebook columns as well.
+* **courseId** [number] - Canvas course Id to query
+* **includeHidden** [boolean] - If true, includes hidden gradebook columns as well.
 
 
 **Resolves to:** [List of CustomColumns](https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
@@ -635,9 +635,9 @@ Gets info on a specific gradebook column in a course. This is a simulated endpoi
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **columnId** [number] – Canvas column Id to return
-* **isHidden** [boolean] – Must be set to true if the column you're retrieving is a hidden column.
+* **courseId** [number] - Canvas course Id to query
+* **columnId** [number] - Canvas column Id to return
+* **isHidden** [boolean] - Must be set to true if the column you're retrieving is a hidden column.
 
 
 **Resolves to:** [CustomColumn](https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
@@ -650,11 +650,11 @@ Updates a gradebook column's information
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course ID
-* **columnId** [number] – Canvas custom gradebook column ID to query
-* **title** [string] – New title for the column<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **position** [number] – New position for the column in the list of custom gradebook columns<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **hidden** [boolean] – If set, updates whether the custom gradebook column is hidden from everyone. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **courseId** [number] - Canvas course ID
+* **columnId** [number] - Canvas custom gradebook column ID to query
+* **title** [string] - New title for the column<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **position** [number] - New position for the column in the list of custom gradebook columns<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **hidden** [boolean] - If set, updates whether the custom gradebook column is hidden from everyone. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
 
 
 **Resolves to:** [CustomColumn](https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
@@ -667,10 +667,10 @@ Creates a new gradebook column in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **title** [string] – Title of new custom gradebook column<br>&nbsp;&nbsp;_- Optional. Defaults to:  Untitled Column_
-* **position** [number] – Position of the gradebook column within the list of custom gradebook columns<br>&nbsp;&nbsp;_- Optional. Defaults to:  last_
-* **hidden** [boolean] – If true, hides the gradebook column from everyone, not just instructor as usual<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **courseId** [number] - Canvas course Id to query
+* **title** [string] - Title of new custom gradebook column<br>&nbsp;&nbsp;_- Optional. Defaults to:  Untitled Column_
+* **position** [number] - Position of the gradebook column within the list of custom gradebook columns<br>&nbsp;&nbsp;_- Optional. Defaults to:  last_
+* **hidden** [boolean] - If true, hides the gradebook column from everyone, not just instructor as usual<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
 
 
 **Resolves to:** [CustomColumn](https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
@@ -683,8 +683,8 @@ Deletes a gradebook column from a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **columnId** [number] – Gradebook column Id
+* **courseId** [number] - Canvas course Id to query
+* **columnId** [number] - Gradebook column Id
 
 
 **Resolves to:** [CustomColumn](https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn)
@@ -697,8 +697,8 @@ Gets the list of entries in a specific gradebook column in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **columnId** [number] – Gradebook column Id
+* **courseId** [number] - Canvas course Id to query
+* **columnId** [number] - Gradebook column Id
 
 
 **Resolves to:** [list of ColumnDatum objects](https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum)
@@ -711,11 +711,11 @@ Update the list of entries in a specific gradebook column in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **columnId** [number] – Gradebook column Id
-* **entries** [array] – list of ColumnDatum objects: `[{user_id: <Canvas User Id>, text: <New Entry Text>}, ...]`
-* **waitForCompletion** [boolean] – If true, waits for completion of batch update request
-* **waitForCompletionTimeout** [number] – Number of minutes to wait for completion of batch upload<br>&nbsp;&nbsp;_- Optional. Defaults to:  2_
+* **courseId** [number] - Canvas course Id to query
+* **columnId** [number] - Gradebook column Id
+* **entries** [array] - list of ColumnDatum objects: `[{user_id: <Canvas User Id>, text: <New Entry Text>}, ...]`
+* **waitForCompletion** [boolean] - If true, waits for completion of batch update request
+* **waitForCompletionTimeout** [number] - Number of minutes to wait for completion of batch upload<br>&nbsp;&nbsp;_- Optional. Defaults to:  2_
 
 
 **Resolves to:** [Progress](https://canvas.instructure.com/doc/api/progress.html#Progress)
@@ -729,7 +729,7 @@ Lists the group sets in the course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id
+* **courseId** [number] - Canvas course Id
 
 
 **Resolves to:** [list of GroupCategories](https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory)
@@ -742,7 +742,7 @@ Gets info on a specific group set
 
 **Inputs:**
 
-* **groupSetId** [number] – Canvas group set Id
+* **groupSetId** [number] - Canvas group set Id
 
 
 **Resolves to:** [GroupCategory](https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory)
@@ -755,8 +755,8 @@ Create a group set in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to create a group set in
-* **name** [string] – The name of the new group set
+* **courseId** [number] - Canvas course Id to create a group set in
+* **name** [string] - The name of the new group set
 
 
 **Resolves to:** [GroupCategory](https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory)
@@ -769,8 +769,8 @@ Deletes a group set
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id
-* **groupSetId** [number] – Canvas group set Id
+* **courseId** [number] - Canvas course Id
+* **groupSetId** [number] - Canvas group set Id
 
 
 **Resolves to:** [GroupCategory](https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory)
@@ -783,7 +783,7 @@ Gets the list of groups in a group set
 
 **Inputs:**
 
-* **groupSetId** [number] – Canvas group set Id to query
+* **groupSetId** [number] - Canvas group set Id to query
 
 
 **Resolves to:** [list of Groups](https://canvas.instructure.com/doc/api/groups.html#Group)
@@ -796,7 +796,7 @@ Gets info on a specific group in a group set (alias to groups.js/getGroup)
 
 **Inputs:**
 
-* **groupId** [number] – Canvas group Id
+* **groupId** [number] - Canvas group Id
 
 
 **Resolves to:** [Group](https://canvas.instructure.com/doc/api/groups.html#Group)
@@ -809,11 +809,11 @@ Creates a new group in a group set
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id
-* **groupSetId** [number] – Canvas group set Id to query
-* **name** [string] – Name of the new group<br>&nbsp;&nbsp;_- Optional. Defaults to:  Unnamed Group_
-* **description** [string] – Description of the new group<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **isPublic** [boolean] – If true, group is public<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **courseId** [number] - Canvas course Id
+* **groupSetId** [number] - Canvas group set Id to query
+* **name** [string] - Name of the new group<br>&nbsp;&nbsp;_- Optional. Defaults to:  Unnamed Group_
+* **description** [string] - Description of the new group<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **isPublic** [boolean] - If true, group is public<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
 
 
 **Resolves to:** [Group](https://canvas.instructure.com/doc/api/groups.html#Group)
@@ -826,8 +826,8 @@ Deletes a specific group from a group set
 
 **Inputs:**
 
-* **groupSetId** [number] – Canvas group set Id
-* **groupId** [number] – Canvas group Id to delete
+* **groupSetId** [number] - Canvas group set Id
+* **groupId** [number] - Canvas group Id to delete
 
 
 **Resolves to:** [Group](https://canvas.instructure.com/doc/api/groups.html#Group)
@@ -841,7 +841,7 @@ Gets info on a specific group in a course
 
 **Inputs:**
 
-* **groupId** [number] – Canvas group Id
+* **groupId** [number] - Canvas group Id
 
 
 **Resolves to:** [Group](https://canvas.instructure.com/doc/api/groups.html#Group)
@@ -854,7 +854,7 @@ Gets the list of members in a group
 
 **Inputs:**
 
-* **groupId** [number] – Canvas group Id
+* **groupId** [number] - Canvas group Id
 
 
 **Resolves to:** [list of Users](https://canvas.instructure.com/doc/api/users.html#User)
@@ -867,8 +867,8 @@ Gets the list of members in a group
 
 **Inputs:**
 
-* **groupId** [number] – Canvas group Id
-* **members** [array] – The list of user objects/user Ids that should be in the group<br>&nbsp;&nbsp;_- Optional. Defaults to:  empty list_
+* **groupId** [number] - Canvas group Id
+* **members** [array] - The list of user objects/user Ids that should be in the group<br>&nbsp;&nbsp;_- Optional. Defaults to:  empty list_
 
 
 **Resolves to:** [Group](https://canvas.instructure.com/doc/api/groups.html#Group)
@@ -882,7 +882,7 @@ Gets the list of pages in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
+* **courseId** [number] - Canvas course Id to query
 
 
 **Resolves to:** [list of Pages](https://canvas.instructure.com/doc/api/pages.html#Page)
@@ -895,8 +895,8 @@ Get info on a specific page in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **pageURL** [string] – Canvas page url (just the last part of path)
+* **courseId** [number] - Canvas course Id to query
+* **pageURL** [string] - Canvas page url (just the last part of path)
 
 
 **Resolves to:** [Page](https://canvas.instructure.com/doc/api/pages.html#Page)
@@ -909,14 +909,14 @@ Updates a Canvas page
 
 **Inputs:**
 
-* **courseID** [number] – Canvas course ID holding the page to update
-* **pageURL** [string] – Canvas page url (just the last part of path)
-* **title** [string] – New title of the page<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **body** [string] – New html body of the page<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **editingRoles** [string] – New usertype(s) who can edit<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **notifyOfUpdate** [boolean] – if true, send notification
-* **published** [boolean] – New publish status of page. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
-* **frontPage** [boolean] – New front page status of page. Must be a boolean (defulat: unchanged)
+* **courseID** [number] - Canvas course ID holding the page to update
+* **pageURL** [string] - Canvas page url (just the last part of path)
+* **title** [string] - New title of the page<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **body** [string] - New html body of the page<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **editingRoles** [string] - New usertype(s) who can edit<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **notifyOfUpdate** [boolean] - if true, send notification
+* **published** [boolean] - New publish status of page. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  unchanged_
+* **frontPage** [boolean] - New front page status of page. Must be a boolean (defulat: unchanged)
 
 
 **Resolves to:** [Page](https://canvas.instructure.com/doc/api/pages.html#Page)
@@ -929,13 +929,13 @@ Creates a new page in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **title** [string] – The title of the page<br>&nbsp;&nbsp;_- Optional. Defaults to:  Untitled Page_
-* **body** [string] – html body of the page<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **editingRoles** [string] – usertype(s) who can edit<br>&nbsp;&nbsp;_- Optional. Defaults to:  teachers_
-* **notifyOfUpdate** [boolean] – if true, sends notification
-* **published** [boolean] – if true, publishes page upon creation
-* **frontPage** [boolean] – if true, sets page as front page
+* **courseId** [number] - Canvas course Id to query
+* **title** [string] - The title of the page<br>&nbsp;&nbsp;_- Optional. Defaults to:  Untitled Page_
+* **body** [string] - html body of the page<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **editingRoles** [string] - usertype(s) who can edit<br>&nbsp;&nbsp;_- Optional. Defaults to:  teachers_
+* **notifyOfUpdate** [boolean] - if true, sends notification
+* **published** [boolean] - if true, publishes page upon creation
+* **frontPage** [boolean] - if true, sets page as front page
 
 
 **Resolves to:** [Page](https://canvas.instructure.com/doc/api/pages.html#Page)
@@ -948,8 +948,8 @@ Deletes a page from a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **pageURL** [string] – Page url to delete (just last part of path)
+* **courseId** [number] - Canvas course Id to query
+* **pageURL** [string] - Page url to delete (just last part of path)
 
 
 **Resolves to:** [Page](https://canvas.instructure.com/doc/api/pages.html#Page)
@@ -963,7 +963,7 @@ Lists the quizzes in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
+* **courseId** [number] - Canvas course Id to query
 
 
 **Resolves to:** [list of Quizzes](https://canvas.instructure.com/doc/api/quizzes.html#Quiz)
@@ -976,8 +976,8 @@ Get info on a specific quiz in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **quizId** [number] – Canvas quiz Id (not the quiz's assignment Id)
+* **courseId** [number] - Canvas course Id to query
+* **quizId** [number] - Canvas quiz Id (not the quiz's assignment Id)
 
 
 **Resolves to:** [Quiz](https://canvas.instructure.com/doc/api/quizzes.html#Quiz)
@@ -990,32 +990,32 @@ Updates a specific quiz in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to create the quiz in
-* **quizId** [number] – Canvas course Id to create the quiz in
-* **suppressNotification** [boolean] – If true, does not notify users that the quiz has been updated
-* **title** [string] – New title of the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **description** [string] – New HTML description of the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **type** [string] – Quiz type. Allowed values: [ 'practice_quiz', 'assignment', 'graded_survey', 'survey']<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **dueAt** [date] – – Optional. Date the quiz is due<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **lockAt** [date] – – Optional. Date the quiz is lock<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **unlockAt** [date] – – Optional. Date the quiz is unlock<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **published** [boolean] – – Optional. If true, quiz is published<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **allowedAttempts** [number] – Number of times a student is allowed to take the quiz. Set to -1 or 'infinity' for unlimited attempts<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **scoringPolicy** [string] – – Optional. Required and only valid if allowedAttempts > 1. Allowed values: ['keep_highest', 'keep_latest']<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **oneQuestionAtATime** [boolean] – – Optional. If true, shows quiz to student one question at a time. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **cantGoBack** [boolean] – – Optional. If true, shows quiz to student one question at a time. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **accessCode** [string] – – Optional. If defined, restricts access to the quiz only to those with this access code<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **ipFilter** [string] – – Optional. If defined, restricts access to the quiz to computers in a specified IP range. Filters can be a comma-separated list of addresses, or an address followed by a mask<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **assignmentGroupId** [number] – The assignment group to put the quiz into. Only valid if type is "assignment" or "graded_survey"<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **timeLimitMins** [number] – Time limit for the quiz in minutes<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **shuffleAnswers** [boolean] – If true, quiz answers for multiple choice questions will be randomized for each student. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **hideResults** [string] – Allowed values: ['always', 'until_after_last_attempt'], determines whether the student can see their own submission and other results<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **hideCorrectAnswers** [boolean] – Only valid if hideResults is not defined. If true, hides correct answers from students when results are viewed. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **showCorrectAnswersAfterLastAttempt** [boolean] – Only valid if hideCorrectAnswers is not true and allowedAttemptes > 1. If true, hides correct answers from students when quiz results are viewed until they submit the last attempt for the quiz. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **showCorrectAnswersAt** [date] – Only valid if hideCorrectAnswers is not true. If set, correct answers will only be visible after this date<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **hideCorrectAnswersAt** [date] – Only valid if hideCorrectAnswers is not true. If set, correct answers will stop being visible after this date has passed<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **oneTimeResults** [boolean] – Whether students should be prevented from viewing their quiz results past the first time (right after they turn in the quiz)<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
-* **onlyVisibleToOverrides** [boolean] – If true, the quiz is only visible to students with overrides. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **courseId** [number] - Canvas course Id to create the quiz in
+* **quizId** [number] - Canvas course Id to create the quiz in
+* **suppressNotification** [boolean] - If true, does not notify users that the quiz has been updated
+* **title** [string] - New title of the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **description** [string] - New HTML description of the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **type** [string] - Quiz type. Allowed values: [ 'practice_quiz', 'assignment', 'graded_survey', 'survey']<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **dueAt** [date] - - Optional. Date the quiz is due<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **lockAt** [date] - - Optional. Date the quiz is lock<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **unlockAt** [date] - - Optional. Date the quiz is unlock<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **published** [boolean] - - Optional. If true, quiz is published<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **allowedAttempts** [number] - Number of times a student is allowed to take the quiz. Set to -1 or 'infinity' for unlimited attempts<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **scoringPolicy** [string] - - Optional. Required and only valid if allowedAttempts > 1. Allowed values: ['keep_highest', 'keep_latest']<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **oneQuestionAtATime** [boolean] - - Optional. If true, shows quiz to student one question at a time. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **cantGoBack** [boolean] - - Optional. If true, shows quiz to student one question at a time. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **accessCode** [string] - - Optional. If defined, restricts access to the quiz only to those with this access code<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **ipFilter** [string] - - Optional. If defined, restricts access to the quiz to computers in a specified IP range. Filters can be a comma-separated list of addresses, or an address followed by a mask<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **assignmentGroupId** [number] - The assignment group to put the quiz into. Only valid if type is "assignment" or "graded_survey"<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **timeLimitMins** [number] - Time limit for the quiz in minutes<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **shuffleAnswers** [boolean] - If true, quiz answers for multiple choice questions will be randomized for each student. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **hideResults** [string] - Allowed values: ['always', 'until_after_last_attempt'], determines whether the student can see their own submission and other results<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **hideCorrectAnswers** [boolean] - Only valid if hideResults is not defined. If true, hides correct answers from students when results are viewed. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **showCorrectAnswersAfterLastAttempt** [boolean] - Only valid if hideCorrectAnswers is not true and allowedAttemptes > 1. If true, hides correct answers from students when quiz results are viewed until they submit the last attempt for the quiz. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **showCorrectAnswersAt** [date] - Only valid if hideCorrectAnswers is not true. If set, correct answers will only be visible after this date<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **hideCorrectAnswersAt** [date] - Only valid if hideCorrectAnswers is not true. If set, correct answers will stop being visible after this date has passed<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **oneTimeResults** [boolean] - Whether students should be prevented from viewing their quiz results past the first time (right after they turn in the quiz)<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
+* **onlyVisibleToOverrides** [boolean] - If true, the quiz is only visible to students with overrides. Must be a boolean<br>&nbsp;&nbsp;_- Optional. Defaults to:  previous value_
 
 
 **Resolves to:** [Quiz](https://canvas.instructure.com/doc/api/quizzes.html#Quiz)
@@ -1028,30 +1028,30 @@ Creates a new quiz in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to create the quiz in
-* **title** [string] – Title of the new quiz
-* **description** [string] – HTML description of the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  ''_
-* **type** [string] – Quiz type. Allowed values: [ 'practice_quiz', 'assignment', 'graded_survey', 'survey']<br>&nbsp;&nbsp;_- Optional_
-* **dueAt** [date] – – Optional. Date the quiz is due<br>&nbsp;&nbsp;_- Optional. Defaults to:  no due date_
-* **lockAt** [date] – – Optional. Date the quiz is lock<br>&nbsp;&nbsp;_- Optional. Defaults to:  no lock date_
-* **unlockAt** [date] – – Optional. Date the quiz is unlock<br>&nbsp;&nbsp;_- Optional. Defaults to:  no unlock date_
-* **published** [boolean] – – Optional. If true, quiz is published<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **allowedAttempts** [number] – Number of times a student is allowed to take the quiz. Set to -1 or 'infinity' for unlimited attempts<br>&nbsp;&nbsp;_- Optional. Defaults to:  1_
-* **scoringPolicy** [string] – – Optional. Required and only valid if allowedAttempts > 1. Allowed values: ['keep_highest', 'keep_latest']<br>&nbsp;&nbsp;_- Optional. Defaults to:  'keep_highest'_
-* **oneQuestionAtATime** [boolean] – – Optional. If true, shows quiz to student one question at a time<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **cantGoBack** [boolean] – – Optional. If true, shows quiz to student one question at a time<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **accessCode** [string] – – Optional. If defined, restricts access to the quiz only to those with this access code<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **ipFilter** [string] – – Optional. If defined, restricts access to the quiz to computers in a specified IP range. Filters can be a comma-separated list of addresses, or an address followed by a mask<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **assignmentGroupId** [number] – The assignment group to put the quiz into. Only valid if type is "assignment" or "graded_survey"<br>&nbsp;&nbsp;_- Optional. Defaults to:  top assignment group in the course_
-* **timeLimitMins** [number] – Time limit for the quiz in minutes<br>&nbsp;&nbsp;_- Optional. Defaults to:  no time limit_
-* **shuffleAnswers** [boolean] – If true, quiz answers for multiple choice questions will be randomized for each student<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **hideResults** [string] – Allowed values: ['always', 'until_after_last_attempt'], determines whether the student can see their own submission and other results<br>&nbsp;&nbsp;_- Optional. Defaults to:  results not hidden_
-* **hideCorrectAnswers** [boolean] – Only valid if hideResults is not defined. If true, hides correct answers from students when results are viewed<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **showCorrectAnswersAfterLastAttempt** [boolean] – Only valid if hideCorrectAnswers is not true and allowedAttemptes > 1. If true, hides correct answers from students when quiz results are viewed until they submit the last attempt for the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **showCorrectAnswersAt** [date] – Only valid if hideCorrectAnswers is not true. If set, correct answers will only be visible after this date<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **hideCorrectAnswersAt** [date] – Only valid if hideCorrectAnswers is not true. If set, correct answers will stop being visible after this date has passed<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **oneTimeResults** [boolean] – Whether students should be prevented from viewing their quiz results past the first time (right after they turn in the quiz)<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
-* **onlyVisibleToOverrides** [boolean] – If true, the quiz is only visible to students with overrides<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **courseId** [number] - Canvas course Id to create the quiz in
+* **title** [string] - Title of the new quiz
+* **description** [string] - HTML description of the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  ''_
+* **type** [string] - Quiz type. Allowed values: [ 'practice_quiz', 'assignment', 'graded_survey', 'survey']<br>&nbsp;&nbsp;_- Optional_
+* **dueAt** [date] - - Optional. Date the quiz is due<br>&nbsp;&nbsp;_- Optional. Defaults to:  no due date_
+* **lockAt** [date] - - Optional. Date the quiz is lock<br>&nbsp;&nbsp;_- Optional. Defaults to:  no lock date_
+* **unlockAt** [date] - - Optional. Date the quiz is unlock<br>&nbsp;&nbsp;_- Optional. Defaults to:  no unlock date_
+* **published** [boolean] - - Optional. If true, quiz is published<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **allowedAttempts** [number] - Number of times a student is allowed to take the quiz. Set to -1 or 'infinity' for unlimited attempts<br>&nbsp;&nbsp;_- Optional. Defaults to:  1_
+* **scoringPolicy** [string] - - Optional. Required and only valid if allowedAttempts > 1. Allowed values: ['keep_highest', 'keep_latest']<br>&nbsp;&nbsp;_- Optional. Defaults to:  'keep_highest'_
+* **oneQuestionAtATime** [boolean] - - Optional. If true, shows quiz to student one question at a time<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **cantGoBack** [boolean] - - Optional. If true, shows quiz to student one question at a time<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **accessCode** [string] - - Optional. If defined, restricts access to the quiz only to those with this access code<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **ipFilter** [string] - - Optional. If defined, restricts access to the quiz to computers in a specified IP range. Filters can be a comma-separated list of addresses, or an address followed by a mask<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **assignmentGroupId** [number] - The assignment group to put the quiz into. Only valid if type is "assignment" or "graded_survey"<br>&nbsp;&nbsp;_- Optional. Defaults to:  top assignment group in the course_
+* **timeLimitMins** [number] - Time limit for the quiz in minutes<br>&nbsp;&nbsp;_- Optional. Defaults to:  no time limit_
+* **shuffleAnswers** [boolean] - If true, quiz answers for multiple choice questions will be randomized for each student<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **hideResults** [string] - Allowed values: ['always', 'until_after_last_attempt'], determines whether the student can see their own submission and other results<br>&nbsp;&nbsp;_- Optional. Defaults to:  results not hidden_
+* **hideCorrectAnswers** [boolean] - Only valid if hideResults is not defined. If true, hides correct answers from students when results are viewed<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **showCorrectAnswersAfterLastAttempt** [boolean] - Only valid if hideCorrectAnswers is not true and allowedAttemptes > 1. If true, hides correct answers from students when quiz results are viewed until they submit the last attempt for the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **showCorrectAnswersAt** [date] - Only valid if hideCorrectAnswers is not true. If set, correct answers will only be visible after this date<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **hideCorrectAnswersAt** [date] - Only valid if hideCorrectAnswers is not true. If set, correct answers will stop being visible after this date has passed<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **oneTimeResults** [boolean] - Whether students should be prevented from viewing their quiz results past the first time (right after they turn in the quiz)<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
+* **onlyVisibleToOverrides** [boolean] - If true, the quiz is only visible to students with overrides<br>&nbsp;&nbsp;_- Optional. Defaults to:  false_
 
 
 **Resolves to:** [Quiz](https://canvas.instructure.com/doc/api/quizzes.html#Quiz)
@@ -1064,8 +1064,8 @@ Deletes a quiz from a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **quizId** [number] – Canvas quiz Id (not the quiz's assignment Id)
+* **courseId** [number] - Canvas course Id to query
+* **quizId** [number] - Canvas quiz Id (not the quiz's assignment Id)
 
 
 **Resolves to:** [Quiz](https://canvas.instructure.com/doc/api/quizzes.html#Quiz)
@@ -1078,8 +1078,8 @@ Lists quiz questions
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **quizId** [number] – Canvas quiz Id to query
+* **courseId** [number] - Canvas course Id to query
+* **quizId** [number] - Canvas quiz Id to query
 
 
 **Resolves to:** [Quiz](https://canvas.instructure.com/doc/api/quizzes.html#Quiz)
@@ -1092,16 +1092,16 @@ Creates a new multiple choice question to a quiz in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **quizId** [number] – Canvas quiz Id (not the quiz's assignment Id)
-* **name** [string] – Name of the question
-* **text** [string] – The text of the question, as displayed to the quiz
-* **position** [number] – Position of the question with respect to the other questions in the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  last_
-* **pointsPossible** [number] – Maximum number of points
-* **correctComment** [string] – Comment to display if the student answers correctly<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **incorrectComment** [string] – Comment to display if the student answers incorrectly<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **neutralComment** [string] – Comment to display regardless of how the student answers<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **answers** [array] – Array of answers: [{ text, correct, comment }]
+* **courseId** [number] - Canvas course Id to query
+* **quizId** [number] - Canvas quiz Id (not the quiz's assignment Id)
+* **name** [string] - Name of the question
+* **text** [string] - The text of the question, as displayed to the quiz
+* **position** [number] - Position of the question with respect to the other questions in the quiz<br>&nbsp;&nbsp;_- Optional. Defaults to:  last_
+* **pointsPossible** [number] - Maximum number of points
+* **correctComment** [string] - Comment to display if the student answers correctly<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **incorrectComment** [string] - Comment to display if the student answers incorrectly<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **neutralComment** [string] - Comment to display regardless of how the student answers<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **answers** [array] - Array of answers: [{ text, correct, comment }]
 
 
 **Resolves to:** [QuizQuestion](https://canvas.instructure.com/doc/api/quiz_questions.html#QuizQuestion)
@@ -1114,8 +1114,8 @@ Lists the submissions to a quiz in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **quizId** [number] – Canvas quiz Id (not the quiz's assignment Id)
+* **courseId** [number] - Canvas course Id to query
+* **quizId** [number] - Canvas quiz Id (not the quiz's assignment Id)
 
 
 **Resolves to:** [list of QuizSubmissions](https://canvas.instructure.com/doc/api/quiz_submissions.html)
@@ -1128,9 +1128,9 @@ Gets info on a specific submission to a quiz in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **quizId** [number] – Canvas quiz Id (not the quiz's assignment Id)
-* **submissionId** [number] – Canvas quiz submission Id
+* **courseId** [number] - Canvas course Id to query
+* **quizId** [number] - Canvas quiz Id (not the quiz's assignment Id)
+* **submissionId** [number] - Canvas quiz submission Id
 
 
 **Resolves to:** [QuizSubmission](https://canvas.instructure.com/doc/api/quiz_submissions.html)
@@ -1144,7 +1144,7 @@ Lists the set of rubrics in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to add the rubric to
+* **courseId** [number] - Canvas course Id to add the rubric to
 
 
 **Resolves to:** [list of Rubrics](https://canvas.instructure.com/doc/api/rubrics.html#Rubric)
@@ -1157,10 +1157,10 @@ Gets info on a specific rubric in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to add the rubric to
-* **rubricId** [number] – Canvas course Id to add the rubric to
-* **include** [boolean] – Allowed values: ['assessments', 'graded_assessments', 'peer_assessments']. If excluded, no assessments will be included<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
-* **assessmentStyle** [string] – Allowed values: ['full','comments_only'] (full = entire assessment, comments_only = only comment part of assessment). Only valid if including assessments<br>&nbsp;&nbsp;_- Optional. Defaults to:  both data and comments are omitted_
+* **courseId** [number] - Canvas course Id to add the rubric to
+* **rubricId** [number] - Canvas course Id to add the rubric to
+* **include** [boolean] - Allowed values: ['assessments', 'graded_assessments', 'peer_assessments']. If excluded, no assessments will be included<br>&nbsp;&nbsp;_- Optional. Defaults to:  none_
+* **assessmentStyle** [string] - Allowed values: ['full','comments_only'] (full = entire assessment, comments_only = only comment part of assessment). Only valid if including assessments<br>&nbsp;&nbsp;_- Optional. Defaults to:  both data and comments are omitted_
 
 
 **Resolves to:** [Rubric](https://canvas.instructure.com/doc/api/rubrics.html#Rubric)
@@ -1173,10 +1173,10 @@ Creates a new rubric for grading with free form comments enabled and add it to a
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to add the rubric to
-* **assignmentId** [number] – Canvas course Id to add the rubric to
-* **title** [string] – Title of the new rubric
-* **rubricItems** [array] – List of rubric item objects: [{description, longDescription (optional), points}, ...]
+* **courseId** [number] - Canvas course Id to add the rubric to
+* **assignmentId** [number] - Canvas course Id to add the rubric to
+* **title** [string] - Title of the new rubric
+* **rubricItems** [array] - List of rubric item objects: [{description, longDescription (optional), points}, ...]
 
 
 **Resolves to:** [Rubric](https://canvas.instructure.com/doc/api/rubrics.html#Rubric)
@@ -1192,7 +1192,7 @@ Gets the list of sections in a course
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
+* **courseId** [number] - Canvas course Id to query
 
 
 **Resolves to:** [list of Sections](https://canvas.instructure.com/doc/api/sections.html#Section)
@@ -1205,8 +1205,8 @@ Gets info on a specific section
 
 **Inputs:**
 
-* **courseId** [number] – Canvas course Id to query
-* **sectionId** [number] – Section Id to retrieve
+* **courseId** [number] - Canvas course Id to query
+* **sectionId** [number] - Section Id to retrieve
 
 
 **Resolves to:** [Section](https://canvas.instructure.com/doc/api/sections.html#Section)

@@ -19,27 +19,28 @@ const categoryToEndpointsFilesMap = require('./endpoints/config.js');
 class CanvasAPI {
   /**
    * Creates a new SmartEndpoints object
-   * @param {string} accessToken - An access token to add to all requests. Can
-   *   be overridden by including `access_token` query/body parameter.
-   * @param {string} canvasHost - The hostname to use when sending requests to
-   *   the Canvas API. Can be overridden for an individual request by including
-   *   `host` option. (default: canvas.instructure.com)
-   * @param {string} cacheType - If 'memory', cache is stored in memory.
-   *   If 'session' and req is included, cache is stored in express session.
-   *   If 'custom' and cache is included, cache is stored in your custom cache
-   *   manager. Otherwise, caching is disabled.
-   * @param {object} req - Express request object with req.session support.
-   *   Required if using 'session' cacheType.
-   * @param {object} cache - Custom cache manager class. Required if using
-   *   'custom' cacheType.
-   * @param {function} sendRequest - Optional. Function that sends a request to
+   * @param {string} [config.accessToken] - An access token to add to all
+   *   requests. Can be overridden by including `access_token` query/body
+   *   parameter.
+   * @param {string} [config.canvasHost=canvas.instructure.com] - The hostname
+   *   to use when sending requests to the Canvas API. Can be overridden for an
+   *   individual request by including `host` option
+   * @param {string} [config.cacheType] - If 'memory', cache is stored in
+   *   memory. If 'session' and req is included, cache is stored in express
+   *   session. If 'custom' and cache is included, cache is stored in your
+   *   custom cache manager. Otherwise, caching is disabled.
+   * @param {object} config.req - Express request object with req.session
+   *   support. Required if using 'session' cacheType.
+   * @param {object} config.cache - Custom cache manager class. Required if
+   *   using 'custom' cacheType.
+   * @param {function} [config.sendRequest] - Function that sends a request to
    *   the Canvas API. Defaults to HTTPS request sender.
-   * @param {number} defaultNumRetries – Optional. Number of times to retry a
+   * @param {number} [config.defaultNumRetries=3] - Number of times to retry a
    *   request. Can be overridden for an individual request by including
-   *   `numRetries` option (default: 3)
-   * @param {number} defaultItemsPerPage – Optional. Number of items to request
-   *   on a get request. Can be overridden for an individual request by
-   *   including `numPerPage` option (default: 100)
+   *   numRetries option
+   * @param {number} [config.defaultItemsPerPage=100] - Number of items to
+   *   request on a get request. Can be overridden for an individual request by
+   *   including numPerPage option
    */
   constructor(config) {
     // Initialize visitEndpoint if it's not included

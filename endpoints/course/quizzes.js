@@ -56,22 +56,22 @@ module.exports = [
    *   quiz
    * @param {string} [type=current value] - Quiz type. Allowed values: [
    *   'practice_quiz', 'assignment', 'graded_survey', 'survey']
-   * @param {date} [dueAt=current value] – Date the quiz is due
-   * @param {date} [lockAt=current value] – Date the quiz is lock
-   * @param {date} [unlockAt=current value] – Date the quiz is unlock
-   * @param {boolean} [published=current value] – If true, quiz is published
+   * @param {date} [dueAt=current value] - Date the quiz is due
+   * @param {date} [lockAt=current value] - Date the quiz is lock
+   * @param {date} [unlockAt=current value] - Date the quiz is unlock
+   * @param {boolean} [published=current value] - If true, quiz is published
    * @param {number} [allowedAttempts=current value] - Number of times a student
    *   is allowed to take the quiz. Set to -1 for unlimited
    *   attempts
-   * @param {string} [scoringPolicy=current value] – Only valid if
+   * @param {string} [scoringPolicy=current value] - Only valid if
    *   allowedAttempts > 1. Allowed values: ['keep_highest', 'keep_latest']
-   * @param {boolean} [oneQuestionAtATime=current value] – If true, shows quiz
+   * @param {boolean} [oneQuestionAtATime=current value] - If true, shows quiz
    *   to student one question at a time. Must be a boolean
-   * @param {boolean} [cantGoBack=current value] – If true, shows quiz to
+   * @param {boolean} [cantGoBack=current value] - If true, shows quiz to
    *   student one question at a time. Must be a boolean
-   * @param {string} [accessCode=current value] – If defined, restricts access
+   * @param {string} [accessCode=current value] - If defined, restricts access
    *   to the quiz only to those with this access code
-   * @param {string} [ipFilter=current value] – If defined, restricts access to
+   * @param {string} [ipFilter=current value] - If defined, restricts access to
    *   the quiz to computers in a specified IP range. Filters can be a
    *   comma-separated list of addresses, or an address followed by a mask
    * @param {number} [assignmentGroupId=current value] - The assignment group to
@@ -184,21 +184,21 @@ module.exports = [
    * @param {string} [description=null] - HTML description of the quiz
    * @param {string} [type=null] - Quiz type. Allowed values: [
    *   'practice_quiz', 'assignment', 'graded_survey', 'survey']
-   * @param {date} [dueAt=null] – Date the quiz is due
-   * @param {date} [lockAt=null] – Date the quiz is lock
-   * @param {date} [unlockAt=null] – Date the quiz is unlock
-   * @param {boolean} [published=false] – If true, quiz is published
+   * @param {date} [dueAt=null] - Date the quiz is due
+   * @param {date} [lockAt=null] - Date the quiz is lock
+   * @param {date} [unlockAt=null] - Date the quiz is unlock
+   * @param {boolean} [published=false] - If true, quiz is published
    * @param {number} [allowedAttempts=1] - Number of times a student is
    *   allowed to take the quiz. Set to -1 for unlimited attempts
-   * @param {string} [scoringPolicy=keep_highest] – Only valid if
+   * @param {string} [scoringPolicy=keep_highest] - Only valid if
    *   allowedAttempts > 1. Allowed values: ['keep_highest', 'keep_latest']
-   * @param {boolean} [oneQuestionAtATime=false] – If true, shows quiz to
+   * @param {boolean} [oneQuestionAtATime=false] - If true, shows quiz to
    *   student one question at a time
-   * @param {boolean} [cantGoBack=false] – If true, shows quiz to student one
+   * @param {boolean} [cantGoBack=false] - If true, shows quiz to student one
    *   question at a time
-   * @param {string} [accessCode=false] – If defined, restricts access to the
+   * @param {string} [accessCode=false] - If defined, restricts access to the
    *   quiz only to those with this access code
-   * @param {string} [ipFilter=false] – If defined, restricts access to the
+   * @param {string} [ipFilter=false] - If defined, restricts access to the
    *   quiz to computers in a specified IP range. Filters can be a
    *   comma-separated list of addresses, or an address followed by a mask
    * @param {number} [assignmentGroupId=top assignment group] - The assignment
