@@ -10,6 +10,7 @@ module.exports = [
 
   /**
    * Gets the list of overrides for an assignment
+   * @method listAssignmentOverrides
    * @param {number} courseId - Canvas course id to query
    * @param {number} assignmentId - Canvas assignment id to look up
    * @return {Promise.<Object[]>} list of Canvas AssignmentOverrides {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
@@ -27,6 +28,7 @@ module.exports = [
 
   /**
    * Get a specific override on an assignment in a course
+   * @method getAssignmentOverride
    * @param {number} courseId - Canvas course id to query
    * @param {number} assignmentId - Canvas assignment id to query
    * @param {number} overrideId - Canvas override id to look up
@@ -45,6 +47,7 @@ module.exports = [
 
   /**
    * Create assignment override.
+   * @method createAssignmentOverride
    * @param {number} courseId - Canvas course id
    * @param {number} assignmentId - Canvas assignment id
    * @param {array} studentIds - List of Canvas student IDs to override (Note:
@@ -103,6 +106,7 @@ module.exports = [
 
   /**
    * Deletes an assignment override
+   * @method deleteAssignmentOverride
    * @param {number} courseId - Canvas course id to query
    * @param {number} assignmentId - Canvas assignment id to query
    * @param {number} overrideId - Canvas override id to look up

@@ -9,6 +9,7 @@ const prefix = require('../common/prefix.js');
 module.exports = [
   /**
    * Lists the set of rubrics in a course
+   * @method listRubrics
    * @param {number} courseId - Canvas course Id to add the rubric to
    * @return {Promise.<Object[]>} list of Canvas Rubrics {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
    */
@@ -25,6 +26,7 @@ module.exports = [
 
   /**
    * Gets info on a specific rubric in a course
+   * @method getRubric
    * @param {number} courseId - Canvas course Id to add the rubric to
    * @param {number} rubricId - Canvas course Id to add the rubric to
    * @param {boolean} [include=null] - Allowed values: ['assessments',
@@ -55,6 +57,7 @@ module.exports = [
    * Creates a new rubric for grading with free form comments enabled and add it
    *   to an assignment in a course.
    * @status unlisted
+   * @method createFreeFormGradingRubricInAssignment
    * @param {number} courseId - Canvas course Id to add the rubric to
    * @param {number} assignmentId - Canvas course Id to add the rubric to
    * @param {string} title - Title of the new rubric

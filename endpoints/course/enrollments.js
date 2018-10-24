@@ -10,6 +10,7 @@ module.exports = [
 
   /**
    * Gets the list of enrollments in a course
+   * @method listEnrollments
    * @param {number} courseId - Canvas course Id to query
    * @param {string} [types=all] - list of enrollment types to include:
    *   ['student', 'ta', 'teacher', 'designer', 'observer']
@@ -64,6 +65,7 @@ module.exports = [
 
   /**
    * Gets the list of students in a course
+   * @method listStudents
    * @param {number} courseId - Canvas course Id to query
    * @param {string} [activeOnly=false] - If truthy, only active enrollments
    *   included
@@ -83,6 +85,7 @@ module.exports = [
 
   /**
    * Gets the list of TAs and Teachers in a course
+   * @method listTeachingTeamMembers
    * @param {number} courseId - Canvas course Id to query
    * @param {string} [activeOnly=false] - If truthy, only active enrollments
    *   included
@@ -102,6 +105,7 @@ module.exports = [
 
   /**
    * Gets the list of designers in a course
+   * @method listDesigners
    * @param {number} courseId - Canvas course Id to query
    * @param {string} [activeOnly=false] - If truthy, only active enrollments
    *   included
@@ -121,6 +125,7 @@ module.exports = [
 
   /**
    * Gets the list of observers in a course
+   * @method listObservers
    * @param {number} courseId - Canvas course Id to query
    * @param {string} [activeOnly=false] - If truthy, only active enrollments
    *   included

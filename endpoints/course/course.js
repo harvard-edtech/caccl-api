@@ -10,6 +10,7 @@ module.exports = [
 
   /**
    * Gets info on a specific course
+   * @method getCourse
    * @param {number} courseId - Canvas course Id to get info on
    * @param {boolean} [includeSyllabus=false] - If truthy, includes syllabus
    *   body

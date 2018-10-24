@@ -17,6 +17,7 @@ module.exports = [
 
   /**
    * List gradeable students for a specific assignment
+   * @method listGradeableStudents
    * @param {number} courseId - Canvas course Id to query
    * @param {number} assignmentId - Canvas assignment Id to query
    * @return {Promise.<Object[]>} list of Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
@@ -40,6 +41,7 @@ module.exports = [
 
   /**
    * Adds a comment to a submission
+   * @method createAssignmentSubmissionComment
    * @param {number} courseId - Canvas course Id
    * @param {number} assignmentId - Canvas course Id
    * @param {number} studentId - Canvas student Id of the sub to comment on
@@ -69,6 +71,7 @@ module.exports = [
 
   /**
    * Batch updates grades and/or comments. Also supports updating rubric items
+   * @method updateAssignmentGrades
    * @param {number} courseId - Canvas course Id
    * @param {number} assignmentId - Canvas course Id
    * @param {array} gradeItems - List of grade items to upload to Canvas:

@@ -10,6 +10,7 @@ module.exports = [
 
   /**
    * Gets info on the current user
+   * @method getCurrentUser
    * @return {Promise.<Object>} Canvas user object {@link https://canvas.instructure.com/doc/api/users.html#User}
    */
   {

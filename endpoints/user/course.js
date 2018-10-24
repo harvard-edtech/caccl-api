@@ -10,6 +10,7 @@ module.exports = [
 
   /**
    * Gets the list of courses associated with the current user
+   * @method listCourses
    * @return {Promise.<Object>} Canvas course object {@link https://canvas.instructure.com/doc/api/courses.html#Course}
    */
   {

@@ -10,6 +10,7 @@ module.exports = [
 
   /**
    * Lists the assignments in a course
+   * @method listAssignments
    * @param {number} courseId - Canvas course Id to query
    * @return {Promise.<Object[]>} list of Canvas Assignments {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
    */
@@ -26,6 +27,7 @@ module.exports = [
 
   /**
    * Get info on a specific assignment in a course
+   * @method getAssignment
    * @param {number} courseId - Canvas course Id to query
    * @param {number} assignmentId - Canvas assignment Id
    * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
@@ -43,6 +45,7 @@ module.exports = [
 
   /**
    * Updates a Canvas assignment
+   * @method updateAssignment
    * @param {number} courseId - Canvas course Id to query
    * @param {number} assignmentId - Canvas assignment Id to update
    * @param {string} [name=current value] - The name of the assignment
@@ -128,6 +131,7 @@ module.exports = [
 
   /**
    * Creates a Canvas assignment
+   * @method createAssignment
    * @param {number} courseId - Canvas course Id to create an assignment in
    * @param {string} name - The name of the assignment
    *   (default: Unnamed Assignment)
@@ -209,6 +213,7 @@ module.exports = [
 
   /**
    * Delete an assignment
+   * @method deleteAssignment
    * @param {number} courseId - Canvas course Id
    * @param {number} assignmentId - Canvas assignment Id
    * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}

@@ -10,6 +10,7 @@ module.exports = [
 
   /**
    * Lists assignment groups in a course
+   * @method listAssignmentGroups
    * @param {number} courseId - Canvas course Id to query
    * @return {Promise.<Object[]>} list of Canvas AssignmentGroups {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
    */
@@ -26,6 +27,7 @@ module.exports = [
 
   /**
    * Gets info on a specific assignment group in a course
+   * @method getAssignmentGroup
    * @param {number} courseId - Canvas course Id to query
    * @param {number} assignmentGroupId - Assignment group to get
    * @param {number} courseId - Canvas course Id to query

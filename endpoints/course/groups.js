@@ -14,6 +14,7 @@ module.exports = [
 
   /**
    * Gets info on a specific group in a course
+   * @method getGroup
    * @param {number} groupId - Canvas group Id
    * @return Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
    */
@@ -36,6 +37,7 @@ module.exports = [
 
   /**
    * Gets the list of members in a group
+   * @method listGroupMembers
    * @param {number} groupId - Canvas group Id
    * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
    */
@@ -52,6 +54,7 @@ module.exports = [
 
   /**
    * Gets the list of members in a group
+   * @method updateGroupMembers
    * @param {number} groupId - Canvas group Id
    * @param {array} [members=[]] - The list of user objects/user Ids that should
    *   be in the group

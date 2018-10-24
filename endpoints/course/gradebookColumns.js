@@ -18,6 +18,7 @@ module.exports = [
 
   /**
    * Gets the list of custom gradebook columns in a course
+   * @method listGradebookColumns
    * @param {number} courseId - Canvas course Id to query
    * @param {boolean} [includeHidden=false] - If truthy, includes hidden
    *   gradebook columns as well.
@@ -41,6 +42,7 @@ module.exports = [
    * Gets info on a specific gradebook column in a course. This is a simulated
    *   endpoint: it does not exist. We are just pulling the list of columns and
    *   returning one element.
+   * @method getGradebookColumn
    * @param {number} courseId - Canvas course Id to query
    * @param {number} columnId - Canvas column Id to return
    * @param {boolean} [isHidden=false] - Must be set to true if the column
@@ -76,6 +78,7 @@ module.exports = [
 
   /**
    * Updates a gradebook column's information
+   * @method updateGradebookColumn
    * @param {number} courseId - Canvas course ID
    * @param {number} columnId - Canvas custom gradebook column ID to query
    * @param {string} [title=current value] - New title for the column
@@ -108,6 +111,7 @@ module.exports = [
 
   /**
    * Creates a new gradebook column in a course
+   * @method createGradebookColumn
    * @param {number} courseId - Canvas course Id to query
    * @param {string} [title=Untitled Column] - Title of new custom gradebook
    *   column
@@ -142,6 +146,7 @@ module.exports = [
 
   /**
    * Deletes a gradebook column from a course
+   * @method deleteGradebookColumn
    * @param {number} courseId - Canvas course Id to query
    * @param {number} columnId - Gradebook column Id
    * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
@@ -170,6 +175,7 @@ module.exports = [
 
   /**
    * Gets the list of entries in a specific gradebook column in a course
+   * @method listGradebookColumnEntries
    * @param {number} courseId - Canvas course Id to query
    * @param {number} columnId - Gradebook column Id
    * @return {Promise.<Object[]>} list of Canvas ColumnDatum objects {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum}
@@ -190,6 +196,7 @@ module.exports = [
 
   /**
    * Update the list of entries in a specific gradebook column in a course
+   * @method updateGradebookColumnEntries
    * @param {number} courseId - Canvas course Id to query
    * @param {number} columnId - Gradebook column Id
    * @param {array} entries - list of ColumnDatum objects:

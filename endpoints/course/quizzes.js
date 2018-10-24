@@ -14,6 +14,7 @@ module.exports = [
 
   /**
    * Lists the quizzes in a course
+   * @method listQuizzes
    * @param {number} courseId - Canvas course Id to query
    * @return {Promise.<Object[]>} list of Canvas Quizzes {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
    */
@@ -30,6 +31,7 @@ module.exports = [
 
   /**
    * Get info on a specific quiz in a course
+   * @method getQuiz
    * @param {number} courseId - Canvas course Id to query
    * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
    * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
@@ -47,6 +49,7 @@ module.exports = [
 
   /**
    * Updates a specific quiz in a course
+   * @method updateQuiz
    * @param {number} courseId - Canvas course Id to create the quiz in
    * @param {number} quizId - Canvas course Id to create the quiz in
    * @param {boolean} suppressNotification - If true, does not notify users that
@@ -179,6 +182,7 @@ module.exports = [
 
   /**
    * Creates a new quiz in a course
+   * @method createQuiz
    * @param {number} courseId - Canvas course Id to create the quiz in
    * @param {string} title - Title of the new quiz
    * @param {string} [description=null] - HTML description of the quiz
@@ -303,6 +307,7 @@ module.exports = [
 
   /**
    * Deletes a quiz from a course
+   * @method deleteQuiz
    * @param {number} courseId - Canvas course Id to query
    * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
    * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
@@ -373,6 +378,7 @@ module.exports = [
 
   /**
    * Creates a new multiple choice question to a quiz in a course
+   * @method createMultipleChoiceQuizQuestion
    * @param {number} courseId - Canvas course Id to query
    * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
    * @param {string} name - Name of the question
@@ -431,6 +437,7 @@ module.exports = [
 
   /**
    * Lists the submissions to a quiz in a course
+   * @method listQuizSubmissions
    * @param {number} courseId - Canvas course Id to query
    * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
    * @return {Promise.<Object[]>} list of Canvas QuizSubmissions {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
@@ -450,6 +457,7 @@ module.exports = [
 
   /**
    * Gets info on a specific submission to a quiz in a course
+   * @method getQuizSubmission
    * @param {number} courseId - Canvas course Id to query
    * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
    * @param {number} submissionId - Canvas quiz submission Id

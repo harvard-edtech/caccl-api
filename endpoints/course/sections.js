@@ -9,6 +9,7 @@ const prefix = require('../common/prefix.js');
 module.exports = [
   /**
    * Gets the list of sections in a course
+   * @method listSections
    * @param {number} courseId - Canvas course Id to query
    * @return {Promise.<Object[]>} list of Canvas Sections {@link https://canvas.instructure.com/doc/api/sections.html#Section}
    */
@@ -25,6 +26,7 @@ module.exports = [
 
   /**
    * Gets info on a specific section
+   * @method getSection
    * @param {number} courseId - Canvas course Id to query
    * @param {number} sectionId - Section Id to retrieve
    * @return {Promise.<Object>} Canvas Section {@link https://canvas.instructure.com/doc/api/sections.html#Section}

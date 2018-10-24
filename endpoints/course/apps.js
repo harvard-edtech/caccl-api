@@ -10,6 +10,8 @@ module.exports = [
 
   /**
    * Gets the list of apps installed into a course
+   * @method listApps
+   * @memberof module: endpoints/course
    * @param {number} courseId - Canvas course Id to query
    * @return {Promise.<Object[]>} list of external tools {@link https://canvas.instructure.com/doc/api/external_tools.html}
    */
@@ -26,6 +28,7 @@ module.exports = [
 
   /**
    * Gets info on a single LTI tool
+   * @method getApp
    * @param {number} courseId - Canvas course Id
    * @param {number} appId - The LTI app Id to get
    * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
@@ -43,6 +46,7 @@ module.exports = [
 
   /**
    * Adds an LTI app to a Canvas course
+   * @method addApp
    * @param {number} courseId - Canvas course Id to install into
    * @param {string} name - The app name (for settings app list)
    * @param {string} key - Installation consumer key
@@ -80,6 +84,7 @@ module.exports = [
 
   /**
    * Removes an LTI app from a Canvas course
+   * @method removeApp
    * @param {number} courseId - Canvas course Id to remove app from
    * @param {number} appId - The LTI app Id to remove
    * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}

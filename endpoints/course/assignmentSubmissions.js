@@ -48,6 +48,7 @@ module.exports = [
 
   /**
    * Lists the submissions to a specific assignment in a course
+   * @method listAssignmentSubmissions
    * @param {number} courseId - Canvas course Id
    * @param {number} assignmentId - The Canvas assignment Id to query
    * @param {boolean} [includeComments=false] - If truthy, includes all comments
@@ -112,6 +113,7 @@ module.exports = [
 
   /**
    * Gets a single submission for an assignment
+   * @method getAssignmentSubmission
    * @param {number} courseId - Canvas course Id
    * @param {number} assignmentId - The Canvas assignment Id
    * @param {number} studentId - The Canvas student Id
@@ -143,6 +145,7 @@ module.exports = [
 
   /**
    * Creates a text submission on behalf of the current user
+   * @method createAssignmentTextSubmission
    * @param {number} courseId - Canvas course Id
    * @param {number} assignmentId - The Canvas assignment Id
    * @param {string} text - The text body of the submission
@@ -187,6 +190,7 @@ module.exports = [
 
   /**
    * Creates a url submission on behalf of the current user
+   * @method createAssignmentURLSubmission
    * @param {number} courseId - Canvas course Id
    * @param {number} assignmentId - The Canvas assignment Id
    * @param {string} url - The url of the submission
@@ -231,6 +235,7 @@ module.exports = [
 
   /**
    * Creates a file submission on behalf of the current user
+   * @method createAssignmentFileSubmission
    * @param {number} courseId - Canvas course Id
    * @param {number} assignmentId - The Canvas assignment Id
    * @param {string} filenames - The filenames to upload to the submission
