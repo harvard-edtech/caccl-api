@@ -72,7 +72,7 @@ module.exports = [
       );
 
       const fetchPromise = config.visitEndpoint({
-        path: `${prefix.v1}/courses/${config.options.courseId}/assignments${config.options.assignmentId}/submissions`,
+        path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions`,
         method: 'GET',
         params: {
           include: utils.includeTruthyElementsExcludeIfEmpty([
@@ -168,7 +168,7 @@ module.exports = [
             params: {
               'comment[text_comment]':
                 utils.includeIfTruthy(config.options.comment),
-              'submission[body]': config.options.body,
+              'submission[body]': config.options.text,
               'submission[submission_type]': 'online_text_entry',
             },
           });
@@ -212,7 +212,7 @@ module.exports = [
             params: {
               'comment[text_comment]':
                 utils.includeIfTruthy(config.options.comment),
-              'submission[url]': config.options.body,
+              'submission[url]': config.options.url,
               'submission[submission_type]': 'online_url',
             },
           });
