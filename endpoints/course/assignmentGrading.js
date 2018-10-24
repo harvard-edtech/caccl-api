@@ -71,7 +71,7 @@ module.exports = [
    * Batch updates grades and/or comments. Also supports updating rubric items
    * @param {number} courseId - Canvas course Id
    * @param {number} assignmentId - Canvas course Id
-   * @param {number} gradeItems - List of grade items to upload to Canvas:
+   * @param {array} gradeItems - List of grade items to upload to Canvas:
    *   [{
    *     studentId: <student id>,
    *     points: <optional, points to overwrite with>,
@@ -108,19 +108,14 @@ module.exports = [
       /* --- 1. Check if we need to merge --- */
 
       // Check if we need to merge rubric item updates
-      let performRubricItemMerge = !config.options.dontMergeRubricItemUpdates;
       const studentsToMerge = [];
       // Check if merge is necessary
       // > not necessary if no rubric item updates
-      if (performRubricItemMerge) {
-        performRubricItemMerge = false;
-        for (let i = 0; i < config.options.gradeItems.length; i++) {
-          if (config.options.gradeItems[i].rubricId) {
-            // Found one rubric item. We may need to merge.
-            performRubricItemMerge = true;
-            break;
-          }
-        }
+      let performRubricItemMerge = false;
+      if (!config.options.dontMergeRubricItemUpdates) {
+        performRubricItemMerge = config.options.gradeItems.some((item) => {
+          return item.rubricId;
+        });
       }
 
       // Pull assignment so we can get rubric information
@@ -146,9 +141,9 @@ module.exports = [
             isRealRubricItemId[rubricItem.id] = true;
           });
           // > Figure out which students have which rubric items
-          const studentToRubricItemsIncluded = {};
+          const studentToRubricItemsIncluded = new Map();
           // ^ {studentId => { rubricId => true if being updated }}
-          config.options.gradeItem.forEach((gradeItem) => {
+          config.options.gradeItems.forEach((gradeItem) => {
             const { rubricId, studentId } = gradeItem;
 
             // Skip if this item isn't a (real) rubric item
@@ -157,17 +152,15 @@ module.exports = [
             }
 
             // Keep track of rubric items that are found
-            if (!studentToRubricItemsIncluded[studentId]) {
+            if (!studentToRubricItemsIncluded.has(studentId)) {
               // Initialize student map
-              studentToRubricItemsIncluded[studentId] = {};
+              studentToRubricItemsIncluded.set(studentId, new Set());
             }
-            studentToRubricItemsIncluded[studentId][rubricId] = true;
+            studentToRubricItemsIncluded.get(studentId).add(rubricId);
           });
           // > Find students that need to be merged
-          Object.keys(studentToRubricItemsIncluded).forEach((studentId) => {
-            const numIncludedRubricItems = Object.keys(
-              studentToRubricItemsIncluded[studentId]
-            ).length;
+          studentToRubricItemsIncluded.forEach((studentId, rubricIdSet) => {
+            const numIncludedRubricItems = rubricIdSet.size;
 
             if (numIncludedRubricItems < numRubricItems) {
               // Need to merge this student
