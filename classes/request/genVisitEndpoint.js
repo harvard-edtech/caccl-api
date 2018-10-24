@@ -1,18 +1,38 @@
+/**
+ * Function that generates a function that visits a Canvas endpoint and returns
+ *   Canvas' response
+ * @module classes/request/genVisitEndpoint
+ * @see module: classes/request/genVisitEndpoint
+ */
+
 const CACCLError = require('../../../caccl-error/index.js'); // TODO: use actual library
 const errorCodes = require('../../errorCodes.js');
 const defaultSendRequest = require('./helpers/defaultSendRequest.js');
 const interpretCanvasError = require('./helpers/interpretCanvasError.js');
 const preProcessParams = require('./helpers/preProcessParams.js');
 
-/*
-config:
-- defaults
-  - numRetries
-  - itemsPerPage
-  - host
-- sendRequest
-- accessToken
-*/
+/**
+ * Generates a function that visits a Canvas endpoint and returns Canvas'
+ *   response
+ * @param {object} [config.defaults={}] - The set of defaults to apply to the
+ *   params. Each default can be overridden by including the same option in the
+ *   options object passed to visitEndpoint
+ * @param {number} [config.defaults.itemsPerPage=100] - The default number of
+ *   items to include on each page
+ * @param {number} [config.defaults.numRetries=3] - The default number of times
+ *   to retry failed requests
+ * @param {string} [config.defaults.host=canvas.instructure.com] - The default
+ *   hostname to send requests to
+ * @param {string} [config.defaults.apiPathPrefix=null] - The default prefix to
+ *   prepend to every path sent to the visitEndpoint function
+ * @param {function} [config.sendRequest=defaultSendRequest] - A function that
+ *   sends a network request. Defaults to
+ *   classes/request/helpers/defaultSendRequest
+ * @param {string} [config.accessToken=null] - An access token to add to every
+ *   request
+ * @return {function} function that visits a Canvas endpoint and returns Canvas'
+ *   response
+ */
 module.exports = (config = {}) => {
   // Initialize defaults if excluded
   const defaults = config.defaults || {};
@@ -20,26 +40,54 @@ module.exports = (config = {}) => {
   // Initialize sendRequest if not included
   const sendRequest = config.sendRequest || defaultSendRequest;
 
-  // visitEndpoint(...) function:
+  /**
+   * Visits a Canvas endpoint and returns Canvas' response
+   * @param {string} options.path - The path of the endpoint to visit
+   * @param {boolean} [options.dontParse=false] - If truthy, does not attempt to
+   *   JSON.parse Canvas' response
+   * @param {string} [config.accessToken=default accessToken] - An access token
+   *   to add to the request
+   * @param {string} [options.method=GET] - The http method to use
+   * @param {string} [options.maxPages=unlimited] - The max number of pages
+   *   to fetch
+   * @param {number} [options.itemsPerPage=default itemsPerPage] - The
+   *   number of items to include on each page
+   * @param {number} [options.numRetries=default numRetries] - The
+   *   number of times to retry failed requests
+   * @param {string} [options.host=default host] - The hostname to send
+   *   the request to
+   * @param {string} [options.apiPathPrefix=default apiPathPrefix] - The
+   *   prefix to prepend to the path
+   * @return {function} function that visits a Canvas endpoint and returns
+   *   Canvas' response
+   */
   return (options) => {
     // Immediately return a promise that resolves with endpoint response
     return new Promise((resolve, reject) => {
       // Extract options, set defaults
       const { path, dontParse } = options;
       const method = options.method || 'GET';
-      const numRetries = options.numRetries || defaults.numRetries;
+      const numRetries = (
+        options.numRetries
+        || defaults.numRetries
+        || 3
+      );
       const apiPathPrefix = (
         options.apiPathPrefix
         || defaults.apiPathPrefix
         || ''
       );
       const { maxPages } = options; // Fetch all pages if 0/null/undefined
-      const host = options.host || defaults.host;
+      const host = (
+        options.host
+        || defaults.host
+        || 'canvas.instructure.com'
+      );
 
       const params = preProcessParams({
         options,
-        defaults,
-        accessToken: config.accessToken,
+        itemsPerPage: defaults.itemsPerPage,
+        accessToken: config.accessToken || options.accessToken,
       });
 
       // Fetch all pages

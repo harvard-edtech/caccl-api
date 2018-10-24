@@ -1,7 +1,16 @@
+/**
+ * Memory cache class
+ * @module classes/caches/MemoryCache
+ * @see module: classes/caches/MemoryCache
+ */
+
 const hashParams = require('./helpers/hashParams.js');
 
-// Class that stores cache in memory
+/** Class that stores cache in memory */
 class MemoryCache {
+  /**
+   * Creates a MemoryCache
+   */
   constructor() {
     this._map = new Map();
     this.storePromises = true;
@@ -11,7 +20,7 @@ class MemoryCache {
    * Gets a value given the key pair (path, param)
    * @param {string} path - The url path that is cached
    * @param {object} params - The get parameters for the cached request
-   * @return Promise that resolves with cached value
+   * @return {Promise.<object>} Promise that resolves with cached value
    */
   get(path, params) {
     if (
@@ -31,7 +40,7 @@ class MemoryCache {
    * @param {string} path - The url path to cache
    * @param {object} params - The get parameters to cache
    * @param {string} value - The value to cache
-   * @return Promise that resolves when set and save are complete
+   * @return {Promise} Promise that resolves when set and save are complete
    */
   set(path, params, value) {
     if (
@@ -56,7 +65,7 @@ class MemoryCache {
 
   /**
    * Deletes a specific path (and all associated params) from the cache
-   * @return Promise that resolves when the path is deleted
+   * @return {Promise} Promise that resolves when the path is deleted
    */
   deletePaths(paths) {
     if (!paths) {
@@ -74,7 +83,8 @@ class MemoryCache {
 
   /**
    * Gets the list of all cached paths
-   * @return Promise that resolves with the list of cached paths
+   * @return {Promise.<string[]>} Promise that resolves with the list of cached
+   *   paths
    */
   getAllPaths() {
     return Promise.resolve(this._map.keys());
@@ -82,7 +92,7 @@ class MemoryCache {
 
   /**
    * Deletes the entire cache
-   * @return Promise that resolves when delete is complete
+   * @return {Promise} Promise that resolves when delete is complete
    */
   deleteAllPaths() {
     this._map = new Map();

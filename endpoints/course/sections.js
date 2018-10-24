@@ -4,7 +4,7 @@
  * @see module: endpoints/course/sections
  */
 
-const prefix = require('../helpers/prefix.js');
+const prefix = require('../common/prefix.js');
 
 module.exports = [
   /**

@@ -9,8 +9,8 @@ const request = require('request');
 const urlLib = require('url');
 const async = require('async');
 
-const utils = require('../helpers/utils.js');
-const prefix = require('../helpers/prefix.js');
+const utils = require('../common/utils.js');
+const prefix = require('../common/prefix.js');
 const errorCodes = require('../../errorCodes.js');
 const CACCLError = require('../../../caccl-error/index.js'); // TODO: use actual library
 

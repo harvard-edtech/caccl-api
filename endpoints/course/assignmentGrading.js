@@ -5,9 +5,9 @@
  */
 const async = require('async');
 
-const prefix = require('../helpers/prefix.js');
+const prefix = require('../common/prefix.js');
 const errorCodes = require('../../errorCodes.js');
-const waitForCompletion = require('../helpers/waitForCompletion.js');
+const waitForCompletion = require('../common/waitForCompletion.js');
 
 module.exports = [
 

@@ -1,6 +1,19 @@
+/**
+ * Function that interprets a Canvas response and detects errors and turns them
+ *   into human-readable errors
+ * @module classes/request/helpers/interpretCanvasError
+ * @see module: classes/request/helpers/interpretCanvasError
+ */
+
 const CACCLError = require('../../../../caccl-error/index.js'); // TODO: switch to actual library
 const errorCodes = require('../../../errorCodes.js');
 
+/**
+ * Detects errors and turns them into human-readable errors
+ * @param {object} body - The JSON body of the Canvas response
+ * @param {number} status - The https status of the response
+ * @return {CACCLError|null} error if one was detected, null if no error
+ */
 module.exports = (body, status) => {
   try {
     if (status > 300 || status < 200) {
@@ -143,7 +156,6 @@ module.exports = (body, status) => {
         });
       }
 
-      console.log(body);
       // We couldn't identify this error. Report this as "unknown"
       return new CACCLError({
         message: 'Canvas responded with an unknown error.',

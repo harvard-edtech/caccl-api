@@ -6,9 +6,9 @@
 const CACCLError = require('../../../caccl-error/index.js'); // TODO: use actual library
 const errorCodes = require('../../errorCodes.js');
 
-const utils = require('../helpers/utils.js');
-const prefix = require('../helpers/prefix.js');
-const waitForCompletion = require('../helpers/waitForCompletion.js');
+const utils = require('../common/utils.js');
+const prefix = require('../common/prefix.js');
+const waitForCompletion = require('../common/waitForCompletion.js');
 
 module.exports = [
 

@@ -1,6 +1,7 @@
 /**
  * Endpoints structure config file module
- * @module config.js
+ * @module endpoints/config
+ * @see module: endpoints/config
  */
 
 // Course

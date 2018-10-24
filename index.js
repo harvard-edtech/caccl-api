@@ -1,3 +1,9 @@
+/**
+ * Canvas API Class
+ * @module caccl-canvas-api
+ * @see module: index
+ */
+
 const CACCLError = require('../caccl-error/index.js'); // TODO: Switch to actual node module
 const errorCodes = require('./errorCodes.js');
 
@@ -6,9 +12,10 @@ const MemoryCache = require('./classes/caches/MemoryCache.js');
 const SessionCache = require('./classes/caches/SessionCache.js');
 
 // Endpoints categories
-const EndpointsCategory = require('./classes/EndpointsCategory.js');
+const EndpointCategory = require('./classes/EndpointCategory.js');
 const categoryToEndpointsFilesMap = require('./endpoints/config.js');
 
+/** Canvas API class */
 class CanvasAPI {
   /**
    * Creates a new SmartEndpoints object
@@ -63,7 +70,7 @@ class CanvasAPI {
 
     // Initialize apps endpoints
     Object.keys(categoryToEndpointsFilesMap).forEach((categoryName) => {
-      this[categoryName] = new EndpointsCategory({
+      this[categoryName] = new EndpointCategory({
         visitEndpoint,
         endpointsFiles: categoryToEndpointsFilesMap[categoryName],
       });

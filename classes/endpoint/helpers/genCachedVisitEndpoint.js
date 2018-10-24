@@ -1,10 +1,21 @@
-/*
-config:
-- visitEndpoint
-- cache
-- options (from endpoint caller)
-*/
-module.exports = (config) => {
+/**
+ * Function that wraps visitEndpoint to make a cached version of the function
+ * @module classes/endpoint/helpers/genCachedVisitEndpoint
+ * @see module: classes/endpoint/helpers/genCachedVisitEndpoint
+ */
+
+/**
+ * Wraps visitEndpoint to make a cached version of visitEndpoint that looks up
+ *   in cache before sending a request and saves in cache after request returns
+ * @param {function} config.visitEndpoint - The visitEndpoint function created
+ *   by classes/request/genVisitEndpoint
+ * @param {object} [config.cache=null] - The cache instance. Does not cache if
+ *   no cache is included
+ * @param {object} config.options - The options to send to visitEndpoint (same
+ *   requirements as those listed in classes/request/genVisitEndpoint)
+ * @return {function} new visitEndpoint function that also performs caching
+ */
+module.exports = (config = {}) => {
   // Create variable for if we're caching and if we're looking up in cache
   const lookupInCache = (config.cache && !config.options.ignoreCache);
   const storeInCache = (config.cache && !config.options.dontCache);

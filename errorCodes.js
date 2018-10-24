@@ -1,7 +1,12 @@
+/**
+ * List of error codes
+ * @module errorCodes
+ * @see module: errorCodes
+ */
+
 // Highest errors:
 // > SCE17
 // > CANV14 (exclude 404, 500)
-
 
 module.exports = {
   invalid_cache: 'SCE1',

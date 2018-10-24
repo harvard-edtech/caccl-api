@@ -3,8 +3,8 @@
  * @module endpoints/course/pages
  * @see module: endpoints/course/pages
  */
-const utils = require('../helpers/utils.js');
-const prefix = require('../helpers/prefix.js');
+const utils = require('../common/utils.js');
+const prefix = require('../common/prefix.js');
 
 module.exports = [
 

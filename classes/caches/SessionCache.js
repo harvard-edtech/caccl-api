@@ -1,8 +1,20 @@
+/**
+ * Session cache class
+ * @module classes/caches/SessionCache
+ * @see module: classes/caches/SessionCache
+ */
+
 const CACCLError = require('../../../caccl-error/index.js');
 const errorCodes = require('../../errorCodes.js');
 const hashParams = require('./helpers/hashParams.js');
 
+/** Class that stores cache in session */
 class SessionCache {
+  /**
+   * Creates a SessionCache
+   * @param {object} params - Object containing get parameters
+   * @return {string} hashed cache key
+   */
   constructor(req) {
     // Save request object
     this._req = req;
@@ -25,7 +37,7 @@ class SessionCache {
    * Gets a value given the key pair (path, param)
    * @param {string} path - The url path that is cached
    * @param {object} params - The get parameters for the cached request
-   * @return Promise that resolves with cached value
+   * @return {Promise.<object>} Promise that resolves with cached value
    */
   get(path, params) {
     if (
@@ -45,7 +57,7 @@ class SessionCache {
    * @param {string} path - The url path to cache
    * @param {object} params - The get parameters to cache
    * @param {string} value - The value to cache
-   * @return Promise that resolves when set and save are complete
+   * @return {Promise} Promise that resolves when set and save are complete
    */
   set(path, params, value) {
     if (
@@ -72,7 +84,7 @@ class SessionCache {
 
   /**
    * Deletes a specific path (and all associated params) from the cache
-   * @return Promise that resolves when the path is deleted
+   * @return {Promise} Promise that resolves when the path is deleted
    */
   deletePaths(paths) {
     if (!paths) {
@@ -90,7 +102,8 @@ class SessionCache {
 
   /**
    * Gets the list of all cached paths
-   * @return Promise that resolves with the list of cached paths
+   * @return {Promise.<string[]>} Promise that resolves with the list of cached
+   *   paths
    */
   getAllPaths() {
     return Promise.resolve(Object.keys(this._req.session.cache));
@@ -107,7 +120,7 @@ class SessionCache {
 
   /**
    * Saves the current state of the session via express session
-   * @return Promise that resolves when save is complete
+   * @return {Promise} Promise that resolves when save is complete
    */
   _save() {
     return new Promise((resolve, reject) => {

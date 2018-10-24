@@ -3,8 +3,8 @@
  * @module endpoints/course/quizzes
  * @see module: endpoints/course/quizzes
  */
-const utils = require('../helpers/utils.js');
-const prefix = require('../helpers/prefix.js');
+const utils = require('../common/utils.js');
+const prefix = require('../common/prefix.js');
 
 module.exports = [
 

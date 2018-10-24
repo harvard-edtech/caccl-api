@@ -1,14 +1,28 @@
+/**
+ * Function that takes an endpoint definition and creates an endpoint function
+ * @module classes/endpoint/genEndpointFunction
+ * @see module: classes/endpoint/genEndpointFunction
+ */
+
 const CACCLError = require('../../../caccl-error/index.js');
 const errorCodes = require('../../errorCodes.js');
 const genCachedVisitEndpoint = require('./helpers/genCachedVisitEndpoint.js');
-/*
-config:
-- cache
-- endpoint
-- uncache
-- visitEndpoint
-- categoryInstance
-*/
+
+/**
+ * Creates an endpoint function based on an endpoint definition (from a file
+ *   at endpoints/category/file.js)
+ * @param {object} config.endpoint - An endpoint definition (from a file
+ *   at endpoints/category/file.js)
+ * @param {object} config.uncache - A function that uncaches a list of paths and
+ *   passes through a response, or just passes through a response if not caching
+ * @param {function} config.visitEndpoint - The visitEndpoint function created
+ *   by classes/request/genVisitEndpoint
+ * @param {object} config.categoryInstance – The EndpointCategory instance that
+ *   will act as the parent to this function
+ * @param {object} [config.cache=null] - The cache instance. Does not cache if
+ *   no cache is included
+ * @return {function} endpoint function that the library-user will call
+ */
 module.exports = (config) => {
   return (options = {}) => {
     // Create a cached version of visitEndpoint
