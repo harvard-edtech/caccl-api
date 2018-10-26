@@ -70,7 +70,6 @@ module.exports = (config = {}) => {
       const numRetries = (
         options.numRetries
         || defaults.numRetries
-        || 3
       );
       const apiPathPrefix = (
         options.apiPathPrefix
