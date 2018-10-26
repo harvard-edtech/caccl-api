@@ -4,7 +4,7 @@
  * @see module: index
  */
 
-const Endpoints = require('./endpoints/Endpoints.js');
+const API = require('./endpoints/API');
 
 const CACCLError = require('../caccl-error/index.js'); // TODO: Switch to actual node module
 const errorCodes = require('./errorCodes.js');
@@ -14,7 +14,7 @@ const MemoryCache = require('./classes/caches/MemoryCache.js');
 const SessionCache = require('./classes/caches/SessionCache.js');
 
 /**
- * Creates a new SmartEndpoints object
+ * Creates a new API object
  * @param {string} [config.accessToken] - An access token to add to all
  *   requests. Can be overridden by including `access_token` query/body
  *   parameter.
@@ -31,6 +31,8 @@ const SessionCache = require('./classes/caches/SessionCache.js');
  *   using 'custom' cacheType.
  * @param {function} [config.sendRequest] - Function that sends a request to
  *   the Canvas API. Defaults to HTTPS request sender.
+ * @param {string} [options.apiPathPrefix=''] - The
+ *   prefix to prepend to all endpoint paths
  * @param {number} [config.defaultNumRetries=3] - Number of times to retry a
  *   request. Can be overridden for an individual request by including
  *   numRetries option
@@ -40,11 +42,17 @@ const SessionCache = require('./classes/caches/SessionCache.js');
  */
 module.exports = (config) => {
   // Initialize visitEndpoint if it's not included
+  const numRetries = (
+    config.numRetries !== undefined
+      ? config.defaultNumRetries
+      : 3
+  );
   const visitEndpoint = genVisitEndpoint({
     defaults: {
-      numRetries: config.defaultNumRetries || 3,
+      numRetries,
       itemsPerPage: config.defaultItemsPerPage || 100,
       host: config.canvasHost || 'canvas.instructure.com',
+      apiPathPrefix: config.apiPathPrefix,
     },
     sendRequest: config.sendRequest,
     accessToken: config.accessToken,
@@ -61,14 +69,54 @@ module.exports = (config) => {
   } else if (config.cacheType) {
     // Invalid cache type
     throw new CACCLError({
-      message: 'Smart Canvas Endpoints was initialized improperly: cacheType must be "memory" or "session" "custom". If "session", req must be included. If "custom", cache must be included.',
+      message: 'Smart Canvas API was initialized improperly: cacheType must be "memory" or "session" "custom". If "session", req must be included. If "custom", cache must be included.',
       code: errorCodes.invalid_cache,
     });
   }
 
-  const api = new Endpoints({
+  // Create an uncache function to pass to endpoints
+  let uncache;
+  if (cache) {
+    // Create uncache function that changes the cache
+    uncache = (paths, response) => {
+      return cache.getAllPaths().then((cachedPaths) => {
+        // Find paths that need to be uncached
+        const pathsToUncache = [];
+        paths.forEach((path) => {
+          if (path.endsWith('*')) {
+            // This is a prefix-based path. Loop to find paths that match.
+            const prefix = path.split('*')[0];
+            cachedPaths.forEach((cachedPath) => {
+              if (cachedPath.startsWith(prefix)) {
+                // Prefix matches! Uncache this!
+                pathsToUncache.push(cachedPath);
+              }
+            });
+          } else {
+            // This is a normal path. Just add it.
+            pathsToUncache.push(path);
+          }
+        });
+
+        // Uncache
+        return cache.deletePaths(pathsToUncache);
+      }).then(() => {
+        // Finally resolve with response
+        return Promise.resolve(response);
+      });
+    };
+  } else {
+    // No cache. Return dummy function that does nothing
+    uncache = (_, response) => {
+      return Promise.resolve(response);
+    };
+  }
+
+  // Create a new API class
+  const api = new API({
     visitEndpoint,
     cache,
+    uncache,
   });
 
   return api;

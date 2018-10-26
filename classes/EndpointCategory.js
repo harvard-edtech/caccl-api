@@ -25,48 +25,10 @@ class EndpointCategory {
       newConfig.api = this;
     }
 
-    // Create an uncache function to pass to endpoints
-    let uncache;
-    if (newConfig.cache) {
-      // Create uncache function that changes the cache
-      uncache = (paths, response) => {
-        return newConfig.cache.getAllPaths().then((cachedPaths) => {
-          // Find paths that need to be uncached
-          const pathsToUncache = [];
-          paths.forEach((path) => {
-            if (path.endsWith('*')) {
-              // This is a prefix-based path. Loop to find paths that match.
-              const prefix = path.split('*')[0];
-              cachedPaths.forEach((cachedPath) => {
-                if (cachedPath.startsWith(prefix)) {
-                  // Prefix matches! Uncache this!
-                  pathsToUncache.push(cachedPath);
-                }
-              });
-            } else {
-              // This is a normal path. Just add it.
-              pathsToUncache.push(path);
-            }
-          });
-
-          // Uncache
-          return newConfig.cache.deletePaths(pathsToUncache);
-        }).then(() => {
-          // Finally resolve with response
-          return Promise.resolve(response);
-        });
-      };
-    } else {
-      // No cache. Return dummy function that does nothing
-      uncache = (_, response) => {
-        return Promise.resolve(response);
-      };
-    }
-
     // Turn each endpoint (defined as a static function in the child) into a
     // function
     Object.keys(Child).forEach((prop) => {
-      if (Child[prop].isEndpointCategory) {
+      if (Child[prop].prototype instanceof EndpointCategory) {
         // This is a sub-category
         this[prop] = new Child[prop](newConfig);
       } else {
@@ -83,19 +45,16 @@ class EndpointCategory {
 
         // Create the function
         this[prop] = genEndpointFunction({
-          uncache,
           action,
           api: newConfig.api,
           run: Child[prop],
           cache: newConfig.cache,
+          uncache: config.uncache,
           visitEndpoint: newConfig.visitEndpoint,
         });
       }
     });
   }
 }
-
-// Mark EndpointCategory so we can detect it
-EndpointCategory.isEndpointCategory = true;
 
 module.exports = EndpointCategory;
