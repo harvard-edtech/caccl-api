@@ -1,17 +1,17 @@
-const EndpointCategory = require('../../classes/EndpointCategory.js');
-const prefix = require('../common/prefix.js');
-const utils = require('../common/utils.js');
+const EndpointCategory = require('../../../classes/EndpointCategory.js');
+const prefix = require('../../common/prefix.js');
+const utils = require('../../common/utils.js');
 
 // Import subcategories
-const Assignment = require('./CourseSubcategories/Assignment.js');
-const AssignmentGroup = require('./CourseSubcategories/AssignmentGroup.js');
-const App = require('./CourseSubcategories/App.js');
-const GradebookColumn = require('./CourseSubcategories/GradebookColumn.js');
-const GroupSet = require('./CourseSubcategories/GroupSet.js');
-const Page = require('./CourseSubcategories/Page.js');
-const Quiz = require('./CourseSubcategories/Quiz.js');
-const Rubric = require('./CourseSubcategories/Rubric.js');
-const Section = require('./CourseSubcategories/Section.js');
+const Assignment = require('./Assignment.js');
+const AssignmentGroup = require('./AssignmentGroup.js');
+const App = require('./App.js');
+const GradebookColumn = require('./GradebookColumn.js');
+const GroupSet = require('./GroupSet.js');
+const Page = require('./Page.js');
+const Quiz = require('./Quiz.js');
+const Rubric = require('./Rubric.js');
+const Section = require('./Section.js');
 
 class Course extends EndpointCategory {
   constructor(config) {

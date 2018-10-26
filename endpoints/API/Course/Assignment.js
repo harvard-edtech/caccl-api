@@ -673,18 +673,15 @@ Assignment.deleteOverride = (config) => {
  *   by default if we already know it
  * @return {Promise.<number>} Canvas Id of the current user
  */
-const getCurrentUserId = (visitEndpoint, userId) => {
+const getCurrentUserId = (api, userId) => {
   // Resolve if we already have the user's id
   if (userId) {
     return Promise.resolve(userId);
   }
-  // Pull the user's id from Canvas
-  return visitEndpoint({
-    path: `${prefix.v1}/users/self/profile`,
-    method: 'GET',
-  }).then((response) => {
-    return Promise.resolve(response.id);
-  });
+  return api.user.self.getProfile()
+    .then((profile) => {
+      return Promise.resolve(profile.id);
+    });
 };
 
 // Endpoints
@@ -796,7 +793,7 @@ Assignment.createTextSubmission = (config) => {
   // @action: create a text submission to a specific assignment in a course on behalf of the current user
   let submitterId;
   return getCurrentUserId(
-    config.visitEndpoint,
+    config.api,
     config.options.currentUserId
   )
     .then((currentUserId) => {
@@ -838,7 +835,7 @@ Assignment.createURLSubmission = (config) => {
   // @action: create a url submission to a specific assignment in a course on behalf of the current user
   let submitterId;
   return getCurrentUserId(
-    config.visitEndpoint,
+    config.api,
     config.options.currentUserId
   )
     .then((currentUserId) => {
@@ -880,7 +877,7 @@ Assignment.createFileSubmission = (config) => {
   // @action: create a file submission to a specific assignment in a course on behalf of the current user
   let submitterId;
   return getCurrentUserId(
-    config.visitEndpoint,
+    config.api,
     config.options.currentUserId
   )
     .then((currentUserId) => {

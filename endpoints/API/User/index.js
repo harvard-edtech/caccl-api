@@ -1,7 +1,7 @@
-const EndpointCategory = require('../../classes/EndpointCategory.js');
+const EndpointCategory = require('../../../classes/EndpointCategory.js');
 
 // Import subcategories:
-const Self = require('./UserSubcategories/Self.js');
+const Self = require('./Self.js');
 
 class User extends EndpointCategory {
   constructor(config) {

@@ -1,11 +1,12 @@
-const EndpointCategory = require('../classes/EndpointCategory.js');
+const EndpointCategory = require('../../classes/EndpointCategory.js');
 
 // Import subcategories
-const Course = require('./EndpointsSubcategories/Course.js');
+const Course = require('./Course');
+const User = require('./User');
 
-class Endpoints extends EndpointCategory {
+class API extends EndpointCategory {
   constructor(config) {
-    super(config, Endpoints);
+    super(config, API);
   }
 }
 
@@ -13,10 +14,11 @@ class Endpoints extends EndpointCategory {
 /*                             Subcategories:                             */
 /*------------------------------------------------------------------------*/
 
-Endpoints.course = Course;
+API.course = Course;
+API.user = User;
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */
 /*------------------------------------------------------------------------*/
 
-module.exports = Endpoints;
+module.exports = API;
