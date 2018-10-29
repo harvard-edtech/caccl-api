@@ -116,7 +116,8 @@ module.exports = (config = {}) => {
             // Compile errors into string
             let errors;
             try {
-              JSON.parse(response.body).errors.forEach((err) => {
+              const parsed = JSON.parse(response.body);
+              (parsed.errors || [parsed.message]).forEach((err) => {
                 if (!errors) {
                   errors = '';
                 } else {
