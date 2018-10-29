@@ -19,7 +19,7 @@ class AssignmentGroup extends EndpointCategory {
  * @param {number} courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas AssignmentGroups {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
-AssignmentGroup.listAssignmentGroups = (config) => {
+AssignmentGroup.list = (config) => {
   // @action: list the assignment groups in a course
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/assignment_groups`,
@@ -35,7 +35,7 @@ AssignmentGroup.listAssignmentGroups = (config) => {
  * @param {number} courseId - Canvas course Id to query
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
-AssignmentGroup.getAssignmentGroup = (config) => {
+AssignmentGroup.get = (config) => {
   // @action: get info on a specific assignment group in a course
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.assignmentGroupId}`,
@@ -51,7 +51,7 @@ AssignmentGroup.getAssignmentGroup = (config) => {
  * @param {number} [weight=current value] - New weight
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
-AssignmentGroup.updateAssignmentGroup = (config) => {
+AssignmentGroup.update = (config) => {
   // @action: update an assignment group in a course
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.assignmentGroupId}`,
@@ -77,7 +77,7 @@ AssignmentGroup.updateAssignmentGroup = (config) => {
  * @param {number} [weight=0] - Assignment group weight
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
-AssignmentGroup.createAssignmentGroup = (config) => {
+AssignmentGroup.create = (config) => {
   // @action: create a new assignment group in a course
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/assignment_groups`,
@@ -105,7 +105,7 @@ AssignmentGroup.createAssignmentGroup = (config) => {
  *   assignment group will be deleted.
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
-AssignmentGroup.deleteAssignmentGroup = (config) => {
+AssignmentGroup.delete = (config) => {
   // @action: delete an assignment group from a course
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.assignmentGroupId}`,

@@ -13,7 +13,7 @@ class User extends EndpointCategory {
 /*                             Subcategories:                             */
 /*------------------------------------------------------------------------*/
 
-User.assignment = Self;
+User.self = Self;
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

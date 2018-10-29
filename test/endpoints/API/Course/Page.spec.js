@@ -1,6 +1,6 @@
-const utils = require('../../helpers/utils.js');
-const api = require('../../helpers/genInstructorAPI.js')();
-const courseId = require('../../environment.js').testCourseId;
+const utils = require('../../../common/utils.js');
+const api = require('../../../common/genInstructorAPI.js')();
+const courseId = require('../../../environment.js').testCourseId;
 
 /*------------------------------------------------------------------------*/
 /*                                 Helpers                                */
@@ -35,13 +35,13 @@ describe('Endpoints > Course > Pages', function () {
     // Create two pages so we can check if they're in the list
     let pagesToDelete;
     return Promise.all([
-      api.course.createPage(genTestPage(0)),
-      api.course.createPage(genTestPage(1)),
+      api.course.page.create(genTestPage(0)),
+      api.course.page.create(genTestPage(1)),
     ])
       .then((pages) => {
         pagesToDelete = pages;
         // List the pages
-        return api.course.listPages({
+        return api.course.page.list({
           courseId,
         });
       }).then((pagesInCourse) => {
@@ -58,7 +58,7 @@ describe('Endpoints > Course > Pages', function () {
         // Clean up (delete the test pages)
         return Promise.all(
           pagesToDelete.map((page) => {
-            return api.course.deletePage({
+            return api.course.page.delete({
               courseId,
               pageURL: page.url,
             }).catch((err) => {
@@ -72,11 +72,11 @@ describe('Endpoints > Course > Pages', function () {
   it('Gets pages', function () {
     // Create a test page so we can get it
     let testPageURL;
-    return api.course.createPage(genTestPage())
+    return api.course.page.create(genTestPage())
       .then((page) => {
         testPageURL = page.url;
         // List the pages
-        return api.course.getPage({
+        return api.course.page.get({
           courseId,
           pageURL: testPageURL,
         });
@@ -87,7 +87,7 @@ describe('Endpoints > Course > Pages', function () {
           throw new Error('The page we got didn\'t match the one we expected:\n' + comparison.description);
         }
         // Clean up (delete the test page)
-        return api.course.deletePage({
+        return api.course.page.delete({
           courseId,
           pageURL: testPageURL,
         }).catch((err) => {
@@ -99,10 +99,10 @@ describe('Endpoints > Course > Pages', function () {
   it('Updates pages', function () {
     // Create a test page so we can update it
     let testPageURL;
-    return api.course.createPage(genTestPage())
+    return api.course.page.create(genTestPage())
       .then((page) => {
         // Update the page
-        return api.course.updatePage({
+        return api.course.page.update({
           courseId,
           pageURL: page.url,
           title: 'updated_title_' + stamp,
@@ -112,7 +112,7 @@ describe('Endpoints > Course > Pages', function () {
       }).then((updatedPage) => {
         testPageURL = updatedPage.url;
         // Get the updated page
-        return api.course.getPage({
+        return api.course.page.get({
           courseId,
           pageURL: testPageURL,
         });
@@ -130,7 +130,7 @@ describe('Endpoints > Course > Pages', function () {
           throw new Error('The page we got didn\'t match the one we expected (perhaps the updates weren\'t made):\n' + comparison.description);
         }
         // Clean up (delete the test page)
-        return api.course.deletePage({
+        return api.course.page.delete({
           courseId,
           pageURL: testPageURL,
         }).catch((err) => {
@@ -141,10 +141,10 @@ describe('Endpoints > Course > Pages', function () {
 
   it('Creates pages', function () {
     // Create a page
-    return api.course.createPage(genTestPage())
+    return api.course.page.create(genTestPage())
       .then((page) => {
         // Get the page
-        return api.course.getPage({
+        return api.course.page.get({
           courseId,
           pageURL: page.url,
         });
@@ -155,7 +155,7 @@ describe('Endpoints > Course > Pages', function () {
           throw new Error('The page we got didn\'t match the one we expected (perhaps the page wasn\'t created):\n' + comparison.description);
         }
         // Clean up (delete the test page)
-        return api.course.deletePage({
+        return api.course.page.delete({
           courseId,
           pageURL: page.url,
         }).catch((err) => {
@@ -166,17 +166,17 @@ describe('Endpoints > Course > Pages', function () {
 
   it('Deletes pages', function () {
     // Create a test page that we can delete
-    return api.course.createPage(genTestPage())
+    return api.course.page.create(genTestPage())
       .then((page) => {
         // Clean up (delete the test page)
-        return api.course.deletePage({
+        return api.course.page.delete({
           courseId,
           pageURL: page.url,
         });
       })
       .then(() => {
         // List the pages
-        return api.course.listPages({
+        return api.course.page.list({
           courseId,
         });
       })

@@ -115,7 +115,7 @@ GroupSet.listGroups = (config) => {
  * @param {number} groupId - Canvas group Id
  * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
-GroupSet.getGroupSetGroup = (config) => {
+GroupSet.getGroup = (config) => {
   // @action: get info on a specific group in a group set
   return config.api.course.group.get(config.options);
 };

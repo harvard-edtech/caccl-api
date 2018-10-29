@@ -1,6 +1,6 @@
-const utils = require('../../helpers/utils.js');
-const api = require('../../helpers/genInstructorAPI.js')();
-const environment = require('../../environment.js');
+const utils = require('../../../common/utils.js');
+const api = require('../../../common/genInstructorAPI.js')();
+const environment = require('../../../environment.js');
 
 const courseId = environment.testCourseId;
 
@@ -63,13 +63,13 @@ describe('Endpoints > Course > Quizzes', function () {
       // Create two quizzes so we can check if they show up in the list
       let quizzesToDelete;
       return Promise.all([
-        api.course.createQuiz(genTestQuiz(0)),
-        api.course.createQuiz(genTestQuiz(1)),
+        api.course.quiz.create(genTestQuiz(0)),
+        api.course.quiz.create(genTestQuiz(1)),
       ])
         .then((quizzes) => {
           quizzesToDelete = quizzes;
           // List the quizzes
-          return api.course.listQuizzes({
+          return api.course.quiz.list({
             courseId,
           });
         })
@@ -86,7 +86,7 @@ describe('Endpoints > Course > Quizzes', function () {
           // Clean up: delete the gradebook columns
           return Promise.all(
             quizzesToDelete.map((quiz) => {
-              return api.course.deleteQuiz({
+              return api.course.quiz.delete({
                 courseId,
                 quizId: quiz.id,
               }).catch((err) => {
@@ -100,11 +100,11 @@ describe('Endpoints > Course > Quizzes', function () {
     it('Gets a quiz', function () {
       // Create a quiz so we can get it
       let testQuizId;
-      return api.course.createQuiz(genTestQuiz())
+      return api.course.quiz.create(genTestQuiz())
         .then((quiz) => {
           testQuizId = quiz.id;
           // Get the quiz
-          return api.course.getQuiz({
+          return api.course.quiz.get({
             courseId,
             quizId: testQuizId,
           });
@@ -116,7 +116,7 @@ describe('Endpoints > Course > Quizzes', function () {
             throw new Error('The quiz we got doesn\'t match what we expected:\n' + comparison.description);
           }
           // Clean up: delete the quiz
-          return api.course.deleteQuiz({
+          return api.course.quiz.delete({
             courseId,
             quizId: testQuizId,
           }).catch((err) => {
@@ -128,11 +128,11 @@ describe('Endpoints > Course > Quizzes', function () {
     it('Updates a quiz', function () {
       // Create a quiz so we can update it
       let testQuizId;
-      return api.course.createQuiz(genTestQuiz())
+      return api.course.quiz.create(genTestQuiz())
         .then((quiz) => {
           testQuizId = quiz.id;
           // Update the quiz
-          return api.course.updateQuiz({
+          return api.course.quiz.update({
             courseId,
             quizId: testQuizId,
             suppressNotification: true,
@@ -145,7 +145,7 @@ describe('Endpoints > Course > Quizzes', function () {
         })
         .then(() => {
           // Get the quiz to make sure it was updated properly
-          return api.course.getQuiz({
+          return api.course.quiz.get({
             courseId,
             quizId: testQuizId,
           });
@@ -170,7 +170,7 @@ describe('Endpoints > Course > Quizzes', function () {
             throw new Error('Updated quiz doesn\'t match what we expected:\n' + comparison.description);
           }
           // Clean up: delete the quiz
-          return api.course.deleteQuiz({
+          return api.course.quiz.delete({
             courseId,
             quizId: testQuizId,
           }).catch((err) => {
@@ -182,11 +182,11 @@ describe('Endpoints > Course > Quizzes', function () {
     it('Creates a quiz', function () {
       // Create a quiz
       let testQuizId;
-      return api.course.createQuiz(genTestQuiz())
+      return api.course.quiz.create(genTestQuiz())
         .then((quiz) => {
           testQuizId = quiz.id;
           // Get the quiz to make sure it was created properly
-          return api.course.getQuiz({
+          return api.course.quiz.get({
             courseId,
             quizId: testQuizId,
           });
@@ -198,7 +198,7 @@ describe('Endpoints > Course > Quizzes', function () {
             throw new Error('Created quiz doesn\'t match what we expected:\n' + comparison.description);
           }
           // Clean up: delete the quiz
-          return api.course.deleteQuiz({
+          return api.course.quiz.delete({
             courseId,
             quizId: testQuizId,
           }).catch((err) => {
@@ -210,18 +210,18 @@ describe('Endpoints > Course > Quizzes', function () {
     it('Deletes a quiz', function () {
       // Create a quiz so we can delete it
       let testQuizId;
-      return api.course.createQuiz(genTestQuiz())
+      return api.course.quiz.create(genTestQuiz())
         .then((quiz) => {
           testQuizId = quiz.id;
           // Delete the quiz
-          return api.course.deleteQuiz({
+          return api.course.quiz.delete({
             courseId,
             quizId: testQuizId,
           });
         })
         .then(() => {
           // List the quizzes so we can make sure the quiz was deleted
-          return api.course.listQuizzes({
+          return api.course.quiz.list({
             courseId,
           });
         })
@@ -240,11 +240,11 @@ describe('Endpoints > Course > Quizzes', function () {
 
       // Create a quiz so we can list its submissions
       let testQuizId;
-      return api.course.createQuiz(genTestQuiz())
+      return api.course.quiz.create(genTestQuiz())
         .then((quiz) => {
           testQuizId = quiz.id;
           // List submissions
-          return api.course.listQuizSubmissions({
+          return api.course.quiz.listSubmissions({
             courseId,
             quizId: testQuizId,
           });
@@ -255,7 +255,7 @@ describe('Endpoints > Course > Quizzes', function () {
             throw new Error('We expected an empty list but got the following: ' + JSON.stringify(submissions));
           }
           // Clean up: delete the quiz
-          return api.course.deleteQuiz({
+          return api.course.quiz.delete({
             courseId,
             quizId: testQuizId,
           });
@@ -263,6 +263,6 @@ describe('Endpoints > Course > Quizzes', function () {
     });
   });
 
-  // TODO: add test for getQuizSubmission
+  // TODO: add test for quiz.getSubmission
   // (we can't do this until Canvas adds an enpoint that creates a sub)
 });

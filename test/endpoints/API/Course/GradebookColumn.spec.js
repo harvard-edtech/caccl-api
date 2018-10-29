@@ -1,6 +1,6 @@
-const api = require('../../helpers/genInstructorAPI.js')();
-const utils = require('../../helpers/utils.js');
-const courseId = require('../../environment.js').testCourseId;
+const api = require('../../../common/genInstructorAPI.js')();
+const utils = require('../../../common/utils.js');
+const courseId = require('../../../environment.js').testCourseId;
 
 /*------------------------------------------------------------------------*/
 /*                                 Helpers                                */
@@ -34,13 +34,13 @@ describe('Endpoints > Course > Gradebook Columns', function () {
     // Create gradebook columns so we can check if they show up in the list
     let columnsToDelete;
     return Promise.all([
-      api.course.createGradebookColumn(genTestGradebookColumn(0)),
-      api.course.createGradebookColumn(genTestGradebookColumn(1)),
+      api.course.gradebookcolumn.create(genTestGradebookColumn(0)),
+      api.course.gradebookcolumn.create(genTestGradebookColumn(1)),
     ])
       .then((columns) => {
         columnsToDelete = columns;
         // Get list of columns
-        return api.course.listGradebookColumns({
+        return api.course.gradebookcolumn.list({
           courseId,
           includeHidden: true,
         });
@@ -58,7 +58,7 @@ describe('Endpoints > Course > Gradebook Columns', function () {
         // Clean up: delete the gradebook columns
         return Promise.all(
           columnsToDelete.map((column) => {
-            return api.course.deleteGradebookColumn({
+            return api.course.gradebookcolumn.delete({
               courseId,
               columnId: column.id,
             }).catch((err) => {
@@ -72,11 +72,11 @@ describe('Endpoints > Course > Gradebook Columns', function () {
   it('Updates a custom gradebook column', function () {
     // Create a gradebook column so we can update it
     let testColumnId;
-    return api.course.createGradebookColumn(genTestGradebookColumn())
+    return api.course.gradebookcolumn.create(genTestGradebookColumn())
       .then((column) => {
         testColumnId = column.id;
         // Update the column
-        return api.course.updateGradebookColumn({
+        return api.course.gradebookcolumn.update({
           courseId,
           columnId: testColumnId,
           title: 'updated_title_' + stamp,
@@ -85,7 +85,7 @@ describe('Endpoints > Course > Gradebook Columns', function () {
       })
       .then(() => {
         // Get the column so we can check its contents
-        return api.course.getGradebookColumn({
+        return api.course.gradebookcolumn.get({
           courseId,
           columnId: testColumnId,
         });
@@ -105,7 +105,7 @@ describe('Endpoints > Course > Gradebook Columns', function () {
         }
 
         // Clean up: delete the gradebook column
-        return api.course.deleteGradebookColumn({
+        return api.course.gradebookcolumn.delete({
           courseId,
           columnId: testColumnId,
         }).catch((err) => {
@@ -117,11 +117,11 @@ describe('Endpoints > Course > Gradebook Columns', function () {
   it('Creates a custom gradebook column', function () {
     // Create a gradebook column
     let testColumnId;
-    return api.course.createGradebookColumn(genTestGradebookColumn())
+    return api.course.gradebookcolumn.create(genTestGradebookColumn())
       .then((column) => {
         testColumnId = column.id;
         // Get the column so we can check its contents
-        return api.course.getGradebookColumn({
+        return api.course.gradebookcolumn.get({
           courseId,
           columnId: testColumnId,
           isHidden: true,
@@ -138,7 +138,7 @@ describe('Endpoints > Course > Gradebook Columns', function () {
         }
 
         // Clean up: delete the gradebook column
-        return api.course.deleteGradebookColumn({
+        return api.course.gradebookcolumn.delete({
           courseId,
           columnId: testColumnId,
         }).catch((err) => {
@@ -150,18 +150,18 @@ describe('Endpoints > Course > Gradebook Columns', function () {
   it('Deletes a custom gradebook column', function () {
     // Create a gradebook column
     let testColumnId;
-    return api.course.createGradebookColumn(genTestGradebookColumn())
+    return api.course.gradebookcolumn.create(genTestGradebookColumn())
       .then((column) => {
         testColumnId = column.id;
         // Delete the gradebook column
-        return api.course.deleteGradebookColumn({
+        return api.course.gradebookcolumn.delete({
           courseId,
           columnId: testColumnId,
         });
       })
       .then(() => {
         // Get list of columns so we can make sure the column was deleted
-        return api.course.listGradebookColumns({
+        return api.course.gradebookcolumn.list({
           courseId,
           includeHidden: true,
         });

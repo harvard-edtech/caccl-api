@@ -1,6 +1,6 @@
-const utils = require('../../helpers/utils.js');
-const api = require('../../helpers/genInstructorAPI.js')();
-const courseId = require('../../environment.js').testCourseId;
+const utils = require('../../../common/utils.js');
+const api = require('../../../common/genInstructorAPI.js')();
+const courseId = require('../../../environment.js').testCourseId;
 
 /*------------------------------------------------------------------------*/
 /*                                 Helpers                                */
@@ -68,8 +68,8 @@ describe('Endpoints > Course > Rubrics', function () {
     // Create a couple assignments so we can add rubrics to them
     let assignmentsToDelete;
     return Promise.all([
-      api.course.createAssignment(genTestAssignment(0)),
-      api.course.createAssignment(genTestAssignment(1)),
+      api.course.assignment.create(genTestAssignment(0)),
+      api.course.assignment.create(genTestAssignment(1)),
     ])
       .then((assignments) => {
         assignmentsToDelete = assignments;
@@ -77,7 +77,7 @@ describe('Endpoints > Course > Rubrics', function () {
         // Add rubrics to both assignments
         return Promise.all(
           assignments.map((assignment, i) => {
-            return api.course.createFreeFormGradingRubricInAssignment(
+            return api.course.rubric.createFreeFormGradingRubricInAssignment(
               genTestRubric(assignment.id, i)
             );
           })
@@ -85,7 +85,7 @@ describe('Endpoints > Course > Rubrics', function () {
       })
       .then(() => {
         // List the rubrics
-        return api.course.listRubrics({
+        return api.course.rubric.list({
           courseId,
         });
       })
@@ -101,7 +101,7 @@ describe('Endpoints > Course > Rubrics', function () {
         }
         // Clean up: delete test assignments
         return Promise.all(assignmentsToDelete.map((assignment) => {
-          return api.course.deleteAssignment({
+          return api.course.assignment.delete({
             courseId,
             assignmentId: assignment.id,
           }).catch((err) => {
@@ -114,17 +114,17 @@ describe('Endpoints > Course > Rubrics', function () {
   it('Gets a rubric', function () {
     // Create a test assignment so we can add a rubric to it
     let testAssignmentId;
-    return api.course.createAssignment(genTestAssignment())
+    return api.course.assignment.create(genTestAssignment())
       .then((assignment) => {
         testAssignmentId = assignment.id;
         // Create a test rubric
-        return api.course.createFreeFormGradingRubricInAssignment(
+        return api.course.rubric.createFreeFormGradingRubricInAssignment(
           genTestRubric(testAssignmentId)
         );
       })
       .then((rubric) => {
         // Get the rubric
-        return api.course.getRubric({
+        return api.course.rubric.get({
           courseId,
           rubricId: rubric.id,
         });
@@ -140,7 +140,7 @@ describe('Endpoints > Course > Rubrics', function () {
           throw new Error('The rubric we got didn\'t match what we expected:\n' + comparison.description);
         }
         // Clean up: delete the test assignment
-        return api.course.deleteAssignment({
+        return api.course.assignment.delete({
           courseId,
           assignmentId: testAssignmentId,
         }).catch((err) => {
@@ -152,17 +152,17 @@ describe('Endpoints > Course > Rubrics', function () {
   it('Creates a rubric', function () {
     // Create a test assignment so we can add a rubric to it
     let testAssignmentId;
-    return api.course.createAssignment(genTestAssignment())
+    return api.course.assignment.create(genTestAssignment())
       .then((assignment) => {
         testAssignmentId = assignment.id;
         // Create a test rubric
-        return api.course.createFreeFormGradingRubricInAssignment(
+        return api.course.rubric.createFreeFormGradingRubricInAssignment(
           genTestRubric(testAssignmentId)
         );
       })
       .then((rubric) => {
         // Get the rubric
-        return api.course.getRubric({
+        return api.course.rubric.get({
           courseId,
           rubricId: rubric.id,
         });
@@ -178,7 +178,7 @@ describe('Endpoints > Course > Rubrics', function () {
           throw new Error('The rubric we created didn\'t match what we expected:\n' + comparison.description);
         }
         // Clean up: delete the test assignment
-        return api.course.deleteAssignment({
+        return api.course.assignment.delete({
           courseId,
           assignmentId: testAssignmentId,
         }).catch((err) => {

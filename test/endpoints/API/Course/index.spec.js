@@ -1,10 +1,10 @@
-const api = require('../../common/genInstructorAPI.js')();
-const courseId = require('../../environment.js').testCourseId;
+const api = require('../../../common/genInstructorAPI.js')();
+const courseId = require('../../../environment.js').testCourseId;
 
 describe('Endpoints > Course', function () {
   describe('Course', function () {
     it('Gets a course', function () {
-      return api.course.getCourse({
+      return api.course.get({
         courseId,
       }).then((course) => {
         // We can't check the content of the course because we're not

@@ -1,8 +1,8 @@
-const genCanvasAPI = require('../../index.js');
+const API = require('../../index.js');
 const environment = require('../environment.js');
 
 module.exports = () => {
-  return genCanvasAPI({
+  return new API({
     accessToken: environment.accessToken,
     canvasHost: environment.canvasHost,
   });

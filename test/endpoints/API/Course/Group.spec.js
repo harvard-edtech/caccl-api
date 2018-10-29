@@ -1,6 +1,6 @@
-const api = require('../../helpers/genInstructorAPI.js')();
-const environment = require('../../environment.js');
-const utils = require('../../helpers/utils.js');
+const api = require('../../../common/genInstructorAPI.js')();
+const utils = require('../../../common/utils.js');
+const environment = require('../../../environment.js');
 
 const courseId = environment.testCourseId;
 const allStudentIds = environment.students.map((x) => {
@@ -63,17 +63,17 @@ describe('Endpoints > Course > Groups', function () {
     it('Gets a group', function () {
       let testGroupSetId;
       // Create a group sets so we can add a group to it and then get that group
-      return api.course.createGroupSet(genTestGroupSet())
+      return api.course.groupset.create(genTestGroupSet())
         .then((groupSet) => {
           testGroupSetId = groupSet.id;
           // Create test group in the group sets
-          return api.course.createGroupSetGroup(
+          return api.course.groupset.createGroup(
             genTestGroupInGroupSet(testGroupSetId, 0)
           );
         })
         .then((group) => {
           // Get the group in the group set
-          return api.course.getGroup({
+          return api.course.group.get({
             groupId: group.id,
           });
         }).then((group) => {
@@ -88,7 +88,7 @@ describe('Endpoints > Course > Groups', function () {
           }
 
           // Clean up: delete the group set
-          return api.course.deleteGroupSet({
+          return api.course.groupset.delete({
             courseId,
             groupSetId: testGroupSetId,
           }).catch((err) => {
@@ -103,25 +103,25 @@ describe('Endpoints > Course > Groups', function () {
       let testGroupSetId;
       let testGroupId;
       // Create a group sets so we can add a group to it and add members to it
-      return api.course.createGroupSet(genTestGroupSet())
+      return api.course.groupset.create(genTestGroupSet())
         .then((groupSet) => {
           testGroupSetId = groupSet.id;
           // Create test group in the group sets
-          return api.course.createGroupSetGroup(
+          return api.course.groupset.createGroup(
             genTestGroupInGroupSet(testGroupSetId, 0)
           );
         })
         .then((group) => {
           testGroupId = group.id;
           // Add members to the group
-          return api.course.updateGroupMembers({
+          return api.course.group.updateMembers({
             groupId: testGroupId,
             members: testGroupMembers,
           });
         })
         .then(() => {
           // List the group members
-          return api.course.listGroupMembers({
+          return api.course.group.listMembers({
             groupId: testGroupId,
           });
         })
@@ -137,7 +137,7 @@ describe('Endpoints > Course > Groups', function () {
           }
 
           // Clean up: delete the group set
-          return api.course.deleteGroupSet({
+          return api.course.groupset.delete({
             courseId,
             groupSetId: testGroupSetId,
           }).catch((err) => {
@@ -150,25 +150,25 @@ describe('Endpoints > Course > Groups', function () {
       let testGroupSetId;
       let testGroupId;
       // Create a group sets so we can add a group to it and add members to it
-      return api.course.createGroupSet(genTestGroupSet())
+      return api.course.groupset.create(genTestGroupSet())
         .then((groupSet) => {
           testGroupSetId = groupSet.id;
           // Create test group in the group sets
-          return api.course.createGroupSetGroup(
+          return api.course.groupset.createGroup(
             genTestGroupInGroupSet(testGroupSetId, 0)
           );
         })
         .then((group) => {
           testGroupId = group.id;
           // Add members to the group
-          return api.course.updateGroupMembers({
+          return api.course.group.updateMembers({
             groupId: testGroupId,
             members: testGroupMembers,
           });
         })
         .then(() => {
           // List the group members
-          return api.course.listGroupMembers({
+          return api.course.group.listMembers({
             groupId: testGroupId,
           });
         })
@@ -184,7 +184,7 @@ describe('Endpoints > Course > Groups', function () {
           }
 
           // Clean up: delete the group set
-          return api.course.deleteGroupSet({
+          return api.course.groupset.delete({
             courseId,
             groupSetId: testGroupSetId,
           }).catch((err) => {

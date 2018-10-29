@@ -43,9 +43,9 @@ function genTestAssignmentTemplate(index = 0) {
 
 // Generate the parameters for a test override
 function genTestAssignmentOverride(assignmentId, index = 0) {
-  const studentIdsToOverride = studentIds.slice(
-    Math.min(studentIds.length - 2, index * 2),
-    Math.min(studentIds.length - 2, index * 2) + 2
+  const studentIdsToOverride = allStudentIds.slice(
+    Math.min(allStudentIds.length - 2, index * 2),
+    Math.min(allStudentIds.length - 2, index * 2) + 2
   );
   return {
     courseId,
@@ -84,7 +84,7 @@ describe('Endpoints > Course > Assignment', function () {
       ]).then((assignments) => {
         assignmentsToDelete = assignments;
         // List the assignments
-        return api.course.listAssignments({
+        return api.course.assignment.list({
           courseId,
         });
       }).then((assignments) => {
@@ -146,7 +146,7 @@ describe('Endpoints > Course > Assignment', function () {
         .then((assignment) => {
           testAssignmentId = assignment.id;
           // Try to update the assignment
-          return api.course.update({
+          return api.course.assignment.update({
             courseId,
             assignmentId: testAssignmentId,
             name: 'updated_test_assignment',
@@ -258,7 +258,7 @@ describe('Endpoints > Course > Assignment', function () {
       testAssignment.published = true;
       testAssignment.submissionTypes = ['online_text_entry'];
       let testAssignmentId;
-      return api.course.createAssignment(testAssignment)
+      return api.course.assignment.create(testAssignment)
         .catch((err) => {
           throw new Error('Could not create an assignment so we could run our test on it. We ran into an error: "' + err.message + '"');
         })
@@ -271,7 +271,7 @@ describe('Endpoints > Course > Assignment', function () {
         })
         .then(() => {
           // List the gradeable students
-          return api.course.listGradeableStudents({
+          return api.course.assignment.listGradeableStudents({
             courseId,
             assignmentId: testAssignmentId,
           });
@@ -291,7 +291,7 @@ describe('Endpoints > Course > Assignment', function () {
             throw new Error('We expected ' + allStudentIds.length + ' of our test student(s) but found ' + numFound + ' instead.');
           }
           // Clean up: delete the assignment
-          return api.course.deleteAssignment({
+          return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
           }).catch((err) => {
@@ -306,14 +306,14 @@ describe('Endpoints > Course > Assignment', function () {
       testAssignment.published = true;
       testAssignment.submissionTypes = ['online_text_entry'];
       let testAssignmentId;
-      return api.course.createAssignment(testAssignment)
+      return api.course.assignment.create(testAssignment)
         .catch((err) => {
           throw new Error('Could not create an assignment so we could run our test on it. We ran into an error: "' + err.message + '"');
         })
         .then((assignment) => {
           testAssignmentId = assignment.id;
           // Create a submission
-          return studentAPI.course.createAssignmentTextSubmission({
+          return studentAPI.course.assignment.createTextSubmission({
             courseId,
             assignmentId: testAssignmentId,
             text: 'test_sub',
@@ -322,7 +322,7 @@ describe('Endpoints > Course > Assignment', function () {
         })
         .then(() => {
           // Comment on the submission
-          return api.course.createAssignmentSubmissionComment({
+          return api.course.assignment.createSubmissionComment({
             courseId,
             assignmentId: testAssignmentId,
             studentId: studentInfo.canvasId,
@@ -331,7 +331,7 @@ describe('Endpoints > Course > Assignment', function () {
         })
         .then(() => {
           // Get submission
-          return api.course.getAssignmentSubmission({
+          return api.course.assignment.getSubmission({
             courseId,
             assignmentId: testAssignmentId,
             studentId: studentInfo.canvasId,
@@ -358,7 +358,7 @@ describe('Endpoints > Course > Assignment', function () {
             throw new Error('We couldn\'t find the comment. Perhaps it didn\'t upload.');
           }
           // Clean up: delete the assignment
-          return api.course.deleteAssignment({
+          return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
           }).catch((err) => {
@@ -374,7 +374,7 @@ describe('Endpoints > Course > Assignment', function () {
       publishedTestAssignment.published = true;
       publishedTestAssignment.submissionTypes = ['online_text_entry'];
       let testAssignmentId;
-      return api.course.createAssignment(publishedTestAssignment)
+      return api.course.assignment.create(publishedTestAssignment)
         .catch((err) => {
           throw new Error('Could not create an assignment so we could run our test on it. We ran into an error: "' + err.message + '"');
         })
@@ -382,13 +382,13 @@ describe('Endpoints > Course > Assignment', function () {
           testAssignmentId = assignment.id;
           // Create submissions that we can comment on
           return Promise.all([
-            studentAPI.course.createAssignmentTextSubmission({
+            studentAPI.course.assignment.createTextSubmission({
               courseId,
               assignmentId: testAssignmentId,
               text: 'test_sub',
               comment: 'student_comment',
             }),
-            studentAPI2.course.createAssignmentTextSubmission({
+            studentAPI2.course.assignment.createTextSubmission({
               courseId,
               assignmentId: testAssignmentId,
               text: 'test_sub_2',
@@ -398,7 +398,7 @@ describe('Endpoints > Course > Assignment', function () {
         })
         .then(() => {
           // Batch upload grades
-          return api.course.updateAssignmentGrades({
+          return api.course.assignment.updateGrades({
             courseId,
             assignmentId: testAssignmentId,
             gradeItems: [
@@ -418,7 +418,7 @@ describe('Endpoints > Course > Assignment', function () {
         })
         .then(() => {
           // Retrieve first student's sub
-          return api.course.getAssignmentSubmission({
+          return api.course.assignment.getSubmission({
             courseId,
             assignmentId: testAssignmentId,
             studentId: studentInfo.canvasId,
@@ -445,7 +445,7 @@ describe('Endpoints > Course > Assignment', function () {
             throw new Error('Submission didn\'t match after grades/comments were uploaded.\n' + comparison.description);
           }
           // Retrieve second student's sub
-          return api.course.getAssignmentSubmission({
+          return api.course.assignment.getSubmission({
             courseId,
             assignmentId: testAssignmentId,
             studentId: studentInfo2.canvasId,
@@ -472,7 +472,7 @@ describe('Endpoints > Course > Assignment', function () {
             throw new Error('Submission didn\'t match after grades/comments were uploaded.\n' + comparison.description);
           }
           // Clean up: delete the assignment
-          return api.course.deleteAssignment({
+          return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
           }).catch((err) => {
@@ -493,22 +493,22 @@ describe('Endpoints > Course > Assignment', function () {
       const testAssignment = genTestAssignment();
       testAssignment.published = true;
       testAssignment.dueAt = now;
-      return api.course.createAssignment(testAssignment)
+      return api.course.assignment.create(testAssignment)
         .then((assignment) => {
           testAssignmentId = assignment.id;
           // Add a couple assignment overrides to the list
           return Promise.all([
-            api.course.createAssignmentOverride(
+            api.course.assignment.createOverride(
               genTestAssignmentOverride(testAssignmentId, 0)
             ),
-            api.course.createAssignmentOverride(
+            api.course.assignment.createOverride(
               genTestAssignmentOverride(testAssignmentId, 1)
             ),
           ]);
         })
         .then(() => {
           // List the overrides
-          return api.course.listAssignmentOverrides({
+          return api.course.assignment.listOverrides({
             courseId,
             assignmentId: testAssignmentId,
           });
@@ -525,7 +525,7 @@ describe('Endpoints > Course > Assignment', function () {
           }
 
           // Clean up: delete the assignment
-          return api.course.deleteAssignment({
+          return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
           }).catch((err) => {
@@ -540,17 +540,17 @@ describe('Endpoints > Course > Assignment', function () {
       const testAssignment = genTestAssignment();
       testAssignment.published = true;
       testAssignment.dueAt = now;
-      return api.course.createAssignment(testAssignment)
+      return api.course.assignment.create(testAssignment)
         .then((assignment) => {
           testAssignmentId = assignment.id;
           // Add an assignment override
-          return api.course.createAssignmentOverride(
+          return api.course.assignment.createOverride(
             genTestAssignmentOverride(testAssignmentId)
           );
         })
         .then((override) => {
           // Get an override
-          return api.course.getAssignmentOverride({
+          return api.course.assignment.getOverride({
             courseId,
             assignmentId: testAssignmentId,
             overrideId: override.id,
@@ -568,7 +568,7 @@ describe('Endpoints > Course > Assignment', function () {
           }
 
           // Clean up: delete the assignment
-          return api.course.deleteAssignment({
+          return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
           }).catch((err) => {
@@ -583,17 +583,17 @@ describe('Endpoints > Course > Assignment', function () {
       const testAssignment = genTestAssignment();
       testAssignment.published = true;
       testAssignment.dueAt = now;
-      return api.course.createAssignment(testAssignment)
+      return api.course.assignment.create(testAssignment)
         .then((assignment) => {
           testAssignmentId = assignment.id;
           // Add an assignment override
-          return api.course.createAssignmentOverride(
+          return api.course.assignment.createOverride(
             genTestAssignmentOverride(testAssignmentId)
           );
         })
         .then((override) => {
           // Get an override
-          return api.course.getAssignmentOverride({
+          return api.course.assignment.getOverride({
             courseId,
             assignmentId: testAssignmentId,
             overrideId: override.id,
@@ -611,7 +611,7 @@ describe('Endpoints > Course > Assignment', function () {
           }
 
           // Clean up: delete the assignment
-          return api.course.deleteAssignment({
+          return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
           }).catch((err) => {
@@ -626,17 +626,17 @@ describe('Endpoints > Course > Assignment', function () {
       const testAssignment = genTestAssignment();
       testAssignment.published = true;
       testAssignment.dueAt = now;
-      return api.course.createAssignment(testAssignment)
+      return api.course.assignment.create(testAssignment)
         .then((assignment) => {
           testAssignmentId = assignment.id;
           // Add an assignment override
-          return api.course.createAssignmentOverride(
+          return api.course.assignment.createOverride(
             genTestAssignmentOverride(testAssignmentId)
           );
         })
         .then((override) => {
           // Delete the assignment override
-          return api.course.deleteAssignmentOverride({
+          return api.course.assignment.deleteOverride({
             courseId,
             assignmentId: testAssignmentId,
             overrideId: override.id,
@@ -644,7 +644,7 @@ describe('Endpoints > Course > Assignment', function () {
         })
         .then(() => {
           // List the overrides
-          return api.course.listAssignmentOverrides({
+          return api.course.assignment.listOverrides({
             courseId,
             assignmentId: testAssignmentId,
           });
@@ -662,7 +662,7 @@ describe('Endpoints > Course > Assignment', function () {
           }
 
           // Clean up: delete the assignment
-          return api.course.deleteAssignment({
+          return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
           }).catch((err) => {
@@ -683,7 +683,7 @@ describe('Endpoints > Course > Assignment', function () {
       testAssignment.published = true;
       testAssignment.submissionTypes = ['online_text_entry'];
       let testAssignmentId;
-      return api.course.createAssignment(testAssignment)
+      return api.course.assignment.create(testAssignment)
         .catch((err) => {
           throw new Error('Could not create an assignment so we could run our test on it. We ran into an error: "' + err.message + '"');
         })
@@ -691,13 +691,13 @@ describe('Endpoints > Course > Assignment', function () {
           testAssignmentId = assignment.id;
           // Create submissions to the test assignment
           return Promise.all([
-            studentAPI.course.createAssignmentTextSubmission({
+            studentAPI.course.assignment.createTextSubmission({
               courseId,
               assignmentId: testAssignmentId,
               text: 'test_sub_0',
               comment: 'student_comment',
             }),
-            studentAPI2.course.createAssignmentTextSubmission({
+            studentAPI2.course.assignment.createTextSubmission({
               courseId,
               assignmentId: testAssignmentId,
               text: 'test_sub_1',
@@ -707,7 +707,7 @@ describe('Endpoints > Course > Assignment', function () {
         })
         .then(() => {
           // List submissions
-          return api.course.listAssignmentSubmissions({
+          return api.course.assignment.listSubmissions({
             courseId,
             assignmentId: testAssignmentId,
           });
@@ -744,7 +744,7 @@ describe('Endpoints > Course > Assignment', function () {
           }
 
           // Clean up
-          return api.course.deleteAssignment({
+          return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
           }).catch((err) => {
@@ -759,14 +759,14 @@ describe('Endpoints > Course > Assignment', function () {
       testAssignment.published = true;
       testAssignment.submissionTypes = ['online_text_entry'];
       let testAssignmentId;
-      return api.course.createAssignment(testAssignment)
+      return api.course.assignment.create(testAssignment)
         .catch((err) => {
           throw new Error('Could not create an assignment so we could run our test on it. We ran into an error: "' + err.message + '"');
         })
         .then((assignment) => {
           testAssignmentId = assignment.id;
           // Create submissions to the test assignment
-          return studentAPI.course.createAssignmentTextSubmission({
+          return studentAPI.course.assignment.createTextSubmission({
             courseId,
             assignmentId: testAssignmentId,
             text: 'test_sub',
@@ -775,7 +775,7 @@ describe('Endpoints > Course > Assignment', function () {
         })
         .then(() => {
           // Get submission
-          return api.course.getAssignmentSubmission({
+          return api.course.assignment.getSubmission({
             courseId,
             assignmentId: testAssignmentId,
             studentId: studentInfo.canvasId,
@@ -798,7 +798,7 @@ describe('Endpoints > Course > Assignment', function () {
             throw new Error('The submission we got didn\'t match what we expected:\n' + comparison.description);
           }
           // Clean up
-          return api.course.deleteAssignment({
+          return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
           }).catch((err) => {
@@ -812,12 +812,12 @@ describe('Endpoints > Course > Assignment', function () {
       publishedTestAssignment.published = true;
       publishedTestAssignment.submissionTypes = ['online_text_entry'];
       let testAssignmentId;
-      return api.course.createAssignment(publishedTestAssignment)
+      return api.course.assignment.create(publishedTestAssignment)
         .catch((err) => {
           throw new Error('Could not create an assignment so we could run our test on it. We ran into an error: "' + err.message + '"');
         }).then((assignment) => {
           testAssignmentId = assignment.id;
-          return studentAPI.course.createAssignmentTextSubmission({
+          return studentAPI.course.assignment.createTextSubmission({
             courseId,
             assignmentId: testAssignmentId,
             text: 'test_sub',
@@ -852,7 +852,7 @@ describe('Endpoints > Course > Assignment', function () {
             throw new Error('Student comment wasn\'t posted. Should\'ve been "student_comment"');
           }
           // Clean up: delete the assignment
-          return api.course.deleteAssignment({
+          return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
           }).catch((err) => {
@@ -866,12 +866,12 @@ describe('Endpoints > Course > Assignment', function () {
       publishedTestAssignment.published = true;
       publishedTestAssignment.submissionTypes = ['online_url'];
       let testAssignmentId;
-      return api.course.createAssignment(publishedTestAssignment)
+      return api.course.assignment.create(publishedTestAssignment)
         .catch((err) => {
           throw new Error('Could not create an assignment so we could run our test on it. We ran into an error: "' + err.message + '"');
         }).then((assignment) => {
           testAssignmentId = assignment.id;
-          return studentAPI.course.createAssignmentURLSubmission({
+          return studentAPI.course.assignment.createURLSubmission({
             courseId,
             assignmentId: testAssignmentId,
             url: 'https://google.com',
@@ -906,7 +906,7 @@ describe('Endpoints > Course > Assignment', function () {
             throw new Error('Student comment wasn\'t posted. Should\'ve been "student_comment"');
           }
           // Clean up: delete the assignment
-          return api.course.deleteAssignment({
+          return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
           }).catch((err) => {
@@ -921,15 +921,15 @@ describe('Endpoints > Course > Assignment', function () {
       publishedTestAssignment.published = true;
       publishedTestAssignment.submissionTypes = ['online_upload'];
       let testAssignmentId;
-      return api.course.createAssignment(publishedTestAssignment)
+      return api.course.assignment.create(publishedTestAssignment)
         .catch((err) => {
           throw new Error('Could not create an assignment so we could run our test on it. We ran into an error: "' + err.message + '"');
         }).then((assignment) => {
           testAssignmentId = assignment.id;
-          return studentAPI.course.createAssignmentFileSubmission({
+          return studentAPI.course.assignment.createFileSubmission({
             courseId,
             assignmentId: testAssignmentId,
-            filenames: [path.join(__dirname, '../../helpers/testFileSub.txt')],
+            filenames: [path.join(__dirname, '../../../common/testFileSub.txt')],
             comment: 'student_comment',
           });
         }).then((sub) => {
@@ -970,7 +970,7 @@ describe('Endpoints > Course > Assignment', function () {
           }
 
           // Clean up: delete the assignment
-          return api.course.deleteAssignment({
+          return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
           }).catch((err) => {
@@ -979,5 +979,4 @@ describe('Endpoints > Course > Assignment', function () {
         });
     });
   });
-
 });

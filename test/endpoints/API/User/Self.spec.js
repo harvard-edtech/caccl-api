@@ -8,7 +8,7 @@ const courseId = environment.testCourseId;
 
 describe('Endpoints > User > Self', function () {
   it('Gets the current user', function () {
-    return studentAPI.user.self.getCurrentUser()
+    return studentAPI.user.self.getProfile()
       .then((currentUser) => {
         const comparison = utils.checkTemplate({
           id: studentInfo.canvasId,

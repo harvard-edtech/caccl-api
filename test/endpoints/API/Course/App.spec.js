@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const utils = require('../../helpers/utils.js');
-const api = require('../../helpers/genInstructorAPI.js')();
-const courseId = require('../../environment.js').testCourseId;
+const utils = require('../../../common/utils.js');
+const api = require('../../../common/genInstructorAPI.js')();
+const courseId = require('../../../environment.js').testCourseId;
 
 /*------------------------------------------------------------------------*/
 /*                                 Helpers                                */
@@ -11,7 +11,7 @@ const courseId = require('../../environment.js').testCourseId;
 
 const stamp = new Date().getTime();
 const xml = fs.readFileSync(
-  path.join(__dirname, '../../helpers/testAppXML.txt'),
+  path.join(__dirname, '../../../common/testAppXML.txt'),
   'utf-8'
 );
 
@@ -50,13 +50,13 @@ describe('Endpoints > Course > Apps', function () {
     // Add a couple apps to the list
     let createdApps;
     return Promise.all([
-      api.course.addApp(genTestApp(0)),
-      api.course.addApp(genTestApp(1)),
+      api.course.app.add(genTestApp(0)),
+      api.course.app.add(genTestApp(1)),
     ])
       .then((apps) => {
         createdApps = apps;
         // List the apps
-        return api.course.listApps({
+        return api.course.app.list({
           courseId,
         });
       })
@@ -74,7 +74,7 @@ describe('Endpoints > Course > Apps', function () {
         // Clean up: delete the apps
         return Promise.all(
           createdApps.map((app) => {
-            return api.course.removeApp({
+            return api.course.app.remove({
               courseId,
               appId: app.id,
             }).catch((err) => {
@@ -87,10 +87,10 @@ describe('Endpoints > Course > Apps', function () {
 
   it('Get an app', function () {
     // Add a test app so we can get it
-    return api.course.addApp(genTestApp())
+    return api.course.app.add(genTestApp())
       .then((app) => {
         // Get the app
-        return api.course.getApp({
+        return api.course.app.get({
           courseId,
           appId: app.id,
         });
@@ -102,7 +102,7 @@ describe('Endpoints > Course > Apps', function () {
           throw new Error('The app we found didn\'t match the one we added:\n' + comparison.description);
         }
         // Clean up: delete the app
-        return api.course.removeApp({
+        return api.course.app.remove({
           courseId,
           appId: app.id,
         }).catch((err) => {
@@ -113,10 +113,10 @@ describe('Endpoints > Course > Apps', function () {
 
   it('Adds an app', function () {
     // Add the app
-    return api.course.addApp(genTestApp())
+    return api.course.app.add(genTestApp())
       .then((app) => {
         // Get the app to make sure it's added
-        return api.course.getApp({
+        return api.course.app.get({
           courseId,
           appId: app.id,
         });
@@ -128,7 +128,7 @@ describe('Endpoints > Course > Apps', function () {
           throw new Error('The app we found didn\'t match the one we added:\n' + comparison.description);
         }
         // Clean up: delete the app
-        return api.course.removeApp({
+        return api.course.app.remove({
           courseId,
           appId: app.id,
         }).catch((err) => {
@@ -139,16 +139,16 @@ describe('Endpoints > Course > Apps', function () {
 
   it('Removes an app', function () {
     // Add a test app so we can delete it
-    return api.course.addApp(genTestApp())
+    return api.course.app.add(genTestApp())
       .then((app) => {
         // Delete the app
-        return api.course.removeApp({
+        return api.course.app.remove({
           courseId,
           appId: app.id,
         });
       }).then(() => {
         // List the apps
-        return api.course.listApps({
+        return api.course.app.list({
           courseId,
         });
       })

@@ -1,6 +1,5 @@
-const utils = require('../../helpers/utils.js');
-const api = require('../../helpers/genInstructorAPI.js')();
-const courseId = require('../../environment.js').testCourseId;
+const api = require('../../../common/genInstructorAPI.js')();
+const courseId = require('../../../environment.js').testCourseId;
 
 // TODO: write more rigorous tests. These tests are crippled by the fact that
 // we do not have the permissions to create sections
@@ -8,7 +7,7 @@ const courseId = require('../../environment.js').testCourseId;
 describe('Endpoints > Course > Sections', function () {
   it('Lists sections', function () {
     // List sections
-    return api.course.listSections({
+    return api.course.section.list({
       courseId,
     })
       .then((sections) => {
@@ -31,13 +30,13 @@ describe('Endpoints > Course > Sections', function () {
 
   it('Gets a section', function () {
     // List sections so we can get one
-    return api.course.listSections({
+    return api.course.section.list({
       courseId,
     })
       .then((sections) => {
         if (sections.length > 0) {
           // We have at least one section to get
-          return api.course.getSection({
+          return api.course.section.get({
             courseId,
             sectionId: sections[0].id,
           });

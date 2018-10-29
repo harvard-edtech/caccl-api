@@ -1,6 +1,6 @@
-const utils = require('../../helpers/utils.js');
-const api = require('../../helpers/genInstructorAPI.js')();
-const courseId = require('../../environment.js').testCourseId;
+const utils = require('../../../common/utils.js');
+const api = require('../../../common/genInstructorAPI.js')();
+const courseId = require('../../../environment.js').testCourseId;
 
 /*------------------------------------------------------------------------*/
 /*                                 Helpers                                */
@@ -35,13 +35,13 @@ describe('Endpoints > Course > AssignmentGroups', function () {
     // Create assignment groups so we can list them
     let createdAssignmentGroups;
     return Promise.all([
-      api.course.createAssignmentGroup(genTestAssignmentGroup(0)),
-      api.course.createAssignmentGroup(genTestAssignmentGroup(1)),
+      api.course.assignmentgroup.create(genTestAssignmentGroup(0)),
+      api.course.assignmentgroup.create(genTestAssignmentGroup(1)),
     ])
       .then((assignmentGroups) => {
         createdAssignmentGroups = assignmentGroups;
         // List assignment groups
-        return api.course.listAssignmentGroups({
+        return api.course.assignmentgroup.list({
           courseId,
         });
       })
@@ -58,7 +58,7 @@ describe('Endpoints > Course > AssignmentGroups', function () {
         // Clean up (delete all assignment groups)
         return Promise.all(
           createdAssignmentGroups.map((assignmentGroup) => {
-            return api.course.deleteAssignmentGroup({
+            return api.course.assignmentgroup.delete({
               courseId,
               assignmentGroupId: assignmentGroup.id,
             }).catch((err) => {
@@ -70,17 +70,17 @@ describe('Endpoints > Course > AssignmentGroups', function () {
   });
 
   it('Updates an assignment group', function () {
-    return api.course.createAssignmentGroup(genTestAssignmentGroup())
+    return api.course.assignmentgroup.create(genTestAssignmentGroup())
       .then((assignmentGroups) => {
         // Get the assignment group to make sure it's created
-        return api.course.getAssignmentGroup({
+        return api.course.assignmentgroup.get({
           courseId,
           assignmentGroupId: assignmentGroups.id,
         });
       })
       .then((assignmentGroup) => {
         // Update the assignment group
-        return api.course.updateAssignmentGroup({
+        return api.course.assignmentgroup.update({
           courseId,
           assignmentGroupId: assignmentGroup.id,
           name: 'updated-group-name-' + stamp,
@@ -89,7 +89,7 @@ describe('Endpoints > Course > AssignmentGroups', function () {
       })
       .then((updatedAssignmentGroup) => {
         // Get the assignment group
-        return api.course.getAssignmentGroup({
+        return api.course.assignmentgroup.get({
           courseId,
           assignmentGroupId: updatedAssignmentGroup.id,
         });
@@ -105,7 +105,7 @@ describe('Endpoints > Course > AssignmentGroups', function () {
         }
 
         // Clean up: delete the assignment group
-        return api.course.deleteAssignmentGroup({
+        return api.course.assignmentgroup.delete({
           courseId,
           assignmentGroupId: updatedAssignmentGroup.id,
         });
@@ -113,17 +113,17 @@ describe('Endpoints > Course > AssignmentGroups', function () {
   });
 
   it('Creates an assignment group', function () {
-    return api.course.createAssignmentGroup(genTestAssignmentGroup())
+    return api.course.assignmentgroup.create(genTestAssignmentGroup())
       .then((assignmentGroup) => {
         // Get the assignment group to make sure it's created
-        return api.course.getAssignmentGroup({
+        return api.course.assignmentgroup.get({
           courseId,
           assignmentGroupId: assignmentGroup.id,
         });
       })
       .then((assignmentGroup) => {
         // Delete the assignment group
-        return api.course.deleteAssignmentGroup({
+        return api.course.assignmentgroup.delete({
           courseId,
           assignmentGroupId: assignmentGroup.id,
         });
@@ -131,17 +131,17 @@ describe('Endpoints > Course > AssignmentGroups', function () {
   });
 
   it('Deletes an assignment group', function () {
-    return api.course.createAssignmentGroup(genTestAssignmentGroup())
+    return api.course.assignmentgroup.create(genTestAssignmentGroup())
       .then((assignmentGroup) => {
         // Delete the assignment group
-        return api.course.deleteAssignmentGroup({
+        return api.course.assignmentgroup.delete({
           courseId,
           assignmentGroupId: assignmentGroup.id,
         });
       })
       .then(() => {
         // List the assignment groups
-        return api.course.listAssignmentGroups({
+        return api.course.assignmentgroup.list({
           courseId,
         });
       })
