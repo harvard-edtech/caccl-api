@@ -9,6 +9,13 @@ class Quiz extends EndpointCategory {
 }
 
 /*------------------------------------------------------------------------*/
+/*                           Table of Contents:                           */
+/*                           - Quizzes                                    */
+/*                           - Quiz Questions                             */
+/*                           - Quiz Submissions                           */
+/*------------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------------*/
 /*                             Quiz Endpoints                             */
 /*------------------------------------------------------------------------*/
 
@@ -327,6 +334,21 @@ Quiz.delete = (config) => {
 /*------------------------------------------------------------------------*/
 
 /**
+ * Lists the questions in a specific quiz in a course
+ * @method listQuestions
+ * @param {number} courseId - Canvas course Id to query
+ * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
+ * @return {Promise.<Object[]>} list of Canvas QuizSubmissions {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
+ */
+Quiz.listQuestions = (config) => {
+  // @action: get the list of questions in a specific quiz in a course
+  return config.visitEndpoint({
+    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/questions`,
+    method: 'GET',
+  });
+};
+
+/**
  * Creates a new multiple choice question to a quiz in a course
  * @method createMultipleChoiceQuestion
  * @param {number} courseId - Canvas course Id to query
@@ -412,6 +434,84 @@ Quiz.getSubmission = (config) => {
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions/${config.options.submissionId}`,
     method: 'GET',
+  })
+    .then((response) => {
+      return Promise.resolve(response.quiz_submissions[0]);
+    });
+};
+
+/*------------------------------------------------------------------------*/
+/*                         Quiz Grading Endpoints                         */
+/*------------------------------------------------------------------------*/
+
+/**
+ * Updates the question grades for a specific submission to a quiz in a course
+ * @method updateQuestionGrades
+ * @param {number} courseId - Canvas course Id to query
+ * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
+ * @param {number} submissionId - Canvas submission Id for a quiz
+ * @param {number} [fudgePoints=current value] - The amount of positive/negative
+ *   fudge points to apply to this submission
+ * @param {object} [questions] – A map questionId => { score, comment } of the
+ *   question score/comment updates
+ * @param {number} [attempt=most recent] – The attempt to update grades for.
+ *   If excluded, we pull the user's submission to get the attempt number
+ * @return {Promise.<Object[]>} QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
+ */
+Quiz.updateQuestionGrades = (config) => {
+  // @action: update the question grades for a specific submission to a quiz in a course
+
+  // Get the current submission (so we can identify the attempt)
+  let getAttempt;
+  if (config.options.attempt !== undefined) {
+    // Attempt was included. Just use that number
+    getAttempt = Promise.resolve(config.options.attempt);
+  } else {
+    // Attempt was not included. We have to look up their most recent attempt
+    getAttempt = config.api.course.quiz.getSubmission({
+      courseId: config.options.courseId,
+      quizId: config.options.quizId,
+      submissionId: config.options.submissionId,
+    })
+      .then((submission) => {
+        return Promise.resolve(submission.attempt);
+      });
+  }
+
+  // Update question grades
+  return getAttempt.then((attempt) => {
+    // Create params object
+    const params = {
+      'quiz_submissions[][attempt]': attempt,
+      'quiz_submissions[][fudge_points]':
+        utils.includeIfNumber(config.options.fudgePoints),
+    };
+    // Add question values
+    Object.keys(config.options.questions || {}).forEach((questionId) => {
+      const { score, comment } = config.options.questions[questionId];
+      if (score !== undefined) {
+        params[`quiz_submissions[][questions][${questionId}][score]`] = score;
+      }
+      if (comment !== undefined) {
+        params[`quiz_submissions[][questions][${questionId}][comment]`] = (
+          comment
+        );
+      }
+    });
+
+    return config.visitEndpoint({
+      params,
+      path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions/${config.options.submissionId}`,
+      method: 'PUT',
+    }).then((response) => {
+      const submission = response.quiz_submissions[0];
+      return config.uncache([
+        // Uncache the list of submissions
+        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions`,
+        // Uncache the submission
+        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions/${config.options.submissionId}`,
+      ], submission);
+    });
   });
 };
 
