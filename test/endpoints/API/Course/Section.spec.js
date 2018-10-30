@@ -22,7 +22,7 @@ describe('Endpoints > Course > Sections', function () {
             || !sections[i].course_id
           ) {
             // Didn't have the fields we expected
-            throw new Error('One of the sections returned wasn\'t of the expected form. Invalid section: ' + JSON.stringify(sections[i]) + ' should\'ve had a course_id, id, and name');
+            throw new Error(`One of the sections returned wasn't of the expected form. Invalid section: ${JSON.stringify(sections[i])} should've had a course_id, id, and name`);
           }
         }
       });
@@ -52,7 +52,7 @@ describe('Endpoints > Course > Sections', function () {
           || !section.course_id
         ) {
           // Didn't have the fields we expected
-          throw new Error('The section returned wasn\'t of the expected form: ' + JSON.stringify(section) + ' should\'ve had a course_id, id, and name');
+          throw new Error(`The section returned wasn't of the expected form: ${JSON.stringify(section)} should've had a course_id, id, and name`);
         }
       });
   });

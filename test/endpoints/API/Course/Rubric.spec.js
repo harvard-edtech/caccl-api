@@ -12,7 +12,7 @@ const stamp = new Date().getTime();
 function genTestAssignment(index = 0) {
   return {
     courseId,
-    name: 'temporary_test_' + index + '_' + stamp,
+    name: `temporary_test_${index}_${stamp}`,
     pointsPossible: (index + 1) * 10,
     description: 'this is a test assignment that was auto-generated and can be deleted if it is not deleted automatically',
     published: false,
@@ -24,7 +24,7 @@ function genTestRubric(assignmentId, index = 0) {
   return {
     courseId,
     assignmentId,
-    title: 'test_rubric_' + index + '_' + stamp,
+    title: `test_rubric_${index}_${stamp}`,
     rubricItems: [
       {
         description: 'item1',
@@ -50,7 +50,7 @@ function genTestRubricTemplate(index = 0) {
   return {
     context_type: 'Course',
     points_possible: 100,
-    title: 'test_rubric_' + index + '_' + stamp,
+    title: `test_rubric_${index}_${stamp}`,
     reusable: false,
     public: false,
     read_only: false,
@@ -97,7 +97,7 @@ describe('Endpoints > Course > Rubrics', function () {
         ], rubrics);
 
         if (notFound) {
-          throw new Error('We could not find the following quizzes: ' + notFound);
+          throw new Error(`We could not find the following quizzes: ${notFound}`);
         }
         // Clean up: delete test assignments
         return Promise.all(assignmentsToDelete.map((assignment) => {
@@ -105,7 +105,7 @@ describe('Endpoints > Course > Rubrics', function () {
             courseId,
             assignmentId: assignment.id,
           }).catch((err) => {
-            throw new Error('We were able to finish the test but coulnd\'t delete a test assignment (' + assignment.name + ') due to an error: ' + err.message);
+            throw new Error(`We were able to finish the test but coulnd't delete a test assignment (${assignment.name}) due to an error: ${err.message}`);
           });
         }));
       });
@@ -137,14 +137,14 @@ describe('Endpoints > Course > Rubrics', function () {
         );
 
         if (!comparison.isMatch) {
-          throw new Error('The rubric we got didn\'t match what we expected:\n' + comparison.description);
+          throw new Error(`The rubric we got didn't match what we expected:\n${comparison.description}`);
         }
         // Clean up: delete the test assignment
         return api.course.assignment.delete({
           courseId,
           assignmentId: testAssignmentId,
         }).catch((err) => {
-          throw new Error('Successfully completed the test but could not clean up (delete) the assignment afterward. We ran into this error: ' + err.message);
+          throw new Error(`Successfully completed the test but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
         });
       });
   });
@@ -175,14 +175,14 @@ describe('Endpoints > Course > Rubrics', function () {
         );
 
         if (!comparison.isMatch) {
-          throw new Error('The rubric we created didn\'t match what we expected:\n' + comparison.description);
+          throw new Error(`The rubric we created didn't match what we expected:\n${comparison.description}`);
         }
         // Clean up: delete the test assignment
         return api.course.assignment.delete({
           courseId,
           assignmentId: testAssignmentId,
         }).catch((err) => {
-          throw new Error('Successfully completed the test but could not clean up (delete) the assignment afterward. We ran into this error: ' + err.message);
+          throw new Error(`Successfully completed the test but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
         });
       });
   });

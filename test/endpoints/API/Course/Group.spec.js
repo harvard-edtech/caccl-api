@@ -17,8 +17,8 @@ const testGroupMemberTemplates = (
     .map((s) => {
       return {
         id: s.canvasId,
-        name: s.first + ' ' + s.last,
-        sortable_name: s.last + ', ' + s.first,
+        name: `${s.first} ${s.last}`,
+        sortable_name: `${s.last}, ${s.first}`,
         login_id: s.sis_user_id,
         sis_user_id: s.sis_user_id,
       };
@@ -31,7 +31,7 @@ const stamp = new Date().getTime();
 function genTestGroupSet(index = 0) {
   return {
     courseId,
-    name: 'test_group_set_' + index + '_' + stamp,
+    name: `test_group_set_${index}_${stamp}`,
   };
 }
 
@@ -40,7 +40,7 @@ function genTestGroupInGroupSet(groupSetId, index = 0) {
   return {
     courseId,
     groupSetId,
-    name: 'test_group_' + index + '_' + stamp,
+    name: `test_group_${index}_${stamp}`,
     description: 'this test group can be deleted',
     isPublic: false,
   };
@@ -49,7 +49,7 @@ function genTestGroupInGroupSet(groupSetId, index = 0) {
 // Generate the template of a test group in a group set's canvas response
 function genTestGroupInGroupSetTemplate(index = 0) {
   return {
-    name: 'test_group_' + index + '_' + stamp,
+    name: `test_group_${index}_${stamp}`,
     description: 'this test group can be deleted',
   };
 }
@@ -84,7 +84,7 @@ describe('Endpoints > Course > Groups', function () {
           );
 
           if (!comparison.isMatch) {
-            throw new Error('The group we got didn\'t match what we expected:\n' + comparison.description);
+            throw new Error(`The group we got didn't match what we expected:\n${comparison.description}`);
           }
 
           // Clean up: delete the group set
@@ -92,7 +92,7 @@ describe('Endpoints > Course > Groups', function () {
             courseId,
             groupSetId: testGroupSetId,
           }).catch((err) => {
-            throw new Error('We finished the test successfully but couldn\'t delete the test group set due to an error: ' + err.message);
+            throw new Error(`We finished the test successfully but couldn't delete the test group set due to an error: ${err.message}`);
           });
         });
     });
@@ -133,7 +133,7 @@ describe('Endpoints > Course > Groups', function () {
           );
 
           if (notFound) {
-            throw new Error('We could not find the following members:' + notFound);
+            throw new Error(`We could not find the following members:${notFound}`);
           }
 
           // Clean up: delete the group set
@@ -141,7 +141,7 @@ describe('Endpoints > Course > Groups', function () {
             courseId,
             groupSetId: testGroupSetId,
           }).catch((err) => {
-            throw new Error('We finished the test successfully but couldn\'t delete the test group set due to an error: ' + err.message);
+            throw new Error(`We finished the test successfully but couldn't delete the test group set due to an error: ${err.message}`);
           });
         });
     });
@@ -180,7 +180,7 @@ describe('Endpoints > Course > Groups', function () {
           );
 
           if (notFound) {
-            throw new Error('We could not find the following members:' + notFound);
+            throw new Error(`We could not find the following members:\n${notFound}`);
           }
 
           // Clean up: delete the group set
@@ -188,7 +188,7 @@ describe('Endpoints > Course > Groups', function () {
             courseId,
             groupSetId: testGroupSetId,
           }).catch((err) => {
-            throw new Error('We finished the test successfully but couldn\'t delete the test group set due to an error: ' + err.message);
+            throw new Error(`We finished the test successfully but couldn't delete the test group set due to an error: ${err.message}`);
           });
         });
     });

@@ -12,7 +12,7 @@ const stamp = new Date().getTime();
 function genTestGradebookColumn(index = 0) {
   return {
     courseId,
-    title: 'temporary_test_' + index + '_' + stamp,
+    title: `temporary_test_${index}_${stamp}`,
     hidden: true,
   };
 }
@@ -20,7 +20,7 @@ function genTestGradebookColumn(index = 0) {
 // Generate the template of a test gradebook column
 function genTestGradebookColumnTemplate(index = 0) {
   return {
-    title: 'temporary_test_' + index + '_' + stamp,
+    title: `temporary_test_${index}_${stamp}`,
     hidden: true,
   };
 }
@@ -53,7 +53,7 @@ describe('Endpoints > Course > Gradebook Columns', function () {
         ], columns);
 
         if (notFound) {
-          throw new Error('We could not find the following gradebook columns: ' + notFound);
+          throw new Error(`We could not find the following gradebook columns: ${notFound}`);
         }
         // Clean up: delete the gradebook columns
         return Promise.all(
@@ -62,7 +62,7 @@ describe('Endpoints > Course > Gradebook Columns', function () {
               courseId,
               columnId: column.id,
             }).catch((err) => {
-              throw new Error('We finished the test successfully but couldn\'t clean up (delete gradebook column(s)). We ran into this error: ' + err.message);
+              throw new Error(`We finished the test successfully but couldn't clean up (delete gradebook column(s)). We ran into this error: ${err.message}`);
             });
           })
         );
@@ -79,7 +79,7 @@ describe('Endpoints > Course > Gradebook Columns', function () {
         return api.course.gradebookcolumn.update({
           courseId,
           columnId: testColumnId,
-          title: 'updated_title_' + stamp,
+          title: `updated_title_${stamp}`,
           hidden: false,
         });
       })
@@ -94,14 +94,14 @@ describe('Endpoints > Course > Gradebook Columns', function () {
         const comparison = utils.checkTemplate(
           {
             id: testColumnId,
-            title: 'updated_title_' + stamp,
+            title: `updated_title_${stamp}`,
             hidden: false,
           },
           updatedColumn
         );
 
         if (!comparison.isMatch) {
-          throw new Error('The column didn\'t match the form we expected (perhaps the updates weren\'t applied):\n' + comparison.description);
+          throw new Error(`The column didn't match the form we expected (perhaps the updates weren't applied):\n${comparison.description}`);
         }
 
         // Clean up: delete the gradebook column
@@ -109,7 +109,7 @@ describe('Endpoints > Course > Gradebook Columns', function () {
           courseId,
           columnId: testColumnId,
         }).catch((err) => {
-          throw new Error('We finished the test successfully but couldn\'t clean up (delete gradebook column(s)). We ran into this error: ' + err.message);
+          throw new Error(`We finished the test successfully but couldn't clean up (delete gradebook column(s)). We ran into this error: ${err.message}`);
         });
       });
   });
@@ -134,7 +134,7 @@ describe('Endpoints > Course > Gradebook Columns', function () {
         );
 
         if (!comparison.isMatch) {
-          throw new Error('The column didn\'t match the form we expected (perhaps it wasn\'t created properly):\n' + comparison.description);
+          throw new Error(`The column didn't match the form we expected (perhaps it wasn't created properly):\n${comparison.description}`);
         }
 
         // Clean up: delete the gradebook column
@@ -142,7 +142,7 @@ describe('Endpoints > Course > Gradebook Columns', function () {
           courseId,
           columnId: testColumnId,
         }).catch((err) => {
-          throw new Error('We finished the test successfully but couldn\'t clean up (delete gradebook column(s)). We ran into this error: ' + err.message);
+          throw new Error(`We finished the test successfully but couldn't clean up (delete gradebook column(s)). We ran into this error: ${err.message}`);
         });
       });
   });

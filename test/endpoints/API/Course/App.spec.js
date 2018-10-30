@@ -20,9 +20,9 @@ function genTestApp(index = 0) {
   return {
     courseId,
     xml,
-    name: 'test-app-' + index + '-' + stamp,
-    key: 'key-' + stamp,
-    secret: 'secret-' + stamp,
+    name: `test-app-${index}-${stamp}`,
+    key: `key-${stamp}`,
+    secret: `secret-${stamp}`,
     description: 'This is a test app and will be deleted automatically. If it\'s not deleted, you are welcome to delete it.',
   };
 }
@@ -32,8 +32,8 @@ function genTestAppTemplate(index = 0) {
   return {
     domain: null,
     url: 'https://example.com/not/a/real/url',
-    consumer_key: 'key-' + stamp,
-    name: 'test-app-' + index + '-' + stamp,
+    consumer_key: `key-${stamp}`,
+    name: `test-app-${index}-${stamp}`,
     description: 'This is a test app and will be deleted automatically. If it\'s not deleted, you are welcome to delete it.',
     privacy_level: 'public',
     custom_fields: {},
@@ -68,7 +68,7 @@ describe('Endpoints > Course > Apps', function () {
         ], apps);
 
         if (notFound) {
-          throw new Error('We could not find the following apps:' + notFound);
+          throw new Error(`We could not find the following apps:${notFound}`);
         }
 
         // Clean up: delete the apps
@@ -78,7 +78,7 @@ describe('Endpoints > Course > Apps', function () {
               courseId,
               appId: app.id,
             }).catch((err) => {
-              throw new Error('We completed the test successfully but ran into an error while cleaning up (deleting the test app(s)): ' + err.message);
+              throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test app(s)): ${err.message}`);
             });
           })
         );
@@ -99,14 +99,14 @@ describe('Endpoints > Course > Apps', function () {
         // Verify the app information
         const comparison = utils.checkTemplate(genTestAppTemplate(), app);
         if (!comparison.isMatch) {
-          throw new Error('The app we found didn\'t match the one we added:\n' + comparison.description);
+          throw new Error(`The app we found didn't match the one we added:\n${comparison.description}`);
         }
         // Clean up: delete the app
         return api.course.app.remove({
           courseId,
           appId: app.id,
         }).catch((err) => {
-          throw new Error('We completed the test successfully but ran into an error while cleaning up (deleting the test app(s)): ' + err.message);
+          throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test app(s)): ${err.message}`);
         });
       });
   });
@@ -125,14 +125,14 @@ describe('Endpoints > Course > Apps', function () {
         // Verify the app information
         const comparison = utils.checkTemplate(genTestAppTemplate(), app);
         if (!comparison.isMatch) {
-          throw new Error('The app we found didn\'t match the one we added:\n' + comparison.description);
+          throw new Error(`The app we found didn't match the one we added:\n${comparison.description}`);
         }
         // Clean up: delete the app
         return api.course.app.remove({
           courseId,
           appId: app.id,
         }).catch((err) => {
-          throw new Error('We completed the test successfully but ran into an error while cleaning up (deleting the test app(s)): ' + err.message);
+          throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test app(s)): ${err.message}`);
         });
       });
   });

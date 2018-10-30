@@ -13,7 +13,7 @@ const stamp = new Date().getTime();
 function genTestAssignmentGroup(index = 0) {
   return {
     courseId,
-    name: 'test-assignment-group-' + index + '-' + stamp,
+    name: `test-assignment-group-${index}-${stamp}`,
     weight: (index + 1) * 10,
   };
 }
@@ -21,7 +21,7 @@ function genTestAssignmentGroup(index = 0) {
 // Generate the template of a test assignment group's canvas response
 function genTestAssignmentGroupTemplate(index = 0) {
   return {
-    name: 'test-assignment-group-' + index + '-' + stamp,
+    name: `test-assignment-group-${index}-${stamp}`,
     group_weight: (index + 1) * 10,
   };
 }
@@ -53,7 +53,7 @@ describe('Endpoints > Course > AssignmentGroups', function () {
         ], assignmentGroups);
 
         if (notFound) {
-          throw new Error('We could not find the following assignment groups:' + notFound);
+          throw new Error(`We could not find the following assignment groups:${notFound}`);
         }
         // Clean up (delete all assignment groups)
         return Promise.all(
@@ -62,7 +62,7 @@ describe('Endpoints > Course > AssignmentGroups', function () {
               courseId,
               assignmentGroupId: assignmentGroup.id,
             }).catch((err) => {
-              throw new Error('We completed the test successfully but we ran into an error while cleaning up: ' + err.message);
+              throw new Error(`We completed the test successfully but we ran into an error while cleaning up: ${err.message}`);
             });
           })
         );
@@ -83,7 +83,7 @@ describe('Endpoints > Course > AssignmentGroups', function () {
         return api.course.assignmentgroup.update({
           courseId,
           assignmentGroupId: assignmentGroup.id,
-          name: 'updated-group-name-' + stamp,
+          name: `updated-group-name-${stamp}`,
           weight: 2,
         });
       })
@@ -97,11 +97,11 @@ describe('Endpoints > Course > AssignmentGroups', function () {
       .then((updatedAssignmentGroup) => {
         // Check to make sure the assignment group is valid
         const comparison = utils.checkTemplate({
-          name: 'updated-group-name-' + stamp,
+          name: `updated-group-name-${stamp}`,
           group_weight: 2,
         }, updatedAssignmentGroup);
         if (!comparison.isMatch) {
-          throw new Error('The updated assignment group didn\'t match what we expected:\n' + comparison.description);
+          throw new Error(`The updated assignment group didn't match what we expected:\n${comparison.description}`);
         }
 
         // Clean up: delete the assignment group

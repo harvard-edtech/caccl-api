@@ -57,7 +57,7 @@ module.exports = {
         isMatch = false;
       }
       const mark = (thisPropMatches ? '\u2713' : '\u00D7'); // check or x
-      description += '> ' + mark + ' ' + key + ': ' + JSON.stringify(template[key]) + ' [' + (typeof template[key]) + '] ' + (thisPropMatches ? '=' : '≠') + ' ' + JSON.stringify(value[key]) + ' [' + typeof value[key] + ']\n';
+      description += `> ${mark} ${key}: ${JSON.stringify(template[key])} [${typeof template[key]}] ${thisPropMatches ? '=' : '≠'} ${JSON.stringify(value[key])} [${typeof value[key]}]\n`;
     }
     return {
       isMatch,
@@ -108,12 +108,12 @@ module.exports = {
     // List what we couldn't find
     let message = '';
     notFound.forEach((n) => {
-      message += '\n' + JSON.stringify(n);
+      message += `\n${JSON.stringify(n)}`;
     });
     // Print the list we're searching through
     message += '\n\nWe were searching through this list:';
     list.forEach((item) => {
-      message += '\n' + JSON.stringify(item);
+      message += `\n${JSON.stringify(item)}`;
     });
     return message;
   },

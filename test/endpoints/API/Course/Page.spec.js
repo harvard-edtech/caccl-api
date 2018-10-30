@@ -12,7 +12,7 @@ const stamp = new Date().getTime();
 function genTestPage(index = 0) {
   return {
     courseId,
-    title: 'test-page-' + index + '-' + stamp,
+    title: `test-page-${index}-${stamp}`,
     body: 'This is a test page. If it\'s not automatically deleted, you are welcome to delete this page.',
     published: false,
   };
@@ -21,7 +21,7 @@ function genTestPage(index = 0) {
 // Generate the template of a test page
 function genTestPageTemplate(index = 0) {
   return {
-    title: 'test-page-' + index + '-' + stamp,
+    title: `test-page-${index}-${stamp}`,
     published: false,
   };
 }
@@ -52,7 +52,7 @@ describe('Endpoints > Course > Pages', function () {
         ], pagesInCourse);
 
         if (notFound) {
-          throw new Error('We could not find the following pages:' + notFound);
+          throw new Error(`We could not find the following pages:${notFound}`);
         }
 
         // Clean up (delete the test pages)
@@ -62,7 +62,7 @@ describe('Endpoints > Course > Pages', function () {
               courseId,
               pageURL: page.url,
             }).catch((err) => {
-              throw new Error('We completed the test successfully but couldn\'t clean up the test page(s) properly. We ran into this error: ' + err.message);
+              throw new Error(`We completed the test successfully but couldn't clean up the test page(s) properly. We ran into this error: ${err.message}`);
             });
           })
         );
@@ -84,14 +84,14 @@ describe('Endpoints > Course > Pages', function () {
         // Check if page matches
         const comparison = utils.checkTemplate(genTestPageTemplate(), page);
         if (!comparison.isMatch) {
-          throw new Error('The page we got didn\'t match the one we expected:\n' + comparison.description);
+          throw new Error(`The page we got didn\'t match the one we expected:\n${comparison.description}`);
         }
         // Clean up (delete the test page)
         return api.course.page.delete({
           courseId,
           pageURL: testPageURL,
         }).catch((err) => {
-          throw new Error('We completed the test successfully but couldn\'t clean up the test page(s) properly. We ran into this error: ' + err.message);
+          throw new Error(`We completed the test successfully but couldn't clean up the test page(s) properly. We ran into this error: ${err.message}`);
         });
       });
   });
@@ -105,8 +105,8 @@ describe('Endpoints > Course > Pages', function () {
         return api.course.page.update({
           courseId,
           pageURL: page.url,
-          title: 'updated_title_' + stamp,
-          body: 'updated_body_' + stamp,
+          title: `updated_title_${stamp}`,
+          body: `updated_body_${stamp}`,
           published: true,
         });
       }).then((updatedPage) => {
@@ -120,21 +120,21 @@ describe('Endpoints > Course > Pages', function () {
         // Check if page matches
         const comparison = utils.checkTemplate(
           {
-            title: 'updated_title_' + stamp,
-            body: 'updated_body_' + stamp,
+            title: `updated_title_${stamp}`,
+            body: `updated_body_${stamp}`,
             published: true,
           },
           updatedPage
         );
         if (!comparison.isMatch) {
-          throw new Error('The page we got didn\'t match the one we expected (perhaps the updates weren\'t made):\n' + comparison.description);
+          throw new Error(`The page we got didn\'t match the one we expected (perhaps the updates weren\'t made):\n${comparison.description}`);
         }
         // Clean up (delete the test page)
         return api.course.page.delete({
           courseId,
           pageURL: testPageURL,
         }).catch((err) => {
-          throw new Error('We completed the test successfully but couldn\'t clean up the test page(s) properly. We ran into this error: ' + err.message);
+          throw new Error(`We completed the test successfully but couldn\'t clean up the test page(s) properly. We ran into this error: ${err.message}`);
         });
       });
   });
@@ -152,14 +152,14 @@ describe('Endpoints > Course > Pages', function () {
         // Check if page matches
         const comparison = utils.checkTemplate(genTestPageTemplate(), page);
         if (!comparison.isMatch) {
-          throw new Error('The page we got didn\'t match the one we expected (perhaps the page wasn\'t created):\n' + comparison.description);
+          throw new Error(`The page we got didn't match the one we expected (perhaps the page wasn't created):\n${comparison.description}`);
         }
         // Clean up (delete the test page)
         return api.course.page.delete({
           courseId,
           pageURL: page.url,
         }).catch((err) => {
-          throw new Error('We completed the test successfully but couldn\'t clean up the test page(s) properly. We ran into this error: ' + err.message);
+          throw new Error(`We completed the test successfully but couldn't clean up the test page(s) properly. We ran into this error: ${err.message}`);
         });
       });
   });

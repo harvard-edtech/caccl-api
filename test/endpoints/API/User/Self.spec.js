@@ -12,12 +12,12 @@ describe('Endpoints > User > Self', function () {
       .then((currentUser) => {
         const comparison = utils.checkTemplate({
           id: studentInfo.canvasId,
-          name: studentInfo.first + ' ' + studentInfo.last,
-          sortable_name: studentInfo.last + ', ' + studentInfo.first,
+          name: `${studentInfo.first} ${studentInfo.last}`,
+          sortable_name: `${studentInfo.last}, ${studentInfo.first}`,
         }, currentUser);
 
         if (!comparison.isMatch) {
-          throw new Error('The current user info we got wasn\'t what we expected:\n' + comparison.description);
+          throw new Error(`The current user info we got wasn't what we expected:\n${comparison.description}`);
         }
       });
   });
