@@ -1,4 +1,41 @@
+/*
+  NOTE: a "template" is an incomplete object with defining traits of an object
+  that we use to make sure an object "matches" in a more flexible way. We only
+  compare the properties/values that are defined in the template.
+
+  See this example:
+
+    Comparing assignments:
+    template = { name: 'Test Assignment', points_possible = 10 }
+    assignmentObject = {
+      id: 57832,
+      name: 'Test Assignment',
+      points_possible: 10,
+      created_at: '2018-10-30T18:05:43.811Z',
+      updated_at: '2018-10-30T18:05:43.811Z',
+      ...
+    }
+
+    Since we can't precisely predict created_at, updated_at, id, and other
+    properties, we only want to check the properties defined in the template.
+
+    For instance:
+    utils.checkTemplate(template, assignmentObject) compares name and
+    points_possible only.
+*/
+
 module.exports = {
+  /**
+   * Checks whether a template matches a value (good for checking if a template
+   *   matches a specific value)
+   * @memberof module: endpoints/common/utils
+   * @param {object} template - object template (see docs in
+   *   /endpoints/common/utils)
+   * @param {object} value - the object to compare to the template
+   * @return {object} { isMatch, description } where isMatch is true if the
+   *   template matches the value and description is a string description of
+   *   why the template didn't match (if isMatch is false)
+   */
   checkTemplate: (template, value) => {
     if (!value) {
       return {
@@ -19,7 +56,8 @@ module.exports = {
         // Assignment doesn't match
         isMatch = false;
       }
-      description += '> ' + (thisPropMatches ? '\u2713' : '\u00D7') + ' ' + key + ': ' + JSON.stringify(template[key]) + ' [' + (typeof template[key]) + '] ' + (thisPropMatches ? '=' : '≠') + ' ' + JSON.stringify(value[key]) + ' [' + typeof value[key] + ']\n';
+      const mark = (thisPropMatches ? '\u2713' : '\u00D7'); // check or x
+      description += '> ' + mark + ' ' + key + ': ' + JSON.stringify(template[key]) + ' [' + (typeof template[key]) + '] ' + (thisPropMatches ? '=' : '≠') + ' ' + JSON.stringify(value[key]) + ' [' + typeof value[key] + ']\n';
     }
     return {
       isMatch,
@@ -27,6 +65,16 @@ module.exports = {
     };
   },
 
+  /**
+   * Checks if a template matches any values in the list (good for checking if
+   *   a template is found in a list)
+   * @memberof module: endpoints/common/utils
+   * @param {object} template - object template (see docs in
+   *   /endpoints/common/utils)
+   * @param {array} list - the list of objects to compare to the template
+   * @return {boolean} true if the template matched at least one value in the
+   *   list
+   */
   templateFound: (template, list) => {
     for (let i = 0; i < list.length; i++) {
       if (module.exports.checkTemplate(template, list[i]).isMatch) {
@@ -36,8 +84,17 @@ module.exports = {
     return false;
   },
 
-  // Returns stringified list of templates from the given list that dont match
-  // any in the list. If none dont match, returns null
+  /**
+   * Generates a string explaining which templates could not be found in the
+   *   list (good for checking if multiple templates exist in a list)
+   * @memberof module: endpoints/common/utils
+   * @param {object} templates - object templates (see docs in
+   *   /endpoints/common/utils)
+   * @param {object} list - the list of objects to compare to the template
+   * @return {string|null} null if all templates found in the list, string
+   *   describing the templates that were missing from the list if at least one
+   *   template could not be found
+   */
   missingTemplatesToString: (templates, list) => {
     const notFound = [];
     for (let i = 0; i < templates.length; i++) {
@@ -61,6 +118,12 @@ module.exports = {
     return message;
   },
 
+  /**
+   * Waits a given number of seconds
+   * @memberof module: endpoints/common/utils
+   * @param {float} seconds - the number of seconds to wait
+   * @return {Promise} promise that resolves when the wait is complete
+   */
   wait: (seconds) => {
     return new Promise((resolve) => {
       setTimeout(resolve, seconds * 1000);
