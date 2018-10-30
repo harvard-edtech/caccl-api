@@ -5,7 +5,7 @@
  */
 
 // Highest errors:
-// > SCE20
+// > SCE21
 // > CANV14 (exclude 404, 500)
 
 module.exports = {
@@ -67,4 +67,8 @@ module.exports = {
   noAppWithMetadataFound: 'SCE18',
   metadataMalformed: 'SCE19',
   noAppsToUpdateMetadata: 'SCE20',
+
+  // course.quiz
+  // > listQuestionGrades
+  quizReportNoRows: 'SCE21',
 };
