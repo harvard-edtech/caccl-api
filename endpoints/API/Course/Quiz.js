@@ -1,6 +1,12 @@
+const axios = require('axios');
+const parseCSV = require('csv-parse/lib/sync');
+
+const CACCLError = require('../../../../caccl-error/index.js'); // TODO: use actual library
+const errorCodes = require('../../../errorCodes.js');
 const EndpointCategory = require('../../../classes/EndpointCategory.js');
 const prefix = require('../../common/prefix.js');
 const utils = require('../../common/utils.js');
+const waitForCompletion = require('../../common/waitForCompletion.js');
 
 class Quiz extends EndpointCategory {
   constructor(config) {
@@ -355,8 +361,9 @@ Quiz.listQuestions = (config) => {
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
  * @param {string} name - Name of the question
  * @param {string} text - The text of the question, as displayed to the quiz
+ *   taker
  * @param {number} pointsPossible - Maximum number of points
- * @param {array} answers - Array of answers: [{ text, correct, comment }]
+ * @param {array} answers - Array of answers: [{ text, isCorrect, comment }]
  * @param {number} [position=last] - Optional. Position of the question with
  *   respect to the other questions in the quiz
  * @param {string} [correctComment=null] - Comment to display if the
@@ -388,7 +395,7 @@ Quiz.createMultipleChoiceQuestion = (config) => {
   config.options.answers.forEach((answer, i) => {
     const answerPrefix = `question[answers][${i}]`;
     params[`${answerPrefix}[answer_precision]`] = 10;
-    params[`${answerPrefix}[answer_weight]`] = (answer.correct ? 100 : 0);
+    params[`${answerPrefix}[answer_weight]`] = (answer.isCorrect ? 100 : 0);
     params[`${answerPrefix}[numerical_answer_type]`] = 'exact_answer';
     params[`${answerPrefix}[answer_text]`] = answer.text;
     params[`${answerPrefix}[answer_comment]`] = answer.comment;
@@ -397,7 +404,15 @@ Quiz.createMultipleChoiceQuestion = (config) => {
     params,
     path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/questions`,
     method: 'POST',
-  });
+  })
+    .then((response) => {
+      config.uncache([
+        // Uncache quiz questions
+        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/questions`,
+        // Uncache this specific question
+        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/questions/${response.id}`,
+      ], response);
+    });
 };
 
 /*------------------------------------------------------------------------*/
@@ -443,6 +458,201 @@ Quiz.getSubmission = (config) => {
 /*------------------------------------------------------------------------*/
 /*                         Quiz Grading Endpoints                         */
 /*------------------------------------------------------------------------*/
+
+// Constants for quiz report CSVs
+// If positive, we're including the column index
+// If negative, the column's index can be calculated using:
+//   csvHeaderRow.length + offset
+const reportColMap = {
+  name: 0,
+  id: 1,
+  sisId: 2,
+  section: 3,
+  sectionIds: 4,
+  sectionSISIds: 5,
+  submittedAt: 6,
+  numCorrectOffset: -3,
+  numIncorrectOffset: -2,
+  scoreOffset: -1,
+  // Each question takes up two columns:
+  firstQuestionCol: 7,
+  lastQuestionColOffset: -4,
+};
+
+/**
+ * Lists quiz question grades for a specific quiz in a course
+ * @method listQuestionGrades
+ * @param {number} courseId - Canvas course Id to query
+ * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
+ * @return {Promise.<Object[]>} QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
+ */
+Quiz.listQuestionGrades = (config) => {
+  // @action: list quiz question grades for a specific quiz in a course
+
+  // Request a new quiz report
+  let reportId;
+  return config.visitEndpoint({
+    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/reports`,
+    method: 'POST',
+    params: {
+      'quiz_report[report_type]': 'student_analysis',
+    },
+  })
+    .then((pendingReport) => {
+      reportId = pendingReport.id;
+      // Get a new copy of the report and include the progress
+      return waitForCompletion({
+        progress: {
+          url: pendingReport.progress_url,
+        },
+        visitEndpoint: config.visitEndpoint,
+      });
+    })
+    .then(() => {
+      // Quiz report has been generated! Now, let's fetch it
+      return config.visitEndpoint({
+        path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/reports/${reportId}`,
+        method: 'GET',
+        params: {
+          include: ['file'],
+        },
+      });
+    })
+    .then((report) => {
+      // Get the csv file (the report)
+      return axios.get(report.file.url);
+    })
+    .then((reportCSV) => {
+      if (reportCSV.data) {
+        // We already have the body
+        return Promise.resolve(reportCSV.data);
+      }
+
+      // The body didn't come through the first request. Canvas must be
+      // sending us through their 2 redirects process
+      return axios.get(reportCSV.res.headers.location)
+        .then((response) => {
+          return axios.get(response.res.headers.location);
+        })
+        .then((response) => {
+          return Promise.resolve(response.text);
+        });
+    })
+    .then((csvBody) => {
+      // Process the CSV file
+      const parsedCSV = parseCSV(csvBody, {
+        skip_empty_lines: true,
+      });
+      // Enforce that we have a header row
+      if (parsedCSV.length < 1) {
+        // Not enough rows
+        throw new CACCLError({
+          message: 'Canvas responded with a quiz report csv file that did not have any rows.',
+          code: errorCodes.quizReportNoRows,
+        });
+      }
+
+      // Generate a map of the quiz questions
+      const questions = [];
+      const header = parsedCSV[0];
+      const { firstQuestionCol } = reportColMap;
+      const lastQuestionCol = (
+        header.length + reportColMap.lastQuestionColOffset
+      );
+      for (let i = firstQuestionCol; i < lastQuestionCol; i += 2) {
+        const titleCol = header[i];
+        const pointsCol = header[i + 1];
+        // Parse title column (format: "questionId: quizTitle")
+        const titleDividerIndex = titleCol.indexOf(':');
+        const questionId = parseInt(titleCol.substring(0, titleDividerIndex));
+        const questionTitle = titleCol.substring(titleDividerIndex).trim();
+        // Parse points column
+        const pointsPossible = parseFloat(pointsCol);
+
+        questions.push({
+          pointsPossible,
+          title: questionTitle,
+          id: questionId,
+          answerColIndex: i,
+          pointsColIndex: i + 1,
+        });
+      }
+
+      // Go through each student row and extract responses
+      const processedReport = [];
+      for (let i = 1; i < parsedCSV.length; i++) {
+        const studentRow = parsedCSV[i];
+        const reportItem = {};
+
+        // Extract student metadata
+        reportItem.name = studentRow[reportColMap.name];
+        reportItem.id = parseInt(studentRow[reportColMap.id]);
+        reportItem.sisId = studentRow[reportColMap.sisId];
+        // Split out sections
+        reportItem.sections = studentRow[reportColMap.section]
+          .split(',')
+          .map((section) => {
+            return section.trim();
+          });
+        // Split section ids and parse them as ints
+        reportItem.sectionIds = [];
+        if (studentRow[reportColMap.sectionIds]) {
+          reportItem.sectionIds = studentRow[reportColMap.sectionIds]
+            .split(',')
+            .map((section) => {
+              return parseInt(section.trim());
+            });
+        }
+        // Split section sis ids
+        reportItem.sectionSISIds = [];
+        if (studentRow[reportColMap.sectionSISIds]) {
+          reportId.sectionSISIds = studentRow[reportColMap.sectionSISIds]
+            .split(',')
+            .map((section) => {
+              return section.trim();
+            });
+        }
+        // Turn submission timestamp into date object if possible
+        const submittedTimestamp = studentRow[reportColMap.submittedAt];
+        reportItem.submittedAt = (
+          submittedTimestamp ? new Date(submittedTimestamp) : null
+        );
+
+        // Extract student totals
+        reportItem.numCorrect = parseInt(
+          studentRow[header.length + reportColMap.numCorrectOffset]
+        );
+        reportItem.numIncorrect = parseInt(
+          studentRow[header.length + reportColMap.numIncorrectOffset]
+        );
+        reportItem.totalScore = parseFloat(
+          studentRow[header.length + reportColMap.scoreOffset]
+        );
+
+        // Extract question response/score info
+        reportItem.questions = {};
+        questions.forEach((question) => {
+          // Check if the user didn't submit this question
+          const response = studentRow[question.answerColIndex] || null;
+          let points = studentRow[question.pointsColIndex] || null;
+          // Parse points as float
+          if (points) {
+            points = parseFloat(points);
+          }
+          // Save report item
+          reportItem.questions[question.id] = {
+            response,
+            points,
+          };
+        });
+
+        // Save reportItem
+        processedReport.push(reportItem);
+      }
+
+      return Promise.resolve(processedReport);
+    });
+};
 
 /**
  * Updates the question grades for a specific submission to a quiz in a course
