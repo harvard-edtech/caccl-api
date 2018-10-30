@@ -11,14 +11,15 @@ const CACCLError = require('../../../caccl-error/index.js');
 /**
  * Creates a new promise that resolves when the task has been completed. The
  *   process pings Canvas every refreshMs milliseconds.
- * @param {object} progress - a Canvas Progress object (see: https://canvas.instructure.com/doc/api/progress.html#Progress)
+ * @param {object} progress - a Canvas Progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
  *   that was returned from a request for a large change in Canvas (e.g., batch
  *   grade upload, batch gradebook column data change)
- * @param {number} timeout - Number of minutes to wait before timing out
- *   (default: 2)
- * @param {number} refreshMs - Number of milliseconds to wait between progress
- *   checks (default: 250)
- * @return promise that either resolves with a Progress object (see: https://canvas.instructure.com/doc/api/progress.html#Progress)
+ * @param {function} visitEndpoint - the visitEndpoint function included in the
+ *   endpoint's config object
+ * @param {number} [timeout=2] - Number of minutes to wait before timing out
+ * @param {number} [refreshMs=250] - Number of milliseconds to wait between
+ *   progress checks
+ * @return promise that either resolves with a Progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
  *   upon successful completion, or rejects with a CACCLError
  */
 module.exports = (options) => {

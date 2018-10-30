@@ -5,7 +5,7 @@
  */
 
 // Highest errors:
-// > SCE17
+// > SCE21
 // > CANV14 (exclude 404, 500)
 
 module.exports = {
@@ -47,18 +47,28 @@ module.exports = {
 
   // Errors for specific endpoints
 
-  // course/assignments.js
-  // > createAssignmentSubmission
+  // course.assignment
+  // > createSubmission
   submissionFileUploadFailed: 'SCE4',
   submissionFileActivateFailed: 'SCE5',
   submissionFileCheckFailed: 'SCE6',
   submissionFileCheckParseFailed: 'SCE7',
   submissionFilePrepFailed: 'SCE8',
   invalidSubmissionType: 'SCE9',
-  // > updateAssignmentGrades
+  // > updateGrades
   noRubricOnBatchGradeUpload: 'SCE10',
 
-  // course/gradebookColumns.js
-  // > getGradebookColumn
+  // course.gradebookcolumns.js
+  // > get
   columnNotFound: 'SCE11',
+
+  // course.app
+  // > getMetadata
+  noAppWithMetadataFound: 'SCE18',
+  metadataMalformed: 'SCE19',
+  noAppsToUpdateMetadata: 'SCE20',
+
+  // course.quiz
+  // > listQuestionGrades
+  quizReportNoRows: 'SCE21',
 };
