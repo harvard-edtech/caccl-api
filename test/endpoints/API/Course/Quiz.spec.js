@@ -17,7 +17,7 @@ const stamp = new Date().getTime();
 function genTestQuiz(index = 0) {
   return {
     courseId,
-    title: 'temporary_test_' + index + '_' + stamp,
+    title: `temporary_test_${index}_${stamp}`,
     description: 'this is a test quiz that was auto-generated and can be deleted if it is not deleted automatically',
     type: 'assignment',
     published: true,
@@ -37,7 +37,7 @@ function genTestQuiz(index = 0) {
 // Generate the parameters for a test quiz template
 function genTestQuizTemplate(index = 0) {
   return {
-    title: 'temporary_test_' + index + '_' + stamp,
+    title: `temporary_test_${index}_${stamp}`,
     description: 'this is a test quiz that was auto-generated and can be deleted if it is not deleted automatically',
     quiz_type: 'assignment',
     published: true,
@@ -49,6 +49,43 @@ function genTestQuizTemplate(index = 0) {
     access_code: '123',
     time_limit: 5,
     shuffle_answers: true,
+  };
+}
+
+// Generate the parameters for a test quiz question
+function genTestQuizQuestion(quizId, index = 0) {
+  return {
+    courseId,
+    quizId,
+    name: `multiple_choice_question_${index}`,
+    text: `What are the units of g? ${index}`,
+    pointsPossible: 10,
+    answers: [
+      {
+        text: 'm/s',
+        isCorrect: false,
+        comment: 'wrong',
+      },
+      {
+        text: 'm^2/s',
+        isCorrect: false,
+        comment: 'wrong',
+      },
+      {
+        text: 'm/s^2',
+        isCorrect: true,
+        comment: 'wrong',
+      },
+    ],
+  };
+}
+
+// Generate the parameters for a test quiz question template
+function genTestQuizQuestionTemplate(index = 0) {
+  return {
+    question_name: `multiple_choice_question_${index}`,
+    question_text: `What are the units of g? ${index}`,
+    points_possible: 10,
   };
 }
 
@@ -81,7 +118,7 @@ describe('Endpoints > Course > Quizzes', function () {
           ], quizzes);
 
           if (notFound) {
-            throw new Error('We could not find the following quizzes: ' + notFound);
+            throw new Error(`We could not find the following quizzes: ${notFound}`);
           }
           // Clean up: delete the gradebook columns
           return Promise.all(
@@ -90,7 +127,7 @@ describe('Endpoints > Course > Quizzes', function () {
                 courseId,
                 quizId: quiz.id,
               }).catch((err) => {
-                throw new Error('We finished the test successfully but couldn\'t clean up (delete gradebook column(s)). We ran into this error: ' + err.message);
+                throw new Error(`We finished the test successfully but couldn't clean up (delete gradebook column(s)). We ran into this error: ${err.message}`);
               });
             })
           );
@@ -113,14 +150,14 @@ describe('Endpoints > Course > Quizzes', function () {
           const comparison = utils.checkTemplate(genTestQuizTemplate(), quiz);
 
           if (!comparison.isMatch) {
-            throw new Error('The quiz we got doesn\'t match what we expected:\n' + comparison.description);
+            throw new Error(`The quiz we got doesn't match what we expected:\n${comparison.description}`);
           }
           // Clean up: delete the quiz
           return api.course.quiz.delete({
             courseId,
             quizId: testQuizId,
           }).catch((err) => {
-            throw new Error('We completed the test successfully but ran into an error when cleaning up (deleting the test quiz(zes)): ' + err.message);
+            throw new Error(`We completed the test successfully but ran into an error when cleaning up (deleting the test quiz(zes)): ${err.message}`);
           });
         });
     });
@@ -136,7 +173,7 @@ describe('Endpoints > Course > Quizzes', function () {
             courseId,
             quizId: testQuizId,
             suppressNotification: true,
-            title: 'new_title_' + stamp,
+            title: `new_title_${stamp}`,
             description: 'new_description',
             allowedAttempts: 10,
             scoringPolicy: 'keep_latest',
@@ -152,7 +189,7 @@ describe('Endpoints > Course > Quizzes', function () {
         })
         .then((updatedQuiz) => {
           const comparison = utils.checkTemplate({
-            title: 'new_title_' + stamp,
+            title: `new_title_${stamp}`,
             description: 'new_description',
             quiz_type: 'assignment',
             published: true,
@@ -167,14 +204,14 @@ describe('Endpoints > Course > Quizzes', function () {
           }, updatedQuiz);
 
           if (!comparison.isMatch) {
-            throw new Error('Updated quiz doesn\'t match what we expected:\n' + comparison.description);
+            throw new Error(`Updated quiz doesn't match what we expected:\n${comparison.description}`);
           }
           // Clean up: delete the quiz
           return api.course.quiz.delete({
             courseId,
             quizId: testQuizId,
           }).catch((err) => {
-            throw new Error('We completed the test successfully but ran into an error when cleaning up (deleting the test quiz(zes)): ' + err.message);
+            throw new Error(`We completed the test successfully but ran into an error when cleaning up (deleting the test quiz(zes)): ${err.message}`);
           });
         });
     });
@@ -195,14 +232,14 @@ describe('Endpoints > Course > Quizzes', function () {
           const comparison = utils.checkTemplate(genTestQuizTemplate(), quiz);
 
           if (!comparison.isMatch) {
-            throw new Error('Created quiz doesn\'t match what we expected:\n' + comparison.description);
+            throw new Error(`Created quiz doesn't match what we expected:\n${comparison.description}`);
           }
           // Clean up: delete the quiz
           return api.course.quiz.delete({
             courseId,
             quizId: testQuizId,
           }).catch((err) => {
-            throw new Error('We completed the test successfully but ran into an error when cleaning up (deleting the test quiz(zes)): ' + err.message);
+            throw new Error(`We completed the test successfully but ran into an error when cleaning up (deleting the test quiz(zes)): ${err.message}`);
           });
         });
     });
@@ -252,7 +289,82 @@ describe('Endpoints > Course > Quizzes', function () {
         .then((submissions) => {
           if (!submissions || submissions.length !== 0) {
             // Expected [] but got either no list or a list with submissions
-            throw new Error('We expected an empty list but got the following: ' + JSON.stringify(submissions));
+            throw new Error(`We expected an empty list but got the following: ${JSON.stringify(submissions)}`);
+          }
+          // Clean up: delete the quiz
+          return api.course.quiz.delete({
+            courseId,
+            quizId: testQuizId,
+          });
+        });
+    });
+  });
+
+  describe('Questions', function () {
+    it('Creates a multiple choice question', function () {
+      // Create a quiz so we can add a question
+      let testQuizId;
+      return api.course.quiz.create(genTestQuiz())
+        .then((quiz) => {
+          testQuizId = quiz.id;
+          // Create a new question
+          return api.course.quiz.createMultipleChoiceQuestion(
+            genTestQuizQuestion(testQuizId)
+          );
+        })
+        .then(() => {
+          // Get list of questions so we can make sure the question is there
+          return api.course.quiz.listQuestions({
+            courseId,
+            quizId: testQuizId,
+          });
+        })
+        .then((questions) => {
+          // Make sure the question is in the list
+          if (!utils.templateFound(genTestQuizQuestionTemplate(), questions)) {
+            // Question not found
+            throw new Error('Did not find the multiple question in the list.');
+          }
+          // Clean up: delete the quiz
+          return api.course.quiz.delete({
+            courseId,
+            quizId: testQuizId,
+          });
+        });
+    });
+
+    it('Lists quiz questions', function () {
+      // Create a quiz so we can add questions
+      let testQuizId;
+      return api.course.quiz.create(genTestQuiz())
+        .then((quiz) => {
+          testQuizId = quiz.id;
+          // Create new questions so we can list them
+          return Promise.all([
+            api.course.quiz.createMultipleChoiceQuestion(
+              genTestQuizQuestion(testQuizId, 0)
+            ),
+            api.course.quiz.createMultipleChoiceQuestion(
+              genTestQuizQuestion(testQuizId, 1)
+            ),
+          ]);
+        })
+        .then(() => {
+          // Get list of questions
+          return api.course.quiz.listQuestions({
+            courseId,
+            quizId: testQuizId,
+          });
+        })
+        .then((questions) => {
+          // Make sure the list of questions includes both questions
+          const notFound = utils.missingTemplatesToString([
+            genTestQuizQuestionTemplate(0),
+            genTestQuizQuestionTemplate(1),
+          ], questions);
+
+          if (notFound) {
+            throw new Error(`We could not find the following quiz questions: \n${notFound}`);
           }
           // Clean up: delete the quiz
           return api.course.quiz.delete({
@@ -264,5 +376,8 @@ describe('Endpoints > Course > Quizzes', function () {
   });
 
   // TODO: add test for quiz.getSubmission
+  // (we can't do this until Canvas adds an enpoint that creates a sub)
+
+  // TODO: add test for quiz.updateQuestionGrades
   // (we can't do this until Canvas adds an enpoint that creates a sub)
 });
