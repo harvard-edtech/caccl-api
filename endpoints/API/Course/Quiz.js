@@ -455,6 +455,69 @@ Quiz.getSubmission = (config) => {
     });
 };
 
+/**
+ * Creates a new submission to a specific quiz in a course on behalf of the
+ *   current user
+ * @method createSubmission
+ * @param {number} courseId - Canvas course Id
+ * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
+ * @param {object[]} answers - List of answers to quiz questions:
+ *   [{id: <quiz_question_id>, answer: <answer_object>},...] where the answer
+ *   object is explained here: {@link https://canvas.instructure.com/doc/api/quiz_submission_questions.html#Question+Answer+Formats-appendix}
+ * @param {string} [accessCode] - Access code for the quiz if it is locked
+ * @return {Promise.<Object>} Canvas QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
+ */
+Quiz.createSubmission = (config) => {
+  // @action: create a new submission to a specific quiz in a course on behalf of the current user
+
+  // Start a new quiz-taking session
+  let submissionId;
+  let validationToken;
+  let attempt;
+  return config.visitEndpoint({
+    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions`,
+    method: 'POST',
+    params: {
+      access_code: utils.includeIfTruthy(config.options.accessCode),
+    },
+  })
+    .then((response) => {
+      const openSubmission = response.quiz_submissions[0];
+      submissionId = openSubmission.id;
+      validationToken = openSubmission.validation_token;
+      ({ attempt } = openSubmission);
+
+      // Answer questions
+      const params = {
+        attempt,
+        validation_token: validationToken,
+        access_code: utils.includeIfTruthy(config.options.accessCode),
+      };
+      // Add answers individually
+      config.options.answers.forEach((answer) => {
+        params['quiz_questions[][id]'] = answer.id;
+        params['quiz_questions[][answer]'] = answer.answer;
+      });
+      return config.visitEndpoint({
+        params,
+        path: `${prefix.v1}/quiz_submissions/${submissionId}/questions`,
+        method: 'POST',
+      });
+    })
+    .then(() => {
+      // Complete the student's submission
+      return config.visitEndpoint({
+        path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions/${submissionId}/complete`,
+        method: 'POST',
+        params: {
+          attempt,
+          validation_token: validationToken,
+          access_code: utils.includeIfTruthy(config.options.accessCode),
+        },
+      });
+    });
+};
+
 /*------------------------------------------------------------------------*/
 /*                         Quiz Grading Endpoints                         */
 /*------------------------------------------------------------------------*/
