@@ -7,6 +7,59 @@
 // The value to exclude
 const EXCLUDED_VALUE = require('./valueThatsExcluded.js');
 
+// NOTE: use this code if axios does not handle arrays/objects the way that Canvas wants us to
+// const _mergeAll = (objects) => {
+//   const newObj = {};
+//   objects.forEach((obj) => {
+//     Object.keys(obj).forEach((key) => {
+//       newObj[key] = obj[key];
+//     });
+//   });
+//   return newObj;
+// };
+//
+// function _flattenAndHashObject(value, breadcrumbs = '') {
+//   console.log(breadcrumbs, value);
+//   if (!value) {
+//     return null;
+//   }
+//   if (Array.isArray(value)) {
+//     // Process each object inside the array
+//     return _mergeAll(value.map((item) => {
+//       return _flattenAndHashObject(item, `${breadcrumbs}[]`);
+//     }));
+//   }
+//   if (typeof value === 'object' && Object.keys(value).length) {
+//     // Flatten object
+//     return _mergeAll(Object.keys(value).map((key) => {
+//       const newBreadcrumbs = (
+//         breadcrumbs.length
+//           ? `${breadcrumbs}[${key}]`
+//           : `${key}`
+//       );
+//       return _flattenAndHashObject(value[key], newBreadcrumbs);
+//     }));
+//   }
+//
+//   return {
+//     [breadcrumbs]: value,
+//   };
+// }
+//
+// console.log(_flattenAndHashObject({
+//   hello: {
+//     wonderful: 2,
+//     yay: 3,
+//   },
+//   list: [
+//     'bob',
+//     'day',
+//     {
+//       go: 10,
+//     },
+//   ],
+// }));
+
 /**
  * Pre-processes request params/body
  * @param {object} config.options - The options to pass into the visitEndpoint
