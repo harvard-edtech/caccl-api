@@ -367,9 +367,9 @@ describe('Endpoints > Course > Assignment', function () {
         });
     });
 
-    it('Batch uploads grades and comments', function () {
+    it.only('Batch uploads grades and comments (without rubric merge)', function () {
       this.timeout(25000);
-      // Create a test assignment that we can upload to
+      // Create a test assignment that we submit to
       const publishedTestAssignment = genTestAssignment();
       publishedTestAssignment.published = true;
       publishedTestAssignment.submissionTypes = ['online_text_entry'];
@@ -471,6 +471,244 @@ describe('Endpoints > Course > Assignment', function () {
           if (!comparison.isMatch) {
             throw new Error(`Submission didn't match after grades/comments were uploaded.\n${comparison.description}`);
           }
+          // Clean up: delete the assignment
+          return api.course.assignment.delete({
+            courseId,
+            assignmentId: testAssignmentId,
+          }).catch((err) => {
+            throw new Error(`Grades/comments were added but we failed when trying to delete the test assignment. We ran into this error: ${err.message}`);
+          });
+        });
+    });
+
+    it.only('Batch uploads grades and comments (with rubric merge)', function () {
+      this.timeout(40000);
+      // Create a test assignment that we submit to
+      const publishedTestAssignment = genTestAssignment();
+      publishedTestAssignment.published = true;
+      publishedTestAssignment.submissionTypes = ['online_text_entry'];
+      let testAssignmentId;
+      let rubricIdMap;
+      return api.course.assignment.create(publishedTestAssignment)
+        .catch((err) => {
+          throw new Error(`Could not create an assignment so we could run our test on it. We ran into an error: "${err.message}"`);
+        })
+        .then((assignment) => {
+          testAssignmentId = assignment.id;
+          // Create a rubric in the assignment
+          return api.course.rubric.createFreeFormGradingRubricInAssignment({
+            courseId,
+            assignmentId: testAssignmentId,
+            rubricItems: [
+              {
+                description: 'style',
+                point: 6,
+              },
+              {
+                description: 'correctness',
+                points: 3,
+              },
+              {
+                description: 'efficiency',
+                points: 1,
+              },
+            ],
+          });
+        })
+        .then((rubric) => {
+          // Save criteria to a map so we can easily lookup rubric item ids
+          rubricIdMap = {};
+          rubric.criteria.forEach((criterion) => {
+            rubricIdMap[criterion.description] = criterion.id;
+          });
+          // Create submissions that we can comment on
+          return Promise.all([
+            studentAPI.course.assignment.createTextSubmission({
+              courseId,
+              assignmentId: testAssignmentId,
+              text: 'test_sub',
+              comment: 'student_comment',
+            }),
+            studentAPI2.course.assignment.createTextSubmission({
+              courseId,
+              assignmentId: testAssignmentId,
+              text: 'test_sub_2',
+              comment: 'student_comment_2',
+            }),
+          ]);
+        })
+        .then(() => {
+          // Batch upload grades (round 1)
+          // student 1: (228824)
+          // - style = 6, 'good work'
+          // - correctness = 'great'
+          // - efficiency = 1, 'awesome'
+          // student 2: (228822)
+          // - style = 3, 'okay'
+          // - correctness = 1
+          return api.course.assignment.updateGrades({
+            courseId,
+            assignmentId: testAssignmentId,
+            gradeItems: [
+              // student 1
+              {
+                studentId: studentInfo.canvasId,
+                rubricId: rubricIdMap.style,
+                points: 6,
+                comment: 'good work',
+              },
+              {
+                studentId: studentInfo.canvasId,
+                rubricId: rubricIdMap.correctness,
+                comment: 'great',
+              },
+              {
+                studentId: studentInfo.canvasId,
+                rubricId: rubricIdMap.efficiency,
+                points: 1,
+                comment: 'awesome',
+              },
+              // student 2
+              {
+                studentId: studentInfo2.canvasId,
+                rubricId: rubricIdMap.style,
+                points: 3,
+                comment: 'okay',
+              },
+              {
+                studentId: studentInfo2.canvasId,
+                rubricId: rubricIdMap.correctness,
+                points: 1,
+              },
+            ],
+            waitForCompletion: true,
+          });
+        })
+        .then(() => {
+          // Batch upload grades (round 2)
+          // student 1: (228824)
+          // - style = 5, 'I forgot to check your plot'
+          // - correctness = 3
+          // student 2: (228822)
+          // - correctness = 'mediocre'
+          // - efficiency = 1
+          return api.course.assignment.updateGrades({
+            courseId,
+            assignmentId: testAssignmentId,
+            gradeItems: [
+              // student 1
+              {
+                studentId: studentInfo.canvasId,
+                rubricId: rubricIdMap.style,
+                points: 5,
+                comment: 'I forgot to check your plot',
+              },
+              {
+                studentId: studentInfo.canvasId,
+                rubricId: rubricIdMap.correctness,
+                points: 3,
+              },
+              // student 2
+              {
+                studentId: studentInfo2.canvasId,
+                rubricId: rubricIdMap.correctness,
+                comment: 'mediocre',
+              },
+              {
+                studentId: studentInfo2.canvasId,
+                rubricId: rubricIdMap.efficiency,
+                points: 1,
+              },
+            ],
+            waitForCompletion: true,
+          });
+        })
+        .then(() => {
+          // Pull grades so we can check them
+          return api.course.assignment.listSubmissions({
+            courseId,
+            assignmentId: testAssignmentId,
+            includeRubricAssessment: true,
+          });
+        })
+        .then((subs) => {
+          // Expected merged grade results
+          // student 1: (228824)
+          // - style = 5, 'I forgot to check your plot' (completely overwritten)
+          // - correctness = 3, 'great' (score then comment)
+          // - efficiency = 1, 'awesome' (untouched)
+          // student 2: (228822)
+          // - style = 3, 'okay' (both then no updates)
+          // - correctness = 1, 'mediocre' (comment then score)
+          // - efficiency = 1 (nothing then score)
+          let student1Sub;
+          let student2Sub;
+          for (let i = 0; i < subs.length; i++) {
+            if (subs[i].user_id === studentInfo.canvasId) {
+              student1Sub = subs[i];
+            } else if (subs[i].user_id === studentInfo2.canvasId) {
+              student2Sub = subs[i];
+            }
+            if (student1Sub && student2Sub) {
+              break;
+            }
+          }
+          if (!student1Sub || !student2Sub) {
+            // Couldn't find at least one of the student submissions
+            throw new Error('We couldn\'t find at least one of the student submissions, so we couldn\'t check if the merge was successful.');
+          }
+          // Check first sub
+          // - style = 5, 'I forgot to check your plot' (completely overwritten)
+          // - correctness = 3, 'great' (score then comment)
+          // - efficiency = 1, 'awesome' (untouched)
+          const comparison1 = utils.checkTemplate({
+            user_id: studentInfo.canvasId,
+            rubric_assessment: {
+              [rubricIdMap.style]: {
+                points: 5,
+                comments: 'I forgot to check your plot',
+              },
+              [rubricIdMap.correctness]: {
+                points: 3,
+                comments: 'great',
+              },
+              [rubricIdMap.efficiency]: {
+                points: 1,
+                comments: 'awesome',
+              },
+            },
+            score: 9,
+          }, student1Sub);
+          if (!comparison1.isMatch) {
+            throw new Error(`One of the test submission's grades weren't merged or uploaded properly:\n${comparison1.description}`);
+          }
+
+          // Check second sub
+          // - style = 3, 'okay' (both then no updates)
+          // - correctness = 1, 'mediocre' (comment then score)
+          // - efficiency = 1 (nothing then score)
+          const comparison2 = utils.checkTemplate({
+            user_id: studentInfo2.canvasId,
+            rubric_assessment: {
+              [rubricIdMap.style]: {
+                points: 3,
+                comments: 'okay',
+              },
+              [rubricIdMap.correctness]: {
+                points: 1,
+                comments: 'mediocre',
+              },
+              [rubricIdMap.efficiency]: {
+                points: 1,
+                comments: null,
+              },
+            },
+            score: 5,
+          }, student2Sub);
+          if (!comparison2.isMatch) {
+            throw new Error(`One of the test submission's grades weren't merged or uploaded properly:\n${comparison2.description}`);
+          }
+
           // Clean up: delete the assignment
           return api.course.assignment.delete({
             courseId,

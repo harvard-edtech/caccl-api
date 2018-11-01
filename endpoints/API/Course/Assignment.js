@@ -296,8 +296,8 @@ Assignment.createSubmissionComment = (config) => {
  *   [{
  *     studentId: <student id>,
  *     points: <optional, points to overwrite with>,
- *     comment: <optional, comment to append>,
- *     rubricId: <optional, rubric item to upload to>
+ *     comment: <optional, comment to append (or overwrite if rubric comment)>,
+ *     rubricId: <optional, rubric item (overrall grade/comment if excluded)>
  *   },...]
  * @param {boolean} [waitForCompletion=false] - If true, promise won't resolve
  *   until Canvas has finished updating the grades, instead of resolving once
@@ -361,28 +361,45 @@ Assignment.updateGrades = (config) => {
         isRealRubricItemId[rubricItem.id] = true;
       });
       // > Figure out which students have which rubric items
-      const studentToRubricItemsIncluded = new Map();
-      // ^ {studentId => { rubricId => true if being updated }}
+      const studentToRubricItemsOverwritten = new Map();
+      const allStudentsWithRubricItems = new Set();
+      // ^ {studentId => { Set of rubric ids being uploaded }}
       config.options.gradeItems.forEach((gradeItem) => {
         const { rubricId, studentId } = gradeItem;
+        allStudentsWithRubricItems.add(studentId);
 
         // Skip if this item isn't a (real) rubric item
         if (!rubricId || !isRealRubricItemId[rubricId]) {
           return;
         }
 
-        // Keep track of rubric items that are found
-        if (!studentToRubricItemsIncluded.has(studentId)) {
-          // Initialize student map
-          studentToRubricItemsIncluded.set(studentId, new Set());
+        // Only mark this rubric item as being overwritten if both points and
+        // comments are being overwritten
+        if (
+          gradeItem.points === undefined
+          || gradeItem.points === null
+          || !gradeItem.comment
+        ) {
+          // Not completely overwriting
+          return;
         }
-        studentToRubricItemsIncluded.get(studentId).add(rubricId);
-      });
-      // > Find students that need to be merged
-      studentToRubricItemsIncluded.forEach((studentId, rubricIdSet) => {
-        const numIncludedRubricItems = rubricIdSet.size;
 
-        if (numIncludedRubricItems < numRubricItems) {
+        // Keep track of rubric items that are found
+        if (!studentToRubricItemsOverwritten.has(studentId)) {
+          // Initialize student map
+          studentToRubricItemsOverwritten.set(studentId, new Set());
+        }
+        studentToRubricItemsOverwritten.get(studentId).add(rubricId);
+      });
+
+      // > Find students that need to be merged (has some rubric items but not
+      // completely overwriting all of them)
+      allStudentsWithRubricItems.forEach((studentId) => {
+        const numOverwrittenItems = (
+          (studentToRubricItemsOverwritten[studentId] || { size: 0 }).size
+        );
+
+        if (numOverwrittenItems < numRubricItems) {
           // Need to merge this student
           studentsToMerge.push(studentId);
         }
@@ -397,11 +414,11 @@ Assignment.updateGrades = (config) => {
   promiseChain = promiseChain.then(() => {
     return new Promise((resolve, reject) => {
       // Pull student submissions that need to be merged
-      const fetchSub = (studentId, next) => {
+      const _fetchSub = (studentId, next) => {
         config.api.course.assignment.getSubmission({
+          studentId,
           courseId: config.options.courseId,
           assignmentId: config.options.assignmentId,
-          studentId: config.options.studentId,
           includeRubricAssessment: true,
           excludeUser: true, // Save request space
         }).then((response) => {
@@ -412,119 +429,123 @@ Assignment.updateGrades = (config) => {
       };
 
       // Pull all student submissions, 20 at a time
-      async.mapLimit(studentsToMerge, 20, fetchSub, (err, subs) => {
+      async.mapLimit(studentsToMerge, 10, _fetchSub, (err, subs) => {
         if (err) {
           return reject(err);
         }
 
-        // Prep for merge (if applicable)
-        const params = {};
+        try {
+          // Prep for merge (if applicable)
+          const params = {};
 
-        if (subs.length > 0) {
-          // Keep track of which items are being overwritten
-          const overwritingMap = {};
-          // ^ {studentId => rubricId => {
-          //      points: true/false, is being overwritten,
-          //      comment: true/false, is being overwritten
-          //    }}
-          config.options.gradeItem.forEach((gradeItem) => {
-            if (!gradeItem.rubricId) {
-              // No need to keep track of non-rubric item updates
-              // (these are not being merged)
-              return;
-            }
-            const sid = gradeItem.studentId;
-            const rid = gradeItem.rubricId;
-            // Initialize map if needed
-            if (!overwritingMap[sid]) {
-              overwritingMap[sid] = {};
-            }
-            if (!overwritingMap[sid][rid]) {
-              overwritingMap[sid][rid] = {};
-            }
-            // Save points and comments
-            if (gradeItem.points !== undefined) {
-              overwritingMap[sid][rid].points = true;
-            }
-            if (gradeItem.comment !== undefined) {
-              overwritingMap[sid][rid].comment = true;
-            }
-          });
-
-          // Perform actual merge
-          subs.forEach((sub) => {
-            const sid = sub.user_id;
-            if (!sub.rubric_assessment) {
-              // No need to merge: submission has no rubric content yet
-              return;
-            }
-            // Loop through rubric items and merge
-            Object.keys(sub.rubric_assessment).forEach((rubricId) => {
-              // Get previous values
-              const oldPoints = sub.rubric_assessment[rubricId].points;
-              const oldComment = sub.rubric_assessment[rubricId].comments;
-
-              // Check if we're overwriting these values
-              let overwritePoints;
-              let overwriteComment;
-              if (overwritingMap[sid] && overwritingMap[sid][rubricId]) {
-                overwritePoints = overwritingMap[sid][rubricId].points;
-                overwriteComment = overwritingMap[sid][rubricId].comment;
+          if (subs.length > 0) {
+            // Keep track of which items are being overwritten
+            const overwritingMap = {};
+            // ^ {studentId => rubricId => {
+            //      points: true/false, is being overwritten,
+            //      comment: true/false, is being overwritten
+            //    }}
+            config.options.gradeItems.forEach((gradeItem) => {
+              if (!gradeItem.rubricId) {
+                // No need to keep track of non-rubric item updates
+                // (these are not being merged)
+                return;
               }
-
-              // Add old value
-              if (
-                oldPoints !== undefined
-                && oldPoints !== null
-                && !overwritePoints
-              ) {
-                // We have an old points val and we're not overwriting it
-                // (include the old points value)
-                params[`grade_data[${sid}][rubric_assessment][${rubricId}][points]`] = oldPoints;
+              const sid = gradeItem.studentId;
+              const rid = gradeItem.rubricId;
+              // Initialize map if needed
+              if (!overwritingMap[sid]) {
+                overwritingMap[sid] = {};
               }
-              if (oldComment && !overwriteComment) {
-                // We have an old comment and we're not overwriting it
-                // (include the old comment)
-                params[`grade_data[${sid}][rubric_assessment][${rubricId}][comments]`] = oldComment;
+              if (!overwritingMap[sid][rid]) {
+                overwritingMap[sid][rid] = {};
+              }
+              // Save points and comments
+              if (gradeItem.points !== undefined) {
+                overwritingMap[sid][rid].points = true;
+              }
+              if (gradeItem.comment !== undefined) {
+                overwritingMap[sid][rid].comment = true;
               }
             });
-          });
-        }
 
-        // Add rest of grade item updates to params
-        config.options.gradeItems.forEach((gradeItem) => {
-          if (gradeItem.rubricId) {
-            if (gradeItem.points !== undefined) {
-              params[`grade_data[${gradeItem.studentId}][rubric_assessment][${gradeItem.rubricId}][points]`] = gradeItem.points;
-            }
-            if (gradeItem.comment) {
-              params[`grade_data[${gradeItem.studentId}][rubric_assessment][${gradeItem.rubricId}][comments]`] = gradeItem.comment;
-            }
-          } else {
-            if (gradeItem.points !== undefined) {
-              params[`grade_data[${gradeItem.studentId}][posted_grade]`] = gradeItem.points;
-            }
-            if (gradeItem.comment) {
-              params[`grade_data[${gradeItem.studentId}][text_comment]`] = gradeItem.comment;
-            }
+            // Perform actual merge
+            subs.forEach((sub) => {
+              if (!sub.rubric_assessment) {
+                // No need to merge: submission has no rubric content yet
+                return;
+              }
+              const sid = sub.user_id;
+              // Loop through rubric items and merge
+              Object.keys(sub.rubric_assessment).forEach((rubricId) => {
+                // Get previous values
+                const oldPoints = sub.rubric_assessment[rubricId].points;
+                const oldComment = sub.rubric_assessment[rubricId].comments;
+
+                // Check if we're overwriting these values
+                let overwritePoints;
+                let overwriteComment;
+                if (overwritingMap[sid] && overwritingMap[sid][rubricId]) {
+                  overwritePoints = overwritingMap[sid][rubricId].points;
+                  overwriteComment = overwritingMap[sid][rubricId].comment;
+                }
+
+                // Add old value
+                if (
+                  oldPoints !== undefined
+                  && oldPoints !== null
+                  && !overwritePoints
+                ) {
+                  // We have an old points val and we're not overwriting it
+                  // (include the old points value)
+                  params[`grade_data[${sid}][rubric_assessment][${rubricId}][points]`] = oldPoints;
+                }
+                if (oldComment && !overwriteComment) {
+                  // We have an old comment and we're not overwriting it
+                  // (include the old comment)
+                  params[`grade_data[${sid}][rubric_assessment][${rubricId}][comments]`] = oldComment;
+                }
+              });
+            });
           }
-        });
 
-        // Send request
-        config.visitEndpoint({
-          params,
-          path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/update_grades`,
-          method: 'POST',
-        }).then((response) => {
-          return config.uncache([
-            // Uncache submissions endpoint
-            `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions*`,
-          ], response);
-        }).then((response) => {
-          return resolve(response);
-        }).catch((updateGradesErr) => {
-          return reject(updateGradesErr);
-        });
+          // Add rest of grade item updates to params
+          config.options.gradeItems.forEach((gradeItem) => {
+            if (gradeItem.rubricId) {
+              if (gradeItem.points !== undefined) {
+                params[`grade_data[${gradeItem.studentId}][rubric_assessment][${gradeItem.rubricId}][points]`] = gradeItem.points;
+              }
+              if (gradeItem.comment) {
+                params[`grade_data[${gradeItem.studentId}][rubric_assessment][${gradeItem.rubricId}][comments]`] = gradeItem.comment;
+              }
+            } else {
+              if (gradeItem.points !== undefined) {
+                params[`grade_data[${gradeItem.studentId}][posted_grade]`] = gradeItem.points;
+              }
+              if (gradeItem.comment) {
+                params[`grade_data[${gradeItem.studentId}][text_comment]`] = gradeItem.comment;
+              }
+            }
+          });
+
+          // Send request
+          config.visitEndpoint({
+            params,
+            path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/update_grades`,
+            method: 'POST',
+          }).then((response) => {
+            return config.uncache([
+              // Uncache submissions endpoint
+              `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions*`,
+            ], response);
+          }).then((response) => {
+            return resolve(response);
+          }).catch((updateGradesErr) => {
+            return reject(updateGradesErr);
+          });
+        } catch (mergeError) {
+          return reject(mergeError);
+        }
       });
     });
   });

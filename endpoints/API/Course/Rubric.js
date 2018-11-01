@@ -59,26 +59,32 @@ Rubric.get = (config) => {
  * @method createFreeFormGradingRubricInAssignment
  * @param {number} courseId - Canvas course Id to add the rubric to
  * @param {number} assignmentId - Canvas course Id to add the rubric to
- * @param {string} title - Title of the new rubric
  * @param {array} rubricItems - List of rubric item objects:
- *   [{description, longDescription (optional), points}, ...]
+ *   [{description, points, [longDescription]}, ...]
+ * @param {string} [title=generated title] - Title of the new rubric
  * @return {Promise.<Object>} Canvas Rubric {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
  */
 Rubric.createFreeFormGradingRubricInAssignment = (config) => {
   // @action: create a new free form grading rubric and add it to a specific assignment in a course
+  // Infer points possible based on the rubric items
   let pointsPossible = 0;
   config.options.rubricItems.forEach((rubricItem) => {
     pointsPossible += rubricItem.points;
   });
+  // Set title
+  const title = (
+    config.options.title
+    || 'Unnamed-rubric-' + new Date().getTime()
+  );
   const params = {
-    'rubric[title]': config.options.title,
+    title,
+    'rubric[title]': title,
     'rubric[points_possible]': pointsPossible,
     'rubric_association[use_for_grading]': 1,
     'rubric_association[hide_score_total]': 0,
     'rubric_association[hide_points]': 0,
     'rubric_association[hide_outcome_results]': 0,
     'rubric[free_form_criterion_comments]': 1,
-    title: config.options.title,
     points_possible: pointsPossible,
     rubric_id: 'new',
     'rubric_association[association_type]': 'Assignment',
