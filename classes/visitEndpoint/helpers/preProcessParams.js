@@ -7,58 +7,38 @@
 // The value to exclude
 const EXCLUDED_VALUE = require('./valueThatsExcluded.js');
 
-// NOTE: use this code if axios does not handle arrays/objects the way that Canvas wants us to
-// const _mergeAll = (objects) => {
-//   const newObj = {};
-//   objects.forEach((obj) => {
-//     Object.keys(obj).forEach((key) => {
-//       newObj[key] = obj[key];
-//     });
-//   });
-//   return newObj;
-// };
-//
-// function _flattenAndHashObject(value, breadcrumbs = '') {
-//   console.log(breadcrumbs, value);
-//   if (!value) {
-//     return null;
-//   }
-//   if (Array.isArray(value)) {
-//     // Process each object inside the array
-//     return _mergeAll(value.map((item) => {
-//       return _flattenAndHashObject(item, `${breadcrumbs}[]`);
-//     }));
-//   }
-//   if (typeof value === 'object' && Object.keys(value).length) {
-//     // Flatten object
-//     return _mergeAll(Object.keys(value).map((key) => {
-//       const newBreadcrumbs = (
-//         breadcrumbs.length
-//           ? `${breadcrumbs}[${key}]`
-//           : `${key}`
-//       );
-//       return _flattenAndHashObject(value[key], newBreadcrumbs);
-//     }));
-//   }
-//
-//   return {
-//     [breadcrumbs]: value,
-//   };
-// }
-//
-// console.log(_flattenAndHashObject({
-//   hello: {
-//     wonderful: 2,
-//     yay: 3,
-//   },
-//   list: [
-//     'bob',
-//     'day',
-//     {
-//       go: 10,
-//     },
-//   ],
-// }));
+/**
+ * Recursively excludes values that match EXCLUDED_VALUE
+ * @param {object} value - object to preprocess
+ * @return {object} pre-processed object with values excluded
+ */
+const _recursivelyExcludeParams = (obj) => {
+  if (Array.isArray(obj)) {
+    // This is an array
+    // Filter out excluded elements then call recursively on each element
+    return obj
+      .filter((item) => {
+        return (item !== EXCLUDED_VALUE);
+      })
+      .map((item) => {
+        return _recursivelyExcludeParams(item);
+      });
+  }
+
+  if (typeof obj === 'object') {
+    const newObj = {};
+    Object.keys(obj).forEach((prop) => {
+      if (obj[prop] === EXCLUDED_VALUE) {
+        // Skip excluded value
+        return;
+      }
+      newObj[prop] = _recursivelyExcludeParams(obj[prop]);
+    });
+    return newObj;
+  }
+
+  return obj;
+};
 
 /**
  * Pre-processes request params/body
@@ -74,23 +54,8 @@ module.exports = (config) => {
   const { options } = config;
   const oldParams = (options || {}).params || {};
 
-  // Exclude parameters by name and value
-  const newParams = {};
-  Object.keys(oldParams).forEach((key) => {
-    // Skip if excluded by value
-    if (oldParams[key] === EXCLUDED_VALUE) {
-      return;
-    }
-
-    // Add to new params
-    if (Array.isArray(oldParams[key])) {
-      // This is an array. Prep for repeat array format (Canvas requires this)
-      newParams[key + '[]'] = oldParams[key];
-    } else {
-      // This is not an array. Just add it as usual
-      newParams[key] = oldParams[key];
-    }
-  });
+  // Exclude params that have value equal to EXCLUDED_VALUE
+  const newParams = _recursivelyExcludeParams(oldParams);
 
   // Add access token to request (if we have one and one isn't already added)
   if (config.accessToken && !newParams.access_token) {
