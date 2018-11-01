@@ -63,6 +63,14 @@ module.exports = (body, status) => {
         });
       }
 
+      // Unauthenticated
+      if (body.status === 'unauthenticated') {
+        return new CACCLError({
+          message: 'Unfortunately, we cannot access Canvas because we don\'t have an access token. If this error persists, please contact an admin.',
+          code: errorCodes.unauthenticated,
+        });
+      }
+
       // Unauthorized
       if (
         status === 401
@@ -89,14 +97,6 @@ module.exports = (body, status) => {
         return new CACCLError({
           message: 'Canvas denied us access to a resource because you do not have the proper privileges.',
           code: errorCodes.unauthorized,
-        });
-      }
-
-      // Unauthenticated
-      if (body.status === 'unauthenticated') {
-        return new CACCLError({
-          message: 'Unfortunately, we cannot access Canvas because we don\'t have an access token. If this error persists, please contact an admin.',
-          code: errorCodes.unauthenticated,
         });
       }
 
