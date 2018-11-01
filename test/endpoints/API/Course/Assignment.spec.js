@@ -367,7 +367,7 @@ describe('Endpoints > Course > Assignment', function () {
         });
     });
 
-    it.only('Batch uploads grades and comments (without rubric merge)', function () {
+    it('Batch uploads grades and comments (without rubric merge)', function () {
       this.timeout(25000);
       // Create a test assignment that we submit to
       const publishedTestAssignment = genTestAssignment();
@@ -481,7 +481,7 @@ describe('Endpoints > Course > Assignment', function () {
         });
     });
 
-    it.only('Batch uploads grades and comments (with rubric merge)', function () {
+    it('Batch uploads grades and comments (with rubric merge)', function () {
       this.timeout(40000);
       // Create a test assignment that we submit to
       const publishedTestAssignment = genTestAssignment();
