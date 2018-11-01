@@ -136,9 +136,12 @@ module.exports = (config = {}) => {
             }));
           }
 
-          // Attempt to pre-process data from Canvas
+          // Attempt to parse data from Canvas (if not already parsed as object)
           let canvasData;
           if (dontParse) {
+            canvasData = response.body;
+          } else if (response.body && typeof response.body !== 'string') {
+            // Body isn't a string. Assume it's already parsed
             canvasData = response.body;
           } else {
             try {
