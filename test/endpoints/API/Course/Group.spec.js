@@ -58,7 +58,7 @@ function genTestGroupInGroupSetTemplate(index = 0) {
 /*                                  Tests                                 */
 /*------------------------------------------------------------------------*/
 
-describe('Endpoints > Course > Groups', function () {
+describe('Endpoints > Course > Group', function () {
   describe('Groups', function () {
     it('Gets a group', function () {
       let testGroupSetId;
