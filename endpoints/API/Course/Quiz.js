@@ -723,6 +723,7 @@ Quiz.listQuestionGrades = (config) => {
 
 /**
  * Updates the question grades for a specific submission to a quiz in a course
+ * @version unstable
  * @method updateQuestionGrades
  * @param {number} courseId - Canvas course Id to query
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)

@@ -24,6 +24,33 @@ module.exports = {
   },
 
   /**
+   * Given a mapping: includeText => includeThis, creates a list of include
+   *   strings to send to Canvas
+   * @param {Object.<string, boolean>} map - a mapping: includeText =>
+   *   includeThis where includeText is the string to include in the list and
+   *   includeThis is a value to check (if truthy, includeText is included)
+   * @return {string[]} list of strings that were marked to be included
+   */
+  genIncludesList: (map) => {
+    if (!map) {
+      return EXCLUDED_PARAM;
+    }
+    const include = [];
+    Object.keys(map).forEach((includeText) => {
+      const includeThis = map[includeText];
+      if (includeThis) {
+        include.push(includeText);
+      }
+    });
+    if (include.length) {
+      // At least one option to include. Return a list
+      return include;
+    }
+    // No options to include. Just exclude the whole parameter
+    return EXCLUDED_PARAM;
+  },
+
+  /**
    * Returns the value if it's a boolean, otherwise returns a special value that
    *   indicates to the request pre-processor that the associated parameter
    *   should be excluded

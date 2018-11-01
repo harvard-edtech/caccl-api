@@ -63,17 +63,16 @@ Course.get = (config) => {
     path: `${prefix.v1}/courses/${config.options.courseId}`,
     method: 'GET',
     params: {
-      include: utils.includeTruthyElementsExcludeIfEmpty([
-        (config.options.includeSyllabus ? 'syllabus_body' : null),
-        (config.options.includeTerm ? 'term' : null),
-        (config.options.includeAccount ? 'account' : null),
-        (config.options.includeDescription ? 'public_description' : null),
-        (config.options.includeSections ? 'sections' : null),
-        (config.options.includeTeachers ? 'teachers' : null),
-        (config.options.includeCourseImage ? 'course_image' : null),
-        (config.options.includeNeedsGradingCount
-          ? 'needs_grading_count' : null),
-      ]),
+      include: utils.genIncludesList({
+        syllabus_body: config.options.includeSyllabus,
+        term: config.options.includeTerm,
+        account: config.options.includeAccount,
+        public_description: config.options.includeDescription,
+        sections: config.options.includeSections,
+        teachers: config.options.includeTeachers,
+        course_image: config.options.includeCourseImage,
+        needs_grading_count: config.options.includeNeedsGradingCount,
+      }),
     },
   });
 };

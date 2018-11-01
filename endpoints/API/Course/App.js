@@ -21,6 +21,8 @@ class App extends EndpointCategory {
  * @method list
  * @memberof module: endpoints/course
  * @param {number} courseId - Canvas course Id to query
+ * @param {boolean} [includeParents] - If truthy, includes tools installed in
+ *   all accounts above the current context
  * @return {Promise.<Object[]>} list of external tools {@link https://canvas.instructure.com/doc/api/external_tools.html}
  */
 App.list = (config) => {
@@ -28,6 +30,9 @@ App.list = (config) => {
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/external_tools`,
     method: 'GET',
+    params: {
+      include_parents: utils.isTruthy(config.options.includeParents),
+    },
   });
 };
 

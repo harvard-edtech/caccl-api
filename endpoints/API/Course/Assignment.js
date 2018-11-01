@@ -518,7 +518,7 @@ Assignment.updateGrades = (config) => {
         }).then((response) => {
           return config.uncache([
             // Uncache submissions endpoint
-            `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions`,
+            `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions*`,
           ], response);
         }).then((response) => {
           return resolve(response);
@@ -715,11 +715,11 @@ Assignment.listSubmissions = (config) => {
     path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions`,
     method: 'GET',
     params: {
-      include: utils.includeTruthyElementsExcludeIfEmpty([
-        (config.options.includeComments ? 'submission_comments' : null),
-        (config.options.includeRubricAssessment ? 'rubric_assessment' : null),
-        (fetchUser ? 'user' : null),
-      ]),
+      include: utils.genIncludesList({
+        submission_comments: config.options.includeComments,
+        rubric_assessment: config.options.includeRubricAssessment,
+        user: fetchUser,
+      }),
     },
   });
 
@@ -769,11 +769,11 @@ Assignment.getSubmission = (config) => {
     path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/${config.options.studentId}`,
     method: 'GET',
     params: {
-      include: utils.includeTruthyElementsExcludeIfEmpty([
-        (config.options.includeComments ? 'submission_comments' : null),
-        (config.options.includeRubricAssessment ? 'rubric_assessment' : null),
-        (!config.options.excludeUser ? 'user' : null),
-      ]),
+      include: utils.genIncludesList({
+        submission_comments: config.options.includeComments,
+        rubric_assessment: config.options.includeRubricAssessment,
+        user: !config.options.excludeUser,
+      }),
     },
   });
 };
