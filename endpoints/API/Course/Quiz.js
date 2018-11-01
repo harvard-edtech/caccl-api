@@ -492,12 +492,8 @@ Quiz.createSubmission = (config) => {
         attempt,
         validation_token: validationToken,
         access_code: utils.includeIfTruthy(config.options.accessCode),
+        quiz_questions: config.options.answers,
       };
-      // Add answers individually
-      config.options.answers.forEach((answer) => {
-        params['quiz_questions[][id]'] = answer.id;
-        params['quiz_questions[][answer]'] = answer.answer;
-      });
       return config.visitEndpoint({
         params,
         path: `${prefix.v1}/quiz_submissions/${submissionId}/questions`,
@@ -515,6 +511,14 @@ Quiz.createSubmission = (config) => {
           access_code: utils.includeIfTruthy(config.options.accessCode),
         },
       });
+    })
+    .then((response) => {
+      return config.uncache([
+        // Uncache submission
+        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions/${submissionId}`,
+        // Uncache list of submissions
+        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions`,
+      ], response.quiz_submissions[0]);
     });
 };
 
