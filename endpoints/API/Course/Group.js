@@ -14,6 +14,7 @@ class Group extends EndpointCategory {
 
 /**
  * Gets info on a specific group in a course
+ * @author Gabriel Abrams
  * @method get
  * @param {number} groupId - Canvas group Id
  * @return Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
@@ -34,6 +35,7 @@ Group.get = (config) => {
 
 /**
  * Gets the list of members in a group
+ * @author Gabriel Abrams
  * @method listMembers
  * @param {number} groupId - Canvas group Id
  * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
@@ -48,6 +50,7 @@ Group.listMembers = (config) => {
 
 /**
  * Gets the list of members in a group
+ * @author Gabriel Abrams
  * @method updateMembers
  * @param {number} groupId - Canvas group Id
  * @param {array} [members=[]] - The list of user objects/user Ids that should

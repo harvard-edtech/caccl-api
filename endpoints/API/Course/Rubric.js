@@ -14,6 +14,7 @@ class Rubric extends EndpointCategory {
 
 /**
  * Lists the set of rubrics in a course
+ * @author Gabriel Abrams
  * @method list
  * @param {number} courseId - Canvas course Id to add the rubric to
  * @return {Promise.<Object[]>} list of Canvas Rubrics {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
@@ -28,6 +29,7 @@ Rubric.list = (config) => {
 
 /**
  * Gets info on a specific rubric in a course
+ * @author Gabriel Abrams
  * @method get
  * @param {number} courseId - Canvas course Id to add the rubric to
  * @param {number} rubricId - Canvas course Id to add the rubric to
@@ -56,6 +58,7 @@ Rubric.get = (config) => {
  * Creates a new rubric for grading with free form comments enabled and add it
  *   to an assignment in a course.
  * @version unlisted
+ * @author Gabriel Abrams
  * @method createFreeFormGradingRubricInAssignment
  * @param {number} courseId - Canvas course Id to add the rubric to
  * @param {number} assignmentId - Canvas course Id to add the rubric to

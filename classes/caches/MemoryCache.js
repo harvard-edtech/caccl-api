@@ -1,5 +1,6 @@
 /**
  * Memory cache class
+ * @author Gabriel Abrams
  * @module classes/caches/MemoryCache
  * @see module: classes/caches/MemoryCache
  */
@@ -10,6 +11,7 @@ const hashParams = require('./helpers/hashParams.js');
 class MemoryCache {
   /**
    * Creates a MemoryCache
+   * @author Gabriel Abrams
    */
   constructor() {
     this._map = new Map();
@@ -18,6 +20,8 @@ class MemoryCache {
 
   /**
    * Gets a value given the key pair (path, param)
+   * @author Gabriel Abrams
+   * @method get
    * @param {string} path - The url path that is cached
    * @param {object} params - The get parameters for the cached request
    * @return {Promise.<object>} Promise that resolves with cached value
@@ -37,6 +41,8 @@ class MemoryCache {
 
   /**
    * Saves a value to the key pair (path, param), fetchable using get function
+   * @author Gabriel Abrams
+   * @method set
    * @param {string} path - The url path to cache
    * @param {object} params - The get parameters to cache
    * @param {string} value - The value to cache
@@ -65,6 +71,8 @@ class MemoryCache {
 
   /**
    * Deletes a specific path (and all associated params) from the cache
+   * @author Gabriel Abrams
+   * @method deletePaths
    * @return {Promise} Promise that resolves when the path is deleted
    */
   deletePaths(paths) {
@@ -83,6 +91,8 @@ class MemoryCache {
 
   /**
    * Gets the list of all cached paths
+   * @author Gabriel Abrams
+   * @method getAllPaths
    * @return {Promise.<string[]>} Promise that resolves with the list of cached
    *   paths
    */
@@ -92,6 +102,8 @@ class MemoryCache {
 
   /**
    * Deletes the entire cache
+   * @author Gabriel Abrams
+   * @method deleteAllPaths
    * @return {Promise} Promise that resolves when delete is complete
    */
   deleteAllPaths() {

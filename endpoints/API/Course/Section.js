@@ -13,6 +13,7 @@ class Section extends EndpointCategory {
 
 /**
  * Gets the list of sections in a course
+ * @author Gabriel Abrams
  * @method list
  * @param {number} courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas Sections {@link https://canvas.instructure.com/doc/api/sections.html#Section}
@@ -27,6 +28,7 @@ Section.list = (config) => {
 
 /**
  * Gets info on a specific section
+ * @author Gabriel Abrams
  * @method get
  * @param {number} courseId - Canvas course Id to query
  * @param {number} sectionId - Section Id to retrieve

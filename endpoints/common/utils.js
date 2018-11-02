@@ -1,5 +1,6 @@
 /**
  * Useful utilities for use in defining endpoints
+ * @author Gabriel Abrams
  * @module endpoints/helpers/utils
  * @see module: endpoints/helpers/utils
  */
@@ -16,6 +17,7 @@ module.exports = {
    * Returns the value if it's truthy, otherwise returns a special value that
    *   indicates to the request pre-processor that the associated parameter
    *   should be excluded
+   * @author Gabriel Abrams
    * @param {object} [value] - The value to include if truthy
    * @return {object} the value to send to visitEndpoint
    */
@@ -26,6 +28,7 @@ module.exports = {
   /**
    * Given a mapping: includeText => includeThis, creates a list of include
    *   strings to send to Canvas
+   * @author Gabriel Abrams
    * @param {Object.<string, boolean>} map - a mapping: includeText =>
    *   includeThis where includeText is the string to include in the list and
    *   includeThis is a value to check (if truthy, includeText is included)
@@ -54,6 +57,7 @@ module.exports = {
    * Returns the value if it's a boolean, otherwise returns a special value that
    *   indicates to the request pre-processor that the associated parameter
    *   should be excluded
+   * @author Gabriel Abrams
    * @param {object} [value] - The value to include if it's a boolean
    * @return {object} the value to send to visitEndpoint
    */
@@ -69,6 +73,7 @@ module.exports = {
    *   array has no truthy elements, an empty array is returned, if no
    *   array is included, returns a special value that indicates to the request
    *   pre-processor that the associated parameter should be excluded
+   * @author Gabriel Abrams
    * @param {array} [arr] - The value to include if truthy
    * @return {object} the value to send to visitEndpoint
    */
@@ -88,6 +93,7 @@ module.exports = {
    *   array has no truthy elements or if no array is included, returns a
    *   special value that indicates to the request pre-processor that the
    *   associated parameter should be excluded
+   * @author Gabriel Abrams
    * @param {array} [arr] - The array to filter
    * @return {object} the value to send to visitEndpoint
    */
@@ -111,6 +117,7 @@ module.exports = {
    * Returns the ISO 8601 string for the given date if it is truthy, otherwise
    *   returns a special value that indicates to the request pre-processor
    *   that the associated parameter should be excluded
+   * @author Gabriel Abrams
    * @param {string|date} [date] - The string (ISO 8601 format) or javascript
    *   date object to include if it's truthy
    * @return {string} the value to send to visitEndpoint
@@ -128,6 +135,7 @@ module.exports = {
    * Returns the value if it's a number, otherwise returns a special value that
    *   indicates to the request pre-processor that the associated parameter
    *   should be excluded
+   * @author Gabriel Abrams
    * @param {object} [value] - The value to include if it's a number
    * @return {object} the value to send to visitEndpoint
    */
@@ -144,6 +152,7 @@ module.exports = {
 
   /**
    * Returns true if the value is truthy, otherwise returns false
+   * @author Gabriel Abrams
    * @param {object} [value] - The value to check
    * @return {boolean} the value to send to visitEndpoint
    */
@@ -156,6 +165,7 @@ module.exports = {
    *   property (arr[0].id is defined), extracts each array element's id
    *   property, otherwise, just returns the array. If the array is not falsy,
    *   an empty array is returned
+   * @author Gabriel Abrams
    * @param {array} [arr] - The array of ids or objects containing ids
    * @return {array} array of ids
    */
@@ -174,6 +184,7 @@ module.exports = {
    * Returns 's' if num is not 1, otherwise returns ''. May be used to pluralize
    *   descriptions:
    *   `Only ${students.length} student${sIfPlural(students.length)} submitted`
+   * @author Gabriel Abrams
    * @param {number} [num] - The number to check
    * @return {string} the pluralization 's' or an empty string
    */

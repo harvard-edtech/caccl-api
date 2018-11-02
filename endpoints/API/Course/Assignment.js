@@ -24,6 +24,7 @@ class Assignment extends EndpointCategory {
 
 /**
  * Lists the assignments in a course
+ * @author Gabriel Abrams
  * @method list
  * @param {number} courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas Assignments {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
@@ -38,6 +39,7 @@ Assignment.list = (config) => {
 
 /**
  * Get info on a specific assignment in a course
+ * @author Gabriel Abrams
  * @method get
  * @param {number} courseId - Canvas course Id to query
  * @param {number} assignmentId - Canvas assignment Id
@@ -53,6 +55,7 @@ Assignment.get = (config) => {
 
 /**
  * Updates a Canvas assignment
+ * @author Gabriel Abrams
  * @method update
  * @param {number} courseId - Canvas course Id to query
  * @param {number} assignmentId - Canvas assignment Id to update
@@ -136,6 +139,7 @@ Assignment.update = (config) => {
 
 /**
  * Creates a Canvas assignment
+ * @author Gabriel Abrams
  * @method create
  * @param {number} courseId - Canvas course Id to create an assignment in
  * @param {string} name - The name of the assignment
@@ -215,6 +219,7 @@ Assignment.create = (config) => {
 
 /**
  * Delete an assignment
+ * @author Gabriel Abrams
  * @method delete
  * @param {number} courseId - Canvas course Id
  * @param {number} assignmentId - Canvas assignment Id
@@ -241,6 +246,7 @@ Assignment.delete = (config) => {
 
 /**
  * List gradeable students for a specific assignment
+ * @author Gabriel Abrams
  * @method listGradeableStudents
  * @param {number} courseId - Canvas course Id to query
  * @param {number} assignmentId - Canvas assignment Id to query
@@ -262,6 +268,7 @@ Assignment.listGradeableStudents = (config) => {
 
 /**
  * Adds a comment to a submission
+ * @author Gabriel Abrams
  * @method createSubmissionComment
  * @param {number} courseId - Canvas course Id
  * @param {number} assignmentId - Canvas course Id
@@ -289,6 +296,7 @@ Assignment.createSubmissionComment = (config) => {
 
 /**
  * Batch updates grades and/or comments. Also supports updating rubric items
+ * @author Gabriel Abrams
  * @method updateGrades
  * @param {number} courseId - Canvas course Id
  * @param {number} assignmentId - Canvas course Id
@@ -570,6 +578,7 @@ Assignment.updateGrades = (config) => {
 
 /**
  * Gets the list of overrides for an assignment
+ * @author Gabriel Abrams
  * @method listOverrides
  * @param {number} courseId - Canvas course id to query
  * @param {number} assignmentId - Canvas assignment id to look up
@@ -585,6 +594,7 @@ Assignment.listOverrides = (config) => {
 
 /**
  * Get a specific override on an assignment in a course
+ * @author Gabriel Abrams
  * @method getOverride
  * @param {number} courseId - Canvas course id to query
  * @param {number} assignmentId - Canvas assignment id to query
@@ -601,6 +611,7 @@ Assignment.getOverride = (config) => {
 
 /**
  * Create assignment override.
+ * @author Gabriel Abrams
  * @method createOverride
  * @param {number} courseId - Canvas course id
  * @param {number} assignmentId - Canvas assignment id
@@ -657,6 +668,7 @@ Assignment.createOverride = (config) => {
 
 /**
  * Deletes an assignment override
+ * @author Gabriel Abrams
  * @method deleteOverride
  * @param {number} courseId - Canvas course id to query
  * @param {number} assignmentId - Canvas assignment id to query
@@ -709,6 +721,7 @@ const getCurrentUserId = (api, userId) => {
 
 /**
  * Lists the submissions to a specific assignment in a course
+ * @author Gabriel Abrams
  * @method listSubmissions
  * @param {number} courseId - Canvas course Id
  * @param {number} assignmentId - The Canvas assignment Id to query
@@ -772,6 +785,7 @@ Assignment.listSubmissions = (config) => {
 
 /**
  * Gets a single submission for an assignment
+ * @author Gabriel Abrams
  * @method getSubmission
  * @param {number} courseId - Canvas course Id
  * @param {number} assignmentId - The Canvas assignment Id
@@ -801,6 +815,7 @@ Assignment.getSubmission = (config) => {
 
 /**
  * Creates a text submission on behalf of the current user
+ * @author Gabriel Abrams
  * @method createTextSubmission
  * @param {number} courseId - Canvas course Id
  * @param {number} assignmentId - The Canvas assignment Id
@@ -843,6 +858,7 @@ Assignment.createTextSubmission = (config) => {
 
 /**
  * Creates a url submission on behalf of the current user
+ * @author Gabriel Abrams
  * @method createURLSubmission
  * @param {number} courseId - Canvas course Id
  * @param {number} assignmentId - The Canvas assignment Id
@@ -885,6 +901,7 @@ Assignment.createURLSubmission = (config) => {
 
 /**
  * Creates a file submission on behalf of the current user
+ * @author Gabriel Abrams
  * @method createFileSubmission
  * @param {number} courseId - Canvas course Id
  * @param {number} assignmentId - The Canvas assignment Id

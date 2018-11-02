@@ -2,14 +2,19 @@ const axios = require('axios');
 const qs = require('qs');
 const CACCLError = require('../../../../caccl-error/index.js'); // TODO: switch to actual library
 const errorCodes = require('../../../errorCodes.js');
-//
-// const paramsSerializer = (params) => {
-//   const ret = queryString.stringify(params, { arrayFormat: 'bracket' });
-//   console.log(ret);
-//   return ret;
-// };
 
-// Function that sends (and retries) an https request
+/**
+ * Sends and retries an http request
+ * @author Gabriel Abrams
+ * @param {string} host - host to send request to
+ * @param {string} path - path to send request to
+ * @param {string} [method=GET] - http method to use
+ * @param {object} [params] - body/data to include in the request
+ * @param {number} [numRetries=0] - number of times to retry the request if it
+ *   fails
+ * @return {Promise.<CACCLErrror|object>} Returns { body, status, headers } on
+ *   success, CACCLError on failure
+ */
 const sendRequest = (options) => {
   // Set max number of retries if not defined
   const numRetries = (options.numRetries ? options.numRetries : 0);

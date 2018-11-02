@@ -28,6 +28,7 @@ module.exports = {
   /**
    * Checks whether a template matches a value (good for checking if a template
    *   matches a specific value)
+   * @author Gabriel Abrams
    * @memberof module: endpoints/common/utils
    * @param {object} template - object template (see docs in
    *   /endpoints/common/utils)
@@ -68,6 +69,7 @@ module.exports = {
   /**
    * Checks if a template matches any values in the list (good for checking if
    *   a template is found in a list)
+   * @author Gabriel Abrams
    * @memberof module: endpoints/common/utils
    * @param {object} template - object template (see docs in
    *   /endpoints/common/utils)
@@ -87,6 +89,7 @@ module.exports = {
   /**
    * Generates a string explaining which templates could not be found in the
    *   list (good for checking if multiple templates exist in a list)
+   * @author Gabriel Abrams
    * @memberof module: endpoints/common/utils
    * @param {object} templates - object templates (see docs in
    *   /endpoints/common/utils)
@@ -120,6 +123,7 @@ module.exports = {
 
   /**
    * Waits a given number of seconds
+   * @author Gabriel Abrams
    * @memberof module: endpoints/common/utils
    * @param {float} seconds - the number of seconds to wait
    * @return {Promise} promise that resolves when the wait is complete

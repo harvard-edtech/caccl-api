@@ -18,6 +18,7 @@ class App extends EndpointCategory {
 
 /**
  * Gets the list of apps installed into a course
+ * @author Gabriel Abrams
  * @method list
  * @memberof module: endpoints/course
  * @param {number} courseId - Canvas course Id to query
@@ -38,6 +39,7 @@ App.list = (config) => {
 
 /**
  * Gets info on a single LTI tool
+ * @author Gabriel Abrams
  * @method get
  * @param {number} courseId - Canvas course Id
  * @param {number} appId - The LTI app Id to get
@@ -53,6 +55,7 @@ App.get = (config) => {
 
 /**
  * Adds an LTI app to a Canvas course
+ * @author Gabriel Abrams
  * @method add
  * @param {number} courseId - Canvas course Id to install into
  * @param {string} name - The app name (for settings app list)
@@ -88,6 +91,7 @@ App.add = (config) => {
 
 /**
  * Removes an LTI app from a Canvas course
+ * @author Gabriel Abrams
  * @method remove
  * @param {number} courseId - Canvas course Id to remove app from
  * @param {number} appId - The LTI app Id to remove
@@ -120,6 +124,7 @@ App.remove = (config) => {
  *   metadataId. If all installations share the same metadata, they should all
  *   have the same metadataId. When getting metadata, we return the metadata
  *   for the first app we find that has this metadataId
+ * @author Gabriel Abrams
  * @method getMetadata
  * @param {number} courseId - Canvas course Id that holds the app
  * @param {number} metadataId - metadata identifier (see endpoint description)
@@ -188,6 +193,7 @@ App.getMetadata = (config) => {
  *   metadataId. If all installations share the same metadata, they should all
  *   have the same metadataId. When updating metadata, we update the metadata
  *   for all apps with the given metadataId
+ * @author Gabriel Abrams
  * @method updateMetadata
  * @param {number} courseId - Canvas course Id that holds the app
  * @param {number} metadataId - metadata identifier (see endpoint description)

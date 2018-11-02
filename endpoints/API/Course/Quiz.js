@@ -27,6 +27,7 @@ class Quiz extends EndpointCategory {
 
 /**
  * Lists the quizzes in a course
+ * @author Gabriel Abrams
  * @method list
  * @param {number} courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas Quizzes {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
@@ -41,6 +42,7 @@ Quiz.list = (config) => {
 
 /**
  * Get info on a specific quiz in a course
+ * @author Gabriel Abrams
  * @method get
  * @param {number} courseId - Canvas course Id to query
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
@@ -56,6 +58,7 @@ Quiz.get = (config) => {
 
 /**
  * Updates a specific quiz in a course
+ * @author Gabriel Abrams
  * @method update
  * @param {number} courseId - Canvas course Id to create the quiz in
  * @param {number} quizId - Canvas course Id to create the quiz in
@@ -186,6 +189,7 @@ Quiz.update = (config) => {
 
 /**
  * Creates a new quiz in a course
+ * @author Gabriel Abrams
  * @method create
  * @param {number} courseId - Canvas course Id to create the quiz in
  * @param {string} title - Title of the new quiz
@@ -308,6 +312,7 @@ Quiz.create = (config) => {
 
 /**
  * Deletes a quiz from a course
+ * @author Gabriel Abrams
  * @method delete
  * @param {number} courseId - Canvas course Id to query
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
@@ -341,6 +346,7 @@ Quiz.delete = (config) => {
 
 /**
  * Lists the questions in a specific quiz in a course
+ * @author Gabriel Abrams
  * @method listQuestions
  * @param {number} courseId - Canvas course Id to query
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
@@ -356,6 +362,7 @@ Quiz.listQuestions = (config) => {
 
 /**
  * Creates a new multiple choice question to a quiz in a course
+ * @author Gabriel Abrams
  * @method createMultipleChoiceQuestion
  * @param {number} courseId - Canvas course Id to query
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
@@ -421,6 +428,7 @@ Quiz.createMultipleChoiceQuestion = (config) => {
 
 /**
  * Lists the submissions to a quiz in a course
+ * @author Gabriel Abrams
  * @method listSubmissions
  * @param {number} courseId - Canvas course Id to query
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
@@ -438,6 +446,7 @@ Quiz.listSubmissions = (config) => {
 
 /**
  * Gets info on a specific submission to a quiz in a course
+ * @author Gabriel Abrams
  * @method getSubmission
  * @param {number} courseId - Canvas course Id to query
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
@@ -458,6 +467,7 @@ Quiz.getSubmission = (config) => {
 /**
  * Creates a new submission to a specific quiz in a course on behalf of the
  *   current user
+ * @author Gabriel Abrams
  * @method createSubmission
  * @param {number} courseId - Canvas course Id
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
@@ -548,6 +558,7 @@ const reportColMap = {
 
 /**
  * Lists quiz question grades for a specific quiz in a course
+ * @author Gabriel Abrams
  * @method listQuestionGrades
  * @param {number} courseId - Canvas course Id to query
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
@@ -724,6 +735,7 @@ Quiz.listQuestionGrades = (config) => {
 /**
  * Updates the question grades for a specific submission to a quiz in a course
  * @version unstable
+ * @author Gabriel Abrams
  * @method updateQuestionGrades
  * @param {number} courseId - Canvas course Id to query
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)

@@ -17,6 +17,7 @@ class GradebookColumn extends EndpointCategory {
 
 /**
  * Gets the list of custom gradebook columns in a course
+ * @author Gabriel Abrams
  * @method list
  * @param {number} courseId - Canvas course Id to query
  * @param {boolean} [includeHidden=false] - If truthy, includes hidden
@@ -38,6 +39,7 @@ GradebookColumn.list = (config) => {
  * Gets info on a specific gradebook column in a course. This is a simulated
  *   endpoint: it does not exist. We are just pulling the list of columns and
  *   returning one element.
+ * @author Gabriel Abrams
  * @method get
  * @param {number} courseId - Canvas course Id to query
  * @param {number} columnId - Canvas column Id to return
@@ -71,6 +73,7 @@ GradebookColumn.get = (config) => {
 
 /**
  * Updates a gradebook column's information
+ * @author Gabriel Abrams
  * @method update
  * @param {number} courseId - Canvas course ID
  * @param {number} columnId - Canvas custom gradebook column ID to query
@@ -101,6 +104,7 @@ GradebookColumn.update = (config) => {
 
 /**
  * Creates a new gradebook column in a course
+ * @author Gabriel Abrams
  * @method create
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [title=Untitled Column] - Title of new custom gradebook
@@ -133,6 +137,7 @@ GradebookColumn.create = (config) => {
 
 /**
  * Deletes a gradebook column from a course
+ * @author Gabriel Abrams
  * @method delete
  * @param {number} courseId - Canvas course Id to query
  * @param {number} columnId - Gradebook column Id
@@ -159,6 +164,7 @@ GradebookColumn.delete = (config) => {
 
 /**
  * Gets the list of entries in a specific gradebook column in a course
+ * @author Gabriel Abrams
  * @method listEntries
  * @param {number} courseId - Canvas course Id to query
  * @param {number} columnId - Gradebook column Id
@@ -177,6 +183,7 @@ GradebookColumn.listEntries = (config) => {
 
 /**
  * Update the list of entries in a specific gradebook column in a course
+ * @author Gabriel Abrams
  * @method updateEntries
  * @param {number} courseId - Canvas course Id to query
  * @param {number} columnId - Gradebook column Id

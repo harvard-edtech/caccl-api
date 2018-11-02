@@ -15,6 +15,7 @@ class AssignmentGroup extends EndpointCategory {
 
 /**
  * Lists assignment groups in a course
+ * @author Gabriel Abrams
  * @method listAssignmentGroups
  * @param {number} courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas AssignmentGroups {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
@@ -29,6 +30,7 @@ AssignmentGroup.list = (config) => {
 
 /**
  * Gets info on a specific assignment group in a course
+ * @author Gabriel Abrams
  * @method getAssignmentGroup
  * @param {number} courseId - Canvas course Id to query
  * @param {number} assignmentGroupId - Assignment group to get
@@ -45,6 +47,8 @@ AssignmentGroup.get = (config) => {
 
 /**
  * Updates an assignment group in a course
+ * @author Gabriel Abrams
+ * @method update
  * @param {number} courseId - Canvas course Id to query
  * @param {number} assignmentGroupId - Assignment group to update
  * @param {string} [name=current value] - New assignment group name
@@ -72,6 +76,8 @@ AssignmentGroup.update = (config) => {
 
 /**
  * Create a new assignment group in a course
+ * @author Gabriel Abrams
+ * @method create
  * @param {number} courseId - Canvas course Id to query
  * @param {string} name - New assignment group name
  * @param {number} [weight=0] - Assignment group weight
@@ -98,6 +104,8 @@ AssignmentGroup.create = (config) => {
 
 /**
  * Deletes an assignment group from a course
+ * @author Gabriel Abrams
+ * @method delete
  * @param {number} courseId - Canvas course Id to query
  * @param {number} assignmentGroupId - Assignment group to delete
  * @param {number} [moveAssignmentsTo] - Assignment group to move

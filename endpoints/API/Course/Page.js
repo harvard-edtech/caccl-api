@@ -14,6 +14,7 @@ class Page extends EndpointCategory {
 
 /**
  * Gets the list of pages in a course
+ * @author Gabriel Abrams
  * @method list
  * @param {number} courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas Pages {@link https://canvas.instructure.com/doc/api/pages.html#Page}
@@ -28,6 +29,7 @@ Page.list = (config) => {
 
 /**
  * Get info on a specific page in a course
+ * @author Gabriel Abrams
  * @method get
  * @param {number} courseId - Canvas course Id to query
  * @param {string} pageURL - Canvas page url (just the last part of path)
@@ -43,6 +45,7 @@ Page.get = (config) => {
 
 /**
  * Updates a Canvas page
+ * @author Gabriel Abrams
  * @method update
  * @param {number} courseID - Canvas course ID holding the page to update
  * @param {string} pageURL - Canvas page url (just the last part of path)
@@ -83,6 +86,7 @@ Page.update = (config) => {
 
 /**
  * Creates a new page in a course
+ * @author Gabriel Abrams
  * @method create
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [title=Untitled Page] - The title of the page
@@ -119,6 +123,7 @@ Page.create = (config) => {
 
 /**
  * Deletes a page from a course
+ * @author Gabriel Abrams
  * @method delete
  * @param {number} courseId - Canvas course Id to query
  * @param {string} pageURL - Page url to delete (just last part of path)

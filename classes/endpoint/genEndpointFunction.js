@@ -1,5 +1,6 @@
 /**
  * Function that takes an endpoint definition and creates an endpoint function
+ * @author Gabriel Abrams
  * @module classes/endpoint/genEndpointFunction
  * @see module: classes/endpoint/genEndpointFunction
  */
@@ -11,6 +12,7 @@ const genCachedVisitEndpoint = require('./helpers/genCachedVisitEndpoint.js');
 /**
  * Creates an endpoint function based on an endpoint definition (from a file
  *   at endpoints/category/file.js)
+ * @author Gabriel Abrams
  * @param {object} config.endpoint - An endpoint definition (from a file
  *   at endpoints/category/file.js)
  * @param {function} config.run - The function to run when the endpoint is

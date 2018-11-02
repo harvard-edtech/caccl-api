@@ -1,5 +1,6 @@
 /**
  * Session cache class
+ * @author Gabriel Abrams
  * @module classes/caches/SessionCache
  * @see module: classes/caches/SessionCache
  */
@@ -12,6 +13,7 @@ const hashParams = require('./helpers/hashParams.js');
 class SessionCache {
   /**
    * Creates a SessionCache
+   * @author Gabriel Abrams
    * @param {object} params - Object containing get parameters
    * @return {string} hashed cache key
    */
@@ -35,6 +37,7 @@ class SessionCache {
 
   /**
    * Gets a value given the key pair (path, param)
+   * @author Gabriel Abrams
    * @param {string} path - The url path that is cached
    * @param {object} params - The get parameters for the cached request
    * @return {Promise.<object>} Promise that resolves with cached value
@@ -54,6 +57,7 @@ class SessionCache {
 
   /**
    * Saves a value to the key pair (path, param), fetchable using get function
+   * @author Gabriel Abrams
    * @param {string} path - The url path to cache
    * @param {object} params - The get parameters to cache
    * @param {string} value - The value to cache
@@ -84,6 +88,7 @@ class SessionCache {
 
   /**
    * Deletes a specific path (and all associated params) from the cache
+   * @author Gabriel Abrams
    * @return {Promise} Promise that resolves when the path is deleted
    */
   deletePaths(paths) {
@@ -102,6 +107,7 @@ class SessionCache {
 
   /**
    * Gets the list of all cached paths
+   * @author Gabriel Abrams
    * @return {Promise.<string[]>} Promise that resolves with the list of cached
    *   paths
    */
@@ -111,6 +117,7 @@ class SessionCache {
 
   /**
    * Deletes the entire cache
+   * @author Gabriel Abrams
    * @return Promise that resolves when delete is complete
    */
   deleteAllPaths() {
@@ -120,6 +127,7 @@ class SessionCache {
 
   /**
    * Saves the current state of the session via express session
+   * @author Gabriel Abrams
    * @return {Promise} Promise that resolves when save is complete
    */
   _save() {

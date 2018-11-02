@@ -1,5 +1,6 @@
 /**
  * Canvas API Class
+ * @author Gabriel Abrams
  * @module caccl-canvas-api
  * @see module: index
  */
@@ -8,6 +9,7 @@ const API = require('./endpoints/API');
 
 /**
  * Creates a new API object
+ * @author Gabriel Abrams
  * @param {string} [config.accessToken] - An access token to add to all
  *   requests. Can be overridden by including `access_token` query/body
  *   parameter.

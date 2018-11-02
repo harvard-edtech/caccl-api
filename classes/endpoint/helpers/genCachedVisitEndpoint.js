@@ -1,5 +1,6 @@
 /**
  * Function that wraps visitEndpoint to make a cached version of the function
+ * @author Gabriel Abrams
  * @module classes/endpoint/helpers/genCachedVisitEndpoint
  * @see module: classes/endpoint/helpers/genCachedVisitEndpoint
  */
@@ -7,6 +8,7 @@
 /**
  * Wraps visitEndpoint to make a cached version of visitEndpoint that looks up
  *   in cache before sending a request and saves in cache after request returns
+ * @author Gabriel Abrams
  * @param {function} config.visitEndpoint - The visitEndpoint function created
  *   by classes/request/genVisitEndpoint
  * @param {object} [config.cache=null] - The cache instance. Does not cache if

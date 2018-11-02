@@ -13,6 +13,7 @@ class Self extends EndpointCategory {
 
 /**
  * Gets info on the current user
+ * @author Gabriel Abrams
  * @method getProfile
  * @return {Promise.<Object>} Canvas user object {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
@@ -26,6 +27,7 @@ Self.getProfile = (config) => {
 
 /**
  * Gets the list of courses associated with the current user
+ * @author Gabriel Abrams
  * @method listCourses
  * @return {Promise.<Object>} Canvas course object {@link https://canvas.instructure.com/doc/api/courses.html#Course}
  */

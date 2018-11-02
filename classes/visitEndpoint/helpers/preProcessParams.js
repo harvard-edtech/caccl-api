@@ -1,5 +1,6 @@
 /**
  * Function that pre-processes request parameters for https requests
+ * @author Gabriel Abrams
  * @module classes/request/helpers/interpretCanvasError
  * @see module: classes/request/helpers/interpretCanvasError
  */
@@ -9,6 +10,7 @@ const EXCLUDED_VALUE = require('./valueThatsExcluded.js');
 
 /**
  * Recursively excludes values that match EXCLUDED_VALUE
+ * @author Gabriel Abrams
  * @param {object} value - object to preprocess
  * @return {object} pre-processed object with values excluded
  */
@@ -42,6 +44,7 @@ const _recursivelyExcludeParams = (obj) => {
 
 /**
  * Pre-processes request params/body
+ * @author Gabriel Abrams
  * @param {object} config.options - The options to pass into the visitEndpoint
  *   function (same definition as in classes/request/genVisitEndpoint)
  * @param {number} [config.itemsPerPage=100] - The default number of items per

@@ -17,6 +17,7 @@ class GroupSet extends EndpointCategory {
 
 /**
  * Lists the group sets in the course
+ * @author Gabriel Abrams
  * @method list
  * @param {number} courseId - Canvas course Id
  * @return {Promise.<Object[]>} list of Canvas GroupCategories {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
@@ -31,6 +32,7 @@ GroupSet.list = (config) => {
 
 /**
  * Gets info on a specific group set
+ * @author Gabriel Abrams
  * @method get
  * @param {number} groupSetId - Canvas group set Id
  * @return {Promise.<Object>} Canvas GroupCategory {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
@@ -45,6 +47,7 @@ GroupSet.get = (config) => {
 
 /**
  * Create a group set in a course
+ * @author Gabriel Abrams
  * @method create
  * @param {number} courseId - Canvas course Id to create a group set in
  * @param {string} name - The name of the new group set
@@ -70,6 +73,7 @@ GroupSet.create = (config) => {
 
 /**
  * Deletes a group set
+ * @author Gabriel Abrams
  * @method delete
  * @param {number} courseId - Canvas course Id
  * @param {number} groupSetId - Canvas group set Id
@@ -96,6 +100,7 @@ GroupSet.delete = (config) => {
 
 /**
  * Gets the list of groups in a group set
+ * @author Gabriel Abrams
  * @method listGroups
  * @param {number} groupSetId - Canvas group set Id to query
  * @return {Promise.<Object[]>} list of Canvas Groups {@link https://canvas.instructure.com/doc/api/groups.html#Group}
@@ -111,6 +116,7 @@ GroupSet.listGroups = (config) => {
 /**
  * Gets info on a specific group in a group set (alias to
  *   groups.js/getGroup)
+ * @author Gabriel Abrams
  * @method getGroup
  * @param {number} groupId - Canvas group Id
  * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
@@ -122,6 +128,7 @@ GroupSet.getGroup = (config) => {
 
 /**
  * Creates a new group in a group set
+ * @author Gabriel Abrams
  * @method createGroup
  * @param {number} courseId - Canvas course Id
  * @param {number} groupSetId - Canvas group set Id to query
@@ -153,6 +160,7 @@ GroupSet.createGroup = (config) => {
 
 /**
  * Deletes a specific group from a group set
+ * @author Gabriel Abrams
  * @method deleteGroup
  * @param {number} groupSetId - Canvas group set Id
  * @param {number} groupId - Canvas group Id to delete

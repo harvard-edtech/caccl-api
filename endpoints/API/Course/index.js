@@ -41,6 +41,7 @@ Course.section = Section;
 
 /**
  * Gets info on a specific course
+ * @author Gabriel Abrams
  * @method get
  * @param {number} courseId - Canvas course Id to get info on
  * @param {boolean} [includeSyllabus=false] - If truthy, includes syllabus
@@ -79,6 +80,7 @@ Course.get = (config) => {
 
 /**
  * Gets the list of enrollments in a course
+ * @author Gabriel Abrams
  * @method listEnrollments
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [types=all] - list of enrollment types to include:
@@ -131,6 +133,7 @@ Course.listEnrollments = (config) => {
 
 /**
  * Gets the list of students in a course
+ * @author Gabriel Abrams
  * @method listStudents
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [activeOnly=false] - If truthy, only active enrollments
@@ -148,6 +151,7 @@ Course.listStudents = (config) => {
 
 /**
  * Gets the list of TAs and Teachers in a course
+ * @author Gabriel Abrams
  * @method listTeachingTeamMembers
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [activeOnly=false] - If truthy, only active enrollments
@@ -165,6 +169,7 @@ Course.listTeachingTeamMembers = (config) => {
 
 /**
  * Gets the list of designers in a course
+ * @author Gabriel Abrams
  * @method listDesigners
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [activeOnly=false] - If truthy, only active enrollments
@@ -182,6 +187,7 @@ Course.listDesigners = (config) => {
 
 /**
  * Gets the list of observers in a course
+ * @author Gabriel Abrams
  * @method listObservers
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [activeOnly=false] - If truthy, only active enrollments

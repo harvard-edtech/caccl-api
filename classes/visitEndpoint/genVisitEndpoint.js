@@ -1,6 +1,7 @@
 /**
  * Function that generates a function that visits a Canvas endpoint and returns
  *   Canvas' response
+ * @author Gabriel Abrams
  * @module classes/request/genVisitEndpoint
  * @see module: classes/request/genVisitEndpoint
  */
@@ -14,6 +15,7 @@ const preProcessParams = require('./helpers/preProcessParams.js');
 /**
  * Generates a function that visits a Canvas endpoint and returns Canvas'
  *   response
+ * @author Gabriel Abrams
  * @param {object} [config.defaults={}] - The set of defaults to apply to the
  *   params. Each default can be overridden by including the same option in the
  *   options object passed to visitEndpoint
@@ -42,6 +44,7 @@ module.exports = (config = {}) => {
 
   /**
    * Visits a Canvas endpoint and returns Canvas' response
+   * @author Gabriel Abrams
    * @param {string} options.path - The path of the endpoint to visit
    * @param {boolean} [options.dontParse=false] - If truthy, does not attempt to
    *   JSON.parse Canvas' response
