@@ -7,7 +7,7 @@
 
 const CACCLError = require('../../../caccl-error/index.js');
 const errorCodes = require('../../errorCodes.js');
-const genCachedVisitEndpoint = require('./helpers/genCachedVisitEndpoint.js');
+const wrapVisitEndpoint = require('./helpers/wrapVisitEndpoint.js');
 
 /**
  * Creates an endpoint function based on an endpoint definition (from a file
@@ -34,7 +34,7 @@ const genCachedVisitEndpoint = require('./helpers/genCachedVisitEndpoint.js');
 module.exports = (config) => {
   return (options = {}) => {
     // Create a cached version of visitEndpoint
-    const cachedVisitEndpoint = genCachedVisitEndpoint({
+    const wrappedVisitEndpoint = wrapVisitEndpoint({
       options,
       visitEndpoint: config.visitEndpoint,
       cache: config.cache,
@@ -44,7 +44,7 @@ module.exports = (config) => {
     const runPromise = config.run({
       options,
       uncache: config.uncache,
-      visitEndpoint: cachedVisitEndpoint,
+      visitEndpoint: wrappedVisitEndpoint,
       api: config.api,
     });
 
