@@ -80,11 +80,10 @@ module.exports = (config = {}) => {
         || ''
       );
       const { maxPages } = options; // Fetch all pages if 0/null/undefined
-      const host = (
-        options.host
-        || defaults.host
-        || 'canvas.instructure.com'
-      );
+      let host = (options.host || defaults.host);
+      if (host === undefined) {
+        host = 'canvas.instructure.com';
+      }
 
       const params = preProcessParams({
         options,

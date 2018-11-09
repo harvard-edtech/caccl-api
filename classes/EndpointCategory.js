@@ -68,11 +68,15 @@ class EndpointCategory {
           ? config.defaultNumRetries
           : 3
       );
+      let host = config.canvasHost;
+      if (host === undefined) {
+        host = 'canvas.instructure.com';
+      }
       visitEndpoint = genVisitEndpoint({
         defaults: {
           numRetries,
+          host,
           itemsPerPage: config.defaultItemsPerPage || 100,
-          host: config.canvasHost || 'canvas.instructure.com',
           apiPathPrefix: config.apiPathPrefix,
         },
         sendRequest: config.sendRequest,
