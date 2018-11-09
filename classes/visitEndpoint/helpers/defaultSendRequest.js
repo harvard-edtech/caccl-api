@@ -30,7 +30,13 @@ const sendRequest = (options) => {
 
   // Create url (include query if GET)
   const query = (method === 'GET' ? `?${stringifiedParams}` : '');
-  const url = `https://${options.host}${options.path}${query}`;
+  let url;
+  if (!options.host) {
+    // No host included at all. Just send to a path
+    url = `${options.path}${query}`;
+  } else {
+    url = `https://${options.host}${options.path}${query}`;
+  }
 
   // Create data (only if not GET)
   const data = (method !== 'GET' ? stringifiedParams : null);
