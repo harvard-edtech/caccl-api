@@ -1,5 +1,6 @@
 const EndpointCategory = require('../../../classes/EndpointCategory.js');
 const prefix = require('../../common/prefix.js');
+const utils = require('../../common/utils.js');
 
 class Self extends EndpointCategory {
   constructor(config) {
@@ -29,6 +30,7 @@ Self.getProfile = (config) => {
  * Gets the list of courses associated with the current user
  * @author Gabriel Abrams
  * @method listCourses
+ * @param {boolean} [includeTerm] - if truthy, term is included
  * @return {Promise.<Object>} Canvas course object {@link https://canvas.instructure.com/doc/api/courses.html#Course}
  */
 Self.listCourses = (config) => {
@@ -36,6 +38,11 @@ Self.listCourses = (config) => {
   return config.visitEndpoint({
     path: `${prefix.v1}/courses`,
     method: 'GET',
+    params: {
+      include: utils.genIncludesList({
+        term: config.options.includeTerm,
+      }),
+    },
   });
 };
 
