@@ -168,7 +168,7 @@ class EndpointCategory {
           const firstLine = Child[prop].toString().split('\n')[1];
           action = firstLine.split('// @action: ')[1].trim();
         } catch (err) {
-          action = 'perform an unnamed task';
+          action = `perform an unnamed ${prop} task`;
         }
 
         // Create the function
