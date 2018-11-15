@@ -2,6 +2,7 @@ const EndpointCategory = require('../../../classes/EndpointCategory.js');
 const prefix = require('../../common/prefix.js');
 const utils = require('../../common/utils.js');
 
+/* Endpoints for groups */
 class Group extends EndpointCategory {
   constructor(config) {
     super(config, Group);

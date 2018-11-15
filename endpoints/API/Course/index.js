@@ -14,6 +14,7 @@ const Quiz = require('./Quiz.js');
 const Rubric = require('./Rubric.js');
 const Section = require('./Section.js');
 
+/* Endpoints for courses */
 class Course extends EndpointCategory {
   constructor(config) {
     super(config, Course);

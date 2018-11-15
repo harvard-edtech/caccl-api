@@ -5,7 +5,7 @@ const prefix = require('../../common/prefix.js');
 const utils = require('../../common/utils.js');
 const errorCodes = require('../../../errorCodes.js');
 
-
+/* Endpoints for apps (external tools) */
 class App extends EndpointCategory {
   constructor(config) {
     super(config, App);
@@ -13,7 +13,7 @@ class App extends EndpointCategory {
 }
 
 /*------------------------------------------------------------------------*/
-/*                               Endpoints:                               */
+/*                              App Endpoints                             */
 /*------------------------------------------------------------------------*/
 
 /**
@@ -113,7 +113,7 @@ App.remove = (config) => {
 };
 
 /*------------------------------------------------------------------------*/
-/*                                Metadata                                */
+/*                              App Metadata                              */
 /*------------------------------------------------------------------------*/
 
 /**

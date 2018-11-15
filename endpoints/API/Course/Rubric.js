@@ -2,6 +2,7 @@ const EndpointCategory = require('../../../classes/EndpointCategory.js');
 const prefix = require('../../common/prefix.js');
 const utils = require('../../common/utils.js');
 
+/* Endpoints for rubrics */
 class Rubric extends EndpointCategory {
   constructor(config) {
     super(config, Rubric);

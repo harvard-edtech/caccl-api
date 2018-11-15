@@ -5,6 +5,7 @@ const prefix = require('../../common/prefix.js');
 const utils = require('../../common/utils.js');
 const waitForCompletion = require('../../common/waitForCompletion.js');
 
+/* Endpoints for gradebook column */
 class GradebookColumn extends EndpointCategory {
   constructor(config) {
     super(config, GradebookColumn);

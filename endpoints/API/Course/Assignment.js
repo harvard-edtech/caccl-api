@@ -11,6 +11,7 @@ const prefix = require('../../common/prefix.js');
 const utils = require('../../common/utils.js');
 const waitForCompletion = require('../../common/waitForCompletion.js');
 
+/* Endpoints for assignments */
 class Assignment extends EndpointCategory {
   constructor(config) {
     super(config, Assignment);

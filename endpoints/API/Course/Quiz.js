@@ -8,6 +8,7 @@ const prefix = require('../../common/prefix.js');
 const utils = require('../../common/utils.js');
 const waitForCompletion = require('../../common/waitForCompletion.js');
 
+/* Endpoints for quizzes */
 class Quiz extends EndpointCategory {
   constructor(config) {
     super(config, Quiz);

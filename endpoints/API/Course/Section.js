@@ -1,6 +1,7 @@
 const EndpointCategory = require('../../../classes/EndpointCategory.js');
 const prefix = require('../../common/prefix.js');
 
+/* Endpoints for sections */
 class Section extends EndpointCategory {
   constructor(config) {
     super(config, Section);
