@@ -62,21 +62,27 @@ class EndpointCategory {
     // Initialize visitEndpoint
     let { visitEndpoint } = config;
     if (!visitEndpoint) {
-      // Create a new visitEndpoint function
+      // Set up defaults
+      // > numRetries
       const numRetries = (
         config.defaultNumRetries !== undefined
           ? config.defaultNumRetries
           : 3
       );
+      // > itemsPerPage
+      const itemsPerPage = (config.defaultItemsPerPage || 100);
+      // > host
       let host = config.canvasHost;
       if (host === undefined) {
         host = 'canvas.instructure.com';
       }
+
+      // Create a new visitEndpoint function
       visitEndpoint = genVisitEndpoint({
         defaults: {
           numRetries,
           host,
-          itemsPerPage: config.defaultItemsPerPage || 100,
+          itemsPerPage,
           apiPathPrefix: config.apiPathPrefix,
         },
         sendRequest: config.sendRequest,
@@ -134,10 +140,11 @@ class EndpointCategory {
 
             // Uncache
             return cache.deletePaths(pathsToUncache);
-          }).then(() => {
-            // Finally resolve with response
-            return Promise.resolve(response);
-          });
+          })
+            .then(() => {
+              // Finally resolve with response
+              return Promise.resolve(response);
+            });
         };
       } else {
         // No cache. Return dummy function that does nothing
@@ -167,7 +174,7 @@ class EndpointCategory {
           const firstLine = Child[prop].toString().split('\n')[1];
           action = firstLine.split('// @action: ')[1].trim();
         } catch (err) {
-          action = 'perform an unnamed task';
+          action = `perform an unnamed ${prop} task`;
         }
 
         // Create the function
