@@ -78,12 +78,9 @@ module.exports = {
    *   list
    */
   templateFound: (template, list) => {
-    for (let i = 0; i < list.length; i++) {
-      if (module.exports.checkTemplate(template, list[i]).isMatch) {
-        return true;
-      }
-    }
-    return false;
+    return list.some((item) => {
+      return module.exports.checkTemplate(template, item).isMatch;
+    });
   },
 
   /**
