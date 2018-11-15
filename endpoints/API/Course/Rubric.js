@@ -124,17 +124,18 @@ Rubric.createFreeFormGradingRubricInAssignment = (config) => {
     params,
     path: `${prefix.v1}/courses/${config.options.courseId}/rubrics`,
     method: 'POST',
-  }).then((response) => {
-    // Response is of form { rubric: <rubric object> } for no reason
-    // We just extract that rubric object
-    const { rubric } = response;
-    return config.uncache([
-      // Uncache list of rubrics
-      `${prefix.v1}/courses/${config.options.courseId}/rubrics`,
-      // Uncache rubric
-      `${prefix.v1}/courses/${config.options.courseId}/rubrics/${response.id}`,
-    ], rubric);
-  });
+  })
+    .then((response) => {
+      // Response is of form { rubric: <rubric object> } for no reason
+      // We just extract that rubric object
+      const { rubric } = response;
+      return config.uncache([
+        // Uncache list of rubrics
+        `${prefix.v1}/courses/${config.options.courseId}/rubrics`,
+        // Uncache rubric
+        `${prefix.v1}/courses/${config.options.courseId}/rubrics/${response.id}`,
+      ], rubric);
+    });
 };
 
 /*------------------------------------------------------------------------*/

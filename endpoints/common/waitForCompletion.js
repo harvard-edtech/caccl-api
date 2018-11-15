@@ -40,30 +40,32 @@ module.exports = (options) => {
           ignoreCache: true,
           dontCache: true,
         },
-      }).then((statusResponse) => {
-        if (statusResponse.workflow_state !== 'completed') {
-          // Not yet completed
-          if (new Date().getTime() > stopTime) {
-            // Timeout!
-            return reject(new CACCLError({
-              message: 'A queued job reached its timeout. This does not mean that the job did not complete (it might have). It just means that we reached a timeout while checking on the progress of the job. It may complete in the future.',
-              code: errorCodes.waitForCompletionTimeout,
-            }));
+      })
+        .then((statusResponse) => {
+          if (statusResponse.workflow_state !== 'completed') {
+            // Not yet completed
+            if (new Date().getTime() > stopTime) {
+              // Timeout!
+              return reject(new CACCLError({
+                message: 'A queued job reached its timeout. This does not mean that the job did not complete (it might have). It just means that we reached a timeout while checking on the progress of the job. It may complete in the future.',
+                code: errorCodes.waitForCompletionTimeout,
+              }));
+            }
+
+            // We have more time to try again
+            return setTimeout(checkStatus, options.refreshMs || 250);
           }
 
-          // We have more time to try again
-          return setTimeout(checkStatus, options.refreshMs || 250);
-        }
-
-        // Completed! Success
-        return resolve(statusResponse);
-      }).catch((err) => {
-        // Error occurred while checking status
-        return reject(new CACCLError({
-          message: `We encountered an error while checking the status of a queued project: "${err.message}"`,
-          code: errorCodes.waitForCompletionCheckError,
-        }));
-      });
+          // Completed! Success
+          return resolve(statusResponse);
+        })
+        .catch((err) => {
+          // Error occurred while checking status
+          return reject(new CACCLError({
+            message: `We encountered an error while checking the status of a queued project: "${err.message}"`,
+            code: errorCodes.waitForCompletionCheckError,
+          }));
+        });
     };
     checkStatus();
   });

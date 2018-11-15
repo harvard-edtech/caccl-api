@@ -171,21 +171,22 @@ Quiz.update = (config) => {
       'quiz[notify_of_update]':
         !utils.isTruthy(config.options.suppressNotification),
     },
-  }).then((response) => {
-    const uncachePaths = [
-      // Uncache list of quizzes
-      `${prefix.v1}/courses/${config.options.courseId}/quizzes`,
-      // Uncache quiz
-      `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}*`,
-    ];
-    if (response.assignment_id) {
-      // Uncache list of assignments
-      uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments`);
-      // Uncache assignment (quiz is also an assignment)
-      uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments/${response.assignment_id}*`);
-    }
-    return config.uncache(uncachePaths, response);
-  });
+  })
+    .then((response) => {
+      const uncachePaths = [
+        // Uncache list of quizzes
+        `${prefix.v1}/courses/${config.options.courseId}/quizzes`,
+        // Uncache quiz
+        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}*`,
+      ];
+      if (response.assignment_id) {
+        // Uncache list of assignments
+        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments`);
+        // Uncache assignment (quiz is also an assignment)
+        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments/${response.assignment_id}*`);
+      }
+      return config.uncache(uncachePaths, response);
+    });
 };
 
 /**
@@ -294,21 +295,22 @@ Quiz.create = (config) => {
       'quiz[only_visible_to_overrides]':
         utils.isTruthy(config.options.onlyVisibleToOverrides),
     },
-  }).then((response) => {
-    const uncachePaths = [
-      // Uncache list of quizzes
-      `${prefix.v1}/courses/${config.options.courseId}/quizzes`,
-      // Uncache quiz
-      `${prefix.v1}/courses/${config.options.courseId}/quizzes/${response.id}*`,
-    ];
-    if (response.assignment_id) {
-      // Uncache list of assignments
-      uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments`);
-      // Uncache assignment (quiz is also an assignment)
-      uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments/${response.assignment_id}*`);
-    }
-    return config.uncache(uncachePaths, response);
-  });
+  })
+    .then((response) => {
+      const uncachePaths = [
+        // Uncache list of quizzes
+        `${prefix.v1}/courses/${config.options.courseId}/quizzes`,
+        // Uncache quiz
+        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${response.id}*`,
+      ];
+      if (response.assignment_id) {
+        // Uncache list of assignments
+        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments`);
+        // Uncache assignment (quiz is also an assignment)
+        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments/${response.assignment_id}*`);
+      }
+      return config.uncache(uncachePaths, response);
+    });
 };
 
 /**
@@ -324,21 +326,22 @@ Quiz.delete = (config) => {
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}`,
     method: 'DELETE',
-  }).then((response) => {
-    const uncachePaths = [
-      // Uncache list of quizzes
-      `${prefix.v1}/courses/${config.options.courseId}/quizzes`,
-      // Uncache quiz
-      `${prefix.v1}/courses/${config.options.courseId}/quizzes/${response.id}*`,
-    ];
-    if (response.assignment_id) {
-      // Uncache list of assignments
-      uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments`);
-      // Uncache assignment (quiz is also an assignment)
-      uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments/${response.assignment_id}*`);
-    }
-    return config.uncache(uncachePaths, response);
-  });
+  })
+    .then((response) => {
+      const uncachePaths = [
+        // Uncache list of quizzes
+        `${prefix.v1}/courses/${config.options.courseId}/quizzes`,
+        // Uncache quiz
+        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${response.id}*`,
+      ];
+      if (response.assignment_id) {
+        // Uncache list of assignments
+        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments`);
+        // Uncache assignment (quiz is also an assignment)
+        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments/${response.assignment_id}*`);
+      }
+      return config.uncache(uncachePaths, response);
+    });
 };
 
 /*------------------------------------------------------------------------*/
@@ -440,9 +443,10 @@ Quiz.listSubmissions = (config) => {
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions`,
     method: 'GET',
-  }).then((response) => {
-    return Promise.resolve(response.quiz_submissions);
-  });
+  })
+    .then((response) => {
+      return Promise.resolve(response.quiz_submissions);
+    });
 };
 
 /**
@@ -794,15 +798,16 @@ Quiz.updateQuestionGrades = (config) => {
       params,
       path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions/${config.options.submissionId}`,
       method: 'PUT',
-    }).then((response) => {
-      const submission = response.quiz_submissions[0];
-      return config.uncache([
-        // Uncache the list of submissions
-        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions`,
-        // Uncache the submission
-        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions/${config.options.submissionId}`,
-      ], submission);
-    });
+    })
+      .then((response) => {
+        const submission = response.quiz_submissions[0];
+        return config.uncache([
+          // Uncache the list of submissions
+          `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions`,
+          // Uncache the submission
+          `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions/${config.options.submissionId}`,
+        ], submission);
+      });
   });
 };
 

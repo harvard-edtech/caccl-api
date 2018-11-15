@@ -106,27 +106,29 @@ module.exports = (config = {}) => {
         return storePromiseInCache.then(() => {
           return visitEndpointPromise;
         });
-      }).then((response) => {
-        // Success!
+      })
+        .then((response) => {
+          // Success!
 
-        // Cache the value if applicable
-        let storeValueInCache;
-        if (!config.cache.storePromises) {
-          // Store the value
-          storeValueInCache = config.cache.set(
-            options.path,
-            options.params,
-            response
-          );
-        } else {
-          storeValueInCache = Promise.resolve();
-        }
+          // Cache the value if applicable
+          let storeValueInCache;
+          if (!config.cache.storePromises) {
+            // Store the value
+            storeValueInCache = config.cache.set(
+              options.path,
+              options.params,
+              response
+            );
+          } else {
+            storeValueInCache = Promise.resolve();
+          }
 
-        // Wait for store to complete, then resolve with visitEndpoint response
-        return storeValueInCache.then(() => {
-          return Promise.resolve(response);
+          // Wait for store to complete, then resolve with visitEndpoint
+          // response
+          return storeValueInCache.then(() => {
+            return Promise.resolve(response);
+          });
         });
-      });
     };
   } else {
     // No caching taking place. No need for wrap

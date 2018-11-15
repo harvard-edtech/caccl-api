@@ -104,9 +104,10 @@ describe('Endpoints > Course > Rubrics', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: assignment.id,
-          }).catch((err) => {
-            throw new Error(`We were able to finish the test but coulnd't delete a test assignment (${assignment.name}) due to an error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We were able to finish the test but coulnd't delete a test assignment (${assignment.name}) due to an error: ${err.message}`);
+            });
         }));
       });
   });
@@ -143,9 +144,10 @@ describe('Endpoints > Course > Rubrics', function () {
         return api.course.assignment.delete({
           courseId,
           assignmentId: testAssignmentId,
-        }).catch((err) => {
-          throw new Error(`Successfully completed the test but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
-        });
+        })
+          .catch((err) => {
+            throw new Error(`Successfully completed the test but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
+          });
       });
   });
 
@@ -181,9 +183,10 @@ describe('Endpoints > Course > Rubrics', function () {
         return api.course.assignment.delete({
           courseId,
           assignmentId: testAssignmentId,
-        }).catch((err) => {
-          throw new Error(`Successfully completed the test but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
-        });
+        })
+          .catch((err) => {
+            throw new Error(`Successfully completed the test but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
+          });
       });
   });
 });

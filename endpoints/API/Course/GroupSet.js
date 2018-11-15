@@ -62,14 +62,15 @@ GroupSet.create = (config) => {
     params: {
       name: config.options.name || 'Unnamed Group Set',
     },
-  }).then((response) => {
-    return config.uncache([
-      // Uncache list of group sets
-      `${prefix.v1}/courses/${config.options.courseId}/group_categories`,
-      // Uncache specific group set (in case it was already hit)
-      `${prefix.v1}/group_categories/${response.id}`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache list of group sets
+        `${prefix.v1}/courses/${config.options.courseId}/group_categories`,
+        // Uncache specific group set (in case it was already hit)
+        `${prefix.v1}/group_categories/${response.id}`,
+      ], response);
+    });
 };
 
 /**
@@ -85,14 +86,15 @@ GroupSet.delete = (config) => {
   return config.visitEndpoint({
     path: `${prefix.v1}/group_categories/${config.options.groupSetId}`,
     method: 'DELETE',
-  }).then((response) => {
-    return config.uncache([
-      // Uncache list of group sets
-      `${prefix.v1}/courses/${config.options.courseId}/group_categories`,
-      // Uncache specific group set
-      `${prefix.v1}/group_categories/${config.options.groupSetId}`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache list of group sets
+        `${prefix.v1}/courses/${config.options.courseId}/group_categories`,
+        // Uncache specific group set
+        `${prefix.v1}/group_categories/${config.options.groupSetId}`,
+      ], response);
+    });
 };
 
 /*------------------------------------------------------------------------*/
@@ -148,14 +150,15 @@ GroupSet.createGroup = (config) => {
       description: config.options.description || '',
       is_public: utils.isTruthy(config.options.isPublic),
     },
-  }).then((response) => {
-    return config.uncache([
-      // Uncache group set list
-      `${prefix.v1}/courses/${config.options.courseId}/group_categories`,
-      // Uncache group set
-      `${prefix.v1}/group_categories/${config.options.groupSetId}`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache group set list
+        `${prefix.v1}/courses/${config.options.courseId}/group_categories`,
+        // Uncache group set
+        `${prefix.v1}/group_categories/${config.options.groupSetId}`,
+      ], response);
+    });
 };
 
 
@@ -172,14 +175,15 @@ GroupSet.deleteGroup = (config) => {
   return config.visitEndpoint({
     path: `${prefix.v1}/groups/${config.options.groupId}`,
     method: 'DELETE',
-  }).then((response) => {
-    return config.uncache([
-      // Uncache group
-      `${prefix.v1}/groups/${config.options.groupId}`,
-      // Uncache group set list of group
-      `${prefix.v1}/group_categories/${config.options.groupSetId}/groups`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache group
+        `${prefix.v1}/groups/${config.options.groupId}`,
+        // Uncache group set list of group
+        `${prefix.v1}/group_categories/${config.options.groupSetId}/groups`,
+      ], response);
+    });
 };
 
 /*------------------------------------------------------------------------*/

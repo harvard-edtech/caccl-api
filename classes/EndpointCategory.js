@@ -134,10 +134,11 @@ class EndpointCategory {
 
             // Uncache
             return cache.deletePaths(pathsToUncache);
-          }).then(() => {
-            // Finally resolve with response
-            return Promise.resolve(response);
-          });
+          })
+            .then(() => {
+              // Finally resolve with response
+              return Promise.resolve(response);
+            });
         };
       } else {
         // No cache. Return dummy function that does nothing

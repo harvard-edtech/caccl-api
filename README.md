@@ -17,11 +17,13 @@ const api = new CanvasAPI({
 // Hit an endpoint
 api.course.listStudents({
   courseId: 52618,
-}).then((students) => {
-  // ...
-}).catch((err) => {
-  // ...
-});
+})
+  .then((students) => {
+    // ...
+  })
+  .catch((err) => {
+    // ...
+  });
 ```
 
 For a full list of supported endpoints, check out the `/docs` folder.
@@ -70,7 +72,7 @@ If your cache has the ability to store promises as values\*, your cache instance
 cache.storePromises = true;
 ```
 
-Your cache should include the following functions (all return 
+Your cache should include the following functions (all return
 Promises):
 
 - **get(path, params)** - returns a Promise that resolves with the value associated with the key pair: `(path [string], params [object])`. Resolves with `undefined` or `null` if no cached value

@@ -126,9 +126,10 @@ describe('Endpoints > Course > Quizzes', function () {
               return api.course.quiz.delete({
                 courseId,
                 quizId: quiz.id,
-              }).catch((err) => {
-                throw new Error(`We finished the test successfully but couldn't clean up (delete gradebook column(s)). We ran into this error: ${err.message}`);
-              });
+              })
+                .catch((err) => {
+                  throw new Error(`We finished the test successfully but couldn't clean up (delete gradebook column(s)). We ran into this error: ${err.message}`);
+                });
             })
           );
         });
@@ -156,9 +157,10 @@ describe('Endpoints > Course > Quizzes', function () {
           return api.course.quiz.delete({
             courseId,
             quizId: testQuizId,
-          }).catch((err) => {
-            throw new Error(`We completed the test successfully but ran into an error when cleaning up (deleting the test quiz(zes)): ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We completed the test successfully but ran into an error when cleaning up (deleting the test quiz(zes)): ${err.message}`);
+            });
         });
     });
 
@@ -210,9 +212,10 @@ describe('Endpoints > Course > Quizzes', function () {
           return api.course.quiz.delete({
             courseId,
             quizId: testQuizId,
-          }).catch((err) => {
-            throw new Error(`We completed the test successfully but ran into an error when cleaning up (deleting the test quiz(zes)): ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We completed the test successfully but ran into an error when cleaning up (deleting the test quiz(zes)): ${err.message}`);
+            });
         });
     });
 
@@ -238,9 +241,10 @@ describe('Endpoints > Course > Quizzes', function () {
           return api.course.quiz.delete({
             courseId,
             quizId: testQuizId,
-          }).catch((err) => {
-            throw new Error(`We completed the test successfully but ran into an error when cleaning up (deleting the test quiz(zes)): ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We completed the test successfully but ran into an error when cleaning up (deleting the test quiz(zes)): ${err.message}`);
+            });
         });
     });
 

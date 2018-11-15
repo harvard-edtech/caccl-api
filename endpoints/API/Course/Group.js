@@ -66,12 +66,13 @@ Group.updateMembers = (config) => {
     params: {
       members: utils.extractIdsIfApplicable(config.options.members),
     },
-  }).then((response) => {
-    return config.uncache([
-      // Uncache the list of group members
-      `${prefix.v1}/groups/${config.options.groupId}/users`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache the list of group members
+        `${prefix.v1}/groups/${config.options.groupId}/users`,
+      ], response);
+    });
 };
 
 /*------------------------------------------------------------------------*/

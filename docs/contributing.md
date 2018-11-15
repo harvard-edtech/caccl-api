@@ -153,11 +153,13 @@ visitEndpoint({
 		...
 	},
 	// ^ params optional
-}).then((response) => {
-	// ...
-}).catch((err) => {
-    // ^ err is a CACCLError
-});
+})
+	.then((response) => {
+		// ...
+	})
+	.catch((err) => {
+	    // ^ err is a CACCLError
+	});
 ```
 
 #### Response type: run(options) should return a promise

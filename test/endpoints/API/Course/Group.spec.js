@@ -76,7 +76,8 @@ describe('Endpoints > Course > Group', function () {
           return api.course.group.get({
             groupId: group.id,
           });
-        }).then((group) => {
+        })
+        .then((group) => {
           // Check if the group matches what we expect
           const comparison = utils.checkTemplate(
             genTestGroupInGroupSetTemplate(),
@@ -91,9 +92,10 @@ describe('Endpoints > Course > Group', function () {
           return api.course.groupset.delete({
             courseId,
             groupSetId: testGroupSetId,
-          }).catch((err) => {
-            throw new Error(`We finished the test successfully but couldn't delete the test group set due to an error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We finished the test successfully but couldn't delete the test group set due to an error: ${err.message}`);
+            });
         });
     });
   });
@@ -140,9 +142,10 @@ describe('Endpoints > Course > Group', function () {
           return api.course.groupset.delete({
             courseId,
             groupSetId: testGroupSetId,
-          }).catch((err) => {
-            throw new Error(`We finished the test successfully but couldn't delete the test group set due to an error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We finished the test successfully but couldn't delete the test group set due to an error: ${err.message}`);
+            });
         });
     });
 
@@ -187,9 +190,10 @@ describe('Endpoints > Course > Group', function () {
           return api.course.groupset.delete({
             courseId,
             groupSetId: testGroupSetId,
-          }).catch((err) => {
-            throw new Error(`We finished the test successfully but couldn't delete the test group set due to an error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We finished the test successfully but couldn't delete the test group set due to an error: ${err.message}`);
+            });
         });
     });
   });

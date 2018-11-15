@@ -75,14 +75,15 @@ Page.update = (config) => {
       'wiki_page[published]': utils.includeIfBoolean(config.options.published),
       'wiki_page[front_page]': utils.includeIfBoolean(config.options.frontPage),
     },
-  }).then((response) => {
-    return config.uncache([
-      // Uncache list of pages
-      `${prefix.v1}/courses/${config.options.courseId}/pages`,
-      // Uncache this specific page (in case someone pinged it before)
-      `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache list of pages
+        `${prefix.v1}/courses/${config.options.courseId}/pages`,
+        // Uncache this specific page (in case someone pinged it before)
+        `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
+      ], response);
+    });
 };
 
 /**
@@ -112,14 +113,15 @@ Page.create = (config) => {
       'wiki_page[published]': utils.isTruthy(config.options.published),
       'wiki_page[front_page]': utils.isTruthy(config.options.frontPage),
     },
-  }).then((response) => {
-    return config.uncache([
-      // Uncache list of pages
-      `${prefix.v1}/courses/${config.options.courseId}/pages`,
-      // Uncache this specific page (in case someone pinged it before)
-      `${prefix.v1}/courses/${config.options.courseId}/pages/${response.url}`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache list of pages
+        `${prefix.v1}/courses/${config.options.courseId}/pages`,
+        // Uncache this specific page (in case someone pinged it before)
+        `${prefix.v1}/courses/${config.options.courseId}/pages/${response.url}`,
+      ], response);
+    });
 };
 
 /**
@@ -135,14 +137,15 @@ Page.delete = (config) => {
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
     method: 'DELETE',
-  }).then((response) => {
-    return config.uncache([
-      // Uncache list of pages
-      `${prefix.v1}/courses/${config.options.courseId}/pages`,
-      // Uncache this specific page
-      `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache list of pages
+        `${prefix.v1}/courses/${config.options.courseId}/pages`,
+        // Uncache this specific page
+        `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
+      ], response);
+    });
 };
 
 /*------------------------------------------------------------------------*/
