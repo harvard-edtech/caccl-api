@@ -58,7 +58,7 @@ class EndpointCategory {
    *   takes paths and a response object, uncaches those paths, then resolves
    *   to the response object
    */
-  constructor(config, Child) {
+  constructor(config, Subclass) {
     // Initialize visitEndpoint
     let { visitEndpoint } = config;
     if (!visitEndpoint) {
@@ -156,10 +156,10 @@ class EndpointCategory {
 
     // Turn each endpoint (defined as a static function in the child) into a
     // function
-    Object.keys(Child).forEach((prop) => {
-      if (Child[prop].prototype instanceof EndpointCategory) {
+    Object.keys(Subclass).forEach((prop) => {
+      if (Subclass[prop].prototype instanceof EndpointCategory) {
         // This is a sub-category
-        this[prop] = new Child[prop]({
+        this[prop] = new Subclass[prop]({
           visitEndpoint,
           cache,
           api,
@@ -171,7 +171,7 @@ class EndpointCategory {
         // Extract action from first line of function
         let action;
         try {
-          const firstLine = Child[prop].toString().split('\n')[1];
+          const firstLine = Subclass[prop].toString().split('\n')[1];
           action = firstLine.split('// @action: ')[1].trim();
         } catch (err) {
           action = `perform an unnamed ${prop} task`;
@@ -184,7 +184,7 @@ class EndpointCategory {
           api,
           uncache,
           action,
-          run: Child[prop],
+          run: Subclass[prop],
         });
       }
     });
