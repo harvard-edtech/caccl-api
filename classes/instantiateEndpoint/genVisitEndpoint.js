@@ -91,15 +91,20 @@ module.exports = (config = {}) => {
           accessToken,
         });
 
-        // Fetch value from Canvas (no cached value)
+        // We are using the cached value. Keep note of this
         usedCachedValue = false;
+
+        // Fetch value from Canvas (no cached value)
         return new Promise((resolve, reject) => {
           const pages = [];
           const fetchPage = (pageNumber) => {
+            // Add the page number to the request (if applicable)
             const paramsWithPageNumber = preProcessedParams;
-            if (pageNumber > 0) {
+            if (pageNumber > 1) {
               paramsWithPageNumber.page = pageNumber;
             }
+
+            // Send the request
             sendRequest({
               method,
               numRetries,
@@ -205,7 +210,7 @@ module.exports = (config = {}) => {
               });
           };
           // Fetch the first page starts off a chain
-          fetchPage(startPage || 0);
+          fetchPage(startPage || 1);
         });
       });
 
