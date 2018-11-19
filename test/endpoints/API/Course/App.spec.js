@@ -77,9 +77,10 @@ describe('Endpoints > Course > Apps', function () {
             return api.course.app.remove({
               courseId,
               appId: app.id,
-            }).catch((err) => {
-              throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test app(s)): ${err.message}`);
-            });
+            })
+              .catch((err) => {
+                throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test app(s)): ${err.message}`);
+              });
           })
         );
       });
@@ -105,9 +106,10 @@ describe('Endpoints > Course > Apps', function () {
         return api.course.app.remove({
           courseId,
           appId: app.id,
-        }).catch((err) => {
-          throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test app(s)): ${err.message}`);
-        });
+        })
+          .catch((err) => {
+            throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test app(s)): ${err.message}`);
+          });
       });
   });
 
@@ -131,9 +133,10 @@ describe('Endpoints > Course > Apps', function () {
         return api.course.app.remove({
           courseId,
           appId: app.id,
-        }).catch((err) => {
-          throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test app(s)): ${err.message}`);
-        });
+        })
+          .catch((err) => {
+            throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test app(s)): ${err.message}`);
+          });
       });
   });
 
@@ -146,7 +149,8 @@ describe('Endpoints > Course > Apps', function () {
           courseId,
           appId: app.id,
         });
-      }).then(() => {
+      })
+      .then(() => {
         // List the apps
         return api.course.app.list({
           courseId,

@@ -64,14 +64,15 @@ AssignmentGroup.update = (config) => {
       name: utils.includeIfTruthy(config.options.name),
       group_weight: utils.includeIfNumber(config.options.weight),
     },
-  }).then((response) => {
-    return config.uncache([
-      // Uncache list of assignment groups
-      `${prefix.v1}/courses/${config.options.courseId}/assignment_groups`,
-      // Uncache specific assignment group
-      `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.assignmentGroupId}*`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache list of assignment groups
+        `${prefix.v1}/courses/${config.options.courseId}/assignment_groups`,
+        // Uncache specific assignment group
+        `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.assignmentGroupId}*`,
+      ], response);
+    });
 };
 
 /**
@@ -92,14 +93,15 @@ AssignmentGroup.create = (config) => {
       name: utils.includeIfTruthy(config.options.name),
       group_weight: utils.includeIfNumber(config.options.weight),
     },
-  }).then((response) => {
-    return config.uncache([
-      // Uncache list of assignment groups
-      `${prefix.v1}/courses/${config.options.courseId}/assignment_groups`,
-      // Uncache specific assignment group
-      `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${response.id}*`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache list of assignment groups
+        `${prefix.v1}/courses/${config.options.courseId}/assignment_groups`,
+        // Uncache specific assignment group
+        `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${response.id}*`,
+      ], response);
+    });
 };
 
 /**
@@ -122,20 +124,21 @@ AssignmentGroup.delete = (config) => {
       move_assignments_to:
         utils.includeIfNumber(config.options.moveAssignmentsTo),
     },
-  }).then((response) => {
-    const uncachePaths = [
-      // Uncache list of assignment groups
-      `${prefix.v1}/courses/${config.options.courseId}/assignment_groups`,
-      // Uncache deleted assignment group
-      `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.assignmentGroupId}*`,
-    ];
-    // Uncache destination assignment group if applicable
-    if (config.options.moveAssignmentsTo) {
-      // Uncache the destination assignment group
-      uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.moveAssignmentsTo}*`);
-    }
-    return config.uncache(uncachePaths, response);
-  });
+  })
+    .then((response) => {
+      const uncachePaths = [
+        // Uncache list of assignment groups
+        `${prefix.v1}/courses/${config.options.courseId}/assignment_groups`,
+        // Uncache deleted assignment group
+        `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.assignmentGroupId}*`,
+      ];
+      // Uncache destination assignment group if applicable
+      if (config.options.moveAssignmentsTo) {
+        // Uncache the destination assignment group
+        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.moveAssignmentsTo}*`);
+      }
+      return config.uncache(uncachePaths, response);
+    });
 };
 
 /*------------------------------------------------------------------------*/

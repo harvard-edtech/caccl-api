@@ -61,9 +61,10 @@ describe('Endpoints > Course > AssignmentGroups', function () {
             return api.course.assignmentgroup.delete({
               courseId,
               assignmentGroupId: assignmentGroup.id,
-            }).catch((err) => {
-              throw new Error(`We completed the test successfully but we ran into an error while cleaning up: ${err.message}`);
-            });
+            })
+              .catch((err) => {
+                throw new Error(`We completed the test successfully but we ran into an error while cleaning up: ${err.message}`);
+              });
           })
         );
       });

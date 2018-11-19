@@ -81,12 +81,13 @@ App.add = (config) => {
       description: utils.includeIfTruthy(config.options.description),
       icon_url: utils.includeIfTruthy(config.options.icon),
     },
-  }).then((response) => {
-    return config.uncache([
-      // Uncache app list endpoint
-      `${prefix.v1}/courses/${config.options.courseId}/external_tools`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache app list endpoint
+        `${prefix.v1}/courses/${config.options.courseId}/external_tools`,
+      ], response);
+    });
 };
 
 /**
@@ -102,14 +103,15 @@ App.remove = (config) => {
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/external_tools/${config.options.appId}`,
     method: 'DELETE',
-  }).then((response) => {
-    return config.uncache([
-      // Uncache get app endpoint
-      `${prefix.v1}/courses/${config.options.courseId}/external_tools/${config.options.appId}`,
-      // Uncache app list endpoint
-      `${prefix.v1}/courses/${config.options.courseId}/external_tools`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache get app endpoint
+        `${prefix.v1}/courses/${config.options.courseId}/external_tools/${config.options.appId}`,
+        // Uncache app list endpoint
+        `${prefix.v1}/courses/${config.options.courseId}/external_tools`,
+      ], response);
+    });
 };
 
 /*------------------------------------------------------------------------*/

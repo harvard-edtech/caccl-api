@@ -61,9 +61,10 @@ describe('Endpoints > Course > Gradebook Columns', function () {
             return api.course.gradebookcolumn.delete({
               courseId,
               columnId: column.id,
-            }).catch((err) => {
-              throw new Error(`We finished the test successfully but couldn't clean up (delete gradebook column(s)). We ran into this error: ${err.message}`);
-            });
+            })
+              .catch((err) => {
+                throw new Error(`We finished the test successfully but couldn't clean up (delete gradebook column(s)). We ran into this error: ${err.message}`);
+              });
           })
         );
       });
@@ -108,9 +109,10 @@ describe('Endpoints > Course > Gradebook Columns', function () {
         return api.course.gradebookcolumn.delete({
           courseId,
           columnId: testColumnId,
-        }).catch((err) => {
-          throw new Error(`We finished the test successfully but couldn't clean up (delete gradebook column(s)). We ran into this error: ${err.message}`);
-        });
+        })
+          .catch((err) => {
+            throw new Error(`We finished the test successfully but couldn't clean up (delete gradebook column(s)). We ran into this error: ${err.message}`);
+          });
       });
   });
 
@@ -141,9 +143,10 @@ describe('Endpoints > Course > Gradebook Columns', function () {
         return api.course.gradebookcolumn.delete({
           courseId,
           columnId: testColumnId,
-        }).catch((err) => {
-          throw new Error(`We finished the test successfully but couldn't clean up (delete gradebook column(s)). We ran into this error: ${err.message}`);
-        });
+        })
+          .catch((err) => {
+            throw new Error(`We finished the test successfully but couldn't clean up (delete gradebook column(s)). We ran into this error: ${err.message}`);
+          });
       });
   });
 

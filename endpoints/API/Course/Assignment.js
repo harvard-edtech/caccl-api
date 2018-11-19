@@ -127,14 +127,15 @@ Assignment.update = (config) => {
         utils.includeIfBoolean(config.options.omitFromFinalGrade),
       'assignment[muted]': utils.includeIfBoolean(config.options.muted),
     },
-  }).then((response) => {
-    return config.uncache([
-      // Uncache assignment and sub-endpoints
-      `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}*`,
-      // Uncache assignment list
-      `${prefix.v1}/courses/${config.options.courseId}/assignments`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache assignment and sub-endpoints
+        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}*`,
+        // Uncache assignment list
+        `${prefix.v1}/courses/${config.options.courseId}/assignments`,
+      ], response);
+    });
 };
 
 /**
@@ -207,14 +208,15 @@ Assignment.create = (config) => {
         utils.isTruthy(config.options.omitFromFinalGrade),
       'assignment[muted]': utils.isTruthy(config.options.muted),
     },
-  }).then((response) => {
-    return config.uncache([
-      // Uncache assignment and sub-endpoints
-      `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}*`,
-      // Uncache assignment list
-      `${prefix.v1}/courses/${config.options.courseId}/assignments`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache assignment and sub-endpoints
+        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}*`,
+        // Uncache assignment list
+        `${prefix.v1}/courses/${config.options.courseId}/assignments`,
+      ], response);
+    });
 };
 
 /**
@@ -230,14 +232,15 @@ Assignment.delete = (config) => {
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}`,
     method: 'DELETE',
-  }).then((response) => {
-    return config.uncache([
-      // Uncache assignment and sub-endpoints
-      `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}*`,
-      // Uncache assignment list
-      `${prefix.v1}/courses/${config.options.courseId}/assignments`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache assignment and sub-endpoints
+        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}*`,
+        // Uncache assignment list
+        `${prefix.v1}/courses/${config.options.courseId}/assignments`,
+      ], response);
+    });
 };
 
 /*------------------------------------------------------------------------*/
@@ -257,13 +260,14 @@ Assignment.listGradeableStudents = (config) => {
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/gradeable_students`,
     method: 'GET',
-  }).then((students) => {
-    return Promise.resolve(
-      students.filter((s) => {
-        return !s.fake_student;
-      })
-    );
-  });
+  })
+    .then((students) => {
+      return Promise.resolve(
+        students.filter((s) => {
+          return !s.fake_student;
+        })
+      );
+    });
 };
 
 /**
@@ -284,14 +288,15 @@ Assignment.createSubmissionComment = (config) => {
     params: {
       'comment[text_comment]': config.options.comment,
     },
-  }).then((response) => {
-    return config.uncache([
-      // Uncache submission
-      `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/${config.options.studentId}`,
-      // Uncache list of submissions
-      `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache submission
+        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/${config.options.studentId}`,
+        // Uncache list of submissions
+        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions`,
+      ], response);
+    });
 };
 
 /**
@@ -351,68 +356,69 @@ Assignment.updateGrades = (config) => {
     promiseChain = config.api.course.assignment.get({
       courseId: config.options.courseId,
       assignmentId: config.options.assignmentId,
-    }).then((assignment) => {
-      if (!assignment.rubric) {
-        // This assignment doesn't have a rubric
-        throw new CACCLError({
-          message: 'We could not upload grades because the rubric we were trying to upload to didn\'t exist.',
-          code: errorCodes.noRubricOnBatchGradeUpload,
+    })
+      .then((assignment) => {
+        if (!assignment.rubric) {
+          // This assignment doesn't have a rubric
+          throw new CACCLError({
+            message: 'We could not upload grades because the rubric we were trying to upload to didn\'t exist.',
+            code: errorCodes.noRubricOnBatchGradeUpload,
+          });
+        }
+
+        // Only merge students who don't have all the rubric items defined
+        // (if all the rubric items are being uploaded, no merge needed)
+        // > Get data on rubric
+        const isRealRubricItemId = {};
+        const numRubricItems = assignment.rubric.length;
+        assignment.rubric.forEach((rubricItem) => {
+          isRealRubricItemId[rubricItem.id] = true;
         });
-      }
+        // > Figure out which students have which rubric items
+        const studentToRubricItemsOverwritten = new Map();
+        const allStudentsWithRubricItems = new Set();
+        // ^ {studentId => { Set of rubric ids being uploaded }}
+        config.options.gradeItems.forEach((gradeItem) => {
+          const { rubricId, studentId } = gradeItem;
+          allStudentsWithRubricItems.add(studentId);
 
-      // Only merge students who don't have all the rubric items defined
-      // (if all the rubric items are being uploaded, no merge needed)
-      // > Get data on rubric
-      const isRealRubricItemId = {};
-      const numRubricItems = assignment.rubric.length;
-      assignment.rubric.forEach((rubricItem) => {
-        isRealRubricItemId[rubricItem.id] = true;
+          // Skip if this item isn't a (real) rubric item
+          if (!rubricId || !isRealRubricItemId[rubricId]) {
+            return;
+          }
+
+          // Only mark this rubric item as being overwritten if both points and
+          // comments are being overwritten
+          if (
+            gradeItem.points === undefined
+            || gradeItem.points === null
+            || !gradeItem.comment
+          ) {
+            // Not completely overwriting
+            return;
+          }
+
+          // Keep track of rubric items that are found
+          if (!studentToRubricItemsOverwritten.has(studentId)) {
+            // Initialize student map
+            studentToRubricItemsOverwritten.set(studentId, new Set());
+          }
+          studentToRubricItemsOverwritten.get(studentId).add(rubricId);
+        });
+
+        // > Find students that need to be merged (has some rubric items but not
+        // completely overwriting all of them)
+        allStudentsWithRubricItems.forEach((studentId) => {
+          const numOverwrittenItems = (
+            (studentToRubricItemsOverwritten[studentId] || { size: 0 }).size
+          );
+
+          if (numOverwrittenItems < numRubricItems) {
+            // Need to merge this student
+            studentsToMerge.push(studentId);
+          }
+        });
       });
-      // > Figure out which students have which rubric items
-      const studentToRubricItemsOverwritten = new Map();
-      const allStudentsWithRubricItems = new Set();
-      // ^ {studentId => { Set of rubric ids being uploaded }}
-      config.options.gradeItems.forEach((gradeItem) => {
-        const { rubricId, studentId } = gradeItem;
-        allStudentsWithRubricItems.add(studentId);
-
-        // Skip if this item isn't a (real) rubric item
-        if (!rubricId || !isRealRubricItemId[rubricId]) {
-          return;
-        }
-
-        // Only mark this rubric item as being overwritten if both points and
-        // comments are being overwritten
-        if (
-          gradeItem.points === undefined
-          || gradeItem.points === null
-          || !gradeItem.comment
-        ) {
-          // Not completely overwriting
-          return;
-        }
-
-        // Keep track of rubric items that are found
-        if (!studentToRubricItemsOverwritten.has(studentId)) {
-          // Initialize student map
-          studentToRubricItemsOverwritten.set(studentId, new Set());
-        }
-        studentToRubricItemsOverwritten.get(studentId).add(rubricId);
-      });
-
-      // > Find students that need to be merged (has some rubric items but not
-      // completely overwriting all of them)
-      allStudentsWithRubricItems.forEach((studentId) => {
-        const numOverwrittenItems = (
-          (studentToRubricItemsOverwritten[studentId] || { size: 0 }).size
-        );
-
-        if (numOverwrittenItems < numRubricItems) {
-          // Need to merge this student
-          studentsToMerge.push(studentId);
-        }
-      });
-    });
   } else {
     // No action necessary (no merging or assignment lookup)
     promiseChain = Promise.resolve();
@@ -429,11 +435,13 @@ Assignment.updateGrades = (config) => {
           assignmentId: config.options.assignmentId,
           includeRubricAssessment: true,
           excludeUser: true, // Save request space
-        }).then((response) => {
-          return next(null, response);
-        }).catch((err) => {
-          return next(err);
-        });
+        })
+          .then((response) => {
+            return next(null, response);
+          })
+          .catch((err) => {
+            return next(err);
+          });
       };
 
       // Pull all student submissions, 20 at a time
@@ -541,16 +549,19 @@ Assignment.updateGrades = (config) => {
             params,
             path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/update_grades`,
             method: 'POST',
-          }).then((response) => {
-            return config.uncache([
-              // Uncache submissions endpoint
-              `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions*`,
-            ], response);
-          }).then((response) => {
-            return resolve(response);
-          }).catch((updateGradesErr) => {
-            return reject(updateGradesErr);
-          });
+          })
+            .then((response) => {
+              return config.uncache([
+                // Uncache submissions endpoint
+                `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions*`,
+              ], response);
+            })
+            .then((response) => {
+              return resolve(response);
+            })
+            .catch((updateGradesErr) => {
+              return reject(updateGradesErr);
+            });
         } catch (mergeError) {
           return reject(mergeError);
         }
@@ -654,16 +665,17 @@ Assignment.createOverride = (config) => {
       'assignment_override[lock_at]':
         utils.includeIfDate(config.options.lockAt),
     },
-  }).then((response) => {
-    return config.uncache([
-      // Uncache list of overrides
-      `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides`,
-      // Uncache specific override id
-      `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides/${response.id}`,
-      // Uncache batch override list
-      `${prefix.v1}/courses/${config.options.courseId}/assignments/overrides`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache list of overrides
+        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides`,
+        // Uncache specific override id
+        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides/${response.id}`,
+        // Uncache batch override list
+        `${prefix.v1}/courses/${config.options.courseId}/assignments/overrides`,
+      ], response);
+    });
 };
 
 /**
@@ -680,16 +692,17 @@ Assignment.deleteOverride = (config) => {
   return config.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides/${config.options.overrideId}`,
     method: 'DELETE',
-  }).then((response) => {
-    return config.uncache([
-      // Uncache list of overrides
-      `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides`,
-      // Uncache specific override id
-      `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides/${config.options.overrideId}`,
-      // Uncache batch override list
-      `${prefix.v1}/courses/${config.options.courseId}/assignments/overrides`,
-    ], response);
-  });
+  })
+    .then((response) => {
+      return config.uncache([
+        // Uncache list of overrides
+        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides`,
+        // Uncache specific override id
+        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides/${config.options.overrideId}`,
+        // Uncache batch override list
+        `${prefix.v1}/courses/${config.options.courseId}/assignments/overrides`,
+      ], response);
+    });
 };
 
 /*------------------------------------------------------------------------*/
@@ -939,53 +952,56 @@ Assignment.createFileSubmission = (config) => {
           params: {
             name: path.basename(filename),
           },
-        }).then((response) => {
-          // 2. Upload the file
-          const uploadUrl = response.upload_url;
-          const formData = response.upload_params;
+        })
+          .then((response) => {
+            // 2. Upload the file
+            const uploadUrl = response.upload_url;
+            const formData = response.upload_params;
 
-          // Add file
-          formData.file = fs.createReadStream(filename);
+            // Add file
+            formData.file = fs.createReadStream(filename);
 
-          // Send file to Canvas
-          return new Promise((uploadResolve, uploadReject) => {
-            // Use normal request library because we don't want to
-            // pre/post-process the request or add an access token
-            request.post({
-              formData,
-              url: uploadUrl,
-            }, (err, res) => {
-              // Detect upload error
-              if (
-                err
-                || !res
-                || !res.headers
-                || !res.headers.location
-              ) {
-                return uploadReject(new CACCLError({
-                  message: `We could not upload the submission file to Canvas because an error occurred: "${err.message}". If this isn't expected, please contact an admin.`,
-                  code: errorCodes.submissionFileUploadFailed,
-                }));
-              }
+            // Send file to Canvas
+            return new Promise((uploadResolve, uploadReject) => {
+              // Use normal request library because we don't want to
+              // pre/post-process the request or add an access token
+              request.post({
+                formData,
+                url: uploadUrl,
+              }, (err, res) => {
+                // Detect upload error
+                if (
+                  err
+                  || !res
+                  || !res.headers
+                  || !res.headers.location
+                ) {
+                  return uploadReject(new CACCLError({
+                    message: `We could not upload the submission file to Canvas because an error occurred: "${err.message}". If this isn't expected, please contact an admin.`,
+                    code: errorCodes.submissionFileUploadFailed,
+                  }));
+                }
 
-              // Send POST request to activate the file
-              const parsed = urlLib.parse(res.headers.location);
-              config.visitEndpoint({
-                host: parsed.hostname,
-                path: parsed.path,
-                method: 'POST',
-              }).then((verifyResponse) => {
-                // File verified! Continue with file id
-                return next(null, verifyResponse.id);
-              }).catch((verifyError) => {
-                return next(new CACCLError({
-                  message: `We could not activate a submission file after it was uploaded because we ran into an error: "${verifyError.message}". If this isn't expected, please contact an admin.`,
-                  code: errorCodes.submissionFileActivateFailed,
-                }));
+                // Send POST request to activate the file
+                const parsed = urlLib.parse(res.headers.location);
+                config.visitEndpoint({
+                  host: parsed.hostname,
+                  path: parsed.path,
+                  method: 'POST',
+                })
+                  .then((verifyResponse) => {
+                    // File verified! Continue with file id
+                    return next(null, verifyResponse.id);
+                  })
+                  .catch((verifyError) => {
+                    return next(new CACCLError({
+                      message: `We could not activate a submission file after it was uploaded because we ran into an error: "${verifyError.message}". If this isn't expected, please contact an admin.`,
+                      code: errorCodes.submissionFileActivateFailed,
+                    }));
+                  });
               });
             });
           });
-        });
       };
 
       return new Promise((resolve, reject) => {
@@ -1011,21 +1027,24 @@ Assignment.createFileSubmission = (config) => {
                 'comment[text_comment]':
                   utils.includeIfTruthy(config.options.comment),
               },
-            }).then((response) => {
-              // Resolve the sendSubmissionPromise now that actual
-              // submission was made
-              return resolve(response);
-            }).catch((submitError) => {
-              return reject(submitError);
-            });
+            })
+              .then((response) => {
+                // Resolve the sendSubmissionPromise now that actual
+                // submission was made
+                return resolve(response);
+              })
+              .catch((submitError) => {
+                return reject(submitError);
+              });
           }
         );
-      }).catch((prepError) => {
-        throw new CACCLError({
-          message: `We could not prep Canvas to accept a new submission file because we ran into an error: "${prepError.message}". If you think this isn't expected, please contact an admin.`,
-          code: errorCodes.submissionFilePrepFailed,
+      })
+        .catch((prepError) => {
+          throw new CACCLError({
+            message: `We could not prep Canvas to accept a new submission file because we ran into an error: "${prepError.message}". If you think this isn't expected, please contact an admin.`,
+            code: errorCodes.submissionFilePrepFailed,
+          });
         });
-      });
     })
     .then((response) => {
       // Submission created. Now, create response and uncache paths

@@ -87,27 +87,29 @@ describe('Endpoints > Course > Assignment', function () {
         return api.course.assignment.list({
           courseId,
         });
-      }).then((assignments) => {
-        // Check if the two generated assignments are there
-        const notFound = utils.missingTemplatesToString([
-          genTestAssignmentTemplate(0),
-          genTestAssignmentTemplate(1),
-        ], assignments);
+      })
+        .then((assignments) => {
+          // Check if the two generated assignments are there
+          const notFound = utils.missingTemplatesToString([
+            genTestAssignmentTemplate(0),
+            genTestAssignmentTemplate(1),
+          ], assignments);
 
-        if (notFound) {
-          throw new Error(`We could not find the following assignments:${notFound}`);
-        }
+          if (notFound) {
+            throw new Error(`We could not find the following assignments:${notFound}`);
+          }
 
-        // Delete the test assignments
-        return Promise.all(assignmentsToDelete.map((assignment) => {
-          return api.course.assignment.delete({
-            courseId,
-            assignmentId: assignment.id,
-          }).catch((err) => {
-            throw new Error(`We were able to list assignments but we couldn't delete one of the test assignments (${assignment.name}) due to an error: ${err.message}`);
-          });
-        }));
-      });
+          // Delete the test assignments
+          return Promise.all(assignmentsToDelete.map((assignment) => {
+            return api.course.assignment.delete({
+              courseId,
+              assignmentId: assignment.id,
+            })
+              .catch((err) => {
+                throw new Error(`We were able to list assignments but we couldn't delete one of the test assignments (${assignment.name}) due to an error: ${err.message}`);
+              });
+          }));
+        });
     });
 
     it('Gets an assignment', function () {
@@ -133,9 +135,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: assignment.id,
-          }).catch((err) => {
-            throw new Error(`We were able to get an assignment but we couldn't delete the test assignment (${assignment.name}) due to an error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We were able to get an assignment but we couldn't delete the test assignment (${assignment.name}) due to an error: ${err.message}`);
+            });
         });
     });
 
@@ -159,13 +162,15 @@ describe('Endpoints > Course > Assignment', function () {
             muted: true,
             omitFromFinalGrade: true,
           });
-        }).then(() => {
+        })
+        .then(() => {
           // Get the assignment so we can double check that the name was updated
           return api.course.assignment.get({
             courseId,
             assignmentId: testAssignmentId,
           });
-        }).then((updatedAssignment) => {
+        })
+        .then((updatedAssignment) => {
           const comparison = utils.checkTemplate(
             {
               name: 'updated_test_assignment',
@@ -188,9 +193,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`Successfully created and updated an assignment but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`Successfully created and updated an assignment but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
+            });
         });
     });
 
@@ -209,9 +215,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: assignment.id,
-          }).catch((err) => {
-            throw new Error(`Successfully created an assignment but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`Successfully created an assignment but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
+            });
         });
     });
 
@@ -219,7 +226,8 @@ describe('Endpoints > Course > Assignment', function () {
       return api.course.assignment.create(genTestAssignment())
         .catch((err) => {
           throw new Error(`Could not create an assignment so we could delete it. We ran into an error: "${err.message}"`);
-        }).then((assignment) => {
+        })
+        .then((assignment) => {
           // Now try to delete the assignment
           return api.course.assignment.delete({
             courseId,
@@ -294,9 +302,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`We listed gradeable students successfully but could not delete the test assignment. We ran into this error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We listed gradeable students successfully but could not delete the test assignment. We ran into this error: ${err.message}`);
+            });
         });
     });
 
@@ -361,9 +370,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`We listed gradeable students successfully but could not delete the test assignment. We ran into this error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We listed gradeable students successfully but could not delete the test assignment. We ran into this error: ${err.message}`);
+            });
         });
     });
 
@@ -475,9 +485,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`Grades/comments were added but we failed when trying to delete the test assignment. We ran into this error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`Grades/comments were added but we failed when trying to delete the test assignment. We ran into this error: ${err.message}`);
+            });
         });
     });
 
@@ -713,9 +724,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`Grades/comments were added but we failed when trying to delete the test assignment. We ran into this error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`Grades/comments were added but we failed when trying to delete the test assignment. We ran into this error: ${err.message}`);
+            });
         });
     });
   });
@@ -766,9 +778,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test assignment): ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test assignment): ${err.message}`);
+            });
         });
     });
 
@@ -809,9 +822,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test assignment): ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test assignment): ${err.message}`);
+            });
         });
     });
 
@@ -852,9 +866,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test assignment): ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test assignment): ${err.message}`);
+            });
         });
     });
 
@@ -903,9 +918,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test assignment): ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`We completed the test successfully but ran into an error while cleaning up (deleting the test assignment): ${err.message}`);
+            });
         });
     });
   });
@@ -985,9 +1001,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`Successfully listed submissions but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`Successfully listed submissions but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
+            });
         });
     });
 
@@ -1039,9 +1056,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`Successfully got a submission but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`Successfully got a submission but could not clean up (delete) the assignment afterward. We ran into this error: ${err.message}`);
+            });
         });
     });
 
@@ -1053,7 +1071,8 @@ describe('Endpoints > Course > Assignment', function () {
       return api.course.assignment.create(publishedTestAssignment)
         .catch((err) => {
           throw new Error(`Could not create an assignment so we could run our test on it. We ran into an error: "${err.message}"`);
-        }).then((assignment) => {
+        })
+        .then((assignment) => {
           testAssignmentId = assignment.id;
           return studentAPI.course.assignment.createTextSubmission({
             courseId,
@@ -1061,7 +1080,8 @@ describe('Endpoints > Course > Assignment', function () {
             text: 'test_sub',
             comment: 'student_comment',
           });
-        }).then((sub) => {
+        })
+        .then((sub) => {
           // Verify assignment
           const comparison = utils.checkTemplate({
             body: 'test_sub',
@@ -1093,9 +1113,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`Submission was created but we failed when trying to delete the test assignment. We ran into this error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`Submission was created but we failed when trying to delete the test assignment. We ran into this error: ${err.message}`);
+            });
         });
     });
 
@@ -1107,7 +1128,8 @@ describe('Endpoints > Course > Assignment', function () {
       return api.course.assignment.create(publishedTestAssignment)
         .catch((err) => {
           throw new Error(`Could not create an assignment so we could run our test on it. We ran into an error: "${err.message}"`);
-        }).then((assignment) => {
+        })
+        .then((assignment) => {
           testAssignmentId = assignment.id;
           return studentAPI.course.assignment.createURLSubmission({
             courseId,
@@ -1115,7 +1137,8 @@ describe('Endpoints > Course > Assignment', function () {
             url: 'https://google.com',
             comment: 'student_comment',
           });
-        }).then((sub) => {
+        })
+        .then((sub) => {
           // Verify assignment
           const comparison = utils.checkTemplate({
             body: null,
@@ -1147,9 +1170,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`Submission was created but we failed when trying to delete the test assignment. We ran into this error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`Submission was created but we failed when trying to delete the test assignment. We ran into this error: ${err.message}`);
+            });
         });
     });
 
@@ -1162,7 +1186,8 @@ describe('Endpoints > Course > Assignment', function () {
       return api.course.assignment.create(publishedTestAssignment)
         .catch((err) => {
           throw new Error(`Could not create an assignment so we could run our test on it. We ran into an error: "${err.message}"`);
-        }).then((assignment) => {
+        })
+        .then((assignment) => {
           testAssignmentId = assignment.id;
           return studentAPI.course.assignment.createFileSubmission({
             courseId,
@@ -1170,7 +1195,8 @@ describe('Endpoints > Course > Assignment', function () {
             filenames: [path.join(__dirname, '../../../common/testFileSub.txt')],
             comment: 'student_comment',
           });
-        }).then((sub) => {
+        })
+        .then((sub) => {
           // Verify assignment
           const comparison = utils.checkTemplate({
             body: null,
@@ -1211,9 +1237,10 @@ describe('Endpoints > Course > Assignment', function () {
           return api.course.assignment.delete({
             courseId,
             assignmentId: testAssignmentId,
-          }).catch((err) => {
-            throw new Error(`Submission was created but we failed when trying to delete the test assignment. We ran into this error: ${err.message}`);
-          });
+          })
+            .catch((err) => {
+              throw new Error(`Submission was created but we failed when trying to delete the test assignment. We ran into this error: ${err.message}`);
+            });
         });
     });
   });
