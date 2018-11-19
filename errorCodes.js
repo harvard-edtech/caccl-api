@@ -15,7 +15,6 @@ module.exports = {
 
   // Errors for visitEndpoint/request sender
   // > /classes/request/genVisitEndpoint.js
-  notConnected: 'CAPI14',
   notFound: 'CAPI15',
   invalidSyntax: 'CAPI16',
   malformed: 'CAPI17',

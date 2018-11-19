@@ -7,8 +7,9 @@
  */
 
 const CACCLError = require('../../../caccl-error/index.js'); // TODO: use actual library
+const defaultSendRequest = require('../../../caccl-send-request/index.js'); // TODO: use actual library
+
 const errorCodes = require('../../errorCodes.js');
-const defaultSendRequest = require('./helpers/defaultSendRequest.js');
 const interpretCanvasError = require('./helpers/interpretCanvasError.js');
 const preProcessParams = require('./helpers/preProcessParams.js');
 
