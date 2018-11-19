@@ -8,6 +8,9 @@
 // The value to exclude
 const EXCLUDED_VALUE = require('./valueThatsExcluded.js');
 
+// Properties to exclude
+const EXCLUDED_PROPS = ['maxPages'];
+
 /**
  * Recursively excludes values that match EXCLUDED_VALUE
  * @author Gabriel Abrams
@@ -32,6 +35,10 @@ const _recursivelyExcludeParams = (obj) => {
     Object.keys(obj).forEach((prop) => {
       if (obj[prop] === EXCLUDED_VALUE) {
         // Skip excluded value
+        return;
+      }
+      if (EXCLUDED_PROPS.indexOf(prop) >= 0) {
+        // Skip excluded prop
         return;
       }
       newObj[prop] = _recursivelyExcludeParams(obj[prop]);
@@ -66,8 +73,11 @@ module.exports = (config) => {
   }
 
   // Set up number of entries per page
-  if (!options.method || options.method === 'GET') {
-    newParams.per_page = options.itemsPerPage || config.itemsPerPage || 100;
+  if (
+    (!options.method || options.method === 'GET')
+    && !newParams.per_page
+  ) {
+    newParams.per_page = (config.defaultItemsPerPage || 100);
   }
 
   return newParams;

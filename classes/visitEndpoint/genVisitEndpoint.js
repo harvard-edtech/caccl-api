@@ -6,6 +6,8 @@
  * @see module: classes/request/genVisitEndpoint
  */
 
+const parseLinkHeader = require('parse-link-header');
+
 const CACCLError = require('../../../caccl-error/index.js'); // TODO: use actual library
 const defaultSendRequest = require('../../../caccl-send-request/index.js'); // TODO: use actual library
 
@@ -80,7 +82,10 @@ module.exports = (config = {}) => {
         || defaults.apiPathPrefix
         || ''
       );
-      const { maxPages } = options; // Fetch all pages if 0/null/undefined
+
+      // Fetch all pages if 0/null/undefined
+      const { maxPages } = (options.params || {});
+
       let host = (options.host || defaults.host);
       if (host === undefined) {
         host = 'canvas.instructure.com';
@@ -88,7 +93,7 @@ module.exports = (config = {}) => {
 
       const params = preProcessParams({
         options,
-        itemsPerPage: defaults.itemsPerPage,
+        defaultItemsPerPage: defaults.itemsPerPage,
         accessToken: config.accessToken || options.accessToken,
       });
 
@@ -172,24 +177,22 @@ module.exports = (config = {}) => {
 
           // Check for next page
           let nextPagePath;
-          if (
-            response.headers.link
-            && response.headers.link.includes('rel="next"')
-          ) {
-            const headerParts = response.headers.link.split(',');
-            const linkIndex = headerParts.indexOf('rel="next"') + 1;
-            if (linkIndex < headerParts.length) {
-              // Extract link
-              const url = headerParts[linkIndex].split('>')[0].replace('<', '');
-              nextPagePath = url.split(host)[1];
-            }
+          try {
+            const parsedLinkHeader = parseLinkHeader(response.headers.link);
+            const nextPageURL = parsedLinkHeader.next.url;
+            nextPagePath = nextPageURL.split(host)[1];
+          } catch (err) {
+            nextPagePath = null;
           }
 
-          // Fetch next page if we can
-          if (
-            nextPagePath
-            && (maxPages && pages.length < maxPages)
-          ) {
+          // Check if we've run into our max pages
+          const allowedToFetchAnotherPage = (
+            !maxPages
+            || pages.length < maxPages
+          );
+
+          // Fetch next page if we're allowed to
+          if (nextPagePath && allowedToFetchAnotherPage) {
             fetchNextPage(nextPagePath);
           } else {
             // We have all the pages. Wrap up!

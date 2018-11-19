@@ -25,10 +25,17 @@ module.exports = (config = {}) => {
   // Gather variables to override
   const canvasHostOverride = config.options.canvasHost;
   const accessTokenOverride = config.options.accessToken;
+  const itemsPerPageOverride = config.options.itemsPerPage;
+  const maxPagesOverride = config.options.maxPages;
 
   // Wrap
   let overriddenVarVisitEndpoint;
-  if (canvasHostOverride || accessTokenOverride) {
+  if (
+    canvasHostOverride
+    || accessTokenOverride
+    || itemsPerPageOverride
+    || maxPagesOverride
+  ) {
     overriddenVarVisitEndpoint = (options = {}) => {
       const newOptions = options;
       // Override host
@@ -41,6 +48,20 @@ module.exports = (config = {}) => {
           newOptions.params = {};
         }
         newOptions.params.access_token = accessTokenOverride;
+      }
+      // Override itemsPerPage
+      if (itemsPerPageOverride) {
+        if (!newOptions.params) {
+          newOptions.params = {};
+        }
+        newOptions.params.per_page = itemsPerPageOverride;
+      }
+      // Override maxPages
+      if (maxPagesOverride) {
+        if (!newOptions.params) {
+          newOptions.params = {};
+        }
+        newOptions.params.maxPages = maxPagesOverride;
       }
       return originalVisitEndpoint(newOptions);
     };
@@ -123,7 +144,8 @@ module.exports = (config = {}) => {
             storeValueInCache = Promise.resolve();
           }
 
-          // Wait for store to complete, then resolve with visitEndpoint response
+          // Wait for store to complete, then resolve with visitEndpoint
+          // response
           return storeValueInCache.then(() => {
             return Promise.resolve(response);
           });
