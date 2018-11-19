@@ -207,6 +207,10 @@ module.exports = (config = {}) => {
 
                 // Resolve with data
                 return resolve(allData);
+              })
+              .catch((err) => {
+                // An error occurred while trying to send the request
+                return reject(err);
               });
           };
           // Fetch the first page starts off a chain
