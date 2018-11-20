@@ -29,9 +29,9 @@ module.exports = {
    * Checks whether a template matches a value (good for checking if a template
    *   matches a specific value)
    * @author Gabriel Abrams
-   * @memberof module: endpoints/common/utils
+   * @memberof module: test/common/utils
    * @param {object} template - object template (see docs in
-   *   /endpoints/common/utils)
+   *   /test/common/utils)
    * @param {object} value - the object to compare to the template
    * @return {object} { isMatch, description } where isMatch is true if the
    *   template matches the value and description is a string description of
@@ -70,9 +70,9 @@ module.exports = {
    * Checks if a template matches any values in the list (good for checking if
    *   a template is found in a list)
    * @author Gabriel Abrams
-   * @memberof module: endpoints/common/utils
+   * @memberof module: test/common/utils
    * @param {object} template - object template (see docs in
-   *   /endpoints/common/utils)
+   *   /test/common/utils)
    * @param {array} list - the list of objects to compare to the template
    * @return {boolean} true if the template matched at least one value in the
    *   list
@@ -90,9 +90,9 @@ module.exports = {
    * Generates a string explaining which templates could not be found in the
    *   list (good for checking if multiple templates exist in a list)
    * @author Gabriel Abrams
-   * @memberof module: endpoints/common/utils
+   * @memberof module: test/common/utils
    * @param {object} templates - object templates (see docs in
-   *   /endpoints/common/utils)
+   *   /test/common/utils)
    * @param {object} list - the list of objects to compare to the template
    * @return {string|null} null if all templates found in the list, string
    *   describing the templates that were missing from the list if at least one
@@ -124,7 +124,7 @@ module.exports = {
   /**
    * Waits a given number of seconds
    * @author Gabriel Abrams
-   * @memberof module: endpoints/common/utils
+   * @memberof module: test/common/utils
    * @param {float} seconds - the number of seconds to wait
    * @return {Promise} promise that resolves when the wait is complete
    */
@@ -132,5 +132,43 @@ module.exports = {
     return new Promise((resolve) => {
       setTimeout(resolve, seconds * 1000);
     });
+  },
+
+  /**
+   * Requires that a promise resolves in the given timeframe
+   * @author Gabriel Abrams
+   * @memberof module: test/common/utils
+   * @param {Promise} promise - the promise to watch
+   * @param {float} [minSeconds] - the mininum number of seconds that must
+   *   elapse to pass our test
+   * @param {float} [maxSeconds] - the maximum number of seconds that may
+   *   elapse for our test to pass
+   * @return {Promise} promise that resolves if the test passes, rejects if
+   *   it doesn't. Resolves with value that promise resolves with
+   */
+  resolvesInTimeframe: (config) => {
+    const {
+      promise,
+      minSeconds,
+      maxSeconds,
+    } = config;
+    const startTimestamp = new Date().getTime();
+    return promise
+      .then((value) => {
+        const elapsedSecs = (new Date().getTime() - startTimestamp) / 1000;
+        if (
+          minSeconds !== undefined
+          && elapsedSecs < minSeconds
+        ) {
+          throw new Error(`At least ${minSeconds}s should have passed, but instead, ${elapsedSecs}s passed.`);
+        }
+        if (
+          minSeconds !== undefined
+          && elapsedSecs < minSeconds
+        ) {
+          throw new Error(`At most ${maxSeconds}s should have passed, but instead, ${elapsedSecs}s passed.`);
+        }
+        return Promise.resolve(value);
+      });
   },
 };
