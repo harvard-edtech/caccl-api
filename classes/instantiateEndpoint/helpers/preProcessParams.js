@@ -8,9 +8,6 @@
 // The value to exclude
 const EXCLUDED_VALUE = require('./valueThatsExcluded.js');
 
-// Properties to exclude
-const EXCLUDED_PROPS = ['maxPages'];
-
 /**
  * Recursively excludes values that match EXCLUDED_VALUE
  * @author Gabriel Abrams
@@ -37,10 +34,6 @@ const _recursivelyExcludeParams = (obj) => {
         // Skip excluded value
         return;
       }
-      if (EXCLUDED_PROPS.indexOf(prop) >= 0) {
-        // Skip excluded prop
-        return;
-      }
       newObj[prop] = _recursivelyExcludeParams(obj[prop]);
     });
     return newObj;
@@ -52,17 +45,15 @@ const _recursivelyExcludeParams = (obj) => {
 /**
  * Pre-processes request params/body
  * @author Gabriel Abrams
- * @param {object} config.options - The options to pass into the visitEndpoint
- *   function (same definition as in classes/request/genVisitEndpoint)
- * @param {number} [config.itemsPerPage=100] - The default number of items per
- *   page (ignored if options.itemsPerPage is defined)
- * @param {string} [config.accessToken=null] - An access token to add to the
- *   request
+ * @param {string} method - the https method we're using
+ * @param {number} itemsPerPage - the number of items per page. Only valid for
+ *   GET requests
+ * @param {string} [accessToken] - the Canvas access token to add to params
+ * @param {object} [params={}] - the original https parameters of the request
  * @return {object} pre-processed request parameters
  */
 module.exports = (config) => {
-  const { options } = config;
-  const oldParams = (options || {}).params || {};
+  const oldParams = config.params || {};
 
   // Exclude params that have value equal to EXCLUDED_VALUE
   const newParams = _recursivelyExcludeParams(oldParams);
@@ -73,11 +64,8 @@ module.exports = (config) => {
   }
 
   // Set up number of entries per page
-  if (
-    (!options.method || options.method === 'GET')
-    && !newParams.per_page
-  ) {
-    newParams.per_page = (config.defaultItemsPerPage || 100);
+  if (config.method === 'GET' && !newParams.per_page) {
+    newParams.per_page = config.itemsPerPage;
   }
 
   return newParams;
