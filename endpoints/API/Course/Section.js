@@ -18,10 +18,10 @@ class Section extends EndpointCategory {
  * @param {number} courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas Sections {@link https://canvas.instructure.com/doc/api/sections.html#Section}
  */
-Section.list = (config) => {
+Section.list = function (options) {
   // @action: get the list of sections in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/sections`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/sections`,
     method: 'GET',
   });
 };
@@ -34,10 +34,10 @@ Section.list = (config) => {
  * @param {number} sectionId - Section Id to retrieve
  * @return {Promise.<Object>} Canvas Section {@link https://canvas.instructure.com/doc/api/sections.html#Section}
  */
-Section.get = (config) => {
+Section.get = function (options) {
   // @action: get info on a specific section in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/sections/${config.options.sectionId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/sections/${options.sectionId}`,
     method: 'GET',
   });
 };

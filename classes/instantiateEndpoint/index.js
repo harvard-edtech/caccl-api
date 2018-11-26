@@ -88,17 +88,29 @@ module.exports = (config = {}) => {
       ),
       dontCache: options.dontCache,
       ignoreCache: options.ignoreCache,
-      sendRequest: options.sendRequest,
+      sendRequest: options.sendRequest, // TODO: also allow default sendRequest
       startPage: options.startPage,
     });
 
     // Run the endpoint
-    const runPromise = config.endpointCoreFunction({
-      options,
+    // > Make sure the endpointCoreFunction can be bound
+    if (!config.endpointCoreFunction.prototype) {
+      // Cannot be bound!
+      return Promise.reject(
+        new CACCLError({
+          message: 'We ran into an internal error while attempting to bind the context of an endpoint function.',
+          code: errorCodes.couldNotBindEndpoint,
+        })
+      );
+    }
+    // > Create context for core function
+    const ctx = {
       visitEndpoint,
       uncache,
       api,
-    });
+    };
+    // > Run the core endpoint function with ctx as this
+    const runPromise = config.endpointCoreFunction.bind(ctx)(options);
 
     // Check to make sure the endpointCoreFunction returned a promise
     if (

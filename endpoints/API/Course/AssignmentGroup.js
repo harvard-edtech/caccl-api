@@ -20,10 +20,10 @@ class AssignmentGroup extends EndpointCategory {
  * @param {number} courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas AssignmentGroups {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
-AssignmentGroup.list = (config) => {
+AssignmentGroup.list = function (options) {
   // @action: list the assignment groups in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignment_groups`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
     method: 'GET',
   });
 };
@@ -37,10 +37,10 @@ AssignmentGroup.list = (config) => {
  * @param {number} courseId - Canvas course Id to query
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
-AssignmentGroup.get = (config) => {
+AssignmentGroup.get = function (options) {
   // @action: get info on a specific assignment group in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.assignmentGroupId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}`,
     method: 'GET',
   });
 };
@@ -55,22 +55,22 @@ AssignmentGroup.get = (config) => {
  * @param {number} [weight=current value] - New weight
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
-AssignmentGroup.update = (config) => {
+AssignmentGroup.update = function (options) {
   // @action: update an assignment group in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.assignmentGroupId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}`,
     method: 'PUT',
     params: {
-      name: utils.includeIfTruthy(config.options.name),
-      group_weight: utils.includeIfNumber(config.options.weight),
+      name: utils.includeIfTruthy(options.name),
+      group_weight: utils.includeIfNumber(options.weight),
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache list of assignment groups
-        `${prefix.v1}/courses/${config.options.courseId}/assignment_groups`,
+        `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
         // Uncache specific assignment group
-        `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.assignmentGroupId}*`,
+        `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}*`,
       ], response);
     });
 };
@@ -84,22 +84,22 @@ AssignmentGroup.update = (config) => {
  * @param {number} [weight=0] - Assignment group weight
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
-AssignmentGroup.create = (config) => {
+AssignmentGroup.create = function (options) {
   // @action: create a new assignment group in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignment_groups`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
     method: 'POST',
     params: {
-      name: utils.includeIfTruthy(config.options.name),
-      group_weight: utils.includeIfNumber(config.options.weight),
+      name: utils.includeIfTruthy(options.name),
+      group_weight: utils.includeIfNumber(options.weight),
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache list of assignment groups
-        `${prefix.v1}/courses/${config.options.courseId}/assignment_groups`,
+        `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
         // Uncache specific assignment group
-        `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${response.id}*`,
+        `${prefix.v1}/courses/${options.courseId}/assignment_groups/${response.id}*`,
       ], response);
     });
 };
@@ -115,29 +115,29 @@ AssignmentGroup.create = (config) => {
  *   assignment group will be deleted.
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
-AssignmentGroup.delete = (config) => {
+AssignmentGroup.delete = function (options) {
   // @action: delete an assignment group from a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.assignmentGroupId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}`,
     method: 'DELETE',
     params: {
       move_assignments_to:
-        utils.includeIfNumber(config.options.moveAssignmentsTo),
+        utils.includeIfNumber(options.moveAssignmentsTo),
     },
   })
     .then((response) => {
       const uncachePaths = [
         // Uncache list of assignment groups
-        `${prefix.v1}/courses/${config.options.courseId}/assignment_groups`,
+        `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
         // Uncache deleted assignment group
-        `${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.assignmentGroupId}*`,
+        `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}*`,
       ];
       // Uncache destination assignment group if applicable
-      if (config.options.moveAssignmentsTo) {
+      if (options.moveAssignmentsTo) {
         // Uncache the destination assignment group
-        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignment_groups/${config.options.moveAssignmentsTo}*`);
+        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.moveAssignmentsTo}*`);
       }
-      return config.uncache(uncachePaths, response);
+      return this.uncache(uncachePaths, response);
     });
 };
 

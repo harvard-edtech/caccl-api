@@ -5,7 +5,7 @@
  */
 
 // Highest errors:
-// > CAPI21
+// > CAPI22
 // > CANV14 (exclude 404, 500)
 
 module.exports = {
@@ -14,10 +14,12 @@ module.exports = {
   endpointDidntReturnPromise: 'CAPI3',
 
   // Errors for visitEndpoint/request sender
-  // > /classes/request/genVisitEndpoint.js
+  // > /classes/instantiateEndpoint/genVisitEndpoint.js
   notFound: 'CAPI15',
   invalidSyntax: 'CAPI16',
   malformed: 'CAPI17',
+  // > /classes/instantiateEndpoint/index.js
+  couldNotBindEndpoint: 'CAPI22',
   // Canvas Errors:
   // > /classes/request/helpers/interpretCanvasError.js
   frontPageCannotBeUnpublished: 'CANV2',

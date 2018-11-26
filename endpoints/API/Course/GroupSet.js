@@ -22,10 +22,10 @@ class GroupSet extends EndpointCategory {
  * @param {number} courseId - Canvas course Id
  * @return {Promise.<Object[]>} list of Canvas GroupCategories {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
  */
-GroupSet.list = (config) => {
+GroupSet.list = function (options) {
   // @action: get the list of group sets in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/group_categories`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/group_categories`,
     method: 'GET',
   });
 };
@@ -37,10 +37,10 @@ GroupSet.list = (config) => {
  * @param {number} groupSetId - Canvas group set Id
  * @return {Promise.<Object>} Canvas GroupCategory {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
  */
-GroupSet.get = (config) => {
+GroupSet.get = function (options) {
   // @action: get info on a specific group set in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/group_categories/${config.options.groupSetId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/group_categories/${options.groupSetId}`,
     method: 'GET',
   });
 };
@@ -53,19 +53,19 @@ GroupSet.get = (config) => {
  * @param {string} name - The name of the new group set
  * @return {Promise.<Object>} Canvas GroupCategory {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
  */
-GroupSet.create = (config) => {
+GroupSet.create = function (options) {
   // @action: create a new group set in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/group_categories`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/group_categories`,
     method: 'POST',
     params: {
-      name: config.options.name || 'Unnamed Group Set',
+      name: options.name || 'Unnamed Group Set',
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache list of group sets
-        `${prefix.v1}/courses/${config.options.courseId}/group_categories`,
+        `${prefix.v1}/courses/${options.courseId}/group_categories`,
         // Uncache specific group set (in case it was already hit)
         `${prefix.v1}/group_categories/${response.id}`,
       ], response);
@@ -80,18 +80,18 @@ GroupSet.create = (config) => {
  * @param {number} groupSetId - Canvas group set Id
  * @return {Promise.<Object>} Canvas GroupCategory {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
  */
-GroupSet.delete = (config) => {
+GroupSet.delete = function (options) {
   // @action: delete a specific group set from a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/group_categories/${config.options.groupSetId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/group_categories/${options.groupSetId}`,
     method: 'DELETE',
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache list of group sets
-        `${prefix.v1}/courses/${config.options.courseId}/group_categories`,
+        `${prefix.v1}/courses/${options.courseId}/group_categories`,
         // Uncache specific group set
-        `${prefix.v1}/group_categories/${config.options.groupSetId}`,
+        `${prefix.v1}/group_categories/${options.groupSetId}`,
       ], response);
     });
 };
@@ -107,10 +107,10 @@ GroupSet.delete = (config) => {
  * @param {number} groupSetId - Canvas group set Id to query
  * @return {Promise.<Object[]>} list of Canvas Groups {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
-GroupSet.listGroups = (config) => {
+GroupSet.listGroups = function (options) {
   // @action: get the list of groups in a group set
-  return config.visitEndpoint({
-    path: `${prefix.v1}/group_categories/${config.options.groupSetId}/groups`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/group_categories/${options.groupSetId}/groups`,
     method: 'GET',
   });
 };
@@ -123,9 +123,9 @@ GroupSet.listGroups = (config) => {
  * @param {number} groupId - Canvas group Id
  * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
-GroupSet.getGroup = (config) => {
+GroupSet.getGroup = function (options) {
   // @action: get info on a specific group in a group set
-  return config.api.course.group.get(config.options);
+  return this.api.course.group.get(options);
 };
 
 /**
@@ -139,23 +139,23 @@ GroupSet.getGroup = (config) => {
  * @param {boolean} [isPublic=false] - If truthy, group is public
  * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
-GroupSet.createGroup = (config) => {
+GroupSet.createGroup = function (options) {
   // @action: create a new group in a group set
-  return config.visitEndpoint({
-    path: `${prefix.v1}/group_categories/${config.options.groupSetId}/groups`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/group_categories/${options.groupSetId}/groups`,
     method: 'POST',
     params: {
-      name: config.options.name || 'Unnamed Group',
-      description: config.options.description || '',
-      is_public: utils.isTruthy(config.options.isPublic),
+      name: options.name || 'Unnamed Group',
+      description: options.description || '',
+      is_public: utils.isTruthy(options.isPublic),
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache group set list
-        `${prefix.v1}/courses/${config.options.courseId}/group_categories`,
+        `${prefix.v1}/courses/${options.courseId}/group_categories`,
         // Uncache group set
-        `${prefix.v1}/group_categories/${config.options.groupSetId}`,
+        `${prefix.v1}/group_categories/${options.groupSetId}`,
       ], response);
     });
 };
@@ -169,18 +169,18 @@ GroupSet.createGroup = (config) => {
  * @param {number} groupId - Canvas group Id to delete
  * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
-GroupSet.deleteGroup = (config) => {
+GroupSet.deleteGroup = function (options) {
   // @action: delete a specific group from a group set
-  return config.visitEndpoint({
-    path: `${prefix.v1}/groups/${config.options.groupId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/groups/${options.groupId}`,
     method: 'DELETE',
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache group
-        `${prefix.v1}/groups/${config.options.groupId}`,
+        `${prefix.v1}/groups/${options.groupId}`,
         // Uncache group set list of group
-        `${prefix.v1}/group_categories/${config.options.groupSetId}/groups`,
+        `${prefix.v1}/group_categories/${options.groupSetId}/groups`,
       ], response);
     });
 };

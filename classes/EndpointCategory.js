@@ -107,6 +107,13 @@ class EndpointCategory {
     });
   }
 
+  visitEndpoint() {
+    // visitEndpoint is re-initialized each time an endpoint is called
+    // see: classes/instantiateEndpoint/index.js
+
+    throw new Error(`The visitEndpoint function cannot be called directly as a method of the ${this.constructor.name} class`);
+  }
+
   /**
    * Pre-process the config object, initializing api, cache, and uncache
    *   function if needed

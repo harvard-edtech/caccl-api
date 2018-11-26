@@ -19,10 +19,10 @@ class Rubric extends EndpointCategory {
  * @param {number} courseId - Canvas course Id to add the rubric to
  * @return {Promise.<Object[]>} list of Canvas Rubrics {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
  */
-Rubric.list = (config) => {
+Rubric.list = function (options) {
   // @action: list all the rubrics in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/rubrics`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/rubrics`,
     method: 'GET',
   });
 };
@@ -42,14 +42,14 @@ Rubric.list = (config) => {
  *   assessment). Only valid if including assessments
  * @return {Promise.<Object>} Canvas Rubric {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
  */
-Rubric.get = (config) => {
+Rubric.get = function (options) {
   // @action: get info on a specific rubric in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/rubrics/${config.options.rubricId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/rubrics/${options.rubricId}`,
     method: 'GET',
     params: {
-      include: utils.includeIfTruthy(config.options.include),
-      style: utils.includeIfTruthy(config.options.assessmentStyle),
+      include: utils.includeIfTruthy(options.include),
+      style: utils.includeIfTruthy(options.assessmentStyle),
     },
   });
 };
@@ -67,16 +67,16 @@ Rubric.get = (config) => {
  * @param {string} [title=generated title] - Title of the new rubric
  * @return {Promise.<Object>} Canvas Rubric {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
  */
-Rubric.createFreeFormGradingRubricInAssignment = (config) => {
+Rubric.createFreeFormGradingRubricInAssignment = function (options) {
   // @action: create a new free form grading rubric and add it to a specific assignment in a course
   // Infer points possible based on the rubric items
   let pointsPossible = 0;
-  config.options.rubricItems.forEach((rubricItem) => {
+  options.rubricItems.forEach((rubricItem) => {
     pointsPossible += rubricItem.points;
   });
   // Set title
   const title = (
-    config.options.title
+    options.title
     || 'Unnamed-rubric-' + new Date().getTime()
   );
   const params = {
@@ -91,11 +91,11 @@ Rubric.createFreeFormGradingRubricInAssignment = (config) => {
     points_possible: pointsPossible,
     rubric_id: 'new',
     'rubric_association[association_type]': 'Assignment',
-    'rubric_association[association_id]': config.options.assignmentId,
+    'rubric_association[association_id]': options.assignmentId,
     'rubric_association[purpose]': 'grading',
     skip_updating_points_possible: false,
   };
-  config.options.rubricItems.forEach((rubricItem, i) => {
+  options.rubricItems.forEach((rubricItem, i) => {
     params[`rubric[criteria][${i}][description]`] = (
       rubricItem.description
     );
@@ -119,20 +119,20 @@ Rubric.createFreeFormGradingRubricInAssignment = (config) => {
     params[`rubric[criteria][${i}][ratings][1][points]`] = 0;
     params[`rubric[criteria][${i}][ratings][1][id]`] = 'blank_2';
   });
-  return config.visitEndpoint({
+  return this.visitEndpoint({
     params,
-    path: `${prefix.v1}/courses/${config.options.courseId}/rubrics`,
+    path: `${prefix.v1}/courses/${options.courseId}/rubrics`,
     method: 'POST',
   })
     .then((response) => {
       // Response is of form { rubric: <rubric object> } for no reason
       // We just extract that rubric object
       const { rubric } = response;
-      return config.uncache([
+      return this.uncache([
         // Uncache list of rubrics
-        `${prefix.v1}/courses/${config.options.courseId}/rubrics`,
+        `${prefix.v1}/courses/${options.courseId}/rubrics`,
         // Uncache rubric
-        `${prefix.v1}/courses/${config.options.courseId}/rubrics/${response.id}`,
+        `${prefix.v1}/courses/${options.courseId}/rubrics/${response.id}`,
       ], rubric);
     });
 };
