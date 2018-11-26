@@ -118,7 +118,7 @@ module.exports = (config = {}) => {
                 if (response.status === 404) {
                   return reject(new CACCLError({
                     message: `The endpoint https://${canvasHost}${path} does not exist: Canvas responded with a 404 message. Please check your endpoint path.`,
-                    code: errorCodes.notfound,
+                    code: errorCodes.notFound,
                   }));
                 }
                 // > 400 - Invalid syntax
