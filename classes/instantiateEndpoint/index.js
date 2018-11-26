@@ -88,7 +88,7 @@ module.exports = (config = {}) => {
       ),
       dontCache: options.dontCache,
       ignoreCache: options.ignoreCache,
-      sendRequest: options.sendRequest,
+      sendRequest: options.sendRequest, // TODO: also allow default sendRequest
       startPage: options.startPage,
     });
 

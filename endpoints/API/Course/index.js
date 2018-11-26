@@ -58,21 +58,21 @@ Course.section = Section;
  *   number of students who still need to be graded
  * @return {Promise.<Object>} Canvas course {@link https://canvas.instructure.com/doc/api/courses.html#Course}
  */
-Course.get = function get(config) {
+Course.get = function get(options) {
   // @action: get info on a specific course
   return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}`,
+    path: `${prefix.v1}/courses/${options.courseId}`,
     method: 'GET',
     params: {
       include: utils.genIncludesList({
-        syllabus_body: config.options.includeSyllabus,
-        term: config.options.includeTerm,
-        account: config.options.includeAccount,
-        public_description: config.options.includeDescription,
-        sections: config.options.includeSections,
-        teachers: config.options.includeTeachers,
-        course_image: config.options.includeCourseImage,
-        needs_grading_count: config.options.includeNeedsGradingCount,
+        syllabus_body: options.includeSyllabus,
+        term: options.includeTerm,
+        account: options.includeAccount,
+        public_description: options.includeDescription,
+        sections: options.includeSections,
+        teachers: options.includeTeachers,
+        course_image: options.includeCourseImage,
+        needs_grading_count: options.includeNeedsGradingCount,
       }),
     },
   });
@@ -142,11 +142,11 @@ Course.listEnrollments = function listEnrollments(options) {
  * @param {string} [includeGroups=false] - If truthy, group_ids is included
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
-Course.listStudents = (config) => {
+Course.listStudents = (options) => {
   // @action: get the list of students in a course
-  const newOptions = config.options;
+  const newOptions = options;
   newOptions.types = ['student'];
-  return config.api.course.listEnrollments(newOptions);
+  return this.api.course.listEnrollments(newOptions);
 };
 
 /**
@@ -160,11 +160,11 @@ Course.listStudents = (config) => {
  * @param {string} [includeGroups=false] - If truthy, group_ids is included
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
-Course.listTeachingTeamMembers = (config) => {
+Course.listTeachingTeamMembers = (options) => {
   // @action: get the list of TAs and Teachers in a course
-  const newOptions = config.options;
+  const newOptions = options;
   newOptions.types = ['ta', 'teacher'];
-  return config.api.course.listEnrollments(newOptions);
+  return this.api.course.listEnrollments(newOptions);
 };
 
 /**
@@ -178,11 +178,11 @@ Course.listTeachingTeamMembers = (config) => {
  * @param {string} [includeGroups=false] - If truthy, group_ids is included
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
-Course.listDesigners = (config) => {
+Course.listDesigners = (options) => {
   // @action: get the list of designers in a course
-  const newOptions = config.options;
+  const newOptions = options;
   newOptions.types = ['designer'];
-  return config.api.course.listEnrollments(newOptions);
+  return this.api.course.listEnrollments(newOptions);
 };
 
 /**
@@ -196,11 +196,11 @@ Course.listDesigners = (config) => {
  * @param {string} [includeGroups=false] - If truthy, group_ids is included
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
-Course.listObservers = (config) => {
+Course.listObservers = (options) => {
   // @action: get the list of observers in a course
-  const newOptions = config.options;
+  const newOptions = options;
   newOptions.types = ['observer'];
-  return config.api.course.listEnrollments(newOptions);
+  return this.api.course.listEnrollments(newOptions);
 };
 
 /*------------------------------------------------------------------------*/
