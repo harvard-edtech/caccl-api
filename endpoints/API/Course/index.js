@@ -58,7 +58,7 @@ Course.section = Section;
  *   number of students who still need to be graded
  * @return {Promise.<Object>} Canvas course {@link https://canvas.instructure.com/doc/api/courses.html#Course}
  */
-Course.get = function (config) {
+Course.get = function get(config) {
   // @action: get info on a specific course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${config.options.courseId}`,
@@ -92,7 +92,7 @@ Course.get = function (config) {
  * @param {string} [includeGroups=false] - If truthy, group_ids is included
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
-Course.listEnrollments = function (options) {
+Course.listEnrollments = function listEnrollments(options) {
   // @action: get enrollments from a course
   const params = {};
 
