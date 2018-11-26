@@ -26,13 +26,13 @@ class App extends EndpointCategory {
  *   all accounts above the current context
  * @return {Promise.<Object[]>} list of external tools {@link https://canvas.instructure.com/doc/api/external_tools.html}
  */
-App.list = (config) => {
+App.list = function (options) {
   // @action: get the list of apps installed into a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/external_tools`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/external_tools`,
     method: 'GET',
     params: {
-      include_parents: utils.isTruthy(config.options.includeParents),
+      include_parents: utils.isTruthy(options.includeParents),
     },
   });
 };
@@ -45,10 +45,10 @@ App.list = (config) => {
  * @param {number} appId - The LTI app Id to get
  * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
-App.get = (config) => {
+App.get = function (options) {
   // @action: get info on a specific LTI app in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/external_tools/${config.options.appId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/external_tools/${options.appId}`,
     method: 'GET',
   });
 };
@@ -66,26 +66,26 @@ App.get = (config) => {
  * @param {string} [launchPrivacy] - 'public' by default
  * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
-App.add = (config) => {
+App.add = function (options) {
   // @action: add an LTI app to a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/external_tools`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/external_tools`,
     method: 'POST',
     params: {
-      name: config.options.name,
-      privacy_level: config.options.launchPrivacy || 'public',
-      consumer_key: config.options.key,
-      consumer_secret: config.options.secret,
+      name: options.name,
+      privacy_level: options.launchPrivacy || 'public',
+      consumer_key: options.key,
+      consumer_secret: options.secret,
       config_type: 'by_xml',
-      config_xml: config.options.xml,
-      description: utils.includeIfTruthy(config.options.description),
-      icon_url: utils.includeIfTruthy(config.options.icon),
+      config_xml: options.xml,
+      description: utils.includeIfTruthy(options.description),
+      icon_url: utils.includeIfTruthy(options.icon),
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache app list endpoint
-        `${prefix.v1}/courses/${config.options.courseId}/external_tools`,
+        `${prefix.v1}/courses/${options.courseId}/external_tools`,
       ], response);
     });
 };
@@ -98,18 +98,18 @@ App.add = (config) => {
  * @param {number} appId - The LTI app Id to remove
  * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
-App.remove = (config) => {
+App.remove = function (options) {
   // @action: remove an LTI app from a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/external_tools/${config.options.appId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/external_tools/${options.appId}`,
     method: 'DELETE',
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache get app endpoint
-        `${prefix.v1}/courses/${config.options.courseId}/external_tools/${config.options.appId}`,
+        `${prefix.v1}/courses/${options.courseId}/external_tools/${options.appId}`,
         // Uncache app list endpoint
-        `${prefix.v1}/courses/${config.options.courseId}/external_tools`,
+        `${prefix.v1}/courses/${options.courseId}/external_tools`,
       ], response);
     });
 };
@@ -132,12 +132,12 @@ App.remove = (config) => {
  * @param {number} metadataId - metadata identifier (see endpoint description)
  * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
-App.getMetadata = (config) => {
+App.getMetadata = function (options) {
   // @action: get metadata for an LTI app in a course
 
   // Get the list of apps
-  return config.api.course.app.list({
-    courseId: config.options.courseId,
+  return this.api.course.app.list({
+    courseId: options.courseId,
   })
     .then((apps) => {
       // Find the first app that has this metadataId
@@ -146,7 +146,7 @@ App.getMetadata = (config) => {
         if (
           apps[i].custom_fields
           && apps[i].custom_fields.metadataId
-          && apps[i].custom_fields.metadataId === config.options.metadataId
+          && apps[i].custom_fields.metadataId === options.metadataId
         ) {
           // Found an app with this metadata id!
           firstAppWithMetadataId = apps[i];
@@ -202,16 +202,16 @@ App.getMetadata = (config) => {
  * @param {object} [metadata={}] – json metadata object
  * @return {Promise.<Object[]>} Array of external tools (the apps that were updated) {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
-App.updateMetadata = (config) => {
+App.updateMetadata = function (options) {
   // @action: get metadata for an LTI app in a course
 
   // Pre-process metadata
-  const metadata = JSON.stringify(config.options.metadata || {});
+  const metadata = JSON.stringify(options.metadata || {});
 
   // Get the list of apps
   let appsToUpdate;
-  return config.api.course.app.list({
-    courseId: config.options.courseId,
+  return this.api.course.app.list({
+    courseId: options.courseId,
   })
     .then((apps) => {
       // Find all apps with this metadataId
@@ -219,7 +219,7 @@ App.updateMetadata = (config) => {
         return (
           app.custom_fields
           && app.custom_fields.metadataId
-          && app.custom_fields.metadataId === config.options.metadataId
+          && app.custom_fields.metadataId === options.metadataId
         );
       });
       if (appsToUpdate.length === 0) {
@@ -246,9 +246,9 @@ App.updateMetadata = (config) => {
             params[`custom_fields[${customPropName}]`] = customVal;
           });
           // Update custom params
-          return config.visitEndpoint({
+          return this.visitEndpoint({
             params,
-            path: `${prefix.v1}/courses/${config.options.courseId}/external_tools/${app.id}`,
+            path: `${prefix.v1}/courses/${options.courseId}/external_tools/${app.id}`,
             method: 'PUT',
           });
         })
@@ -258,12 +258,12 @@ App.updateMetadata = (config) => {
       // Uncache all apps that we modified
       const pathsToUncache = appsToUpdate.map((app) => {
         // Uncache get app endpoint
-        return `${prefix.v1}/courses/${config.options.courseId}/external_tools/${app.id}`;
+        return `${prefix.v1}/courses/${options.courseId}/external_tools/${app.id}`;
       });
       // Uncache app list endpoint
-      pathsToUncache.push(`${prefix.v1}/courses/${config.options.courseId}/external_tools`);
+      pathsToUncache.push(`${prefix.v1}/courses/${options.courseId}/external_tools`);
       // Perform uncache
-      return config.uncache(pathsToUncache, response);
+      return this.uncache(pathsToUncache, response);
     });
 };
 

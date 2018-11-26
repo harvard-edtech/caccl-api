@@ -29,10 +29,10 @@ class Assignment extends EndpointCategory {
  * @param {number} courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas Assignments {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
-Assignment.list = (config) => {
+Assignment.list = function (options) {
   // @action: get the list of assignments in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignments`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments`,
     method: 'GET',
   });
 };
@@ -45,10 +45,10 @@ Assignment.list = (config) => {
  * @param {number} assignmentId - Canvas assignment Id
  * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
-Assignment.get = (config) => {
+Assignment.get = function (options) {
   // @action: get info on a specific assignment in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}`,
     method: 'GET',
   });
 };
@@ -88,52 +88,52 @@ Assignment.get = (config) => {
  *   group gets a grade, other students do not get graded. Must be a boolean
  * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
-Assignment.update = (config) => {
+Assignment.update = function (options) {
   // @action: updates an assignment in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}`,
     method: 'PUT',
     params: {
-      'assignment[name]': utils.includeIfTruthy(config.options.name),
+      'assignment[name]': utils.includeIfTruthy(options.name),
       'assignment[submission_types]':
-        utils.includeIfTruthy(config.options.submissionTypes),
+        utils.includeIfTruthy(options.submissionTypes),
       'assignment[grading_type]':
-        utils.includeIfTruthy(config.options.gradingType),
-      position: utils.includeIfTruthy(config.options.position),
+        utils.includeIfTruthy(options.gradingType),
+      position: utils.includeIfTruthy(options.position),
       'assignment[peer_reviews]':
-        utils.includeIfBoolean(config.options.peerReviewsEnabled),
+        utils.includeIfBoolean(options.peerReviewsEnabled),
       'assignment[automatic_peer_reviews]':
-        utils.includeIfBoolean(config.options.automaticPeerReviewsEnabled),
+        utils.includeIfBoolean(options.automaticPeerReviewsEnabled),
       'assignment[grade_group_students_individually]':
         utils.includeIfBoolean(
-          config.options.gradeGroupStudentsIndividually
+          options.gradeGroupStudentsIndividually
         ),
       'assignment[description]':
-        utils.includeIfTruthy(config.options.description),
+        utils.includeIfTruthy(options.description),
       'assignment[allowed_extensions]':
-        utils.includeIfTruthy(config.options.allowedExtensions),
+        utils.includeIfTruthy(options.allowedExtensions),
       'assignment[group_category_id]':
-        utils.includeIfTruthy(config.options.groupSetId),
+        utils.includeIfTruthy(options.groupSetId),
       'assignment[points_possible]':
-        utils.includeIfNumber(config.options.pointsPossible),
-      'assignment[due_at]': utils.includeIfDate(config.options.dueAt),
-      'assignment[lock_at]': utils.includeIfDate(config.options.lockAt),
-      'assignment[unlock_at]': utils.includeIfDate(config.options.unlockAt),
+        utils.includeIfNumber(options.pointsPossible),
+      'assignment[due_at]': utils.includeIfDate(options.dueAt),
+      'assignment[lock_at]': utils.includeIfDate(options.lockAt),
+      'assignment[unlock_at]': utils.includeIfDate(options.unlockAt),
       'assignment[published]':
-        utils.includeIfBoolean(config.options.published),
+        utils.includeIfBoolean(options.published),
       'assignment[assignment_group_id]':
-        utils.includeIfNumber(config.options.assignmentGroupId),
+        utils.includeIfNumber(options.assignmentGroupId),
       'assignment[omit_from_final_grade]':
-        utils.includeIfBoolean(config.options.omitFromFinalGrade),
-      'assignment[muted]': utils.includeIfBoolean(config.options.muted),
+        utils.includeIfBoolean(options.omitFromFinalGrade),
+      'assignment[muted]': utils.includeIfBoolean(options.muted),
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache assignment and sub-endpoints
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}*`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}*`,
         // Uncache assignment list
-        `${prefix.v1}/courses/${config.options.courseId}/assignments`,
+        `${prefix.v1}/courses/${options.courseId}/assignments`,
       ], response);
     });
 };
@@ -173,48 +173,48 @@ Assignment.update = (config) => {
  *   gets a grade, other students do not get graded
  * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
-Assignment.create = (config) => {
+Assignment.create = function (options) {
   // @action: create a new assignment in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignments`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments`,
     method: 'POST',
     params: {
-      'assignment[name]': config.options.name || 'Unnamed Assignment',
-      'assignment[submission_types]': config.options.submissionTypes || ['none'],
-      'assignment[grading_type]': config.options.gradingType || 'points',
-      position: utils.includeIfTruthy(config.options.position),
+      'assignment[name]': options.name || 'Unnamed Assignment',
+      'assignment[submission_types]': options.submissionTypes || ['none'],
+      'assignment[grading_type]': options.gradingType || 'points',
+      position: utils.includeIfTruthy(options.position),
       'assignment[peer_reviews]':
-        utils.isTruthy(config.options.peerReviewsEnabled),
+        utils.isTruthy(options.peerReviewsEnabled),
       'assignment[automatic_peer_reviews]':
-        utils.isTruthy(config.options.automaticPeerReviewsEnabled),
+        utils.isTruthy(options.automaticPeerReviewsEnabled),
       'assignment[grade_group_students_individually]':
-        utils.isTruthy(config.options.gradeGroupStudentsIndividually),
+        utils.isTruthy(options.gradeGroupStudentsIndividually),
       'assignment[description]':
-        utils.includeIfTruthy(config.options.description),
+        utils.includeIfTruthy(options.description),
       'assignment[allowed_extensions]':
-        utils.includeIfTruthy(config.options.allowedExtensions),
+        utils.includeIfTruthy(options.allowedExtensions),
       'assignment[group_category_id]':
-        utils.includeIfTruthy(config.options.groupSetId),
+        utils.includeIfTruthy(options.groupSetId),
       'assignment[points_possible]':
-        utils.includeIfNumber(config.options.pointsPossible),
-      'assignment[due_at]': utils.includeIfDate(config.options.dueAt),
-      'assignment[lock_at]': utils.includeIfDate(config.options.lockAt),
-      'assignment[unlock_at]': utils.includeIfDate(config.options.unlockAt),
+        utils.includeIfNumber(options.pointsPossible),
+      'assignment[due_at]': utils.includeIfDate(options.dueAt),
+      'assignment[lock_at]': utils.includeIfDate(options.lockAt),
+      'assignment[unlock_at]': utils.includeIfDate(options.unlockAt),
       'assignment[published]':
-        utils.isTruthy(config.options.published),
+        utils.isTruthy(options.published),
       'assignment[assignment_group_id]':
-        utils.includeIfNumber(config.options.assignmentGroupId),
+        utils.includeIfNumber(options.assignmentGroupId),
       'assignment[omit_from_final_grade]':
-        utils.isTruthy(config.options.omitFromFinalGrade),
-      'assignment[muted]': utils.isTruthy(config.options.muted),
+        utils.isTruthy(options.omitFromFinalGrade),
+      'assignment[muted]': utils.isTruthy(options.muted),
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache assignment and sub-endpoints
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}*`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}*`,
         // Uncache assignment list
-        `${prefix.v1}/courses/${config.options.courseId}/assignments`,
+        `${prefix.v1}/courses/${options.courseId}/assignments`,
       ], response);
     });
 };
@@ -227,18 +227,18 @@ Assignment.create = (config) => {
  * @param {number} assignmentId - Canvas assignment Id
  * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
-Assignment.delete = (config) => {
+Assignment.delete = function (options) {
   // @action: delete an assignment from a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}`,
     method: 'DELETE',
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache assignment and sub-endpoints
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}*`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}*`,
         // Uncache assignment list
-        `${prefix.v1}/courses/${config.options.courseId}/assignments`,
+        `${prefix.v1}/courses/${options.courseId}/assignments`,
       ], response);
     });
 };
@@ -255,10 +255,10 @@ Assignment.delete = (config) => {
  * @param {number} assignmentId - Canvas assignment Id to query
  * @return {Promise.<Object[]>} list of Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
-Assignment.listGradeableStudents = (config) => {
+Assignment.listGradeableStudents = function (options) {
   // @action: get the list of students who are gradeable in a specific assignment in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/gradeable_students`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/gradeable_students`,
     method: 'GET',
   })
     .then((students) => {
@@ -280,21 +280,21 @@ Assignment.listGradeableStudents = (config) => {
  * @param {string} comment - The text of the comment
  * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
-Assignment.createSubmissionComment = (config) => {
+Assignment.createSubmissionComment = function (options) {
   // @action: create a new comment on a submission
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/${config.options.studentId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/${options.studentId}`,
     method: 'PUT',
     params: {
-      'comment[text_comment]': config.options.comment,
+      'comment[text_comment]': options.comment,
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache submission
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/${config.options.studentId}`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/${options.studentId}`,
         // Uncache list of submissions
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions`,
       ], response);
     });
 };
@@ -332,7 +332,7 @@ Assignment.createSubmissionComment = (config) => {
  *   merge rubric assessments.
  * @return {Promise.<Object>} Canvas Progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
  */
-Assignment.updateGrades = (config) => {
+Assignment.updateGrades = function (options) {
   // @action: update student grades, comments, and/or rubric assessments for a specific assignment in a course
 
   // Create a promise chain so we can queue promises
@@ -345,17 +345,17 @@ Assignment.updateGrades = (config) => {
   // Check if merge is necessary
   // > not necessary if no rubric item updates
   let performRubricItemMerge = false;
-  if (!config.options.dontMergeRubricItemUpdates) {
-    performRubricItemMerge = config.options.gradeItems.some((item) => {
+  if (!options.dontMergeRubricItemUpdates) {
+    performRubricItemMerge = options.gradeItems.some((item) => {
       return item.rubricId;
     });
   }
 
   // Pull assignment so we can get rubric information
   if (performRubricItemMerge) {
-    promiseChain = config.api.course.assignment.get({
-      courseId: config.options.courseId,
-      assignmentId: config.options.assignmentId,
+    promiseChain = this.api.course.assignment.get({
+      courseId: options.courseId,
+      assignmentId: options.assignmentId,
     })
       .then((assignment) => {
         if (!assignment.rubric) {
@@ -378,7 +378,7 @@ Assignment.updateGrades = (config) => {
         const studentToRubricItemsOverwritten = new Map();
         const allStudentsWithRubricItems = new Set();
         // ^ {studentId => { Set of rubric ids being uploaded }}
-        config.options.gradeItems.forEach((gradeItem) => {
+        options.gradeItems.forEach((gradeItem) => {
           const { rubricId, studentId } = gradeItem;
           allStudentsWithRubricItems.add(studentId);
 
@@ -429,10 +429,10 @@ Assignment.updateGrades = (config) => {
     return new Promise((resolve, reject) => {
       // Pull student submissions that need to be merged
       const _fetchSub = (studentId, next) => {
-        config.api.course.assignment.getSubmission({
+        this.api.course.assignment.getSubmission({
           studentId,
-          courseId: config.options.courseId,
-          assignmentId: config.options.assignmentId,
+          courseId: options.courseId,
+          assignmentId: options.assignmentId,
           includeRubricAssessment: true,
           excludeUser: true, // Save request space
         })
@@ -461,7 +461,7 @@ Assignment.updateGrades = (config) => {
             //      points: true/false, is being overwritten,
             //      comment: true/false, is being overwritten
             //    }}
-            config.options.gradeItems.forEach((gradeItem) => {
+            options.gradeItems.forEach((gradeItem) => {
               if (!gradeItem.rubricId) {
                 // No need to keep track of non-rubric item updates
                 // (these are not being merged)
@@ -526,7 +526,7 @@ Assignment.updateGrades = (config) => {
           }
 
           // Add rest of grade item updates to params
-          config.options.gradeItems.forEach((gradeItem) => {
+          options.gradeItems.forEach((gradeItem) => {
             if (gradeItem.rubricId) {
               if (gradeItem.points !== undefined) {
                 params[`grade_data[${gradeItem.studentId}][rubric_assessment][${gradeItem.rubricId}][points]`] = gradeItem.points;
@@ -545,15 +545,15 @@ Assignment.updateGrades = (config) => {
           });
 
           // Send request
-          config.visitEndpoint({
+          this.visitEndpoint({
             params,
-            path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/update_grades`,
+            path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/update_grades`,
             method: 'POST',
           })
             .then((response) => {
-              return config.uncache([
+              return this.uncache([
                 // Uncache submissions endpoint
-                `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions*`,
+                `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions*`,
               ], response);
             })
             .then((response) => {
@@ -570,12 +570,12 @@ Assignment.updateGrades = (config) => {
   });
 
   /* --- 3. Wait for completion (if applicable) --- */
-  if (config.options.waitForCompletion) {
+  if (options.waitForCompletion) {
     promiseChain = promiseChain.then((progress) => {
       return waitForCompletion({
         progress,
-        visitEndpoint: config.visitEndpoint,
-        timeout: config.options.waitForCompletionTimeout,
+        visitEndpoint: this.visitEndpoint,
+        timeout: options.waitForCompletionTimeout,
       });
     });
   }
@@ -595,10 +595,10 @@ Assignment.updateGrades = (config) => {
  * @param {number} assignmentId - Canvas assignment id to look up
  * @return {Promise.<Object[]>} list of Canvas AssignmentOverrides {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
-Assignment.listOverrides = (config) => {
+Assignment.listOverrides = function (options) {
   // @action: get a list of assignment overrides for a specific assignment in a course',
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides`,
     method: 'GET',
   });
 };
@@ -612,10 +612,10 @@ Assignment.listOverrides = (config) => {
  * @param {number} overrideId - Canvas override id to look up
  * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
-Assignment.getOverride = (config) => {
+Assignment.getOverride = function (options) {
   // @action: get a list of assignment overrides for a specific assignment in a course',
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides/${config.options.overrideId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides/${options.overrideId}`,
     method: 'GET',
   });
 };
@@ -641,39 +641,39 @@ Assignment.getOverride = (config) => {
  *   date
  * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
-Assignment.createOverride = (config) => {
+Assignment.createOverride = function (options) {
   // @action: create a new override for a specific assignment in a course',
-  let { title } = config.options;
+  let { title } = options;
   if (!title) {
-    title = `Override for ${config.options.studentIds.length} student${utils.sIfPlural(config.options.studentIds.length)}`;
+    title = `Override for ${options.studentIds.length} student${utils.sIfPlural(options.studentIds.length)}`;
   }
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides`,
     method: 'POST',
     params: {
       'assignment_override[title]': utils.includeIfTruthy(title),
       'assignment_override[student_ids]':
-        utils.includeIfTruthy(config.options.studentIds),
+        utils.includeIfTruthy(options.studentIds),
       'assignment_override[group_id]':
-        utils.includeIfTruthy(config.options.groupId),
+        utils.includeIfTruthy(options.groupId),
       'assignment_override[course_section_id]':
-        utils.includeIfTruthy(config.options.sectionId),
+        utils.includeIfTruthy(options.sectionId),
       'assignment_override[due_at]':
-        utils.includeIfDate(config.options.dueAt),
+        utils.includeIfDate(options.dueAt),
       'assignment_override[unlock_at]':
-        utils.includeIfDate(config.options.unlockAt),
+        utils.includeIfDate(options.unlockAt),
       'assignment_override[lock_at]':
-        utils.includeIfDate(config.options.lockAt),
+        utils.includeIfDate(options.lockAt),
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache list of overrides
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides`,
         // Uncache specific override id
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides/${response.id}`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides/${response.id}`,
         // Uncache batch override list
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/overrides`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/overrides`,
       ], response);
     });
 };
@@ -687,20 +687,20 @@ Assignment.createOverride = (config) => {
  * @param {number} overrideId - Canvas override id to look up
  * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
-Assignment.deleteOverride = (config) => {
+Assignment.deleteOverride = function (options) {
   // @action: delete an override for a specific assignment in a course',
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides/${config.options.overrideId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides/${options.overrideId}`,
     method: 'DELETE',
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache list of overrides
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides`,
         // Uncache specific override id
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/overrides/${config.options.overrideId}`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides/${options.overrideId}`,
         // Uncache batch override list
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/overrides`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/overrides`,
       ], response);
     });
 };
@@ -713,7 +713,7 @@ Assignment.deleteOverride = (config) => {
 
 /**
  * Passes through or retrieves the current user's Canvas id
- * @param {function} visitEndpoint - The visitEndpoint function to use to send
+ * @param {function} visitEndpoint - The visitEndpoint function  use to send
  *   a getCurrentUser request with
  * @param {number} [userId] - The Canvas Id of the current user. Passed through
  *   by default if we already know it
@@ -748,37 +748,37 @@ const getCurrentUserId = (api, userId) => {
  *   submission by test student (student view) if there is one
  * @return {Promise.<Object[]>} list of Canvas submissions {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
-Assignment.listSubmissions = (config) => {
+Assignment.listSubmissions = function (options) {
   // @action: list the submissions to a specific assignment in a course
 
   // Fetch the user info if we're not excluding user info OR if we're
   // filtering out the test student (we need user info to filter)
   const fetchUser = (
-    !config.options.includeTestStudent
-    || !config.options.excludeUser
+    !options.includeTestStudent
+    || !options.excludeUser
   );
 
-  const fetchPromise = config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions`,
+  const fetchPromise = this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions`,
     method: 'GET',
     params: {
       include: utils.genIncludesList({
-        submission_comments: config.options.includeComments,
-        rubric_assessment: config.options.includeRubricAssessment,
+        submission_comments: options.includeComments,
+        rubric_assessment: options.includeRubricAssessment,
         user: fetchUser,
       }),
     },
   });
 
   // Filter test student if applicable
-  if (!config.options.includeTestStudent) {
+  if (!options.includeTestStudent) {
     return fetchPromise.then((response) => {
       // Filter out test student
       const realSubs = response.filter((sub) => {
         return sub.user.name !== 'Test Student';
       });
 
-      if (config.options.excludeUser) {
+      if (options.excludeUser) {
         // We had to request users just to filter out the test student but
         // we the caller wanted to exclude users (remove them now)
         return Promise.resolve(realSubs.map((sub) => {
@@ -811,16 +811,16 @@ Assignment.listSubmissions = (config) => {
  *   submission[i].user value with the submission's user information
  * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
-Assignment.getSubmission = (config) => {
+Assignment.getSubmission = function (options) {
   // @action: Gets a specific submission to an assignment in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/${config.options.studentId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/${options.studentId}`,
     method: 'GET',
     params: {
       include: utils.genIncludesList({
-        submission_comments: config.options.includeComments,
-        rubric_assessment: config.options.includeRubricAssessment,
-        user: !config.options.excludeUser,
+        submission_comments: options.includeComments,
+        rubric_assessment: options.includeRubricAssessment,
+        user: !options.excludeUser,
       }),
     },
   });
@@ -838,33 +838,33 @@ Assignment.getSubmission = (config) => {
  * @param {string} [comment] - A text student comment to include
  * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
-Assignment.createTextSubmission = (config) => {
+Assignment.createTextSubmission = function (options) {
   // @action: create a text submission to a specific assignment in a course on behalf of the current user
   let submitterId;
   return getCurrentUserId(
-    config.api,
-    config.options.currentUserId
+    this.api,
+    options.currentUserId
   )
     .then((currentUserId) => {
       submitterId = currentUserId;
-      return config.visitEndpoint({
-        path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions`,
+      return this.visitEndpoint({
+        path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions`,
         method: 'POST',
         params: {
           'comment[text_comment]':
-            utils.includeIfTruthy(config.options.comment),
-          'submission[body]': config.options.text,
+            utils.includeIfTruthy(options.comment),
+          'submission[body]': options.text,
           'submission[submission_type]': 'online_text_entry',
         },
       });
     })
     .then((response) => {
       // Submission created. Now, create response and uncache paths
-      return config.uncache([
+      return this.uncache([
         // Uncache list of submissions
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions`,
         // Uncache this person's submission
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/${submitterId}`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/${submitterId}`,
       ], response);
     });
 };
@@ -881,33 +881,33 @@ Assignment.createTextSubmission = (config) => {
  * @param {string} [comment] - A text student comment to include
  * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
-Assignment.createURLSubmission = (config) => {
+Assignment.createURLSubmission = function (options) {
   // @action: create a url submission to a specific assignment in a course on behalf of the current user
   let submitterId;
   return getCurrentUserId(
-    config.api,
-    config.options.currentUserId
+    this.api,
+    options.currentUserId
   )
     .then((currentUserId) => {
       submitterId = currentUserId;
-      return config.visitEndpoint({
-        path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions`,
+      return this.visitEndpoint({
+        path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions`,
         method: 'POST',
         params: {
           'comment[text_comment]':
-            utils.includeIfTruthy(config.options.comment),
-          'submission[url]': config.options.url,
+            utils.includeIfTruthy(options.comment),
+          'submission[url]': options.url,
           'submission[submission_type]': 'online_url',
         },
       });
     })
     .then((response) => {
       // Submission created. Now, create response and uncache paths
-      return config.uncache([
+      return this.uncache([
         // Uncache list of submissions
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions`,
         // Uncache this person's submission
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/${submitterId}`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/${submitterId}`,
       ], response);
     });
 };
@@ -924,18 +924,18 @@ Assignment.createURLSubmission = (config) => {
  * @param {string} [comment] - A text student comment to include
  * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
-Assignment.createFileSubmission = (config) => {
+Assignment.createFileSubmission = function (options) {
   // @action: create a file submission to a specific assignment in a course on behalf of the current user
   let submitterId;
   return getCurrentUserId(
-    config.api,
-    config.options.currentUserId
+    this.api,
+    options.currentUserId
   )
     .then((currentUserId) => {
       submitterId = currentUserId;
 
       // Throw error if no files were included
-      if (config.options.filenames.length === 0) {
+      if (options.filenames.length === 0) {
         throw new CACCLError({
           message: 'Could not make a file submission because no files were included.',
           code: errorCodes.noSubmissionFiles,
@@ -946,8 +946,8 @@ Assignment.createFileSubmission = (config) => {
       // Function that uploads an individual file
       const uploadFile = (filename, next) => {
         // 1. Prepare the file upload (create a slot to upload into)
-        config.visitEndpoint({
-          path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/self/files`,
+        this.visitEndpoint({
+          path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/self/files`,
           method: 'POST',
           params: {
             name: path.basename(filename),
@@ -984,7 +984,7 @@ Assignment.createFileSubmission = (config) => {
 
                 // Send POST request to activate the file
                 const parsed = urlLib.parse(res.headers.location);
-                config.visitEndpoint({
+                this.visitEndpoint({
                   host: parsed.hostname,
                   path: parsed.path,
                   method: 'POST',
@@ -1005,10 +1005,10 @@ Assignment.createFileSubmission = (config) => {
       };
 
       return new Promise((resolve, reject) => {
-        // Now that we have a function to upload one file,
+        // Now that we have a function  upload one file,
         // upload all files in parallel (3 at a time max)
         async.mapLimit(
-          config.options.filenames,
+          options.filenames,
           3,
           uploadFile,
           (err, fileIds) => {
@@ -1018,14 +1018,14 @@ Assignment.createFileSubmission = (config) => {
             }
 
             // All files succeeded! Continue and submit the assignment
-            config.visitEndpoint({
-              path: `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions`,
+            this.visitEndpoint({
+              path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions`,
               method: 'POST',
               params: {
                 'submission[submission_type]': 'online_upload',
                 'submission[file_ids]': fileIds,
                 'comment[text_comment]':
-                  utils.includeIfTruthy(config.options.comment),
+                  utils.includeIfTruthy(options.comment),
               },
             })
               .then((response) => {
@@ -1048,11 +1048,11 @@ Assignment.createFileSubmission = (config) => {
     })
     .then((response) => {
       // Submission created. Now, create response and uncache paths
-      return config.uncache([
+      return this.uncache([
         // Uncache list of submissions
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions`,
         // Uncache this person's submission
-        `${prefix.v1}/courses/${config.options.courseId}/assignments/${config.options.assignmentId}/submissions/${submitterId}`,
+        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/${submitterId}`,
       ], response);
     });
 };

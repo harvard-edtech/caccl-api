@@ -19,10 +19,10 @@ class Page extends EndpointCategory {
  * @param {number} courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas Pages {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
-Page.list = (config) => {
+Page.list = function (options) {
   // @action: get the list of pages in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/pages`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/pages`,
     method: 'GET',
   });
 };
@@ -35,10 +35,10 @@ Page.list = (config) => {
  * @param {string} pageURL - Canvas page url (just the last part of path)
  * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
-Page.get = (config) => {
+Page.get = function (options) {
   // @action: get info on a specific page in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
     method: 'GET',
   });
 };
@@ -59,28 +59,28 @@ Page.get = (config) => {
  *   Must be a boolean
  * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
-Page.update = (config) => {
+Page.update = function (options) {
   // @action: update a specific page in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
     method: 'PUT',
     params: {
-      'wiki_page[title]': utils.includeIfTruthy(config.options.title),
-      'wiki_page[body]': utils.includeIfTruthy(config.options.body),
+      'wiki_page[title]': utils.includeIfTruthy(options.title),
+      'wiki_page[body]': utils.includeIfTruthy(options.body),
       'wiki_page[editing_roles]':
-         utils.includeIfTruthy(config.options.editingRoles),
+         utils.includeIfTruthy(options.editingRoles),
       'wiki_page[notify_of_update]':
-         utils.includeIfTruthy(config.options.notify_of_update),
-      'wiki_page[published]': utils.includeIfBoolean(config.options.published),
-      'wiki_page[front_page]': utils.includeIfBoolean(config.options.frontPage),
+         utils.includeIfTruthy(options.notify_of_update),
+      'wiki_page[published]': utils.includeIfBoolean(options.published),
+      'wiki_page[front_page]': utils.includeIfBoolean(options.frontPage),
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache list of pages
-        `${prefix.v1}/courses/${config.options.courseId}/pages`,
+        `${prefix.v1}/courses/${options.courseId}/pages`,
         // Uncache this specific page (in case someone pinged it before)
-        `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
+        `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
       ], response);
     });
 };
@@ -98,27 +98,27 @@ Page.update = (config) => {
  * @param {boolean} [frontPage=false] - if true, sets page as front page
  * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
-Page.create = (config) => {
+Page.create = function (options) {
   // @action: create a new page in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/pages`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/pages`,
     method: 'POST',
     params: {
-      'wiki_page[title]': (config.options.title || 'Untitled Page'),
-      'wiki_page[body]': (config.options.body || ''),
-      'wiki_page[editing_roles]': (config.options.editingRoles || 'teachers'),
+      'wiki_page[title]': (options.title || 'Untitled Page'),
+      'wiki_page[body]': (options.body || ''),
+      'wiki_page[editing_roles]': (options.editingRoles || 'teachers'),
       'wiki_page[notify_of_update]':
-        utils.isTruthy(config.options.notifyOfUpdate),
-      'wiki_page[published]': utils.isTruthy(config.options.published),
-      'wiki_page[front_page]': utils.isTruthy(config.options.frontPage),
+        utils.isTruthy(options.notifyOfUpdate),
+      'wiki_page[published]': utils.isTruthy(options.published),
+      'wiki_page[front_page]': utils.isTruthy(options.frontPage),
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache list of pages
-        `${prefix.v1}/courses/${config.options.courseId}/pages`,
+        `${prefix.v1}/courses/${options.courseId}/pages`,
         // Uncache this specific page (in case someone pinged it before)
-        `${prefix.v1}/courses/${config.options.courseId}/pages/${response.url}`,
+        `${prefix.v1}/courses/${options.courseId}/pages/${response.url}`,
       ], response);
     });
 };
@@ -131,18 +131,18 @@ Page.create = (config) => {
  * @param {string} pageURL - Page url to delete (just last part of path)
  * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
-Page.delete = (config) => {
+Page.delete = function (options) {
   // @action: delete a page from a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
     method: 'DELETE',
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache list of pages
-        `${prefix.v1}/courses/${config.options.courseId}/pages`,
+        `${prefix.v1}/courses/${options.courseId}/pages`,
         // Uncache this specific page
-        `${prefix.v1}/courses/${config.options.courseId}/pages/${config.options.pageURL}`,
+        `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
       ], response);
     });
 };

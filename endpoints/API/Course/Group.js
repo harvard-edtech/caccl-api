@@ -19,10 +19,10 @@ class Group extends EndpointCategory {
  * @param {number} groupId - Canvas group Id
  * @return Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
-Group.get = (config) => {
+Group.get = function (options) {
   // @action: get info on a specific group in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/groups/${config.options.groupId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/groups/${options.groupId}`,
     method: 'GET',
   });
 };
@@ -40,10 +40,10 @@ Group.get = (config) => {
  * @param {number} groupId - Canvas group Id
  * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
-Group.listMembers = (config) => {
+Group.listMembers = function (options) {
   // @action: get the list of members in a specific group
-  return config.visitEndpoint({
-    path: `${prefix.v1}/groups/${config.options.groupId}/users`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/groups/${options.groupId}/users`,
     method: 'GET',
   });
 };
@@ -57,19 +57,19 @@ Group.listMembers = (config) => {
  *   be in the group
  * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
-Group.updateMembers = (config) => {
+Group.updateMembers = function (options) {
   // @action: update the list of members in a group
-  return config.visitEndpoint({
-    path: `${prefix.v1}/groups/${config.options.groupId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/groups/${options.groupId}`,
     method: 'PUT',
     params: {
-      members: utils.extractIdsIfApplicable(config.options.members),
+      members: utils.extractIdsIfApplicable(options.members),
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache the list of group members
-        `${prefix.v1}/groups/${config.options.groupId}/users`,
+        `${prefix.v1}/groups/${options.groupId}/users`,
       ], response);
     });
 };

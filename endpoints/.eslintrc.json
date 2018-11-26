@@ -6,6 +6,7 @@
       "ignoreStrings": true,
       "ignoreTemplateLiterals": true,
       "ignoreUrls": true
-    }]
+    }],
+    "func-names": "off"
   }
 }

@@ -32,10 +32,10 @@ class Quiz extends EndpointCategory {
  * @param {number} courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas Quizzes {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
-Quiz.list = (config) => {
+Quiz.list = function (options) {
   // @action: get the list of quizzes in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/quizzes`,
     method: 'GET',
   });
 };
@@ -48,10 +48,10 @@ Quiz.list = (config) => {
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
  * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
-Quiz.get = (config) => {
+Quiz.get = function (options) {
   // @action: get info on a specific quiz in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}`,
     method: 'GET',
   });
 };
@@ -117,74 +117,74 @@ Quiz.get = (config) => {
  *   is only visible to students with overrides. Must be a boolean
  * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
-Quiz.update = (config) => {
+Quiz.update = function (options) {
   // @action: update a specific quiz in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}`,
     method: 'PUT',
     params: {
-      'quiz[title]': config.options.title,
-      'quiz[description]': utils.includeIfTruthy(config.options.description),
-      'quiz[quiz_type]': utils.includeIfTruthy(config.options.type),
+      'quiz[title]': options.title,
+      'quiz[description]': utils.includeIfTruthy(options.description),
+      'quiz[quiz_type]': utils.includeIfTruthy(options.type),
       'quiz[assignment_group_id]':
-        utils.includeIfNumber(config.options.assignmentGroupId),
+        utils.includeIfNumber(options.assignmentGroupId),
       'quiz[time_limit]':
-        utils.includeIfNumber(config.options.timeLimitMins),
+        utils.includeIfNumber(options.timeLimitMins),
       'quiz[shuffle_answers]':
-        utils.includeIfBoolean(config.options.shuffleAnswers),
+        utils.includeIfBoolean(options.shuffleAnswers),
       'quiz[hide_results]':
-        utils.includeIfTruthy(config.options.hideResults),
+        utils.includeIfTruthy(options.hideResults),
       'quiz[show_correct_answers]':
-        !utils.includeIfBoolean(config.options.hideCorrectAnswers),
+        !utils.includeIfBoolean(options.hideCorrectAnswers),
       'quiz[show_correct_answers_last_attempt]': utils.includeIfBoolean(
-        config.options.showCorrectAnswersAfterLastAttempt
+        options.showCorrectAnswersAfterLastAttempt
       ),
       'quiz[show_correct_answers_at]':
-        utils.includeIfDate(config.options.showCorrectAnswersAt),
+        utils.includeIfDate(options.showCorrectAnswersAt),
       'quiz[hide_correct_answers_at]':
-        utils.includeIfDate(config.options.hideCorrectAnswersAt),
+        utils.includeIfDate(options.hideCorrectAnswersAt),
       'quiz[allowed_attempts]':
-        utils.includeIfNumber(config.options.allowedAttempts),
+        utils.includeIfNumber(options.allowedAttempts),
       'quiz[scoring_policy]':
-        utils.includeIfTruthy(config.options.scoringPolicy),
+        utils.includeIfTruthy(options.scoringPolicy),
       'quiz[one_question_at_a_time]':
-        utils.includeIfBoolean(config.options.oneQuestionAtATime),
+        utils.includeIfBoolean(options.oneQuestionAtATime),
       'quiz[cant_go_back]':
-        utils.includeIfBoolean(config.options.cantGoBack),
+        utils.includeIfBoolean(options.cantGoBack),
       'quiz[access_code]':
-        utils.includeIfTruthy(config.options.accessCode),
+        utils.includeIfTruthy(options.accessCode),
       'quiz[ip_filter]':
-        utils.includeIfTruthy(config.options.ipFilter),
+        utils.includeIfTruthy(options.ipFilter),
       'quiz[due_at]':
-        utils.includeIfDate(config.options.dueAt),
+        utils.includeIfDate(options.dueAt),
       'quiz[lock_at]':
-        utils.includeIfDate(config.options.lockAt),
+        utils.includeIfDate(options.lockAt),
       'quiz[unlock_at]':
-        utils.includeIfDate(config.options.unlockAt),
+        utils.includeIfDate(options.unlockAt),
       'quiz[published]':
-        utils.includeIfBoolean(config.options.published),
+        utils.includeIfBoolean(options.published),
       'quiz[one_time_results]':
-        utils.includeIfBoolean(config.options.oneTimeResults),
+        utils.includeIfBoolean(options.oneTimeResults),
       'quiz[only_visible_to_overrides]':
-        utils.includeIfBoolean(config.options.onlyVisibleToOverrides),
+        utils.includeIfBoolean(options.onlyVisibleToOverrides),
       'quiz[notify_of_update]':
-        !utils.isTruthy(config.options.suppressNotification),
+        !utils.isTruthy(options.suppressNotification),
     },
   })
     .then((response) => {
       const uncachePaths = [
         // Uncache list of quizzes
-        `${prefix.v1}/courses/${config.options.courseId}/quizzes`,
+        `${prefix.v1}/courses/${options.courseId}/quizzes`,
         // Uncache quiz
-        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}*`,
+        `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}*`,
       ];
       if (response.assignment_id) {
         // Uncache list of assignments
-        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments`);
+        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignments`);
         // Uncache assignment (quiz is also an assignment)
-        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments/${response.assignment_id}*`);
+        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignments/${response.assignment_id}*`);
       }
-      return config.uncache(uncachePaths, response);
+      return this.uncache(uncachePaths, response);
     });
 };
 
@@ -244,71 +244,71 @@ Quiz.update = (config) => {
  *   only visible to students with overrides
  * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
-Quiz.create = (config) => {
+Quiz.create = function (options) {
   // @action: create a new quiz in a specific course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/quizzes`,
     method: 'POST',
     params: {
-      'quiz[title]': config.options.title,
-      'quiz[description]': utils.includeIfTruthy(config.options.description),
-      'quiz[quiz_type]': utils.includeIfTruthy(config.options.type),
+      'quiz[title]': options.title,
+      'quiz[description]': utils.includeIfTruthy(options.description),
+      'quiz[quiz_type]': utils.includeIfTruthy(options.type),
       'quiz[assignment_group_id]':
-        utils.includeIfNumber(config.options.assignmentGroupId),
+        utils.includeIfNumber(options.assignmentGroupId),
       'quiz[time_limit]':
-        utils.includeIfNumber(config.options.timeLimitMins),
+        utils.includeIfNumber(options.timeLimitMins),
       'quiz[shuffle_answers]':
-        utils.isTruthy(config.options.shuffleAnswers),
+        utils.isTruthy(options.shuffleAnswers),
       'quiz[hide_results]':
-        utils.includeIfTruthy(config.options.hideResults),
+        utils.includeIfTruthy(options.hideResults),
       'quiz[show_correct_answers]':
-        !utils.isTruthy(config.options.hideCorrectAnswers),
+        !utils.isTruthy(options.hideCorrectAnswers),
       'quiz[show_correct_answers_last_attempt]':
-        utils.isTruthy(config.options.showCorrectAnswersAfterLastAttempt),
+        utils.isTruthy(options.showCorrectAnswersAfterLastAttempt),
       'quiz[show_correct_answers_at]':
-        utils.includeIfDate(config.options.showCorrectAnswersAt),
+        utils.includeIfDate(options.showCorrectAnswersAt),
       'quiz[hide_correct_answers_at]':
-        utils.includeIfDate(config.options.hideCorrectAnswersAt),
+        utils.includeIfDate(options.hideCorrectAnswersAt),
       'quiz[allowed_attempts]':
-        utils.includeIfNumber(config.options.allowedAttempts),
+        utils.includeIfNumber(options.allowedAttempts),
       'quiz[scoring_policy]':
-        utils.includeIfTruthy(config.options.scoringPolicy),
+        utils.includeIfTruthy(options.scoringPolicy),
       'quiz[one_question_at_a_time]':
-        utils.isTruthy(config.options.oneQuestionAtATime),
+        utils.isTruthy(options.oneQuestionAtATime),
       'quiz[cant_go_back]':
-        utils.isTruthy(config.options.cantGoBack),
+        utils.isTruthy(options.cantGoBack),
       'quiz[access_code]':
-        utils.includeIfTruthy(config.options.accessCode),
+        utils.includeIfTruthy(options.accessCode),
       'quiz[ip_filter]':
-        utils.includeIfTruthy(config.options.ipFilter),
+        utils.includeIfTruthy(options.ipFilter),
       'quiz[due_at]':
-        utils.includeIfDate(config.options.dueAt),
+        utils.includeIfDate(options.dueAt),
       'quiz[lock_at]':
-        utils.includeIfDate(config.options.lockAt),
+        utils.includeIfDate(options.lockAt),
       'quiz[unlock_at]':
-        utils.includeIfDate(config.options.unlockAt),
+        utils.includeIfDate(options.unlockAt),
       'quiz[published]':
-        utils.isTruthy(config.options.published),
+        utils.isTruthy(options.published),
       'quiz[one_time_results]':
-        utils.isTruthy(config.options.oneTimeResults),
+        utils.isTruthy(options.oneTimeResults),
       'quiz[only_visible_to_overrides]':
-        utils.isTruthy(config.options.onlyVisibleToOverrides),
+        utils.isTruthy(options.onlyVisibleToOverrides),
     },
   })
     .then((response) => {
       const uncachePaths = [
         // Uncache list of quizzes
-        `${prefix.v1}/courses/${config.options.courseId}/quizzes`,
+        `${prefix.v1}/courses/${options.courseId}/quizzes`,
         // Uncache quiz
-        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${response.id}*`,
+        `${prefix.v1}/courses/${options.courseId}/quizzes/${response.id}*`,
       ];
       if (response.assignment_id) {
         // Uncache list of assignments
-        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments`);
+        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignments`);
         // Uncache assignment (quiz is also an assignment)
-        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments/${response.assignment_id}*`);
+        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignments/${response.assignment_id}*`);
       }
-      return config.uncache(uncachePaths, response);
+      return this.uncache(uncachePaths, response);
     });
 };
 
@@ -320,26 +320,26 @@ Quiz.create = (config) => {
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
  * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
-Quiz.delete = (config) => {
+Quiz.delete = function (options) {
   // @action: delete a specific quiz from a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}`,
     method: 'DELETE',
   })
     .then((response) => {
       const uncachePaths = [
         // Uncache list of quizzes
-        `${prefix.v1}/courses/${config.options.courseId}/quizzes`,
+        `${prefix.v1}/courses/${options.courseId}/quizzes`,
         // Uncache quiz
-        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${response.id}*`,
+        `${prefix.v1}/courses/${options.courseId}/quizzes/${response.id}*`,
       ];
       if (response.assignment_id) {
         // Uncache list of assignments
-        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments`);
+        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignments`);
         // Uncache assignment (quiz is also an assignment)
-        uncachePaths.push(`${prefix.v1}/courses/${config.options.courseId}/assignments/${response.assignment_id}*`);
+        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignments/${response.assignment_id}*`);
       }
-      return config.uncache(uncachePaths, response);
+      return this.uncache(uncachePaths, response);
     });
 };
 
@@ -355,10 +355,10 @@ Quiz.delete = (config) => {
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
  * @return {Promise.<Object[]>} list of Canvas QuizSubmissions {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
-Quiz.listQuestions = (config) => {
+Quiz.listQuestions = function (options) {
   // @action: get the list of questions in a specific quiz in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/questions`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/questions`,
     method: 'GET',
   });
 };
@@ -384,25 +384,25 @@ Quiz.listQuestions = (config) => {
  *   how the student answers
  * @return {Promise.<Object>} Canvas QuizQuestion {@link https://canvas.instructure.com/doc/api/quiz_questions.html#QuizQuestion}
  */
-Quiz.createMultipleChoiceQuestion = (config) => {
+Quiz.createMultipleChoiceQuestion = function (options) {
   // @action: create a new multiple choice question to a quiz in a course
   const params = {
-    'question[question_name]': config.options.name,
-    'question[question_text]': config.options.text,
+    'question[question_name]': options.name,
+    'question[question_text]': options.text,
     'question[question_type]': 'multiple_choice_question',
-    'question[position]': utils.includeIfNumber(config.options.position),
-    'question[points_possible]': config.options.pointsPossible,
+    'question[position]': utils.includeIfNumber(options.position),
+    'question[points_possible]': options.pointsPossible,
     'question[correct_comments]':
-      utils.includeIfTruthy(config.options.correctComment),
+      utils.includeIfTruthy(options.correctComment),
     'question[incorrect_comments]':
-      utils.includeIfTruthy(config.options.incorrectComment),
+      utils.includeIfTruthy(options.incorrectComment),
     'question[neutralComment]':
-      utils.includeIfTruthy(config.options.neutralComment),
+      utils.includeIfTruthy(options.neutralComment),
     'question[text_after_answers]':
-      utils.includeIfTruthy(config.options.textAfterAnswers),
+      utils.includeIfTruthy(options.textAfterAnswers),
   };
   // Add answers
-  config.options.answers.forEach((answer, i) => {
+  options.answers.forEach((answer, i) => {
     const answerPrefix = `question[answers][${i}]`;
     params[`${answerPrefix}[answer_precision]`] = 10;
     params[`${answerPrefix}[answer_weight]`] = (answer.isCorrect ? 100 : 0);
@@ -410,17 +410,17 @@ Quiz.createMultipleChoiceQuestion = (config) => {
     params[`${answerPrefix}[answer_text]`] = answer.text;
     params[`${answerPrefix}[answer_comment]`] = answer.comment;
   });
-  return config.visitEndpoint({
+  return this.visitEndpoint({
     params,
-    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/questions`,
+    path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/questions`,
     method: 'POST',
   })
     .then((response) => {
-      config.uncache([
+      this.uncache([
         // Uncache quiz questions
-        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/questions`,
+        `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/questions`,
         // Uncache this specific question
-        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/questions/${response.id}`,
+        `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/questions/${response.id}`,
       ], response);
     });
 };
@@ -437,10 +437,10 @@ Quiz.createMultipleChoiceQuestion = (config) => {
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
  * @return {Promise.<Object[]>} list of Canvas QuizSubmissions {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
-Quiz.listSubmissions = (config) => {
+Quiz.listSubmissions = function (options) {
   // @action: get the list of submissions to a specific quiz in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/submissions`,
     method: 'GET',
   })
     .then((response) => {
@@ -457,10 +457,10 @@ Quiz.listSubmissions = (config) => {
  * @param {number} submissionId - Canvas quiz submission Id
  * @return {Promise.<Object>} Canvas QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
-Quiz.getSubmission = (config) => {
+Quiz.getSubmission = function (options) {
   // @action: get the list of submissions to a specific quiz in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions/${config.options.submissionId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/submissions/${options.submissionId}`,
     method: 'GET',
   })
     .then((response) => {
@@ -481,18 +481,18 @@ Quiz.getSubmission = (config) => {
  * @param {string} [accessCode] - Access code for the quiz if it is locked
  * @return {Promise.<Object>} Canvas QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
-Quiz.createSubmission = (config) => {
+Quiz.createSubmission = function (options) {
   // @action: create a new submission to a specific quiz in a course on behalf of the current user
 
   // Start a new quiz-taking session
   let submissionId;
   let validationToken;
   let attempt;
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/submissions`,
     method: 'POST',
     params: {
-      access_code: utils.includeIfTruthy(config.options.accessCode),
+      access_code: utils.includeIfTruthy(options.accessCode),
     },
   })
     .then((response) => {
@@ -505,10 +505,10 @@ Quiz.createSubmission = (config) => {
       const params = {
         attempt,
         validation_token: validationToken,
-        access_code: utils.includeIfTruthy(config.options.accessCode),
-        quiz_questions: config.options.answers,
+        access_code: utils.includeIfTruthy(options.accessCode),
+        quiz_questions: options.answers,
       };
-      return config.visitEndpoint({
+      return this.visitEndpoint({
         params,
         path: `${prefix.v1}/quiz_submissions/${submissionId}/questions`,
         method: 'POST',
@@ -516,22 +516,22 @@ Quiz.createSubmission = (config) => {
     })
     .then(() => {
       // Complete the student's submission
-      return config.visitEndpoint({
-        path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions/${submissionId}/complete`,
+      return this.visitEndpoint({
+        path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/submissions/${submissionId}/complete`,
         method: 'POST',
         params: {
           attempt,
           validation_token: validationToken,
-          access_code: utils.includeIfTruthy(config.options.accessCode),
+          access_code: utils.includeIfTruthy(options.accessCode),
         },
       });
     })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache submission
-        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions/${submissionId}`,
+        `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/submissions/${submissionId}`,
         // Uncache list of submissions
-        `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions`,
+        `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/submissions`,
       ], response.quiz_submissions[0]);
     });
 };
@@ -568,13 +568,13 @@ const reportColMap = {
  * @param {number} quizId - Canvas quiz Id (not the quiz's assignment Id)
  * @return {Promise.<Object[]>} QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
-Quiz.listQuestionGrades = (config) => {
+Quiz.listQuestionGrades = function (options) {
   // @action: list quiz question grades for a specific quiz in a course
 
   // Request a new quiz report
   let reportId;
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/reports`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/reports`,
     method: 'POST',
     params: {
       'quiz_report[report_type]': 'student_analysis',
@@ -587,13 +587,13 @@ Quiz.listQuestionGrades = (config) => {
         progress: {
           url: pendingReport.progress_url,
         },
-        visitEndpoint: config.visitEndpoint,
+        visitEndpoint: this.visitEndpoint,
       });
     })
     .then(() => {
       // Quiz report has been generated! Now, let's fetch it
-      return config.visitEndpoint({
-        path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/reports/${reportId}`,
+      return this.visitEndpoint({
+        path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/reports/${reportId}`,
         method: 'GET',
         params: {
           include: ['file'],
@@ -752,20 +752,20 @@ Quiz.listQuestionGrades = (config) => {
  *   If excluded, we pull the user's submission to get the attempt number
  * @return {Promise.<Object[]>} QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
-Quiz.updateQuestionGrades = (config) => {
+Quiz.updateQuestionGrades = function (options) {
   // @action: update the question grades for a specific submission to a quiz in a course
 
   // Get the current submission (so we can identify the attempt)
   let getAttempt;
-  if (config.options.attempt !== undefined) {
+  if (options.attempt !== undefined) {
     // Attempt was included. Just use that number
-    getAttempt = Promise.resolve(config.options.attempt);
+    getAttempt = Promise.resolve(options.attempt);
   } else {
     // Attempt was not included. We have to look up their most recent attempt
-    getAttempt = config.api.course.quiz.getSubmission({
-      courseId: config.options.courseId,
-      quizId: config.options.quizId,
-      submissionId: config.options.submissionId,
+    getAttempt = this.api.course.quiz.getSubmission({
+      courseId: options.courseId,
+      quizId: options.quizId,
+      submissionId: options.submissionId,
     })
       .then((submission) => {
         return Promise.resolve(submission.attempt);
@@ -778,11 +778,11 @@ Quiz.updateQuestionGrades = (config) => {
     const params = {
       'quiz_submissions[][attempt]': attempt,
       'quiz_submissions[][fudge_points]':
-        utils.includeIfNumber(config.options.fudgePoints),
+        utils.includeIfNumber(options.fudgePoints),
     };
     // Add question values
-    Object.keys(config.options.questions || {}).forEach((questionId) => {
-      const { score, comment } = config.options.questions[questionId];
+    Object.keys(options.questions || {}).forEach((questionId) => {
+      const { score, comment } = options.questions[questionId];
       if (score !== undefined) {
         params[`quiz_submissions[][questions][${questionId}][score]`] = score;
       }
@@ -793,18 +793,18 @@ Quiz.updateQuestionGrades = (config) => {
       }
     });
 
-    return config.visitEndpoint({
+    return this.visitEndpoint({
       params,
-      path: `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions/${config.options.submissionId}`,
+      path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/submissions/${options.submissionId}`,
       method: 'PUT',
     })
       .then((response) => {
         const submission = response.quiz_submissions[0];
-        return config.uncache([
+        return this.uncache([
           // Uncache the list of submissions
-          `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions`,
+          `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/submissions`,
           // Uncache the submission
-          `${prefix.v1}/courses/${config.options.courseId}/quizzes/${config.options.quizId}/submissions/${config.options.submissionId}`,
+          `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/submissions/${options.submissionId}`,
         ], submission);
       });
   });

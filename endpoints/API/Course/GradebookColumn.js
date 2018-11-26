@@ -24,13 +24,13 @@ class GradebookColumn extends EndpointCategory {
  *   gradebook columns as well.
  * @return {Promise.<Object[]>} List of Canvas CustomColumns {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
-GradebookColumn.list = (config) => {
+GradebookColumn.list = function (options) {
   // @action: get the list of gradebook columns in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/custom_gradebook_columns`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns`,
     method: 'GET',
     params: {
-      include_hidden: utils.isTruthy(config.options.includeHidden),
+      include_hidden: utils.isTruthy(options.includeHidden),
     },
   });
 };
@@ -47,22 +47,22 @@ GradebookColumn.list = (config) => {
  *   you're retrieving is a hidden column.
  * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
-GradebookColumn.get = (config) => {
+GradebookColumn.get = function (options) {
   // @action: get a specific gradebook column in a course
-  return config.api.course.gradebookcolumn.list({
-    courseId: config.options.courseId,
-    includeHidden: config.options.isHidden,
+  return this.api.course.gradebookcolumn.list({
+    courseId: options.courseId,
+    includeHidden: options.isHidden,
   })
     .then((columns) => {
       for (let i = 0; i < columns.length; i++) {
-        if (columns[i].id === config.options.columnId) {
+        if (columns[i].id === options.columnId) {
           // Found the column the caller was looking for
           return Promise.resolve(columns[i]);
         }
       }
       // Couldn't find the column
       let hiddenMessage = '';
-      if (!config.options.isHidden) {
+      if (!options.isHidden) {
         hiddenMessage = 'We were only searching through non-hidden columns. If the column you were looking for is hidden, you need to specify that.';
       }
       throw new CACCLError({
@@ -85,21 +85,21 @@ GradebookColumn.get = (config) => {
  *   custom gradebook column is hidden from everyone. Must be a boolean
  * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
-GradebookColumn.update = (config) => {
+GradebookColumn.update = function (options) {
   // @action: update a gradebook column\'s information
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/custom_gradebook_columns/${config.options.columnId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}`,
     method: 'PUT',
     params: {
-      'column[title]': utils.includeIfTruthy(config.options.title),
-      'column[position]': utils.includeIfNumber(config.options.position),
-      'column[hidden]': utils.includeIfBoolean(config.options.hidden),
+      'column[title]': utils.includeIfTruthy(options.title),
+      'column[position]': utils.includeIfNumber(options.position),
+      'column[hidden]': utils.includeIfBoolean(options.hidden),
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache custom gradebook column list
-        `${prefix.v1}/courses/${config.options.courseId}/custom_gradebook_columns/${config.options.columnId}`,
+        `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}`,
       ], response);
     });
 };
@@ -117,23 +117,23 @@ GradebookColumn.update = (config) => {
  *   from everyone, not just instructor as usual
  * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
-GradebookColumn.create = (config) => {
+GradebookColumn.create = function (options) {
   // @action: create a new gradebook column in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/custom_gradebook_columns`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns`,
     method: 'POST',
     params: {
-      'column[title]': config.options.title || 'Untitled Column',
-      'column[hidden]': utils.isTruthy(config.options.hidden),
-      'column[position]': utils.includeIfNumber(config.options.position),
+      'column[title]': options.title || 'Untitled Column',
+      'column[hidden]': utils.isTruthy(options.hidden),
+      'column[position]': utils.includeIfNumber(options.position),
     },
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache custom gradebook column list
-        `${prefix.v1}/courses/${config.options.courseId}/custom_gradebook_columns`,
+        `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns`,
         // Uncache custom gradebook column
-        `${prefix.v1}/courses/${config.options.courseId}/custom_gradebook_columns/${response.id}`,
+        `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${response.id}`,
       ], response);
     });
 };
@@ -146,18 +146,18 @@ GradebookColumn.create = (config) => {
  * @param {number} columnId - Gradebook column Id
  * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
-GradebookColumn.delete = (config) => {
+GradebookColumn.delete = function (options) {
   // @action: delete a gradebook column from a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/custom_gradebook_columns/${config.options.columnId}`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}`,
     method: 'DELETE',
   })
     .then((response) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache custom gradebook column list
-        `${prefix.v1}/courses/${config.options.courseId}/custom_gradebook_columns`,
+        `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns`,
         // Uncache custom gradebook column
-        `${prefix.v1}/courses/${config.options.courseId}/custom_gradebook_columns/${config.options.columnId}`,
+        `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}`,
       ], response);
     });
 };
@@ -174,10 +174,10 @@ GradebookColumn.delete = (config) => {
  * @param {number} columnId - Gradebook column Id
  * @return {Promise.<Object[]>} list of Canvas ColumnDatum objects {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum}
  */
-GradebookColumn.listEntries = (config) => {
+GradebookColumn.listEntries = function (options) {
   // @action: get the list of entries in a specific gradebook column in a course
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/custom_gradebook_columns/${config.options.columnId}/data`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}/data`,
     method: 'GET',
     params: {
       include_hidden: true,
@@ -199,34 +199,34 @@ GradebookColumn.listEntries = (config) => {
  *   for completion of batch upload
  * @return {Promise.<Object>} Canvas progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
  */
-GradebookColumn.updateEntries = (config) => {
+GradebookColumn.updateEntries = function (options) {
   // @action: batch update entries in a gradebook column
 
   // Pre-process column data, adding gradebook column Id to each entry
-  const columnData = config.options.entries.map((entry) => {
+  const columnData = options.entries.map((entry) => {
     const newEntry = entry;
-    newEntry.column_id = config.options.columnId;
+    newEntry.column_id = options.columnId;
     return newEntry;
   });
   // Send batch update request
-  return config.visitEndpoint({
-    path: `${prefix.v1}/courses/${config.options.courseId}/custom_gradebook_column_data`,
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/custom_gradebook_column_data`,
     method: 'PUT',
     params: {
       column_data: columnData,
     },
   })
     .then((progress) => {
-      return config.uncache([
+      return this.uncache([
         // Uncache column data
-        `${prefix.v1}/courses/${config.options.courseId}/custom_gradebook_columns/${config.options.columnId}/data`,
+        `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}/data`,
       ])
         .then(() => {
-          if (config.options.waitForCompletion) {
+          if (options.waitForCompletion) {
             return waitForCompletion({
-              visitEndpoint: config.visitEndpoint,
+              visitEndpoint: this.visitEndpoint,
               progress,
-              timeout: config.options.waitForCompletionTimeout,
+              timeout: options.waitForCompletionTimeout,
             });
           }
         });
