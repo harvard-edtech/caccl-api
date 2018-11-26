@@ -93,12 +93,13 @@ module.exports = (config = {}) => {
     });
 
     // Run the endpoint
-    const runPromise = config.endpointCoreFunction({
-      options,
+    const ctx = {
       visitEndpoint,
       uncache,
       api,
-    });
+    };
+    // Run the core endpoint function with ctx as this
+    const runPromise = config.endpointCoreFunction.bind(ctx)(options);
 
     // Check to make sure the endpointCoreFunction returned a promise
     if (
