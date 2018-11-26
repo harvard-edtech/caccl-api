@@ -96,7 +96,7 @@ Course.listEnrollments = function listEnrollments(options) {
   // @action: get enrollments from a course
   const params = {};
 
-  // Enrollment types
+  // Pre-process enrollment types
   if (options.types) {
     params.type = options.types.map((type) => {
       if (type.includes('Enrollment')) {
