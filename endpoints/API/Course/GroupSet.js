@@ -8,6 +8,12 @@ class GroupSet extends EndpointCategory {
   }
 }
 
+/*------------------------------------------------------------------------*/
+/*                           Table of Contents:                           */
+/*                           - Group Sets                                 */
+/*                           - Groups in Group Sets                       */
+/*------------------------------------------------------------------------*/
+
 // NOTE: Canvas uses inconsistent language. What are referred to as
 // "group sets" in the front-end are called "group categories" in the API.
 
