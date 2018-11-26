@@ -64,15 +64,7 @@ AssignmentGroup.update = function (options) {
       name: utils.includeIfTruthy(options.name),
       group_weight: utils.includeIfNumber(options.weight),
     },
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache list of assignment groups
-        `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
-        // Uncache specific assignment group
-        `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}*`,
-      ], response);
-    });
+  });
 };
 
 /**
@@ -93,15 +85,7 @@ AssignmentGroup.create = function (options) {
       name: utils.includeIfTruthy(options.name),
       group_weight: utils.includeIfNumber(options.weight),
     },
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache list of assignment groups
-        `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
-        // Uncache specific assignment group
-        `${prefix.v1}/courses/${options.courseId}/assignment_groups/${response.id}*`,
-      ], response);
-    });
+  });
 };
 
 /**
@@ -126,18 +110,15 @@ AssignmentGroup.delete = function (options) {
     },
   })
     .then((response) => {
-      const uncachePaths = [
-        // Uncache list of assignment groups
-        `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
-        // Uncache deleted assignment group
-        `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}*`,
-      ];
       // Uncache destination assignment group if applicable
       if (options.moveAssignmentsTo) {
         // Uncache the destination assignment group
-        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.moveAssignmentsTo}*`);
+        return this.uncache(
+          [`${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.moveAssignmentsTo}*`],
+          response
+        );
       }
-      return this.uncache(uncachePaths, response);
+      return Promise.resolve(response);
     });
 };
 

@@ -172,19 +172,15 @@ Quiz.update = function (options) {
     },
   })
     .then((response) => {
-      const uncachePaths = [
-        // Uncache list of quizzes
-        `${prefix.v1}/courses/${options.courseId}/quizzes`,
-        // Uncache quiz
-        `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}*`,
-      ];
       if (response.assignment_id) {
-        // Uncache list of assignments
-        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignments`);
-        // Uncache assignment (quiz is also an assignment)
-        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignments/${response.assignment_id}*`);
+        return this.uncache([
+          // Uncache list of assignments
+          `${prefix.v1}/courses/${options.courseId}/assignments`,
+          // Uncache assignment (quiz is also an assignment)
+          `${prefix.v1}/courses/${options.courseId}/assignments/${response.assignment_id}*`,
+        ], response);
       }
-      return this.uncache(uncachePaths, response);
+      return Promise.resolve(response);
     });
 };
 
@@ -296,19 +292,15 @@ Quiz.create = function (options) {
     },
   })
     .then((response) => {
-      const uncachePaths = [
-        // Uncache list of quizzes
-        `${prefix.v1}/courses/${options.courseId}/quizzes`,
-        // Uncache quiz
-        `${prefix.v1}/courses/${options.courseId}/quizzes/${response.id}*`,
-      ];
       if (response.assignment_id) {
-        // Uncache list of assignments
-        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignments`);
-        // Uncache assignment (quiz is also an assignment)
-        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignments/${response.assignment_id}*`);
+        return this.uncache([
+          // Uncache list of assignments
+          `${prefix.v1}/courses/${options.courseId}/assignments`,
+          // Uncache assignment (quiz is also an assignment)
+          `${prefix.v1}/courses/${options.courseId}/assignments/${response.assignment_id}*`,
+        ], response);
       }
-      return this.uncache(uncachePaths, response);
+      return Promise.resolve(response);
     });
 };
 
@@ -327,19 +319,15 @@ Quiz.delete = function (options) {
     method: 'DELETE',
   })
     .then((response) => {
-      const uncachePaths = [
-        // Uncache list of quizzes
-        `${prefix.v1}/courses/${options.courseId}/quizzes`,
-        // Uncache quiz
-        `${prefix.v1}/courses/${options.courseId}/quizzes/${response.id}*`,
-      ];
       if (response.assignment_id) {
-        // Uncache list of assignments
-        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignments`);
-        // Uncache assignment (quiz is also an assignment)
-        uncachePaths.push(`${prefix.v1}/courses/${options.courseId}/assignments/${response.assignment_id}*`);
+        this.uncache([
+          // Uncache list of assignments
+          `${prefix.v1}/courses/${options.courseId}/assignments`,
+          // Uncache assignment (quiz is also an assignment)
+          `${prefix.v1}/courses/${options.courseId}/assignments/${response.assignment_id}*`,
+        ], response);
       }
-      return this.uncache(uncachePaths, response);
+      return Promise.resolve(response);
     });
 };
 
@@ -414,15 +402,7 @@ Quiz.createMultipleChoiceQuestion = function (options) {
     params,
     path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/questions`,
     method: 'POST',
-  })
-    .then((response) => {
-      this.uncache([
-        // Uncache quiz questions
-        `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/questions`,
-        // Uncache this specific question
-        `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/questions/${response.id}`,
-      ], response);
-    });
+  });
 };
 
 /*------------------------------------------------------------------------*/
@@ -799,13 +779,7 @@ Quiz.updateQuestionGrades = function (options) {
       method: 'PUT',
     })
       .then((response) => {
-        const submission = response.quiz_submissions[0];
-        return this.uncache([
-          // Uncache the list of submissions
-          `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/submissions`,
-          // Uncache the submission
-          `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/submissions/${options.submissionId}`,
-        ], submission);
+        return Promise.resolve(response.quiz_submissions[0]);
       });
   });
 };

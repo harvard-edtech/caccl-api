@@ -128,12 +128,7 @@ Rubric.createFreeFormGradingRubricInAssignment = function (options) {
       // Response is of form { rubric: <rubric object> } for no reason
       // We just extract that rubric object
       const { rubric } = response;
-      return this.uncache([
-        // Uncache list of rubrics
-        `${prefix.v1}/courses/${options.courseId}/rubrics`,
-        // Uncache rubric
-        `${prefix.v1}/courses/${options.courseId}/rubrics/${response.id}`,
-      ], rubric);
+      return Promise.resolve(rubric);
     });
 };
 

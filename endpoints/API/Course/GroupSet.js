@@ -64,8 +64,6 @@ GroupSet.create = function (options) {
   })
     .then((response) => {
       return this.uncache([
-        // Uncache list of group sets
-        `${prefix.v1}/courses/${options.courseId}/group_categories`,
         // Uncache specific group set (in case it was already hit)
         `${prefix.v1}/group_categories/${response.id}`,
       ], response);
@@ -90,8 +88,6 @@ GroupSet.delete = function (options) {
       return this.uncache([
         // Uncache list of group sets
         `${prefix.v1}/courses/${options.courseId}/group_categories`,
-        // Uncache specific group set
-        `${prefix.v1}/group_categories/${options.groupSetId}`,
       ], response);
     });
 };
@@ -177,8 +173,6 @@ GroupSet.deleteGroup = function (options) {
   })
     .then((response) => {
       return this.uncache([
-        // Uncache group
-        `${prefix.v1}/groups/${options.groupId}`,
         // Uncache group set list of group
         `${prefix.v1}/group_categories/${options.groupSetId}/groups`,
       ], response);

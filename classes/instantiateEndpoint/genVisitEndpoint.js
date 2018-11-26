@@ -261,12 +261,22 @@ module.exports = (config = {}) => {
       // Uncache the path we hit
       uncacheThenResolveWithValue = cacheThenResolveWithValue
         .then((value) => {
-          return uncache([path], value);
+          const pathsToUncache = [path];
+          // Uncache the item (in case it was already there)
+          // > Items with ids
+          if (value && value.id) {
+            pathsToUncache.push(`${path}/${value.id}`);
+          }
+          // > Pages
+          if (value && value.url) {
+            pathsToUncache.push(`${path}/${value.url}`);
+          }
+          return uncache(pathsToUncache, value);
         });
     } else {
       // Uncache path we hit plus the parent path
       // Add path we hit
-      const pathsToUncache = [path];
+      const pathsToUncache = [`${path}*`];
       // Add parent path (if possible)
       const parentPath = pathLib.join(path, '..');
       if (!parentPath.startsWith('..')) {

@@ -127,15 +127,7 @@ Assignment.update = function (options) {
         utils.includeIfBoolean(options.omitFromFinalGrade),
       'assignment[muted]': utils.includeIfBoolean(options.muted),
     },
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache assignment and sub-endpoints
-        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}*`,
-        // Uncache assignment list
-        `${prefix.v1}/courses/${options.courseId}/assignments`,
-      ], response);
-    });
+  });
 };
 
 /**
@@ -208,15 +200,7 @@ Assignment.create = function (options) {
         utils.isTruthy(options.omitFromFinalGrade),
       'assignment[muted]': utils.isTruthy(options.muted),
     },
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache assignment and sub-endpoints
-        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}*`,
-        // Uncache assignment list
-        `${prefix.v1}/courses/${options.courseId}/assignments`,
-      ], response);
-    });
+  });
 };
 
 /**
@@ -232,15 +216,7 @@ Assignment.delete = function (options) {
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}`,
     method: 'DELETE',
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache assignment and sub-endpoints
-        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}*`,
-        // Uncache assignment list
-        `${prefix.v1}/courses/${options.courseId}/assignments`,
-      ], response);
-    });
+  });
 };
 
 /*------------------------------------------------------------------------*/
@@ -288,15 +264,7 @@ Assignment.createSubmissionComment = function (options) {
     params: {
       'comment[text_comment]': options.comment,
     },
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache submission
-        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/${options.studentId}`,
-        // Uncache list of submissions
-        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions`,
-      ], response);
-    });
+  });
 };
 
 /**
@@ -551,12 +519,6 @@ Assignment.updateGrades = function (options) {
             method: 'POST',
           })
             .then((response) => {
-              return this.uncache([
-                // Uncache submissions endpoint
-                `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions*`,
-              ], response);
-            })
-            .then((response) => {
               return resolve(response);
             })
             .catch((updateGradesErr) => {
@@ -668,10 +630,6 @@ Assignment.createOverride = function (options) {
   })
     .then((response) => {
       return this.uncache([
-        // Uncache list of overrides
-        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides`,
-        // Uncache specific override id
-        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides/${response.id}`,
         // Uncache batch override list
         `${prefix.v1}/courses/${options.courseId}/assignments/overrides`,
       ], response);
@@ -695,10 +653,6 @@ Assignment.deleteOverride = function (options) {
   })
     .then((response) => {
       return this.uncache([
-        // Uncache list of overrides
-        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides`,
-        // Uncache specific override id
-        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides/${options.overrideId}`,
         // Uncache batch override list
         `${prefix.v1}/courses/${options.courseId}/assignments/overrides`,
       ], response);
@@ -859,10 +813,11 @@ Assignment.createTextSubmission = function (options) {
       });
     })
     .then((response) => {
+      // TODO: if submitterId is the same as response.id, remove this whole
+      // uncache block
+
       // Submission created. Now, create response and uncache paths
       return this.uncache([
-        // Uncache list of submissions
-        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions`,
         // Uncache this person's submission
         `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/${submitterId}`,
       ], response);
@@ -902,10 +857,11 @@ Assignment.createURLSubmission = function (options) {
       });
     })
     .then((response) => {
+      // TODO: if submitterId is the same as response.id, remove this whole
+      // uncache block
+
       // Submission created. Now, create response and uncache paths
       return this.uncache([
-        // Uncache list of submissions
-        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions`,
         // Uncache this person's submission
         `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/${submitterId}`,
       ], response);
@@ -1047,10 +1003,11 @@ Assignment.createFileSubmission = function (options) {
         });
     })
     .then((response) => {
+      // TODO: if submitterId is the same as response.id, remove this whole
+      // uncache block
+
       // Submission created. Now, create response and uncache paths
       return this.uncache([
-        // Uncache list of submissions
-        `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions`,
         // Uncache this person's submission
         `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/${submitterId}`,
       ], response);

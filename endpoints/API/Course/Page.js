@@ -74,15 +74,7 @@ Page.update = function (options) {
       'wiki_page[published]': utils.includeIfBoolean(options.published),
       'wiki_page[front_page]': utils.includeIfBoolean(options.frontPage),
     },
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache list of pages
-        `${prefix.v1}/courses/${options.courseId}/pages`,
-        // Uncache this specific page (in case someone pinged it before)
-        `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
-      ], response);
-    });
+  });
 };
 
 /**
@@ -112,15 +104,7 @@ Page.create = function (options) {
       'wiki_page[published]': utils.isTruthy(options.published),
       'wiki_page[front_page]': utils.isTruthy(options.frontPage),
     },
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache list of pages
-        `${prefix.v1}/courses/${options.courseId}/pages`,
-        // Uncache this specific page (in case someone pinged it before)
-        `${prefix.v1}/courses/${options.courseId}/pages/${response.url}`,
-      ], response);
-    });
+  });
 };
 
 /**
@@ -136,15 +120,7 @@ Page.delete = function (options) {
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
     method: 'DELETE',
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache list of pages
-        `${prefix.v1}/courses/${options.courseId}/pages`,
-        // Uncache this specific page
-        `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
-      ], response);
-    });
+  });
 };
 
 /*------------------------------------------------------------------------*/

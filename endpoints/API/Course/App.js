@@ -81,13 +81,7 @@ App.add = function (options) {
       description: utils.includeIfTruthy(options.description),
       icon_url: utils.includeIfTruthy(options.icon),
     },
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache app list endpoint
-        `${prefix.v1}/courses/${options.courseId}/external_tools`,
-      ], response);
-    });
+  });
 };
 
 /**
@@ -103,15 +97,7 @@ App.remove = function (options) {
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/external_tools/${options.appId}`,
     method: 'DELETE',
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache get app endpoint
-        `${prefix.v1}/courses/${options.courseId}/external_tools/${options.appId}`,
-        // Uncache app list endpoint
-        `${prefix.v1}/courses/${options.courseId}/external_tools`,
-      ], response);
-    });
+  });
 };
 
 /*------------------------------------------------------------------------*/
@@ -253,17 +239,6 @@ App.updateMetadata = function (options) {
           });
         })
       );
-    })
-    .then((response) => {
-      // Uncache all apps that we modified
-      const pathsToUncache = appsToUpdate.map((app) => {
-        // Uncache get app endpoint
-        return `${prefix.v1}/courses/${options.courseId}/external_tools/${app.id}`;
-      });
-      // Uncache app list endpoint
-      pathsToUncache.push(`${prefix.v1}/courses/${options.courseId}/external_tools`);
-      // Perform uncache
-      return this.uncache(pathsToUncache, response);
     });
 };
 

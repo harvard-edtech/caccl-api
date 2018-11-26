@@ -95,13 +95,7 @@ GradebookColumn.update = function (options) {
       'column[position]': utils.includeIfNumber(options.position),
       'column[hidden]': utils.includeIfBoolean(options.hidden),
     },
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache custom gradebook column list
-        `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}`,
-      ], response);
-    });
+  });
 };
 
 /**
@@ -127,15 +121,7 @@ GradebookColumn.create = function (options) {
       'column[hidden]': utils.isTruthy(options.hidden),
       'column[position]': utils.includeIfNumber(options.position),
     },
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache custom gradebook column list
-        `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns`,
-        // Uncache custom gradebook column
-        `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${response.id}`,
-      ], response);
-    });
+  });
 };
 
 /**
@@ -151,15 +137,7 @@ GradebookColumn.delete = function (options) {
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}`,
     method: 'DELETE',
-  })
-    .then((response) => {
-      return this.uncache([
-        // Uncache custom gradebook column list
-        `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns`,
-        // Uncache custom gradebook column
-        `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}`,
-      ], response);
-    });
+  });
 };
 
 /*------------------------------------------------------------------------*/
