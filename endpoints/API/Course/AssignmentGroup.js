@@ -20,12 +20,12 @@ class AssignmentGroup extends EndpointCategory {
  * @return {Promise.<Object[]>} list of Canvas AssignmentGroups {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
 AssignmentGroup.list = function (options) {
-  // @action: list the assignment groups in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
     method: 'GET',
   });
 };
+AssignmentGroup.list.action = 'list the assignment groups in a course';
 
 /**
  * Gets info on a specific assignment group in a course
@@ -37,12 +37,12 @@ AssignmentGroup.list = function (options) {
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
 AssignmentGroup.get = function (options) {
-  // @action: get info on a specific assignment group in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}`,
     method: 'GET',
   });
 };
+AssignmentGroup.get.action = 'get info on a specific assignment group in a course';
 
 /**
  * Updates an assignment group in a course
@@ -55,7 +55,6 @@ AssignmentGroup.get = function (options) {
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
 AssignmentGroup.update = function (options) {
-  // @action: update an assignment group in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}`,
     method: 'PUT',
@@ -65,6 +64,7 @@ AssignmentGroup.update = function (options) {
     },
   });
 };
+AssignmentGroup.update.action = 'update an assignment group in a course';
 
 /**
  * Create a new assignment group in a course
@@ -76,7 +76,6 @@ AssignmentGroup.update = function (options) {
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
 AssignmentGroup.create = function (options) {
-  // @action: create a new assignment group in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
     method: 'POST',
@@ -86,6 +85,7 @@ AssignmentGroup.create = function (options) {
     },
   });
 };
+AssignmentGroup.create.action = 'create a new assignment group in a course';
 
 /**
  * Deletes an assignment group from a course
@@ -99,7 +99,6 @@ AssignmentGroup.create = function (options) {
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
 AssignmentGroup.delete = function (options) {
-  // @action: delete an assignment group from a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}`,
     method: 'DELETE',
@@ -120,6 +119,7 @@ AssignmentGroup.delete = function (options) {
       return Promise.resolve(response);
     });
 };
+AssignmentGroup.delete.action = 'delete an assignment group from a course';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

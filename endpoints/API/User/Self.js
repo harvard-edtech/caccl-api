@@ -19,12 +19,12 @@ class Self extends EndpointCategory {
  * @return {Promise.<Object>} Canvas user object {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Self.getProfile = function () {
-  // @action: get info on the current user
   return this.visitEndpoint({
     path: `${prefix.v1}/users/self/profile`,
     method: 'GET',
   });
 };
+Self.getProfile.action = 'get info on the current user';
 
 /**
  * Gets the list of courses associated with the current user
@@ -34,7 +34,6 @@ Self.getProfile = function () {
  * @return {Promise.<Object>} Canvas course object {@link https://canvas.instructure.com/doc/api/courses.html#Course}
  */
 Self.listCourses = function (options) {
-  // @action: get the list of courses associated with the current user
   return this.visitEndpoint({
     path: `${prefix.v1}/courses`,
     method: 'GET',
@@ -45,6 +44,7 @@ Self.listCourses = function (options) {
     },
   });
 };
+Self.listCourses.action = 'get the list of courses associated with the current user';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

@@ -26,12 +26,12 @@ class Group extends EndpointCategory {
  * @return Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
 Group.get = function (options) {
-  // @action: get info on a specific group in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/groups/${options.groupId}`,
     method: 'GET',
   });
 };
+Group.get.action = 'get info on a specific group in a course';
 
 // NOTE: to create or delete a group, see endpoints in groupSets.js
 
@@ -47,12 +47,12 @@ Group.get = function (options) {
  * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Group.listMembers = function (options) {
-  // @action: get the list of members in a specific group
   return this.visitEndpoint({
     path: `${prefix.v1}/groups/${options.groupId}/users`,
     method: 'GET',
   });
 };
+Group.listMembers.action = 'get the list of members in a specific group';
 
 /**
  * Gets the list of members in a group
@@ -64,7 +64,6 @@ Group.listMembers = function (options) {
  * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
 Group.updateMembers = function (options) {
-  // @action: update the list of members in a group
   return this.visitEndpoint({
     path: `${prefix.v1}/groups/${options.groupId}`,
     method: 'PUT',
@@ -79,6 +78,7 @@ Group.updateMembers = function (options) {
       ], response);
     });
 };
+Group.updateMembers.action = 'update the list of members in a group';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

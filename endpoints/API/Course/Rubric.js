@@ -20,12 +20,12 @@ class Rubric extends EndpointCategory {
  * @return {Promise.<Object[]>} list of Canvas Rubrics {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
  */
 Rubric.list = function (options) {
-  // @action: list all the rubrics in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/rubrics`,
     method: 'GET',
   });
 };
+Rubric.list.action = 'list all the rubrics in a course';
 
 /**
  * Gets info on a specific rubric in a course
@@ -43,7 +43,6 @@ Rubric.list = function (options) {
  * @return {Promise.<Object>} Canvas Rubric {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
  */
 Rubric.get = function (options) {
-  // @action: get info on a specific rubric in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/rubrics/${options.rubricId}`,
     method: 'GET',
@@ -53,6 +52,7 @@ Rubric.get = function (options) {
     },
   });
 };
+Rubric.get.action = 'get info on a specific rubric in a course';
 
 /**
  * Creates a new rubric for grading with free form comments enabled and add it
@@ -68,7 +68,6 @@ Rubric.get = function (options) {
  * @return {Promise.<Object>} Canvas Rubric {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
  */
 Rubric.createFreeFormGradingRubricInAssignment = function (options) {
-  // @action: create a new free form grading rubric and add it to a specific assignment in a course
   // Infer points possible based on the rubric items
   let pointsPossible = 0;
   options.rubricItems.forEach((rubricItem) => {
@@ -131,6 +130,7 @@ Rubric.createFreeFormGradingRubricInAssignment = function (options) {
       return Promise.resolve(rubric);
     });
 };
+Rubric.createFreeFormGradingRubricInAssignment.action = 'create a new free form grading rubric and add it to a specific assignment in a course';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

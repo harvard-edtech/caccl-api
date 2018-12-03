@@ -20,12 +20,12 @@ class Page extends EndpointCategory {
  * @return {Promise.<Object[]>} list of Canvas Pages {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.list = function (options) {
-  // @action: get the list of pages in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/pages`,
     method: 'GET',
   });
 };
+Page.list.action = 'get the list of pages in a course';
 
 /**
  * Get info on a specific page in a course
@@ -36,12 +36,12 @@ Page.list = function (options) {
  * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.get = function (options) {
-  // @action: get info on a specific page in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
     method: 'GET',
   });
 };
+Page.get.action = 'get info on a specific page in a course';
 
 /**
  * Updates a Canvas page
@@ -60,7 +60,6 @@ Page.get = function (options) {
  * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.update = function (options) {
-  // @action: update a specific page in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
     method: 'PUT',
@@ -76,6 +75,7 @@ Page.update = function (options) {
     },
   });
 };
+Page.update.action = 'update a specific page in a course';
 
 /**
  * Creates a new page in a course
@@ -91,7 +91,6 @@ Page.update = function (options) {
  * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.create = function (options) {
-  // @action: create a new page in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/pages`,
     method: 'POST',
@@ -106,6 +105,7 @@ Page.create = function (options) {
     },
   });
 };
+Page.create.action = 'create a new page in a course';
 
 /**
  * Deletes a page from a course
@@ -116,12 +116,12 @@ Page.create = function (options) {
  * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.delete = function (options) {
-  // @action: delete a page from a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
     method: 'DELETE',
   });
 };
+Page.delete.action = 'delete a page from a course';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

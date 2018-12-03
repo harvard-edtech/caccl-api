@@ -33,12 +33,12 @@ class Quiz extends EndpointCategory {
  * @return {Promise.<Object[]>} list of Canvas Quizzes {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
 Quiz.list = function (options) {
-  // @action: get the list of quizzes in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/quizzes`,
     method: 'GET',
   });
 };
+Quiz.list.action = 'get the list of quizzes in a course';
 
 /**
  * Get info on a specific quiz in a course
@@ -49,12 +49,12 @@ Quiz.list = function (options) {
  * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
 Quiz.get = function (options) {
-  // @action: get info on a specific quiz in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}`,
     method: 'GET',
   });
 };
+Quiz.get.action = 'get info on a specific quiz in a course';
 
 /**
  * Updates a specific quiz in a course
@@ -118,7 +118,6 @@ Quiz.get = function (options) {
  * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
 Quiz.update = function (options) {
-  // @action: update a specific quiz in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}`,
     method: 'PUT',
@@ -183,6 +182,7 @@ Quiz.update = function (options) {
       return Promise.resolve(response);
     });
 };
+Quiz.update.action = 'update a specific quiz in a course';
 
 /**
  * Creates a new quiz in a course
@@ -241,7 +241,6 @@ Quiz.update = function (options) {
  * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
 Quiz.create = function (options) {
-  // @action: create a new quiz in a specific course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/quizzes`,
     method: 'POST',
@@ -303,6 +302,7 @@ Quiz.create = function (options) {
       return Promise.resolve(response);
     });
 };
+Quiz.create.action = 'update a specific quiz in a course';
 
 /**
  * Deletes a quiz from a course
@@ -313,7 +313,6 @@ Quiz.create = function (options) {
  * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
 Quiz.delete = function (options) {
-  // @action: delete a specific quiz from a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}`,
     method: 'DELETE',
@@ -330,6 +329,7 @@ Quiz.delete = function (options) {
       return Promise.resolve(response);
     });
 };
+Quiz.delete.action = 'delete a specific quiz from a course';
 
 /*------------------------------------------------------------------------*/
 /*                         Quiz Question Endpoints                        */
@@ -344,12 +344,12 @@ Quiz.delete = function (options) {
  * @return {Promise.<Object[]>} list of Canvas QuizSubmissions {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
 Quiz.listQuestions = function (options) {
-  // @action: get the list of questions in a specific quiz in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/questions`,
     method: 'GET',
   });
 };
+Quiz.listQuestions.action = 'get the list of questions in a specific quiz in a course';
 
 /**
  * Creates a new multiple choice question to a quiz in a course
@@ -373,7 +373,6 @@ Quiz.listQuestions = function (options) {
  * @return {Promise.<Object>} Canvas QuizQuestion {@link https://canvas.instructure.com/doc/api/quiz_questions.html#QuizQuestion}
  */
 Quiz.createMultipleChoiceQuestion = function (options) {
-  // @action: create a new multiple choice question to a quiz in a course
   const params = {
     'question[question_name]': options.name,
     'question[question_text]': options.text,
@@ -404,6 +403,7 @@ Quiz.createMultipleChoiceQuestion = function (options) {
     method: 'POST',
   });
 };
+Quiz.createMultipleChoiceQuestion.action = 'create a new multiple choice question to a quiz in a course';
 
 /*------------------------------------------------------------------------*/
 /*                        Quiz Submission Endpoints                       */
@@ -418,7 +418,6 @@ Quiz.createMultipleChoiceQuestion = function (options) {
  * @return {Promise.<Object[]>} list of Canvas QuizSubmissions {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
 Quiz.listSubmissions = function (options) {
-  // @action: get the list of submissions to a specific quiz in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/submissions`,
     method: 'GET',
@@ -427,6 +426,7 @@ Quiz.listSubmissions = function (options) {
       return Promise.resolve(response.quiz_submissions);
     });
 };
+Quiz.listSubmissions.action = 'get the list of submissions to a specific quiz in a course';
 
 /**
  * Gets info on a specific submission to a quiz in a course
@@ -438,7 +438,6 @@ Quiz.listSubmissions = function (options) {
  * @return {Promise.<Object>} Canvas QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
 Quiz.getSubmission = function (options) {
-  // @action: get the list of submissions to a specific quiz in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/submissions/${options.submissionId}`,
     method: 'GET',
@@ -447,6 +446,7 @@ Quiz.getSubmission = function (options) {
       return Promise.resolve(response.quiz_submissions[0]);
     });
 };
+Quiz.getSubmission.action = 'get the list of submissions to a specific quiz in a course';
 
 /**
  * Creates a new submission to a specific quiz in a course on behalf of the
@@ -462,8 +462,6 @@ Quiz.getSubmission = function (options) {
  * @return {Promise.<Object>} Canvas QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
 Quiz.createSubmission = function (options) {
-  // @action: create a new submission to a specific quiz in a course on behalf of the current user
-
   // Start a new quiz-taking session
   let submissionId;
   let validationToken;
@@ -515,6 +513,7 @@ Quiz.createSubmission = function (options) {
       ], response.quiz_submissions[0]);
     });
 };
+Quiz.createSubmission.action = 'create a new submission to a specific quiz in a course on behalf of the current user';
 
 /*------------------------------------------------------------------------*/
 /*                         Quiz Grading Endpoints                         */
@@ -549,8 +548,6 @@ const reportColMap = {
  * @return {Promise.<Object[]>} QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
 Quiz.listQuestionGrades = function (options) {
-  // @action: list quiz question grades for a specific quiz in a course
-
   // Request a new quiz report
   let reportId;
   return this.visitEndpoint({
@@ -715,6 +712,7 @@ Quiz.listQuestionGrades = function (options) {
       return Promise.resolve(processedReport);
     });
 };
+Quiz.listQuestionGrades.action = 'list quiz question grades for a specific quiz in a course';
 
 /**
  * Updates the question grades for a specific submission to a quiz in a course
@@ -733,8 +731,6 @@ Quiz.listQuestionGrades = function (options) {
  * @return {Promise.<Object[]>} QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
 Quiz.updateQuestionGrades = function (options) {
-  // @action: update the question grades for a specific submission to a quiz in a course
-
   // Get the current submission (so we can identify the attempt)
   let getAttempt;
   if (options.attempt !== undefined) {
@@ -783,6 +779,7 @@ Quiz.updateQuestionGrades = function (options) {
       });
   });
 };
+Quiz.updateQuestionGrades.action = 'update the question grades for a specific submission to a quiz in a course';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

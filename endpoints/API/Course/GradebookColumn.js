@@ -31,7 +31,6 @@ class GradebookColumn extends EndpointCategory {
  * @return {Promise.<Object[]>} List of Canvas CustomColumns {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
 GradebookColumn.list = function (options) {
-  // @action: get the list of gradebook columns in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns`,
     method: 'GET',
@@ -40,6 +39,7 @@ GradebookColumn.list = function (options) {
     },
   });
 };
+GradebookColumn.list.action = 'get the list of gradebook columns in a course';
 
 /**
  * Gets info on a specific gradebook column in a course. This is a simulated
@@ -54,7 +54,6 @@ GradebookColumn.list = function (options) {
  * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
 GradebookColumn.get = function (options) {
-  // @action: get a specific gradebook column in a course
   return this.api.course.gradebookcolumn.list({
     courseId: options.courseId,
     includeHidden: options.isHidden,
@@ -77,6 +76,7 @@ GradebookColumn.get = function (options) {
       });
     });
 };
+GradebookColumn.get.action = 'get a specific gradebook column in a course';
 
 /**
  * Updates a gradebook column's information
@@ -92,7 +92,6 @@ GradebookColumn.get = function (options) {
  * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
 GradebookColumn.update = function (options) {
-  // @action: update a gradebook column\'s information
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}`,
     method: 'PUT',
@@ -103,6 +102,7 @@ GradebookColumn.update = function (options) {
     },
   });
 };
+GradebookColumn.update.action = 'update a gradebook column\'s information';
 
 /**
  * Creates a new gradebook column in a course
@@ -118,7 +118,6 @@ GradebookColumn.update = function (options) {
  * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
 GradebookColumn.create = function (options) {
-  // @action: create a new gradebook column in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns`,
     method: 'POST',
@@ -129,6 +128,7 @@ GradebookColumn.create = function (options) {
     },
   });
 };
+GradebookColumn.create.action = 'create a new gradebook column in a course';
 
 /**
  * Deletes a gradebook column from a course
@@ -139,12 +139,12 @@ GradebookColumn.create = function (options) {
  * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
 GradebookColumn.delete = function (options) {
-  // @action: delete a gradebook column from a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}`,
     method: 'DELETE',
   });
 };
+GradebookColumn.delete.action = 'delete a gradebook column from a course';
 
 /*------------------------------------------------------------------------*/
 /*                     Gradebook Column Data Endpoints                    */
@@ -159,7 +159,6 @@ GradebookColumn.delete = function (options) {
  * @return {Promise.<Object[]>} list of Canvas ColumnDatum objects {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum}
  */
 GradebookColumn.listEntries = function (options) {
-  // @action: get the list of entries in a specific gradebook column in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}/data`,
     method: 'GET',
@@ -168,6 +167,7 @@ GradebookColumn.listEntries = function (options) {
     },
   });
 };
+GradebookColumn.listEntries.action = 'get the list of entries in a specific gradebook column in a course';
 
 /**
  * Update the list of entries in a specific gradebook column in a course
@@ -184,8 +184,6 @@ GradebookColumn.listEntries = function (options) {
  * @return {Promise.<Object>} Canvas progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
  */
 GradebookColumn.updateEntries = function (options) {
-  // @action: batch update entries in a gradebook column
-
   // Pre-process column data, adding gradebook column Id to each entry
   const columnData = options.entries.map((entry) => {
     const newEntry = entry;
@@ -216,6 +214,7 @@ GradebookColumn.updateEntries = function (options) {
         });
     });
 };
+GradebookColumn.updateEntries.action = 'batch update entries in a gradebook column';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

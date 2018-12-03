@@ -1,7 +1,6 @@
 {
   "rules": {
     "max-len": ["error", {
-      "ignorePattern": "\\s*// @action: .*",
       "code": 80,
       "ignoreStrings": true,
       "ignoreTemplateLiterals": true,

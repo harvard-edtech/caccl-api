@@ -117,7 +117,7 @@ module.exports = (config = {}) => {
                 // > 404 - endpoint not found
                 if (response.status === 404) {
                   return reject(new CACCLError({
-                    message: `The endpoint https://${canvasHost}${path} does not exist: Canvas responded with a 404 message. Please check your endpoint path.`,
+                    message: `The endpoint ${(canvasHost ? 'https://' + canvasHost : '')}${path} does not exist: Canvas responded with a 404 message. Please check your endpoint path.`,
                     code: errorCodes.notFound,
                   }));
                 }

@@ -75,17 +75,11 @@ class EndpointCategory {
         // This is an endpointCoreFunction
         const endpointCoreFunction = Subclass[prop];
 
-        // Extract action from first line of function
-        let action;
-        try {
-          action = endpointCoreFunction
-            .toString()
-            .split('\n')[1]
-            .split('// @action: ')[1]
-            .trim();
-        } catch (err) {
-          action = `perform an unnamed ${prop} task`;
-        }
+        // Extract action from function props
+        const action = (
+          endpointCoreFunction.action
+          || `perform an unnamed ${prop} task`
+        );
 
         // Instantiate the endpoint
         this[prop] = instantiateEndpoint({

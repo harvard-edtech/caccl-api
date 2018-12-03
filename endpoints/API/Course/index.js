@@ -59,7 +59,6 @@ Course.section = Section;
  * @return {Promise.<Object>} Canvas course {@link https://canvas.instructure.com/doc/api/courses.html#Course}
  */
 Course.get = function (options) {
-  // @action: get info on a specific course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}`,
     method: 'GET',
@@ -77,6 +76,7 @@ Course.get = function (options) {
     },
   });
 };
+Course.get.action = 'get info on a specific course';
 
 /**
  * Gets the list of enrollments in a course
@@ -93,7 +93,6 @@ Course.get = function (options) {
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
 Course.listEnrollments = function (options) {
-  // @action: get enrollments from a course
   const params = {};
 
   // Pre-process enrollment types
@@ -130,6 +129,7 @@ Course.listEnrollments = function (options) {
     method: 'GET',
   });
 };
+Course.listEnrollments.action = 'get enrollments from a course';
 
 /**
  * Gets the list of students in a course
@@ -143,11 +143,11 @@ Course.listEnrollments = function (options) {
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
 Course.listStudents = function (options) {
-  // @action: get the list of students in a course
   const newOptions = options;
   newOptions.types = ['student'];
   return this.api.course.listEnrollments(newOptions);
 };
+Course.listStudents.action = 'get the list of students in a course';
 
 /**
  * Gets the list of TAs and Teachers in a course
@@ -161,11 +161,11 @@ Course.listStudents = function (options) {
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
 Course.listTeachingTeamMembers = function (options) {
-  // @action: get the list of TAs and Teachers in a course
   const newOptions = options;
   newOptions.types = ['ta', 'teacher'];
   return this.api.course.listEnrollments(newOptions);
 };
+Course.listTeachingTeamMembers.action = 'get the list of TAs and Teachers in a course';
 
 /**
  * Gets the list of designers in a course
@@ -179,11 +179,11 @@ Course.listTeachingTeamMembers = function (options) {
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
 Course.listDesigners = function (options) {
-  // @action: get the list of designers in a course
   const newOptions = options;
   newOptions.types = ['designer'];
   return this.api.course.listEnrollments(newOptions);
 };
+Course.listDesigners.action = 'get the list of designers in a course';
 
 /**
  * Gets the list of observers in a course
@@ -197,11 +197,11 @@ Course.listDesigners = function (options) {
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
 Course.listObservers = function (options) {
-  // @action: get the list of observers in a course
   const newOptions = options;
   newOptions.types = ['observer'];
   return this.api.course.listEnrollments(newOptions);
 };
+Course.listObservers.action = 'get the list of observers in a course';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

@@ -33,7 +33,6 @@ class App extends EndpointCategory {
  * @return {Promise.<Object[]>} list of external tools {@link https://canvas.instructure.com/doc/api/external_tools.html}
  */
 App.list = function (options) {
-  // @action: get the list of apps installed into a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/external_tools`,
     method: 'GET',
@@ -42,6 +41,7 @@ App.list = function (options) {
     },
   });
 };
+App.list.action = 'get the list of apps installed into a course';
 
 /**
  * Gets info on a single LTI tool
@@ -52,12 +52,12 @@ App.list = function (options) {
  * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
 App.get = function (options) {
-  // @action: get info on a specific LTI app in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/external_tools/${options.appId}`,
     method: 'GET',
   });
 };
+App.get.action = 'get info on a specific LTI app in a course';
 
 /**
  * Adds an LTI app to a Canvas course
@@ -73,7 +73,6 @@ App.get = function (options) {
  * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
 App.add = function (options) {
-  // @action: add an LTI app to a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/external_tools`,
     method: 'POST',
@@ -89,6 +88,7 @@ App.add = function (options) {
     },
   });
 };
+App.add.action = 'add an LTI app to a course';
 
 /**
  * Removes an LTI app from a Canvas course
@@ -99,12 +99,12 @@ App.add = function (options) {
  * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
 App.remove = function (options) {
-  // @action: remove an LTI app from a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/external_tools/${options.appId}`,
     method: 'DELETE',
   });
 };
+App.remove.action = 'remove an LTI app from a course';
 
 /*------------------------------------------------------------------------*/
 /*                                Metadata                                */
@@ -125,8 +125,6 @@ App.remove = function (options) {
  * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
 App.getMetadata = function (options) {
-  // @action: get metadata for an LTI app in a course
-
   // Get the list of apps
   return this.api.course.app.list({
     courseId: options.courseId,
@@ -178,6 +176,7 @@ App.getMetadata = function (options) {
       }
     });
 };
+App.getMetadata.action = 'get metadata for an LTI app in a course';
 
 /**
  * Updates the metadata for an LTI app in a course. Note: this endpoint requires
@@ -195,8 +194,6 @@ App.getMetadata = function (options) {
  * @return {Promise.<Object[]>} Array of external tools (the apps that were updated) {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
 App.updateMetadata = function (options) {
-  // @action: get metadata for an LTI app in a course
-
   // Pre-process metadata
   const metadata = JSON.stringify(options.metadata || {});
 
@@ -247,6 +244,7 @@ App.updateMetadata = function (options) {
       );
     });
 };
+App.updateMetadata.action = 'get metadata for an LTI app in a course';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

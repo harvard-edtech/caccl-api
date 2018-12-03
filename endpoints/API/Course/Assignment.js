@@ -37,12 +37,12 @@ class Assignment extends EndpointCategory {
  * @return {Promise.<Object[]>} list of Canvas Assignments {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.list = function (options) {
-  // @action: get the list of assignments in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments`,
     method: 'GET',
   });
 };
+Assignment.list.action = 'get the list of assignments in a course';
 
 /**
  * Get info on a specific assignment in a course
@@ -53,12 +53,12 @@ Assignment.list = function (options) {
  * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.get = function (options) {
-  // @action: get info on a specific assignment in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}`,
     method: 'GET',
   });
 };
+Assignment.get.action = 'get info on a specific assignment in a course';
 
 /**
  * Updates a Canvas assignment
@@ -96,7 +96,6 @@ Assignment.get = function (options) {
  * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.update = function (options) {
-  // @action: updates an assignment in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}`,
     method: 'PUT',
@@ -136,6 +135,7 @@ Assignment.update = function (options) {
     },
   });
 };
+Assignment.update.action = 'update an assignment in a course';
 
 /**
  * Creates a Canvas assignment
@@ -173,7 +173,6 @@ Assignment.update = function (options) {
  * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.create = function (options) {
-  // @action: create a new assignment in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments`,
     method: 'POST',
@@ -209,6 +208,7 @@ Assignment.create = function (options) {
     },
   });
 };
+Assignment.create.action = 'create a new assignment in a course';
 
 /**
  * Delete an assignment
@@ -219,12 +219,12 @@ Assignment.create = function (options) {
  * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.delete = function (options) {
-  // @action: delete an assignment from a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}`,
     method: 'DELETE',
   });
 };
+Assignment.delete.action = 'delete an assignment from a course';
 
 /*------------------------------------------------------------------------*/
 /*                            Grading Endpoints                           */
@@ -239,7 +239,6 @@ Assignment.delete = function (options) {
  * @return {Promise.<Object[]>} list of Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Assignment.listGradeableStudents = function (options) {
-  // @action: get the list of students who are gradeable in a specific assignment in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/gradeable_students`,
     method: 'GET',
@@ -252,6 +251,7 @@ Assignment.listGradeableStudents = function (options) {
       );
     });
 };
+Assignment.listGradeableStudents.action = 'get the list of students who are gradeable in a specific assignment in a course';
 
 /**
  * Adds a comment to a submission
@@ -264,7 +264,6 @@ Assignment.listGradeableStudents = function (options) {
  * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createSubmissionComment = function (options) {
-  // @action: create a new comment on a submission
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/${options.studentId}`,
     method: 'PUT',
@@ -273,6 +272,7 @@ Assignment.createSubmissionComment = function (options) {
     },
   });
 };
+Assignment.createSubmissionComment.action = 'create a new comment on a submission';
 
 /**
  * Batch updates grades and/or comments. Also supports updating rubric items
@@ -308,8 +308,6 @@ Assignment.createSubmissionComment = function (options) {
  * @return {Promise.<Object>} Canvas Progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
  */
 Assignment.updateGrades = function (options) {
-  // @action: update student grades, comments, and/or rubric assessments for a specific assignment in a course
-
   // Create a promise chain so we can queue promises
   let promiseChain;
 
@@ -551,6 +549,7 @@ Assignment.updateGrades = function (options) {
 
   return promiseChain;
 };
+Assignment.updateGrades.action = 'update student grades, comments, and/or rubric assessments for a specific assignment in a course';
 
 /*------------------------------------------------------------------------*/
 /*                      Assignment Override Endpoints                     */
@@ -565,12 +564,12 @@ Assignment.updateGrades = function (options) {
  * @return {Promise.<Object[]>} list of Canvas AssignmentOverrides {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.listOverrides = function (options) {
-  // @action: get a list of assignment overrides for a specific assignment in a course',
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides`,
     method: 'GET',
   });
 };
+Assignment.listOverrides.action = 'get a list of assignment overrides for a specific assignment in a course';
 
 /**
  * Get a specific override on an assignment in a course
@@ -582,12 +581,12 @@ Assignment.listOverrides = function (options) {
  * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.getOverride = function (options) {
-  // @action: get a list of assignment overrides for a specific assignment in a course',
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides/${options.overrideId}`,
     method: 'GET',
   });
 };
+Assignment.getOverride.action = 'get a list of assignment overrides for a specific assignment in a course';
 
 /**
  * Create assignment override.
@@ -611,7 +610,6 @@ Assignment.getOverride = function (options) {
  * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.createOverride = function (options) {
-  // @action: create a new override for a specific assignment in a course',
   let { title } = options;
   if (!title) {
     title = `Override for ${options.studentIds.length} student${utils.sIfPlural(options.studentIds.length)}`;
@@ -642,6 +640,7 @@ Assignment.createOverride = function (options) {
       ], response);
     });
 };
+Assignment.createOverride.action = 'create a new override for a specific assignment in a course';
 
 /**
  * Deletes an assignment override
@@ -653,7 +652,6 @@ Assignment.createOverride = function (options) {
  * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.deleteOverride = function (options) {
-  // @action: delete an override for a specific assignment in a course',
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides/${options.overrideId}`,
     method: 'DELETE',
@@ -665,6 +663,7 @@ Assignment.deleteOverride = function (options) {
       ], response);
     });
 };
+Assignment.deleteOverride.action = 'delete an override for a specific assignment in a course';
 
 /*------------------------------------------------------------------------*/
 /*                     Assignment Submission Endpoints                    */
@@ -710,8 +709,6 @@ const getCurrentUserId = (api, userId) => {
  * @return {Promise.<Object[]>} list of Canvas submissions {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.listSubmissions = function (options) {
-  // @action: list the submissions to a specific assignment in a course
-
   // Fetch the user info if we're not excluding user info OR if we're
   // filtering out the test student (we need user info to filter)
   const fetchUser = (
@@ -756,6 +753,7 @@ Assignment.listSubmissions = function (options) {
   // Not filtering out test student. Just return fetchPromise
   return fetchPromise;
 };
+Assignment.listSubmissions.action = 'list the submissions to a specific assignment in a course';
 
 /**
  * Gets a single submission for an assignment
@@ -773,7 +771,6 @@ Assignment.listSubmissions = function (options) {
  * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.getSubmission = function (options) {
-  // @action: Gets a specific submission to an assignment in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/${options.studentId}`,
     method: 'GET',
@@ -786,6 +783,7 @@ Assignment.getSubmission = function (options) {
     },
   });
 };
+Assignment.getSubmission.action = 'get a specific submission to an assignment in a course';
 
 /**
  * Creates a text submission on behalf of the current user
@@ -800,7 +798,6 @@ Assignment.getSubmission = function (options) {
  * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createTextSubmission = function (options) {
-  // @action: create a text submission to a specific assignment in a course on behalf of the current user
   let submitterId;
   return getCurrentUserId(
     this.api,
@@ -830,6 +827,7 @@ Assignment.createTextSubmission = function (options) {
       ], response);
     });
 };
+Assignment.createTextSubmission.action = 'create a text submission to a specific assignment in a course on behalf of the current user';
 
 /**
  * Creates a url submission on behalf of the current user
@@ -844,7 +842,6 @@ Assignment.createTextSubmission = function (options) {
  * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createURLSubmission = function (options) {
-  // @action: create a url submission to a specific assignment in a course on behalf of the current user
   let submitterId;
   return getCurrentUserId(
     this.api,
@@ -874,6 +871,7 @@ Assignment.createURLSubmission = function (options) {
       ], response);
     });
 };
+Assignment.createURLSubmission.action = 'create a url submission to a specific assignment in a course on behalf of the current user';
 
 /**
  * Creates a file submission on behalf of the current user
@@ -888,7 +886,6 @@ Assignment.createURLSubmission = function (options) {
  * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createFileSubmission = function (options) {
-  // @action: create a file submission to a specific assignment in a course on behalf of the current user
   let submitterId;
   return getCurrentUserId(
     this.api,
@@ -1020,6 +1017,7 @@ Assignment.createFileSubmission = function (options) {
       ], response);
     });
 };
+Assignment.createFileSubmission.action = 'create a file submission to a specific assignment in a course on behalf of the current user';
 
 
 /*------------------------------------------------------------------------*/

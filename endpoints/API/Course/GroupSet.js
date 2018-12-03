@@ -29,12 +29,12 @@ class GroupSet extends EndpointCategory {
  * @return {Promise.<Object[]>} list of Canvas GroupCategories {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
  */
 GroupSet.list = function (options) {
-  // @action: get the list of group sets in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/group_categories`,
     method: 'GET',
   });
 };
+GroupSet.list.action = 'get the list of group sets in a course';
 
 /**
  * Gets info on a specific group set
@@ -44,12 +44,12 @@ GroupSet.list = function (options) {
  * @return {Promise.<Object>} Canvas GroupCategory {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
  */
 GroupSet.get = function (options) {
-  // @action: get info on a specific group set in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/group_categories/${options.groupSetId}`,
     method: 'GET',
   });
 };
+GroupSet.get.action = 'get info on a specific group set in a course';
 
 /**
  * Create a group set in a course
@@ -60,7 +60,6 @@ GroupSet.get = function (options) {
  * @return {Promise.<Object>} Canvas GroupCategory {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
  */
 GroupSet.create = function (options) {
-  // @action: create a new group set in a course
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/group_categories`,
     method: 'POST',
@@ -75,6 +74,7 @@ GroupSet.create = function (options) {
       ], response);
     });
 };
+GroupSet.create.action = 'create a new group set in a course';
 
 /**
  * Deletes a group set
@@ -85,7 +85,6 @@ GroupSet.create = function (options) {
  * @return {Promise.<Object>} Canvas GroupCategory {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
  */
 GroupSet.delete = function (options) {
-  // @action: delete a specific group set from a course
   return this.visitEndpoint({
     path: `${prefix.v1}/group_categories/${options.groupSetId}`,
     method: 'DELETE',
@@ -97,6 +96,7 @@ GroupSet.delete = function (options) {
       ], response);
     });
 };
+GroupSet.delete.action = 'delete a specific group set from a course';
 
 /*------------------------------------------------------------------------*/
 /*                   Endpoints for Groups in Group Sets                   */
@@ -110,12 +110,12 @@ GroupSet.delete = function (options) {
  * @return {Promise.<Object[]>} list of Canvas Groups {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
 GroupSet.listGroups = function (options) {
-  // @action: get the list of groups in a group set
   return this.visitEndpoint({
     path: `${prefix.v1}/group_categories/${options.groupSetId}/groups`,
     method: 'GET',
   });
 };
+GroupSet.listGroups.action = 'get the list of groups in a group set';
 
 /**
  * Gets info on a specific group in a group set (alias to
@@ -126,9 +126,9 @@ GroupSet.listGroups = function (options) {
  * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
 GroupSet.getGroup = function (options) {
-  // @action: get info on a specific group in a group set
   return this.api.course.group.get(options);
 };
+GroupSet.getGroup.action = 'get info on a specific group in a group set';
 
 /**
  * Creates a new group in a group set
@@ -142,7 +142,6 @@ GroupSet.getGroup = function (options) {
  * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
 GroupSet.createGroup = function (options) {
-  // @action: create a new group in a group set
   return this.visitEndpoint({
     path: `${prefix.v1}/group_categories/${options.groupSetId}/groups`,
     method: 'POST',
@@ -161,6 +160,7 @@ GroupSet.createGroup = function (options) {
       ], response);
     });
 };
+GroupSet.createGroup.action = 'create a new group in a group set';
 
 
 /**
@@ -172,7 +172,6 @@ GroupSet.createGroup = function (options) {
  * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
 GroupSet.deleteGroup = function (options) {
-  // @action: delete a specific group from a group set
   return this.visitEndpoint({
     path: `${prefix.v1}/groups/${options.groupId}`,
     method: 'DELETE',
@@ -184,6 +183,7 @@ GroupSet.deleteGroup = function (options) {
       ], response);
     });
 };
+GroupSet.deleteGroup.action = 'delete a specific group from a group set';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

@@ -55,9 +55,18 @@ module.exports = (config = {}) => {
         ? defaults.numRetries
         : 3
     );
+    let { canvasHost } = options;
+    if (options.canvasHost === undefined) {
+      canvasHost = (
+        defaults.canvasHost === undefined
+          ? 'canvas.instructure.com'
+          : null
+      );
+    }
     const visitEndpoint = genVisitEndpoint({
       cache,
       uncache,
+      canvasHost,
       accessToken: (
         options.accessToken
         || defaults.accessToken
@@ -70,11 +79,6 @@ module.exports = (config = {}) => {
       maxPages: (
         options.maxPages
         || defaults.maxPages
-      ),
-      canvasHost: (
-        options.canvasHost
-        || defaults.canvasHost
-        || 'canvas.instructure.com'
       ),
       apiPathPrefix: (
         options.apiPathPrefix
@@ -134,8 +138,25 @@ module.exports = (config = {}) => {
         newError.code = errorCodes.unnamedEndpointError;
       }
 
-      // Add on action to the error if not already describing an action
-      if (!newError.message.startsWith('While attempting to ')) {
+      // Add on action to the error
+      if (newError.message.startsWith('While attempting to ')) {
+        // There's already an action. Add an umbrella action
+        const newUmbrella = ` (in order to ${config.action})`;
+
+        // Check to see if an umbrella action has already been added
+        const currUmbrella = newError.message.match(/\(in order to .*\)/g);
+        if (currUmbrella && currUmbrella.length > 0) {
+          // Another umbrella action already exists. Replace it
+          newError.message = newError.message.replace(
+            currUmbrella[0],
+            newUmbrella
+          );
+        } else {
+          const parts = newError.message.split(',');
+          parts[0] += newUmbrella;
+          newError.message = parts.join(',');
+        }
+      } else {
         newError.message = `While attempting to ${config.action}, we ran into an error: ${(err.message || 'unknown')}`;
       }
 

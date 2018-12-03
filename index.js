@@ -15,7 +15,8 @@ const API = require('./endpoints/API');
  *   parameter.
  * @param {string} [config.canvasHost=canvas.instructure.com] - The hostname
  *   to use when sending requests to the Canvas API. Can be overridden for an
- *   individual request by including `host` option
+ *   individual request by including `host` option. If canvasHost is null, no
+ *   hostname is prepended to the request path
  * @param {string} [config.cacheType] - If 'memory', cache is stored in
  *   memory. If 'session' and req is included, cache is stored in express
  *   session. To include a custom cache, include it as config.cache
