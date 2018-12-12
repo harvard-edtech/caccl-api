@@ -3,13 +3,13 @@ const path = require('path');
 const request = require('request');
 const urlLib = require('url');
 const async = require('async');
+const CACCLError = require('caccl-error');
 
-const CACCLError = require('../../../../caccl-error/index.js'); // TODO: use actual library
-const EndpointCategory = require('../../../classes/EndpointCategory.js');
-const errorCodes = require('../../../errorCodes.js');
-const prefix = require('../../common/prefix.js');
-const utils = require('../../common/utils.js');
-const waitForCompletion = require('../../common/waitForCompletion.js');
+const EndpointCategory = require('../../../classes/EndpointCategory');
+const errorCodes = require('../../../errorCodes');
+const prefix = require('../../common/prefix');
+const utils = require('../../common/utils');
+const waitForCompletion = require('../../common/waitForCompletion');
 
 class Assignment extends EndpointCategory {
   constructor(config) {

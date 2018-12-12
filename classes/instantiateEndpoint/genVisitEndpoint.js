@@ -1,12 +1,11 @@
 const parseLinkHeader = require('parse-link-header');
 const pathLib = require('path');
+const defaultSendRequest = require('caccl-send-request');
+const CACCLError = require('caccl-error');
 
-const defaultSendRequest = require('../../../caccl-send-request/index.js'); // TODO: use actual module
-
-const CACCLError = require('../../../caccl-error/index.js'); // TODO: use actual library
-const errorCodes = require('../../errorCodes.js');
-const interpretCanvasError = require('./helpers/interpretCanvasError.js');
-const preProcessParams = require('./helpers/preProcessParams.js');
+const errorCodes = require('../../errorCodes');
+const interpretCanvasError = require('./helpers/interpretCanvasError');
+const preProcessParams = require('./helpers/preProcessParams');
 
 /**
  * Generates a new visitEndpoint function

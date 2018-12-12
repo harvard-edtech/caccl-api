@@ -1,6 +1,6 @@
-const EndpointCategory = require('../../../classes/EndpointCategory.js');
-const prefix = require('../../common/prefix.js');
-const utils = require('../../common/utils.js');
+const EndpointCategory = require('../../../classes/EndpointCategory');
+const prefix = require('../../common/prefix');
+const utils = require('../../common/utils');
 
 class AssignmentGroup extends EndpointCategory {
   constructor(config) {

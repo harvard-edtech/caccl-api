@@ -1,6 +1,6 @@
-const EndpointCategory = require('../../../classes/EndpointCategory.js');
-const prefix = require('../../common/prefix.js');
-const utils = require('../../common/utils.js');
+const EndpointCategory = require('../../../classes/EndpointCategory');
+const prefix = require('../../common/prefix');
+const utils = require('../../common/utils');
 
 class Group extends EndpointCategory {
   constructor(config) {
@@ -33,7 +33,7 @@ Group.get = function (options) {
 };
 Group.get.action = 'get info on a specific group in a course';
 
-// NOTE: to create or delete a group, see endpoints in groupSets.js
+// NOTE: to create or delete a group, see endpoints in groupSets
 
 /*------------------------------------------------------------------------*/
 /*                         Group Member Endpoints                         */

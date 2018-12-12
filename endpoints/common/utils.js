@@ -7,7 +7,7 @@
 
 // wrapVisitEndpoint filters out all parameters with value equal to
 // EXCLUDED_PARAM. To exclude a parameter, just set its value to EXCLUDED_PARAM
-const EXCLUDED_PARAM = require('../../classes/instantiateEndpoint/helpers/valueThatsExcluded.js');
+const EXCLUDED_PARAM = require('../../classes/instantiateEndpoint/helpers/valueThatsExcluded');
 
 module.exports = {
 

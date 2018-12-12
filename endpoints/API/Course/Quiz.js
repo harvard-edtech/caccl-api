@@ -1,12 +1,13 @@
 const axios = require('axios');
 const parseCSV = require('csv-parse/lib/sync');
 
-const CACCLError = require('../../../../caccl-error/index.js'); // TODO: use actual library
-const errorCodes = require('../../../errorCodes.js');
-const EndpointCategory = require('../../../classes/EndpointCategory.js');
-const prefix = require('../../common/prefix.js');
-const utils = require('../../common/utils.js');
-const waitForCompletion = require('../../common/waitForCompletion.js');
+const CACCLError = require('caccl-error');
+
+const errorCodes = require('../../../errorCodes');
+const EndpointCategory = require('../../../classes/EndpointCategory');
+const prefix = require('../../common/prefix');
+const utils = require('../../common/utils');
+const waitForCompletion = require('../../common/waitForCompletion');
 
 class Quiz extends EndpointCategory {
   constructor(config) {

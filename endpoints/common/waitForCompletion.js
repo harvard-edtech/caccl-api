@@ -6,8 +6,9 @@
  */
 
 const urlLib = require('url');
-const errorCodes = require('../../errorCodes.js');
-const CACCLError = require('../../../caccl-error/index.js');
+const CACCLError = require('caccl-error');
+
+const errorCodes = require('../../errorCodes');
 
 /**
  * Creates a new promise that resolves when the task has been completed. The

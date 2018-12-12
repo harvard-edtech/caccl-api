@@ -1,9 +1,9 @@
-const CACCLError = require('../../../../caccl-error/index.js'); // TODO: use actual library
+const CACCLError = require('caccl-error');
 
-const EndpointCategory = require('../../../classes/EndpointCategory.js');
-const prefix = require('../../common/prefix.js');
-const utils = require('../../common/utils.js');
-const errorCodes = require('../../../errorCodes.js');
+const EndpointCategory = require('../../../classes/EndpointCategory');
+const prefix = require('../../common/prefix');
+const utils = require('../../common/utils');
+const errorCodes = require('../../../errorCodes');
 
 
 class App extends EndpointCategory {

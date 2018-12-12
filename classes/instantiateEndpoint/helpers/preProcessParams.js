@@ -6,7 +6,7 @@
  */
 
 // The value to exclude
-const EXCLUDED_VALUE = require('./valueThatsExcluded.js');
+const EXCLUDED_VALUE = require('./valueThatsExcluded');
 
 /**
  * Recursively excludes values that match EXCLUDED_VALUE

@@ -1,4 +1,4 @@
-const EndpointCategory = require('../../classes/EndpointCategory.js');
+const EndpointCategory = require('../../classes/EndpointCategory');
 
 // Import subcategories
 const Course = require('./Course');

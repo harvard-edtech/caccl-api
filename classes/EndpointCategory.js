@@ -4,14 +4,14 @@
  * @see module: classes/EndpointCategory
  */
 
+const CACCLError = require('caccl-error');
+
 // Endpoint-related helpers
 const instantiateEndpoint = require('./instantiateEndpoint');
+const errorCodes = require('../errorCodes');
 
-const CACCLError = require('../../caccl-error/index.js'); // TODO: Switch to actual node module
-const errorCodes = require('../errorCodes.js');
-
-const MemoryCache = require('./caches/MemoryCache.js');
-const SessionCache = require('./caches/SessionCache.js');
+const MemoryCache = require('./caches/MemoryCache');
+const SessionCache = require('./caches/SessionCache');
 
 /*------------------------------------------------------------------------*/
 /*                    Helper that pre-processes config                    */

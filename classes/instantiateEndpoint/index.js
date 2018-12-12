@@ -6,9 +6,10 @@
  * @see module: classes/endpoint/genEndpointFunction
  */
 
-const CACCLError = require('../../../caccl-error/index.js');
-const errorCodes = require('../../errorCodes.js');
-const genVisitEndpoint = require('./genVisitEndpoint.js');
+const CACCLError = require('caccl-error');
+
+const errorCodes = require('../../errorCodes');
+const genVisitEndpoint = require('./genVisitEndpoint');
 
 /**
  * Creates an endpoint function given the endpointCoreFunction (function),
@@ -60,7 +61,7 @@ module.exports = (config = {}) => {
       canvasHost = (
         defaults.canvasHost === undefined
           ? 'canvas.instructure.com'
-          : null
+          : defaults.canvasHost
       );
     }
     const visitEndpoint = genVisitEndpoint({

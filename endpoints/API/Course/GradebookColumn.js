@@ -1,9 +1,10 @@
-const CACCLError = require('../../../../caccl-error/index.js'); // TODO: use actual library
-const EndpointCategory = require('../../../classes/EndpointCategory.js');
-const errorCodes = require('../../../errorCodes.js');
-const prefix = require('../../common/prefix.js');
-const utils = require('../../common/utils.js');
-const waitForCompletion = require('../../common/waitForCompletion.js');
+const CACCLError = require('caccl-error');
+
+const EndpointCategory = require('../../../classes/EndpointCategory');
+const errorCodes = require('../../../errorCodes');
+const prefix = require('../../common/prefix');
+const utils = require('../../common/utils');
+const waitForCompletion = require('../../common/waitForCompletion');
 
 class GradebookColumn extends EndpointCategory {
   constructor(config) {

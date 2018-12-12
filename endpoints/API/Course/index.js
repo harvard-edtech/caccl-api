@@ -1,18 +1,18 @@
-const EndpointCategory = require('../../../classes/EndpointCategory.js');
-const prefix = require('../../common/prefix.js');
-const utils = require('../../common/utils.js');
+const EndpointCategory = require('../../../classes/EndpointCategory');
+const prefix = require('../../common/prefix');
+const utils = require('../../common/utils');
 
 // Import subcategories
-const Assignment = require('./Assignment.js');
-const AssignmentGroup = require('./AssignmentGroup.js');
-const App = require('./App.js');
-const GradebookColumn = require('./GradebookColumn.js');
-const Group = require('./Group.js');
-const GroupSet = require('./GroupSet.js');
-const Page = require('./Page.js');
-const Quiz = require('./Quiz.js');
-const Rubric = require('./Rubric.js');
-const Section = require('./Section.js');
+const Assignment = require('./Assignment');
+const AssignmentGroup = require('./AssignmentGroup');
+const App = require('./App');
+const GradebookColumn = require('./GradebookColumn');
+const Group = require('./Group');
+const GroupSet = require('./GroupSet');
+const Page = require('./Page');
+const Quiz = require('./Quiz');
+const Rubric = require('./Rubric');
+const Section = require('./Section');
 
 class Course extends EndpointCategory {
   constructor(config) {
@@ -202,6 +202,31 @@ Course.listObservers = function (options) {
   return this.api.course.listEnrollments(newOptions);
 };
 Course.listObservers.action = 'get the list of observers in a course';
+
+/**
+ * Gets info on a specific user in a course
+ * @author Gabriel Abrams
+ * @method getUser
+ * @param {number} courseId - Canvas course Id to query
+ * @param {number} userId - Canvas user Id to get
+ * @return {Promise.<Object[]>} Canvas user {@link https://canvas.instructure.com/doc/api/users.html#User}
+ */
+Course.getUser = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/users/${options.userId}`,
+    method: 'GET',
+    params: {
+      include: utils.genIncludesList({
+        email: options.includeEmail,
+        enrollments: options.includeEnrollments,
+        locked: options.includeLocked,
+        avatar_url: options.includeAvatar,
+        bio: options.includeBio,
+      }),
+    },
+  });
+};
+Course.getUser.action = 'get info on a user in a course';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

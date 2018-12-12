@@ -6,8 +6,9 @@
  * @see module: classes/request/helpers/interpretCanvasError
  */
 
-const CACCLError = require('../../../../caccl-error/index.js'); // TODO: switch to actual library
-const errorCodes = require('../../../errorCodes.js');
+const CACCLError = require('caccl-error');
+
+const errorCodes = require('../../../errorCodes');
 
 /**
  * Detects errors and turns them into human-readable errors
