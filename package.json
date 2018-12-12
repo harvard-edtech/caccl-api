@@ -1,5 +1,5 @@
 {
-  "name": "caccl-canvas-api",
+  "name": "caccl-api",
   "version": "1.0.1",
   "description": "A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.",
   "main": "index.js",
