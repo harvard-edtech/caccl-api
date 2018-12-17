@@ -285,9 +285,14 @@ Course.listUsers.action = 'get info on all users in a course';
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [activeOnly=false] - If truthy, only active enrollments
  *   included
- * @param {string} [includeAvatar=false] - If truthy, avatar_url is included
- * @param {string} [includeGroups=false] - If truthy, group_ids is included
- * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
+ * @param {boolean} includeEmail - If true, user email is included
+ * @param {boolean} includeEnrollments - If true, user's enrollments in this
+ *   course are included
+ * @param {boolean} includeLocked - If true, includes whether this enrollment
+ *   is locked
+ * @param {boolean} includeAvatar - If true, user avatar url is included
+ * @param {boolean} includeBio - If true, user bio is included
+ * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Course.listStudents = function (options) {
   const newOptions = options;
@@ -303,9 +308,14 @@ Course.listStudents.action = 'get the list of students in a course';
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [activeOnly=false] - If truthy, only active enrollments
  *   included
- * @param {string} [includeAvatar=false] - If truthy, avatar_url is included
- * @param {string} [includeGroups=false] - If truthy, group_ids is included
- * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
+ * @param {boolean} includeEmail - If true, user email is included
+ * @param {boolean} includeEnrollments - If true, user's enrollments in this
+ *   course are included
+ * @param {boolean} includeLocked - If true, includes whether this enrollment
+ *   is locked
+ * @param {boolean} includeAvatar - If true, user avatar url is included
+ * @param {boolean} includeBio - If true, user bio is included
+ * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Course.listTeachingTeamMembers = function (options) {
   const newOptions = options;
@@ -321,9 +331,14 @@ Course.listTeachingTeamMembers.action = 'get the list of TAs and Teachers in a c
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [activeOnly=false] - If truthy, only active enrollments
  *   included
- * @param {string} [includeAvatar=false] - If truthy, avatar_url is included
- * @param {string} [includeGroups=false] - If truthy, group_ids is included
- * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
+ * @param {boolean} includeEmail - If true, user email is included
+ * @param {boolean} includeEnrollments - If true, user's enrollments in this
+ *   course are included
+ * @param {boolean} includeLocked - If true, includes whether this enrollment
+ *   is locked
+ * @param {boolean} includeAvatar - If true, user avatar url is included
+ * @param {boolean} includeBio - If true, user bio is included
+ * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Course.listDesigners = function (options) {
   const newOptions = options;
@@ -339,9 +354,14 @@ Course.listDesigners.action = 'get the list of designers in a course';
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [activeOnly=false] - If truthy, only active enrollments
  *   included
- * @param {string} [includeAvatar=false] - If truthy, avatar_url is included
- * @param {string} [includeGroups=false] - If truthy, group_ids is included
- * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
+ * @param {boolean} includeEmail - If true, user email is included
+ * @param {boolean} includeEnrollments - If true, user's enrollments in this
+ *   course are included
+ * @param {boolean} includeLocked - If true, includes whether this enrollment
+ *   is locked
+ * @param {boolean} includeAvatar - If true, user avatar url is included
+ * @param {boolean} includeBio - If true, user bio is included
+ * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Course.listObservers = function (options) {
   const newOptions = options;
