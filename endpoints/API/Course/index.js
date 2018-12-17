@@ -151,7 +151,7 @@ Course.listStudentEnrollments = function (options) {
   newOptions.types = ['student'];
   return this.api.course.listEnrollments(newOptions);
 };
-Course.listStudents.action = 'get the list of student enrollments in a course';
+Course.listStudentEnrollments.action = 'get the list of student enrollments in a course';
 
 /**
  * Gets the list of TAs and Teacher enrollments in a course
@@ -169,7 +169,7 @@ Course.listTeachingTeamMemberEnrollments = function (options) {
   newOptions.types = ['ta', 'teacher'];
   return this.api.course.listEnrollments(newOptions);
 };
-Course.listTeachingTeamMembers.action = 'get the list of TAs and Teacher enrollments in a course';
+Course.listTeachingTeamMemberEnrollments.action = 'get the list of TAs and Teacher enrollments in a course';
 
 /**
  * Gets the list of designer enrollments in a course
@@ -187,7 +187,7 @@ Course.listDesignerEnrollments = function (options) {
   newOptions.types = ['designer'];
   return this.api.course.listEnrollments(newOptions);
 };
-Course.listDesigners.action = 'get the list of designer enrollments in a course';
+Course.listDesignerEnrollments.action = 'get the list of designer enrollments in a course';
 
 /**
  * Gets the list of observer enrollments in a course
@@ -205,7 +205,7 @@ Course.listObserverEnrollments = function (options) {
   newOptions.types = ['observer'];
   return this.api.course.listEnrollments(newOptions);
 };
-Course.listObservers.action = 'get the list of observer enrollments in a course';
+Course.listObserverEnrollments.action = 'get the list of observer enrollments in a course';
 
 /*------------------------------------------------------------------------*/
 /*                                  Users                                 */
@@ -294,7 +294,7 @@ Course.listStudents = function (options) {
   newOptions.types = ['student'];
   return this.api.course.listUsers(newOptions);
 };
-Course.listStudentEnrollments.action = 'get the list of students in a course';
+Course.listStudents.action = 'get the list of students in a course';
 
 /**
  * Gets the list of TAs and Teachers in a course
@@ -312,7 +312,7 @@ Course.listTeachingTeamMembers = function (options) {
   newOptions.types = ['ta', 'teacher'];
   return this.api.course.listUsers(newOptions);
 };
-Course.listTeachingTeamMemberEnrollments.action = 'get the list of TAs and Teachers in a course';
+Course.listTeachingTeamMembers.action = 'get the list of TAs and Teachers in a course';
 
 /**
  * Gets the list of designers in a course
@@ -330,7 +330,7 @@ Course.listDesigners = function (options) {
   newOptions.types = ['designer'];
   return this.api.course.listUsers(newOptions);
 };
-Course.listDesignerEnrollments.action = 'get the list of designers in a course';
+Course.listDesigners.action = 'get the list of designers in a course';
 
 /**
  * Gets the list of observers in a course
@@ -348,7 +348,7 @@ Course.listObservers = function (options) {
   newOptions.types = ['observer'];
   return this.api.course.listUsers(newOptions);
 };
-Course.listObserverEnrollments.action = 'get the list of observers in a course';
+Course.listObservers.action = 'get the list of observers in a course';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */
