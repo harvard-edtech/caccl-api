@@ -78,6 +78,10 @@ Course.get = function (options) {
 };
 Course.get.action = 'get info on a specific course';
 
+/*------------------------------------------------------------------------*/
+/*                               Enrollments                              */
+/*------------------------------------------------------------------------*/
+
 /**
  * Gets the list of enrollments in a course
  * @author Gabriel Abrams
@@ -132,9 +136,9 @@ Course.listEnrollments = function (options) {
 Course.listEnrollments.action = 'get enrollments from a course';
 
 /**
- * Gets the list of students in a course
+ * Gets the list of student enrollmentss in a course
  * @author Gabriel Abrams
- * @method listStudents
+ * @method listStudentEnrollments
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [activeOnly=false] - If truthy, only active enrollments
  *   included
@@ -142,17 +146,17 @@ Course.listEnrollments.action = 'get enrollments from a course';
  * @param {string} [includeGroups=false] - If truthy, group_ids is included
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
-Course.listStudents = function (options) {
+Course.listStudentEnrollments = function (options) {
   const newOptions = options;
   newOptions.types = ['student'];
   return this.api.course.listEnrollments(newOptions);
 };
-Course.listStudents.action = 'get the list of students in a course';
+Course.listStudents.action = 'get the list of student enrollments in a course';
 
 /**
- * Gets the list of TAs and Teachers in a course
+ * Gets the list of TAs and Teacher enrollments in a course
  * @author Gabriel Abrams
- * @method listTeachingTeamMembers
+ * @method listTeachingTeamMemberEnrollments
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [activeOnly=false] - If truthy, only active enrollments
  *   included
@@ -160,17 +164,17 @@ Course.listStudents.action = 'get the list of students in a course';
  * @param {string} [includeGroups=false] - If truthy, group_ids is included
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
-Course.listTeachingTeamMembers = function (options) {
+Course.listTeachingTeamMemberEnrollments = function (options) {
   const newOptions = options;
   newOptions.types = ['ta', 'teacher'];
   return this.api.course.listEnrollments(newOptions);
 };
-Course.listTeachingTeamMembers.action = 'get the list of TAs and Teachers in a course';
+Course.listTeachingTeamMembers.action = 'get the list of TAs and Teacher enrollments in a course';
 
 /**
- * Gets the list of designers in a course
+ * Gets the list of designer enrollments in a course
  * @author Gabriel Abrams
- * @method listDesigners
+ * @method listDesignerEnrollments
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [activeOnly=false] - If truthy, only active enrollments
  *   included
@@ -178,17 +182,17 @@ Course.listTeachingTeamMembers.action = 'get the list of TAs and Teachers in a c
  * @param {string} [includeGroups=false] - If truthy, group_ids is included
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
-Course.listDesigners = function (options) {
+Course.listDesignerEnrollments = function (options) {
   const newOptions = options;
   newOptions.types = ['designer'];
   return this.api.course.listEnrollments(newOptions);
 };
-Course.listDesigners.action = 'get the list of designers in a course';
+Course.listDesigners.action = 'get the list of designer enrollments in a course';
 
 /**
- * Gets the list of observers in a course
+ * Gets the list of observer enrollments in a course
  * @author Gabriel Abrams
- * @method listObservers
+ * @method listObserverEnrollments
  * @param {number} courseId - Canvas course Id to query
  * @param {string} [activeOnly=false] - If truthy, only active enrollments
  *   included
@@ -196,12 +200,16 @@ Course.listDesigners.action = 'get the list of designers in a course';
  * @param {string} [includeGroups=false] - If truthy, group_ids is included
  * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
-Course.listObservers = function (options) {
+Course.listObserverEnrollments = function (options) {
   const newOptions = options;
   newOptions.types = ['observer'];
   return this.api.course.listEnrollments(newOptions);
 };
-Course.listObservers.action = 'get the list of observers in a course';
+Course.listObservers.action = 'get the list of observer enrollments in a course';
+
+/*------------------------------------------------------------------------*/
+/*                                  Users                                 */
+/*------------------------------------------------------------------------*/
 
 /**
  * Gets info on a specific user in a course
@@ -209,7 +217,14 @@ Course.listObservers.action = 'get the list of observers in a course';
  * @method getUser
  * @param {number} courseId - Canvas course Id to query
  * @param {number} userId - Canvas user Id to get
- * @return {Promise.<Object[]>} Canvas user {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @param {boolean} includeEmail - If true, user email is included
+ * @param {boolean} includeEnrollments - If true, user's enrollments in this
+ *   course are included
+ * @param {boolean} includeLocked - If true, includes whether this enrollment
+ *   is locked
+ * @param {boolean} includeAvatar - If true, user avatar url is included
+ * @param {boolean} includeBio - If true, user bio is included
+ * @return {Promise.<Object>} Canvas user {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Course.getUser = function (options) {
   return this.visitEndpoint({
@@ -227,6 +242,113 @@ Course.getUser = function (options) {
   });
 };
 Course.getUser.action = 'get info on a user in a course';
+
+/**
+ * Gets info on all users in a course
+ * @author Gabriel Abrams
+ * @method listUsers
+ * @param {number} courseId - Canvas course Id to query
+ * @param {string} [types=all] - list of enrollment types to include:
+ *   ['student', 'ta', 'teacher', 'designer', 'observer']
+ *   Defaults to all types.
+ * @param {boolean} includeEmail - If true, user email is included
+ * @param {boolean} includeEnrollments - If true, user's enrollments in this
+ *   course are included
+ * @param {boolean} includeLocked - If true, includes whether this enrollment
+ *   is locked
+ * @param {boolean} includeAvatar - If true, user avatar url is included
+ * @param {boolean} includeBio - If true, user bio is included
+ * @return {Promise.<Object[]>} Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ */
+Course.listUsers = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/users`,
+    method: 'GET',
+    params: {
+      enrollment_type: options.types,
+      include: utils.genIncludesList({
+        email: options.includeEmail,
+        enrollments: options.includeEnrollments,
+        locked: options.includeLocked,
+        avatar_url: options.includeAvatar,
+        bio: options.includeBio,
+      }),
+    },
+  });
+};
+Course.listUsers.action = 'get info on all users in a course';
+
+/**
+ * Gets the list of students in a course
+ * @author Gabriel Abrams
+ * @method listStudents
+ * @param {number} courseId - Canvas course Id to query
+ * @param {string} [activeOnly=false] - If truthy, only active enrollments
+ *   included
+ * @param {string} [includeAvatar=false] - If truthy, avatar_url is included
+ * @param {string} [includeGroups=false] - If truthy, group_ids is included
+ * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
+ */
+Course.listStudents = function (options) {
+  const newOptions = options;
+  newOptions.types = ['student'];
+  return this.api.course.listUsers(newOptions);
+};
+Course.listStudents.action = 'get the list of students in a course';
+
+/**
+ * Gets the list of TAs and Teachers in a course
+ * @author Gabriel Abrams
+ * @method listTeachingTeamMembers
+ * @param {number} courseId - Canvas course Id to query
+ * @param {string} [activeOnly=false] - If truthy, only active enrollments
+ *   included
+ * @param {string} [includeAvatar=false] - If truthy, avatar_url is included
+ * @param {string} [includeGroups=false] - If truthy, group_ids is included
+ * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
+ */
+Course.listTeachingTeamMembers = function (options) {
+  const newOptions = options;
+  newOptions.types = ['ta', 'teacher'];
+  return this.api.course.listUsers(newOptions);
+};
+Course.listTeachingTeamMembers.action = 'get the list of TAs and Teachers in a course';
+
+/**
+ * Gets the list of designers in a course
+ * @author Gabriel Abrams
+ * @method listDesigners
+ * @param {number} courseId - Canvas course Id to query
+ * @param {string} [activeOnly=false] - If truthy, only active enrollments
+ *   included
+ * @param {string} [includeAvatar=false] - If truthy, avatar_url is included
+ * @param {string} [includeGroups=false] - If truthy, group_ids is included
+ * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
+ */
+Course.listDesigners = function (options) {
+  const newOptions = options;
+  newOptions.types = ['designer'];
+  return this.api.course.listUsers(newOptions);
+};
+Course.listDesigners.action = 'get the list of designers in a course';
+
+/**
+ * Gets the list of observers in a course
+ * @author Gabriel Abrams
+ * @method listObservers
+ * @param {number} courseId - Canvas course Id to query
+ * @param {string} [activeOnly=false] - If truthy, only active enrollments
+ *   included
+ * @param {string} [includeAvatar=false] - If truthy, avatar_url is included
+ * @param {string} [includeGroups=false] - If truthy, group_ids is included
+ * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
+ */
+Course.listObservers = function (options) {
+  const newOptions = options;
+  newOptions.types = ['observer'];
+  return this.api.course.listUsers(newOptions);
+};
+Course.listObservers.action = 'get the list of observers in a course';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */
