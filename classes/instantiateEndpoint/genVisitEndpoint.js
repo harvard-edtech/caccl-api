@@ -110,6 +110,8 @@ module.exports = (config = {}) => {
               params: paramsWithPageNumber,
               path: apiPathPrefix + path,
               host: canvasHost,
+              // Ignore self-signed certificate if host is simulated Canvas
+              ignoreSSLIssues: (canvasHost === 'localhost:8088'),
             })
               .then((response) => {
                 // Check if the API call failed:
