@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>User/Self.js</title>
+		<title>Course/Group.js</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -12,36 +12,8 @@
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
 		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
 		<link type="text/css" rel="stylesheet" href="css/template.min.css">
-			<style>
-				.page-header,
-				pre.code-toolbar > .toolbar:hover {
-					background-color: {string};
-				}
-				.callout-primary,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus,
-				pre.code-toolbar > .toolbar:hover {
-					border-left-color: {string};
-				}
-				pre.code-toolbar > .toolbar:hover {
-					border-bottom-color: {string};
-				}
-				.callout-primary h5,
-				.symbol-title.collapsible-symbol .toggle-icon,
-				.breadcrumb li a,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus {
-					color: {string};
-				}
-			</style>
 		<script type="text/javascript">
-			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"{string}","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
 			window.DOCLET_TOC_ENABLED = false;
 			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
@@ -98,7 +70,7 @@
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
 				<span class="kind">source</span>
-				<h1><span class="name">User/Self.js</span></h1>
+				<h1><span class="name">Course/Group.js</span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -107,68 +79,106 @@
 		<section class="source-section">
 			<article></article>
 			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
- * Functions for getting info on current user
- * @class api.user.self
+ * Functions for interacting with student groups within courses
+ * @class api.course.group
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
 const utils = require('../../common/utils');
 
-class Self extends EndpointCategory {
+class Group extends EndpointCategory {
   constructor(config) {
-    super(config, Self);
+    super(config, Group);
   }
 }
 
 /*------------------------------------------------------------------------*/
-/*                             Self Endpoints                             */
+/*                           Table of Contents:                           */
+/*                           - Group                                      */
+/*                           - Group Members                              */
+/*------------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------------*/
+/*                             Group Endpoints                            */
 /*------------------------------------------------------------------------*/
 
 /**
- * Gets info on the current user
+ * Gets info on a specific group in a course
  * @author Gabriel Abrams
- * @method getProfile
- * @memberof api.user.self
- * @instance
- * @return {Promise.&lt;Object>} Canvas user object {@link https://canvas.instructure.com/doc/api/users.html#User}
- */
-Self.getProfile = function () {
-  return this.visitEndpoint({
-    path: `${prefix.v1}/users/self/profile`,
-    method: 'GET',
-  });
-};
-Self.getProfile.action = 'get info on the current user';
-
-/**
- * Gets the list of courses associated with the current user
- * @author Gabriel Abrams
- * @method listCourses
- * @memberof api.user.self
+ * @method get
+ * @memberof api.course.group
  * @instance
  * @param {object} options - object containing all arguments
- * @param {boolean} [includeTerm] - if truthy, term is included
- * @return {Promise.&lt;Object>} Canvas course object {@link https://canvas.instructure.com/doc/api/courses.html#Course}
+ * @param {number} options.groupId - Canvas group Id
+ * @return Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
-Self.listCourses = function (options) {
+Group.get = function (options) {
   return this.visitEndpoint({
-    path: `${prefix.v1}/courses`,
+    path: `${prefix.v1}/groups/${options.groupId}`,
     method: 'GET',
-    params: {
-      include: utils.genIncludesList({
-        term: options.includeTerm,
-      }),
-    },
   });
 };
-Self.listCourses.action = 'get the list of courses associated with the current user';
+Group.get.action = 'get info on a specific group in a course';
+
+// NOTE: to create or delete a group, see endpoints in groupSets
+
+/*------------------------------------------------------------------------*/
+/*                         Group Member Endpoints                         */
+/*------------------------------------------------------------------------*/
+
+/**
+ * Gets the list of members in a group
+ * @author Gabriel Abrams
+ * @method listMembers
+ * @memberof api.course.group
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.groupId - Canvas group Id
+ * @return {Promise.&lt;Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ */
+Group.listMembers = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/groups/${options.groupId}/users`,
+    method: 'GET',
+  });
+};
+Group.listMembers.action = 'get the list of members in a specific group';
+
+/**
+ * Gets the list of members in a group
+ * @author Gabriel Abrams
+ * @method updateMembers
+ * @memberof api.course.group
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.groupId - Canvas group Id
+ * @param {array} [options.members=[]] - The list of user objects/user Ids that
+ *   should be in the group
+ * @return {Promise.&lt;Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
+ */
+Group.updateMembers = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/groups/${options.groupId}`,
+    method: 'PUT',
+    params: {
+      members: utils.extractIdsIfApplicable(options.members),
+    },
+  })
+    .then((response) => {
+      return this.uncache([
+        // Uncache the list of group members
+        `${prefix.v1}/groups/${options.groupId}/users`,
+      ], response);
+    });
+};
+Group.updateMembers.action = 'update the list of members in a group';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */
 /*------------------------------------------------------------------------*/
 
-module.exports = Self;
+module.exports = Group;
 </code></pre>
 		</section>
 			</div>

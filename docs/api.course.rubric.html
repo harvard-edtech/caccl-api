@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>.course.assignmentGroup</title>
+		<title>.course.rubric</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -11,36 +11,8 @@
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
 		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
 		<link type="text/css" rel="stylesheet" href="css/template.min.css">
-			<style>
-				.page-header,
-				pre.code-toolbar > .toolbar:hover {
-					background-color: {string};
-				}
-				.callout-primary,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus,
-				pre.code-toolbar > .toolbar:hover {
-					border-left-color: {string};
-				}
-				pre.code-toolbar > .toolbar:hover {
-					border-bottom-color: {string};
-				}
-				.callout-primary h5,
-				.symbol-title.collapsible-symbol .toggle-icon,
-				.breadcrumb li a,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus {
-					color: {string};
-				}
-			</style>
 		<script type="text/javascript">
-			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"{string}","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
 			window.DOCLET_TOC_ENABLED = true;
 			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
@@ -97,7 +69,7 @@
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
 				<span class="kind">class</span>
-				<h1><span class="ancestors"><a href="api.course.html">.course</a>.</span><span class="name">assignmentGroup</span></h1>
+				<h1><span class="ancestors"><a href="api.course.html">.course</a>.</span><span class="name">rubric</span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -106,16 +78,16 @@
 						<ol class="breadcrumb">
 							<li><a href="index.html">Home</a></li>
 							<li><a href="list_class.html">Endpoints</a></li>
-							<li class="active"><a href="api.course.html">.course</a>.assignmentGroup</li>
+							<li class="active"><a href="api.course.html">.course</a>.rubric</li>
 						</ol>
 					<section>
 							<dl class="symbol primary">
 								<dt class="symbol-title class collapsible-symbol expanded">
-			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">assignmentGroup</span><span class="signature-params">()</span><span class="signature-type"></span></h2>
+			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">rubric</span><span class="signature-params">()</span><span class="signature-type"></span></h2>
 </dt>
 <dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Functions for interacting with assignment groups within courses</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Functions for interacting with rubrics within courses</div>
 			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
 			
 			
@@ -136,7 +108,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_AssignmentGroup.js.html">Course/AssignmentGroup.js</a>, <a href="Course_AssignmentGroup.js.html#line-1">line 1</a></p>
+									<p class="form-control-static"><a href="Course_Rubric.js.html">Course/Rubric.js</a>, <a href="Course_Rubric.js.html#line-1">line 1</a></p>
 								</div>
 							</div>
 			
@@ -152,11 +124,11 @@
 									<dl class="symbol">
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="listAssignmentGroups" class="function public"><span class="name">listAssignmentGroups</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;Object>>}</span></h4>
+			<h4 id="list" class="function public"><span class="name">list</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;Object>>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Lists assignment groups in a course</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Lists the set of rubrics in a course</div>
 			</div>			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
@@ -186,7 +158,7 @@
 														<td><code>courseId</code></td>
 													<td><span class="param-type">number</span></td>
 													<td class="last">
-															Canvas course Id to query
+															Canvas course Id to add the rubric to
 													</td>
 												</tr>
 											</tbody>
@@ -200,7 +172,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;Object>></span></label>
 								<div class="col-sm-9">
-									<div class="form-control-static returns-description">list of Canvas AssignmentGroups <a href="https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup">https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup</a></div>
+									<div class="form-control-static returns-description">list of Canvas Rubrics <a href="https://canvas.instructure.com/doc/api/rubrics.html#Rubric">https://canvas.instructure.com/doc/api/rubrics.html#Rubric</a></div>
 								</div>
 							</div>
 					</form>
@@ -231,7 +203,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_AssignmentGroup.js.html">Course/AssignmentGroup.js</a>, <a href="Course_AssignmentGroup.js.html#line-20">line 20</a></p>
+									<p class="form-control-static"><a href="Course_Rubric.js.html">Course/Rubric.js</a>, <a href="Course_Rubric.js.html#line-20">line 20</a></p>
 								</div>
 							</div>
 			
@@ -243,116 +215,11 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="getAssignmentGroup" class="function public"><span class="name">getAssignmentGroup</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
+			<h4 id="get" class="function public"><span class="name">get</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets info on a specific assignment group in a course</div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>options</code></td>
-							<td><span class="param-type">object</span></td>
-							<td class="last">
-									object containing all arguments
-										<table class="params table table-striped">
-											<thead>
-											<tr>
-													<th>Name</th>
-												<th>Type</th>
-												<th class="last">Description</th>
-											</tr>
-											</thead>
-											<tbody>
-												<tr>
-														<td><code>courseId</code></td>
-													<td><span class="param-type">number</span></td>
-													<td class="last">
-															Canvas course Id to query
-													</td>
-												</tr>
-												<tr>
-														<td><code>assignmentGroupId</code></td>
-													<td><span class="param-type">number</span></td>
-													<td class="last">
-															Assignment group to get
-													</td>
-												</tr>
-												<tr>
-														<td><code>courseId</code></td>
-													<td><span class="param-type">number</span></td>
-													<td class="last">
-															Canvas course Id to query
-													</td>
-												</tr>
-											</tbody>
-										</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas AssignmentGroup <a href="https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup">https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup</a></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- author -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Author</label>
-								<div class="col-sm-9">
-										<p class="form-control-static">Gabriel Abrams</p>
-								</div>
-							</div>
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_AssignmentGroup.js.html">Course/AssignmentGroup.js</a>, <a href="Course_AssignmentGroup.js.html#line-38">line 38</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="update" class="function public"><span class="name">update</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Updates an assignment group in a course</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets info on a specific rubric in a course</div>
 			</div>			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
@@ -386,34 +253,39 @@
 														<td class="attributes"></td>
 														<td></td>
 													<td class="last">
-															Canvas course Id to query
+															Canvas course Id to add the rubric to
 													</td>
 												</tr>
 												<tr>
-														<td><code>assignmentGroupId</code></td>
+														<td><code>rubricId</code></td>
 													<td><span class="param-type">number</span></td>
 														<td class="attributes"></td>
 														<td></td>
 													<td class="last">
-															Assignment group to update
+															Canvas course Id to add the rubric to
 													</td>
 												</tr>
 												<tr>
-														<td><code>name</code></td>
+														<td><code>include</code></td>
+													<td><span class="param-type">boolean</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td></td>
+													<td class="last">
+															Allowed values: ['assessments',
+									  'graded_assessments', 'peer_assessments']. If excluded, no assessments
+									  will be included (default: none)
+													</td>
+												</tr>
+												<tr>
+														<td><code>assessmentStyle</code></td>
 													<td><span class="param-type">string</span></td>
 														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>current value</td>
+														<td>both omitted</td>
 													<td class="last">
-															New assignment group name
-													</td>
-												</tr>
-												<tr>
-														<td><code>weight</code></td>
-													<td><span class="param-type">number</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>current value</td>
-													<td class="last">
-															New weight
+															Allowed values:
+									  ['full','comments_only']
+									  (full = entire assessment, comments_only = only comment part of
+									  assessment). Only valid if including assessments
 													</td>
 												</tr>
 											</tbody>
@@ -427,7 +299,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
 								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas AssignmentGroup <a href="https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup">https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup</a></div>
+									<div class="form-control-static returns-description">Canvas Rubric <a href="https://canvas.instructure.com/doc/api/rubrics.html#Rubric">https://canvas.instructure.com/doc/api/rubrics.html#Rubric</a></div>
 								</div>
 							</div>
 					</form>
@@ -458,7 +330,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_AssignmentGroup.js.html">Course/AssignmentGroup.js</a>, <a href="Course_AssignmentGroup.js.html#line-58">line 58</a></p>
+									<p class="form-control-static"><a href="Course_Rubric.js.html">Course/Rubric.js</a>, <a href="Course_Rubric.js.html#line-38">line 38</a></p>
 								</div>
 							</div>
 			
@@ -470,11 +342,12 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="create" class="function public"><span class="name">create</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
+			<h4 id="createFreeFormGradingRubricInAssignment" class="function public"><span class="name">createFreeFormGradingRubricInAssignment</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Create a new assignment group in a course</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Creates a new rubric for grading with free form comments enabled and add it
+			  to an assignment in a course.</div>
 			</div>			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
@@ -508,25 +381,35 @@
 														<td class="attributes"></td>
 														<td></td>
 													<td class="last">
-															Canvas course Id to query
+															Canvas course Id to add the rubric to
 													</td>
 												</tr>
 												<tr>
-														<td><code>name</code></td>
-													<td><span class="param-type">string</span></td>
+														<td><code>assignmentId</code></td>
+													<td><span class="param-type">number</span></td>
 														<td class="attributes"></td>
 														<td></td>
 													<td class="last">
-															New assignment group name
+															Canvas course Id to add the rubric to
 													</td>
 												</tr>
 												<tr>
-														<td><code>weight</code></td>
-													<td><span class="param-type">number</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>0</td>
+														<td><code>rubricItems</code></td>
+													<td><span class="param-type">array</span></td>
+														<td class="attributes"></td>
+														<td></td>
 													<td class="last">
-															Assignment group weight
+															List of rubric item objects:
+									  [{description, points, [longDescription]}, ...]
+													</td>
+												</tr>
+												<tr>
+														<td><code>title</code></td>
+													<td><span class="param-type">string</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td>generated title</td>
+													<td class="last">
+															Title of the new rubric
 													</td>
 												</tr>
 											</tbody>
@@ -540,7 +423,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
 								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas AssignmentGroup <a href="https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup">https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup</a></div>
+									<div class="form-control-static returns-description">Canvas Rubric <a href="https://canvas.instructure.com/doc/api/rubrics.html#Rubric">https://canvas.instructure.com/doc/api/rubrics.html#Rubric</a></div>
 								</div>
 							</div>
 					</form>
@@ -549,6 +432,13 @@
 			
 			
 			
+							<!-- version -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Version</label>
+								<div class="col-sm-9">
+									<p class="form-control-static">unlisted</p>
+								</div>
+							</div>
 			
 			
 			
@@ -571,118 +461,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_AssignmentGroup.js.html">Course/AssignmentGroup.js</a>, <a href="Course_AssignmentGroup.js.html#line-83">line 83</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="delete" class="function public"><span class="name">delete</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Deletes an assignment group from a course</div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>options</code></td>
-							<td><span class="param-type">object</span></td>
-							<td class="last">
-									object containing all arguments
-										<table class="params table table-striped">
-											<thead>
-											<tr>
-													<th>Name</th>
-												<th>Type</th>
-													<th>Attributes</th>
-												<th class="last">Description</th>
-											</tr>
-											</thead>
-											<tbody>
-												<tr>
-														<td><code>courseId</code></td>
-													<td><span class="param-type">number</span></td>
-														<td class="attributes"></td>
-													<td class="last">
-															Canvas course Id to query
-													</td>
-												</tr>
-												<tr>
-														<td><code>assignmentGroupId</code></td>
-													<td><span class="param-type">number</span></td>
-														<td class="attributes"></td>
-													<td class="last">
-															Assignment group to delete
-													</td>
-												</tr>
-												<tr>
-														<td><code>moveAssignmentsTo</code></td>
-													<td><span class="param-type">number</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-													<td class="last">
-															Assignment group to move
-									  assignments to. If this parameter isn't included, assignments in the
-									  assignment group will be deleted.
-													</td>
-												</tr>
-											</tbody>
-										</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas AssignmentGroup <a href="https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup">https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup</a></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- author -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Author</label>
-								<div class="col-sm-9">
-										<p class="form-control-static">Gabriel Abrams</p>
-								</div>
-							</div>
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_AssignmentGroup.js.html">Course/AssignmentGroup.js</a>, <a href="Course_AssignmentGroup.js.html#line-107">line 107</a></p>
+									<p class="form-control-static"><a href="Course_Rubric.js.html">Course/Rubric.js</a>, <a href="Course_Rubric.js.html#line-68">line 68</a></p>
 								</div>
 							</div>
 			

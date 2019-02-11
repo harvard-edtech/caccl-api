@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>Course/Section.js</title>
+		<title>User/Self.js</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -12,36 +12,8 @@
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
 		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
 		<link type="text/css" rel="stylesheet" href="css/template.min.css">
-			<style>
-				.page-header,
-				pre.code-toolbar > .toolbar:hover {
-					background-color: {string};
-				}
-				.callout-primary,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus,
-				pre.code-toolbar > .toolbar:hover {
-					border-left-color: {string};
-				}
-				pre.code-toolbar > .toolbar:hover {
-					border-bottom-color: {string};
-				}
-				.callout-primary h5,
-				.symbol-title.collapsible-symbol .toggle-icon,
-				.breadcrumb li a,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus {
-					color: {string};
-				}
-			</style>
 		<script type="text/javascript">
-			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"{string}","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
 			window.DOCLET_TOC_ENABLED = false;
 			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
@@ -98,7 +70,7 @@
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
 				<span class="kind">source</span>
-				<h1><span class="name">Course/Section.js</span></h1>
+				<h1><span class="name">User/Self.js</span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -107,65 +79,68 @@
 		<section class="source-section">
 			<article></article>
 			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
- * Functions for interacting with sections within courses
- * @class api.course.section
+ * Functions for getting info on current user
+ * @class api.user.self
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
+const utils = require('../../common/utils');
 
-class Section extends EndpointCategory {
+class Self extends EndpointCategory {
   constructor(config) {
-    super(config, Section);
+    super(config, Self);
   }
 }
 
 /*------------------------------------------------------------------------*/
-/*                            Section Endpoints                           */
+/*                             Self Endpoints                             */
 /*------------------------------------------------------------------------*/
 
 /**
- * Gets the list of sections in a course
+ * Gets info on the current user
  * @author Gabriel Abrams
- * @method list
- * @memberof api.course.section
+ * @method getProfile
+ * @memberof api.user.self
  * @instance
- * @param {object} options - object containing all arguments
- * @param {number} options.courseId - Canvas course Id to query
- * @return {Promise.&lt;Object[]>} list of Canvas Sections {@link https://canvas.instructure.com/doc/api/sections.html#Section}
+ * @return {Promise.&lt;Object>} Canvas user object {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
-Section.list = function (options) {
+Self.getProfile = function () {
   return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/sections`,
+    path: `${prefix.v1}/users/self/profile`,
     method: 'GET',
   });
 };
-Section.list = 'get the list of sections in a course';
+Self.getProfile.action = 'get info on the current user';
 
 /**
- * Gets info on a specific section
+ * Gets the list of courses associated with the current user
  * @author Gabriel Abrams
- * @method get
- * @memberof api.course.section
+ * @method listCourses
+ * @memberof api.user.self
  * @instance
  * @param {object} options - object containing all arguments
- * @param {number} options.courseId - Canvas course Id to query
- * @param {number} options.sectionId - Section Id to retrieve
- * @return {Promise.&lt;Object>} Canvas Section {@link https://canvas.instructure.com/doc/api/sections.html#Section}
+ * @param {boolean} [includeTerm] - if truthy, term is included
+ * @return {Promise.&lt;Object>} Canvas course object {@link https://canvas.instructure.com/doc/api/courses.html#Course}
  */
-Section.get = function (options) {
+Self.listCourses = function (options) {
   return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/sections/${options.sectionId}`,
+    path: `${prefix.v1}/courses`,
     method: 'GET',
+    params: {
+      include: utils.genIncludesList({
+        term: options.includeTerm,
+      }),
+    },
   });
 };
-Section.get.action = 'get info on a specific section in a course';
+Self.listCourses.action = 'get the list of courses associated with the current user';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */
 /*------------------------------------------------------------------------*/
 
-module.exports = Section;
+module.exports = Self;
 </code></pre>
 		</section>
 			</div>

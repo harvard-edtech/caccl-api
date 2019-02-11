@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>Course/AssignmentGroup.js</title>
+		<title>Course/Page.js</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -12,36 +12,8 @@
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
 		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
 		<link type="text/css" rel="stylesheet" href="css/template.min.css">
-			<style>
-				.page-header,
-				pre.code-toolbar > .toolbar:hover {
-					background-color: {string};
-				}
-				.callout-primary,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus,
-				pre.code-toolbar > .toolbar:hover {
-					border-left-color: {string};
-				}
-				pre.code-toolbar > .toolbar:hover {
-					border-bottom-color: {string};
-				}
-				.callout-primary h5,
-				.symbol-title.collapsible-symbol .toggle-icon,
-				.breadcrumb li a,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus {
-					color: {string};
-				}
-			</style>
 		<script type="text/javascript">
-			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"{string}","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
 			window.DOCLET_TOC_ENABLED = false;
 			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
@@ -98,7 +70,7 @@
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
 				<span class="kind">source</span>
-				<h1><span class="name">Course/AssignmentGroup.js</span></h1>
+				<h1><span class="name">Course/Page.js</span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -107,153 +79,160 @@
 		<section class="source-section">
 			<article></article>
 			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
- * Functions for interacting with assignment groups within courses
- * @class api.course.assignmentGroup
+ * Functions for interacting with pages within courses
+ * @class api.course.page
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
 const utils = require('../../common/utils');
 
-class AssignmentGroup extends EndpointCategory {
+class Page extends EndpointCategory {
   constructor(config) {
-    super(config, AssignmentGroup);
+    super(config, Page);
   }
 }
 
 /*------------------------------------------------------------------------*/
-/*                          Assignment Endpoints                          */
+/*                             Page Endpoints                             */
 /*------------------------------------------------------------------------*/
 
 /**
- * Lists assignment groups in a course
+ * Gets the list of pages in a course
  * @author Gabriel Abrams
- * @memberof api.course.assignmentGroup
+ * @method list
+ * @memberof api.course.page
  * @instance
- * @method listAssignmentGroups
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
- * @return {Promise.&lt;Object[]>} list of Canvas AssignmentGroups {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
+ * @return {Promise.&lt;Object[]>} list of Canvas Pages {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
-AssignmentGroup.list = function (options) {
+Page.list = function (options) {
   return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
+    path: `${prefix.v1}/courses/${options.courseId}/pages`,
     method: 'GET',
   });
 };
-AssignmentGroup.list.action = 'list the assignment groups in a course';
+Page.list.action = 'get the list of pages in a course';
 
 /**
- * Gets info on a specific assignment group in a course
+ * Get info on a specific page in a course
  * @author Gabriel Abrams
- * @memberof api.course.assignmentGroup
+ * @method get
+ * @memberof api.course.page
  * @instance
- * @method getAssignmentGroup
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
- * @param {number} options.assignmentGroupId - Assignment group to get
- * @param {number} options.courseId - Canvas course Id to query
- * @return {Promise.&lt;Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
+ * @param {string} options.pageURL - Canvas page url (just the last part of
+ *   path)
+ * @return {Promise.&lt;Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
-AssignmentGroup.get = function (options) {
+Page.get = function (options) {
   return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}`,
+    path: `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
     method: 'GET',
   });
 };
-AssignmentGroup.get.action = 'get info on a specific assignment group in a course';
+Page.get.action = 'get info on a specific page in a course';
 
 /**
- * Updates an assignment group in a course
+ * Updates a Canvas page
  * @author Gabriel Abrams
- * @memberof api.course.assignmentGroup
- * @instance
  * @method update
+ * @memberof api.course.page
+ * @instance
  * @param {object} options - object containing all arguments
- * @param {number} options.courseId - Canvas course Id to query
- * @param {number} options.assignmentGroupId - Assignment group to update
- * @param {string} [options.name=current value] - New assignment group name
- * @param {number} [options.weight=current value] - New weight
- * @return {Promise.&lt;Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
+ * @param {number} options.courseID - Canvas course ID holding the page to
+ *   update
+ * @param {string} options.pageURL - Canvas page url (just the last part of
+ *   path)
+ * @param {boolean} [options.notifyOfUpdate=false] - if true, send notification
+ * @param {string} [options.title=current value] - New title of the page
+ * @param {string} [options.body=current value] - New html body of the page
+ * @param {string} [options.editingRoles=current value] - New usertype(s) who
+ *   can edit
+ * @param {boolean} [options.published=current value] - New publish status of
+ *   page
+ * @param {boolean} [options.frontPage=current value] - New front page status of
+ *   page
+ * @return {Promise.&lt;Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
-AssignmentGroup.update = function (options) {
+Page.update = function (options) {
   return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}`,
+    path: `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
     method: 'PUT',
     params: {
-      name: utils.includeIfTruthy(options.name),
-      group_weight: utils.includeIfNumber(options.weight),
+      'wiki_page[title]': utils.includeIfTruthy(options.title),
+      'wiki_page[body]': utils.includeIfTruthy(options.body),
+      'wiki_page[editing_roles]':
+         utils.includeIfTruthy(options.editingRoles),
+      'wiki_page[notify_of_update]':
+         utils.includeIfTruthy(options.notify_of_update),
+      'wiki_page[published]': utils.includeIfBoolean(options.published),
+      'wiki_page[front_page]': utils.includeIfBoolean(options.frontPage),
     },
   });
 };
-AssignmentGroup.update.action = 'update an assignment group in a course';
+Page.update.action = 'update a specific page in a course';
 
 /**
- * Create a new assignment group in a course
+ * Creates a new page in a course
  * @author Gabriel Abrams
- * @memberof api.course.assignmentGroup
- * @instance
  * @method create
+ * @memberof api.course.page
+ * @instance
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
- * @param {string} options.name - New assignment group name
- * @param {number} [options.weight=0] - Assignment group weight
- * @return {Promise.&lt;Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
+ * @param {string} [options.title=Untitled Page] - The title of the page
+ * @param {string} [options.body=null] - html body of the page
+ * @param {string} [options.editingRoles=teachers] - usertype(s) who can edit
+ * @param {boolean} [options.notifyOfUpdate=false] - if true, sends notification
+ * @param {boolean} [options.published=false] - if true, publishes page upon
+ *   creation
+ * @param {boolean} [options.frontPage=false] - if true, sets page as front page
+ * @return {Promise.&lt;Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
-AssignmentGroup.create = function (options) {
+Page.create = function (options) {
   return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
+    path: `${prefix.v1}/courses/${options.courseId}/pages`,
     method: 'POST',
     params: {
-      name: utils.includeIfTruthy(options.name),
-      group_weight: utils.includeIfNumber(options.weight),
+      'wiki_page[title]': (options.title || 'Untitled Page'),
+      'wiki_page[body]': (options.body || ''),
+      'wiki_page[editing_roles]': (options.editingRoles || 'teachers'),
+      'wiki_page[notify_of_update]':
+        utils.isTruthy(options.notifyOfUpdate),
+      'wiki_page[published]': utils.isTruthy(options.published),
+      'wiki_page[front_page]': utils.isTruthy(options.frontPage),
     },
   });
 };
-AssignmentGroup.create.action = 'create a new assignment group in a course';
+Page.create.action = 'create a new page in a course';
 
 /**
- * Deletes an assignment group from a course
+ * Deletes a page from a course
  * @author Gabriel Abrams
- * @memberof api.course.assignmentGroup
- * @instance
  * @method delete
+ * @memberof api.course.page
+ * @instance
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
- * @param {number} options.assignmentGroupId - Assignment group to delete
- * @param {number} [options.moveAssignmentsTo] - Assignment group to move
- *   assignments to. If this parameter isn't included, assignments in the
- *   assignment group will be deleted.
- * @return {Promise.&lt;Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
+ * @param {string} options.pageURL - Page url to delete (just last part of path)
+ * @return {Promise.&lt;Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
-AssignmentGroup.delete = function (options) {
+Page.delete = function (options) {
   return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}`,
+    path: `${prefix.v1}/courses/${options.courseId}/pages/${options.pageURL}`,
     method: 'DELETE',
-    params: {
-      move_assignments_to:
-        utils.includeIfNumber(options.moveAssignmentsTo),
-    },
-  })
-    .then((response) => {
-      // Uncache destination assignment group if applicable
-      if (options.moveAssignmentsTo) {
-        // Uncache the destination assignment group
-        return this.uncache(
-          [`${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.moveAssignmentsTo}*`],
-          response
-        );
-      }
-      return Promise.resolve(response);
-    });
+  });
 };
-AssignmentGroup.delete.action = 'delete an assignment group from a course';
+Page.delete.action = 'delete a page from a course';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */
 /*------------------------------------------------------------------------*/
 
-module.exports = AssignmentGroup;
+module.exports = Page;
 </code></pre>
 		</section>
 			</div>

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>Course/Group.js</title>
+		<title>Course/AssignmentGroup.js</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -12,36 +12,8 @@
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
 		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
 		<link type="text/css" rel="stylesheet" href="css/template.min.css">
-			<style>
-				.page-header,
-				pre.code-toolbar > .toolbar:hover {
-					background-color: {string};
-				}
-				.callout-primary,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus,
-				pre.code-toolbar > .toolbar:hover {
-					border-left-color: {string};
-				}
-				pre.code-toolbar > .toolbar:hover {
-					border-bottom-color: {string};
-				}
-				.callout-primary h5,
-				.symbol-title.collapsible-symbol .toggle-icon,
-				.breadcrumb li a,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus {
-					color: {string};
-				}
-			</style>
 		<script type="text/javascript">
-			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"{string}","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
 			window.DOCLET_TOC_ENABLED = false;
 			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
@@ -98,7 +70,7 @@
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
 				<span class="kind">source</span>
-				<h1><span class="name">Course/Group.js</span></h1>
+				<h1><span class="name">Course/AssignmentGroup.js</span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -107,106 +79,153 @@
 		<section class="source-section">
 			<article></article>
 			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
- * Functions for interacting with student groups within courses
- * @class api.course.group
+ * Functions for interacting with assignment groups within courses
+ * @class api.course.assignmentGroup
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
 const utils = require('../../common/utils');
 
-class Group extends EndpointCategory {
+class AssignmentGroup extends EndpointCategory {
   constructor(config) {
-    super(config, Group);
+    super(config, AssignmentGroup);
   }
 }
 
 /*------------------------------------------------------------------------*/
-/*                           Table of Contents:                           */
-/*                           - Group                                      */
-/*                           - Group Members                              */
-/*------------------------------------------------------------------------*/
-
-/*------------------------------------------------------------------------*/
-/*                             Group Endpoints                            */
+/*                          Assignment Endpoints                          */
 /*------------------------------------------------------------------------*/
 
 /**
- * Gets info on a specific group in a course
+ * Lists assignment groups in a course
  * @author Gabriel Abrams
- * @method get
- * @memberof api.course.group
+ * @memberof api.course.assignmentGroup
  * @instance
+ * @method listAssignmentGroups
  * @param {object} options - object containing all arguments
- * @param {number} options.groupId - Canvas group Id
- * @return Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
+ * @param {number} options.courseId - Canvas course Id to query
+ * @return {Promise.&lt;Object[]>} list of Canvas AssignmentGroups {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
-Group.get = function (options) {
+AssignmentGroup.list = function (options) {
   return this.visitEndpoint({
-    path: `${prefix.v1}/groups/${options.groupId}`,
+    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
     method: 'GET',
   });
 };
-Group.get.action = 'get info on a specific group in a course';
-
-// NOTE: to create or delete a group, see endpoints in groupSets
-
-/*------------------------------------------------------------------------*/
-/*                         Group Member Endpoints                         */
-/*------------------------------------------------------------------------*/
+AssignmentGroup.list.action = 'list the assignment groups in a course';
 
 /**
- * Gets the list of members in a group
+ * Gets info on a specific assignment group in a course
  * @author Gabriel Abrams
- * @method listMembers
- * @memberof api.course.group
+ * @memberof api.course.assignmentGroup
  * @instance
+ * @method getAssignmentGroup
  * @param {object} options - object containing all arguments
- * @param {number} options.groupId - Canvas group Id
- * @return {Promise.&lt;Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {number} options.assignmentGroupId - Assignment group to get
+ * @param {number} options.courseId - Canvas course Id to query
+ * @return {Promise.&lt;Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
-Group.listMembers = function (options) {
+AssignmentGroup.get = function (options) {
   return this.visitEndpoint({
-    path: `${prefix.v1}/groups/${options.groupId}/users`,
+    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}`,
     method: 'GET',
   });
 };
-Group.listMembers.action = 'get the list of members in a specific group';
+AssignmentGroup.get.action = 'get info on a specific assignment group in a course';
 
 /**
- * Gets the list of members in a group
+ * Updates an assignment group in a course
  * @author Gabriel Abrams
- * @method updateMembers
- * @memberof api.course.group
+ * @memberof api.course.assignmentGroup
  * @instance
+ * @method update
  * @param {object} options - object containing all arguments
- * @param {number} options.groupId - Canvas group Id
- * @param {array} [options.members=[]] - The list of user objects/user Ids that
- *   should be in the group
- * @return {Promise.&lt;Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {number} options.assignmentGroupId - Assignment group to update
+ * @param {string} [options.name=current value] - New assignment group name
+ * @param {number} [options.weight=current value] - New weight
+ * @return {Promise.&lt;Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
-Group.updateMembers = function (options) {
+AssignmentGroup.update = function (options) {
   return this.visitEndpoint({
-    path: `${prefix.v1}/groups/${options.groupId}`,
+    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}`,
     method: 'PUT',
     params: {
-      members: utils.extractIdsIfApplicable(options.members),
+      name: utils.includeIfTruthy(options.name),
+      group_weight: utils.includeIfNumber(options.weight),
+    },
+  });
+};
+AssignmentGroup.update.action = 'update an assignment group in a course';
+
+/**
+ * Create a new assignment group in a course
+ * @author Gabriel Abrams
+ * @memberof api.course.assignmentGroup
+ * @instance
+ * @method create
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {string} options.name - New assignment group name
+ * @param {number} [options.weight=0] - Assignment group weight
+ * @return {Promise.&lt;Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
+ */
+AssignmentGroup.create = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups`,
+    method: 'POST',
+    params: {
+      name: utils.includeIfTruthy(options.name),
+      group_weight: utils.includeIfNumber(options.weight),
+    },
+  });
+};
+AssignmentGroup.create.action = 'create a new assignment group in a course';
+
+/**
+ * Deletes an assignment group from a course
+ * @author Gabriel Abrams
+ * @memberof api.course.assignmentGroup
+ * @instance
+ * @method delete
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {number} options.assignmentGroupId - Assignment group to delete
+ * @param {number} [options.moveAssignmentsTo] - Assignment group to move
+ *   assignments to. If this parameter isn't included, assignments in the
+ *   assignment group will be deleted.
+ * @return {Promise.&lt;Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
+ */
+AssignmentGroup.delete = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}`,
+    method: 'DELETE',
+    params: {
+      move_assignments_to:
+        utils.includeIfNumber(options.moveAssignmentsTo),
     },
   })
     .then((response) => {
-      return this.uncache([
-        // Uncache the list of group members
-        `${prefix.v1}/groups/${options.groupId}/users`,
-      ], response);
+      // Uncache destination assignment group if applicable
+      if (options.moveAssignmentsTo) {
+        // Uncache the destination assignment group
+        return this.uncache(
+          [`${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.moveAssignmentsTo}*`],
+          response
+        );
+      }
+      return Promise.resolve(response);
     });
 };
-Group.updateMembers.action = 'update the list of members in a group';
+AssignmentGroup.delete.action = 'delete an assignment group from a course';
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */
 /*------------------------------------------------------------------------*/
 
-module.exports = Group;
+module.exports = AssignmentGroup;
 </code></pre>
 		</section>
 			</div>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>self</title>
+		<title>.course.section</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -11,36 +11,8 @@
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
 		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
 		<link type="text/css" rel="stylesheet" href="css/template.min.css">
-			<style>
-				.page-header,
-				pre.code-toolbar > .toolbar:hover {
-					background-color: {string};
-				}
-				.callout-primary,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus,
-				pre.code-toolbar > .toolbar:hover {
-					border-left-color: {string};
-				}
-				pre.code-toolbar > .toolbar:hover {
-					border-bottom-color: {string};
-				}
-				.callout-primary h5,
-				.symbol-title.collapsible-symbol .toggle-icon,
-				.breadcrumb li a,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus {
-					color: {string};
-				}
-			</style>
 		<script type="text/javascript">
-			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"{string}","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
 			window.DOCLET_TOC_ENABLED = true;
 			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
@@ -97,7 +69,7 @@
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
 				<span class="kind">class</span>
-				<h1><span class="name">self</span></h1>
+				<h1><span class="ancestors"><a href="api.course.html">.course</a>.</span><span class="name">section</span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -106,16 +78,16 @@
 						<ol class="breadcrumb">
 							<li><a href="index.html">Home</a></li>
 							<li><a href="list_class.html">Endpoints</a></li>
-							<li class="active">self</li>
+							<li class="active"><a href="api.course.html">.course</a>.section</li>
 						</ol>
 					<section>
 							<dl class="symbol primary">
 								<dt class="symbol-title class collapsible-symbol expanded">
-			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">self</span><span class="signature-params">()</span><span class="signature-type"></span></h2>
+			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">section</span><span class="signature-params">()</span><span class="signature-type"></span></h2>
 </dt>
 <dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Functions for getting info on current user</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Functions for interacting with sections within courses</div>
 			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
 			
 			
@@ -136,7 +108,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="User_Self.js.html">User/Self.js</a>, <a href="User_Self.js.html#line-1">line 1</a></p>
+									<p class="form-control-static"><a href="Course_Section.js.html">Course/Section.js</a>, <a href="Course_Section.js.html#line-1">line 1</a></p>
 								</div>
 							</div>
 			
@@ -152,16 +124,55 @@
 									<dl class="symbol">
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="getProfile" class="function public"><span class="name">getProfile</span><span class="signature-params">()</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
+			<h4 id="list" class="function public"><span class="name">list</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;Object>>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets info on the current user</div>
-			</div>			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets the list of sections in a course</div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>options</code></td>
+							<td><span class="param-type">object</span></td>
+							<td class="last">
+									object containing all arguments
+										<table class="params table table-striped">
+											<thead>
+											<tr>
+													<th>Name</th>
+												<th>Type</th>
+												<th class="last">Description</th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr>
+														<td><code>courseId</code></td>
+													<td><span class="param-type">number</span></td>
+													<td class="last">
+															Canvas course Id to query
+													</td>
+												</tr>
+											</tbody>
+										</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
 							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;Object>></span></label>
 								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas user object <a href="https://canvas.instructure.com/doc/api/users.html#User">https://canvas.instructure.com/doc/api/users.html#User</a></div>
+									<div class="form-control-static returns-description">list of Canvas Sections <a href="https://canvas.instructure.com/doc/api/sections.html#Section">https://canvas.instructure.com/doc/api/sections.html#Section</a></div>
 								</div>
 							</div>
 					</form>
@@ -192,7 +203,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="User_Self.js.html">User/Self.js</a>, <a href="User_Self.js.html#line-20">line 20</a></p>
+									<p class="form-control-static"><a href="Course_Section.js.html">Course/Section.js</a>, <a href="Course_Section.js.html#line-19">line 19</a></p>
 								</div>
 							</div>
 			
@@ -204,11 +215,11 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="listCourses" class="function public"><span class="name">listCourses</span><span class="signature-params">( <span class="signature-param">options</span> [,&nbsp;<span class="signature-param">includeTerm</span>&nbsp;]&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
+			<h4 id="get" class="function public"><span class="name">get</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets the list of courses associated with the current user</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets info on a specific section</div>
 			</div>			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
@@ -216,7 +227,6 @@
 					<tr>
 							<th>Name</th>
 						<th>Type</th>
-							<th>Attributes</th>
 						<th class="last">Description</th>
 					</tr>
 					</thead>
@@ -224,17 +234,33 @@
 						<tr>
 								<td><code>options</code></td>
 							<td><span class="param-type">object</span></td>
-								<td class="attributes"></td>
 							<td class="last">
 									object containing all arguments
-							</td>
-						</tr>
-						<tr>
-								<td><code>includeTerm</code></td>
-							<td><span class="param-type">boolean</span></td>
-								<td class="attributes">&lt;optional&gt;<br/></td>
-							<td class="last">
-									if truthy, term is included
+										<table class="params table table-striped">
+											<thead>
+											<tr>
+													<th>Name</th>
+												<th>Type</th>
+												<th class="last">Description</th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr>
+														<td><code>courseId</code></td>
+													<td><span class="param-type">number</span></td>
+													<td class="last">
+															Canvas course Id to query
+													</td>
+												</tr>
+												<tr>
+														<td><code>sectionId</code></td>
+													<td><span class="param-type">number</span></td>
+													<td class="last">
+															Section Id to retrieve
+													</td>
+												</tr>
+											</tbody>
+										</table>
 							</td>
 						</tr>
 					</tbody>
@@ -244,7 +270,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
 								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas course object <a href="https://canvas.instructure.com/doc/api/courses.html#Course">https://canvas.instructure.com/doc/api/courses.html#Course</a></div>
+									<div class="form-control-static returns-description">Canvas Section <a href="https://canvas.instructure.com/doc/api/sections.html#Section">https://canvas.instructure.com/doc/api/sections.html#Section</a></div>
 								</div>
 							</div>
 					</form>
@@ -275,7 +301,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="User_Self.js.html">User/Self.js</a>, <a href="User_Self.js.html#line-36">line 36</a></p>
+									<p class="form-control-static"><a href="Course_Section.js.html">Course/Section.js</a>, <a href="Course_Section.js.html#line-37">line 37</a></p>
 								</div>
 							</div>
 			

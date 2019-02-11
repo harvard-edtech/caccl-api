@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>.course.gradebookColumn</title>
+		<title>.course.app</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -11,36 +11,8 @@
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
 		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
 		<link type="text/css" rel="stylesheet" href="css/template.min.css">
-			<style>
-				.page-header,
-				pre.code-toolbar > .toolbar:hover {
-					background-color: {string};
-				}
-				.callout-primary,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus,
-				pre.code-toolbar > .toolbar:hover {
-					border-left-color: {string};
-				}
-				pre.code-toolbar > .toolbar:hover {
-					border-bottom-color: {string};
-				}
-				.callout-primary h5,
-				.symbol-title.collapsible-symbol .toggle-icon,
-				.breadcrumb li a,
-				.toc .nav > li > a:hover,
-				.toc .nav > li > a:focus,
-				.toc .nav > li.active > a,
-				.toc .nav > li.active > a:hover,
-				.toc .nav > li.active > a:focus {
-					color: {string};
-				}
-			</style>
 		<script type="text/javascript">
-			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"{string}","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
 			window.DOCLET_TOC_ENABLED = true;
 			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
@@ -97,7 +69,7 @@
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
 				<span class="kind">class</span>
-				<h1><span class="ancestors"><a href="api.course.html">.course</a>.</span><span class="name">gradebookColumn</span></h1>
+				<h1><span class="ancestors"><a href="api.course.html">.course</a>.</span><span class="name">app</span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -106,16 +78,16 @@
 						<ol class="breadcrumb">
 							<li><a href="index.html">Home</a></li>
 							<li><a href="list_class.html">Endpoints</a></li>
-							<li class="active"><a href="api.course.html">.course</a>.gradebookColumn</li>
+							<li class="active"><a href="api.course.html">.course</a>.app</li>
 						</ol>
 					<section>
 							<dl class="symbol primary">
 								<dt class="symbol-title class collapsible-symbol expanded">
-			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">gradebookColumn</span><span class="signature-params">()</span><span class="signature-type"></span></h2>
+			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">app</span><span class="signature-params">()</span><span class="signature-type"></span></h2>
 </dt>
 <dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Functions for interacting with gradebook columns within courses</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Functions for interacting with external LTI apps within courses</div>
 			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
 			
 			
@@ -136,7 +108,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_GradebookColumn.js.html">Course/GradebookColumn.js</a>, <a href="Course_GradebookColumn.js.html#line-1">line 1</a></p>
+									<p class="form-control-static"><a href="Course_App.js.html">Course/App.js</a>, <a href="Course_App.js.html#line-1">line 1</a></p>
 								</div>
 							</div>
 			
@@ -152,118 +124,11 @@
 									<dl class="symbol">
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="list" class="function public"><span class="name">list</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;Object>>}</span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets the list of custom gradebook columns in a course</div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>options</code></td>
-							<td><span class="param-type">object</span></td>
-							<td class="last">
-									object containing all arguments
-										<table class="params table table-striped">
-											<thead>
-											<tr>
-													<th>Name</th>
-												<th>Type</th>
-													<th>Attributes</th>
-													<th>Default</th>
-												<th class="last">Description</th>
-											</tr>
-											</thead>
-											<tbody>
-												<tr>
-														<td><code>courseId</code></td>
-													<td><span class="param-type">number</span></td>
-														<td class="attributes"></td>
-														<td></td>
-													<td class="last">
-															Canvas course Id to query
-													</td>
-												</tr>
-												<tr>
-														<td><code>includeHidden</code></td>
-													<td><span class="param-type">boolean</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>false</td>
-													<td class="last">
-															If truthy, includes hidden
-									  gradebook columns as well.
-													</td>
-												</tr>
-											</tbody>
-										</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;Object>></span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description">List of Canvas CustomColumns <a href="https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn">https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn</a></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- author -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Author</label>
-								<div class="col-sm-9">
-										<p class="form-control-static">Gabriel Abrams</p>
-								</div>
-							</div>
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_GradebookColumn.js.html">Course/GradebookColumn.js</a>, <a href="Course_GradebookColumn.js.html#line-30">line 30</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
 			<h4 id="get" class="function public"><span class="name">get</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets info on a specific gradebook column in a course. This is a simulated
-			  endpoint: it does not exist. We are just pulling the list of columns and
-			  returning one element.</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets info on a single LTI tool</div>
 			</div>			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
@@ -285,8 +150,6 @@
 											<tr>
 													<th>Name</th>
 												<th>Type</th>
-													<th>Attributes</th>
-													<th>Default</th>
 												<th class="last">Description</th>
 											</tr>
 											</thead>
@@ -294,29 +157,15 @@
 												<tr>
 														<td><code>courseId</code></td>
 													<td><span class="param-type">number</span></td>
-														<td class="attributes"></td>
-														<td></td>
 													<td class="last">
-															Canvas course Id to query
+															Canvas course Id
 													</td>
 												</tr>
 												<tr>
-														<td><code>columnId</code></td>
+														<td><code>appId</code></td>
 													<td><span class="param-type">number</span></td>
-														<td class="attributes"></td>
-														<td></td>
 													<td class="last">
-															Canvas column Id to return
-													</td>
-												</tr>
-												<tr>
-														<td><code>isHidden</code></td>
-													<td><span class="param-type">boolean</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>false</td>
-													<td class="last">
-															Must be set to true if the column
-									  you're retrieving is a hidden column.
+															The LTI app Id to get
 													</td>
 												</tr>
 											</tbody>
@@ -330,7 +179,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
 								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas CustomColumn <a href="https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn">https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn</a></div>
+									<div class="form-control-static returns-description">Canvas external tool <a href="https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show">https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show</a></div>
 								</div>
 							</div>
 					</form>
@@ -361,7 +210,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_GradebookColumn.js.html">Course/GradebookColumn.js</a>, <a href="Course_GradebookColumn.js.html#line-53">line 53</a></p>
+									<p class="form-control-static"><a href="Course_App.js.html">Course/App.js</a>, <a href="Course_App.js.html#line-53">line 53</a></p>
 								</div>
 							</div>
 			
@@ -373,11 +222,11 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="update" class="function public"><span class="name">update</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
+			<h4 id="add" class="function public"><span class="name">add</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Updates a gradebook column's information</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Adds an LTI app to a Canvas course</div>
 			</div>			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
@@ -400,7 +249,6 @@
 													<th>Name</th>
 												<th>Type</th>
 													<th>Attributes</th>
-													<th>Default</th>
 												<th class="last">Description</th>
 											</tr>
 											</thead>
@@ -409,47 +257,57 @@
 														<td><code>courseId</code></td>
 													<td><span class="param-type">number</span></td>
 														<td class="attributes"></td>
-														<td></td>
 													<td class="last">
-															Canvas course ID
+															Canvas course Id to install into
 													</td>
 												</tr>
 												<tr>
-														<td><code>columnId</code></td>
-													<td><span class="param-type">number</span></td>
+														<td><code>name</code></td>
+													<td><span class="param-type">string</span></td>
 														<td class="attributes"></td>
-														<td></td>
 													<td class="last">
-															Canvas custom gradebook column ID to query
+															The app name (for settings app list)
 													</td>
 												</tr>
 												<tr>
-														<td><code>title</code></td>
+														<td><code>key</code></td>
+													<td><span class="param-type">string</span></td>
+														<td class="attributes"></td>
+													<td class="last">
+															Installation consumer key
+													</td>
+												</tr>
+												<tr>
+														<td><code>secret</code></td>
+													<td><span class="param-type">string</span></td>
+														<td class="attributes"></td>
+													<td class="last">
+															Installation consumer secret
+													</td>
+												</tr>
+												<tr>
+														<td><code>xml</code></td>
+													<td><span class="param-type">string</span></td>
+														<td class="attributes"></td>
+													<td class="last">
+															XML configuration file, standard LTI format
+													</td>
+												</tr>
+												<tr>
+														<td><code>description</code></td>
 													<td><span class="param-type">string</span></td>
 														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>current value</td>
 													<td class="last">
-															New title for the column
+															A human-readable description of the
+									  app
 													</td>
 												</tr>
 												<tr>
-														<td><code>position</code></td>
-													<td><span class="param-type">number</span></td>
+														<td><code>launchPrivacy</code></td>
+													<td><span class="param-type">string</span></td>
 														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>current value</td>
 													<td class="last">
-															New position for the
-									  column in the list of custom gradebook columns
-													</td>
-												</tr>
-												<tr>
-														<td><code>hidden</code></td>
-													<td><span class="param-type">boolean</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>current value</td>
-													<td class="last">
-															If set, updates whether the
-									  custom gradebook column is hidden from everyone. Must be a boolean
+															'public' by default
 													</td>
 												</tr>
 											</tbody>
@@ -463,7 +321,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
 								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas CustomColumn <a href="https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn">https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn</a></div>
+									<div class="form-control-static returns-description">Canvas external tool <a href="https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show">https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show</a></div>
 								</div>
 							</div>
 					</form>
@@ -494,7 +352,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_GradebookColumn.js.html">Course/GradebookColumn.js</a>, <a href="Course_GradebookColumn.js.html#line-93">line 93</a></p>
+									<p class="form-control-static"><a href="Course_App.js.html">Course/App.js</a>, <a href="Course_App.js.html#line-72">line 72</a></p>
 								</div>
 							</div>
 			
@@ -506,11 +364,220 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="create" class="function public"><span class="name">create</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
+			<h4 id="remove" class="function public"><span class="name">remove</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Creates a new gradebook column in a course</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Removes an LTI app from a Canvas course</div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>options</code></td>
+							<td><span class="param-type">object</span></td>
+							<td class="last">
+									object containing all arguments
+										<table class="params table table-striped">
+											<thead>
+											<tr>
+													<th>Name</th>
+												<th>Type</th>
+												<th class="last">Description</th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr>
+														<td><code>courseId</code></td>
+													<td><span class="param-type">number</span></td>
+													<td class="last">
+															Canvas course Id to remove app from
+													</td>
+												</tr>
+												<tr>
+														<td><code>appId</code></td>
+													<td><span class="param-type">number</span></td>
+													<td class="last">
+															The LTI app Id to remove
+													</td>
+												</tr>
+											</tbody>
+										</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description">Canvas external tool <a href="https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show">https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show</a></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- author -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Author</label>
+								<div class="col-sm-9">
+										<p class="form-control-static">Gabriel Abrams</p>
+								</div>
+							</div>
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="Course_App.js.html">Course/App.js</a>, <a href="Course_App.js.html#line-107">line 107</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="getMetadata" class="function public"><span class="name">getMetadata</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets the metadata for an LTI app in a course. Note: this endpoint requires
+			  that the app have a custom parameter called 'metadataId' with an identifier
+			  that we will use to refer to the metadata. If each installation of an app
+			  will have its own metadata, each installation should have a different
+			  metadataId. If all installations share the same metadata, they should all
+			  have the same metadataId. When getting metadata, we return the metadata
+			  for the first app we find that has this metadataId</div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>options</code></td>
+							<td><span class="param-type">object</span></td>
+							<td class="last">
+									object containing all arguments
+										<table class="params table table-striped">
+											<thead>
+											<tr>
+													<th>Name</th>
+												<th>Type</th>
+												<th class="last">Description</th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr>
+														<td><code>courseId</code></td>
+													<td><span class="param-type">number</span></td>
+													<td class="last">
+															Canvas course Id that holds the app
+													</td>
+												</tr>
+												<tr>
+														<td><code>metadataId</code></td>
+													<td><span class="param-type">number</span></td>
+													<td class="last">
+															metadata identifier (see endpoint
+									  description)
+													</td>
+												</tr>
+											</tbody>
+										</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description">Canvas external tool <a href="https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show">https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show</a></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- author -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Author</label>
+								<div class="col-sm-9">
+										<p class="form-control-static">Gabriel Abrams</p>
+								</div>
+							</div>
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="Course_App.js.html">Course/App.js</a>, <a href="Course_App.js.html#line-130">line 130</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="updateMetadata" class="function public"><span class="name">updateMetadata</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;Object>>}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Updates the metadata for an LTI app in a course. Note: this endpoint requires
+			  that the app have a custom parameter called 'metadataId' with an identifier
+			  that we will use to refer to the metadata. If each installation of an app
+			  will have its own metadata, each installation should have a different
+			  metadataId. If all installations share the same metadata, they should all
+			  have the same metadataId. When updating metadata, we update the metadata
+			  for all apps with the given metadataId</div>
 			</div>			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
@@ -544,233 +611,26 @@
 														<td class="attributes"></td>
 														<td></td>
 													<td class="last">
-															Canvas course Id to query
+															Canvas course Id that holds the app
 													</td>
 												</tr>
 												<tr>
-														<td><code>title</code></td>
-													<td><span class="param-type">string</span></td>
+														<td><code>metadataId</code></td>
+													<td><span class="param-type">number</span></td>
+														<td class="attributes"></td>
+														<td></td>
+													<td class="last">
+															metadata identifier (see endpoint
+									  description)
+													</td>
+												</tr>
+												<tr>
+														<td><code>metadata</code></td>
+													<td><span class="param-type">object</span></td>
 														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>Untitled Column</td>
+														<td>{}</td>
 													<td class="last">
-															Title of new custom
-									  gradebook column
-													</td>
-												</tr>
-												<tr>
-														<td><code>position</code></td>
-													<td><span class="param-type">number</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>last</td>
-													<td class="last">
-															Position of the gradebook column
-									  within the list of custom gradebook columns
-													</td>
-												</tr>
-												<tr>
-														<td><code>hidden</code></td>
-													<td><span class="param-type">boolean</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>false</td>
-													<td class="last">
-															If truthy, hides the gradebook
-									  column from everyone, not just instructor as usual
-													</td>
-												</tr>
-											</tbody>
-										</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas CustomColumn <a href="https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn">https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn</a></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- author -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Author</label>
-								<div class="col-sm-9">
-										<p class="form-control-static">Gabriel Abrams</p>
-								</div>
-							</div>
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_GradebookColumn.js.html">Course/GradebookColumn.js</a>, <a href="Course_GradebookColumn.js.html#line-122">line 122</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="delete" class="function public"><span class="name">delete</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Deletes a gradebook column from a course</div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>options</code></td>
-							<td><span class="param-type">object</span></td>
-							<td class="last">
-									object containing all arguments
-										<table class="params table table-striped">
-											<thead>
-											<tr>
-													<th>Name</th>
-												<th>Type</th>
-												<th class="last">Description</th>
-											</tr>
-											</thead>
-											<tbody>
-												<tr>
-														<td><code>courseId</code></td>
-													<td><span class="param-type">number</span></td>
-													<td class="last">
-															Canvas course Id to query
-													</td>
-												</tr>
-												<tr>
-														<td><code>columnId</code></td>
-													<td><span class="param-type">number</span></td>
-													<td class="last">
-															Gradebook column Id
-													</td>
-												</tr>
-											</tbody>
-										</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas CustomColumn <a href="https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn">https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn</a></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- author -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Author</label>
-								<div class="col-sm-9">
-										<p class="form-control-static">Gabriel Abrams</p>
-								</div>
-							</div>
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_GradebookColumn.js.html">Course/GradebookColumn.js</a>, <a href="Course_GradebookColumn.js.html#line-151">line 151</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="listEntries" class="function public"><span class="name">listEntries</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;Object>>}</span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets the list of entries in a specific gradebook column in a course</div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>options</code></td>
-							<td><span class="param-type">object</span></td>
-							<td class="last">
-									object containing all arguments
-										<table class="params table table-striped">
-											<thead>
-											<tr>
-													<th>Name</th>
-												<th>Type</th>
-												<th class="last">Description</th>
-											</tr>
-											</thead>
-											<tbody>
-												<tr>
-														<td><code>courseId</code></td>
-													<td><span class="param-type">number</span></td>
-													<td class="last">
-															Canvas course Id to query
-													</td>
-												</tr>
-												<tr>
-														<td><code>columnId</code></td>
-													<td><span class="param-type">number</span></td>
-													<td class="last">
-															Gradebook column Id
+															json metadata object
 													</td>
 												</tr>
 											</tbody>
@@ -784,7 +644,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;Object>></span></label>
 								<div class="col-sm-9">
-									<div class="form-control-static returns-description">list of Canvas ColumnDatum objects <a href="https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum">https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum</a></div>
+									<div class="form-control-static returns-description">Array of external tools (the apps that were updated) <a href="https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show">https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show</a></div>
 								</div>
 							</div>
 					</form>
@@ -815,7 +675,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_GradebookColumn.js.html">Course/GradebookColumn.js</a>, <a href="Course_GradebookColumn.js.html#line-174">line 174</a></p>
+									<p class="form-control-static"><a href="Course_App.js.html">Course/App.js</a>, <a href="Course_App.js.html#line-202">line 202</a></p>
 								</div>
 							</div>
 			
@@ -827,11 +687,11 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="updateEntries" class="function public"><span class="name">updateEntries</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
+			<h4 id="list" class="function public"><span class="name">list</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;Object>>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Update the list of entries in a specific gradebook column in a course</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets the list of apps installed into a course</div>
 			</div>			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
@@ -854,7 +714,6 @@
 													<th>Name</th>
 												<th>Type</th>
 													<th>Attributes</th>
-													<th>Default</th>
 												<th class="last">Description</th>
 											</tr>
 											</thead>
@@ -863,48 +722,17 @@
 														<td><code>courseId</code></td>
 													<td><span class="param-type">number</span></td>
 														<td class="attributes"></td>
-														<td></td>
 													<td class="last">
 															Canvas course Id to query
 													</td>
 												</tr>
 												<tr>
-														<td><code>columnId</code></td>
-													<td><span class="param-type">number</span></td>
-														<td class="attributes"></td>
-														<td></td>
-													<td class="last">
-															Gradebook column Id
-													</td>
-												</tr>
-												<tr>
-														<td><code>entries</code></td>
-													<td><span class="param-type">array</span></td>
-														<td class="attributes"></td>
-														<td></td>
-													<td class="last">
-															list of ColumnDatum objects:
-									  `[{user_id: <Canvas User Id>, text: <New Entry Text>}, ...]`
-													</td>
-												</tr>
-												<tr>
-														<td><code>waitForCompletion</code></td>
+														<td><code>includeParents</code></td>
 													<td><span class="param-type">boolean</span></td>
 														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>false</td>
 													<td class="last">
-															If truthy, waits for
-									  completion of batch update request
-													</td>
-												</tr>
-												<tr>
-														<td><code>waitForCompletionTimeout</code></td>
-													<td><span class="param-type">number</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>2</td>
-													<td class="last">
-															Number of minutes to
-									  wait for completion of batch upload
+															If truthy, includes tools
+									  installed in all accounts above the current context
 													</td>
 												</tr>
 											</tbody>
@@ -916,9 +744,9 @@
 			</div>
 			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
 							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;Object>></span></label>
 								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas progress object <a href="https://canvas.instructure.com/doc/api/progress.html#Progress">https://canvas.instructure.com/doc/api/progress.html#Progress</a></div>
+									<div class="form-control-static returns-description">list of external tools <a href="https://canvas.instructure.com/doc/api/external_tools.html">https://canvas.instructure.com/doc/api/external_tools.html</a></div>
 								</div>
 							</div>
 					</form>
@@ -949,7 +777,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_GradebookColumn.js.html">Course/GradebookColumn.js</a>, <a href="Course_GradebookColumn.js.html#line-196">line 196</a></p>
+									<p class="form-control-static"><a href="Course_App.js.html">Course/App.js</a>, <a href="Course_App.js.html#line-30">line 30</a></p>
 								</div>
 							</div>
 			
