@@ -1,9 +1,9 @@
 # caccl-api
 A class that defines a set of Canvas endpoints that can be easily accessed. Each endpoint is equipped with the appropriate pre- and post-processing steps to make the Canvas endpoints "behave". For instance, _getSubmissions()_ fetches student submissions and removes the test student's submission in post-processing.
 
-## List of Endpoint Functions
+## Looking for List of Functions?
 
-See the "Endpoints" button at the top of the screen
+### Click the `Endpoints` button in the menu at the top of the page
 
 ## Getting Started
 
