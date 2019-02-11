@@ -1,3 +1,8 @@
+/**
+ * Functions for interacting with sections within courses
+ * @class api.course.section
+ */
+
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
 
@@ -15,7 +20,10 @@ class Section extends EndpointCategory {
  * Gets the list of sections in a course
  * @author Gabriel Abrams
  * @method list
- * @param {number} courseId - Canvas course Id to query
+ * @memberof api.course.section
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas Sections {@link https://canvas.instructure.com/doc/api/sections.html#Section}
  */
 Section.list = function (options) {
@@ -30,8 +38,11 @@ Section.list = 'get the list of sections in a course';
  * Gets info on a specific section
  * @author Gabriel Abrams
  * @method get
- * @param {number} courseId - Canvas course Id to query
- * @param {number} sectionId - Section Id to retrieve
+ * @memberof api.course.section
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {number} options.sectionId - Section Id to retrieve
  * @return {Promise.<Object>} Canvas Section {@link https://canvas.instructure.com/doc/api/sections.html#Section}
  */
 Section.get = function (options) {

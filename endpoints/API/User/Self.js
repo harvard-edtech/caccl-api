@@ -1,3 +1,8 @@
+/**
+ * Functions for getting info on current user
+ * @class api.user.self
+ */
+
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
 const utils = require('../../common/utils');
@@ -16,6 +21,8 @@ class Self extends EndpointCategory {
  * Gets info on the current user
  * @author Gabriel Abrams
  * @method getProfile
+ * @memberof api.user.self
+ * @instance
  * @return {Promise.<Object>} Canvas user object {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Self.getProfile = function () {
@@ -30,6 +37,9 @@ Self.getProfile.action = 'get info on the current user';
  * Gets the list of courses associated with the current user
  * @author Gabriel Abrams
  * @method listCourses
+ * @memberof api.user.self
+ * @instance
+ * @param {object} options - object containing all arguments
  * @param {boolean} [includeTerm] - if truthy, term is included
  * @return {Promise.<Object>} Canvas course object {@link https://canvas.instructure.com/doc/api/courses.html#Course}
  */

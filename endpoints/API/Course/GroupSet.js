@@ -1,3 +1,8 @@
+/**
+ * Functions for interacting with group sets/categories within courses
+ * @class api.course.groupSet
+ */
+
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
 const utils = require('../../common/utils');
@@ -25,7 +30,10 @@ class GroupSet extends EndpointCategory {
  * Lists the group sets in the course
  * @author Gabriel Abrams
  * @method list
- * @param {number} courseId - Canvas course Id
+ * @memberof api.course.groupSet
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id
  * @return {Promise.<Object[]>} list of Canvas GroupCategories {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
  */
 GroupSet.list = function (options) {
@@ -40,7 +48,10 @@ GroupSet.list.action = 'get the list of group sets in a course';
  * Gets info on a specific group set
  * @author Gabriel Abrams
  * @method get
- * @param {number} groupSetId - Canvas group set Id
+ * @memberof api.course.groupSet
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.groupSetId - Canvas group set Id
  * @return {Promise.<Object>} Canvas GroupCategory {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
  */
 GroupSet.get = function (options) {
@@ -55,8 +66,11 @@ GroupSet.get.action = 'get info on a specific group set in a course';
  * Create a group set in a course
  * @author Gabriel Abrams
  * @method create
- * @param {number} courseId - Canvas course Id to create a group set in
- * @param {string} name - The name of the new group set
+ * @memberof api.course.groupSet
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to create a group set in
+ * @param {string} options.name - The name of the new group set
  * @return {Promise.<Object>} Canvas GroupCategory {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
  */
 GroupSet.create = function (options) {
@@ -80,8 +94,11 @@ GroupSet.create.action = 'create a new group set in a course';
  * Deletes a group set
  * @author Gabriel Abrams
  * @method delete
- * @param {number} courseId - Canvas course Id
- * @param {number} groupSetId - Canvas group set Id
+ * @memberof api.course.groupSet
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id
+ * @param {number} options.groupSetId - Canvas group set Id
  * @return {Promise.<Object>} Canvas GroupCategory {@link https://canvas.instructure.com/doc/api/group_categories.html#GroupCategory}
  */
 GroupSet.delete = function (options) {
@@ -106,7 +123,10 @@ GroupSet.delete.action = 'delete a specific group set from a course';
  * Gets the list of groups in a group set
  * @author Gabriel Abrams
  * @method listGroups
- * @param {number} groupSetId - Canvas group set Id to query
+ * @memberof api.course.groupSet
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.groupSetId - Canvas group set Id to query
  * @return {Promise.<Object[]>} list of Canvas Groups {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
 GroupSet.listGroups = function (options) {
@@ -122,7 +142,10 @@ GroupSet.listGroups.action = 'get the list of groups in a group set';
  *   groups.js/getGroup)
  * @author Gabriel Abrams
  * @method getGroup
- * @param {number} groupId - Canvas group Id
+ * @memberof api.course.groupSet
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.groupId - Canvas group Id
  * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
 GroupSet.getGroup = function (options) {
@@ -134,11 +157,14 @@ GroupSet.getGroup.action = 'get info on a specific group in a group set';
  * Creates a new group in a group set
  * @author Gabriel Abrams
  * @method createGroup
- * @param {number} courseId - Canvas course Id
- * @param {number} groupSetId - Canvas group set Id to query
- * @param {string} [name=Unnamed Group] - Name of the new group
- * @param {string} [description=null] - Description of the new group
- * @param {boolean} [isPublic=false] - If truthy, group is public
+ * @memberof api.course.groupSet
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id
+ * @param {number} options.groupSetId - Canvas group set Id to query
+ * @param {string} [options.name=Unnamed Group] - Name of the new group
+ * @param {string} [options.description=null] - Description of the new group
+ * @param {boolean} [options.isPublic=false] - If truthy, group is public
  * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
 GroupSet.createGroup = function (options) {
@@ -167,8 +193,11 @@ GroupSet.createGroup.action = 'create a new group in a group set';
  * Deletes a specific group from a group set
  * @author Gabriel Abrams
  * @method deleteGroup
- * @param {number} groupSetId - Canvas group set Id
- * @param {number} groupId - Canvas group Id to delete
+ * @memberof api.course.groupSet
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.groupSetId - Canvas group set Id
+ * @param {number} options.groupId - Canvas group Id to delete
  * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
 GroupSet.deleteGroup = function (options) {

@@ -1,4 +1,112 @@
-/**
+<!-- start:source.tmpl.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>Course/Assignment.js</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+			<style>
+				.page-header,
+				pre.code-toolbar > .toolbar:hover {
+					background-color: {string};
+				}
+				.callout-primary,
+				.toc .nav > li > a:hover,
+				.toc .nav > li > a:focus,
+				.toc .nav > li.active > a,
+				.toc .nav > li.active > a:hover,
+				.toc .nav > li.active > a:focus,
+				pre.code-toolbar > .toolbar:hover {
+					border-left-color: {string};
+				}
+				pre.code-toolbar > .toolbar:hover {
+					border-bottom-color: {string};
+				}
+				.callout-primary h5,
+				.symbol-title.collapsible-symbol .toggle-icon,
+				.breadcrumb li a,
+				.toc .nav > li > a:hover,
+				.toc .nav > li > a:focus,
+				.toc .nav > li.active > a,
+				.toc .nav > li.active > a:hover,
+				.toc .nav > li.active > a:focus {
+					color: {string};
+				}
+			</style>
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"{string}","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					caccl-api
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Endpoints<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="api.course.html">api.course</a></li>
+											<li><a href="api.course.app.html">api.course.app</a></li>
+											<li><a href="api.course.assignment.html">api.course.assignment</a></li>
+											<li><a href="api.course.assignmentGroup.html">api.course.assignmentGroup</a></li>
+											<li><a href="api.course.gradebookColumn.html">api.course.gradebookColumn</a></li>
+											<li><a href="api.course.group.html">api.course.group</a></li>
+											<li><a href="api.course.groupSet.html">api.course.groupSet</a></li>
+											<li><a href="api.course.page.html">api.course.page</a></li>
+											<li><a href="api.course.quiz.html">api.course.quiz</a></li>
+											<li><a href="api.course.rubric.html">api.course.rubric</a></li>
+											<li><a href="api.course.section.html">api.course.section</a></li>
+											<li><a href="api.user.self.html">api.user.self</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">source</span>
+				<h1><span class="name">Course/Assignment.js</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
  * Functions for interacting with assignments within courses
  * @class api.course.assignment
  */
@@ -42,7 +150,7 @@ class Assignment extends EndpointCategory {
  * @instance
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
- * @return {Promise.<Object[]>} list of Canvas Assignments {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Promise.&lt;Object[]>} list of Canvas Assignments {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.list = function (options) {
   return this.visitEndpoint({
@@ -61,7 +169,7 @@ Assignment.list.action = 'get the list of assignments in a course';
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.assignmentId - Canvas assignment Id
- * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Promise.&lt;Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.get = function (options) {
   return this.visitEndpoint({
@@ -110,7 +218,7 @@ Assignment.get.action = 'get info on a specific assignment in a course';
  *   true, students in groups can be given separate grades and when one student
  *   in a group gets a grade, other students do not get graded. Must be a
  *   boolean
- * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Promise.&lt;Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.update = function (options) {
   return this.visitEndpoint({
@@ -191,7 +299,7 @@ Assignment.update.action = 'update an assignment in a course';
  * @param {boolean} [options.gradeGroupStudentsIndividually=false] - If true,
  *   students in groups can be given separate grades and when one student in a
  *   group gets a grade, other students do not get graded
- * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Promise.&lt;Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.create = function (options) {
   return this.visitEndpoint({
@@ -240,7 +348,7 @@ Assignment.create.action = 'create a new assignment in a course';
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - Canvas assignment Id
- * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Promise.&lt;Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.delete = function (options) {
   return this.visitEndpoint({
@@ -263,7 +371,7 @@ Assignment.delete.action = 'delete an assignment from a course';
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.assignmentId - Canvas assignment Id to query
- * @return {Promise.<Object[]>} list of Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @return {Promise.&lt;Object[]>} list of Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Assignment.listGradeableStudents = function (options) {
   return this.visitEndpoint({
@@ -292,7 +400,7 @@ Assignment.listGradeableStudents.action = 'get the list of students who are grad
  * @param {number} options.studentId - Canvas student Id of the sub to comment
  *   on
  * @param {string} options.comment - The text of the comment
- * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Promise.&lt;Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createSubmissionComment = function (options) {
   return this.visitEndpoint({
@@ -316,10 +424,10 @@ Assignment.createSubmissionComment.action = 'create a new comment on a submissio
  * @param {number} options.assignmentId - Canvas course Id
  * @param {array} options.gradeItems - List of grade items to upload to Canvas:
  *   [{
- *     studentId: <student id>,
- *     points: <optional, points to overwrite with>,
- *     comment: <optional, comment to append (or overwrite if rubric comment)>,
- *     rubricId: <optional, rubric item (overrall grade/comment if excluded)>
+ *     studentId: &lt;student id>,
+ *     points: &lt;optional, points to overwrite with>,
+ *     comment: &lt;optional, comment to append (or overwrite if rubric comment)>,
+ *     rubricId: &lt;optional, rubric item (overrall grade/comment if excluded)>
  *   },...]
  * @param {boolean} [options.waitForCompletion=false] - If true, promise won't
  *   resolve until Canvas has finished updating the grades, instead of resolving
@@ -339,7 +447,7 @@ Assignment.createSubmissionComment.action = 'create a new comment on a submissio
  *     { grammar: ungraded, argument: ungraded, formatting: 9/10 }
  *   Note: merging is an added feature. By default, the Canvas API does not
  *   merge rubric assessments.
- * @return {Promise.<Object>} Canvas Progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
+ * @return {Promise.&lt;Object>} Canvas Progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
  */
 Assignment.updateGrades = function (options) {
   // Create a promise chain so we can queue promises
@@ -420,7 +528,7 @@ Assignment.updateGrades = function (options) {
             (studentToRubricItemsOverwritten[studentId] || { size: 0 }).size
           );
 
-          if (numOverwrittenItems < numRubricItems) {
+          if (numOverwrittenItems &lt; numRubricItems) {
             // Need to merge this student
             studentsToMerge.push(studentId);
           }
@@ -508,7 +616,7 @@ Assignment.updateGrades = function (options) {
                 // Check if we're overwriting these values
                 let overwritePoints;
                 let overwriteComment;
-                if (overwritingMap[sid] && overwritingMap[sid][rubricId]) {
+                if (overwritingMap[sid] &amp;&amp; overwritingMap[sid][rubricId]) {
                   overwritePoints = overwritingMap[sid][rubricId].points;
                   overwriteComment = overwritingMap[sid][rubricId].comment;
                 }
@@ -516,14 +624,14 @@ Assignment.updateGrades = function (options) {
                 // Add old value
                 if (
                   oldPoints !== undefined
-                  && oldPoints !== null
-                  && !overwritePoints
+                  &amp;&amp; oldPoints !== null
+                  &amp;&amp; !overwritePoints
                 ) {
                   // We have an old points val and we're not overwriting it
                   // (include the old points value)
                   params[`grade_data[${sid}][rubric_assessment][${rubricId}][points]`] = oldPoints;
                 }
-                if (oldComment && !overwriteComment) {
+                if (oldComment &amp;&amp; !overwriteComment) {
                   // We have an old comment and we're not overwriting it
                   // (include the old comment)
                   params[`grade_data[${sid}][rubric_assessment][${rubricId}][comments]`] = oldComment;
@@ -598,7 +706,7 @@ Assignment.updateGrades.action = 'update student grades, comments, and/or rubric
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course id to query
  * @param {number} options.assignmentId - Canvas assignment id to look up
- * @return {Promise.<Object[]>} list of Canvas AssignmentOverrides {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {Promise.&lt;Object[]>} list of Canvas AssignmentOverrides {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.listOverrides = function (options) {
   return this.visitEndpoint({
@@ -618,7 +726,7 @@ Assignment.listOverrides.action = 'get a list of assignment overrides for a spec
  * @param {number} options.courseId - Canvas course id to query
  * @param {number} options.assignmentId - Canvas assignment id to query
  * @param {number} options.overrideId - Canvas override id to look up
- * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {Promise.&lt;Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.getOverride = function (options) {
   return this.visitEndpoint({
@@ -652,7 +760,7 @@ Assignment.getOverride.action = 'get a list of assignment overrides for a specif
  *   remove unlock date
  * @param {date} [options.lockAt=current value] - New lock date or null to
  *   remove lock date
- * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {Promise.&lt;Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.createOverride = function (options) {
   let { title } = options;
@@ -697,7 +805,7 @@ Assignment.createOverride.action = 'create a new override for a specific assignm
  * @param {number} options.courseId - Canvas course id to query
  * @param {number} options.assignmentId - Canvas assignment id to query
  * @param {number} options.overrideId - Canvas override id to look up
- * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {Promise.&lt;Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.deleteOverride = function (options) {
   return this.visitEndpoint({
@@ -724,7 +832,7 @@ Assignment.deleteOverride.action = 'delete an override for a specific assignment
  * @param {API} api - Instance of caccl-api
  * @param {number} [userId] - The Canvas Id of the current user. Passed through
  *   by default if we already know it
- * @return {Promise.<number>} Canvas Id of the current user
+ * @return {Promise.&lt;number>} Canvas Id of the current user
  */
 const getCurrentUserId = (api, userId) => {
   // Resolve if we already have the user's id
@@ -756,7 +864,7 @@ const getCurrentUserId = (api, userId) => {
  *   submission[i].user value with the submission's user information
  * @param {boolean} [options.includeTestStudent=true] - If truthy, includes
  *   dummy submission by test student (student view) if there is one
- * @return {Promise.<Object[]>} list of Canvas submissions {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Promise.&lt;Object[]>} list of Canvas submissions {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.listSubmissions = function (options) {
   // Fetch the user info if we're not excluding user info OR if we're
@@ -821,7 +929,7 @@ Assignment.listSubmissions.action = 'list the submissions to a specific assignme
  *   includes rubric assessments: breakdown of score for each rubric item
  * @param {boolean} [options.excludeUser=false] - If truthy, excludes
  *   submission[i].user value with the submission's user information
- * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Promise.&lt;Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.getSubmission = function (options) {
   return this.visitEndpoint({
@@ -851,7 +959,7 @@ Assignment.getSubmission.action = 'get a specific submission to an assignment in
  * @param {number} [options.currentUserId] - The current user's Canvas Id.
  *   If not included, we call the current user endpoint
  * @param {string} [options.comment] - A text student comment to include
- * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Promise.&lt;Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createTextSubmission = function (options) {
   let submitterId;
@@ -898,7 +1006,7 @@ Assignment.createTextSubmission.action = 'create a text submission to a specific
  * @param {number} [options.currentUserId] - The current user's Canvas Id.
  *   If not included, we call the current user endpoint
  * @param {string} [options.comment] - A text student comment to include
- * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Promise.&lt;Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createURLSubmission = function (options) {
   let submitterId;
@@ -945,7 +1053,7 @@ Assignment.createURLSubmission.action = 'create a url submission to a specific a
  * @param {number} [options.currentUserId] - The current user's Canvas Id.
  *   If not included, we call the current user endpoint
  * @param {string} [options.comment] - A text student comment to include
- * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Promise.&lt;Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createFileSubmission = function (options) {
   let submitterId;
@@ -1087,3 +1195,39 @@ Assignment.createFileSubmission.action = 'create a file submission to a specific
 /*------------------------------------------------------------------------*/
 
 module.exports = Assignment;
+</code></pre>
+		</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="footer-option">Created by Gabriel Abrams at the Harvard Division of Continuing Education</div>
+				<div class="copyright">All code, materials, documentation, and other parts of this project under MIT license</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:source.tmpl.hbs -->

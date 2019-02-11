@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "./test/startTests.sh",
-    "build-docs": "./node_modules/.bin/jsdoc -r -c ./docs/jsdoc/conf.js -R ./README.md -d ./docs/codeDocumentation"
+    "build-docs": "rm -rf ./docs/api;./node_modules/.bin/jsdoc -c ./docs/jsdoc/config.json"
   },
   "repository": {
     "type": "git",
@@ -31,8 +31,9 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.12.3",
+    "foodoc": "0.0.9",
     "fs": "0.0.1-security",
-    "jsdoc": "~3.5.5",
+    "jsdoc": "^3.5.5",
     "mocha": "^5.2.0"
   },
   "dependencies": {

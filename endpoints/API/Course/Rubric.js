@@ -1,3 +1,8 @@
+/**
+ * Functions for interacting with rubrics within courses
+ * @class api.course.rubric
+ */
+
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
 const utils = require('../../common/utils');
@@ -16,7 +21,10 @@ class Rubric extends EndpointCategory {
  * Lists the set of rubrics in a course
  * @author Gabriel Abrams
  * @method list
- * @param {number} courseId - Canvas course Id to add the rubric to
+ * @memberof api.course.rubric
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to add the rubric to
  * @return {Promise.<Object[]>} list of Canvas Rubrics {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
  */
 Rubric.list = function (options) {
@@ -31,12 +39,15 @@ Rubric.list.action = 'list all the rubrics in a course';
  * Gets info on a specific rubric in a course
  * @author Gabriel Abrams
  * @method get
- * @param {number} courseId - Canvas course Id to add the rubric to
- * @param {number} rubricId - Canvas course Id to add the rubric to
- * @param {boolean} [include=null] - Allowed values: ['assessments',
+ * @memberof api.course.rubric
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to add the rubric to
+ * @param {number} options.rubricId - Canvas course Id to add the rubric to
+ * @param {boolean} [options.include=null] - Allowed values: ['assessments',
  *   'graded_assessments', 'peer_assessments']. If excluded, no assessments
  *   will be included (default: none)
- * @param {string} [assessmentStyle=both omitted] - Allowed values:
+ * @param {string} [options.assessmentStyle=both omitted] - Allowed values:
  *   ['full','comments_only']
  *   (full = entire assessment, comments_only = only comment part of
  *   assessment). Only valid if including assessments
@@ -60,11 +71,14 @@ Rubric.get.action = 'get info on a specific rubric in a course';
  * @version unlisted
  * @author Gabriel Abrams
  * @method createFreeFormGradingRubricInAssignment
- * @param {number} courseId - Canvas course Id to add the rubric to
- * @param {number} assignmentId - Canvas course Id to add the rubric to
- * @param {array} rubricItems - List of rubric item objects:
+ * @memberof api.course.rubric
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to add the rubric to
+ * @param {number} options.assignmentId - Canvas course Id to add the rubric to
+ * @param {array} options.rubricItems - List of rubric item objects:
  *   [{description, points, [longDescription]}, ...]
- * @param {string} [title=generated title] - Title of the new rubric
+ * @param {string} [options.title=generated title] - Title of the new rubric
  * @return {Promise.<Object>} Canvas Rubric {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
  */
 Rubric.createFreeFormGradingRubricInAssignment = function (options) {

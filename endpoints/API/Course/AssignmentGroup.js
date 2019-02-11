@@ -1,3 +1,8 @@
+/**
+ * Functions for interacting with assignment groups within courses
+ * @class api.course.assignmentGroup
+ */
+
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
 const utils = require('../../common/utils');
@@ -15,8 +20,11 @@ class AssignmentGroup extends EndpointCategory {
 /**
  * Lists assignment groups in a course
  * @author Gabriel Abrams
+ * @memberof api.course.assignmentGroup
+ * @instance
  * @method listAssignmentGroups
- * @param {number} courseId - Canvas course Id to query
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas AssignmentGroups {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
 AssignmentGroup.list = function (options) {
@@ -30,10 +38,13 @@ AssignmentGroup.list.action = 'list the assignment groups in a course';
 /**
  * Gets info on a specific assignment group in a course
  * @author Gabriel Abrams
+ * @memberof api.course.assignmentGroup
+ * @instance
  * @method getAssignmentGroup
- * @param {number} courseId - Canvas course Id to query
- * @param {number} assignmentGroupId - Assignment group to get
- * @param {number} courseId - Canvas course Id to query
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {number} options.assignmentGroupId - Assignment group to get
+ * @param {number} options.courseId - Canvas course Id to query
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
 AssignmentGroup.get = function (options) {
@@ -47,11 +58,14 @@ AssignmentGroup.get.action = 'get info on a specific assignment group in a cours
 /**
  * Updates an assignment group in a course
  * @author Gabriel Abrams
+ * @memberof api.course.assignmentGroup
+ * @instance
  * @method update
- * @param {number} courseId - Canvas course Id to query
- * @param {number} assignmentGroupId - Assignment group to update
- * @param {string} [name=current value] - New assignment group name
- * @param {number} [weight=current value] - New weight
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {number} options.assignmentGroupId - Assignment group to update
+ * @param {string} [options.name=current value] - New assignment group name
+ * @param {number} [options.weight=current value] - New weight
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
 AssignmentGroup.update = function (options) {
@@ -69,10 +83,13 @@ AssignmentGroup.update.action = 'update an assignment group in a course';
 /**
  * Create a new assignment group in a course
  * @author Gabriel Abrams
+ * @memberof api.course.assignmentGroup
+ * @instance
  * @method create
- * @param {number} courseId - Canvas course Id to query
- * @param {string} name - New assignment group name
- * @param {number} [weight=0] - Assignment group weight
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {string} options.name - New assignment group name
+ * @param {number} [options.weight=0] - Assignment group weight
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
 AssignmentGroup.create = function (options) {
@@ -90,10 +107,13 @@ AssignmentGroup.create.action = 'create a new assignment group in a course';
 /**
  * Deletes an assignment group from a course
  * @author Gabriel Abrams
+ * @memberof api.course.assignmentGroup
+ * @instance
  * @method delete
- * @param {number} courseId - Canvas course Id to query
- * @param {number} assignmentGroupId - Assignment group to delete
- * @param {number} [moveAssignmentsTo] - Assignment group to move
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {number} options.assignmentGroupId - Assignment group to delete
+ * @param {number} [options.moveAssignmentsTo] - Assignment group to move
  *   assignments to. If this parameter isn't included, assignments in the
  *   assignment group will be deleted.
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}

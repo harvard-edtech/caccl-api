@@ -1,4 +1,112 @@
-/**
+<!-- start:source.tmpl.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>Course/index.js</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+			<style>
+				.page-header,
+				pre.code-toolbar > .toolbar:hover {
+					background-color: {string};
+				}
+				.callout-primary,
+				.toc .nav > li > a:hover,
+				.toc .nav > li > a:focus,
+				.toc .nav > li.active > a,
+				.toc .nav > li.active > a:hover,
+				.toc .nav > li.active > a:focus,
+				pre.code-toolbar > .toolbar:hover {
+					border-left-color: {string};
+				}
+				pre.code-toolbar > .toolbar:hover {
+					border-bottom-color: {string};
+				}
+				.callout-primary h5,
+				.symbol-title.collapsible-symbol .toggle-icon,
+				.breadcrumb li a,
+				.toc .nav > li > a:hover,
+				.toc .nav > li > a:focus,
+				.toc .nav > li.active > a,
+				.toc .nav > li.active > a:hover,
+				.toc .nav > li.active > a:focus {
+					color: {string};
+				}
+			</style>
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"{string}","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					caccl-api
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Endpoints<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="api.course.html">api.course</a></li>
+											<li><a href="api.course.app.html">api.course.app</a></li>
+											<li><a href="api.course.assignment.html">api.course.assignment</a></li>
+											<li><a href="api.course.assignmentGroup.html">api.course.assignmentGroup</a></li>
+											<li><a href="api.course.gradebookColumn.html">api.course.gradebookColumn</a></li>
+											<li><a href="api.course.group.html">api.course.group</a></li>
+											<li><a href="api.course.groupSet.html">api.course.groupSet</a></li>
+											<li><a href="api.course.page.html">api.course.page</a></li>
+											<li><a href="api.course.quiz.html">api.course.quiz</a></li>
+											<li><a href="api.course.rubric.html">api.course.rubric</a></li>
+											<li><a href="api.course.section.html">api.course.section</a></li>
+											<li><a href="api.user.self.html">api.user.self</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">source</span>
+				<h1><span class="name">Course/index.js</span></h1>
+			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
  * Functions for interacting with courses
  * @class api.course
  */
@@ -67,7 +175,7 @@ Course.section = Section;
  *   course image
  * @param {boolean} [options.includeNeedsGradingCount=false] - If truthy,
  *   includes the number of students who still need to be graded
- * @return {Promise.<Object>} Canvas course {@link https://canvas.instructure.com/doc/api/courses.html#Course}
+ * @return {Promise.&lt;Object>} Canvas course {@link https://canvas.instructure.com/doc/api/courses.html#Course}
  */
 Course.get = function (options) {
   return this.visitEndpoint({
@@ -110,7 +218,7 @@ Course.get.action = 'get info on a specific course';
  *   included
  * @param {string} [options.includeGroups=false] - If truthy, group_ids is
  *   included
- * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
+ * @return {Promise.&lt;Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
 Course.listEnrollments = function (options) {
   const params = {};
@@ -165,7 +273,7 @@ Course.listEnrollments.action = 'get enrollments from a course';
  *   included
  * @param {string} [options.includeGroups=false] - If truthy, group_ids is
  *   included
- * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
+ * @return {Promise.&lt;Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
 Course.listStudentEnrollments = function (options) {
   const newOptions = options;
@@ -188,7 +296,7 @@ Course.listStudentEnrollments.action = 'get the list of student enrollments in a
  *   included
  * @param {string} [options.includeGroups=false] - If truthy, group_ids is
  *   included
- * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
+ * @return {Promise.&lt;Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
 Course.listTeachingTeamMemberEnrollments = function (options) {
   const newOptions = options;
@@ -211,7 +319,7 @@ Course.listTeachingTeamMemberEnrollments.action = 'get the list of TAs and Teach
  *   included
  * @param {string} [options.includeGroups=false] - If truthy, group_ids is
  *   included
- * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
+ * @return {Promise.&lt;Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
 Course.listDesignerEnrollments = function (options) {
   const newOptions = options;
@@ -234,7 +342,7 @@ Course.listDesignerEnrollments.action = 'get the list of designer enrollments in
  *   included
  * @param {string} [options.includeGroups=false] - If truthy, group_ids is
  *   included
- * @return {Promise.<Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
+ * @return {Promise.&lt;Object[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
  */
 Course.listObserverEnrollments = function (options) {
   const newOptions = options;
@@ -264,7 +372,7 @@ Course.listObserverEnrollments.action = 'get the list of observer enrollments in
  * @param {boolean} [options.includeAvatar] - If true, user avatar url is
  *   included
  * @param {boolean} [options.includeBio] - If true, user bio is included
- * @return {Promise.<Object>} Canvas user {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @return {Promise.&lt;Object>} Canvas user {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Course.getUser = function (options) {
   return this.visitEndpoint({
@@ -302,7 +410,7 @@ Course.getUser.action = 'get info on a user in a course';
  * @param {boolean} [options.includeAvatar] - If true, user avatar url is
  *   included
  * @param {boolean} [options.includeBio] - If true, user bio is included
- * @return {Promise.<Object[]>} Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @return {Promise.&lt;Object[]>} Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Course.listUsers = function (options) {
   return this.visitEndpoint({
@@ -340,7 +448,7 @@ Course.listUsers.action = 'get info on all users in a course';
  * @param {boolean} [options.includeAvatar] - If true, user avatar url is
  *   included
  * @param {boolean} [options.includeBio] - If true, user bio is included
- * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @return {Promise.&lt;Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Course.listStudents = function (options) {
   const newOptions = options;
@@ -367,7 +475,7 @@ Course.listStudents.action = 'get the list of students in a course';
  * @param {boolean} [options.includeAvatar] - If true, user avatar url is
  *   included
  * @param {boolean} [options.includeBio] - If true, user bio is included
- * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @return {Promise.&lt;Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Course.listTeachingTeamMembers = function (options) {
   const newOptions = options;
@@ -394,7 +502,7 @@ Course.listTeachingTeamMembers.action = 'get the list of TAs and Teachers in a c
  * @param {boolean} [options.includeAvatar] - If true, user avatar url is
  *   included
  * @param {boolean} [options.includeBio] - If true, user bio is included
- * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @return {Promise.&lt;Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Course.listDesigners = function (options) {
   const newOptions = options;
@@ -421,7 +529,7 @@ Course.listDesigners.action = 'get the list of designers in a course';
  * @param {boolean} [options.includeAvatar] - If true, user avatar url is
  *   included
  * @param {boolean} [options.includeBio] - If true, user bio is included
- * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @return {Promise.&lt;Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Course.listObservers = function (options) {
   const newOptions = options;
@@ -435,3 +543,39 @@ Course.listObservers.action = 'get the list of observers in a course';
 /*------------------------------------------------------------------------*/
 
 module.exports = Course;
+</code></pre>
+		</section>
+			</div>
+		</div>
+	</div>
+	<footer>
+				<div class="footer-option">Created by Gabriel Abrams at the Harvard Division of Continuing Education</div>
+				<div class="copyright">All code, materials, documentation, and other parts of this project under MIT license</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:source.tmpl.hbs -->

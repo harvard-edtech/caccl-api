@@ -1,0 +1,223 @@
+<!-- start:readme.hbs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+		<title>caccl-api</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+			<style>
+				.page-header,
+				pre.code-toolbar > .toolbar:hover {
+					background-color: {string};
+				}
+				.callout-primary,
+				.toc .nav > li > a:hover,
+				.toc .nav > li > a:focus,
+				.toc .nav > li.active > a,
+				.toc .nav > li.active > a:hover,
+				.toc .nav > li.active > a:focus,
+				pre.code-toolbar > .toolbar:hover {
+					border-left-color: {string};
+				}
+				pre.code-toolbar > .toolbar:hover {
+					border-bottom-color: {string};
+				}
+				.callout-primary h5,
+				.symbol-title.collapsible-symbol .toggle-icon,
+				.breadcrumb li a,
+				.toc .nav > li > a:hover,
+				.toc .nav > li > a:focus,
+				.toc .nav > li.active > a,
+				.toc .nav > li.active > a:hover,
+				.toc .nav > li.active > a:focus {
+					color: {string};
+				}
+			</style>
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"{string}","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.DOCLET_TOC_ENABLED = true;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
+</head>
+<body>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					caccl-api
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Endpoints<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="api.course.html">api.course</a></li>
+											<li><a href="api.course.app.html">api.course.app</a></li>
+											<li><a href="api.course.assignment.html">api.course.assignment</a></li>
+											<li><a href="api.course.assignmentGroup.html">api.course.assignmentGroup</a></li>
+											<li><a href="api.course.gradebookColumn.html">api.course.gradebookColumn</a></li>
+											<li><a href="api.course.group.html">api.course.group</a></li>
+											<li><a href="api.course.groupSet.html">api.course.groupSet</a></li>
+											<li><a href="api.course.page.html">api.course.page</a></li>
+											<li><a href="api.course.quiz.html">api.course.quiz</a></li>
+											<li><a href="api.course.rubric.html">api.course.rubric</a></li>
+											<li><a href="api.course.section.html">api.course.section</a></li>
+											<li><a href="api.user.self.html">api.user.self</a></li>
+									</ul>
+								</li>
+				</ul>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">readme</span>
+				<h1><span class="name">caccl-api</span></h1>
+				<div class="summary"><p>A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.</p></div>			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-9 main-content">
+		<section class="readme-section">
+			<article><h1>caccl-canvas-api</h1><p>A class that defines a set of Canvas endpoints that can be easily accessed. Each endpoint is equipped with the appropriate pre- and post-processing steps to make the Canvas endpoints &quot;behave&quot;. For instance, <em>getSubmissions()</em> fetches student submissions and removes the test student's submission in post-processing.</p>
+<h2>Quickstart</h2><pre class="prettyprint source lang-js"><code>// Import
+const CanvasAPI = require('caccl-canvas-api');
+
+// Create CanvasAPI instance
+const api = new CanvasAPI({
+  canvasHost: 'canvas.instructor.com',
+  accessToken: '5368~059382...3e57293hga3',
+  cache: 'memory',
+});
+
+// Hit an endpoint
+const students = await api.course.listStudents({ courseId: 52618 });</code></pre><h2>Creating a CanvasAPI instance</h2><h3>Required arguments:</h3><ul>
+<li><strong>canvasHost</strong> - Your Canvas instance host. E.g., <code>'canvas.instructure.com'</code></li>
+</ul>
+<h3>Optional arguments:</h3><ul>
+<li><strong>accessToken</strong> - An access token to add to all requests. If you leave this out, you'll be in charge of adding credentials to API requests.</li>
+<li><strong>cacheType</strong> - Leave out to disable caching. Three allowed values: <code>['memory', 'session', 'custom']</code><ul>
+<li>If <code>cacheType</code> equals <code>'session'</code>, <code>req</code> must be included and cache is stored in the express session.</li>
+<li>If <code>cacheType</code> equals <code>'custom'</code>, your custom cache must be included as <code>cache</code> (see below).</li>
+</ul>
+</li>
+<li><strong>req</strong> - Express request object with req.session support (required if using <code>'session'</code> cacheType.</li>
+<li><strong>cache</strong> - Custom cache manager instance (required if using <code>'custom'</code> cacheType (see below).</li>
+<li><strong>visitEndpoint</strong> - Optional function that sends requests to the Canvas API. By default, we use <code>caccl-visit-endpoint</code>. You can use your own visitEndpoint function, though we recommend using <code>caccl-visit-endpoint</code> anyway and just swapping out the <code>sendRequest</code> function when creating an instance of <code>caccl-visit-endpoint</code>.</li>
+</ul>
+<h2>Custom Cache</h2><p>If using <code>cacheType = 'custom'</code>, you need to include an instance of your own custom cache. We use a nested cache. Given an endpoint <code>path</code> <em>and</em> <code>params</code>, there should be one <code>value</code> stored. For instance, we might want to store the following:</p>
+<pre class="prettyprint source lang-js"><code>path: '/api/v1/courses'
+params: { include: ['term'] }
+value: [ /* courses with terms */ ]</code></pre><center>and</center>
+
+<pre class="prettyprint source lang-js"><code>path: '/api/v1/courses'
+params: { include: ['sections'] }
+value: [ /* courses with sections */ ]</code></pre><p>Thus, <code>path</code> isn't enough to save/retrieve cache entries.</p>
+<h3>Cache Class Definition:</h3><p>If your cache has the ability to store promises as values*, your cache instance should have a property to indicate this:</p>
+<pre class="prettyprint source lang-js"><code>cache.storePromises = true;</code></pre><p>Your cache should include the following functions (all return
+Promises):</p>
+<ul>
+<li><strong>get(path, params)</strong> - returns a Promise that resolves with the value associated with the key pair: <code>(path [string], params [object])</code>. Resolves with <code>undefined</code> or <code>null</code> if no cached value</li>
+<li><strong>set(path, params, value)</strong> - returns a Promise that resolves when the value has been saved to the key pair: <code>(path [string], params [object])</code></li>
+<li><strong>deletePaths(paths)</strong> - returns a Promise that resolves when the given list of paths (and all params associated with those paths) are deleted from the cache</li>
+<li><strong>getAllPaths()</strong> - returns a Promise that resolves with the list of cached paths</li>
+<li><strong>deleteAllPaths()</strong> - returns a Promise that resolves when all paths are deleted (entire cache is cleared)</li>
+</ul>
+<p>Example of cache in use:</p>
+<pre class="prettyprint source lang-js"><code>cache.set('/api/v1/courses', { include: ['sections'] }, courseList1);
+> cache contents:
+>  - /api/v1/courses
+>    - { include: ['sections'] } = courseList1
+
+cache.set('/api/v1/courses', { include: ['term'] }, courseList2);
+> cache contents:
+>  - /api/v1/courses
+>    - { include: ['sections'] } = courseList1
+>    - { include: ['term'] } = courseList2
+
+cache.set('/api/v1/users/self/profile', {}, myProfile);
+> cache contents:
+>  - /api/v1/courses
+>    - { include: ['sections'] } = courseList1
+>    - { include: ['term'] } = courseList2
+>  - /api/v1/users/self/profile
+>    - {} = myProfile
+
+cache.get('/api/v1/users/self/profile', {})
+> myProfile
+
+cache.getAllPaths()
+> ['/api/v1/courses', '/api/v1/users/self/profile']
+
+cache.deletePaths(['/api/v1/courses'])
+> cache contents:
+>  - /api/v1/users/self/profile
+>    - {} = myProfile
+
+cache.deleteAllPaths()
+> cache contents (empty)</code></pre><p><strong>*</strong> If possible, we like storing promises instead of values. This allows us to further optimize/speed up Canvas integration. Say you call <code>api.course.listStudents(...)</code> and before that function returns, you call <code>listStudents</code> again. Ordinarily, your second request would find that we have no cached value (yet) and we would send the request again (twice the requests we need!). If your cache allows storing Promises, we store unfinished calls to the api immediately. Thus, when you call <code>listStudents</code> the second time, we'll just give you the pending promise from the first call, and when that first request finishes, both calls to <code>listStudents</code> resolve simultaneously. We just cut the number of requests in half and the second call resolved earlier. Note: the built-in <code>session</code> cache does not support Promises, but the built-in <code>memory</code> cache does support Promises.</p>
+<h2>Part of the CACCL library</h2><p><strong>C</strong>anvas<br><strong>A</strong>pp<br><strong>C</strong>omplete<br><strong>C</strong>onnection<br><strong>L</strong>ibrary  </p></article>
+		</section>
+			</div>
+				<div class="col-md-3 side-content">
+					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
+				</div>
+		</div>
+	</div>
+	<footer>
+				<div class="footer-option">Created by Gabriel Abrams at the Harvard Division of Continuing Education</div>
+				<div class="copyright">All code, materials, documentation, and other parts of this project under MIT license</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
+	
+</body>
+</html>
+<!-- end:readme.hbs -->

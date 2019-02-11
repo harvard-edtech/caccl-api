@@ -1,3 +1,8 @@
+/**
+ * Functions for interacting with pages within courses
+ * @class api.course.page
+ */
+
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
 const utils = require('../../common/utils');
@@ -16,7 +21,10 @@ class Page extends EndpointCategory {
  * Gets the list of pages in a course
  * @author Gabriel Abrams
  * @method list
- * @param {number} courseId - Canvas course Id to query
+ * @memberof api.course.page
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas Pages {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.list = function (options) {
@@ -31,8 +39,12 @@ Page.list.action = 'get the list of pages in a course';
  * Get info on a specific page in a course
  * @author Gabriel Abrams
  * @method get
- * @param {number} courseId - Canvas course Id to query
- * @param {string} pageURL - Canvas page url (just the last part of path)
+ * @memberof api.course.page
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {string} options.pageURL - Canvas page url (just the last part of
+ *   path)
  * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.get = function (options) {
@@ -47,16 +59,22 @@ Page.get.action = 'get info on a specific page in a course';
  * Updates a Canvas page
  * @author Gabriel Abrams
  * @method update
- * @param {number} courseID - Canvas course ID holding the page to update
- * @param {string} pageURL - Canvas page url (just the last part of path)
- * @param {boolean} [notifyOfUpdate=false] - if true, send notification
- * @param {string} [title=current value] - New title of the page
- * @param {string} [body=current value] - New html body of the page
- * @param {string} [editingRoles=current value] - New usertype(s) who can edit
- * @param {boolean} [published=current value] - New publish status of page
- *   Must be a boolean
- * @param {boolean} [frontPage=current value] - New front page status of page.
- *   Must be a boolean
+ * @memberof api.course.page
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseID - Canvas course ID holding the page to
+ *   update
+ * @param {string} options.pageURL - Canvas page url (just the last part of
+ *   path)
+ * @param {boolean} [options.notifyOfUpdate=false] - if true, send notification
+ * @param {string} [options.title=current value] - New title of the page
+ * @param {string} [options.body=current value] - New html body of the page
+ * @param {string} [options.editingRoles=current value] - New usertype(s) who
+ *   can edit
+ * @param {boolean} [options.published=current value] - New publish status of
+ *   page
+ * @param {boolean} [options.frontPage=current value] - New front page status of
+ *   page
  * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.update = function (options) {
@@ -81,13 +99,17 @@ Page.update.action = 'update a specific page in a course';
  * Creates a new page in a course
  * @author Gabriel Abrams
  * @method create
- * @param {number} courseId - Canvas course Id to query
- * @param {string} [title=Untitled Page] - The title of the page
- * @param {string} [body=null] - html body of the page
- * @param {string} [editingRoles=teachers] - usertype(s) who can edit
- * @param {boolean} [notifyOfUpdate=false] - if true, sends notification
- * @param {boolean} [published=false] - if true, publishes page upon creation
- * @param {boolean} [frontPage=false] - if true, sets page as front page
+ * @memberof api.course.page
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {string} [options.title=Untitled Page] - The title of the page
+ * @param {string} [options.body=null] - html body of the page
+ * @param {string} [options.editingRoles=teachers] - usertype(s) who can edit
+ * @param {boolean} [options.notifyOfUpdate=false] - if true, sends notification
+ * @param {boolean} [options.published=false] - if true, publishes page upon
+ *   creation
+ * @param {boolean} [options.frontPage=false] - if true, sets page as front page
  * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.create = function (options) {
@@ -111,8 +133,11 @@ Page.create.action = 'create a new page in a course';
  * Deletes a page from a course
  * @author Gabriel Abrams
  * @method delete
- * @param {number} courseId - Canvas course Id to query
- * @param {string} pageURL - Page url to delete (just last part of path)
+ * @memberof api.course.page
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {string} options.pageURL - Page url to delete (just last part of path)
  * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.delete = function (options) {

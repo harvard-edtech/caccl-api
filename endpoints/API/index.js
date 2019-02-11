@@ -14,6 +14,7 @@ class API extends EndpointCategory {
 /*                             Subcategories:                             */
 /*------------------------------------------------------------------------*/
 
+/* @module course */
 API.course = Course;
 API.user = User;
 
