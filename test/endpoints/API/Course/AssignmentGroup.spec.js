@@ -7,7 +7,7 @@ const courseId = require('../../../environment.js').testCourseId;
 /*------------------------------------------------------------------------*/
 
 
-const stamp = new Date().getTime();
+const stamp = Date.now();
 
 // Generate the parameters for a test assignment group
 function genTestAssignmentGroup(index = 0) {

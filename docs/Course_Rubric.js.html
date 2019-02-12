@@ -170,7 +170,7 @@ Rubric.createFreeFormGradingRubricInAssignment = function (options) {
   // Set title
   const title = (
     options.title
-    || 'Unnamed-rubric-' + new Date().getTime()
+    || 'Unnamed-rubric-' + Date.now()
   );
   const params = {
     title,

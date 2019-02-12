@@ -16,9 +16,9 @@ const studentInfo2 = environment.students[1];
 /*                     Helpers and Content Definitions                    */
 /*------------------------------------------------------------------------*/
 // Create current time (rounded to nearest minute) for due/lock/unlockat times
-const now = new Date(Math.round(new Date().getTime() / 60000) * 60000);
+const now = new Date(Math.round(Date.now() / 60000) * 60000);
 const nowISO = now.toISOString().split('.')[0] + 'Z';
-const stamp = new Date().getTime();
+const stamp = Date.now();
 
 // Generate the parameters for a test assignment
 function genTestAssignment(index = 0) {

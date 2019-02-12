@@ -152,10 +152,10 @@ module.exports = {
       minSeconds,
       maxSeconds,
     } = config;
-    const startTimestamp = new Date().getTime();
+    const startTimestamp = Date.now();
     return promise
       .then((value) => {
-        const elapsedSecs = (new Date().getTime() - startTimestamp) / 1000;
+        const elapsedSecs = (Date.now() - startTimestamp) / 1000;
         if (
           minSeconds !== undefined
           && elapsedSecs < minSeconds

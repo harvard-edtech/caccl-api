@@ -9,7 +9,7 @@ const courseId = require('../../../environment.js').testCourseId;
 /*                                 Helpers                                */
 /*------------------------------------------------------------------------*/
 
-const stamp = new Date().getTime();
+const stamp = Date.now();
 const xml = fs.readFileSync(
   path.join(__dirname, '../../../common/testAppXML.txt'),
   'utf-8'

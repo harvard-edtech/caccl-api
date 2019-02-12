@@ -6,7 +6,7 @@ const courseId = require('../../../environment.js').testCourseId;
 /*                                 Helpers                                */
 /*------------------------------------------------------------------------*/
 
-const stamp = new Date().getTime();
+const stamp = Date.now();
 
 // Generate the parameters for a test page
 function genTestPage(index = 0) {

@@ -8,7 +8,7 @@ const courseId = environment.testCourseId;
 /*                     Helpers and Content Definitions                    */
 /*------------------------------------------------------------------------*/
 
-const stamp = new Date().getTime();
+const stamp = Date.now();
 
 // Generate the parameters for a test group set
 function genTestGroupSet(index = 0) {

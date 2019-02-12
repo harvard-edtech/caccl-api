@@ -29,7 +29,7 @@ module.exports = (options) => {
   return new Promise((resolve, reject) => {
     // Prep for timeout
     const timeout = (60000 * (options.timeout || 2));
-    const stopTime = new Date().getTime() + timeout;
+    const stopTime = Date.now() + timeout;
     // Prep to check
     const checkPath = urlLib.parse(options.progress.url).path;
 
@@ -45,7 +45,7 @@ module.exports = (options) => {
         .then((statusResponse) => {
           if (statusResponse.workflow_state !== 'completed') {
             // Not yet completed
-            if (new Date().getTime() > stopTime) {
+            if (Date.now() > stopTime) {
               // Timeout!
               return reject(new CACCLError({
                 message: 'A queued job reached its timeout. This does not mean that the job did not complete (it might have). It just means that we reached a timeout while checking on the progress of the job. It may complete in the future.',
