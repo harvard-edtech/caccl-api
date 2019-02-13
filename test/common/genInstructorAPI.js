@@ -3,7 +3,7 @@ const environment = require('../environment.js');
 
 module.exports = (config = {}) => {
   const newConfig = config;
-  newConfig.accessToken = environment.accessToken;
-  newConfig.canvasHost = environment.canvasHost;
+  newConfig.accessToken = config.accessToken || environment.accessToken;
+  newConfig.canvasHost = config.canvasHost || environment.canvasHost;
   return new API(newConfig);
 };

@@ -1,12 +1,12 @@
-const genInstructorAPI = require('../common/genInstructorAPI.js');
+const genInstructorAPI = require('../../common/genInstructorAPI.js');
 
 let api;
-const utils = require('../common/utils.js');
-const environment = require('../environment.js');
+const utils = require('../../common/utils.js');
+const environment = require('../../environment.js');
 
 const courseId = environment.testCourseId;
 
-describe('Integration > Caching', function () {
+describe('Endpoints > Functionality > Caching', function () {
   beforeEach(function () {
     api = genInstructorAPI({
       cacheType: 'memory',

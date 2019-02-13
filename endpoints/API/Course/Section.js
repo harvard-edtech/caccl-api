@@ -32,7 +32,7 @@ Section.list = function (options) {
     method: 'GET',
   });
 };
-Section.list = 'get the list of sections in a course';
+Section.list.action = 'get the list of sections in a course';
 
 /**
  * Gets info on a specific section

@@ -28,10 +28,10 @@ const API = require('./endpoints/API');
  *   the Canvas API. Defaults to HTTPS request sender.
  * @param {string} [options.apiPathPrefix=''] - The
  *   prefix to prepend to all endpoint paths
- * @param {number} [config.defaultNumRetries=3] - Number of times to retry a
+ * @param {number} [config.numRetries=3] - Number of times to retry a
  *   request. Can be overridden for an individual request by including
  *   numRetries option
- * @param {number} [config.defaultItemsPerPage=100] - Number of items to
+ * @param {number} [config.itemsPerPage=100] - Number of items to
  *   request on a get request. Can be overridden for an individual request by
  *   including numPerPage option
  */
