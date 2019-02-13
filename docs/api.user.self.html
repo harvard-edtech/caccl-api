@@ -176,7 +176,7 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="listCourses" class="function public"><span class="name">listCourses</span><span class="signature-params">( <span class="signature-param">options</span> [,&nbsp;<span class="signature-param">includeTerm</span>&nbsp;]&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
+			<h4 id="listCourses" class="function public"><span class="name">listCourses</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
@@ -188,7 +188,6 @@
 					<tr>
 							<th>Name</th>
 						<th>Type</th>
-							<th>Attributes</th>
 						<th class="last">Description</th>
 					</tr>
 					</thead>
@@ -196,17 +195,28 @@
 						<tr>
 								<td><code>options</code></td>
 							<td><span class="param-type">object</span></td>
-								<td class="attributes"></td>
 							<td class="last">
 									object containing all arguments
-							</td>
-						</tr>
-						<tr>
-								<td><code>includeTerm</code></td>
-							<td><span class="param-type">boolean</span></td>
-								<td class="attributes">&lt;optional&gt;<br/></td>
-							<td class="last">
-									if truthy, term is included
+										<table class="params table table-striped">
+											<thead>
+											<tr>
+													<th>Name</th>
+												<th>Type</th>
+													<th>Attributes</th>
+												<th class="last">Description</th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr>
+														<td><code>includeTerm</code></td>
+													<td><span class="param-type">boolean</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+													<td class="last">
+															if truthy, term is included
+													</td>
+												</tr>
+											</tbody>
+										</table>
 							</td>
 						</tr>
 					</tbody>

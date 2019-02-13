@@ -1300,7 +1300,6 @@ window.lunrData = {
           "current",
           "function",
           "get",
-          "includeterm",
           "list",
           "listcours",
           "option",
@@ -8682,38 +8681,6 @@ window.lunrData = {
                   }
                 }
               }
-            },
-            "c": {
-              "docs": {},
-              "l": {
-                "docs": {},
-                "u": {
-                  "docs": {},
-                  "d": {
-                    "docs": {},
-                    "e": {
-                      "docs": {},
-                      "t": {
-                        "docs": {},
-                        "e": {
-                          "docs": {},
-                          "r": {
-                            "docs": {},
-                            "m": {
-                              "docs": {
-                                "api.user.self.html#listCourses": {
-                                  "ref": "api.user.self.html#listCourses",
-                                  "tf": 25
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
             }
           },
           "d": {
@@ -11272,7 +11239,7 @@ window.lunrData = {
                           "docs": {
                             "api.user.self.html#listCourses": {
                               "ref": "api.user.self.html#listCourses",
-                              "tf": 600
+                              "tf": 608.3333333333334
                             }
                           }
                         }
@@ -11690,7 +11657,7 @@ window.lunrData = {
                       },
                       "api.user.self.html#listCourses": {
                         "ref": "api.user.self.html#listCourses",
-                        "tf": 25
+                        "tf": 33.33333333333333
                       }
                     }
                   }
@@ -12513,7 +12480,7 @@ window.lunrData = {
                                                     },
                                                     "api.user.self.html#listCourses": {
                                                       "ref": "api.user.self.html#listCourses",
-                                                      "tf": 25
+                                                      "tf": 33.33333333333333
                                                     }
                                                   }
                                                 }
@@ -13859,7 +13826,7 @@ window.lunrData = {
           }
         }
       },
-      "length": 1076
+      "length": 1075
     },
     "corpusTokens": [
       "actual",
@@ -14166,7 +14133,6 @@ window.lunrData = {
       "groupset#list",
       "groupset#listgroup",
       "identifi",
-      "includeterm",
       "index",
       "info",
       "inform",
@@ -15263,7 +15229,7 @@ window.lunrData = {
     "api.user.self.html#listCourses": {
       "id": "api.user.self.html#listCourses",
       "kind": "function",
-      "title": "listCourses( options [, includeTerm ] ) → {Promise.&lt;Object&gt;}",
+      "title": "listCourses( options ) → {Promise.&lt;Object&gt;}",
       "longname": "api.user.self#listCourses",
       "name": "listCourses",
       "tags": "api.user.self#listCourses user.self#listCourses self#listCourses listCourses",

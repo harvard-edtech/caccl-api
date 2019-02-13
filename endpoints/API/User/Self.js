@@ -40,7 +40,7 @@ Self.getProfile.action = 'get info on the current user';
  * @memberof api.user.self
  * @instance
  * @param {object} options - object containing all arguments
- * @param {boolean} [includeTerm] - if truthy, term is included
+ * @param {boolean} [options.includeTerm] - if truthy, term is included
  * @return {Promise.<Object>} Canvas course object {@link https://canvas.instructure.com/doc/api/courses.html#Course}
  */
 Self.listCourses = function (options) {
