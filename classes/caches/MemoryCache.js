@@ -27,6 +27,7 @@ class MemoryCache {
    * @return {Promise.<object>} Promise that resolves with cached value
    */
   get(path, params) {
+    // Check for cached value
     if (
       path
       && params
@@ -36,6 +37,7 @@ class MemoryCache {
       const paramsKey = hashParams(params);
       return Promise.resolve(this._map.get(path).get(paramsKey));
     }
+    // No cached value: resolve with undefined
     return Promise.resolve();
   }
 
@@ -49,6 +51,7 @@ class MemoryCache {
    * @return {Promise} Promise that resolves when set and save are complete
    */
   set(path, params, value) {
+    // Make sure we have an item to store
     if (
       !path
       || !params

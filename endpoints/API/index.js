@@ -1,6 +1,7 @@
 const EndpointCategory = require('../../classes/EndpointCategory');
 
 // Import subcategories
+const Account = require('./Account');
 const Course = require('./Course');
 const User = require('./User');
 
@@ -15,6 +16,7 @@ class API extends EndpointCategory {
 /*------------------------------------------------------------------------*/
 
 /* @module course */
+API.account = Account;
 API.course = Course;
 API.user = User;
 

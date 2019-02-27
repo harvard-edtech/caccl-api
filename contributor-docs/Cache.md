@@ -1,6 +1,6 @@
 # Cache
 
-Class definition for a custom cache. This cache must implement a two-level key system. When getting/setting values, both `path` and `params` (level 1 and level 2 keys, respectively) will be included. However, when deleting values, only a list of `paths` will be included. Thus, it is advantageous to create a cache that can quickly and easily delete all (`path`, `params`) key pairs that match a specific `path`. 
+Class definition for a custom cache. This cache must implement a two-level key system. When getting/setting values, both `path` and `params` (level 1 and level 2 keys, respectively) will be included. However, when deleting values, only a list of `paths` will be included. Thus, it is advantageous to create a cache that can quickly and easily delete all (`path`, `params`) key pairs that match a specific `path`.
 
 ## Summary
 

@@ -9,13 +9,13 @@ This module handles caching in an intuitive way. When setting up the SmartEndpoi
 
 ### Overrides
 
-If you want to ignore the cache, set `options.ignoreCache = true`.
+If you want to ignore the cache, add `ignoreCache: true` to any api function call.
 
-If you don't want to cache a specific call, set `options.dontCache = true`.
+If you don't want to cache a specific call, add `dontCache: true` to any api function call.
 
 ### Manual control of the cache:
 
-You can always call `.uncache(canvasAPIPath)` or `uncacheAll()` to remove something from the cache.
+You can always call `uncache(canvasAPIPath)` or `uncacheAll()` to remove something from the cache.
 
 **Tip:** If you _end_ an uncache path with `*`, we'll uncache everything that starts with the prefix before the `*`. Note: we do not handle `*` in the middle of a path. Examples:
 
