@@ -38,6 +38,7 @@
 								<li class="dropdown">
 									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Endpoints<b class="caret"></b></a>
 									<ul class="dropdown-menu">
+											<li><a href="api.account.html">api.account</a></li>
 											<li><a href="api.course.html">api.course</a></li>
 											<li><a href="api.course.app.html">api.course.app</a></li>
 											<li><a href="api.course.assignment.html">api.course.assignment</a></li>
@@ -78,28 +79,23 @@
 			<div class="col-md-9 main-content">
 		<section class="readme-section">
 			<article><h1>caccl-api</h1><p>A class that defines a set of Canvas endpoints that can be easily accessed. Each endpoint is equipped with the appropriate pre- and post-processing steps to make the Canvas endpoints &quot;behave&quot;. For instance, <em>getSubmissions()</em> fetches student submissions and removes the test student's submission in post-processing.</p>
-<h2>Looking for List of Functions?</h2><h3>Click the <code>Endpoints</code> button in the menu at the top of the page</h3><h2>Getting Started</h2><p>Important: <code>caccl-api</code> is a sub-component of <code>caccl</code>, itself. If you're using <code>caccl-api</code> separately, see &quot;manual initialization&quot; below. If you're using <code>caccl</code>, see instructions by code type:</p>
-<h3>...in a script</h3><p>When initializing <code>caccl</code> as a script, you get the api object automatically:</p>
-<pre class="prettyprint source lang-js"><code>const initCACCL = require('caccl/script');
+<h2>I <em>have</em> a caccl-api instance...</h2><p><strong>Click the <em>Endpoints</em> button in the menu at the top of the page for the full list of endpoint functions</strong></p>
+<p>Using <em>async-await</em>, here are some examples:</p>
+<pre class="prettyprint source lang-js"><code>// List the students in a course
+const students = await api.course.listStudents({ courseId: 58329 });
 
-const api = initCACCL({
-  ...
-});</code></pre><p>In an asynchronous function, just use:</p>
-<pre class="prettyprint source lang-js"><code>const students = await api.course.listStudents({ courseId: 52618 });</code></pre><h3>...on the server</h3><p>In all routes covered by <code>autoRefreshRoutes</code> (defaults to all routes), <code>req.api</code> is added automatically.</p>
-<pre class="prettyprint source lang-js"><code>app.get('/listmystudents', async (req, res) => {
-  const students = await req.api.course.listStudents({ courseId: 52618 });
-  ...
-});</code></pre><h3>...on the client</h3><p>When initializing <code>caccl</code> on the client, you'll get the api object automatically:</p>
-<pre class="prettyprint source lang-js"><code>import initCACCL from 'caccl/client/cached';
-
-const { api } = initCACCL();</code></pre><p>In an asynchronous function, just use:</p>
-<pre class="prettyprint source lang-js"><code>const students = await api.course.listStudents({ courseId: 52618 });</code></pre><h2>Manual Initialization</h2><p>Import <code>caccl-api</code> and call its constructor:</p>
+// List the assignments in a course
+const assignments = await api.course.assignment.list({ courseId: 58329 });</code></pre><h2>I <em>do not have</em> a caccl-api instance...</h2><p>Note: if you set up your project with <a href="https://www.npmjs.com/package/caccl">caccl on npm</a>, you should <em>already</em> have a caccl-api instance. Please check the <a href="https://www.npmjs.com/package/caccl">caccl docs</a> to see how to access your alread-initialized caccl-api instance.</p>
+<h3>Let caccl do this for you (recommended):</h3><p>caccl-api is a sub-component of the umbrella caccl project. Most people use caccl and allow it to initialize caccl-api for them.</p>
+<p>Visit <a href="https://www.npmjs.com/package/caccl">caccl</a> to get started.</p>
+<h3>Use caccl-api manually:</h3><p><strong>1. Initialize caccl-api:</strong></p>
 <pre class="prettyprint source lang-js"><code>const API = require('caccl-api');
 
-const api = new CanvasAPI({
+const api = new API({
   canvasHost: 'canvas.myschool.edu',
   accessToken: '5368~059382...3e57293hga3',
-});</code></pre><h3>Configuration Options:</h3><p>When initializing <code>caccl-api</code>, you can pass in many different configuration options to customize its behavior or turn on/off certain functionality.</p>
+});</code></pre><p><strong>2. Further configure caccl-api:</strong></p>
+<p>When initializing <code>caccl-api</code>, you can pass in many different configuration options to customize its behavior or turn on/off certain functionality. In the example above, we only included the <code>canvasHost</code> and <code>accessToken</code> configuration options.</p>
 <p><strong>Note:</strong> all configuration options are optional.</p>
 <table>
 <thead>
@@ -120,7 +116,7 @@ const api = new CanvasAPI({
 <tr>
 <td style="text-align:left">accessToken</td>
 <td style="text-align:left">string</td>
-<td style="text-align:left">a default access token to apply to all requests</td>
+<td style="text-align:left">a default access token to apply to all requests. If excluded, every function call must contain an <code>accessToken</code> parameter</td>
 <td style="text-align:left">none</td>
 </tr>
 <tr>
@@ -149,13 +145,12 @@ const api = new CanvasAPI({
 </tr>
 <tr>
 <td style="text-align:left">cache</td>
-<td style="text-align:left"><a href="https://github.com/harvard-edtech/caccl-api/blob/master/docs/Cache.md">Cache</a></td>
+<td style="text-align:left"><a href="https://github.com/harvard-edtech/caccl-api/blob/master/contributor-docs/Cache.md">Cache</a></td>
 <td style="text-align:left">a custom cache instance (Not required if using 'memory' or 'session' cacheType: those caches are built-in)</td>
 <td style="text-align:left">none</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Warning:</strong> if accessToken is excluded, every request must contain an <code>accessToken</code> option.</p>
 <h2>Part of the CACCL library</h2><p><strong>C</strong>anvas<br><strong>A</strong>pp<br><strong>C</strong>omplete<br><strong>C</strong>onnection<br><strong>L</strong>ibrary  </p></article>
 		</section>
 			</div>
