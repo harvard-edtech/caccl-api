@@ -19,13 +19,13 @@ const assignments = await api.course.assignment.list({ courseId: 58329 });
 
 Note: if you set up your project with [caccl on npm](https://www.npmjs.com/package/caccl), you should _already_ have a caccl-api instance. Please check the [caccl docs](https://www.npmjs.com/package/caccl) to see how to access your alread-initialized caccl-api instance.
 
-### Let caccl do this for you (recommended):
+### Let caccl create one for you (recommended):
 
 caccl-api is a sub-component of the umbrella caccl project. Most people use caccl and allow it to initialize caccl-api for them.
 
 Visit [caccl](https://www.npmjs.com/package/caccl) to get started.
 
-### Use caccl-api manually:
+### Create caccl-api instance manually:
 
 **1. Initialize caccl-api:**
 
