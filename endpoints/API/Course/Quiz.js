@@ -486,6 +486,54 @@ Quiz.createEssayQuestion = function (options) {
 };
 Quiz.createEssayQuestion.action = 'create a new essay question and add it to a quiz in a course';
 
+/**
+ * Creates a new short answer question and adds it to a quiz in a course
+ * @author Gabriel Abrams
+ * @method createShortAnswerQuestion
+ * @memberof api.course.quiz
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {number} options.quizId - Canvas quiz Id (not the quiz's assignment
+ *   Id)
+ * @param {string} options.name - Name of the question
+ * @param {string} options.text - The text of the question, as displayed to the
+ *   quiz taker
+ * @param {number} options.pointsPossible - Maximum number of points
+ * @param {number} [options.position=last] - Optional. Position of the question
+ *   with respect to the other questions in the quiz
+ * @param {string} [options.correctComment=null] - Comment to display if the
+ *   student answers correctly
+ * @param {string} [options.incorrectComment=null] - Comment to display if the
+ *   student answers incorrectly
+ * @param {string} [options.neutralComment=null] - Comment to display regardless
+ *   of how the student answers
+ * @return {Promise.<Object>} Canvas QuizQuestion {@link https://canvas.instructure.com/doc/api/quiz_questions.html#QuizQuestion}
+ */
+Quiz.createShortAnswerQuestion = function (options) {
+  const params = {
+    'question[question_name]': options.name,
+    'question[question_text]': options.text,
+    'question[question_type]': 'short_answer_question',
+    'question[position]': utils.includeIfNumber(options.position),
+    'question[points_possible]': options.pointsPossible,
+    'question[correct_comments]':
+      utils.includeIfTruthy(options.correctComment),
+    'question[incorrect_comments]':
+      utils.includeIfTruthy(options.incorrectComment),
+    'question[neutralComment]':
+      utils.includeIfTruthy(options.neutralComment),
+    'question[text_after_answers]':
+      utils.includeIfTruthy(options.textAfterAnswers),
+  };
+  return this.visitEndpoint({
+    params,
+    path: `${prefix.v1}/courses/${options.courseId}/quizzes/${options.quizId}/questions`,
+    method: 'POST',
+  });
+};
+Quiz.createShortAnswerQuestion.action = 'create a new short answer question and add it to a quiz in a course';
+
 /*------------------------------------------------------------------------*/
 /*                        Quiz Submission Endpoints                       */
 /*------------------------------------------------------------------------*/
