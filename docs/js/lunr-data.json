@@ -939,6 +939,7 @@
           "specif"
         ],
         "api.course.quiz.html#createMultipleChoiceQuestion": [
+          "add",
           "api.course.quiz#createmultiplechoicequest",
           "choic",
           "cours",
@@ -953,6 +954,22 @@
           "question",
           "quiz",
           "quiz#createmultiplechoicequest"
+        ],
+        "api.course.quiz.html#createEssayQuestion": [
+          "add",
+          "api.course.quiz#createessayquest",
+          "cours",
+          "course.quiz#createessayquest",
+          "creat",
+          "createessayquest",
+          "essay",
+          "function",
+          "new",
+          "option",
+          "promise.&lt;object&gt",
+          "question",
+          "quiz",
+          "quiz#createessayquest"
         ],
         "api.course.quiz.html#listSubmissions": [
           "api.course.quiz#listsubmiss",
@@ -1316,7 +1333,7 @@
           "user.self#listcours"
         ]
       },
-      "length": 98
+      "length": 99
     },
     "tokenStore": {
       "root": {
@@ -3103,6 +3120,41 @@
                                                         }
                                                       }
                                                     },
+                                                    "e": {
+                                                      "docs": {},
+                                                      "s": {
+                                                        "docs": {},
+                                                        "s": {
+                                                          "docs": {},
+                                                          "a": {
+                                                            "docs": {},
+                                                            "y": {
+                                                              "docs": {},
+                                                              "q": {
+                                                                "docs": {},
+                                                                "u": {
+                                                                  "docs": {},
+                                                                  "e": {
+                                                                    "docs": {},
+                                                                    "s": {
+                                                                      "docs": {},
+                                                                      "t": {
+                                                                        "docs": {
+                                                                          "api.course.quiz.html#createEssayQuestion": {
+                                                                            "ref": "api.course.quiz.html#createEssayQuestion",
+                                                                            "tf": 1075
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    },
                                                     "s": {
                                                       "docs": {},
                                                       "u": {
@@ -3973,6 +4025,14 @@
                 "api.course.assignment.html#createSubmissionComment": {
                   "ref": "api.course.assignment.html#createSubmissionComment",
                   "tf": 16.666666666666664
+                },
+                "api.course.quiz.html#createMultipleChoiceQuestion": {
+                  "ref": "api.course.quiz.html#createMultipleChoiceQuestion",
+                  "tf": 6.25
+                },
+                "api.course.quiz.html#createEssayQuestion": {
+                  "ref": "api.course.quiz.html#createEssayQuestion",
+                  "tf": 7.142857142857142
                 },
                 "api.course.rubric.html#createFreeFormGradingRubricInAssignment": {
                   "ref": "api.course.rubric.html#createFreeFormGradingRubricInAssignment",
@@ -5173,6 +5233,10 @@
                     },
                     "api.course.quiz.html#createMultipleChoiceQuestion": {
                       "ref": "api.course.quiz.html#createMultipleChoiceQuestion",
+                      "tf": 6.25
+                    },
+                    "api.course.quiz.html#createEssayQuestion": {
+                      "ref": "api.course.quiz.html#createEssayQuestion",
                       "tf": 7.142857142857142
                     },
                     "api.course.quiz.html#listSubmissions": {
@@ -6964,6 +7028,41 @@
                                                 }
                                               }
                                             },
+                                            "e": {
+                                              "docs": {},
+                                              "s": {
+                                                "docs": {},
+                                                "s": {
+                                                  "docs": {},
+                                                  "a": {
+                                                    "docs": {},
+                                                    "y": {
+                                                      "docs": {},
+                                                      "q": {
+                                                        "docs": {},
+                                                        "u": {
+                                                          "docs": {},
+                                                          "e": {
+                                                            "docs": {},
+                                                            "s": {
+                                                              "docs": {},
+                                                              "t": {
+                                                                "docs": {
+                                                                  "api.course.quiz.html#createEssayQuestion": {
+                                                                    "ref": "api.course.quiz.html#createEssayQuestion",
+                                                                    "tf": 75
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            },
                                             "s": {
                                               "docs": {},
                                               "u": {
@@ -7751,6 +7850,10 @@
                     },
                     "api.course.quiz.html#createMultipleChoiceQuestion": {
                       "ref": "api.course.quiz.html#createMultipleChoiceQuestion",
+                      "tf": 6.25
+                    },
+                    "api.course.quiz.html#createEssayQuestion": {
+                      "ref": "api.course.quiz.html#createEssayQuestion",
                       "tf": 7.142857142857142
                     },
                     "api.course.quiz.html#createSubmission": {
@@ -8120,6 +8223,41 @@
                           }
                         }
                       }
+                    },
+                    "e": {
+                      "docs": {},
+                      "s": {
+                        "docs": {},
+                        "s": {
+                          "docs": {},
+                          "a": {
+                            "docs": {},
+                            "y": {
+                              "docs": {},
+                              "q": {
+                                "docs": {},
+                                "u": {
+                                  "docs": {},
+                                  "e": {
+                                    "docs": {},
+                                    "s": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {
+                                          "api.course.quiz.html#createEssayQuestion": {
+                                            "ref": "api.course.quiz.html#createEssayQuestion",
+                                            "tf": 608.3333333333334
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -8136,7 +8274,7 @@
                   "docs": {
                     "api.course.quiz.html#createMultipleChoiceQuestion": {
                       "ref": "api.course.quiz.html#createMultipleChoiceQuestion",
-                      "tf": 7.142857142857142
+                      "tf": 6.25
                     }
                   }
                 }
@@ -8540,6 +8678,23 @@
                           "tf": 3.3333333333333335
                         }
                       }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "s": {
+            "docs": {},
+            "s": {
+              "docs": {},
+              "a": {
+                "docs": {},
+                "y": {
+                  "docs": {
+                    "api.course.quiz.html#createEssayQuestion": {
+                      "ref": "api.course.quiz.html#createEssayQuestion",
+                      "tf": 7.142857142857142
                     }
                   }
                 }
@@ -11628,6 +11783,10 @@
                         "ref": "api.course.quiz.html#createMultipleChoiceQuestion",
                         "tf": 33.33333333333333
                       },
+                      "api.course.quiz.html#createEssayQuestion": {
+                        "ref": "api.course.quiz.html#createEssayQuestion",
+                        "tf": 33.33333333333333
+                      },
                       "api.course.quiz.html#listSubmissions": {
                         "ref": "api.course.quiz.html#listSubmissions",
                         "tf": 33.33333333333333
@@ -12052,6 +12211,10 @@
                           },
                           "api.course.quiz.html#createMultipleChoiceQuestion": {
                             "ref": "api.course.quiz.html#createMultipleChoiceQuestion",
+                            "tf": 110
+                          },
+                          "api.course.quiz.html#createEssayQuestion": {
+                            "ref": "api.course.quiz.html#createEssayQuestion",
                             "tf": 110
                           },
                           "api.course.quiz.html#listSubmissions": {
@@ -12701,6 +12864,10 @@
                                                       "ref": "api.course.quiz.html#createMultipleChoiceQuestion",
                                                       "tf": 33.33333333333333
                                                     },
+                                                    "api.course.quiz.html#createEssayQuestion": {
+                                                      "ref": "api.course.quiz.html#createEssayQuestion",
+                                                      "tf": 33.33333333333333
+                                                    },
                                                     "api.course.quiz.html#getSubmission": {
                                                       "ref": "api.course.quiz.html#getSubmission",
                                                       "tf": 33.33333333333333
@@ -13059,7 +13226,7 @@
                       "docs": {
                         "api.course.quiz.html#createMultipleChoiceQuestion": {
                           "ref": "api.course.quiz.html#createMultipleChoiceQuestion",
-                          "tf": 7.142857142857142
+                          "tf": 6.25
                         }
                       }
                     }
@@ -13115,6 +13282,10 @@
                 },
                 "api.course.quiz.html#createMultipleChoiceQuestion": {
                   "ref": "api.course.quiz.html#createMultipleChoiceQuestion",
+                  "tf": 6.25
+                },
+                "api.course.quiz.html#createEssayQuestion": {
+                  "ref": "api.course.quiz.html#createEssayQuestion",
                   "tf": 7.142857142857142
                 },
                 "api.course.quiz.html#createSubmission": {
@@ -13489,6 +13660,10 @@
                   },
                   "api.course.quiz.html#createMultipleChoiceQuestion": {
                     "ref": "api.course.quiz.html#createMultipleChoiceQuestion",
+                    "tf": 6.25
+                  },
+                  "api.course.quiz.html#createEssayQuestion": {
+                    "ref": "api.course.quiz.html#createEssayQuestion",
                     "tf": 7.142857142857142
                   },
                   "api.course.quiz.html#listSubmissions": {
@@ -13798,6 +13973,41 @@
                                   }
                                 }
                               },
+                              "e": {
+                                "docs": {},
+                                "s": {
+                                  "docs": {},
+                                  "s": {
+                                    "docs": {},
+                                    "a": {
+                                      "docs": {},
+                                      "y": {
+                                        "docs": {},
+                                        "q": {
+                                          "docs": {},
+                                          "u": {
+                                            "docs": {},
+                                            "e": {
+                                              "docs": {},
+                                              "s": {
+                                                "docs": {},
+                                                "t": {
+                                                  "docs": {
+                                                    "api.course.quiz.html#createEssayQuestion": {
+                                                      "ref": "api.course.quiz.html#createEssayQuestion",
+                                                      "tf": 75
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
                               "s": {
                                 "docs": {},
                                 "u": {
@@ -13871,6 +14081,10 @@
                           },
                           "api.course.quiz.html#createMultipleChoiceQuestion": {
                             "ref": "api.course.quiz.html#createMultipleChoiceQuestion",
+                            "tf": 6.25
+                          },
+                          "api.course.quiz.html#createEssayQuestion": {
+                            "ref": "api.course.quiz.html#createEssayQuestion",
                             "tf": 7.142857142857142
                           },
                           "api.course.quiz.html#listQuestionGrades": {
@@ -13891,7 +14105,7 @@
           }
         }
       },
-      "length": 1089
+      "length": 1104
     },
     "corpusTokens": [
       "account",
@@ -13974,6 +14188,7 @@
       "api.course.page#upd",
       "api.course.quiz",
       "api.course.quiz#cr",
+      "api.course.quiz#createessayquest",
       "api.course.quiz#createmultiplechoicequest",
       "api.course.quiz#createsubmiss",
       "api.course.quiz#delet",
@@ -14111,6 +14326,7 @@
       "course.page#upd",
       "course.quiz",
       "course.quiz#cr",
+      "course.quiz#createessayquest",
       "course.quiz#createmultiplechoicequest",
       "course.quiz#createsubmiss",
       "course.quiz#delet",
@@ -14130,6 +14346,7 @@
       "course.section#get",
       "course.section#list",
       "creat",
+      "createessayquest",
       "createfilesubmiss",
       "createfreeformgradingrubricinassign",
       "creategroup",
@@ -14155,6 +14372,7 @@
       "enrol",
       "enrollmentss",
       "entri",
+      "essay",
       "exist",
       "expect",
       "extern",
@@ -14254,6 +14472,7 @@
       "question",
       "quiz",
       "quiz#creat",
+      "quiz#createessayquest",
       "quiz#createmultiplechoicequest",
       "quiz#createsubmiss",
       "quiz#delet",
@@ -15028,7 +15247,17 @@
       "name": "createMultipleChoiceQuestion",
       "tags": "api.course.quiz#createMultipleChoiceQuestion course.quiz#createMultipleChoiceQuestion quiz#createMultipleChoiceQuestion createMultipleChoiceQuestion",
       "summary": "",
-      "description": "Creates a new multiple choice question to a quiz in a course"
+      "description": "Creates a new multiple choice question and adds it to a quiz in a course"
+    },
+    "api.course.quiz.html#createEssayQuestion": {
+      "id": "api.course.quiz.html#createEssayQuestion",
+      "kind": "function",
+      "title": "createEssayQuestion( options ) → {Promise.&lt;Object&gt;}",
+      "longname": "api.course.quiz#createEssayQuestion",
+      "name": "createEssayQuestion",
+      "tags": "api.course.quiz#createEssayQuestion course.quiz#createEssayQuestion quiz#createEssayQuestion createEssayQuestion",
+      "summary": "",
+      "description": "Creates a new essay question and adds it to a quiz in a course"
     },
     "api.course.quiz.html#listSubmissions": {
       "id": "api.course.quiz.html#listSubmissions",

@@ -86,9 +86,9 @@ const students = await api.course.listStudents({ courseId: 58329 });
 
 // List the assignments in a course
 const assignments = await api.course.assignment.list({ courseId: 58329 });</code></pre><h2>I <em>do not have</em> a caccl-api instance...</h2><p>Note: if you set up your project with <a href="https://www.npmjs.com/package/caccl">caccl on npm</a>, you should <em>already</em> have a caccl-api instance. Please check the <a href="https://www.npmjs.com/package/caccl">caccl docs</a> to see how to access your alread-initialized caccl-api instance.</p>
-<h3>Let caccl do this for you (recommended):</h3><p>caccl-api is a sub-component of the umbrella caccl project. Most people use caccl and allow it to initialize caccl-api for them.</p>
+<h3>Let caccl create one for you (recommended):</h3><p>caccl-api is a sub-component of the umbrella caccl project. Most people use caccl and allow it to initialize caccl-api for them.</p>
 <p>Visit <a href="https://www.npmjs.com/package/caccl">caccl</a> to get started.</p>
-<h3>Use caccl-api manually:</h3><p><strong>1. Initialize caccl-api:</strong></p>
+<h3>Create caccl-api instance manually:</h3><p><strong>1. Initialize caccl-api:</strong></p>
 <pre class="prettyprint source lang-js"><code>const API = require('caccl-api');
 
 const api = new API({
