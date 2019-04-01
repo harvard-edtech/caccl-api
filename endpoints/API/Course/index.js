@@ -30,11 +30,11 @@ class Course extends EndpointCategory {
 /*------------------------------------------------------------------------*/
 
 Course.assignment = Assignment;
-Course.assignmentgroup = AssignmentGroup;
+Course.assignmentGroup = AssignmentGroup;
 Course.app = App;
-Course.gradebookcolumn = GradebookColumn;
+Course.gradebookColumn = GradebookColumn;
 Course.group = Group;
-Course.groupset = GroupSet;
+Course.groupSet = GroupSet;
 Course.page = Page;
 Course.quiz = Quiz;
 Course.rubric = Rubric;

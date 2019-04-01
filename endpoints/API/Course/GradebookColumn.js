@@ -66,7 +66,7 @@ GradebookColumn.list.action = 'get the list of gradebook columns in a course';
  * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
 GradebookColumn.get = function (options) {
-  return this.api.course.gradebookcolumn.list({
+  return this.api.course.gradebookColumn.list({
     courseId: options.courseId,
     includeHidden: options.isHidden,
   })
