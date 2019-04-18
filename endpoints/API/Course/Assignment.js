@@ -70,6 +70,7 @@ Assignment.get = function (options) {
   });
 };
 Assignment.get.action = 'get info on a specific assignment in a course';
+Assignment.get.requiredParams = ['courseId', 'assignmentId'];
 
 /**
  * Updates a Canvas assignment
@@ -153,6 +154,7 @@ Assignment.update = function (options) {
   });
 };
 Assignment.update.action = 'update an assignment in a course';
+Assignment.update.requiredParams = ['courseId', 'assignmentId'];
 
 /**
  * Creates a Canvas assignment
@@ -163,8 +165,8 @@ Assignment.update.action = 'update an assignment in a course';
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to create an assignment
  *   in
- * @param {string} options.name - The name of the assignment
- *   (default: Unnamed Assignment)
+ * @param {string} [options.name=Unnamed Assignment] - The name of the
+ *   assignment
  * @param {number} [options.pointsPossible=null] - Points possible
  * @param {date} [options.dueAt=null] - Due at datetime
  * @param {date} [options.lockAt=null] - Due at datetime
@@ -230,6 +232,7 @@ Assignment.create = function (options) {
   });
 };
 Assignment.create.action = 'create a new assignment in a course';
+Assignment.create.requiredParams = ['courseId'];
 
 /**
  * Delete an assignment
@@ -249,6 +252,7 @@ Assignment.delete = function (options) {
   });
 };
 Assignment.delete.action = 'delete an assignment from a course';
+Assignment.delete.requiredParams = ['courseId', 'assignmentId'];
 
 /*------------------------------------------------------------------------*/
 /*                            Grading Endpoints                           */
@@ -279,6 +283,7 @@ Assignment.listGradeableStudents = function (options) {
     });
 };
 Assignment.listGradeableStudents.action = 'get the list of students who are gradeable in a specific assignment in a course';
+Assignment.listGradeableStudents.requiredParams = ['courseId', 'assignmentId'];
 
 /**
  * Adds a comment to a submission
@@ -304,6 +309,11 @@ Assignment.createSubmissionComment = function (options) {
   });
 };
 Assignment.createSubmissionComment.action = 'create a new comment on a submission';
+Assignment.createSubmissionComment.requiredParams = [
+  'courseId',
+  'assignmentId',
+  'studentId',
+];
 
 /**
  * Batch updates grades and/or comments. Also supports updating rubric items
@@ -584,6 +594,11 @@ Assignment.updateGrades = function (options) {
   return promiseChain;
 };
 Assignment.updateGrades.action = 'update student grades, comments, and/or rubric assessments for a specific assignment in a course';
+Assignment.updateGrades.requiredParams = [
+  'courseId',
+  'assignmentId',
+  'gradeItems',
+];
 
 /*------------------------------------------------------------------------*/
 /*                      Assignment Override Endpoints                     */
@@ -607,6 +622,7 @@ Assignment.listOverrides = function (options) {
   });
 };
 Assignment.listOverrides.action = 'get a list of assignment overrides for a specific assignment in a course';
+Assignment.listOverrides.requiredParams = ['courseId', 'assignmentId'];
 
 /**
  * Get a specific override on an assignment in a course
@@ -627,6 +643,7 @@ Assignment.getOverride = function (options) {
   });
 };
 Assignment.getOverride.action = 'get a list of assignment overrides for a specific assignment in a course';
+Assignment.getOverride.requiredParams = ['courseId', 'assignmentId'];
 
 /**
  * Create assignment override.
@@ -686,6 +703,10 @@ Assignment.createOverride = function (options) {
     });
 };
 Assignment.createOverride.action = 'create a new override for a specific assignment in a course';
+Assignment.createOverride.requiredParams = [
+  'courseId',
+  'assignmentId',
+];
 
 /**
  * Deletes an assignment override
@@ -712,6 +733,11 @@ Assignment.deleteOverride = function (options) {
     });
 };
 Assignment.deleteOverride.action = 'delete an override for a specific assignment in a course';
+Assignment.deleteOverride.requiredParams = [
+  'courseId',
+  'assignmentId',
+  'overrideId',
+];
 
 /*------------------------------------------------------------------------*/
 /*                     Assignment Submission Endpoints                    */
@@ -804,6 +830,7 @@ Assignment.listSubmissions = function (options) {
   return fetchPromise;
 };
 Assignment.listSubmissions.action = 'list the submissions to a specific assignment in a course';
+Assignment.listSubmissions.requiredParams = ['courseId', 'assignmentId'];
 
 /**
  * Gets a single submission for an assignment
@@ -837,6 +864,11 @@ Assignment.getSubmission = function (options) {
   });
 };
 Assignment.getSubmission.action = 'get a specific submission to an assignment in a course';
+Assignment.getSubmission.requiredParams = [
+  'courseId',
+  'assignmentId',
+  'studentId',
+];
 
 /**
  * Creates a text submission on behalf of the current user
@@ -884,6 +916,11 @@ Assignment.createTextSubmission = function (options) {
     });
 };
 Assignment.createTextSubmission.action = 'create a text submission to a specific assignment in a course on behalf of the current user';
+Assignment.createTextSubmission.requiredParams = [
+  'courseId',
+  'assignmentId',
+  'text',
+];
 
 /**
  * Creates a url submission on behalf of the current user
@@ -931,6 +968,11 @@ Assignment.createURLSubmission = function (options) {
     });
 };
 Assignment.createURLSubmission.action = 'create a url submission to a specific assignment in a course on behalf of the current user';
+Assignment.createURLSubmission.requiredParams = [
+  'courseId',
+  'assignmentId',
+  'url',
+];
 
 /**
  * Creates a file submission on behalf of the current user
@@ -1080,7 +1122,11 @@ Assignment.createFileSubmission = function (options) {
     });
 };
 Assignment.createFileSubmission.action = 'create a file submission to a specific assignment in a course on behalf of the current user';
-
+Assignment.createFileSubmission.requiredParams = [
+  'courseId',
+  'assignmentId',
+  'filenames',
+];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

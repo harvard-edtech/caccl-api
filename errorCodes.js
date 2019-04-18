@@ -5,13 +5,14 @@
  */
 
 // Highest errors:
-// > CAPI23
+// > CAPI24
 // > CANV14 (exclude 404, 500)
 
 module.exports = {
   invalid_cache: 'CAPI1',
   unnamedEndpointError: 'CAPI2',
   endpointDidntReturnPromise: 'CAPI3',
+  endpointCallExcludedRequiredParam: 'CAP24',
 
   // Errors for visitEndpoint/request sender
   // > /classes/instantiateEndpoint/genVisitEndpoint.js
