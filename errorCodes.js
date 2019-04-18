@@ -5,7 +5,7 @@
  */
 
 // Highest errors:
-// > CAPI22
+// > CAPI23
 // > CANV14 (exclude 404, 500)
 
 module.exports = {
@@ -45,6 +45,7 @@ module.exports = {
   // > endpoints/waitForCompletion.js
   waitForCompletionTimeout: 'CAPI11',
   waitForCompletionCheckError: 'CAPI12',
+  waitForCompletionFailure: 'CAPI23',
 
   // Errors for specific endpoints
 
