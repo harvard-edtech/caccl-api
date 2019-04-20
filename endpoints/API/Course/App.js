@@ -35,17 +35,20 @@ class App extends EndpointCategory {
  * @method list
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
- * @param {boolean} [options.includeParents] - If truthy, includes tools
+ * @param {boolean} [options.excludeParents] - If true, excludes tools
  *   installed in all accounts above the current context
  * @return {Promise.<Object[]>} list of external tools {@link https://canvas.instructure.com/doc/api/external_tools.html}
  */
 App.list = function (options) {
+  const params = (
+    !options.excludeParents
+      ? { include_parents: false }
+      : {}
+  );
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/external_tools`,
     method: 'GET',
-    params: {
-      include_parents: utils.isTruthy(options.includeParents),
-    },
+    params,
   });
 };
 App.list.action = 'get the list of apps installed into a course';

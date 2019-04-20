@@ -39,7 +39,7 @@
   "dependencies": {
     "async": "^2.6.2",
     "axios": "^0.18.0",
-    "caccl-error": "^1.0.0",
+    "caccl-error": "^1.0.1",
     "caccl-send-request": "^1.0.9",
     "csv-parse": "^3.2.0",
     "parse-link-header": "^1.0.1",
