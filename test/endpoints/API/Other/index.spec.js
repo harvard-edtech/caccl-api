@@ -1,7 +1,7 @@
 const api = require('../../../common/genInstructorAPI.js')();
 const courseId = require('../../../environment.js').testCourseId;
 
-describe.only('Endpoints > Other', function () {
+describe('Endpoints > Other', function () {
   it('Lists apps', async function () {
     const listA = await api.course.app.list({ courseId });
     const listB = await api.other.endpoint({
