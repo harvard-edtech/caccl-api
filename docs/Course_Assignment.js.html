@@ -398,6 +398,39 @@ Assignment.createSubmissionComment.requiredParams = [
 ];
 
 /**
+ * Updates a student's grade and/or comment
+ * @author Gabriel Abrams
+ * @method updateGrade
+ * @memberof api.course.assignment
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course id
+ * @param {number} options.assignmentId - Canvas assignment id
+ * @param {number} options.studentId - Canvas student id
+ * @param {number} [options.points] - the overall points to assign to the
+ *   student
+ * @param {string} [options.comment] - the grader comment to leave on the
+ *   submission
+ * @return {Promise.&lt;Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ */
+Assignment.updateGrade = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/submissions/${options.studentId}`,
+    method: 'PUT',
+    params: {
+      'comment[text_comment]': utils.includeIfTruthy(options.comment),
+      'submission[posted_grade]': utils.includeIfNumber(options.points),
+    },
+  });
+};
+Assignment.updateGrade.action = 'update student grade and/or comments for a specific assignment in a course';
+Assignment.updateGrade.requiredParams = [
+  'courseId',
+  'assignmentId',
+  'studentId',
+];
+
+/**
  * Batch updates grades and/or comments. Also supports updating rubric items
  * @author Gabriel Abrams
  * @method updateGrades
@@ -405,7 +438,7 @@ Assignment.createSubmissionComment.requiredParams = [
  * @instance
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
- * @param {number} options.assignmentId - Canvas course Id
+ * @param {number} options.assignmentId - Canvas assignment Id
  * @param {array} options.gradeItems - List of grade items to upload to Canvas:
  *   [{
  *     studentId: &lt;student id>,

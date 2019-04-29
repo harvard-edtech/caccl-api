@@ -1170,6 +1170,133 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="updateGrade" class="function public"><span class="name">updateGrade</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Updates a student's grade and/or comment</div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>options</code></td>
+							<td><span class="param-type">object</span></td>
+							<td class="last">
+									object containing all arguments
+										<table class="params table table-striped">
+											<thead>
+											<tr>
+													<th>Name</th>
+												<th>Type</th>
+													<th>Attributes</th>
+												<th class="last">Description</th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr>
+														<td><code>courseId</code></td>
+													<td><span class="param-type">number</span></td>
+														<td class="attributes"></td>
+													<td class="last">
+															Canvas course id
+													</td>
+												</tr>
+												<tr>
+														<td><code>assignmentId</code></td>
+													<td><span class="param-type">number</span></td>
+														<td class="attributes"></td>
+													<td class="last">
+															Canvas assignment id
+													</td>
+												</tr>
+												<tr>
+														<td><code>studentId</code></td>
+													<td><span class="param-type">number</span></td>
+														<td class="attributes"></td>
+													<td class="last">
+															Canvas student id
+													</td>
+												</tr>
+												<tr>
+														<td><code>points</code></td>
+													<td><span class="param-type">number</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+													<td class="last">
+															the overall points to assign to the
+									  student
+													</td>
+												</tr>
+												<tr>
+														<td><code>comment</code></td>
+													<td><span class="param-type">string</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+													<td class="last">
+															the grader comment to leave on the
+									  submission
+													</td>
+												</tr>
+											</tbody>
+										</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description">Canvas submission <a href="https://canvas.instructure.com/doc/api/submissions.html#Submission">https://canvas.instructure.com/doc/api/submissions.html#Submission</a></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- author -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Author</label>
+								<div class="col-sm-9">
+										<p class="form-control-static">Gabriel Abrams</p>
+								</div>
+							</div>
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-318">line 318</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
 			<h4 id="updateGrades" class="function public"><span class="name">updateGrades</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
@@ -1217,7 +1344,7 @@
 														<td class="attributes"></td>
 														<td></td>
 													<td class="last">
-															Canvas course Id
+															Canvas assignment Id
 													</td>
 												</tr>
 												<tr>
@@ -1319,7 +1446,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-318">line 318</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-351">line 351</a></p>
 								</div>
 							</div>
 			
@@ -1417,7 +1544,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-607">line 607</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-640">line 640</a></p>
 								</div>
 							</div>
 			
@@ -1522,7 +1649,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-627">line 627</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-660">line 660</a></p>
 								</div>
 							</div>
 			
@@ -1697,7 +1824,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-648">line 648</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-681">line 681</a></p>
 								</div>
 							</div>
 			
@@ -1802,7 +1929,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-711">line 711</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-744">line 744</a></p>
 								</div>
 							</div>
 			
@@ -1946,7 +2073,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-768">line 768</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-801">line 801</a></p>
 								</div>
 							</div>
 			
@@ -2089,7 +2216,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-835">line 835</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-868">line 868</a></p>
 								</div>
 							</div>
 			
@@ -2215,7 +2342,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-873">line 873</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-906">line 906</a></p>
 								</div>
 							</div>
 			
@@ -2341,7 +2468,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-925">line 925</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-958">line 958</a></p>
 								</div>
 							</div>
 			
@@ -2467,7 +2594,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-977">line 977</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-1010">line 1010</a></p>
 								</div>
 							</div>
 			
