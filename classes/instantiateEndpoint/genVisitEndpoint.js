@@ -2,6 +2,7 @@ const parseLinkHeader = require('parse-link-header');
 const pathLib = require('path');
 const defaultSendRequest = require('caccl-send-request');
 const CACCLError = require('caccl-error');
+const sleep = require('util').promisify(setTimeout);
 
 const errorCodes = require('../../errorCodes');
 const interpretCanvasError = require('./helpers/interpretCanvasError');
@@ -94,7 +95,7 @@ module.exports = (config = {}) => {
         usedCachedValue = false;
 
         // Fetch value from Canvas (no cached value)
-        return new Promise((resolve, reject) => {
+        const fetchValuePromise = new Promise((resolve, reject) => {
           const pages = [];
           const fetchPage = (pageNumber) => {
             // Add the page number to the request (if applicable)
@@ -145,6 +146,17 @@ module.exports = (config = {}) => {
                     message: `The endpoint https://${canvasHost}${path} or params are invalid. Canvas responded with a 400 message (invalid syntax): ${errors}`,
                     code: errorCodes.invalidSyntax,
                   }));
+                }
+
+                // Throttled
+                if (
+                  response.status === 403
+                  && response.body === '403 Forbidden (Rate Limit Exceeded)\n'
+                ) {
+                  // Throttling occurred! Retry the request in 0.1s
+                  return sleep(() => {
+                    fetchPage(pageNumber);
+                  }, 100);
                 }
 
                 // Parse body (if it's not already parsed)
@@ -217,32 +229,35 @@ module.exports = (config = {}) => {
           // Fetch the first page starts off a chain
           fetchPage(startPage || 1);
         });
+
+        // Cache the Promise version
+        if (cache && cache.storePromises) {
+          return cache.set(path, params, fetchValuePromise)
+            .then(() => {
+              return fetchValuePromise;
+            });
+        }
+        return fetchValuePromise;
       });
 
     // Step 3: cache the value
     // Only the cache the value if:
     // > we're allowed to (dontCache is falsy)
     // > we didn't use a cached value (don't cache a value that's already saved)
+    // > we didn't already cache a promise
     const cacheThenResolveWithValue = getValue
       .then((value) => {
         // Don't cache if dontCache is truthy or we used a cached value
-        if (dontCache || usedCachedValue) {
+        if (dontCache || usedCachedValue || cache.storePromises) {
           // Just pass along the value
           return Promise.resolve(value);
         }
-
-        // Choose which item to store
-        const itemToStore = (
-          cache.storePromises
-            ? getValue
-            : value
-        );
 
         // Store the item
         return cache.set(
           path,
           params,
-          itemToStore
+          value
         )
           .then(() => {
             // On cache success, resolve with value
