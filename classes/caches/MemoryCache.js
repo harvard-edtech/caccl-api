@@ -5,6 +5,7 @@
  * @see module: classes/caches/MemoryCache
  */
 
+const Mutex = require('./helpers/Mutex');
 const hashParams = require('./helpers/hashParams.js');
 
 /** Class that stores cache in memory */
@@ -16,6 +17,63 @@ class MemoryCache {
   constructor() {
     this._map = new Map();
     this.storePromises = true;
+
+    // Prepare for locking
+    this._locks = new Map();
+  }
+
+  /**
+   * Acquires a lock on the (path, params) combo
+   * @method acquireLock
+   * @param {string} path - The url path that is cached
+   * @param {object} params - The get parameters for the cached request
+   * @return {Promise} a promise that resolves when the lock has been acquired
+   */
+  acquireLock(path, params) {
+    const paramsKey = hashParams(params);
+
+    // Initialize the path map (if it doesn't exist)
+    if (!this._locks.has(path)) {
+      this._locks.set(path, new Map());
+    }
+
+    // Initialize the params map (if it doesn't exist)
+    if (!this._locks.get(path).has(paramsKey)) {
+      this._locks.get(path).set(paramsKey, new Mutex());
+    }
+
+    // Get the appropriate mutex
+    const mutex = this._locks.get(path).get(paramsKey);
+
+    // Lock the mutex
+    return mutex.acquire();
+  }
+
+  /**
+   * Releases a lock on the (path, params) combo
+   * @method releaseLock
+   * @param {string} path - The url path that is cached
+   * @param {object} params - The get parameters for the cached request
+   * @return {Promise} a promise that resolves when the lock has been released
+   */
+  releaseLock(path, params) {
+    // No need to release if nobody has locked anything on this path yet
+    if (!this._locks.has(path)) {
+      return Promise.resolve();
+    }
+
+    const paramsKey = hashParams(params);
+
+    // No need to release if nobody has locked this (path, params) tuple yet
+    if (!this._locks.get(path).has(paramsKey)) {
+      return Promise.resolve();
+    }
+
+    // Get the appropriate mutex
+    const mutex = this._locks.get(path).get(paramsKey);
+
+    // Unlock the mutex
+    return mutex.release();
   }
 
   /**
