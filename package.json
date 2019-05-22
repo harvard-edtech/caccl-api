@@ -33,7 +33,7 @@
     "eslint-plugin-react": "^7.12.4",
     "foodoc": "0.0.9",
     "fs": "0.0.1-security",
-    "jsdoc": "^3.5.5",
+    "jsdoc": "^3.6.2",
     "mocha": "^5.2.0"
   },
   "dependencies": {
@@ -42,6 +42,7 @@
     "caccl-error": "^1.0.1",
     "caccl-send-request": "^1.0.9",
     "csv-parse": "^3.2.0",
+    "locks": "^0.2.2",
     "parse-link-header": "^1.0.1",
     "path": "^0.12.7",
     "prop-types": "^15.7.2",
