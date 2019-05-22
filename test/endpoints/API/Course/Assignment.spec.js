@@ -741,6 +741,16 @@ describe('Endpoints > Course > Assignment', function () {
             // Couldn't find at least one of the student submissions
             throw new Error('We couldn\'t find at least one of the student submissions, so we couldn\'t check if the merge was successful.');
           }
+          // Create function that cleans rating_id from rubric_assessment
+          const cleanSub = (sub) => {
+            const newSub = sub;
+            if (newSub.rubric_assessment) {
+              Object.keys(newSub.rubric_assessment).forEach((rubricId) => {
+                delete newSub.rubric_assessment[rubricId].rating_id;
+              });
+            }
+            return newSub;
+          };
           // Check first sub
           // - style = 5, 'I forgot to check your plot' (completely overwritten)
           // - correctness = 3, 'great' (score then comment)
@@ -749,20 +759,20 @@ describe('Endpoints > Course > Assignment', function () {
             user_id: studentInfo.canvasId,
             rubric_assessment: {
               [rubricIdMap.style]: {
-                points: 5,
                 comments: 'I forgot to check your plot',
+                points: 5,
               },
               [rubricIdMap.correctness]: {
-                points: 3,
                 comments: 'great',
+                points: 3,
               },
               [rubricIdMap.efficiency]: {
-                points: 1,
                 comments: 'awesome',
+                points: 1,
               },
             },
             score: 9,
-          }, student1Sub);
+          }, cleanSub(student1Sub));
           if (!comparison1.isMatch) {
             throw new Error(`One of the test submission's grades weren't merged or uploaded properly:\n${comparison1.description}`);
           }
@@ -775,20 +785,20 @@ describe('Endpoints > Course > Assignment', function () {
             user_id: studentInfo2.canvasId,
             rubric_assessment: {
               [rubricIdMap.style]: {
-                points: 3,
                 comments: 'okay',
+                points: 3,
               },
               [rubricIdMap.correctness]: {
-                points: 1,
                 comments: 'mediocre',
+                points: 1,
               },
               [rubricIdMap.efficiency]: {
-                points: 1,
                 comments: null,
+                points: 1,
               },
             },
             score: 5,
-          }, student2Sub);
+          }, cleanSub(student2Sub));
           if (!comparison2.isMatch) {
             throw new Error(`One of the test submission's grades weren't merged or uploaded properly:\n${comparison2.description}`);
           }
