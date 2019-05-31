@@ -85,6 +85,7 @@ module.exports = (config = {}) => {
       cache,
       uncache,
       canvasHost,
+      disableRequestCombining: options.disableRequestCombining,
       accessToken: (
         options.accessToken
         || defaults.accessToken

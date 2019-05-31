@@ -2,11 +2,12 @@ const parseLinkHeader = require('parse-link-header');
 const pathLib = require('path');
 const defaultSendRequest = require('caccl-send-request');
 const CACCLError = require('caccl-error');
-const sleep = require('util').promisify(setTimeout);
 
 const errorCodes = require('../../errorCodes');
 const interpretCanvasError = require('./helpers/interpretCanvasError');
 const preProcessParams = require('./helpers/preProcessParams');
+
+const THROTTLE_SLEEP_MS = 600;
 
 /**
  * Generates a new visitEndpoint function
@@ -25,6 +26,8 @@ const preProcessParams = require('./helpers/preProcessParams');
  * @param {boolean} [ignoreCache] - if truthy, we don't look to see if we have
  *   a cached value before requesting a new value from Canvas. Only valid if
  *   method is GET and cache is included
+ * @param {boolean} [disableRequestCombining] - if truthy, request combining is
+ *   disabled (for this to be enabled, the cache must support this feature)
  * @param {function} [sendRequest=caccl-send-request instance] - a custom
  *   function that sends https requests (we recommend not including this)
  * @param {string}
@@ -41,6 +44,7 @@ module.exports = (config = {}) => {
     numRetries,
     cache,
     uncache,
+    disableRequestCombining,
   } = config;
 
   // Set up sendRequest
@@ -94,8 +98,8 @@ module.exports = (config = {}) => {
 
     let promiseChain = Promise.resolve();
 
-    // Step 1: Acquire lock
-    if (cache && cache.acquireLock) {
+    // Step 1: Acquire lock if combining requests
+    if (cache && cache.acquireLock && !disableRequestCombining) {
       promiseChain = promiseChain.then(() => {
         return cache.acquireLock(path, params);
       });
@@ -121,8 +125,8 @@ module.exports = (config = {}) => {
           // There is a cached value
           let releaseLockPromise = Promise.resolve();
 
-          // Step 2b: Release lock
-          if (cache.releaseLock) {
+          // Step 2b: Release lock if combining requests
+          if (cache.releaseLock && !disableRequestCombining) {
             releaseLockPromise = cache.releaseLock(path, params);
           }
 
@@ -143,8 +147,8 @@ module.exports = (config = {}) => {
           });
         }
 
-        // Step 4: Release lock
-        if (cache && cache.releaseLock) {
+        // Step 4: Release lock if combining requests
+        if (cache && cache.releaseLock && !disableRequestCombining) {
           innerPromiseChain = innerPromiseChain.then(() => {
             return cache.releaseLock(path, params);
           });
@@ -163,6 +167,7 @@ module.exports = (config = {}) => {
         innerPromiseChain = innerPromiseChain.then(() => {
           return new Promise((resolve, reject) => {
             const pages = [];
+            let NEXT_THROTTLE_SLEEP_MS = 0;
             const fetchPage = (pageNumber) => {
               // Add the page number to the request (if applicable)
               const paramsWithPageNumber = preProcessedParams;
@@ -215,14 +220,13 @@ module.exports = (config = {}) => {
                   }
 
                   // Throttled
-                  if (
-                    response.status === 403
-                    && response.body === '403 Forbidden (Rate Limit Exceeded)\n'
-                  ) {
-                    // Throttling occurred! Retry the request in 0.1s
-                    return sleep(() => {
+                  if (response.status === 403) {
+                    // Throttling occurred! Retry the request later
+                    NEXT_THROTTLE_SLEEP_MS += THROTTLE_SLEEP_MS;
+                    setTimeout(() => {
                       fetchPage(pageNumber);
-                    }, 100);
+                    }, NEXT_THROTTLE_SLEEP_MS);
+                    return;
                   }
 
                   // Parse body (if it's not already parsed)
@@ -235,6 +239,7 @@ module.exports = (config = {}) => {
                     try {
                       parsedBody = JSON.parse(response.body);
                     } catch (err) {
+                      console.log(response);
                       return reject(new CACCLError({
                         message: 'We couldn\'t understand Canvas\'s response because it was malformed. Please contact an admin if this continues to occur.',
                         code: errorCodes.malformed,
