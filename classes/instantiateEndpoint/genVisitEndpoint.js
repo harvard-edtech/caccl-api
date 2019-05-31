@@ -7,7 +7,7 @@ const errorCodes = require('../../errorCodes');
 const interpretCanvasError = require('./helpers/interpretCanvasError');
 const preProcessParams = require('./helpers/preProcessParams');
 
-const THROTTLE_SLEEP_MS = 600;
+const THROTTLE_SLEEP_MS = 1000;
 
 /**
  * Generates a new visitEndpoint function
@@ -239,7 +239,6 @@ module.exports = (config = {}) => {
                     try {
                       parsedBody = JSON.parse(response.body);
                     } catch (err) {
-                      console.log(response);
                       return reject(new CACCLError({
                         message: 'We couldn\'t understand Canvas\'s response because it was malformed. Please contact an admin if this continues to occur.',
                         code: errorCodes.malformed,
