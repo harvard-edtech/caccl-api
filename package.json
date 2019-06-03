@@ -33,14 +33,14 @@
     "eslint-plugin-react": "^7.12.4",
     "foodoc": "0.0.9",
     "fs": "0.0.1-security",
-    "jsdoc": "^3.5.5",
+    "jsdoc": "^3.6.2",
     "mocha": "^5.2.0"
   },
   "dependencies": {
     "async": "^2.6.2",
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "caccl-error": "^1.0.1",
-    "caccl-send-request": "^1.0.9",
+    "caccl-send-request": "^1.0.10",
     "csv-parse": "^3.2.0",
     "parse-link-header": "^1.0.1",
     "path": "^0.12.7",
