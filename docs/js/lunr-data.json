@@ -632,6 +632,20 @@
           "promise.&lt;array.&lt;object&gt;&gt",
           "specif"
         ],
+        "api.course.gradebookColumn.html#updateEntry": [
+          "api.course.gradebookcolumn#updateentri",
+          "column",
+          "course.gradebookcolumn#updateentri",
+          "entri",
+          "function",
+          "gradebook",
+          "gradebookcolumn#updateentri",
+          "option",
+          "promise.&lt;object&gt",
+          "specif",
+          "updat",
+          "updateentri"
+        ],
         "api.course.gradebookColumn.html#updateEntries": [
           "api.course.gradebookcolumn#updateentri",
           "column",
@@ -846,16 +860,17 @@
           "promise.&lt;object&gt",
           "specif"
         ],
-        "api.course.page.html#update": [
-          "api.course.page#upd",
-          "canva",
-          "course.page#upd",
+        "api.course.page.html#create": [
+          "api.course.page#cr",
+          "cours",
+          "course.page#cr",
+          "creat",
           "function",
+          "new",
           "option",
           "page",
-          "page#upd",
-          "promise.&lt;object&gt",
-          "updat"
+          "page#cr",
+          "promise.&lt;object&gt"
         ],
         "api.course.page.html#delete": [
           "api.course.page#delet",
@@ -868,17 +883,16 @@
           "page#delet",
           "promise.&lt;object&gt"
         ],
-        "api.course.page.html#create": [
-          "api.course.page#cr",
-          "cours",
-          "course.page#cr",
-          "creat",
+        "api.course.page.html#update": [
+          "api.course.page#upd",
+          "canva",
+          "course.page#upd",
           "function",
-          "new",
           "option",
           "page",
-          "page#cr",
-          "promise.&lt;object&gt"
+          "page#upd",
+          "promise.&lt;object&gt",
+          "updat"
         ],
         "api.course.quiz.html": [
           "api.course.quiz",
@@ -1400,7 +1414,7 @@
           "user.self#listcours"
         ]
       },
-      "length": 104
+      "length": 105
     },
     "tokenStore": {
       "root": {
@@ -2514,6 +2528,10 @@
                                                                                   "docs": {},
                                                                                   "i": {
                                                                                     "docs": {
+                                                                                      "api.course.gradebookColumn.html#updateEntry": {
+                                                                                        "ref": "api.course.gradebookColumn.html#updateEntry",
+                                                                                        "tf": 1075
+                                                                                      },
                                                                                       "api.course.gradebookColumn.html#updateEntries": {
                                                                                         "ref": "api.course.gradebookColumn.html#updateEntries",
                                                                                         "tf": 1075
@@ -2892,16 +2910,13 @@
                                             }
                                           }
                                         },
-                                        "u": {
+                                        "c": {
                                           "docs": {},
-                                          "p": {
-                                            "docs": {},
-                                            "d": {
-                                              "docs": {
-                                                "api.course.page.html#update": {
-                                                  "ref": "api.course.page.html#update",
-                                                  "tf": 1075
-                                                }
+                                          "r": {
+                                            "docs": {
+                                              "api.course.page.html#create": {
+                                                "ref": "api.course.page.html#create",
+                                                "tf": 1075
                                               }
                                             }
                                           }
@@ -2926,13 +2941,16 @@
                                             }
                                           }
                                         },
-                                        "c": {
+                                        "u": {
                                           "docs": {},
-                                          "r": {
-                                            "docs": {
-                                              "api.course.page.html#create": {
-                                                "ref": "api.course.page.html#create",
-                                                "tf": 1075
+                                          "p": {
+                                            "docs": {},
+                                            "d": {
+                                              "docs": {
+                                                "api.course.page.html#update": {
+                                                  "ref": "api.course.page.html#update",
+                                                  "tf": 1075
+                                                }
                                               }
                                             }
                                           }
@@ -5452,13 +5470,13 @@
                       "ref": "api.course.page.html#get",
                       "tf": 12.5
                     },
-                    "api.course.page.html#delete": {
-                      "ref": "api.course.page.html#delete",
-                      "tf": 16.666666666666664
-                    },
                     "api.course.page.html#create": {
                       "ref": "api.course.page.html#create",
                       "tf": 12.5
+                    },
+                    "api.course.page.html#delete": {
+                      "ref": "api.course.page.html#delete",
+                      "tf": 16.666666666666664
                     },
                     "api.course.quiz.html": {
                       "ref": "api.course.quiz.html",
@@ -6578,6 +6596,10 @@
                                                                           "docs": {},
                                                                           "i": {
                                                                             "docs": {
+                                                                              "api.course.gradebookColumn.html#updateEntry": {
+                                                                                "ref": "api.course.gradebookColumn.html#updateEntry",
+                                                                                "tf": 75
+                                                                              },
                                                                               "api.course.gradebookColumn.html#updateEntries": {
                                                                                 "ref": "api.course.gradebookColumn.html#updateEntries",
                                                                                 "tf": 75
@@ -6956,16 +6978,13 @@
                                     }
                                   }
                                 },
-                                "u": {
+                                "c": {
                                   "docs": {},
-                                  "p": {
-                                    "docs": {},
-                                    "d": {
-                                      "docs": {
-                                        "api.course.page.html#update": {
-                                          "ref": "api.course.page.html#update",
-                                          "tf": 75
-                                        }
+                                  "r": {
+                                    "docs": {
+                                      "api.course.page.html#create": {
+                                        "ref": "api.course.page.html#create",
+                                        "tf": 75
                                       }
                                     }
                                   }
@@ -6990,13 +7009,16 @@
                                     }
                                   }
                                 },
-                                "c": {
+                                "u": {
                                   "docs": {},
-                                  "r": {
-                                    "docs": {
-                                      "api.course.page.html#create": {
-                                        "ref": "api.course.page.html#create",
-                                        "tf": 75
+                                  "p": {
+                                    "docs": {},
+                                    "d": {
+                                      "docs": {
+                                        "api.course.page.html#update": {
+                                          "ref": "api.course.page.html#update",
+                                          "tf": 75
+                                        }
                                       }
                                     }
                                   }
@@ -8025,6 +8047,10 @@
                         "ref": "api.course.gradebookColumn.html#listEntries",
                         "tf": 7.142857142857142
                       },
+                      "api.course.gradebookColumn.html#updateEntry": {
+                        "ref": "api.course.gradebookColumn.html#updateEntry",
+                        "tf": 10
+                      },
                       "api.course.gradebookColumn.html#updateEntries": {
                         "ref": "api.course.gradebookColumn.html#updateEntries",
                         "tf": 7.142857142857142
@@ -8901,6 +8927,10 @@
                     "api.course.gradebookColumn.html#listEntries": {
                       "ref": "api.course.gradebookColumn.html#listEntries",
                       "tf": 7.142857142857142
+                    },
+                    "api.course.gradebookColumn.html#updateEntry": {
+                      "ref": "api.course.gradebookColumn.html#updateEntry",
+                      "tf": 10
                     },
                     "api.course.gradebookColumn.html#updateEntries": {
                       "ref": "api.course.gradebookColumn.html#updateEntries",
@@ -9894,6 +9924,10 @@
                         "ref": "api.course.gradebookColumn.html#listEntries",
                         "tf": 7.142857142857142
                       },
+                      "api.course.gradebookColumn.html#updateEntry": {
+                        "ref": "api.course.gradebookColumn.html#updateEntry",
+                        "tf": 10
+                      },
                       "api.course.gradebookColumn.html#updateEntries": {
                         "ref": "api.course.gradebookColumn.html#updateEntries",
                         "tf": 7.142857142857142
@@ -10665,6 +10699,10 @@
                               "ref": "api.course.gradebookColumn.html#listEntries",
                               "tf": 7.142857142857142
                             },
+                            "api.course.gradebookColumn.html#updateEntry": {
+                              "ref": "api.course.gradebookColumn.html#updateEntry",
+                              "tf": 10
+                            },
                             "api.course.gradebookColumn.html#updateEntries": {
                               "ref": "api.course.gradebookColumn.html#updateEntries",
                               "tf": 7.142857142857142
@@ -10767,6 +10805,10 @@
                                                             "docs": {},
                                                             "i": {
                                                               "docs": {
+                                                                "api.course.gradebookColumn.html#updateEntry": {
+                                                                  "ref": "api.course.gradebookColumn.html#updateEntry",
+                                                                  "tf": 75
+                                                                },
                                                                 "api.course.gradebookColumn.html#updateEntries": {
                                                                   "ref": "api.course.gradebookColumn.html#updateEntries",
                                                                   "tf": 75
@@ -12134,6 +12176,10 @@
                         "ref": "api.course.gradebookColumn.html#listEntries",
                         "tf": 33.33333333333333
                       },
+                      "api.course.gradebookColumn.html#updateEntry": {
+                        "ref": "api.course.gradebookColumn.html#updateEntry",
+                        "tf": 33.33333333333333
+                      },
                       "api.course.gradebookColumn.html#updateEntries": {
                         "ref": "api.course.gradebookColumn.html#updateEntries",
                         "tf": 33.33333333333333
@@ -12190,16 +12236,16 @@
                         "ref": "api.course.page.html#get",
                         "tf": 50
                       },
-                      "api.course.page.html#update": {
-                        "ref": "api.course.page.html#update",
+                      "api.course.page.html#create": {
+                        "ref": "api.course.page.html#create",
                         "tf": 33.33333333333333
                       },
                       "api.course.page.html#delete": {
                         "ref": "api.course.page.html#delete",
                         "tf": 33.33333333333333
                       },
-                      "api.course.page.html#create": {
-                        "ref": "api.course.page.html#create",
+                      "api.course.page.html#update": {
+                        "ref": "api.course.page.html#update",
                         "tf": 33.33333333333333
                       },
                       "api.course.quiz.html#list": {
@@ -12604,6 +12650,10 @@
                             "ref": "api.course.gradebookColumn.html#listEntries",
                             "tf": 110
                           },
+                          "api.course.gradebookColumn.html#updateEntry": {
+                            "ref": "api.course.gradebookColumn.html#updateEntry",
+                            "tf": 110
+                          },
                           "api.course.gradebookColumn.html#updateEntries": {
                             "ref": "api.course.gradebookColumn.html#updateEntries",
                             "tf": 110
@@ -12672,16 +12722,16 @@
                             "ref": "api.course.page.html#get",
                             "tf": 110
                           },
-                          "api.course.page.html#update": {
-                            "ref": "api.course.page.html#update",
+                          "api.course.page.html#create": {
+                            "ref": "api.course.page.html#create",
                             "tf": 110
                           },
                           "api.course.page.html#delete": {
                             "ref": "api.course.page.html#delete",
                             "tf": 110
                           },
-                          "api.course.page.html#create": {
-                            "ref": "api.course.page.html#create",
+                          "api.course.page.html#update": {
+                            "ref": "api.course.page.html#update",
                             "tf": 110
                           },
                           "api.course.quiz.html": {
@@ -13070,6 +13120,10 @@
                                                       "ref": "api.course.gradebookColumn.html#delete",
                                                       "tf": 33.33333333333333
                                                     },
+                                                    "api.course.gradebookColumn.html#updateEntry": {
+                                                      "ref": "api.course.gradebookColumn.html#updateEntry",
+                                                      "tf": 33.33333333333333
+                                                    },
                                                     "api.course.gradebookColumn.html#updateEntries": {
                                                       "ref": "api.course.gradebookColumn.html#updateEntries",
                                                       "tf": 33.33333333333333
@@ -13106,16 +13160,16 @@
                                                       "ref": "api.course.page.html#get",
                                                       "tf": 50
                                                     },
-                                                    "api.course.page.html#update": {
-                                                      "ref": "api.course.page.html#update",
+                                                    "api.course.page.html#create": {
+                                                      "ref": "api.course.page.html#create",
                                                       "tf": 33.33333333333333
                                                     },
                                                     "api.course.page.html#delete": {
                                                       "ref": "api.course.page.html#delete",
                                                       "tf": 33.33333333333333
                                                     },
-                                                    "api.course.page.html#create": {
-                                                      "ref": "api.course.page.html#create",
+                                                    "api.course.page.html#update": {
+                                                      "ref": "api.course.page.html#update",
                                                       "tf": 33.33333333333333
                                                     },
                                                     "api.course.quiz.html#get": {
@@ -13444,17 +13498,17 @@
                     "ref": "api.course.page.html#get",
                     "tf": 12.5
                   },
-                  "api.course.page.html#update": {
-                    "ref": "api.course.page.html#update",
-                    "tf": 16.666666666666664
+                  "api.course.page.html#create": {
+                    "ref": "api.course.page.html#create",
+                    "tf": 12.5
                   },
                   "api.course.page.html#delete": {
                     "ref": "api.course.page.html#delete",
                     "tf": 16.666666666666664
                   },
-                  "api.course.page.html#create": {
-                    "ref": "api.course.page.html#create",
-                    "tf": 12.5
+                  "api.course.page.html#update": {
+                    "ref": "api.course.page.html#update",
+                    "tf": 16.666666666666664
                   }
                 },
                 "#": {
@@ -13490,16 +13544,13 @@
                       }
                     }
                   },
-                  "u": {
+                  "c": {
                     "docs": {},
-                    "p": {
-                      "docs": {},
-                      "d": {
-                        "docs": {
-                          "api.course.page.html#update": {
-                            "ref": "api.course.page.html#update",
-                            "tf": 75
-                          }
+                    "r": {
+                      "docs": {
+                        "api.course.page.html#create": {
+                          "ref": "api.course.page.html#create",
+                          "tf": 75
                         }
                       }
                     }
@@ -13524,13 +13575,16 @@
                       }
                     }
                   },
-                  "c": {
+                  "u": {
                     "docs": {},
-                    "r": {
-                      "docs": {
-                        "api.course.page.html#create": {
-                          "ref": "api.course.page.html#create",
-                          "tf": 75
+                    "p": {
+                      "docs": {},
+                      "d": {
+                        "docs": {
+                          "api.course.page.html#update": {
+                            "ref": "api.course.page.html#update",
+                            "tf": 75
+                          }
                         }
                       }
                     }
@@ -14045,6 +14099,10 @@
                       "ref": "api.course.gradebookColumn.html#update",
                       "tf": 620.8333333333334
                     },
+                    "api.course.gradebookColumn.html#updateEntry": {
+                      "ref": "api.course.gradebookColumn.html#updateEntry",
+                      "tf": 10
+                    },
                     "api.course.gradebookColumn.html#updateEntries": {
                       "ref": "api.course.gradebookColumn.html#updateEntries",
                       "tf": 7.142857142857142
@@ -14135,6 +14193,10 @@
                             "docs": {},
                             "i": {
                               "docs": {
+                                "api.course.gradebookColumn.html#updateEntry": {
+                                  "ref": "api.course.gradebookColumn.html#updateEntry",
+                                  "tf": 608.3333333333334
+                                },
                                 "api.course.gradebookColumn.html#updateEntries": {
                                   "ref": "api.course.gradebookColumn.html#updateEntries",
                                   "tf": 608.3333333333334
@@ -14740,7 +14802,7 @@
           }
         }
       },
-      "length": 1152
+      "length": 1164
     },
     "corpusTokens": [
       "account",
@@ -15636,6 +15698,16 @@
       "summary": "",
       "description": "Gets the list of entries in a specific gradebook column in a course"
     },
+    "api.course.gradebookColumn.html#updateEntry": {
+      "id": "api.course.gradebookColumn.html#updateEntry",
+      "kind": "function",
+      "title": "updateEntry( options ) → {Promise.&lt;Object&gt;}",
+      "longname": "api.course.gradebookColumn#updateEntry",
+      "name": "updateEntry",
+      "tags": "api.course.gradebookColumn#updateEntry course.gradebookColumn#updateEntry gradebookColumn#updateEntry updateEntry",
+      "summary": "",
+      "description": "Update a specific entry in a gradebook column"
+    },
     "api.course.gradebookColumn.html#updateEntries": {
       "id": "api.course.gradebookColumn.html#updateEntries",
       "kind": "function",
@@ -15809,15 +15881,15 @@
       "summary": "",
       "description": "Get info on a specific page in a course"
     },
-    "api.course.page.html#update": {
-      "id": "api.course.page.html#update",
+    "api.course.page.html#create": {
+      "id": "api.course.page.html#create",
       "kind": "function",
-      "title": "update( options ) → {Promise.&lt;Object&gt;}",
-      "longname": "api.course.page#update",
-      "name": "update",
-      "tags": "api.course.page#update course.page#update page#update update",
+      "title": "create( options ) → {Promise.&lt;Object&gt;}",
+      "longname": "api.course.page#create",
+      "name": "create",
+      "tags": "api.course.page#create course.page#create page#create create",
       "summary": "",
-      "description": "Updates a Canvas page"
+      "description": "Creates a new page in a course"
     },
     "api.course.page.html#delete": {
       "id": "api.course.page.html#delete",
@@ -15829,15 +15901,15 @@
       "summary": "",
       "description": "Deletes a page from a course"
     },
-    "api.course.page.html#create": {
-      "id": "api.course.page.html#create",
+    "api.course.page.html#update": {
+      "id": "api.course.page.html#update",
       "kind": "function",
-      "title": "create( options ) → {Promise.&lt;Object&gt;}",
-      "longname": "api.course.page#create",
-      "name": "create",
-      "tags": "api.course.page#create course.page#create page#create create",
+      "title": "update( options ) → {Promise.&lt;Object&gt;}",
+      "longname": "api.course.page#update",
+      "name": "update",
+      "tags": "api.course.page#update course.page#update page#update update",
       "summary": "",
-      "description": "Creates a new page in a course"
+      "description": "Updates a Canvas page"
     },
     "api.course.quiz.html": {
       "id": "api.course.quiz.html",

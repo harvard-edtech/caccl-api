@@ -79,10 +79,13 @@
 		<div class="row">
 			<div class="col-md-9 main-content">
 		<section class="readme-section">
-			<article><h1>caccl-api</h1><p>A class that defines a set of Canvas endpoints that can be easily accessed. Each endpoint is equipped with the appropriate pre- and post-processing steps to make the Canvas endpoints &quot;behave&quot;. For instance, <em>getSubmissions()</em> fetches student submissions and removes the test student's submission in post-processing.</p>
-<h2>Endpoints by Category:</h2><ul>
+			<article><h1>caccl-api</h1>
+<p>A class that defines a set of Canvas endpoints that can be easily accessed. Each endpoint is equipped with the appropriate pre- and post-processing steps to make the Canvas endpoints &quot;behave&quot;. For instance, <em>getSubmissions()</em> fetches student submissions and removes the test student's submission in post-processing.</p>
+<h2>Endpoints by Category:</h2>
+<ul>
 <li><a href="https://harvard-edtech.github.io/caccl-api/api.account.html">account</a></li>
-<li><a href="https://harvard-edtech.github.io/caccl-api/api.course.html">course</a><ul>
+<li><a href="https://harvard-edtech.github.io/caccl-api/api.course.html">course</a>
+<ul>
 <li><a href="https://harvard-edtech.github.io/caccl-api/api.course.app.html">app</a></li>
 <li><a href="https://harvard-edtech.github.io/caccl-api/api.course.assignment.html">assignment</a></li>
 <li><a href="https://harvard-edtech.github.io/caccl-api/api.course.assignmentGroup.html">assignmentGroup</a></li>
@@ -95,29 +98,39 @@
 <li><a href="https://harvard-edtech.github.io/caccl-api/api.course.section.html">section</a></li>
 </ul>
 </li>
-<li>user<ul>
+<li>user
+<ul>
 <li><a href="https://harvard-edtech.github.io/caccl-api/api.user.self.html">self</a></li>
 </ul>
 </li>
 </ul>
-<h3>Endpoint not listed?</h3><p>Use <strong><a href="https://harvard-edtech.github.io/caccl-api/api.other.endpoint.html">our custom endpoint function</a></strong> to call <em>any Canvas endpoint</em>.</p>
+<h3>Endpoint not listed?</h3>
+<p>Use <strong><a href="https://harvard-edtech.github.io/caccl-api/api.other.endpoint.html">our custom endpoint function</a></strong> to call <em>any Canvas endpoint</em>.</p>
 <p>Also, consider contributing back to our open source project and adding official support for that endpoint.</p>
-<h3>How to call an endpoint:</h3><p>If you set up your project with <a href="https://www.npmjs.com/package/caccl">caccl on npm</a>, you should <em>already</em> have a caccl-api instance. We'll call that instance &quot;api&quot;.</p>
-<p>All endpoint functions take a single object as their argument and return a promise. We recommend using <em>async-await</em>. See the following examples: </p>
+<h3>How to call an endpoint:</h3>
+<p>If you set up your project with <a href="https://www.npmjs.com/package/caccl">caccl on npm</a>, you should <em>already</em> have a caccl-api instance. We'll call that instance &quot;api&quot;.</p>
+<p>All endpoint functions take a single object as their argument and return a promise. We recommend using <em>async-await</em>. See the following examples:</p>
 <pre class="prettyprint source lang-js"><code>// List the students in a course
 const students = await api.course.listStudents({ courseId: 58329 });
 
 // List the assignments in a course
-const assignments = await api.course.assignment.list({ courseId: 58329 });</code></pre><h2>I need to create a caccl-api instance</h2><p>Note: if you set up your project with <a href="https://www.npmjs.com/package/caccl">caccl on npm</a>, you should <em>already</em> have a caccl-api instance. Please check the <a href="https://www.npmjs.com/package/caccl">caccl docs</a> to see how to access your alread-initialized caccl-api instance.</p>
-<h3>Let caccl create one for you (recommended):</h3><p>caccl-api is a sub-component of the umbrella caccl project. Most people use caccl and allow it to initialize caccl-api for them.</p>
+const assignments = await api.course.assignment.list({ courseId: 58329 });
+</code></pre>
+<h2>I need to create a caccl-api instance</h2>
+<p>Note: if you set up your project with <a href="https://www.npmjs.com/package/caccl">caccl on npm</a>, you should <em>already</em> have a caccl-api instance. Please check the <a href="https://www.npmjs.com/package/caccl">caccl docs</a> to see how to access your alread-initialized caccl-api instance.</p>
+<h3>Let caccl create one for you (recommended):</h3>
+<p>caccl-api is a sub-component of the umbrella caccl project. Most people use caccl and allow it to initialize caccl-api for them.</p>
 <p>Visit <a href="https://www.npmjs.com/package/caccl">caccl</a> to get started.</p>
-<h3>Create caccl-api instance manually:</h3><p><strong>1. Initialize caccl-api:</strong></p>
+<h3>Create caccl-api instance manually:</h3>
+<p><strong>1. Initialize caccl-api:</strong></p>
 <pre class="prettyprint source lang-js"><code>const API = require('caccl-api');
 
 const api = new API({
   canvasHost: 'canvas.myschool.edu',
   accessToken: '5368~059382...3e57293hga3',
-});</code></pre><p><strong>2. Further configure caccl-api:</strong></p>
+});
+</code></pre>
+<p><strong>2. Further configure caccl-api:</strong></p>
 <p>When initializing <code>caccl-api</code>, you can pass in many different configuration options to customize its behavior or turn on/off certain functionality. In the example above, we only included the <code>canvasHost</code> and <code>accessToken</code> configuration options.</p>
 <p><strong>Note:</strong> all configuration options are optional.</p>
 <table>
@@ -174,7 +187,12 @@ const api = new API({
 </tr>
 </tbody>
 </table>
-<h2>Part of the CACCL library</h2><p><strong>C</strong>anvas<br><strong>A</strong>pp<br><strong>C</strong>omplete<br><strong>C</strong>onnection<br><strong>L</strong>ibrary  </p></article>
+<h2>Part of the CACCL library</h2>
+<p><strong>C</strong>anvas<br>
+<strong>A</strong>pp<br>
+<strong>C</strong>omplete<br>
+<strong>C</strong>onnection<br>
+<strong>L</strong>ibrary</p></article>
 		</section>
 			</div>
 				<div class="col-md-3 side-content">
@@ -185,7 +203,7 @@ const api = new API({
 	<footer>
 				<div class="footer-option">Created by Gabriel Abrams at the Harvard Division of Continuing Education</div>
 				<div class="copyright">All code, materials, documentation, and other parts of this project under MIT license</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

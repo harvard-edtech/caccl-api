@@ -316,6 +316,254 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="create" class="function public"><span class="name">create</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Creates a new page in a course</div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>options</code></td>
+							<td><span class="param-type">object</span></td>
+							<td class="last">
+									object containing all arguments
+										<table class="params table table-striped">
+											<thead>
+											<tr>
+													<th>Name</th>
+												<th>Type</th>
+													<th>Attributes</th>
+													<th>Default</th>
+												<th class="last">Description</th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr>
+														<td><code>courseId</code></td>
+													<td><span class="param-type">number</span></td>
+														<td class="attributes"></td>
+														<td></td>
+													<td class="last">
+															Canvas course Id to query
+													</td>
+												</tr>
+												<tr>
+														<td><code>title</code></td>
+													<td><span class="param-type">string</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td>Untitled Page</td>
+													<td class="last">
+															The title of the page
+													</td>
+												</tr>
+												<tr>
+														<td><code>body</code></td>
+													<td><span class="param-type">string</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td></td>
+													<td class="last">
+															html body of the page
+													</td>
+												</tr>
+												<tr>
+														<td><code>editingRoles</code></td>
+													<td><span class="param-type">string</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td>teachers</td>
+													<td class="last">
+															usertype(s) who can edit
+													</td>
+												</tr>
+												<tr>
+														<td><code>notifyOfUpdate</code></td>
+													<td><span class="param-type">boolean</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td>false</td>
+													<td class="last">
+															if true, sends notification
+													</td>
+												</tr>
+												<tr>
+														<td><code>published</code></td>
+													<td><span class="param-type">boolean</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td>false</td>
+													<td class="last">
+															if true, publishes page upon
+									  creation
+													</td>
+												</tr>
+												<tr>
+														<td><code>frontPage</code></td>
+													<td><span class="param-type">boolean</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+														<td>false</td>
+													<td class="last">
+															if true, sets page as front page
+													</td>
+												</tr>
+											</tbody>
+										</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description">Canvas Page <a href="https://canvas.instructure.com/doc/api/pages.html#Page">https://canvas.instructure.com/doc/api/pages.html#Page</a></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- author -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Author</label>
+								<div class="col-sm-9">
+										<p class="form-control-static">Gabriel Abrams</p>
+								</div>
+							</div>
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="Course_Page.js.html">Course/Page.js</a>, <a href="Course_Page.js.html#line-101">line 101</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
+			<h4 id="delete" class="function public"><span class="name">delete</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
+		</dt>
+<dd class="symbol-details function public  collapsible-symbol">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Deletes a page from a course</div>
+			</div>			<div class="callout callout-info">
+				<h5>Parameters</h5>
+				<table class="params table table-striped">
+					<thead>
+					<tr>
+							<th>Name</th>
+						<th>Type</th>
+						<th class="last">Description</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr>
+								<td><code>options</code></td>
+							<td><span class="param-type">object</span></td>
+							<td class="last">
+									object containing all arguments
+										<table class="params table table-striped">
+											<thead>
+											<tr>
+													<th>Name</th>
+												<th>Type</th>
+												<th class="last">Description</th>
+											</tr>
+											</thead>
+											<tbody>
+												<tr>
+														<td><code>courseId</code></td>
+													<td><span class="param-type">number</span></td>
+													<td class="last">
+															Canvas course Id to query
+													</td>
+												</tr>
+												<tr>
+														<td><code>pageURL</code></td>
+													<td><span class="param-type">string</span></td>
+													<td class="last">
+															Page url to delete (just last part of path)
+													</td>
+												</tr>
+											</tbody>
+										</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
+							<div class="form-group">
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
+								<div class="col-sm-9">
+									<div class="form-control-static returns-description">Canvas Page <a href="https://canvas.instructure.com/doc/api/pages.html#Page">https://canvas.instructure.com/doc/api/pages.html#Page</a></div>
+								</div>
+							</div>
+					</form>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- author -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Author</label>
+								<div class="col-sm-9">
+										<p class="form-control-static">Gabriel Abrams</p>
+								</div>
+							</div>
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="Course_Page.js.html">Course/Page.js</a>, <a href="Course_Page.js.html#line-136">line 136</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+											<hr/>
+											<dt class="symbol-title function public collapsible-symbol">
 			<h4 id="update" class="function public"><span class="name">update</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
@@ -477,254 +725,6 @@
 					</form>
 			</div>	</div>
 </dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="delete" class="function public"><span class="name">delete</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Deletes a page from a course</div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>options</code></td>
-							<td><span class="param-type">object</span></td>
-							<td class="last">
-									object containing all arguments
-										<table class="params table table-striped">
-											<thead>
-											<tr>
-													<th>Name</th>
-												<th>Type</th>
-												<th class="last">Description</th>
-											</tr>
-											</thead>
-											<tbody>
-												<tr>
-														<td><code>courseId</code></td>
-													<td><span class="param-type">number</span></td>
-													<td class="last">
-															Canvas course Id to query
-													</td>
-												</tr>
-												<tr>
-														<td><code>pageURL</code></td>
-													<td><span class="param-type">string</span></td>
-													<td class="last">
-															Page url to delete (just last part of path)
-													</td>
-												</tr>
-											</tbody>
-										</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas Page <a href="https://canvas.instructure.com/doc/api/pages.html#Page">https://canvas.instructure.com/doc/api/pages.html#Page</a></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- author -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Author</label>
-								<div class="col-sm-9">
-										<p class="form-control-static">Gabriel Abrams</p>
-								</div>
-							</div>
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Page.js.html">Course/Page.js</a>, <a href="Course_Page.js.html#line-136">line 136</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="create" class="function public"><span class="name">create</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Creates a new page in a course</div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>options</code></td>
-							<td><span class="param-type">object</span></td>
-							<td class="last">
-									object containing all arguments
-										<table class="params table table-striped">
-											<thead>
-											<tr>
-													<th>Name</th>
-												<th>Type</th>
-													<th>Attributes</th>
-													<th>Default</th>
-												<th class="last">Description</th>
-											</tr>
-											</thead>
-											<tbody>
-												<tr>
-														<td><code>courseId</code></td>
-													<td><span class="param-type">number</span></td>
-														<td class="attributes"></td>
-														<td></td>
-													<td class="last">
-															Canvas course Id to query
-													</td>
-												</tr>
-												<tr>
-														<td><code>title</code></td>
-													<td><span class="param-type">string</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>Untitled Page</td>
-													<td class="last">
-															The title of the page
-													</td>
-												</tr>
-												<tr>
-														<td><code>body</code></td>
-													<td><span class="param-type">string</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td></td>
-													<td class="last">
-															html body of the page
-													</td>
-												</tr>
-												<tr>
-														<td><code>editingRoles</code></td>
-													<td><span class="param-type">string</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>teachers</td>
-													<td class="last">
-															usertype(s) who can edit
-													</td>
-												</tr>
-												<tr>
-														<td><code>notifyOfUpdate</code></td>
-													<td><span class="param-type">boolean</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>false</td>
-													<td class="last">
-															if true, sends notification
-													</td>
-												</tr>
-												<tr>
-														<td><code>published</code></td>
-													<td><span class="param-type">boolean</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>false</td>
-													<td class="last">
-															if true, publishes page upon
-									  creation
-													</td>
-												</tr>
-												<tr>
-														<td><code>frontPage</code></td>
-													<td><span class="param-type">boolean</span></td>
-														<td class="attributes">&lt;optional&gt;<br/></td>
-														<td>false</td>
-													<td class="last">
-															if true, sets page as front page
-													</td>
-												</tr>
-											</tbody>
-										</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas Page <a href="https://canvas.instructure.com/doc/api/pages.html#Page">https://canvas.instructure.com/doc/api/pages.html#Page</a></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- author -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Author</label>
-								<div class="col-sm-9">
-										<p class="form-control-static">Gabriel Abrams</p>
-								</div>
-							</div>
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Page.js.html">Course/Page.js</a>, <a href="Course_Page.js.html#line-101">line 101</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
 									</dl>
 							</article>
 					</section>
@@ -737,7 +737,7 @@
 	<footer>
 				<div class="footer-option">Created by Gabriel Abrams at the Harvard Division of Continuing Education</div>
 				<div class="copyright">All code, materials, documentation, and other parts of this project under MIT license</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
