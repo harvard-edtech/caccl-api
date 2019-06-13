@@ -100,7 +100,7 @@ class MemoryCache {
    *   paths
    */
   getAllPaths() {
-    return Promise.resolve(this._map.keys());
+    return Promise.resolve(Array.from(this._map.keys()));
   }
 
   /**
