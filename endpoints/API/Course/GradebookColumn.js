@@ -200,6 +200,45 @@ GradebookColumn.listEntries.action = 'get the list of entries in a specific grad
 GradebookColumn.listEntries.requiredParams = ['courseId', 'columnId'];
 
 /**
+ * Update a specific entry in a gradebook column
+ * @author Gabriel Abrams
+ * @method updateEntry
+ * @memberof api.course.gradebookColumn
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {number} options.columnId - Gradebook column Id
+ * @param {number} options.studentId - Canvas user id to update
+ * @param {string} options.text - the new text for the user's column cell
+ * @return {Promise.<Object>} Canvas ColumnData object {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum}
+ */
+GradebookColumn.updateEntry = function (options) {
+  // Send batch update request
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}/data/${options.studentId}`,
+    method: 'PUT',
+    params: {
+      column_data: {
+        content: options.text,
+      },
+    },
+  })
+    .then((data) => {
+      return this.uncache([
+        // Uncache column data
+        `${prefix.v1}/courses/${options.courseId}/custom_gradebook_columns/${options.columnId}/data`,
+      ], data);
+    });
+};
+GradebookColumn.updateEntry.action = 'update an entry in a gradebook column';
+GradebookColumn.updateEntry.requiredParams = [
+  'courseId',
+  'columnId',
+  'studentId',
+  'text',
+];
+
+/**
  * Update the list of entries in a specific gradebook column in a course
  * @author Gabriel Abrams
  * @method updateEntries
