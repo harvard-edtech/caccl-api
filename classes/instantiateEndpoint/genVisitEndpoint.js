@@ -182,7 +182,8 @@ module.exports = (config = {}) => {
                   const { link } = response.headers;
                   const parsedLinkHeader = parseLinkHeader(link);
                   const nextPageURL = parsedLinkHeader.next.url;
-                  nextPagePath = nextPageURL.split(canvasHost)[1];
+                  const host = nextPageURL.split('/')[2];
+                  nextPagePath = nextPageURL.split(host)[1];
                 } catch (err) {
                   nextPagePath = null;
                 }
