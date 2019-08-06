@@ -33,7 +33,7 @@
     "eslint-plugin-react": "^7.12.4",
     "foodoc": "0.0.9",
     "fs": "0.0.1-security",
-    "jsdoc": "^3.6.2",
+    "jsdoc": "^3.6.3",
     "mocha": "^5.2.0"
   },
   "dependencies": {
