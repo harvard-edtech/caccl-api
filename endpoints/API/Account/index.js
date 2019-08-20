@@ -38,6 +38,25 @@ Account.get = function (options) {
 };
 Account.get.action = 'get info on a specific account';
 
+/**
+ * Gets the list of admins in an account
+ * @author Gabriel Abrams
+ * @method listAdmins
+ * @memberof api.account
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.accountId - Canvas acount Id to get the list of
+ *   admins from
+ * @return {Promise.<Object[]>} List of Canvas admins {@link https://canvas.instructure.com/doc/api/admins.html#Admin}
+ */
+Account.listAdmins = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/accounts/${options.accountId}/admins`,
+    method: 'GET',
+  });
+};
+Account.listAdmins.action = 'get the list of admins in a specific account';
+
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */
 /*------------------------------------------------------------------------*/
