@@ -73,6 +73,26 @@
           "function",
           "interact"
         ],
+        "api.account.html#list": [
+          "account",
+          "account#list",
+          "api.account#list",
+          "function",
+          "list",
+          "promise.&lt;array.&lt;object&gt;&gt"
+        ],
+        "api.account.html#listAdmins": [
+          "account",
+          "account#listadmin",
+          "admin",
+          "api.account#listadmin",
+          "function",
+          "get",
+          "list",
+          "listadmin",
+          "option",
+          "promise.&lt;array.&lt;object&gt;&gt"
+        ],
         "api.account.html#get": [
           "account#get",
           "api.account#get",
@@ -848,17 +868,16 @@
           "page#list",
           "promise.&lt;array.&lt;object&gt;&gt"
         ],
-        "api.course.page.html#get": [
-          "api.course.page#get",
-          "cours",
-          "course.page#get",
+        "api.course.page.html#update": [
+          "api.course.page#upd",
+          "canva",
+          "course.page#upd",
           "function",
-          "info",
           "option",
           "page",
-          "page#get",
+          "page#upd",
           "promise.&lt;object&gt",
-          "specif"
+          "updat"
         ],
         "api.course.page.html#create": [
           "api.course.page#cr",
@@ -883,16 +902,17 @@
           "page#delet",
           "promise.&lt;object&gt"
         ],
-        "api.course.page.html#update": [
-          "api.course.page#upd",
-          "canva",
-          "course.page#upd",
+        "api.course.page.html#get": [
+          "api.course.page#get",
+          "cours",
+          "course.page#get",
           "function",
+          "info",
           "option",
           "page",
-          "page#upd",
+          "page#get",
           "promise.&lt;object&gt",
-          "updat"
+          "specif"
         ],
         "api.course.quiz.html": [
           "api.course.quiz",
@@ -1414,7 +1434,7 @@
           "user.self#listcours"
         ]
       },
-      "length": 105
+      "length": 107
     },
     "tokenStore": {
       "root": {
@@ -1453,10 +1473,55 @@
                         "api.account.html": {
                           "ref": "api.account.html",
                           "tf": 766.6666666666666
+                        },
+                        "api.account.html#list": {
+                          "ref": "api.account.html#list",
+                          "tf": 25
+                        },
+                        "api.account.html#listAdmins": {
+                          "ref": "api.account.html#listAdmins",
+                          "tf": 12.5
                         }
                       },
                       "#": {
                         "docs": {},
+                        "l": {
+                          "docs": {},
+                          "i": {
+                            "docs": {},
+                            "s": {
+                              "docs": {},
+                              "t": {
+                                "docs": {
+                                  "api.account.html#list": {
+                                    "ref": "api.account.html#list",
+                                    "tf": 100
+                                  }
+                                },
+                                "a": {
+                                  "docs": {},
+                                  "d": {
+                                    "docs": {},
+                                    "m": {
+                                      "docs": {},
+                                      "i": {
+                                        "docs": {},
+                                        "n": {
+                                          "docs": {
+                                            "api.account.html#listAdmins": {
+                                              "ref": "api.account.html#listAdmins",
+                                              "tf": 100
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
                         "g": {
                           "docs": {},
                           "e": {
@@ -1514,6 +1579,43 @@
                               },
                               "#": {
                                 "docs": {},
+                                "l": {
+                                  "docs": {},
+                                  "i": {
+                                    "docs": {},
+                                    "s": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {
+                                          "api.account.html#list": {
+                                            "ref": "api.account.html#list",
+                                            "tf": 1100
+                                          }
+                                        },
+                                        "a": {
+                                          "docs": {},
+                                          "d": {
+                                            "docs": {},
+                                            "m": {
+                                              "docs": {},
+                                              "i": {
+                                                "docs": {},
+                                                "n": {
+                                                  "docs": {
+                                                    "api.account.html#listAdmins": {
+                                                      "ref": "api.account.html#listAdmins",
+                                                      "tf": 1100
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
                                 "g": {
                                   "docs": {},
                                   "e": {
@@ -2896,15 +2998,15 @@
                                             }
                                           }
                                         },
-                                        "g": {
+                                        "u": {
                                           "docs": {},
-                                          "e": {
+                                          "p": {
                                             "docs": {},
-                                            "t": {
+                                            "d": {
                                               "docs": {
-                                                "api.course.page.html#get": {
-                                                  "ref": "api.course.page.html#get",
-                                                  "tf": 1100
+                                                "api.course.page.html#update": {
+                                                  "ref": "api.course.page.html#update",
+                                                  "tf": 1075
                                                 }
                                               }
                                             }
@@ -2941,15 +3043,15 @@
                                             }
                                           }
                                         },
-                                        "u": {
+                                        "g": {
                                           "docs": {},
-                                          "p": {
+                                          "e": {
                                             "docs": {},
-                                            "d": {
+                                            "t": {
                                               "docs": {
-                                                "api.course.page.html#update": {
-                                                  "ref": "api.course.page.html#update",
-                                                  "tf": 1075
+                                                "api.course.page.html#get": {
+                                                  "ref": "api.course.page.html#get",
+                                                  "tf": 1100
                                                 }
                                               }
                                             }
@@ -4250,6 +4352,20 @@
                 "tf": 7.142857142857142
               }
             },
+            "m": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "n": {
+                  "docs": {
+                    "api.account.html#listAdmins": {
+                      "ref": "api.account.html#listAdmins",
+                      "tf": 12.5
+                    }
+                  }
+                }
+              }
+            },
             "d": {
               "docs": {
                 "api.course.app.html#add": {
@@ -5466,10 +5582,6 @@
                       "ref": "api.course.page.html#list",
                       "tf": 12.5
                     },
-                    "api.course.page.html#get": {
-                      "ref": "api.course.page.html#get",
-                      "tf": 12.5
-                    },
                     "api.course.page.html#create": {
                       "ref": "api.course.page.html#create",
                       "tf": 12.5
@@ -5477,6 +5589,10 @@
                     "api.course.page.html#delete": {
                       "ref": "api.course.page.html#delete",
                       "tf": 16.666666666666664
+                    },
+                    "api.course.page.html#get": {
+                      "ref": "api.course.page.html#get",
+                      "tf": 12.5
                     },
                     "api.course.quiz.html": {
                       "ref": "api.course.quiz.html",
@@ -6964,15 +7080,15 @@
                                     }
                                   }
                                 },
-                                "g": {
+                                "u": {
                                   "docs": {},
-                                  "e": {
+                                  "p": {
                                     "docs": {},
-                                    "t": {
+                                    "d": {
                                       "docs": {
-                                        "api.course.page.html#get": {
-                                          "ref": "api.course.page.html#get",
-                                          "tf": 100
+                                        "api.course.page.html#update": {
+                                          "ref": "api.course.page.html#update",
+                                          "tf": 75
                                         }
                                       }
                                     }
@@ -7009,15 +7125,15 @@
                                     }
                                   }
                                 },
-                                "u": {
+                                "g": {
                                   "docs": {},
-                                  "p": {
+                                  "e": {
                                     "docs": {},
-                                    "d": {
+                                    "t": {
                                       "docs": {
-                                        "api.course.page.html#update": {
-                                          "ref": "api.course.page.html#update",
-                                          "tf": 75
+                                        "api.course.page.html#get": {
+                                          "ref": "api.course.page.html#get",
+                                          "tf": 100
                                         }
                                       }
                                     }
@@ -10263,6 +10379,10 @@
             "docs": {},
             "t": {
               "docs": {
+                "api.account.html#listAdmins": {
+                  "ref": "api.account.html#listAdmins",
+                  "tf": 12.5
+                },
                 "api.account.html#get": {
                   "ref": "api.account.html#get",
                   "tf": 12.5
@@ -11283,6 +11403,14 @@
                     "ref": "list_class.html",
                     "tf": 110
                   },
+                  "api.account.html#list": {
+                    "ref": "api.account.html#list",
+                    "tf": 675
+                  },
+                  "api.account.html#listAdmins": {
+                    "ref": "api.account.html#listAdmins",
+                    "tf": 12.5
+                  },
                   "api.course.app.html#list": {
                     "ref": "api.course.app.html#list",
                     "tf": 618.3333333333334
@@ -11427,6 +11555,73 @@
                               "list_class.html": {
                                 "ref": "list_class.html",
                                 "tf": 1300
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "a": {
+                  "docs": {},
+                  "d": {
+                    "docs": {},
+                    "m": {
+                      "docs": {},
+                      "i": {
+                        "docs": {},
+                        "n": {
+                          "docs": {
+                            "api.account.html#listAdmins": {
+                              "ref": "api.account.html#listAdmins",
+                              "tf": 633.3333333333334
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "s": {
+                    "docs": {},
+                    "s": {
+                      "docs": {},
+                      "i": {
+                        "docs": {},
+                        "g": {
+                          "docs": {},
+                          "n": {
+                            "docs": {},
+                            "m": {
+                              "docs": {},
+                              "e": {
+                                "docs": {},
+                                "n": {
+                                  "docs": {},
+                                  "t": {
+                                    "docs": {},
+                                    "g": {
+                                      "docs": {},
+                                      "r": {
+                                        "docs": {},
+                                        "o": {
+                                          "docs": {},
+                                          "u": {
+                                            "docs": {},
+                                            "p": {
+                                              "docs": {
+                                                "api.course.assignmentGroup.html#listAssignmentGroups": {
+                                                  "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
+                                                  "tf": 608.3333333333334
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
                               }
                             }
                           }
@@ -11624,56 +11819,6 @@
                                           "api.course.html#listStudentEnrollments": {
                                             "ref": "api.course.html#listStudentEnrollments",
                                             "tf": 633.3333333333334
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                "a": {
-                  "docs": {},
-                  "s": {
-                    "docs": {},
-                    "s": {
-                      "docs": {},
-                      "i": {
-                        "docs": {},
-                        "g": {
-                          "docs": {},
-                          "n": {
-                            "docs": {},
-                            "m": {
-                              "docs": {},
-                              "e": {
-                                "docs": {},
-                                "n": {
-                                  "docs": {},
-                                  "t": {
-                                    "docs": {},
-                                    "g": {
-                                      "docs": {},
-                                      "r": {
-                                        "docs": {},
-                                        "o": {
-                                          "docs": {},
-                                          "u": {
-                                            "docs": {},
-                                            "p": {
-                                              "docs": {
-                                                "api.course.assignmentGroup.html#listAssignmentGroups": {
-                                                  "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
-                                                  "tf": 608.3333333333334
-                                                }
-                                              }
-                                            }
                                           }
                                         }
                                       }
@@ -12032,6 +12177,10 @@
                   "docs": {},
                   "n": {
                     "docs": {
+                      "api.account.html#listAdmins": {
+                        "ref": "api.account.html#listAdmins",
+                        "tf": 33.33333333333333
+                      },
                       "api.account.html#get": {
                         "ref": "api.account.html#get",
                         "tf": 50
@@ -12232,9 +12381,9 @@
                         "ref": "api.course.page.html#list",
                         "tf": 33.33333333333333
                       },
-                      "api.course.page.html#get": {
-                        "ref": "api.course.page.html#get",
-                        "tf": 50
+                      "api.course.page.html#update": {
+                        "ref": "api.course.page.html#update",
+                        "tf": 33.33333333333333
                       },
                       "api.course.page.html#create": {
                         "ref": "api.course.page.html#create",
@@ -12244,9 +12393,9 @@
                         "ref": "api.course.page.html#delete",
                         "tf": 33.33333333333333
                       },
-                      "api.course.page.html#update": {
-                        "ref": "api.course.page.html#update",
-                        "tf": 33.33333333333333
+                      "api.course.page.html#get": {
+                        "ref": "api.course.page.html#get",
+                        "tf": 50
                       },
                       "api.course.quiz.html#list": {
                         "ref": "api.course.quiz.html#list",
@@ -12490,6 +12639,14 @@
                             "ref": "api.account.html",
                             "tf": 16.666666666666664
                           },
+                          "api.account.html#list": {
+                            "ref": "api.account.html#list",
+                            "tf": 110
+                          },
+                          "api.account.html#listAdmins": {
+                            "ref": "api.account.html#listAdmins",
+                            "tf": 110
+                          },
                           "api.account.html#get": {
                             "ref": "api.account.html#get",
                             "tf": 110
@@ -12718,8 +12875,8 @@
                             "ref": "api.course.page.html#list",
                             "tf": 110
                           },
-                          "api.course.page.html#get": {
-                            "ref": "api.course.page.html#get",
+                          "api.course.page.html#update": {
+                            "ref": "api.course.page.html#update",
                             "tf": 110
                           },
                           "api.course.page.html#create": {
@@ -12730,8 +12887,8 @@
                             "ref": "api.course.page.html#delete",
                             "tf": 110
                           },
-                          "api.course.page.html#update": {
-                            "ref": "api.course.page.html#update",
+                          "api.course.page.html#get": {
+                            "ref": "api.course.page.html#get",
                             "tf": 110
                           },
                           "api.course.quiz.html": {
@@ -12994,6 +13151,204 @@
                               "docs": {},
                               ";": {
                                 "docs": {},
+                                "a": {
+                                  "docs": {},
+                                  "r": {
+                                    "docs": {},
+                                    "r": {
+                                      "docs": {},
+                                      "a": {
+                                        "docs": {},
+                                        "y": {
+                                          "docs": {},
+                                          ".": {
+                                            "docs": {},
+                                            "&": {
+                                              "docs": {},
+                                              "l": {
+                                                "docs": {},
+                                                "t": {
+                                                  "docs": {},
+                                                  ";": {
+                                                    "docs": {},
+                                                    "o": {
+                                                      "docs": {},
+                                                      "b": {
+                                                        "docs": {},
+                                                        "j": {
+                                                          "docs": {},
+                                                          "e": {
+                                                            "docs": {},
+                                                            "c": {
+                                                              "docs": {},
+                                                              "t": {
+                                                                "docs": {},
+                                                                "&": {
+                                                                  "docs": {},
+                                                                  "g": {
+                                                                    "docs": {},
+                                                                    "t": {
+                                                                      "docs": {},
+                                                                      ";": {
+                                                                        "docs": {},
+                                                                        "&": {
+                                                                          "docs": {},
+                                                                          "g": {
+                                                                            "docs": {},
+                                                                            "t": {
+                                                                              "docs": {
+                                                                                "api.account.html#list": {
+                                                                                  "ref": "api.account.html#list",
+                                                                                  "tf": 50
+                                                                                },
+                                                                                "api.account.html#listAdmins": {
+                                                                                  "ref": "api.account.html#listAdmins",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.app.html#list": {
+                                                                                  "ref": "api.course.app.html#list",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.app.html#updateMetadata": {
+                                                                                  "ref": "api.course.app.html#updateMetadata",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.assignment.html#list": {
+                                                                                  "ref": "api.course.assignment.html#list",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.assignment.html#listGradeableStudents": {
+                                                                                  "ref": "api.course.assignment.html#listGradeableStudents",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.assignment.html#listOverrides": {
+                                                                                  "ref": "api.course.assignment.html#listOverrides",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.assignment.html#listSubmissions": {
+                                                                                  "ref": "api.course.assignment.html#listSubmissions",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.assignmentGroup.html#listAssignmentGroups": {
+                                                                                  "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.gradebookColumn.html#list": {
+                                                                                  "ref": "api.course.gradebookColumn.html#list",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.gradebookColumn.html#listEntries": {
+                                                                                  "ref": "api.course.gradebookColumn.html#listEntries",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.group.html#listMembers": {
+                                                                                  "ref": "api.course.group.html#listMembers",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.groupSet.html#list": {
+                                                                                  "ref": "api.course.groupSet.html#list",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.groupSet.html#listGroups": {
+                                                                                  "ref": "api.course.groupSet.html#listGroups",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.page.html#list": {
+                                                                                  "ref": "api.course.page.html#list",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.quiz.html#list": {
+                                                                                  "ref": "api.course.quiz.html#list",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.quiz.html#listQuestions": {
+                                                                                  "ref": "api.course.quiz.html#listQuestions",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.quiz.html#listSubmissions": {
+                                                                                  "ref": "api.course.quiz.html#listSubmissions",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.quiz.html#listQuestionGrades": {
+                                                                                  "ref": "api.course.quiz.html#listQuestionGrades",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.quiz.html#updateQuestionGrades": {
+                                                                                  "ref": "api.course.quiz.html#updateQuestionGrades",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.rubric.html#list": {
+                                                                                  "ref": "api.course.rubric.html#list",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.section.html#list": {
+                                                                                  "ref": "api.course.section.html#list",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.html#listEnrollments": {
+                                                                                  "ref": "api.course.html#listEnrollments",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.html#listStudentEnrollments": {
+                                                                                  "ref": "api.course.html#listStudentEnrollments",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.html#listTeachingTeamMemberEnrollments": {
+                                                                                  "ref": "api.course.html#listTeachingTeamMemberEnrollments",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.html#listDesignerEnrollments": {
+                                                                                  "ref": "api.course.html#listDesignerEnrollments",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.html#listObserverEnrollments": {
+                                                                                  "ref": "api.course.html#listObserverEnrollments",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.html#listUsers": {
+                                                                                  "ref": "api.course.html#listUsers",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.html#listStudents": {
+                                                                                  "ref": "api.course.html#listStudents",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.html#listTeachingTeamMembers": {
+                                                                                  "ref": "api.course.html#listTeachingTeamMembers",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.html#listDesigners": {
+                                                                                  "ref": "api.course.html#listDesigners",
+                                                                                  "tf": 33.33333333333333
+                                                                                },
+                                                                                "api.course.html#listObservers": {
+                                                                                  "ref": "api.course.html#listObservers",
+                                                                                  "tf": 33.33333333333333
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
                                 "o": {
                                   "docs": {},
                                   "b": {
@@ -13156,9 +13511,9 @@
                                                       "ref": "api.course.groupSet.html#deleteGroup",
                                                       "tf": 33.33333333333333
                                                     },
-                                                    "api.course.page.html#get": {
-                                                      "ref": "api.course.page.html#get",
-                                                      "tf": 50
+                                                    "api.course.page.html#update": {
+                                                      "ref": "api.course.page.html#update",
+                                                      "tf": 33.33333333333333
                                                     },
                                                     "api.course.page.html#create": {
                                                       "ref": "api.course.page.html#create",
@@ -13168,9 +13523,9 @@
                                                       "ref": "api.course.page.html#delete",
                                                       "tf": 33.33333333333333
                                                     },
-                                                    "api.course.page.html#update": {
-                                                      "ref": "api.course.page.html#update",
-                                                      "tf": 33.33333333333333
+                                                    "api.course.page.html#get": {
+                                                      "ref": "api.course.page.html#get",
+                                                      "tf": 50
                                                     },
                                                     "api.course.quiz.html#get": {
                                                       "ref": "api.course.quiz.html#get",
@@ -13249,196 +13604,6 @@
                                       }
                                     }
                                   }
-                                },
-                                "a": {
-                                  "docs": {},
-                                  "r": {
-                                    "docs": {},
-                                    "r": {
-                                      "docs": {},
-                                      "a": {
-                                        "docs": {},
-                                        "y": {
-                                          "docs": {},
-                                          ".": {
-                                            "docs": {},
-                                            "&": {
-                                              "docs": {},
-                                              "l": {
-                                                "docs": {},
-                                                "t": {
-                                                  "docs": {},
-                                                  ";": {
-                                                    "docs": {},
-                                                    "o": {
-                                                      "docs": {},
-                                                      "b": {
-                                                        "docs": {},
-                                                        "j": {
-                                                          "docs": {},
-                                                          "e": {
-                                                            "docs": {},
-                                                            "c": {
-                                                              "docs": {},
-                                                              "t": {
-                                                                "docs": {},
-                                                                "&": {
-                                                                  "docs": {},
-                                                                  "g": {
-                                                                    "docs": {},
-                                                                    "t": {
-                                                                      "docs": {},
-                                                                      ";": {
-                                                                        "docs": {},
-                                                                        "&": {
-                                                                          "docs": {},
-                                                                          "g": {
-                                                                            "docs": {},
-                                                                            "t": {
-                                                                              "docs": {
-                                                                                "api.course.app.html#list": {
-                                                                                  "ref": "api.course.app.html#list",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.app.html#updateMetadata": {
-                                                                                  "ref": "api.course.app.html#updateMetadata",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.assignment.html#list": {
-                                                                                  "ref": "api.course.assignment.html#list",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.assignment.html#listGradeableStudents": {
-                                                                                  "ref": "api.course.assignment.html#listGradeableStudents",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.assignment.html#listOverrides": {
-                                                                                  "ref": "api.course.assignment.html#listOverrides",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.assignment.html#listSubmissions": {
-                                                                                  "ref": "api.course.assignment.html#listSubmissions",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.assignmentGroup.html#listAssignmentGroups": {
-                                                                                  "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.gradebookColumn.html#list": {
-                                                                                  "ref": "api.course.gradebookColumn.html#list",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.gradebookColumn.html#listEntries": {
-                                                                                  "ref": "api.course.gradebookColumn.html#listEntries",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.group.html#listMembers": {
-                                                                                  "ref": "api.course.group.html#listMembers",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.groupSet.html#list": {
-                                                                                  "ref": "api.course.groupSet.html#list",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.groupSet.html#listGroups": {
-                                                                                  "ref": "api.course.groupSet.html#listGroups",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.page.html#list": {
-                                                                                  "ref": "api.course.page.html#list",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.quiz.html#list": {
-                                                                                  "ref": "api.course.quiz.html#list",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.quiz.html#listQuestions": {
-                                                                                  "ref": "api.course.quiz.html#listQuestions",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.quiz.html#listSubmissions": {
-                                                                                  "ref": "api.course.quiz.html#listSubmissions",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.quiz.html#listQuestionGrades": {
-                                                                                  "ref": "api.course.quiz.html#listQuestionGrades",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.quiz.html#updateQuestionGrades": {
-                                                                                  "ref": "api.course.quiz.html#updateQuestionGrades",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.rubric.html#list": {
-                                                                                  "ref": "api.course.rubric.html#list",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.section.html#list": {
-                                                                                  "ref": "api.course.section.html#list",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.html#listEnrollments": {
-                                                                                  "ref": "api.course.html#listEnrollments",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.html#listStudentEnrollments": {
-                                                                                  "ref": "api.course.html#listStudentEnrollments",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.html#listTeachingTeamMemberEnrollments": {
-                                                                                  "ref": "api.course.html#listTeachingTeamMemberEnrollments",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.html#listDesignerEnrollments": {
-                                                                                  "ref": "api.course.html#listDesignerEnrollments",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.html#listObserverEnrollments": {
-                                                                                  "ref": "api.course.html#listObserverEnrollments",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.html#listUsers": {
-                                                                                  "ref": "api.course.html#listUsers",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.html#listStudents": {
-                                                                                  "ref": "api.course.html#listStudents",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.html#listTeachingTeamMembers": {
-                                                                                  "ref": "api.course.html#listTeachingTeamMembers",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.html#listDesigners": {
-                                                                                  "ref": "api.course.html#listDesigners",
-                                                                                  "tf": 33.33333333333333
-                                                                                },
-                                                                                "api.course.html#listObservers": {
-                                                                                  "ref": "api.course.html#listObservers",
-                                                                                  "tf": 33.33333333333333
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
                                 }
                               }
                             }
@@ -13494,9 +13659,9 @@
                     "ref": "api.course.page.html#list",
                     "tf": 12.5
                   },
-                  "api.course.page.html#get": {
-                    "ref": "api.course.page.html#get",
-                    "tf": 12.5
+                  "api.course.page.html#update": {
+                    "ref": "api.course.page.html#update",
+                    "tf": 16.666666666666664
                   },
                   "api.course.page.html#create": {
                     "ref": "api.course.page.html#create",
@@ -13506,9 +13671,9 @@
                     "ref": "api.course.page.html#delete",
                     "tf": 16.666666666666664
                   },
-                  "api.course.page.html#update": {
-                    "ref": "api.course.page.html#update",
-                    "tf": 16.666666666666664
+                  "api.course.page.html#get": {
+                    "ref": "api.course.page.html#get",
+                    "tf": 12.5
                   }
                 },
                 "#": {
@@ -13530,15 +13695,15 @@
                       }
                     }
                   },
-                  "g": {
+                  "u": {
                     "docs": {},
-                    "e": {
+                    "p": {
                       "docs": {},
-                      "t": {
+                      "d": {
                         "docs": {
-                          "api.course.page.html#get": {
-                            "ref": "api.course.page.html#get",
-                            "tf": 100
+                          "api.course.page.html#update": {
+                            "ref": "api.course.page.html#update",
+                            "tf": 75
                           }
                         }
                       }
@@ -13575,15 +13740,15 @@
                       }
                     }
                   },
-                  "u": {
+                  "g": {
                     "docs": {},
-                    "p": {
+                    "e": {
                       "docs": {},
-                      "d": {
+                      "t": {
                         "docs": {
-                          "api.course.page.html#update": {
-                            "ref": "api.course.page.html#update",
-                            "tf": 75
+                          "api.course.page.html#get": {
+                            "ref": "api.course.page.html#get",
+                            "tf": 100
                           }
                         }
                       }
@@ -14802,20 +14967,25 @@
           }
         }
       },
-      "length": 1164
+      "length": 1180
     },
     "corpusTokens": [
       "account",
       "account#get",
+      "account#list",
+      "account#listadmin",
       "actual",
       "ad",
       "add",
+      "admin",
       "alia",
       "and/or",
       "answer",
       "api",
       "api.account",
       "api.account#get",
+      "api.account#list",
+      "api.account#listadmin",
       "api.cours",
       "api.course#get",
       "api.course#getus",
@@ -15133,6 +15303,7 @@
       "level",
       "list",
       "list:class",
+      "listadmin",
       "listassignmentgroup",
       "listcours",
       "listdesign",
@@ -15293,6 +15464,26 @@
       "summary": "",
       "description": "Functions for interacting with accounts",
       "body": ""
+    },
+    "api.account.html#list": {
+      "id": "api.account.html#list",
+      "kind": "function",
+      "title": "list() → {Promise.&lt;Array.&lt;Object&gt;&gt;}",
+      "longname": "api.account#list",
+      "name": "list",
+      "tags": "api.account#list account#list list",
+      "summary": "",
+      "description": "Get the list of accounts"
+    },
+    "api.account.html#listAdmins": {
+      "id": "api.account.html#listAdmins",
+      "kind": "function",
+      "title": "listAdmins( options ) → {Promise.&lt;Array.&lt;Object&gt;&gt;}",
+      "longname": "api.account#listAdmins",
+      "name": "listAdmins",
+      "tags": "api.account#listAdmins account#listAdmins listAdmins",
+      "summary": "",
+      "description": "Gets the list of admins in an account"
     },
     "api.account.html#get": {
       "id": "api.account.html#get",
@@ -15871,15 +16062,15 @@
       "summary": "",
       "description": "Gets the list of pages in a course"
     },
-    "api.course.page.html#get": {
-      "id": "api.course.page.html#get",
+    "api.course.page.html#update": {
+      "id": "api.course.page.html#update",
       "kind": "function",
-      "title": "get( options ) → {Promise.&lt;Object&gt;}",
-      "longname": "api.course.page#get",
-      "name": "get",
-      "tags": "api.course.page#get course.page#get page#get get",
+      "title": "update( options ) → {Promise.&lt;Object&gt;}",
+      "longname": "api.course.page#update",
+      "name": "update",
+      "tags": "api.course.page#update course.page#update page#update update",
       "summary": "",
-      "description": "Get info on a specific page in a course"
+      "description": "Updates a Canvas page"
     },
     "api.course.page.html#create": {
       "id": "api.course.page.html#create",
@@ -15901,15 +16092,15 @@
       "summary": "",
       "description": "Deletes a page from a course"
     },
-    "api.course.page.html#update": {
-      "id": "api.course.page.html#update",
+    "api.course.page.html#get": {
+      "id": "api.course.page.html#get",
       "kind": "function",
-      "title": "update( options ) → {Promise.&lt;Object&gt;}",
-      "longname": "api.course.page#update",
-      "name": "update",
-      "tags": "api.course.page#update course.page#update page#update update",
+      "title": "get( options ) → {Promise.&lt;Object&gt;}",
+      "longname": "api.course.page#get",
+      "name": "get",
+      "tags": "api.course.page#get course.page#get page#get get",
       "summary": "",
-      "description": "Updates a Canvas page"
+      "description": "Get info on a specific page in a course"
     },
     "api.course.quiz.html": {
       "id": "api.course.quiz.html",
