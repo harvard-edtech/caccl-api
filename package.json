@@ -39,13 +39,13 @@
   "dependencies": {
     "async": "^2.6.3",
     "axios": "^0.19.0",
-    "caccl-error": "^1.0.2",
-    "caccl-send-request": "^1.0.12",
+    "caccl-error": "^1.0.3",
+    "caccl-send-request": "^1.0.13",
     "csv-parse": "^3.2.0",
     "parse-link-header": "^1.0.1",
     "path": "^0.12.7",
     "prop-types": "^15.7.2",
-    "qs": "^6.7.0",
+    "qs": "^6.8.0",
     "request": "^2.88.0",
     "url": "^0.11.0"
   }
