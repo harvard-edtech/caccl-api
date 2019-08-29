@@ -45,6 +45,8 @@ AssignmentGroup.list.requiredParams = ['courseId'];
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.assignmentGroupId - Assignment group to get
+ * @param {boolean} [options.includeAssignments] - if true, the list of
+ *   assignments inside the group is included
  * @return {Promise.<Object>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
  */
 AssignmentGroup.get = function (options) {
