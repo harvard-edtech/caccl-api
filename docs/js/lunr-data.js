@@ -486,28 +486,26 @@ window.lunrData = {
           "interact",
           "within"
         ],
-        "api.course.assignmentGroup.html#listAssignmentGroups": [
-          "api.course.assignmentgroup#listassignmentgroup",
+        "api.course.assignmentGroup.html#list": [
+          "api.course.assignmentgroup#list",
           "assign",
-          "assignmentgroup#listassignmentgroup",
+          "assignmentgroup#list",
           "cours",
-          "course.assignmentgroup#listassignmentgroup",
+          "course.assignmentgroup#list",
           "function",
           "group",
           "list",
-          "listassignmentgroup",
           "option",
           "promise.&lt;array.&lt;object&gt;&gt"
         ],
-        "api.course.assignmentGroup.html#getAssignmentGroup": [
-          "api.course.assignmentgroup#getassignmentgroup",
+        "api.course.assignmentGroup.html#get": [
+          "api.course.assignmentgroup#get",
           "assign",
-          "assignmentgroup#getassignmentgroup",
+          "assignmentgroup#get",
           "cours",
-          "course.assignmentgroup#getassignmentgroup",
+          "course.assignmentgroup#get",
           "function",
           "get",
-          "getassignmentgroup",
           "group",
           "info",
           "option",
@@ -2340,55 +2338,10 @@ window.lunrData = {
                                                                   "s": {
                                                                     "docs": {},
                                                                     "t": {
-                                                                      "docs": {},
-                                                                      "a": {
-                                                                        "docs": {},
-                                                                        "s": {
-                                                                          "docs": {},
-                                                                          "s": {
-                                                                            "docs": {},
-                                                                            "i": {
-                                                                              "docs": {},
-                                                                              "g": {
-                                                                                "docs": {},
-                                                                                "n": {
-                                                                                  "docs": {},
-                                                                                  "m": {
-                                                                                    "docs": {},
-                                                                                    "e": {
-                                                                                      "docs": {},
-                                                                                      "n": {
-                                                                                        "docs": {},
-                                                                                        "t": {
-                                                                                          "docs": {},
-                                                                                          "g": {
-                                                                                            "docs": {},
-                                                                                            "r": {
-                                                                                              "docs": {},
-                                                                                              "o": {
-                                                                                                "docs": {},
-                                                                                                "u": {
-                                                                                                  "docs": {},
-                                                                                                  "p": {
-                                                                                                    "docs": {
-                                                                                                      "api.course.assignmentGroup.html#listAssignmentGroups": {
-                                                                                                        "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
-                                                                                                        "tf": 1075
-                                                                                                      }
-                                                                                                    }
-                                                                                                  }
-                                                                                                }
-                                                                                              }
-                                                                                            }
-                                                                                          }
-                                                                                        }
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
+                                                                      "docs": {
+                                                                        "api.course.assignmentGroup.html#list": {
+                                                                          "ref": "api.course.assignmentGroup.html#list",
+                                                                          "tf": 1075
                                                                         }
                                                                       }
                                                                     }
@@ -2400,55 +2353,10 @@ window.lunrData = {
                                                                 "e": {
                                                                   "docs": {},
                                                                   "t": {
-                                                                    "docs": {},
-                                                                    "a": {
-                                                                      "docs": {},
-                                                                      "s": {
-                                                                        "docs": {},
-                                                                        "s": {
-                                                                          "docs": {},
-                                                                          "i": {
-                                                                            "docs": {},
-                                                                            "g": {
-                                                                              "docs": {},
-                                                                              "n": {
-                                                                                "docs": {},
-                                                                                "m": {
-                                                                                  "docs": {},
-                                                                                  "e": {
-                                                                                    "docs": {},
-                                                                                    "n": {
-                                                                                      "docs": {},
-                                                                                      "t": {
-                                                                                        "docs": {},
-                                                                                        "g": {
-                                                                                          "docs": {},
-                                                                                          "r": {
-                                                                                            "docs": {},
-                                                                                            "o": {
-                                                                                              "docs": {},
-                                                                                              "u": {
-                                                                                                "docs": {},
-                                                                                                "p": {
-                                                                                                  "docs": {
-                                                                                                    "api.course.assignmentGroup.html#getAssignmentGroup": {
-                                                                                                      "ref": "api.course.assignmentGroup.html#getAssignmentGroup",
-                                                                                                      "tf": 1075
-                                                                                                    }
-                                                                                                  }
-                                                                                                }
-                                                                                              }
-                                                                                            }
-                                                                                          }
-                                                                                        }
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
+                                                                    "docs": {
+                                                                      "api.course.assignmentGroup.html#get": {
+                                                                        "ref": "api.course.assignmentGroup.html#get",
+                                                                        "tf": 1100
                                                                       }
                                                                     }
                                                                   }
@@ -4461,12 +4369,12 @@ window.lunrData = {
                         "ref": "api.course.assignmentGroup.html",
                         "tf": 8.333333333333332
                       },
-                      "api.course.assignmentGroup.html#listAssignmentGroups": {
-                        "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
+                      "api.course.assignmentGroup.html#list": {
+                        "ref": "api.course.assignmentGroup.html#list",
                         "tf": 12.5
                       },
-                      "api.course.assignmentGroup.html#getAssignmentGroup": {
-                        "ref": "api.course.assignmentGroup.html#getAssignmentGroup",
+                      "api.course.assignmentGroup.html#get": {
+                        "ref": "api.course.assignmentGroup.html#get",
                         "tf": 8.333333333333332
                       },
                       "api.course.assignmentGroup.html#update": {
@@ -4997,55 +4905,10 @@ window.lunrData = {
                                             "s": {
                                               "docs": {},
                                               "t": {
-                                                "docs": {},
-                                                "a": {
-                                                  "docs": {},
-                                                  "s": {
-                                                    "docs": {},
-                                                    "s": {
-                                                      "docs": {},
-                                                      "i": {
-                                                        "docs": {},
-                                                        "g": {
-                                                          "docs": {},
-                                                          "n": {
-                                                            "docs": {},
-                                                            "m": {
-                                                              "docs": {},
-                                                              "e": {
-                                                                "docs": {},
-                                                                "n": {
-                                                                  "docs": {},
-                                                                  "t": {
-                                                                    "docs": {},
-                                                                    "g": {
-                                                                      "docs": {},
-                                                                      "r": {
-                                                                        "docs": {},
-                                                                        "o": {
-                                                                          "docs": {},
-                                                                          "u": {
-                                                                            "docs": {},
-                                                                            "p": {
-                                                                              "docs": {
-                                                                                "api.course.assignmentGroup.html#listAssignmentGroups": {
-                                                                                  "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
-                                                                                  "tf": 75
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
+                                                "docs": {
+                                                  "api.course.assignmentGroup.html#list": {
+                                                    "ref": "api.course.assignmentGroup.html#list",
+                                                    "tf": 75
                                                   }
                                                 }
                                               }
@@ -5057,55 +4920,10 @@ window.lunrData = {
                                           "e": {
                                             "docs": {},
                                             "t": {
-                                              "docs": {},
-                                              "a": {
-                                                "docs": {},
-                                                "s": {
-                                                  "docs": {},
-                                                  "s": {
-                                                    "docs": {},
-                                                    "i": {
-                                                      "docs": {},
-                                                      "g": {
-                                                        "docs": {},
-                                                        "n": {
-                                                          "docs": {},
-                                                          "m": {
-                                                            "docs": {},
-                                                            "e": {
-                                                              "docs": {},
-                                                              "n": {
-                                                                "docs": {},
-                                                                "t": {
-                                                                  "docs": {},
-                                                                  "g": {
-                                                                    "docs": {},
-                                                                    "r": {
-                                                                      "docs": {},
-                                                                      "o": {
-                                                                        "docs": {},
-                                                                        "u": {
-                                                                          "docs": {},
-                                                                          "p": {
-                                                                            "docs": {
-                                                                              "api.course.assignmentGroup.html#getAssignmentGroup": {
-                                                                                "ref": "api.course.assignmentGroup.html#getAssignmentGroup",
-                                                                                "tf": 75
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
+                                              "docs": {
+                                                "api.course.assignmentGroup.html#get": {
+                                                  "ref": "api.course.assignmentGroup.html#get",
+                                                  "tf": 100
                                                 }
                                               }
                                             }
@@ -5506,12 +5324,12 @@ window.lunrData = {
                       "ref": "api.course.assignmentGroup.html",
                       "tf": 8.333333333333332
                     },
-                    "api.course.assignmentGroup.html#listAssignmentGroups": {
-                      "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
+                    "api.course.assignmentGroup.html#list": {
+                      "ref": "api.course.assignmentGroup.html#list",
                       "tf": 12.5
                     },
-                    "api.course.assignmentGroup.html#getAssignmentGroup": {
-                      "ref": "api.course.assignmentGroup.html#getAssignmentGroup",
+                    "api.course.assignmentGroup.html#get": {
+                      "ref": "api.course.assignmentGroup.html#get",
                       "tf": 8.333333333333332
                     },
                     "api.course.assignmentGroup.html#update": {
@@ -6422,55 +6240,10 @@ window.lunrData = {
                                                           "s": {
                                                             "docs": {},
                                                             "t": {
-                                                              "docs": {},
-                                                              "a": {
-                                                                "docs": {},
-                                                                "s": {
-                                                                  "docs": {},
-                                                                  "s": {
-                                                                    "docs": {},
-                                                                    "i": {
-                                                                      "docs": {},
-                                                                      "g": {
-                                                                        "docs": {},
-                                                                        "n": {
-                                                                          "docs": {},
-                                                                          "m": {
-                                                                            "docs": {},
-                                                                            "e": {
-                                                                              "docs": {},
-                                                                              "n": {
-                                                                                "docs": {},
-                                                                                "t": {
-                                                                                  "docs": {},
-                                                                                  "g": {
-                                                                                    "docs": {},
-                                                                                    "r": {
-                                                                                      "docs": {},
-                                                                                      "o": {
-                                                                                        "docs": {},
-                                                                                        "u": {
-                                                                                          "docs": {},
-                                                                                          "p": {
-                                                                                            "docs": {
-                                                                                              "api.course.assignmentGroup.html#listAssignmentGroups": {
-                                                                                                "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
-                                                                                                "tf": 75
-                                                                                              }
-                                                                                            }
-                                                                                          }
-                                                                                        }
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
+                                                              "docs": {
+                                                                "api.course.assignmentGroup.html#list": {
+                                                                  "ref": "api.course.assignmentGroup.html#list",
+                                                                  "tf": 75
                                                                 }
                                                               }
                                                             }
@@ -6482,55 +6255,10 @@ window.lunrData = {
                                                         "e": {
                                                           "docs": {},
                                                           "t": {
-                                                            "docs": {},
-                                                            "a": {
-                                                              "docs": {},
-                                                              "s": {
-                                                                "docs": {},
-                                                                "s": {
-                                                                  "docs": {},
-                                                                  "i": {
-                                                                    "docs": {},
-                                                                    "g": {
-                                                                      "docs": {},
-                                                                      "n": {
-                                                                        "docs": {},
-                                                                        "m": {
-                                                                          "docs": {},
-                                                                          "e": {
-                                                                            "docs": {},
-                                                                            "n": {
-                                                                              "docs": {},
-                                                                              "t": {
-                                                                                "docs": {},
-                                                                                "g": {
-                                                                                  "docs": {},
-                                                                                  "r": {
-                                                                                    "docs": {},
-                                                                                    "o": {
-                                                                                      "docs": {},
-                                                                                      "u": {
-                                                                                        "docs": {},
-                                                                                        "p": {
-                                                                                          "docs": {
-                                                                                            "api.course.assignmentGroup.html#getAssignmentGroup": {
-                                                                                              "ref": "api.course.assignmentGroup.html#getAssignmentGroup",
-                                                                                              "tf": 75
-                                                                                            }
-                                                                                          }
-                                                                                        }
-                                                                                      }
-                                                                                    }
-                                                                                  }
-                                                                                }
-                                                                              }
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  }
-                                                                }
+                                                            "docs": {
+                                                              "api.course.assignmentGroup.html#get": {
+                                                                "ref": "api.course.assignmentGroup.html#get",
+                                                                "tf": 100
                                                               }
                                                             }
                                                           }
@@ -9334,8 +9062,8 @@ window.lunrData = {
                     "ref": "api.course.assignment.html#get",
                     "tf": 12.5
                   },
-                  "api.course.assignmentGroup.html#getAssignmentGroup": {
-                    "ref": "api.course.assignmentGroup.html#getAssignmentGroup",
+                  "api.course.assignmentGroup.html#get": {
+                    "ref": "api.course.assignmentGroup.html#get",
                     "tf": 8.333333333333332
                   },
                   "api.course.gradebookColumn.html#get": {
@@ -10028,8 +9756,8 @@ window.lunrData = {
                         "ref": "api.course.assignment.html#listSubmissions",
                         "tf": 10
                       },
-                      "api.course.assignmentGroup.html#getAssignmentGroup": {
-                        "ref": "api.course.assignmentGroup.html#getAssignmentGroup",
+                      "api.course.assignmentGroup.html#get": {
+                        "ref": "api.course.assignmentGroup.html#get",
                         "tf": 8.333333333333332
                       },
                       "api.course.gradebookColumn.html#get": {
@@ -10407,8 +10135,8 @@ window.lunrData = {
                   "ref": "api.course.assignment.html#getSubmission",
                   "tf": 12.5
                 },
-                "api.course.assignmentGroup.html#getAssignmentGroup": {
-                  "ref": "api.course.assignmentGroup.html#getAssignmentGroup",
+                "api.course.assignmentGroup.html#get": {
+                  "ref": "api.course.assignmentGroup.html#get",
                   "tf": 8.333333333333332
                 },
                 "api.course.gradebookColumn.html#list": {
@@ -10608,56 +10336,6 @@ window.lunrData = {
                               "api.course.quiz.html#getSubmission": {
                                 "ref": "api.course.quiz.html#getSubmission",
                                 "tf": 608.3333333333334
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "a": {
-                "docs": {},
-                "s": {
-                  "docs": {},
-                  "s": {
-                    "docs": {},
-                    "i": {
-                      "docs": {},
-                      "g": {
-                        "docs": {},
-                        "n": {
-                          "docs": {},
-                          "m": {
-                            "docs": {},
-                            "e": {
-                              "docs": {},
-                              "n": {
-                                "docs": {},
-                                "t": {
-                                  "docs": {},
-                                  "g": {
-                                    "docs": {},
-                                    "r": {
-                                      "docs": {},
-                                      "o": {
-                                        "docs": {},
-                                        "u": {
-                                          "docs": {},
-                                          "p": {
-                                            "docs": {
-                                              "api.course.assignmentGroup.html#getAssignmentGroup": {
-                                                "ref": "api.course.assignmentGroup.html#getAssignmentGroup",
-                                                "tf": 608.3333333333334
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
                               }
                             }
                           }
@@ -11000,12 +10678,12 @@ window.lunrData = {
                       "ref": "api.course.assignmentGroup.html",
                       "tf": 8.333333333333332
                     },
-                    "api.course.assignmentGroup.html#listAssignmentGroups": {
-                      "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
+                    "api.course.assignmentGroup.html#list": {
+                      "ref": "api.course.assignmentGroup.html#list",
                       "tf": 12.5
                     },
-                    "api.course.assignmentGroup.html#getAssignmentGroup": {
-                      "ref": "api.course.assignmentGroup.html#getAssignmentGroup",
+                    "api.course.assignmentGroup.html#get": {
+                      "ref": "api.course.assignmentGroup.html#get",
                       "tf": 8.333333333333332
                     },
                     "api.course.assignmentGroup.html#update": {
@@ -11431,9 +11109,9 @@ window.lunrData = {
                     "ref": "api.course.assignment.html#listSubmissions",
                     "tf": 10
                   },
-                  "api.course.assignmentGroup.html#listAssignmentGroups": {
-                    "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
-                    "tf": 12.5
+                  "api.course.assignmentGroup.html#list": {
+                    "ref": "api.course.assignmentGroup.html#list",
+                    "tf": 620.8333333333334
                   },
                   "api.course.gradebookColumn.html#list": {
                     "ref": "api.course.gradebookColumn.html#list",
@@ -11576,53 +11254,6 @@ window.lunrData = {
                             "api.account.html#listAdmins": {
                               "ref": "api.account.html#listAdmins",
                               "tf": 633.3333333333334
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "s": {
-                    "docs": {},
-                    "s": {
-                      "docs": {},
-                      "i": {
-                        "docs": {},
-                        "g": {
-                          "docs": {},
-                          "n": {
-                            "docs": {},
-                            "m": {
-                              "docs": {},
-                              "e": {
-                                "docs": {},
-                                "n": {
-                                  "docs": {},
-                                  "t": {
-                                    "docs": {},
-                                    "g": {
-                                      "docs": {},
-                                      "r": {
-                                        "docs": {},
-                                        "o": {
-                                          "docs": {},
-                                          "u": {
-                                            "docs": {},
-                                            "p": {
-                                              "docs": {
-                                                "api.course.assignmentGroup.html#listAssignmentGroups": {
-                                                  "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
-                                                  "tf": 608.3333333333334
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
                             }
                           }
                         }
@@ -12281,13 +11912,13 @@ window.lunrData = {
                         "ref": "api.course.assignment.html#createFileSubmission",
                         "tf": 33.33333333333333
                       },
-                      "api.course.assignmentGroup.html#listAssignmentGroups": {
-                        "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
+                      "api.course.assignmentGroup.html#list": {
+                        "ref": "api.course.assignmentGroup.html#list",
                         "tf": 33.33333333333333
                       },
-                      "api.course.assignmentGroup.html#getAssignmentGroup": {
-                        "ref": "api.course.assignmentGroup.html#getAssignmentGroup",
-                        "tf": 33.33333333333333
+                      "api.course.assignmentGroup.html#get": {
+                        "ref": "api.course.assignmentGroup.html#get",
+                        "tf": 50
                       },
                       "api.course.assignmentGroup.html#update": {
                         "ref": "api.course.assignmentGroup.html#update",
@@ -12759,12 +12390,12 @@ window.lunrData = {
                             "ref": "api.course.assignmentGroup.html",
                             "tf": 8.333333333333332
                           },
-                          "api.course.assignmentGroup.html#listAssignmentGroups": {
-                            "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
+                          "api.course.assignmentGroup.html#list": {
+                            "ref": "api.course.assignmentGroup.html#list",
                             "tf": 110
                           },
-                          "api.course.assignmentGroup.html#getAssignmentGroup": {
-                            "ref": "api.course.assignmentGroup.html#getAssignmentGroup",
+                          "api.course.assignmentGroup.html#get": {
+                            "ref": "api.course.assignmentGroup.html#get",
                             "tf": 110
                           },
                           "api.course.assignmentGroup.html#update": {
@@ -13229,8 +12860,8 @@ window.lunrData = {
                                                                                   "ref": "api.course.assignment.html#listSubmissions",
                                                                                   "tf": 33.33333333333333
                                                                                 },
-                                                                                "api.course.assignmentGroup.html#listAssignmentGroups": {
-                                                                                  "ref": "api.course.assignmentGroup.html#listAssignmentGroups",
+                                                                                "api.course.assignmentGroup.html#list": {
+                                                                                  "ref": "api.course.assignmentGroup.html#list",
                                                                                   "tf": 33.33333333333333
                                                                                 },
                                                                                 "api.course.gradebookColumn.html#list": {
@@ -13443,9 +13074,9 @@ window.lunrData = {
                                                       "ref": "api.course.assignment.html#createFileSubmission",
                                                       "tf": 33.33333333333333
                                                     },
-                                                    "api.course.assignmentGroup.html#getAssignmentGroup": {
-                                                      "ref": "api.course.assignmentGroup.html#getAssignmentGroup",
-                                                      "tf": 33.33333333333333
+                                                    "api.course.assignmentGroup.html#get": {
+                                                      "ref": "api.course.assignmentGroup.html#get",
+                                                      "tf": 50
                                                     },
                                                     "api.course.assignmentGroup.html#update": {
                                                       "ref": "api.course.assignmentGroup.html#update",
@@ -14967,7 +14598,7 @@ window.lunrData = {
           }
         }
       },
-      "length": 1180
+      "length": 1178
     },
     "corpusTokens": [
       "account",
@@ -15027,8 +14658,8 @@ window.lunrData = {
       "api.course.assignmentgroup",
       "api.course.assignmentgroup#cr",
       "api.course.assignmentgroup#delet",
-      "api.course.assignmentgroup#getassignmentgroup",
-      "api.course.assignmentgroup#listassignmentgroup",
+      "api.course.assignmentgroup#get",
+      "api.course.assignmentgroup#list",
       "api.course.assignmentgroup#upd",
       "api.course.gradebookcolumn",
       "api.course.gradebookcolumn#cr",
@@ -15112,8 +14743,8 @@ window.lunrData = {
       "assignmentgroup",
       "assignmentgroup#cr",
       "assignmentgroup#delet",
-      "assignmentgroup#getassignmentgroup",
-      "assignmentgroup#listassignmentgroup",
+      "assignmentgroup#get",
+      "assignmentgroup#list",
       "assignmentgroup#upd",
       "associ",
       "batch",
@@ -15168,8 +14799,8 @@ window.lunrData = {
       "course.assignmentgroup",
       "course.assignmentgroup#cr",
       "course.assignmentgroup#delet",
-      "course.assignmentgroup#getassignmentgroup",
-      "course.assignmentgroup#listassignmentgroup",
+      "course.assignmentgroup#get",
+      "course.assignmentgroup#list",
       "course.assignmentgroup#upd",
       "course.gradebookcolumn",
       "course.gradebookcolumn#cr",
@@ -15259,7 +14890,6 @@ window.lunrData = {
       "free",
       "function",
       "get",
-      "getassignmentgroup",
       "getgroup",
       "getmetadata",
       "getoverrid",
@@ -15304,7 +14934,6 @@ window.lunrData = {
       "list",
       "list:class",
       "listadmin",
-      "listassignmentgroup",
       "listcours",
       "listdesign",
       "listdesignerenrol",
@@ -15768,23 +15397,23 @@ window.lunrData = {
       "description": "Functions for interacting with assignment groups within courses",
       "body": ""
     },
-    "api.course.assignmentGroup.html#listAssignmentGroups": {
-      "id": "api.course.assignmentGroup.html#listAssignmentGroups",
+    "api.course.assignmentGroup.html#list": {
+      "id": "api.course.assignmentGroup.html#list",
       "kind": "function",
-      "title": "listAssignmentGroups( options ) → {Promise.&lt;Array.&lt;Object&gt;&gt;}",
-      "longname": "api.course.assignmentGroup#listAssignmentGroups",
-      "name": "listAssignmentGroups",
-      "tags": "api.course.assignmentGroup#listAssignmentGroups course.assignmentGroup#listAssignmentGroups assignmentGroup#listAssignmentGroups listAssignmentGroups",
+      "title": "list( options ) → {Promise.&lt;Array.&lt;Object&gt;&gt;}",
+      "longname": "api.course.assignmentGroup#list",
+      "name": "list",
+      "tags": "api.course.assignmentGroup#list course.assignmentGroup#list assignmentGroup#list list",
       "summary": "",
       "description": "Lists assignment groups in a course"
     },
-    "api.course.assignmentGroup.html#getAssignmentGroup": {
-      "id": "api.course.assignmentGroup.html#getAssignmentGroup",
+    "api.course.assignmentGroup.html#get": {
+      "id": "api.course.assignmentGroup.html#get",
       "kind": "function",
-      "title": "getAssignmentGroup( options ) → {Promise.&lt;Object&gt;}",
-      "longname": "api.course.assignmentGroup#getAssignmentGroup",
-      "name": "getAssignmentGroup",
-      "tags": "api.course.assignmentGroup#getAssignmentGroup course.assignmentGroup#getAssignmentGroup assignmentGroup#getAssignmentGroup getAssignmentGroup",
+      "title": "get( options ) → {Promise.&lt;Object&gt;}",
+      "longname": "api.course.assignmentGroup#get",
+      "name": "get",
+      "tags": "api.course.assignmentGroup#get course.assignmentGroup#get assignmentGroup#get get",
       "summary": "",
       "description": "Gets info on a specific assignment group in a course"
     },
