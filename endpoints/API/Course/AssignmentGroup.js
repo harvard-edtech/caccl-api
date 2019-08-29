@@ -53,6 +53,11 @@ AssignmentGroup.get = function (options) {
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.assignmentGroupId}`,
     method: 'GET',
+    params: {
+      include: utils.genIncludesList({
+        assignments: options.includeAssignments,
+      }),
+    },
   });
 };
 AssignmentGroup.get.action = 'get info on a specific assignment group in a course';
