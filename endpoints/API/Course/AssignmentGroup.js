@@ -22,7 +22,7 @@ class AssignmentGroup extends EndpointCategory {
  * @author Gabriel Abrams
  * @memberof api.course.assignmentGroup
  * @instance
- * @method listAssignmentGroups
+ * @method list
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @return {Promise.<Object[]>} list of Canvas AssignmentGroups {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
@@ -41,7 +41,7 @@ AssignmentGroup.list.requiredParams = ['courseId'];
  * @author Gabriel Abrams
  * @memberof api.course.assignmentGroup
  * @instance
- * @method getAssignmentGroup
+ * @method get
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.assignmentGroupId - Assignment group to get
