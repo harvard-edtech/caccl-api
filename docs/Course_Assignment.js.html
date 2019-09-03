@@ -275,42 +275,96 @@ Assignment.update.requiredParams = ['courseId', 'assignmentId'];
  * @param {boolean} [options.gradeGroupStudentsIndividually=false] - If true,
  *   students in groups can be given separate grades and when one student in a
  *   group gets a grade, other students do not get graded
+ * @param {string} [options.assignmentAppId=null] - If defined, the external
+ *   tool that matches this id will be used for submissions. Also, the
+ *   submission types will be overwritten with ['external_tool'] and the student
+ *   will be redirected via LTI to the assignmentAppURL when they launch the
+ *   assignment
+ * @param {string} [options.assignmentAppURL=tool launch url] - The launch URL
+ *   of the external tool. If not included and assignmentAppId is defined, we
+ *   will first request info on the external tool to get its launchURL and will
+ *   use that value here. Only relevant if assignmentAppId is defined.
+ * @param {boolean} [options.assignmentAppNewTab=false] - Only relevant if
+ *   assignmentAppId is defined. If true, when a student clicks the assignment,
+ *   their LTI session with the external tool will be opened in a new tab
  * @return {Promise.&lt;Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.create = function (options) {
-  return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/assignments`,
-    method: 'POST',
-    params: {
-      'assignment[name]': options.name || 'Unnamed Assignment',
-      'assignment[submission_types]': options.submissionTypes || ['none'],
-      'assignment[grading_type]': options.gradingType || 'points',
-      position: utils.includeIfTruthy(options.position),
-      'assignment[peer_reviews]':
-        utils.isTruthy(options.peerReviewsEnabled),
-      'assignment[automatic_peer_reviews]':
-        utils.isTruthy(options.automaticPeerReviewsEnabled),
-      'assignment[grade_group_students_individually]':
-        utils.isTruthy(options.gradeGroupStudentsIndividually),
-      'assignment[description]':
-        utils.includeIfTruthy(options.description),
-      'assignment[allowed_extensions]':
-        utils.includeIfTruthy(options.allowedExtensions),
-      'assignment[group_category_id]':
-        utils.includeIfTruthy(options.groupSetId),
-      'assignment[points_possible]':
-        utils.includeIfNumber(options.pointsPossible),
-      'assignment[due_at]': utils.includeIfDate(options.dueAt),
-      'assignment[lock_at]': utils.includeIfDate(options.lockAt),
-      'assignment[unlock_at]': utils.includeIfDate(options.unlockAt),
-      'assignment[published]':
-        utils.isTruthy(options.published),
-      'assignment[assignment_group_id]':
-        utils.includeIfNumber(options.assignmentGroupId),
-      'assignment[omit_from_final_grade]':
-        utils.isTruthy(options.omitFromFinalGrade),
-      'assignment[muted]': utils.isTruthy(options.muted),
-    },
+  // Create params
+  const params = {
+    'assignment[name]': options.name || 'Unnamed Assignment',
+    'assignment[grading_type]': options.gradingType || 'points',
+    position: utils.includeIfTruthy(options.position),
+    'assignment[peer_reviews]':
+      utils.isTruthy(options.peerReviewsEnabled),
+    'assignment[automatic_peer_reviews]':
+      utils.isTruthy(options.automaticPeerReviewsEnabled),
+    'assignment[grade_group_students_individually]':
+      utils.isTruthy(options.gradeGroupStudentsIndividually),
+    'assignment[description]':
+      utils.includeIfTruthy(options.description),
+    'assignment[allowed_extensions]':
+      utils.includeIfTruthy(options.allowedExtensions),
+    'assignment[group_category_id]':
+      utils.includeIfTruthy(options.groupSetId),
+    'assignment[points_possible]':
+      utils.includeIfNumber(options.pointsPossible),
+    'assignment[due_at]': utils.includeIfDate(options.dueAt),
+    'assignment[lock_at]': utils.includeIfDate(options.lockAt),
+    'assignment[unlock_at]': utils.includeIfDate(options.unlockAt),
+    'assignment[published]':
+      utils.isTruthy(options.published),
+    'assignment[assignment_group_id]':
+      utils.includeIfNumber(options.assignmentGroupId),
+    'assignment[omit_from_final_grade]':
+      utils.isTruthy(options.omitFromFinalGrade),
+    'assignment[muted]': utils.isTruthy(options.muted),
+  };
+
+  // Prep for external tool
+  let step1 = Promise.resolve();
+  if (options.assignmentAppId) {
+    // Using an external tool
+    params['assignment[external_tool_tag_attributes][new_tab]'] = (
+      !!options.assignmentAppNewTab
+    );
+    params['assignment[external_tool_tag_attributes][content_type]'] = (
+      'context_external_tool'
+    );
+    params['assignment[external_tool_tag_attributes][content_id]'] = (
+      options.assignmentAppId
+    );
+    params['assignment[submission_types]'] = ['external_tool'];
+
+    if (options.assignmentAppURL) {
+      // No need to fetch the launchURL
+      params['assignment[external_tool_tag_attributes][url]'] = (
+        options.assignmentAppURL
+      );
+    } else {
+      // Need to fetch the launchURL
+      step1 = (
+        this.api.course.app.get({
+          courseId: options.courseId,
+          appId: options.assignmentAppId,
+        })
+          .then((app) => {
+            params['assignment[external_tool_tag_attributes][url]'] = app.url;
+          })
+      );
+    }
+  } else {
+    params['assignment[submission_types]'] = (
+      options.submissionTypes || ['none']
+    );
+  }
+
+  return step1.then(() => {
+    return this.visitEndpoint({
+      params,
+      path: `${prefix.v1}/courses/${options.courseId}/assignments`,
+      method: 'POST',
+    });
   });
 };
 Assignment.create.action = 'create a new assignment in a course';

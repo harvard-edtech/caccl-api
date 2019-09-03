@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.36] - 09/03/19
+
+Added ability to use an LTI as an assignment submission type
+
 ## [1.0.22] - 04/20/19
 
 ### Added
