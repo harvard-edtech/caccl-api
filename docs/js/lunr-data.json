@@ -230,6 +230,36 @@
           "updatemetadata",
           "us"
         ],
+        "api.course.app.html#getNavLaunchURL": [
+          "api.course.app#getnavlaunchurl",
+          "app#getnavlaunchurl",
+          "course.app#getnavlaunchurl",
+          "function",
+          "get",
+          "getnavlaunchurl",
+          "launch",
+          "lti",
+          "navig",
+          "option",
+          "promise.&lt;object&gt",
+          "sessionless",
+          "url"
+        ],
+        "api.course.app.html#getAssignmentLaunchURL": [
+          "api.course.app#getassignmentlaunchurl",
+          "app#getassignmentlaunchurl",
+          "course.app#getassignmentlaunchurl",
+          "function",
+          "get",
+          "getassignmentlaunchurl",
+          "launch",
+          "lti",
+          "navig",
+          "option",
+          "promise.&lt;object&gt",
+          "sessionless",
+          "url"
+        ],
         "api.course.assignment.html": [
           "api.course.assign",
           "assign",
@@ -854,17 +884,17 @@
           "page",
           "within"
         ],
-        "api.course.page.html#list": [
-          "api.course.page#list",
+        "api.course.page.html#get": [
+          "api.course.page#get",
           "cours",
-          "course.page#list",
+          "course.page#get",
           "function",
-          "get",
-          "list",
+          "info",
           "option",
           "page",
-          "page#list",
-          "promise.&lt;array.&lt;object&gt;&gt"
+          "page#get",
+          "promise.&lt;object&gt",
+          "specif"
         ],
         "api.course.page.html#update": [
           "api.course.page#upd",
@@ -900,17 +930,17 @@
           "page#delet",
           "promise.&lt;object&gt"
         ],
-        "api.course.page.html#get": [
-          "api.course.page#get",
+        "api.course.page.html#list": [
+          "api.course.page#list",
           "cours",
-          "course.page#get",
+          "course.page#list",
           "function",
-          "info",
+          "get",
+          "list",
           "option",
           "page",
-          "page#get",
-          "promise.&lt;object&gt",
-          "specif"
+          "page#list",
+          "promise.&lt;array.&lt;object&gt;&gt"
         ],
         "api.course.quiz.html": [
           "api.course.quiz",
@@ -1432,7 +1462,7 @@
           "user.self#listcours"
         ]
       },
-      "length": 107
+      "length": 109
     },
     "tokenStore": {
       "root": {
@@ -1715,6 +1745,109 @@
                                                               "api.course.app.html#getMetadata": {
                                                                 "ref": "api.course.app.html#getMetadata",
                                                                 "tf": 1075
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            "n": {
+                                              "docs": {},
+                                              "a": {
+                                                "docs": {},
+                                                "v": {
+                                                  "docs": {},
+                                                  "l": {
+                                                    "docs": {},
+                                                    "a": {
+                                                      "docs": {},
+                                                      "u": {
+                                                        "docs": {},
+                                                        "n": {
+                                                          "docs": {},
+                                                          "c": {
+                                                            "docs": {},
+                                                            "h": {
+                                                              "docs": {},
+                                                              "u": {
+                                                                "docs": {},
+                                                                "r": {
+                                                                  "docs": {},
+                                                                  "l": {
+                                                                    "docs": {
+                                                                      "api.course.app.html#getNavLaunchURL": {
+                                                                        "ref": "api.course.app.html#getNavLaunchURL",
+                                                                        "tf": 1075
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            "a": {
+                                              "docs": {},
+                                              "s": {
+                                                "docs": {},
+                                                "s": {
+                                                  "docs": {},
+                                                  "i": {
+                                                    "docs": {},
+                                                    "g": {
+                                                      "docs": {},
+                                                      "n": {
+                                                        "docs": {},
+                                                        "m": {
+                                                          "docs": {},
+                                                          "e": {
+                                                            "docs": {},
+                                                            "n": {
+                                                              "docs": {},
+                                                              "t": {
+                                                                "docs": {},
+                                                                "l": {
+                                                                  "docs": {},
+                                                                  "a": {
+                                                                    "docs": {},
+                                                                    "u": {
+                                                                      "docs": {},
+                                                                      "n": {
+                                                                        "docs": {},
+                                                                        "c": {
+                                                                          "docs": {},
+                                                                          "h": {
+                                                                            "docs": {},
+                                                                            "u": {
+                                                                              "docs": {},
+                                                                              "r": {
+                                                                                "docs": {},
+                                                                                "l": {
+                                                                                  "docs": {
+                                                                                    "api.course.app.html#getAssignmentLaunchURL": {
+                                                                                      "ref": "api.course.app.html#getAssignmentLaunchURL",
+                                                                                      "tf": 1075
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
                                                               }
                                                             }
                                                           }
@@ -2889,18 +3022,15 @@
                                       "docs": {},
                                       "#": {
                                         "docs": {},
-                                        "l": {
+                                        "g": {
                                           "docs": {},
-                                          "i": {
+                                          "e": {
                                             "docs": {},
-                                            "s": {
-                                              "docs": {},
-                                              "t": {
-                                                "docs": {
-                                                  "api.course.page.html#list": {
-                                                    "ref": "api.course.page.html#list",
-                                                    "tf": 1075
-                                                  }
+                                            "t": {
+                                              "docs": {
+                                                "api.course.page.html#get": {
+                                                  "ref": "api.course.page.html#get",
+                                                  "tf": 1100
                                                 }
                                               }
                                             }
@@ -2951,15 +3081,18 @@
                                             }
                                           }
                                         },
-                                        "g": {
+                                        "l": {
                                           "docs": {},
-                                          "e": {
+                                          "i": {
                                             "docs": {},
-                                            "t": {
-                                              "docs": {
-                                                "api.course.page.html#get": {
-                                                  "ref": "api.course.page.html#get",
-                                                  "tf": 1100
+                                            "s": {
+                                              "docs": {},
+                                              "t": {
+                                                "docs": {
+                                                  "api.course.page.html#list": {
+                                                    "ref": "api.course.page.html#list",
+                                                    "tf": 1075
+                                                  }
                                                 }
                                               }
                                             }
@@ -4156,6 +4289,109 @@
                                         "api.course.app.html#getMetadata": {
                                           "ref": "api.course.app.html#getMetadata",
                                           "tf": 75
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "n": {
+                        "docs": {},
+                        "a": {
+                          "docs": {},
+                          "v": {
+                            "docs": {},
+                            "l": {
+                              "docs": {},
+                              "a": {
+                                "docs": {},
+                                "u": {
+                                  "docs": {},
+                                  "n": {
+                                    "docs": {},
+                                    "c": {
+                                      "docs": {},
+                                      "h": {
+                                        "docs": {},
+                                        "u": {
+                                          "docs": {},
+                                          "r": {
+                                            "docs": {},
+                                            "l": {
+                                              "docs": {
+                                                "api.course.app.html#getNavLaunchURL": {
+                                                  "ref": "api.course.app.html#getNavLaunchURL",
+                                                  "tf": 75
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "a": {
+                        "docs": {},
+                        "s": {
+                          "docs": {},
+                          "s": {
+                            "docs": {},
+                            "i": {
+                              "docs": {},
+                              "g": {
+                                "docs": {},
+                                "n": {
+                                  "docs": {},
+                                  "m": {
+                                    "docs": {},
+                                    "e": {
+                                      "docs": {},
+                                      "n": {
+                                        "docs": {},
+                                        "t": {
+                                          "docs": {},
+                                          "l": {
+                                            "docs": {},
+                                            "a": {
+                                              "docs": {},
+                                              "u": {
+                                                "docs": {},
+                                                "n": {
+                                                  "docs": {},
+                                                  "c": {
+                                                    "docs": {},
+                                                    "h": {
+                                                      "docs": {},
+                                                      "u": {
+                                                        "docs": {},
+                                                        "r": {
+                                                          "docs": {},
+                                                          "l": {
+                                                            "docs": {
+                                                              "api.course.app.html#getAssignmentLaunchURL": {
+                                                                "ref": "api.course.app.html#getAssignmentLaunchURL",
+                                                                "tf": 75
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
                                         }
                                       }
                                     }
@@ -5396,8 +5632,8 @@
                       "ref": "api.course.page.html",
                       "tf": 10
                     },
-                    "api.course.page.html#list": {
-                      "ref": "api.course.page.html#list",
+                    "api.course.page.html#get": {
+                      "ref": "api.course.page.html#get",
                       "tf": 12.5
                     },
                     "api.course.page.html#create": {
@@ -5408,8 +5644,8 @@
                       "ref": "api.course.page.html#delete",
                       "tf": 16.666666666666664
                     },
-                    "api.course.page.html#get": {
-                      "ref": "api.course.page.html#get",
+                    "api.course.page.html#list": {
+                      "ref": "api.course.page.html#list",
                       "tf": 12.5
                     },
                     "api.course.quiz.html": {
@@ -5617,6 +5853,109 @@
                                                       "api.course.app.html#getMetadata": {
                                                         "ref": "api.course.app.html#getMetadata",
                                                         "tf": 75
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "n": {
+                                      "docs": {},
+                                      "a": {
+                                        "docs": {},
+                                        "v": {
+                                          "docs": {},
+                                          "l": {
+                                            "docs": {},
+                                            "a": {
+                                              "docs": {},
+                                              "u": {
+                                                "docs": {},
+                                                "n": {
+                                                  "docs": {},
+                                                  "c": {
+                                                    "docs": {},
+                                                    "h": {
+                                                      "docs": {},
+                                                      "u": {
+                                                        "docs": {},
+                                                        "r": {
+                                                          "docs": {},
+                                                          "l": {
+                                                            "docs": {
+                                                              "api.course.app.html#getNavLaunchURL": {
+                                                                "ref": "api.course.app.html#getNavLaunchURL",
+                                                                "tf": 75
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "a": {
+                                      "docs": {},
+                                      "s": {
+                                        "docs": {},
+                                        "s": {
+                                          "docs": {},
+                                          "i": {
+                                            "docs": {},
+                                            "g": {
+                                              "docs": {},
+                                              "n": {
+                                                "docs": {},
+                                                "m": {
+                                                  "docs": {},
+                                                  "e": {
+                                                    "docs": {},
+                                                    "n": {
+                                                      "docs": {},
+                                                      "t": {
+                                                        "docs": {},
+                                                        "l": {
+                                                          "docs": {},
+                                                          "a": {
+                                                            "docs": {},
+                                                            "u": {
+                                                              "docs": {},
+                                                              "n": {
+                                                                "docs": {},
+                                                                "c": {
+                                                                  "docs": {},
+                                                                  "h": {
+                                                                    "docs": {},
+                                                                    "u": {
+                                                                      "docs": {},
+                                                                      "r": {
+                                                                        "docs": {},
+                                                                        "l": {
+                                                                          "docs": {
+                                                                            "api.course.app.html#getAssignmentLaunchURL": {
+                                                                              "ref": "api.course.app.html#getAssignmentLaunchURL",
+                                                                              "tf": 75
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
                                                       }
                                                     }
                                                   }
@@ -6791,18 +7130,15 @@
                               "docs": {},
                               "#": {
                                 "docs": {},
-                                "l": {
+                                "g": {
                                   "docs": {},
-                                  "i": {
+                                  "e": {
                                     "docs": {},
-                                    "s": {
-                                      "docs": {},
-                                      "t": {
-                                        "docs": {
-                                          "api.course.page.html#list": {
-                                            "ref": "api.course.page.html#list",
-                                            "tf": 75
-                                          }
+                                    "t": {
+                                      "docs": {
+                                        "api.course.page.html#get": {
+                                          "ref": "api.course.page.html#get",
+                                          "tf": 100
                                         }
                                       }
                                     }
@@ -6853,15 +7189,18 @@
                                     }
                                   }
                                 },
-                                "g": {
+                                "l": {
                                   "docs": {},
-                                  "e": {
+                                  "i": {
                                     "docs": {},
-                                    "t": {
-                                      "docs": {
-                                        "api.course.page.html#get": {
-                                          "ref": "api.course.page.html#get",
-                                          "tf": 100
+                                    "s": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {
+                                          "api.course.page.html#list": {
+                                            "ref": "api.course.page.html#list",
+                                            "tf": 75
+                                          }
                                         }
                                       }
                                     }
@@ -9568,6 +9907,42 @@
                 }
               }
             },
+            "s": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "o": {
+                    "docs": {},
+                    "n": {
+                      "docs": {},
+                      "l": {
+                        "docs": {},
+                        "e": {
+                          "docs": {},
+                          "s": {
+                            "docs": {},
+                            "s": {
+                              "docs": {
+                                "api.course.app.html#getNavLaunchURL": {
+                                  "ref": "api.course.app.html#getNavLaunchURL",
+                                  "tf": 8.333333333333332
+                                },
+                                "api.course.app.html#getAssignmentLaunchURL": {
+                                  "ref": "api.course.app.html#getAssignmentLaunchURL",
+                                  "tf": 8.333333333333332
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "c": {
               "docs": {},
               "t": {
@@ -10127,6 +10502,14 @@
                   "ref": "api.course.app.html#getMetadata",
                   "tf": 2.564102564102564
                 },
+                "api.course.app.html#getNavLaunchURL": {
+                  "ref": "api.course.app.html#getNavLaunchURL",
+                  "tf": 8.333333333333332
+                },
+                "api.course.app.html#getAssignmentLaunchURL": {
+                  "ref": "api.course.app.html#getAssignmentLaunchURL",
+                  "tf": 8.333333333333332
+                },
                 "api.course.assignment.html#listOverrides": {
                   "ref": "api.course.assignment.html#listOverrides",
                   "tf": 12.5
@@ -10279,6 +10662,109 @@
                                 "api.course.app.html#getMetadata": {
                                   "ref": "api.course.app.html#getMetadata",
                                   "tf": 608.3333333333334
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "n": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "v": {
+                    "docs": {},
+                    "l": {
+                      "docs": {},
+                      "a": {
+                        "docs": {},
+                        "u": {
+                          "docs": {},
+                          "n": {
+                            "docs": {},
+                            "c": {
+                              "docs": {},
+                              "h": {
+                                "docs": {},
+                                "u": {
+                                  "docs": {},
+                                  "r": {
+                                    "docs": {},
+                                    "l": {
+                                      "docs": {
+                                        "api.course.app.html#getNavLaunchURL": {
+                                          "ref": "api.course.app.html#getNavLaunchURL",
+                                          "tf": 608.3333333333334
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "a": {
+                "docs": {},
+                "s": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "i": {
+                      "docs": {},
+                      "g": {
+                        "docs": {},
+                        "n": {
+                          "docs": {},
+                          "m": {
+                            "docs": {},
+                            "e": {
+                              "docs": {},
+                              "n": {
+                                "docs": {},
+                                "t": {
+                                  "docs": {},
+                                  "l": {
+                                    "docs": {},
+                                    "a": {
+                                      "docs": {},
+                                      "u": {
+                                        "docs": {},
+                                        "n": {
+                                          "docs": {},
+                                          "c": {
+                                            "docs": {},
+                                            "h": {
+                                              "docs": {},
+                                              "u": {
+                                                "docs": {},
+                                                "r": {
+                                                  "docs": {},
+                                                  "l": {
+                                                    "docs": {
+                                                      "api.course.app.html#getAssignmentLaunchURL": {
+                                                        "ref": "api.course.app.html#getAssignmentLaunchURL",
+                                                        "tf": 608.3333333333334
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
                                 }
                               }
                             }
@@ -11750,6 +12236,38 @@
                 "api.course.app.html#updateMetadata": {
                   "ref": "api.course.app.html#updateMetadata",
                   "tf": 1.3157894736842104
+                },
+                "api.course.app.html#getNavLaunchURL": {
+                  "ref": "api.course.app.html#getNavLaunchURL",
+                  "tf": 8.333333333333332
+                },
+                "api.course.app.html#getAssignmentLaunchURL": {
+                  "ref": "api.course.app.html#getAssignmentLaunchURL",
+                  "tf": 8.333333333333332
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "u": {
+              "docs": {},
+              "n": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "h": {
+                    "docs": {
+                      "api.course.app.html#getNavLaunchURL": {
+                        "ref": "api.course.app.html#getNavLaunchURL",
+                        "tf": 8.333333333333332
+                      },
+                      "api.course.app.html#getAssignmentLaunchURL": {
+                        "ref": "api.course.app.html#getAssignmentLaunchURL",
+                        "tf": 8.333333333333332
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -11838,6 +12356,14 @@
                       },
                       "api.course.app.html#updateMetadata": {
                         "ref": "api.course.app.html#updateMetadata",
+                        "tf": 33.33333333333333
+                      },
+                      "api.course.app.html#getNavLaunchURL": {
+                        "ref": "api.course.app.html#getNavLaunchURL",
+                        "tf": 33.33333333333333
+                      },
+                      "api.course.app.html#getAssignmentLaunchURL": {
+                        "ref": "api.course.app.html#getAssignmentLaunchURL",
                         "tf": 33.33333333333333
                       },
                       "api.course.assignment.html#list": {
@@ -12008,9 +12534,9 @@
                         "ref": "api.course.groupSet.html#deleteGroup",
                         "tf": 33.33333333333333
                       },
-                      "api.course.page.html#list": {
-                        "ref": "api.course.page.html#list",
-                        "tf": 33.33333333333333
+                      "api.course.page.html#get": {
+                        "ref": "api.course.page.html#get",
+                        "tf": 50
                       },
                       "api.course.page.html#update": {
                         "ref": "api.course.page.html#update",
@@ -12024,9 +12550,9 @@
                         "ref": "api.course.page.html#delete",
                         "tf": 33.33333333333333
                       },
-                      "api.course.page.html#get": {
-                        "ref": "api.course.page.html#get",
-                        "tf": 50
+                      "api.course.page.html#list": {
+                        "ref": "api.course.page.html#list",
+                        "tf": 33.33333333333333
                       },
                       "api.course.quiz.html#list": {
                         "ref": "api.course.quiz.html#list",
@@ -12310,6 +12836,14 @@
                             "ref": "api.course.app.html#updateMetadata",
                             "tf": 110
                           },
+                          "api.course.app.html#getNavLaunchURL": {
+                            "ref": "api.course.app.html#getNavLaunchURL",
+                            "tf": 110
+                          },
+                          "api.course.app.html#getAssignmentLaunchURL": {
+                            "ref": "api.course.app.html#getAssignmentLaunchURL",
+                            "tf": 110
+                          },
                           "api.course.assignment.html": {
                             "ref": "api.course.assignment.html",
                             "tf": 10
@@ -12502,8 +13036,8 @@
                             "ref": "api.course.page.html",
                             "tf": 10
                           },
-                          "api.course.page.html#list": {
-                            "ref": "api.course.page.html#list",
+                          "api.course.page.html#get": {
+                            "ref": "api.course.page.html#get",
                             "tf": 110
                           },
                           "api.course.page.html#update": {
@@ -12518,8 +13052,8 @@
                             "ref": "api.course.page.html#delete",
                             "tf": 110
                           },
-                          "api.course.page.html#get": {
-                            "ref": "api.course.page.html#get",
+                          "api.course.page.html#list": {
+                            "ref": "api.course.page.html#list",
                             "tf": 110
                           },
                           "api.course.quiz.html": {
@@ -13018,6 +13552,14 @@
                                                       "ref": "api.course.app.html#getMetadata",
                                                       "tf": 33.33333333333333
                                                     },
+                                                    "api.course.app.html#getNavLaunchURL": {
+                                                      "ref": "api.course.app.html#getNavLaunchURL",
+                                                      "tf": 33.33333333333333
+                                                    },
+                                                    "api.course.app.html#getAssignmentLaunchURL": {
+                                                      "ref": "api.course.app.html#getAssignmentLaunchURL",
+                                                      "tf": 33.33333333333333
+                                                    },
                                                     "api.course.assignment.html#get": {
                                                       "ref": "api.course.assignment.html#get",
                                                       "tf": 50
@@ -13142,6 +13684,10 @@
                                                       "ref": "api.course.groupSet.html#deleteGroup",
                                                       "tf": 33.33333333333333
                                                     },
+                                                    "api.course.page.html#get": {
+                                                      "ref": "api.course.page.html#get",
+                                                      "tf": 50
+                                                    },
                                                     "api.course.page.html#update": {
                                                       "ref": "api.course.page.html#update",
                                                       "tf": 33.33333333333333
@@ -13153,10 +13699,6 @@
                                                     "api.course.page.html#delete": {
                                                       "ref": "api.course.page.html#delete",
                                                       "tf": 33.33333333333333
-                                                    },
-                                                    "api.course.page.html#get": {
-                                                      "ref": "api.course.page.html#get",
-                                                      "tf": 50
                                                     },
                                                     "api.course.quiz.html#get": {
                                                       "ref": "api.course.quiz.html#get",
@@ -13286,8 +13828,8 @@
                     "ref": "api.course.page.html",
                     "tf": 610
                   },
-                  "api.course.page.html#list": {
-                    "ref": "api.course.page.html#list",
+                  "api.course.page.html#get": {
+                    "ref": "api.course.page.html#get",
                     "tf": 12.5
                   },
                   "api.course.page.html#update": {
@@ -13302,25 +13844,22 @@
                     "ref": "api.course.page.html#delete",
                     "tf": 16.666666666666664
                   },
-                  "api.course.page.html#get": {
-                    "ref": "api.course.page.html#get",
+                  "api.course.page.html#list": {
+                    "ref": "api.course.page.html#list",
                     "tf": 12.5
                   }
                 },
                 "#": {
                   "docs": {},
-                  "l": {
+                  "g": {
                     "docs": {},
-                    "i": {
+                    "e": {
                       "docs": {},
-                      "s": {
-                        "docs": {},
-                        "t": {
-                          "docs": {
-                            "api.course.page.html#list": {
-                              "ref": "api.course.page.html#list",
-                              "tf": 75
-                            }
+                      "t": {
+                        "docs": {
+                          "api.course.page.html#get": {
+                            "ref": "api.course.page.html#get",
+                            "tf": 100
                           }
                         }
                       }
@@ -13371,15 +13910,18 @@
                       }
                     }
                   },
-                  "g": {
+                  "l": {
                     "docs": {},
-                    "e": {
+                    "i": {
                       "docs": {},
-                      "t": {
-                        "docs": {
-                          "api.course.page.html#get": {
-                            "ref": "api.course.page.html#get",
-                            "tf": 100
+                      "s": {
+                        "docs": {},
+                        "t": {
+                          "docs": {
+                            "api.course.page.html#list": {
+                              "ref": "api.course.page.html#list",
+                              "tf": 75
+                            }
                           }
                         }
                       }
@@ -13662,6 +14204,27 @@
                   "api.course.app.html#updateMetadata": {
                     "ref": "api.course.app.html#updateMetadata",
                     "tf": 1.3157894736842104
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "v": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "g": {
+                  "docs": {
+                    "api.course.app.html#getNavLaunchURL": {
+                      "ref": "api.course.app.html#getNavLaunchURL",
+                      "tf": 8.333333333333332
+                    },
+                    "api.course.app.html#getAssignmentLaunchURL": {
+                      "ref": "api.course.app.html#getAssignmentLaunchURL",
+                      "tf": 8.333333333333332
+                    }
                   }
                 }
               }
@@ -14053,6 +14616,14 @@
             "docs": {},
             "l": {
               "docs": {
+                "api.course.app.html#getNavLaunchURL": {
+                  "ref": "api.course.app.html#getNavLaunchURL",
+                  "tf": 8.333333333333332
+                },
+                "api.course.app.html#getAssignmentLaunchURL": {
+                  "ref": "api.course.app.html#getAssignmentLaunchURL",
+                  "tf": 8.333333333333332
+                },
                 "api.course.assignment.html#createURLSubmission": {
                   "ref": "api.course.assignment.html#createURLSubmission",
                   "tf": 8.333333333333332
@@ -14598,7 +15169,7 @@
           }
         }
       },
-      "length": 1178
+      "length": 1204
     },
     "corpusTokens": [
       "account",
@@ -14633,7 +15204,9 @@
       "api.course.app",
       "api.course.app#add",
       "api.course.app#get",
+      "api.course.app#getassignmentlaunchurl",
       "api.course.app#getmetadata",
+      "api.course.app#getnavlaunchurl",
       "api.course.app#list",
       "api.course.app#remov",
       "api.course.app#updatemetadata",
@@ -14718,7 +15291,9 @@
       "app",
       "app#add",
       "app#get",
+      "app#getassignmentlaunchurl",
       "app#getmetadata",
+      "app#getnavlaunchurl",
       "app#list",
       "app#remov",
       "app#updatemetadata",
@@ -14774,7 +15349,9 @@
       "course.app",
       "course.app#add",
       "course.app#get",
+      "course.app#getassignmentlaunchurl",
       "course.app#getmetadata",
+      "course.app#getnavlaunchurl",
       "course.app#list",
       "course.app#remov",
       "course.app#updatemetadata",
@@ -14890,8 +15467,10 @@
       "free",
       "function",
       "get",
+      "getassignmentlaunchurl",
       "getgroup",
       "getmetadata",
+      "getnavlaunchurl",
       "getoverrid",
       "getprofil",
       "getsubmiss",
@@ -14930,6 +15509,7 @@
       "instal",
       "interact",
       "item",
+      "launch",
       "level",
       "list",
       "list:class",
@@ -14959,6 +15539,7 @@
       "metadataid",
       "method",
       "multipl",
+      "navig",
       "new",
       "note",
       "object",
@@ -15012,6 +15593,7 @@
       "self",
       "self#getprofil",
       "self#listcours",
+      "sessionless",
       "set",
       "sets/categori",
       "share",
@@ -15194,6 +15776,26 @@
       "tags": "api.course.app#updateMetadata course.app#updateMetadata app#updateMetadata updateMetadata",
       "summary": "",
       "description": "Updates the metadata for an LTI app in a course. Note: this endpoint requires that the app have a custom parameter called 'metadataId' with an identifier that we will use to refer to the metadata. If each installation of an app will have its own metadata, each installation should have a different metadataId. If all installations share the same metadata, they should all have the same metadataId. When updating metadata, we update the metadata for all apps with the given metadataId"
+    },
+    "api.course.app.html#getNavLaunchURL": {
+      "id": "api.course.app.html#getNavLaunchURL",
+      "kind": "function",
+      "title": "getNavLaunchURL( options ) → {Promise.&lt;Object&gt;}",
+      "longname": "api.course.app#getNavLaunchURL",
+      "name": "getNavLaunchURL",
+      "tags": "api.course.app#getNavLaunchURL course.app#getNavLaunchURL app#getNavLaunchURL getNavLaunchURL",
+      "summary": "",
+      "description": "Gets a sessionless navigation LTI launch URL"
+    },
+    "api.course.app.html#getAssignmentLaunchURL": {
+      "id": "api.course.app.html#getAssignmentLaunchURL",
+      "kind": "function",
+      "title": "getAssignmentLaunchURL( options ) → {Promise.&lt;Object&gt;}",
+      "longname": "api.course.app#getAssignmentLaunchURL",
+      "name": "getAssignmentLaunchURL",
+      "tags": "api.course.app#getAssignmentLaunchURL course.app#getAssignmentLaunchURL app#getAssignmentLaunchURL getAssignmentLaunchURL",
+      "summary": "",
+      "description": "Gets a sessionless navigation LTI launch URL"
     },
     "api.course.assignment.html": {
       "id": "api.course.assignment.html",
@@ -15681,15 +16283,15 @@
       "description": "Functions for interacting with pages within courses",
       "body": ""
     },
-    "api.course.page.html#list": {
-      "id": "api.course.page.html#list",
+    "api.course.page.html#get": {
+      "id": "api.course.page.html#get",
       "kind": "function",
-      "title": "list( options ) → {Promise.&lt;Array.&lt;Object&gt;&gt;}",
-      "longname": "api.course.page#list",
-      "name": "list",
-      "tags": "api.course.page#list course.page#list page#list list",
+      "title": "get( options ) → {Promise.&lt;Object&gt;}",
+      "longname": "api.course.page#get",
+      "name": "get",
+      "tags": "api.course.page#get course.page#get page#get get",
       "summary": "",
-      "description": "Gets the list of pages in a course"
+      "description": "Get info on a specific page in a course"
     },
     "api.course.page.html#update": {
       "id": "api.course.page.html#update",
@@ -15721,15 +16323,15 @@
       "summary": "",
       "description": "Deletes a page from a course"
     },
-    "api.course.page.html#get": {
-      "id": "api.course.page.html#get",
+    "api.course.page.html#list": {
+      "id": "api.course.page.html#list",
       "kind": "function",
-      "title": "get( options ) → {Promise.&lt;Object&gt;}",
-      "longname": "api.course.page#get",
-      "name": "get",
-      "tags": "api.course.page#get course.page#get page#get get",
+      "title": "list( options ) → {Promise.&lt;Array.&lt;Object&gt;&gt;}",
+      "longname": "api.course.page#list",
+      "name": "list",
+      "tags": "api.course.page#list course.page#list page#list list",
       "summary": "",
-      "description": "Get info on a specific page in a course"
+      "description": "Gets the list of pages in a course"
     },
     "api.course.quiz.html": {
       "id": "api.course.quiz.html",

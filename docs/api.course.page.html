@@ -126,11 +126,11 @@
 									<dl class="symbol">
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="list" class="function public"><span class="name">list</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;Object>>}</span></h4>
+			<h4 id="get" class="function public"><span class="name">get</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets the list of pages in a course</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Get info on a specific page in a course</div>
 			</div>			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
@@ -163,6 +163,14 @@
 															Canvas course Id to query
 													</td>
 												</tr>
+												<tr>
+														<td><code>pageURL</code></td>
+													<td><span class="param-type">string</span></td>
+													<td class="last">
+															Canvas page url (just the last part of
+									  path)
+													</td>
+												</tr>
 											</tbody>
 										</table>
 							</td>
@@ -172,9 +180,9 @@
 			</div>
 			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
 							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;Object>></span></label>
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
 								<div class="col-sm-9">
-									<div class="form-control-static returns-description">list of Canvas Pages <a href="https://canvas.instructure.com/doc/api/pages.html#Page">https://canvas.instructure.com/doc/api/pages.html#Page</a></div>
+									<div class="form-control-static returns-description">Canvas Page <a href="https://canvas.instructure.com/doc/api/pages.html#Page">https://canvas.instructure.com/doc/api/pages.html#Page</a></div>
 								</div>
 							</div>
 					</form>
@@ -205,7 +213,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Page.js.html">Course/Page.js</a>, <a href="Course_Page.js.html#line-20">line 20</a></p>
+									<p class="form-control-static"><a href="Course_Page.js.html">Course/Page.js</a>, <a href="Course_Page.js.html#line-39">line 39</a></p>
 								</div>
 							</div>
 			
@@ -628,11 +636,11 @@
 </dd>
 											<hr/>
 											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="get" class="function public"><span class="name">get</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
+			<h4 id="list" class="function public"><span class="name">list</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;Object>>}</span></h4>
 		</dt>
 <dd class="symbol-details function public  collapsible-symbol">
 	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Get info on a specific page in a course</div>
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets the list of pages in a course</div>
 			</div>			<div class="callout callout-info">
 				<h5>Parameters</h5>
 				<table class="params table table-striped">
@@ -665,14 +673,6 @@
 															Canvas course Id to query
 													</td>
 												</tr>
-												<tr>
-														<td><code>pageURL</code></td>
-													<td><span class="param-type">string</span></td>
-													<td class="last">
-															Canvas page url (just the last part of
-									  path)
-													</td>
-												</tr>
 											</tbody>
 										</table>
 							</td>
@@ -682,9 +682,9 @@
 			</div>
 			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
 							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
+								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;Object>></span></label>
 								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas Page <a href="https://canvas.instructure.com/doc/api/pages.html#Page">https://canvas.instructure.com/doc/api/pages.html#Page</a></div>
+									<div class="form-control-static returns-description">list of Canvas Pages <a href="https://canvas.instructure.com/doc/api/pages.html#Page">https://canvas.instructure.com/doc/api/pages.html#Page</a></div>
 								</div>
 							</div>
 					</form>
@@ -715,7 +715,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Page.js.html">Course/Page.js</a>, <a href="Course_Page.js.html#line-39">line 39</a></p>
+									<p class="form-control-static"><a href="Course_Page.js.html">Course/Page.js</a>, <a href="Course_Page.js.html#line-20">line 20</a></p>
 								</div>
 							</div>
 			

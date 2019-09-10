@@ -368,6 +368,67 @@ App.updateMetadata = function (options) {
 App.updateMetadata.action = 'get metadata for an LTI app in a course';
 App.updateMetadata.requiredParams = ['courseId', 'metadataId'];
 
+
+/*------------------------------------------------------------------------*/
+/*                           Sessionless Launch                           */
+/*------------------------------------------------------------------------*/
+
+/**
+ * Gets a sessionless navigation LTI launch URL
+ * @author Gabriel Abrams
+ * @memberof api.course.app
+ * @instance
+ * @method getNavLaunchURL
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id that holds the app
+ * @param {number} options.appId - The LTI app Id to get a launch URL for
+ * @return {Promise.&lt;Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
+ */
+App.getNavLaunchURL = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/external_tools/sessionless_launch`,
+    method: 'GET',
+    params: {
+      id: options.appId,
+    },
+  })
+    .then((response) => {
+      return response.url;
+    });
+};
+App.getNavLaunchURL.action = 'get a sessionless navigation LTI launch url for an app in a course';
+App.getNavLaunchURL.requiredParams = ['courseId', 'appId'];
+
+/**
+ * Gets a sessionless navigation LTI launch URL
+ * @author Gabriel Abrams
+ * @memberof api.course.app
+ * @instance
+ * @method getAssignmentLaunchURL
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id that holds the app
+ * @param {number} options.appId - The LTI app Id to get a launch URL for
+ * @param {number} options.assignmentId - the Canvas assignment id to launch
+ *   from
+ * @return {Promise.&lt;Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
+ */
+App.getAssignmentLaunchURL = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/external_tools/sessionless_launch`,
+    method: 'GET',
+    params: {
+      id: options.appId,
+      assignment_id: options.assignmentId,
+      launch_type: 'assessment',
+    },
+  })
+    .then((response) => {
+      return response.url;
+    });
+};
+App.getAssignmentLaunchURL.action = 'get a sessionless assignment LTI launch url for an app in a course';
+App.getAssignmentLaunchURL.requiredParams = ['courseId', 'appId'];
+
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */
 /*------------------------------------------------------------------------*/
