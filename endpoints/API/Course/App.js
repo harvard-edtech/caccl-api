@@ -99,7 +99,7 @@ App.add = function (options) {
       name: options.name,
       privacy_level: options.launchPrivacy || 'public',
       consumer_key: options.key,
-      consumer_secret: options.secret,
+      shared_secret: options.secret,
       config_type: 'by_xml',
       config_xml: options.xml,
       description: utils.includeIfTruthy(options.description),
