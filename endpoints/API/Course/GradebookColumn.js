@@ -209,7 +209,7 @@ GradebookColumn.listEntries.requiredParams = ['courseId', 'columnId'];
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.columnId - Gradebook column Id
  * @param {number} options.studentId - Canvas user id to update
- * @param {string} options.text - the new text for the user's column cell
+ * @param {string} options.content - the new text for the user's column cell
  * @return {Promise.<Object>} Canvas ColumnData object {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum}
  */
 GradebookColumn.updateEntry = function (options) {
@@ -219,7 +219,7 @@ GradebookColumn.updateEntry = function (options) {
     method: 'PUT',
     params: {
       column_data: {
-        content: options.text,
+        content: options.content,
       },
     },
   })
@@ -248,7 +248,7 @@ GradebookColumn.updateEntry.requiredParams = [
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.columnId - Gradebook column Id
  * @param {array} options.entries - list of ColumnDatum objects:
- *   `[{user_id: <Canvas User Id>, text: <New Entry Text>}, ...]`
+ *   `[{user_id: <Canvas User Id>, content: <New Entry Text>}, ...]`
  * @param {boolean} [options.waitForCompletion=false] - If truthy, waits for
  *   completion of batch update request
  * @param {number} [options.waitForCompletionTimeout=2] - Number of minutes to
