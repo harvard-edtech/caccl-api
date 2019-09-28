@@ -34,5 +34,7 @@ const API = require('./endpoints/API');
  * @param {number} [config.itemsPerPage=100] - Number of items to
  *   request on a get request. Can be overridden for an individual request by
  *   including numPerPage option
+ * @param {string} [config.authenticityToken] - An authenticity token
+ *   to add to all requests no matter what (cannot be overridden)
  */
 module.exports = API;

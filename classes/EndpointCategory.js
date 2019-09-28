@@ -60,6 +60,8 @@ class EndpointCategory {
    * @param {function} [uncache=create new uncache function] - A function that
    *   takes paths and a response object, uncaches those paths, then resolves
    *   to the response object
+   * @param {string} [config.authenticityToken] - An authenticity token
+   *   to add to all requests no matter what (cannot be overridden)
    */
   constructor(oldConfig = {}, Subclass) {
     const config = this._preProcessParams(oldConfig);
@@ -89,6 +91,7 @@ class EndpointCategory {
           cache: config.cache,
           uncache: config.uncache,
           api: config.api,
+          authenticityToken: config.authenticityToken,
           defaults: {
             accessToken: config.accessToken,
             itemsPerPage: config.itemsPerPage,

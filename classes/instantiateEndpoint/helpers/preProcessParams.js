@@ -49,6 +49,8 @@ const _recursivelyExcludeParams = (obj) => {
  * @param {number} itemsPerPage - the number of items per page. Only valid for
  *   GET requests
  * @param {string} [accessToken] - the Canvas access token to add to params
+ * @param {string} [authenticityToken] - An authenticity token
+ *   to add to all requests no matter what (cannot be overridden)
  * @param {object} [params={}] - the original https parameters of the request
  * @return {object} pre-processed request parameters
  */
@@ -61,6 +63,11 @@ module.exports = (config) => {
   // Add access token to request (if we have one and one isn't already added)
   if (config.accessToken && !newParams.access_token) {
     newParams.access_token = config.accessToken;
+  }
+
+  // Add authenticity token
+  if (config.authenticityToken) {
+    newParams.authenticity_token = config.authenticityToken;
   }
 
   // Set up number of entries per page

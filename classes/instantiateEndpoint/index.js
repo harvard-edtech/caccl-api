@@ -27,6 +27,8 @@ const genVisitEndpoint = require('./genVisitEndpoint');
  *   passes through a response, or just passes through a response if not caching
  * @param {object} api - Top level instance of endpoints/Endpoints.js that
  *   the EndpointCategory we're adding an endpoint to is an ancestor of
+ * @param {string} [authenticityToken] - An authenticity token
+ *   to add to all requests no matter what (cannot be overridden)
  * @param {string} [defaults.accessToken] - a default access token to apply to
  *   all requests
  * @param {number} [defaults.itemsPerPage=100] - the default number of pages to
@@ -47,6 +49,7 @@ module.exports = (config = {}) => {
     uncache,
     action,
     requiredParams,
+    authenticityToken,
   } = config;
   const defaults = (config.defaults || {});
 
@@ -85,6 +88,7 @@ module.exports = (config = {}) => {
       cache,
       uncache,
       canvasHost,
+      authenticityToken,
       accessToken: (
         options.accessToken
         || defaults.accessToken

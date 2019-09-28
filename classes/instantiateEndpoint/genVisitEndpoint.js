@@ -26,6 +26,8 @@ const preProcessParams = require('./helpers/preProcessParams');
  *   method is GET and cache is included
  * @param {function} [sendRequest=caccl-send-request instance] - a custom
  *   function that sends https requests (we recommend not including this)
+ * @param {string} [authenticityToken] - An authenticity token
+ *   to add to all requests no matter what (cannot be overridden)
  * @param {string}
  */
 module.exports = (config = {}) => {
@@ -40,6 +42,7 @@ module.exports = (config = {}) => {
     numRetries,
     cache,
     uncache,
+    authenticityToken,
   } = config;
 
   // Set up sendRequest
@@ -88,6 +91,7 @@ module.exports = (config = {}) => {
           params,
           itemsPerPage,
           accessToken,
+          authenticityToken,
         });
 
         // We are using the cached value. Keep note of this
