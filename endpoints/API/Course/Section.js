@@ -5,6 +5,7 @@
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
+const utils = require('../../common/utils');
 
 class Section extends EndpointCategory {
   constructor(config) {
@@ -24,12 +25,19 @@ class Section extends EndpointCategory {
  * @instance
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
+ * @param {boolean} [options.includeStudents] - if true, the list of students
+ *   from each section are included
  * @return {Promise.<Object[]>} list of Canvas Sections {@link https://canvas.instructure.com/doc/api/sections.html#Section}
  */
 Section.list = function (options) {
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/sections`,
     method: 'GET',
+    params: {
+      include: utils.genIncludesList({
+        students: options.includeStudents,
+      }),
+    },
   });
 };
 Section.list.action = 'get the list of sections in a course';
@@ -44,12 +52,19 @@ Section.list.requiredParams = ['courseId'];
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.sectionId - Section Id to retrieve
+ * @param {boolean} [options.includeStudents] - if true, the list of students
+ *   in the section are included
  * @return {Promise.<Object>} Canvas Section {@link https://canvas.instructure.com/doc/api/sections.html#Section}
  */
 Section.get = function (options) {
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/sections/${options.sectionId}`,
     method: 'GET',
+    params: {
+      include: utils.genIncludesList({
+        students: options.includeStudents,
+      }),
+    },
   });
 };
 Section.get.action = 'get info on a specific section in a course';
