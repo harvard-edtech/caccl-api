@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.44] - 10/15/19
+
+Added support for listing students in sections
+
 ## [1.0.42] - 09/28/19
 
 Added support for authenticity tokens (for requests sent directly from Canvas pages)
