@@ -584,7 +584,21 @@ Quiz.listSubmissions = function (options) {
     method: 'GET',
   })
     .then((response) => {
-      return Promise.resolve(response.quiz_submissions);
+      // Make sure the response is an array
+      const responseAsArray = (
+        Array.isArray(response)
+          ? response
+          : [response]
+      );
+
+      // Extract submissions
+      const submissionLists = responseAsArray.map((page) => {
+        return page.quiz_submissions;
+      });
+      const submissions = [].concat(...submissionLists);
+
+      // Resolve
+      return submissions;
     });
 };
 Quiz.listSubmissions.action = 'get the list of submissions to a specific quiz in a course';
