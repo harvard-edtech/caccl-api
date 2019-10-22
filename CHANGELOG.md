@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.45] - 10/22/19
+
+Added support for using non-overridden dates for assignments.
+
 ## [1.0.44] - 10/15/19
 
 Added support for listing students in sections

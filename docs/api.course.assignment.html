@@ -243,6 +243,7 @@
 											<tr>
 													<th>Name</th>
 												<th>Type</th>
+													<th>Attributes</th>
 												<th class="last">Description</th>
 											</tr>
 											</thead>
@@ -250,6 +251,7 @@
 												<tr>
 														<td><code>courseId</code></td>
 													<td><span class="param-type">number</span></td>
+														<td class="attributes"></td>
 													<td class="last">
 															Canvas course Id to query
 													</td>
@@ -257,8 +259,19 @@
 												<tr>
 														<td><code>assignmentId</code></td>
 													<td><span class="param-type">number</span></td>
+														<td class="attributes"></td>
 													<td class="last">
 															Canvas assignment Id
+													</td>
+												</tr>
+												<tr>
+														<td><code>ignoreOverridesForDates</code></td>
+													<td><span class="param-type">boolean</span></td>
+														<td class="attributes">&lt;optional&gt;<br/></td>
+													<td class="last">
+															if true, assignment
+									  dates are taken from the default dates instead of from the ones in
+									  overrides
 													</td>
 												</tr>
 											</tbody>
@@ -581,7 +594,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-75">line 75</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-81">line 81</a></p>
 								</div>
 							</div>
 			
@@ -885,7 +898,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-159">line 159</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-165">line 165</a></p>
 								</div>
 							</div>
 			
@@ -983,7 +996,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-291">line 291</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-297">line 297</a></p>
 								</div>
 							</div>
 			
@@ -1081,7 +1094,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-315">line 315</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-321">line 321</a></p>
 								</div>
 							</div>
 			
@@ -1194,7 +1207,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-342">line 342</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-348">line 348</a></p>
 								</div>
 							</div>
 			
@@ -1321,7 +1334,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-372">line 372</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-378">line 378</a></p>
 								</div>
 							</div>
 			
@@ -1482,7 +1495,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-405">line 405</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-411">line 411</a></p>
 								</div>
 							</div>
 			
@@ -1580,7 +1593,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-694">line 694</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-700">line 700</a></p>
 								</div>
 							</div>
 			
@@ -1685,7 +1698,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-714">line 714</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-720">line 720</a></p>
 								</div>
 							</div>
 			
@@ -1860,7 +1873,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-735">line 735</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-741">line 741</a></p>
 								</div>
 							</div>
 			
@@ -1965,7 +1978,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-798">line 798</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-804">line 804</a></p>
 								</div>
 							</div>
 			
@@ -2109,7 +2122,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-855">line 855</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-861">line 861</a></p>
 								</div>
 							</div>
 			
@@ -2252,7 +2265,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-922">line 922</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-928">line 928</a></p>
 								</div>
 							</div>
 			
@@ -2378,7 +2391,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-960">line 960</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-966">line 966</a></p>
 								</div>
 							</div>
 			
@@ -2504,7 +2517,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-1012">line 1012</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-1018">line 1018</a></p>
 								</div>
 							</div>
 			
@@ -2630,7 +2643,7 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Source</label>
 								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-1064">line 1064</a></p>
+									<p class="form-control-static"><a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line-1070">line 1070</a></p>
 								</div>
 							</div>
 			
