@@ -61,12 +61,18 @@ Assignment.list.action = 'get the list of assignments in a course';
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.assignmentId - Canvas assignment Id
+ * @param {boolean} [options.ignoreOverridesForDates] - if true, assignment
+ *   dates are taken from the default dates instead of from the ones in
+ *   overrides
  * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.get = function (options) {
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}`,
     method: 'GET',
+    params: {
+      override_assignment_dates: !options.ignoreOverridesForDates,
+    },
   });
 };
 Assignment.get.action = 'get info on a specific assignment in a course';
