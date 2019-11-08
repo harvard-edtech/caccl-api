@@ -420,6 +420,21 @@ window.lunrData = {
           "overrid",
           "promise.&lt;object&gt"
         ],
+        "api.course.assignment.html#updateOverride": [
+          "api.course.assignment#updateoverrid",
+          "assign",
+          "assignment#updateoverrid",
+          "course.assignment#updateoverrid",
+          "function",
+          "note",
+          "option",
+          "overrid",
+          "promise.&lt;object&gt",
+          "student",
+          "target",
+          "updat",
+          "updateoverrid"
+        ],
         "api.course.assignment.html#deleteOverride": [
           "api.course.assignment#deleteoverrid",
           "assign",
@@ -884,6 +899,18 @@ window.lunrData = {
           "page",
           "within"
         ],
+        "api.course.page.html#list": [
+          "api.course.page#list",
+          "cours",
+          "course.page#list",
+          "function",
+          "get",
+          "list",
+          "option",
+          "page",
+          "page#list",
+          "promise.&lt;array.&lt;object&gt;&gt"
+        ],
         "api.course.page.html#get": [
           "api.course.page#get",
           "cours",
@@ -929,18 +956,6 @@ window.lunrData = {
           "page",
           "page#delet",
           "promise.&lt;object&gt"
-        ],
-        "api.course.page.html#list": [
-          "api.course.page#list",
-          "cours",
-          "course.page#list",
-          "function",
-          "get",
-          "list",
-          "option",
-          "page",
-          "page#list",
-          "promise.&lt;array.&lt;object&gt;&gt"
         ],
         "api.course.quiz.html": [
           "api.course.quiz",
@@ -1462,7 +1477,7 @@ window.lunrData = {
           "user.self#listcours"
         ]
       },
-      "length": 109
+      "length": 110
     },
     "tokenStore": {
       "root": {
@@ -2181,6 +2196,32 @@ window.lunrData = {
                                                                           "api.course.assignment.html#updateGrades": {
                                                                             "ref": "api.course.assignment.html#updateGrades",
                                                                             "tf": 1075
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "o": {
+                                                                  "docs": {},
+                                                                  "v": {
+                                                                    "docs": {},
+                                                                    "e": {
+                                                                      "docs": {},
+                                                                      "r": {
+                                                                        "docs": {},
+                                                                        "r": {
+                                                                          "docs": {},
+                                                                          "i": {
+                                                                            "docs": {},
+                                                                            "d": {
+                                                                              "docs": {
+                                                                                "api.course.assignment.html#updateOverride": {
+                                                                                  "ref": "api.course.assignment.html#updateOverride",
+                                                                                  "tf": 1075
+                                                                                }
+                                                                              }
+                                                                            }
                                                                           }
                                                                         }
                                                                       }
@@ -3022,6 +3063,23 @@ window.lunrData = {
                                       "docs": {},
                                       "#": {
                                         "docs": {},
+                                        "l": {
+                                          "docs": {},
+                                          "i": {
+                                            "docs": {},
+                                            "s": {
+                                              "docs": {},
+                                              "t": {
+                                                "docs": {
+                                                  "api.course.page.html#list": {
+                                                    "ref": "api.course.page.html#list",
+                                                    "tf": 1075
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
                                         "g": {
                                           "docs": {},
                                           "e": {
@@ -3075,23 +3133,6 @@ window.lunrData = {
                                                       "ref": "api.course.page.html#delete",
                                                       "tf": 1075
                                                     }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        },
-                                        "l": {
-                                          "docs": {},
-                                          "i": {
-                                            "docs": {},
-                                            "s": {
-                                              "docs": {},
-                                              "t": {
-                                                "docs": {
-                                                  "api.course.page.html#list": {
-                                                    "ref": "api.course.page.html#list",
-                                                    "tf": 1075
                                                   }
                                                 }
                                               }
@@ -4589,6 +4630,10 @@ window.lunrData = {
                         "ref": "api.course.assignment.html#createOverride",
                         "tf": 16.666666666666664
                       },
+                      "api.course.assignment.html#updateOverride": {
+                        "ref": "api.course.assignment.html#updateOverride",
+                        "tf": 5.555555555555555
+                      },
                       "api.course.assignment.html#deleteOverride": {
                         "ref": "api.course.assignment.html#deleteOverride",
                         "tf": 16.666666666666664
@@ -4851,6 +4896,32 @@ window.lunrData = {
                                                     "api.course.assignment.html#updateGrades": {
                                                       "ref": "api.course.assignment.html#updateGrades",
                                                       "tf": 75
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "o": {
+                                            "docs": {},
+                                            "v": {
+                                              "docs": {},
+                                              "e": {
+                                                "docs": {},
+                                                "r": {
+                                                  "docs": {},
+                                                  "r": {
+                                                    "docs": {},
+                                                    "i": {
+                                                      "docs": {},
+                                                      "d": {
+                                                        "docs": {
+                                                          "api.course.assignment.html#updateOverride": {
+                                                            "ref": "api.course.assignment.html#updateOverride",
+                                                            "tf": 75
+                                                          }
+                                                        }
+                                                      }
                                                     }
                                                   }
                                                 }
@@ -5632,6 +5703,10 @@ window.lunrData = {
                       "ref": "api.course.page.html",
                       "tf": 10
                     },
+                    "api.course.page.html#list": {
+                      "ref": "api.course.page.html#list",
+                      "tf": 12.5
+                    },
                     "api.course.page.html#get": {
                       "ref": "api.course.page.html#get",
                       "tf": 12.5
@@ -5643,10 +5718,6 @@ window.lunrData = {
                     "api.course.page.html#delete": {
                       "ref": "api.course.page.html#delete",
                       "tf": 16.666666666666664
-                    },
-                    "api.course.page.html#list": {
-                      "ref": "api.course.page.html#list",
-                      "tf": 12.5
                     },
                     "api.course.quiz.html": {
                       "ref": "api.course.quiz.html",
@@ -6289,6 +6360,32 @@ window.lunrData = {
                                                                   "api.course.assignment.html#updateGrades": {
                                                                     "ref": "api.course.assignment.html#updateGrades",
                                                                     "tf": 75
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        "o": {
+                                                          "docs": {},
+                                                          "v": {
+                                                            "docs": {},
+                                                            "e": {
+                                                              "docs": {},
+                                                              "r": {
+                                                                "docs": {},
+                                                                "r": {
+                                                                  "docs": {},
+                                                                  "i": {
+                                                                    "docs": {},
+                                                                    "d": {
+                                                                      "docs": {
+                                                                        "api.course.assignment.html#updateOverride": {
+                                                                          "ref": "api.course.assignment.html#updateOverride",
+                                                                          "tf": 75
+                                                                        }
+                                                                      }
+                                                                    }
                                                                   }
                                                                 }
                                                               }
@@ -7130,6 +7227,23 @@ window.lunrData = {
                               "docs": {},
                               "#": {
                                 "docs": {},
+                                "l": {
+                                  "docs": {},
+                                  "i": {
+                                    "docs": {},
+                                    "s": {
+                                      "docs": {},
+                                      "t": {
+                                        "docs": {
+                                          "api.course.page.html#list": {
+                                            "ref": "api.course.page.html#list",
+                                            "tf": 75
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
                                 "g": {
                                   "docs": {},
                                   "e": {
@@ -7183,23 +7297,6 @@ window.lunrData = {
                                               "ref": "api.course.page.html#delete",
                                               "tf": 75
                                             }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
-                                "l": {
-                                  "docs": {},
-                                  "i": {
-                                    "docs": {},
-                                    "s": {
-                                      "docs": {},
-                                      "t": {
-                                        "docs": {
-                                          "api.course.page.html#list": {
-                                            "ref": "api.course.page.html#list",
-                                            "tf": 75
                                           }
                                         }
                                       }
@@ -10325,6 +10422,10 @@ window.lunrData = {
                           "ref": "api.course.assignment.html#listGradeableStudents",
                           "tf": 10
                         },
+                        "api.course.assignment.html#updateOverride": {
+                          "ref": "api.course.assignment.html#updateOverride",
+                          "tf": 5.555555555555555
+                        },
                         "api.course.group.html": {
                           "ref": "api.course.group.html",
                           "tf": 8.333333333333332
@@ -12414,6 +12515,10 @@ window.lunrData = {
                         "ref": "api.course.assignment.html#createOverride",
                         "tf": 33.33333333333333
                       },
+                      "api.course.assignment.html#updateOverride": {
+                        "ref": "api.course.assignment.html#updateOverride",
+                        "tf": 33.33333333333333
+                      },
                       "api.course.assignment.html#deleteOverride": {
                         "ref": "api.course.assignment.html#deleteOverride",
                         "tf": 33.33333333333333
@@ -12534,6 +12639,10 @@ window.lunrData = {
                         "ref": "api.course.groupSet.html#deleteGroup",
                         "tf": 33.33333333333333
                       },
+                      "api.course.page.html#list": {
+                        "ref": "api.course.page.html#list",
+                        "tf": 33.33333333333333
+                      },
                       "api.course.page.html#get": {
                         "ref": "api.course.page.html#get",
                         "tf": 50
@@ -12548,10 +12657,6 @@ window.lunrData = {
                       },
                       "api.course.page.html#delete": {
                         "ref": "api.course.page.html#delete",
-                        "tf": 33.33333333333333
-                      },
-                      "api.course.page.html#list": {
-                        "ref": "api.course.page.html#list",
                         "tf": 33.33333333333333
                       },
                       "api.course.quiz.html#list": {
@@ -12710,6 +12815,10 @@ window.lunrData = {
                         },
                         "api.course.assignment.html#createOverride": {
                           "ref": "api.course.assignment.html#createOverride",
+                          "tf": 16.666666666666664
+                        },
+                        "api.course.assignment.html#updateOverride": {
+                          "ref": "api.course.assignment.html#updateOverride",
                           "tf": 16.666666666666664
                         },
                         "api.course.assignment.html#deleteOverride": {
@@ -12896,6 +13005,10 @@ window.lunrData = {
                             "ref": "api.course.assignment.html#createOverride",
                             "tf": 110
                           },
+                          "api.course.assignment.html#updateOverride": {
+                            "ref": "api.course.assignment.html#updateOverride",
+                            "tf": 110
+                          },
                           "api.course.assignment.html#deleteOverride": {
                             "ref": "api.course.assignment.html#deleteOverride",
                             "tf": 110
@@ -13036,6 +13149,10 @@ window.lunrData = {
                             "ref": "api.course.page.html",
                             "tf": 10
                           },
+                          "api.course.page.html#list": {
+                            "ref": "api.course.page.html#list",
+                            "tf": 110
+                          },
                           "api.course.page.html#get": {
                             "ref": "api.course.page.html#get",
                             "tf": 110
@@ -13050,10 +13167,6 @@ window.lunrData = {
                           },
                           "api.course.page.html#delete": {
                             "ref": "api.course.page.html#delete",
-                            "tf": 110
-                          },
-                          "api.course.page.html#list": {
-                            "ref": "api.course.page.html#list",
                             "tf": 110
                           },
                           "api.course.quiz.html": {
@@ -13596,6 +13709,10 @@ window.lunrData = {
                                                       "ref": "api.course.assignment.html#createOverride",
                                                       "tf": 33.33333333333333
                                                     },
+                                                    "api.course.assignment.html#updateOverride": {
+                                                      "ref": "api.course.assignment.html#updateOverride",
+                                                      "tf": 33.33333333333333
+                                                    },
                                                     "api.course.assignment.html#deleteOverride": {
                                                       "ref": "api.course.assignment.html#deleteOverride",
                                                       "tf": 33.33333333333333
@@ -13828,6 +13945,10 @@ window.lunrData = {
                     "ref": "api.course.page.html",
                     "tf": 610
                   },
+                  "api.course.page.html#list": {
+                    "ref": "api.course.page.html#list",
+                    "tf": 12.5
+                  },
                   "api.course.page.html#get": {
                     "ref": "api.course.page.html#get",
                     "tf": 12.5
@@ -13843,14 +13964,27 @@ window.lunrData = {
                   "api.course.page.html#delete": {
                     "ref": "api.course.page.html#delete",
                     "tf": 16.666666666666664
-                  },
-                  "api.course.page.html#list": {
-                    "ref": "api.course.page.html#list",
-                    "tf": 12.5
                   }
                 },
                 "#": {
                   "docs": {},
+                  "l": {
+                    "docs": {},
+                    "i": {
+                      "docs": {},
+                      "s": {
+                        "docs": {},
+                        "t": {
+                          "docs": {
+                            "api.course.page.html#list": {
+                              "ref": "api.course.page.html#list",
+                              "tf": 75
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
                   "g": {
                     "docs": {},
                     "e": {
@@ -13904,23 +14038,6 @@ window.lunrData = {
                                 "ref": "api.course.page.html#delete",
                                 "tf": 75
                               }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "l": {
-                    "docs": {},
-                    "i": {
-                      "docs": {},
-                      "s": {
-                        "docs": {},
-                        "t": {
-                          "docs": {
-                            "api.course.page.html#list": {
-                              "ref": "api.course.page.html#list",
-                              "tf": 75
                             }
                           }
                         }
@@ -14032,6 +14149,35 @@ window.lunrData = {
               }
             }
           },
+          "a": {
+            "docs": {
+              "api.course.html#listTeachingTeamMemberEnrollments": {
+                "ref": "api.course.html#listTeachingTeamMemberEnrollments",
+                "tf": 8.333333333333332
+              },
+              "api.course.html#listTeachingTeamMembers": {
+                "ref": "api.course.html#listTeachingTeamMembers",
+                "tf": 10
+              }
+            },
+            "r": {
+              "docs": {},
+              "g": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "api.course.assignment.html#updateOverride": {
+                        "ref": "api.course.assignment.html#updateOverride",
+                        "tf": 5.555555555555555
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "e": {
             "docs": {},
             "x": {
@@ -14067,18 +14213,6 @@ window.lunrData = {
                     }
                   }
                 }
-              }
-            }
-          },
-          "a": {
-            "docs": {
-              "api.course.html#listTeachingTeamMemberEnrollments": {
-                "ref": "api.course.html#listTeachingTeamMemberEnrollments",
-                "tf": 8.333333333333332
-              },
-              "api.course.html#listTeachingTeamMembers": {
-                "ref": "api.course.html#listTeachingTeamMembers",
-                "tf": 10
               }
             }
           }
@@ -14204,6 +14338,10 @@ window.lunrData = {
                   "api.course.app.html#updateMetadata": {
                     "ref": "api.course.app.html#updateMetadata",
                     "tf": 1.3157894736842104
+                  },
+                  "api.course.assignment.html#updateOverride": {
+                    "ref": "api.course.assignment.html#updateOverride",
+                    "tf": 5.555555555555555
                   }
                 }
               }
@@ -14450,6 +14588,10 @@ window.lunrData = {
                       "ref": "api.course.assignment.html#updateGrades",
                       "tf": 11.11111111111111
                     },
+                    "api.course.assignment.html#updateOverride": {
+                      "ref": "api.course.assignment.html#updateOverride",
+                      "tf": 11.11111111111111
+                    },
                     "api.course.assignmentGroup.html#update": {
                       "ref": "api.course.assignmentGroup.html#update",
                       "tf": 620.8333333333334
@@ -14536,6 +14678,32 @@ window.lunrData = {
                               "api.course.assignment.html#updateGrades": {
                                 "ref": "api.course.assignment.html#updateGrades",
                                 "tf": 608.3333333333334
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "o": {
+                      "docs": {},
+                      "v": {
+                        "docs": {},
+                        "e": {
+                          "docs": {},
+                          "r": {
+                            "docs": {},
+                            "r": {
+                              "docs": {},
+                              "i": {
+                                "docs": {},
+                                "d": {
+                                  "docs": {
+                                    "api.course.assignment.html#updateOverride": {
+                                      "ref": "api.course.assignment.html#updateOverride",
+                                      "tf": 608.3333333333334
+                                    }
+                                  }
+                                }
                               }
                             }
                           }
@@ -15169,7 +15337,7 @@ window.lunrData = {
           }
         }
       },
-      "length": 1204
+      "length": 1330
     },
     "corpusTokens": [
       "account",
@@ -15228,6 +15396,7 @@ window.lunrData = {
       "api.course.assignment#listsubmiss",
       "api.course.assignment#upd",
       "api.course.assignment#updategrad",
+      "api.course.assignment#updateoverrid",
       "api.course.assignmentgroup",
       "api.course.assignmentgroup#cr",
       "api.course.assignmentgroup#delet",
@@ -15315,6 +15484,7 @@ window.lunrData = {
       "assignment#listsubmiss",
       "assignment#upd",
       "assignment#updategrad",
+      "assignment#updateoverrid",
       "assignmentgroup",
       "assignmentgroup#cr",
       "assignmentgroup#delet",
@@ -15373,6 +15543,7 @@ window.lunrData = {
       "course.assignment#listsubmiss",
       "course.assignment#upd",
       "course.assignment#updategrad",
+      "course.assignment#updateoverrid",
       "course.assignmentgroup",
       "course.assignmentgroup#cr",
       "course.assignmentgroup#delet",
@@ -15607,6 +15778,7 @@ window.lunrData = {
       "submiss",
       "support",
       "ta",
+      "target",
       "teacher",
       "text",
       "tool",
@@ -15615,6 +15787,7 @@ window.lunrData = {
       "updategrad",
       "updatememb",
       "updatemetadata",
+      "updateoverrid",
       "updatequestiongrad",
       "url",
       "us",
@@ -15927,6 +16100,16 @@ window.lunrData = {
       "tags": "api.course.assignment#createOverride course.assignment#createOverride assignment#createOverride createOverride",
       "summary": "",
       "description": "Create assignment override."
+    },
+    "api.course.assignment.html#updateOverride": {
+      "id": "api.course.assignment.html#updateOverride",
+      "kind": "function",
+      "title": "updateOverride( options ) → {Promise.&lt;Object&gt;}",
+      "longname": "api.course.assignment#updateOverride",
+      "name": "updateOverride",
+      "tags": "api.course.assignment#updateOverride course.assignment#updateOverride assignment#updateOverride updateOverride",
+      "summary": "",
+      "description": "Update an assignment override. Note: target can only be updated if the override is a student override"
     },
     "api.course.assignment.html#deleteOverride": {
       "id": "api.course.assignment.html#deleteOverride",
@@ -16283,6 +16466,16 @@ window.lunrData = {
       "description": "Functions for interacting with pages within courses",
       "body": ""
     },
+    "api.course.page.html#list": {
+      "id": "api.course.page.html#list",
+      "kind": "function",
+      "title": "list( options ) → {Promise.&lt;Array.&lt;Object&gt;&gt;}",
+      "longname": "api.course.page#list",
+      "name": "list",
+      "tags": "api.course.page#list course.page#list page#list list",
+      "summary": "",
+      "description": "Gets the list of pages in a course"
+    },
     "api.course.page.html#get": {
       "id": "api.course.page.html#get",
       "kind": "function",
@@ -16322,16 +16515,6 @@ window.lunrData = {
       "tags": "api.course.page#delete course.page#delete page#delete delete",
       "summary": "",
       "description": "Deletes a page from a course"
-    },
-    "api.course.page.html#list": {
-      "id": "api.course.page.html#list",
-      "kind": "function",
-      "title": "list( options ) → {Promise.&lt;Array.&lt;Object&gt;&gt;}",
-      "longname": "api.course.page#list",
-      "name": "list",
-      "tags": "api.course.page#list course.page#list page#list list",
-      "summary": "",
-      "description": "Gets the list of pages in a course"
     },
     "api.course.quiz.html": {
       "id": "api.course.quiz.html",

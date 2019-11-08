@@ -1,6 +1,6 @@
 /**
- * Functions for interacting with gradebook columns within courses
- * @class api.course.gradebookColumn
+ * Functions for interacting with discussion topics within courses
+ * @class api.course.discussionTopic
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');

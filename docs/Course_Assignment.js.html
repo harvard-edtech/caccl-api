@@ -44,6 +44,7 @@
 											<li><a href="api.course.assignment.html">api.course.assignment</a></li>
 											<li><a href="api.course.assignmentGroup.html">api.course.assignmentGroup</a></li>
 											<li><a href="api.course.gradebookColumn.html">api.course.gradebookColumn</a></li>
+											<li><a href="api.course.gradebookColumn.html">api.course.gradebookColumn</a></li>
 											<li><a href="api.course.group.html">api.course.group</a></li>
 											<li><a href="api.course.groupSet.html">api.course.groupSet</a></li>
 											<li><a href="api.course.page.html">api.course.page</a></li>
@@ -887,6 +888,59 @@ Assignment.createOverride.action = 'create a new override for a specific assignm
 Assignment.createOverride.requiredParams = [
   'courseId',
   'assignmentId',
+];
+
+/**
+ * Update an assignment override. Note: target can only be updated if the
+ *   override is a student override
+ * @author Gabriel Abrams
+ * @method updateOverride
+ * @memberof api.course.assignment
+ * @instance
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course id
+ * @param {number} options.assignmentId - Canvas assignment id
+ * @param {number} options.overrideId - the override id to update
+ * @param {array} options.studentIds - List of Canvas student IDs to override
+ *   (Note: either studentIds, groupId, or sectionId must be included)
+ * @param {string} [options.title=current value] - New title of the
+ *   override
+ * @param {date} [options.dueAt=current value] - New due date or null to remove
+ *   due date
+ * @param {date} [options.unlockAt=current value] - New unlock date or null to
+ *   remove unlock date
+ * @param {date} [options.lockAt=current value] - New lock date or null to
+ *   remove lock date
+ * @return {Promise.&lt;Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ */
+Assignment.updateOverride = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides`,
+    method: 'PUT',
+    params: {
+      'assignment_override[title]': utils.includeIfTruthy(options.title),
+      'assignment_override[student_ids]':
+        utils.includeIfTruthy(options.studentIds),
+      'assignment_override[due_at]':
+        utils.includeIfDate(options.dueAt),
+      'assignment_override[unlock_at]':
+        utils.includeIfDate(options.unlockAt),
+      'assignment_override[lock_at]':
+        utils.includeIfDate(options.lockAt),
+    },
+  })
+    .then((response) => {
+      return this.uncache([
+        // Uncache batch override list
+        `${prefix.v1}/courses/${options.courseId}/assignments/overrides`,
+      ], response);
+    });
+};
+Assignment.updateOverride.action = 'update an override for a specific assignment in a course';
+Assignment.updateOverride.requiredParams = [
+  'courseId',
+  'assignmentId',
+  'overrideId',
 ];
 
 /**
