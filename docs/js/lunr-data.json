@@ -412,28 +412,71 @@
           "api.course.assignment#createoverrid",
           "assign",
           "assignment#createoverrid",
+          "can't",
           "course.assignment#createoverrid",
           "creat",
           "createoverrid",
+          "date",
+          "deadlin",
+          "defin",
+          "dueat",
+          "even",
+          "everyon",
           "function",
+          "futur",
+          "immedi",
+          "left",
+          "lock",
+          "lockat",
+          "none",
+          "note",
+          "omit",
           "option",
+          "out",
           "overrid",
-          "promise.&lt;object&gt"
+          "pass",
+          "promise.&lt;object&gt",
+          "recommend",
+          "see",
+          "set",
+          "short",
+          "submit",
+          "target(",
+          "time",
+          "unlockat",
+          "until",
+          "wait"
         ],
         "api.course.assignment.html#updateOverride": [
           "api.course.assignment#updateoverrid",
           "assign",
           "assignment#updateoverrid",
+          "chang",
           "course.assignment#updateoverrid",
+          "date",
+          "deadlin",
+          "dueat",
           "function",
+          "group",
+          "instanc",
+          "lockat",
+          "none",
           "note",
+          "omit",
           "option",
           "overrid",
+          "previou",
           "promise.&lt;object&gt",
+          "remain",
+          "section",
           "student",
           "target",
+          "target(",
+          "unchang",
+          "unlockat",
           "updat",
-          "updateoverrid"
+          "updateoverrid",
+          "valu"
         ],
         "api.course.assignment.html#deleteOverride": [
           "api.course.assignment#deleteoverrid",
@@ -593,6 +636,18 @@
           "group",
           "option",
           "promise.&lt;object&gt"
+        ],
+        "api.course.discussionTopic.html": [
+          "api.course.discussiontop",
+          "class",
+          "cours",
+          "course.discussiontop",
+          "discuss",
+          "discussiontop",
+          "function",
+          "interact",
+          "topic",
+          "within"
         ],
         "api.course.gradebookColumn.html": [
           "api.course.gradebookcolumn",
@@ -1477,7 +1532,7 @@
           "user.self#listcours"
         ]
       },
-      "length": 110
+      "length": 111
     },
     "tokenStore": {
       "root": {
@@ -2582,6 +2637,50 @@
                                                                 }
                                                               }
                                                             }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "d": {
+                                "docs": {},
+                                "i": {
+                                  "docs": {},
+                                  "s": {
+                                    "docs": {},
+                                    "c": {
+                                      "docs": {},
+                                      "u": {
+                                        "docs": {},
+                                        "s": {
+                                          "docs": {},
+                                          "s": {
+                                            "docs": {},
+                                            "i": {
+                                              "docs": {},
+                                              "o": {
+                                                "docs": {},
+                                                "n": {
+                                                  "docs": {},
+                                                  "t": {
+                                                    "docs": {},
+                                                    "o": {
+                                                      "docs": {},
+                                                      "p": {
+                                                        "docs": {
+                                                          "api.course.discussionTopic.html": {
+                                                            "ref": "api.course.discussionTopic.html",
+                                                            "tf": 1100
                                                           }
                                                         }
                                                       }
@@ -4628,11 +4727,11 @@
                       },
                       "api.course.assignment.html#createOverride": {
                         "ref": "api.course.assignment.html#createOverride",
-                        "tf": 16.666666666666664
+                        "tf": 3.061224489795918
                       },
                       "api.course.assignment.html#updateOverride": {
                         "ref": "api.course.assignment.html#updateOverride",
-                        "tf": 5.555555555555555
+                        "tf": 1.3157894736842104
                       },
                       "api.course.assignment.html#deleteOverride": {
                         "ref": "api.course.assignment.html#deleteOverride",
@@ -5476,6 +5575,17 @@
                     }
                   }
                 }
+              },
+              "'": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "api.course.assignment.html#createOverride": {
+                      "ref": "api.course.assignment.html#createOverride",
+                      "tf": 1.0204081632653061
+                    }
+                  }
+                }
               }
             },
             "l": {
@@ -5524,6 +5634,10 @@
                     },
                     "api.course.assignmentGroup.html": {
                       "ref": "api.course.assignmentGroup.html",
+                      "tf": 110
+                    },
+                    "api.course.discussionTopic.html": {
+                      "ref": "api.course.discussionTopic.html",
                       "tf": 110
                     },
                     "api.course.gradebookColumn.html": {
@@ -5650,6 +5764,10 @@
                     "api.course.assignmentGroup.html#delete": {
                       "ref": "api.course.assignmentGroup.html#delete",
                       "tf": 12.5
+                    },
+                    "api.course.discussionTopic.html": {
+                      "ref": "api.course.discussionTopic.html",
+                      "tf": 8.333333333333332
                     },
                     "api.course.gradebookColumn.html": {
                       "ref": "api.course.gradebookColumn.html",
@@ -6746,6 +6864,50 @@
                                                         }
                                                       }
                                                     }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "d": {
+                        "docs": {},
+                        "i": {
+                          "docs": {},
+                          "s": {
+                            "docs": {},
+                            "c": {
+                              "docs": {},
+                              "u": {
+                                "docs": {},
+                                "s": {
+                                  "docs": {},
+                                  "s": {
+                                    "docs": {},
+                                    "i": {
+                                      "docs": {},
+                                      "o": {
+                                        "docs": {},
+                                        "n": {
+                                          "docs": {},
+                                          "t": {
+                                            "docs": {},
+                                            "o": {
+                                              "docs": {},
+                                              "p": {
+                                                "docs": {
+                                                  "api.course.discussionTopic.html": {
+                                                    "ref": "api.course.discussionTopic.html",
+                                                    "tf": 200
                                                   }
                                                 }
                                               }
@@ -8439,7 +8601,7 @@
                     },
                     "api.course.assignment.html#createOverride": {
                       "ref": "api.course.assignment.html#createOverride",
-                      "tf": 16.666666666666664
+                      "tf": 1.0204081632653061
                     },
                     "api.course.assignment.html#createTextSubmission": {
                       "ref": "api.course.assignment.html#createTextSubmission",
@@ -8949,6 +9111,20 @@
           },
           "h": {
             "docs": {},
+            "a": {
+              "docs": {},
+              "n": {
+                "docs": {},
+                "g": {
+                  "docs": {
+                    "api.course.assignment.html#updateOverride": {
+                      "ref": "api.course.assignment.html#updateOverride",
+                      "tf": 1.3157894736842104
+                    }
+                  }
+                }
+              }
+            },
             "o": {
               "docs": {},
               "i": {
@@ -8978,6 +9154,10 @@
                     "index.html": {
                       "ref": "index.html",
                       "tf": 7
+                    },
+                    "api.course.assignment.html#createOverride": {
+                      "ref": "api.course.assignment.html#createOverride",
+                      "tf": 1.0204081632653061
                     }
                   }
                 }
@@ -9074,6 +9254,30 @@
                 }
               }
             },
+            "a": {
+              "docs": {},
+              "d": {
+                "docs": {},
+                "l": {
+                  "docs": {},
+                  "i": {
+                    "docs": {},
+                    "n": {
+                      "docs": {
+                        "api.course.assignment.html#createOverride": {
+                          "ref": "api.course.assignment.html#createOverride",
+                          "tf": 1.0204081632653061
+                        },
+                        "api.course.assignment.html#updateOverride": {
+                          "ref": "api.course.assignment.html#updateOverride",
+                          "tf": 1.3157894736842104
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "s": {
               "docs": {},
               "i": {
@@ -9140,6 +9344,88 @@
                         "ref": "api.course.app.html#updateMetadata",
                         "tf": 1.3157894736842104
                       }
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "c": {
+                "docs": {},
+                "u": {
+                  "docs": {},
+                  "s": {
+                    "docs": {},
+                    "s": {
+                      "docs": {
+                        "api.course.discussionTopic.html": {
+                          "ref": "api.course.discussionTopic.html",
+                          "tf": 8.333333333333332
+                        }
+                      },
+                      "i": {
+                        "docs": {},
+                        "o": {
+                          "docs": {},
+                          "n": {
+                            "docs": {},
+                            "t": {
+                              "docs": {},
+                              "o": {
+                                "docs": {},
+                                "p": {
+                                  "docs": {
+                                    "api.course.discussionTopic.html": {
+                                      "ref": "api.course.discussionTopic.html",
+                                      "tf": 600
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "a": {
+            "docs": {},
+            "t": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "api.course.assignment.html#createOverride": {
+                    "ref": "api.course.assignment.html#createOverride",
+                    "tf": 4.081632653061225
+                  },
+                  "api.course.assignment.html#updateOverride": {
+                    "ref": "api.course.assignment.html#updateOverride",
+                    "tf": 2.631578947368421
+                  }
+                }
+              }
+            }
+          },
+          "u": {
+            "docs": {},
+            "e": {
+              "docs": {},
+              "a": {
+                "docs": {},
+                "t": {
+                  "docs": {
+                    "api.course.assignment.html#createOverride": {
+                      "ref": "api.course.assignment.html#createOverride",
+                      "tf": 2.0408163265306123
+                    },
+                    "api.course.assignment.html#updateOverride": {
+                      "ref": "api.course.assignment.html#updateOverride",
+                      "tf": 3.9473684210526314
                     }
                   }
                 }
@@ -9356,6 +9642,37 @@
               }
             }
           },
+          "v": {
+            "docs": {},
+            "e": {
+              "docs": {},
+              "n": {
+                "docs": {
+                  "api.course.assignment.html#createOverride": {
+                    "ref": "api.course.assignment.html#createOverride",
+                    "tf": 2.0408163265306123
+                  }
+                }
+              },
+              "r": {
+                "docs": {},
+                "y": {
+                  "docs": {},
+                  "o": {
+                    "docs": {},
+                    "n": {
+                      "docs": {
+                        "api.course.assignment.html#createOverride": {
+                          "ref": "api.course.assignment.html#createOverride",
+                          "tf": 2.0408163265306123
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "l": {
             "docs": {},
             "e": {
@@ -9441,6 +9758,10 @@
                           },
                           "api.course.assignmentGroup.html": {
                             "ref": "api.course.assignmentGroup.html",
+                            "tf": 8.333333333333332
+                          },
+                          "api.course.discussionTopic.html": {
+                            "ref": "api.course.discussionTopic.html",
                             "tf": 8.333333333333332
                           },
                           "api.course.gradebookColumn.html": {
@@ -9597,6 +9918,17 @@
                         "tf": 3.9473684210526314
                       }
                     }
+                  },
+                  "n": {
+                    "docs": {},
+                    "c": {
+                      "docs": {
+                        "api.course.assignment.html#updateOverride": {
+                          "ref": "api.course.assignment.html#updateOverride",
+                          "tf": 1.3157894736842104
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -9645,6 +9977,26 @@
                 }
               }
             }
+          },
+          "m": {
+            "docs": {},
+            "m": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "d": {
+                  "docs": {},
+                  "i": {
+                    "docs": {
+                      "api.course.assignment.html#createOverride": {
+                        "ref": "api.course.assignment.html#createOverride",
+                        "tf": 1.0204081632653061
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "r": {
@@ -9674,6 +10026,20 @@
                     "api.course.app.html#remove": {
                       "ref": "api.course.app.html#remove",
                       "tf": 618.3333333333334
+                    }
+                  }
+                }
+              },
+              "a": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "n": {
+                    "docs": {
+                      "api.course.assignment.html#updateOverride": {
+                        "ref": "api.course.assignment.html#updateOverride",
+                        "tf": 1.3157894736842104
+                      }
                     }
                   }
                 }
@@ -9733,6 +10099,32 @@
                       "api.course.gradebookColumn.html#get": {
                         "ref": "api.course.gradebookColumn.html#get",
                         "tf": 3.3333333333333335
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "c": {
+              "docs": {},
+              "o": {
+                "docs": {},
+                "m": {
+                  "docs": {},
+                  "m": {
+                    "docs": {},
+                    "e": {
+                      "docs": {},
+                      "n": {
+                        "docs": {},
+                        "d": {
+                          "docs": {
+                            "api.course.assignment.html#createOverride": {
+                              "ref": "api.course.assignment.html#createOverride",
+                              "tf": 1.0204081632653061
+                            }
+                          }
+                        }
                       }
                     }
                   }
@@ -9931,6 +10323,10 @@
                   "ref": "index.html",
                   "tf": 7
                 },
+                "api.course.assignment.html#createOverride": {
+                  "ref": "api.course.assignment.html#createOverride",
+                  "tf": 1.0204081632653061
+                },
                 "api.course.groupSet.html#list": {
                   "ref": "api.course.groupSet.html#list",
                   "tf": 12.5
@@ -10040,6 +10436,14 @@
                 }
               }
             },
+            "e": {
+              "docs": {
+                "api.course.assignment.html#createOverride": {
+                  "ref": "api.course.assignment.html#createOverride",
+                  "tf": 1.0204081632653061
+                }
+              }
+            },
             "c": {
               "docs": {},
               "t": {
@@ -10050,6 +10454,10 @@
                     "docs": {},
                     "n": {
                       "docs": {
+                        "api.course.assignment.html#updateOverride": {
+                          "ref": "api.course.assignment.html#updateOverride",
+                          "tf": 1.3157894736842104
+                        },
                         "api.course.section.html": {
                           "ref": "api.course.section.html",
                           "tf": 610
@@ -10397,6 +10805,10 @@
                 "docs": {},
                 "t": {
                   "docs": {
+                    "api.course.assignment.html#createOverride": {
+                      "ref": "api.course.assignment.html#createOverride",
+                      "tf": 1.0204081632653061
+                    },
                     "api.course.quiz.html#createShortAnswerQuestion": {
                       "ref": "api.course.quiz.html#createShortAnswerQuestion",
                       "tf": 6.25
@@ -10424,7 +10836,7 @@
                         },
                         "api.course.assignment.html#updateOverride": {
                           "ref": "api.course.assignment.html#updateOverride",
-                          "tf": 5.555555555555555
+                          "tf": 1.3157894736842104
                         },
                         "api.course.group.html": {
                           "ref": "api.course.group.html",
@@ -10505,6 +10917,14 @@
                           "ref": "api.course.quiz.html#updateQuestionGrades",
                           "tf": 7.142857142857142
                         }
+                      }
+                    }
+                  },
+                  "t": {
+                    "docs": {
+                      "api.course.assignment.html#createOverride": {
+                        "ref": "api.course.assignment.html#createOverride",
+                        "tf": 2.0408163265306123
                       }
                     }
                   }
@@ -11261,6 +11681,10 @@
                 "docs": {},
                 "p": {
                   "docs": {
+                    "api.course.assignment.html#updateOverride": {
+                      "ref": "api.course.assignment.html#updateOverride",
+                      "tf": 1.3157894736842104
+                    },
                     "api.course.assignmentGroup.html": {
                       "ref": "api.course.assignmentGroup.html",
                       "tf": 8.333333333333332
@@ -11653,6 +12077,17 @@
                       "ref": "list_class.html",
                       "tf": 23.333333333333332
                     }
+                  }
+                }
+              }
+            },
+            "f": {
+              "docs": {},
+              "t": {
+                "docs": {
+                  "api.course.assignment.html#createOverride": {
+                    "ref": "api.course.assignment.html#createOverride",
+                    "tf": 1.0204081632653061
                   }
                 }
               }
@@ -12372,6 +12807,35 @@
                 }
               }
             }
+          },
+          "o": {
+            "docs": {},
+            "c": {
+              "docs": {},
+              "k": {
+                "docs": {
+                  "api.course.assignment.html#createOverride": {
+                    "ref": "api.course.assignment.html#createOverride",
+                    "tf": 1.0204081632653061
+                  }
+                },
+                "a": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "api.course.assignment.html#createOverride": {
+                        "ref": "api.course.assignment.html#createOverride",
+                        "tf": 2.0408163265306123
+                      },
+                      "api.course.assignment.html#updateOverride": {
+                        "ref": "api.course.assignment.html#updateOverride",
+                        "tf": 1.3157894736842104
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "o": {
@@ -12815,11 +13279,11 @@
                         },
                         "api.course.assignment.html#createOverride": {
                           "ref": "api.course.assignment.html#createOverride",
-                          "tf": 16.666666666666664
+                          "tf": 2.0408163265306123
                         },
                         "api.course.assignment.html#updateOverride": {
                           "ref": "api.course.assignment.html#updateOverride",
-                          "tf": 16.666666666666664
+                          "tf": 10.526315789473683
                         },
                         "api.course.assignment.html#deleteOverride": {
                           "ref": "api.course.assignment.html#deleteOverride",
@@ -12828,6 +13292,35 @@
                       }
                     }
                   }
+                }
+              }
+            }
+          },
+          "m": {
+            "docs": {},
+            "i": {
+              "docs": {},
+              "t": {
+                "docs": {
+                  "api.course.assignment.html#createOverride": {
+                    "ref": "api.course.assignment.html#createOverride",
+                    "tf": 4.081632653061225
+                  },
+                  "api.course.assignment.html#updateOverride": {
+                    "ref": "api.course.assignment.html#updateOverride",
+                    "tf": 1.3157894736842104
+                  }
+                }
+              }
+            }
+          },
+          "u": {
+            "docs": {},
+            "t": {
+              "docs": {
+                "api.course.assignment.html#createOverride": {
+                  "ref": "api.course.assignment.html#createOverride",
+                  "tf": 1.0204081632653061
                 }
               }
             }
@@ -13056,6 +13549,10 @@
                           "api.course.assignmentGroup.html#delete": {
                             "ref": "api.course.assignmentGroup.html#delete",
                             "tf": 110
+                          },
+                          "api.course.discussionTopic.html": {
+                            "ref": "api.course.discussionTopic.html",
+                            "tf": 8.333333333333332
                           },
                           "api.course.gradebookColumn.html": {
                             "ref": "api.course.gradebookColumn.html",
@@ -13331,6 +13828,20 @@
                           }
                         }
                       }
+                    }
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {},
+              "u": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "api.course.assignment.html#createOverride": {
+                      "ref": "api.course.assignment.html#createOverride",
+                      "tf": 1.0204081632653061
                     }
                   }
                 }
@@ -13904,6 +14415,26 @@
                   }
                 }
               }
+            },
+            "e": {
+              "docs": {},
+              "v": {
+                "docs": {},
+                "i": {
+                  "docs": {},
+                  "o": {
+                    "docs": {},
+                    "u": {
+                      "docs": {
+                        "api.course.assignment.html#updateOverride": {
+                          "ref": "api.course.assignment.html#updateOverride",
+                          "tf": 2.631578947368421
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           },
           "a": {
@@ -13933,6 +14464,17 @@
                         }
                       }
                     }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "s": {
+                "docs": {
+                  "api.course.assignment.html#createOverride": {
+                    "ref": "api.course.assignment.html#createOverride",
+                    "tf": 1.0204081632653061
                   }
                 }
               }
@@ -14098,6 +14640,10 @@
                         "ref": "api.course.assignmentGroup.html",
                         "tf": 8.333333333333332
                       },
+                      "api.course.discussionTopic.html": {
+                        "ref": "api.course.discussionTopic.html",
+                        "tf": 8.333333333333332
+                      },
                       "api.course.gradebookColumn.html": {
                         "ref": "api.course.gradebookColumn.html",
                         "tf": 8.333333333333332
@@ -14131,6 +14677,20 @@
                 }
               }
             }
+          },
+          "a": {
+            "docs": {},
+            "i": {
+              "docs": {},
+              "t": {
+                "docs": {
+                  "api.course.assignment.html#createOverride": {
+                    "ref": "api.course.assignment.html#createOverride",
+                    "tf": 1.0204081632653061
+                  }
+                }
+              }
+            }
           }
         },
         "t": {
@@ -14144,6 +14704,20 @@
                   "api.course.app.html#get": {
                     "ref": "api.course.app.html#get",
                     "tf": 10
+                  }
+                }
+              }
+            },
+            "p": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "c": {
+                  "docs": {
+                    "api.course.discussionTopic.html": {
+                      "ref": "api.course.discussionTopic.html",
+                      "tf": 8.333333333333332
+                    }
                   }
                 }
               }
@@ -14170,9 +14744,35 @@
                     "docs": {
                       "api.course.assignment.html#updateOverride": {
                         "ref": "api.course.assignment.html#updateOverride",
-                        "tf": 5.555555555555555
+                        "tf": 2.631578947368421
+                      }
+                    },
+                    "(": {
+                      "docs": {
+                        "api.course.assignment.html#createOverride": {
+                          "ref": "api.course.assignment.html#createOverride",
+                          "tf": 4.081632653061225
+                        },
+                        "api.course.assignment.html#updateOverride": {
+                          "ref": "api.course.assignment.html#updateOverride",
+                          "tf": 1.3157894736842104
+                        }
                       }
                     }
+                  }
+                }
+              }
+            }
+          },
+          "i": {
+            "docs": {},
+            "m": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "api.course.assignment.html#createOverride": {
+                    "ref": "api.course.assignment.html#createOverride",
+                    "tf": 1.0204081632653061
                   }
                 }
               }
@@ -14339,9 +14939,28 @@
                     "ref": "api.course.app.html#updateMetadata",
                     "tf": 1.3157894736842104
                   },
+                  "api.course.assignment.html#createOverride": {
+                    "ref": "api.course.assignment.html#createOverride",
+                    "tf": 1.0204081632653061
+                  },
                   "api.course.assignment.html#updateOverride": {
                     "ref": "api.course.assignment.html#updateOverride",
-                    "tf": 5.555555555555555
+                    "tf": 2.631578947368421
+                  }
+                }
+              }
+            },
+            "n": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "api.course.assignment.html#createOverride": {
+                    "ref": "api.course.assignment.html#createOverride",
+                    "tf": 1.0204081632653061
+                  },
+                  "api.course.assignment.html#updateOverride": {
+                    "ref": "api.course.assignment.html#updateOverride",
+                    "tf": 1.3157894736842104
                   }
                 }
               }
@@ -14590,7 +15209,7 @@
                     },
                     "api.course.assignment.html#updateOverride": {
                       "ref": "api.course.assignment.html#updateOverride",
-                      "tf": 11.11111111111111
+                      "tf": 5.263157894736842
                     },
                     "api.course.assignmentGroup.html#update": {
                       "ref": "api.course.assignmentGroup.html#update",
@@ -14795,6 +15414,87 @@
                 "api.course.assignment.html#createURLSubmission": {
                   "ref": "api.course.assignment.html#createURLSubmission",
                   "tf": 8.333333333333332
+                }
+              }
+            }
+          },
+          "n": {
+            "docs": {},
+            "l": {
+              "docs": {},
+              "o": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "k": {
+                    "docs": {},
+                    "a": {
+                      "docs": {},
+                      "t": {
+                        "docs": {
+                          "api.course.assignment.html#createOverride": {
+                            "ref": "api.course.assignment.html#createOverride",
+                            "tf": 3.061224489795918
+                          },
+                          "api.course.assignment.html#updateOverride": {
+                            "ref": "api.course.assignment.html#updateOverride",
+                            "tf": 1.3157894736842104
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "l": {
+                  "docs": {
+                    "api.course.assignment.html#createOverride": {
+                      "ref": "api.course.assignment.html#createOverride",
+                      "tf": 1.0204081632653061
+                    }
+                  }
+                }
+              }
+            },
+            "c": {
+              "docs": {},
+              "h": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "g": {
+                      "docs": {
+                        "api.course.assignment.html#updateOverride": {
+                          "ref": "api.course.assignment.html#updateOverride",
+                          "tf": 1.3157894736842104
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "v": {
+          "docs": {},
+          "a": {
+            "docs": {},
+            "l": {
+              "docs": {},
+              "u": {
+                "docs": {
+                  "api.course.assignment.html#updateOverride": {
+                    "ref": "api.course.assignment.html#updateOverride",
+                    "tf": 1.3157894736842104
+                  }
                 }
               }
             }
@@ -15337,7 +16037,7 @@
           }
         }
       },
-      "length": 1330
+      "length": 1270
     },
     "corpusTokens": [
       "account",
@@ -15403,6 +16103,7 @@
       "api.course.assignmentgroup#get",
       "api.course.assignmentgroup#list",
       "api.course.assignmentgroup#upd",
+      "api.course.discussiontop",
       "api.course.gradebookcolumn",
       "api.course.gradebookcolumn#cr",
       "api.course.gradebookcolumn#delet",
@@ -15497,7 +16198,9 @@
       "behav",
       "caccl",
       "call",
+      "can't",
       "canva",
+      "chang",
       "choic",
       "class",
       "column",
@@ -15550,6 +16253,7 @@
       "course.assignmentgroup#get",
       "course.assignmentgroup#list",
       "course.assignmentgroup#upd",
+      "course.discussiontop",
       "course.gradebookcolumn",
       "course.gradebookcolumn#cr",
       "course.gradebookcolumn#delet",
@@ -15613,13 +16317,18 @@
       "createurlsubmiss",
       "current",
       "custom",
+      "date",
+      "deadlin",
       "defin",
       "delet",
       "deletegroup",
       "deleteoverrid",
       "design",
       "differ",
+      "discuss",
+      "discussiontop",
       "document",
+      "dueat",
       "each",
       "element",
       "enabl",
@@ -15628,6 +16337,8 @@
       "enrollmentss",
       "entri",
       "essay",
+      "even",
+      "everyon",
       "exist",
       "expect",
       "extern",
@@ -15637,6 +16348,7 @@
       "form",
       "free",
       "function",
+      "futur",
       "get",
       "getassignmentlaunchurl",
       "getgroup",
@@ -15674,13 +16386,16 @@
       "groupset#list",
       "groupset#listgroup",
       "identifi",
+      "immedi",
       "index",
       "info",
       "inform",
       "instal",
+      "instanc",
       "interact",
       "item",
       "launch",
+      "left",
       "level",
       "list",
       "list:class",
@@ -15704,6 +16419,8 @@
       "listteachingteammemb",
       "listteachingteammemberenrol",
       "listus",
+      "lock",
+      "lockat",
       "lti",
       "member",
       "metadata",
@@ -15712,12 +16429,15 @@
       "multipl",
       "navig",
       "new",
+      "none",
       "note",
       "object",
       "observ",
+      "omit",
       "on",
       "option",
       "other#endpoint",
+      "out",
       "overrid",
       "page",
       "page#cr",
@@ -15727,7 +16447,9 @@
       "page#upd",
       "param",
       "paramet",
+      "pass",
       "path",
+      "previou",
       "promise.&lt;array.&lt;object&gt;&gt",
       "promise.&lt;object&gt",
       "pull",
@@ -15749,7 +16471,9 @@
       "quiz#updatequestiongrad",
       "quizz",
       "readm",
+      "recommend",
       "refer",
+      "remain",
       "remov",
       "requir",
       "return",
@@ -15761,6 +16485,7 @@
       "section",
       "section#get",
       "section#list",
+      "see",
       "self",
       "self#getprofil",
       "self#listcours",
@@ -15776,12 +16501,19 @@
       "student",
       "student'",
       "submiss",
+      "submit",
       "support",
       "ta",
       "target",
+      "target(",
       "teacher",
       "text",
+      "time",
       "tool",
+      "topic",
+      "unchang",
+      "unlockat",
+      "until",
       "updat",
       "updateentri",
       "updategrad",
@@ -15795,6 +16527,8 @@
       "user.self",
       "user.self#getprofil",
       "user.self#listcours",
+      "valu",
+      "wait",
       "within",
       "you'd"
     ],
@@ -16099,7 +16833,7 @@
       "name": "createOverride",
       "tags": "api.course.assignment#createOverride course.assignment#createOverride assignment#createOverride createOverride",
       "summary": "",
-      "description": "Create assignment override."
+      "description": "Create assignment override. Note that if any dates (dueAt, unlockAt, or lockAt) are left out, they will be set to \"none\" for the target(s) of this override. If dueAt is omitted, the target(s) will have no deadline. If unlockAt is omitted, the target(s) will immediately be able to see the assignment (even if everyone else has to wait until the unlockAt date). If lockAt is omitted, the target(s) will be able to submit at any time in the future (even if everyone else can't submit because their lock date has passed). In short, it is not recommended to omit dates that are defined in the assignment."
     },
     "api.course.assignment.html#updateOverride": {
       "id": "api.course.assignment.html#updateOverride",
@@ -16109,7 +16843,7 @@
       "name": "updateOverride",
       "tags": "api.course.assignment#updateOverride course.assignment#updateOverride assignment#updateOverride updateOverride",
       "summary": "",
-      "description": "Update an assignment override. Note: target can only be updated if the override is a student override"
+      "description": "Update an assignment override. Note: target can only be updated if the override is a student override (if this is a group or section override, the target remains unchanged). Also, note that if any dates (dueAt, unlockAt, or lockAt) are omitted, their previous override values will be changed to \"none.\" For instance, if the previous override has a dueAt and the update does not, the updated override will have no dueAt date (the target(s) of the override will have no deadline)."
     },
     "api.course.assignment.html#deleteOverride": {
       "id": "api.course.assignment.html#deleteOverride",
@@ -16231,6 +16965,17 @@
       "tags": "api.course.assignmentGroup#delete course.assignmentGroup#delete assignmentGroup#delete delete",
       "summary": "",
       "description": "Deletes an assignment group from a course"
+    },
+    "api.course.discussionTopic.html": {
+      "id": "api.course.discussionTopic.html",
+      "kind": "class",
+      "title": ".course.discussionTopic",
+      "longname": "api.course.discussionTopic",
+      "name": "discussionTopic",
+      "tags": "api.course.discussionTopic course.discussionTopic discussionTopic",
+      "summary": "",
+      "description": "Functions for interacting with discussion topics within courses",
+      "body": ""
     },
     "api.course.gradebookColumn.html": {
       "id": "api.course.gradebookColumn.html",

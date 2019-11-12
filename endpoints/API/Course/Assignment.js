@@ -15,6 +15,7 @@ const errorCodes = require('../../../errorCodes');
 const prefix = require('../../common/prefix');
 const utils = require('../../common/utils');
 const waitForCompletion = require('../../common/waitForCompletion');
+const EXCLUDED_PARAM = require('../../../classes/instantiateEndpoint/helpers/valueThatsExcluded');
 
 class Assignment extends EndpointCategory {
   constructor(config) {
@@ -745,7 +746,15 @@ Assignment.getOverride.action = 'get a list of assignment overrides for a specif
 Assignment.getOverride.requiredParams = ['courseId', 'assignmentId'];
 
 /**
- * Create assignment override.
+ * Create assignment override. Note that if any dates (dueAt, unlockAt, or
+ *   lockAt) are left out, they will be set to "none" for the target(s) of this
+ *   override. If dueAt is omitted, the target(s) will have no deadline. If
+ *   unlockAt is omitted, the target(s) will immediately be able to see the
+ *   assignment (even if everyone else has to wait until the unlockAt date). If
+ *   lockAt is omitted, the target(s) will be able to submit at any
+ *   time in the future (even if everyone else can't submit because their lock
+ *   date has passed). In short, it is not recommended to omit dates that are
+ *   defined in the assignment.
  * @author Gabriel Abrams
  * @method createOverride
  * @memberof api.course.assignment
@@ -762,12 +771,15 @@ Assignment.getOverride.requiredParams = ['courseId', 'assignmentId'];
  *   studentIds, groupId, or sectionId must be included)
  * @param {string} [options.title=Override for X students] - Title of the
  *   override
- * @param {date} [options.dueAt=current value] - New due date or null to remove
- *   due date
- * @param {date} [options.unlockAt=current value] - New unlock date or null to
- *   remove unlock date
- * @param {date} [options.lockAt=current value] - New lock date or null to
- *   remove lock date
+ * @param {date} [options.dueAt=no due date] - New due date. If excluded, the
+ *   target(s) of this override have no due date (they can submit whenever they
+ *   want without being marked as late)
+ * @param {date} [options.unlockAt=no unlock date] - New unlock date. If
+ *   excluded, the target(s) of this override can immediately see the assignment
+ *   (their unlock date is the beginning of time)
+ * @param {date} [options.lockAt=no lock date] - New lock date. If excluded,
+ *   the target(s) of this override can see and submit the assignment at
+ *   any point in the future (their lock date is the end of time)
  * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.createOverride = function (options) {
@@ -775,6 +787,21 @@ Assignment.createOverride = function (options) {
   if (!title) {
     title = `Override for ${options.studentIds.length} student${utils.sIfPlural(options.studentIds.length)}`;
   }
+
+  // Pre-process dates
+  let dueAt = utils.includeIfDate(options.dueAt);
+  if (!dueAt || dueAt === EXCLUDED_PARAM) {
+    dueAt = null;
+  }
+  let unlockAt = utils.includeIfDate(options.unlockAt);
+  if (!unlockAt || unlockAt === EXCLUDED_PARAM) {
+    unlockAt = null;
+  }
+  let lockAt = utils.includeIfDate(options.lockAt);
+  if (!lockAt || lockAt === EXCLUDED_PARAM) {
+    lockAt = null;
+  }
+
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides`,
     method: 'POST',
@@ -786,12 +813,9 @@ Assignment.createOverride = function (options) {
         utils.includeIfTruthy(options.groupId),
       'assignment_override[course_section_id]':
         utils.includeIfTruthy(options.sectionId),
-      'assignment_override[due_at]':
-        utils.includeIfDate(options.dueAt),
-      'assignment_override[unlock_at]':
-        utils.includeIfDate(options.unlockAt),
-      'assignment_override[lock_at]':
-        utils.includeIfDate(options.lockAt),
+      'assignment_override[due_at]': dueAt,
+      'assignment_override[unlock_at]': unlockAt,
+      'assignment_override[lock_at]': lockAt,
     },
   })
     .then((response) => {
@@ -809,7 +833,13 @@ Assignment.createOverride.requiredParams = [
 
 /**
  * Update an assignment override. Note: target can only be updated if the
- *   override is a student override
+ *   override is a student override (if this is a group or section override,
+ *   the target remains unchanged).
+ *   Also, note that if any dates (dueAt, unlockAt, or lockAt) are omitted,
+ *   their previous override values will be changed to "none." For instance,
+ *   if the previous override has a dueAt and the update does not, the updated
+ *   override will have no dueAt date (the target(s) of the override will have
+ *   no deadline).
  * @author Gabriel Abrams
  * @method updateOverride
  * @memberof api.course.assignment
@@ -822,28 +852,42 @@ Assignment.createOverride.requiredParams = [
  *   (Note: either studentIds, groupId, or sectionId must be included)
  * @param {string} [options.title=current value] - New title of the
  *   override
- * @param {date} [options.dueAt=current value] - New due date or null to remove
- *   due date
- * @param {date} [options.unlockAt=current value] - New unlock date or null to
- *   remove unlock date
- * @param {date} [options.lockAt=current value] - New lock date or null to
- *   remove lock date
+ * @param {date} [options.dueAt=no due date] - New due date. If excluded, the
+ *   target(s) of this override have no due date (they can submit whenever they
+ *   want without being marked as late)
+ * @param {date} [options.unlockAt=no unlock date] - New unlock date. If
+ *   excluded, the target(s) of this override can immediately see the assignment
+ *   (their unlock date is the beginning of time)
+ * @param {date} [options.lockAt=no lock date] - New lock date. If excluded,
+ *   the target(s) of this override can see and submit the assignment at
+ *   any point in the future (their lock date is the end of time)
  * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.updateOverride = function (options) {
+  // Pre-process dates
+  let dueAt = utils.includeIfDate(options.dueAt);
+  if (!dueAt || dueAt === EXCLUDED_PARAM) {
+    dueAt = null;
+  }
+  let unlockAt = utils.includeIfDate(options.unlockAt);
+  if (!unlockAt || unlockAt === EXCLUDED_PARAM) {
+    unlockAt = null;
+  }
+  let lockAt = utils.includeIfDate(options.lockAt);
+  if (!lockAt || lockAt === EXCLUDED_PARAM) {
+    lockAt = null;
+  }
+
   return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides`,
+    path: `${prefix.v1}/courses/${options.courseId}/assignments/${options.assignmentId}/overrides/${options.overrideId}`,
     method: 'PUT',
     params: {
       'assignment_override[title]': utils.includeIfTruthy(options.title),
       'assignment_override[student_ids]':
         utils.includeIfTruthy(options.studentIds),
-      'assignment_override[due_at]':
-        utils.includeIfDate(options.dueAt),
-      'assignment_override[unlock_at]':
-        utils.includeIfDate(options.unlockAt),
-      'assignment_override[lock_at]':
-        utils.includeIfDate(options.lockAt),
+      'assignment_override[due_at]': dueAt,
+      'assignment_override[unlock_at]': unlockAt,
+      'assignment_override[lock_at]': lockAt,
     },
   })
     .then((response) => {
