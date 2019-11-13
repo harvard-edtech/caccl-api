@@ -142,21 +142,24 @@ App.remove.requiredParams = ['courseId', 'appId'];
 
 /**
  * Gets the metadata for an LTI app in a course. Note: this endpoint requires
- *   that the app have a custom parameter called 'metadataId' with an identifier
- *   that we will use to refer to the metadata. If each installation of an app
- *   will have its own metadata, each installation should have a different
- *   metadataId. If all installations share the same metadata, they should all
- *   have the same metadataId. When getting metadata, we return the metadata
- *   for the first app we find that has this metadataId
+ *   that the app have a custom parameter called 'metadata_id' with an
+ *   identifier that we will use to refer to the metadata. If each installation
+ *   of an app will have its own metadata, each installation should have a
+ *   different metadata_id. If all installations share the same metadata, they
+ *   should all have the same metadata_id. When getting metadata, we return the
+ *   metadata for the first app we find that has this metadata_id.
+ *   Also note that the variable is 'metadata_id' all lowercase because launch
+ *   params are made lowercase.
  * @author Gabriel Abrams
  * @memberof api.course.app
  * @instance
  * @method getMetadata
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id that holds the app
- * @param {number} options.metadataId - metadata identifier (see endpoint
+ * @param {number} options.metadata_id - metadata identifier (see endpoint
  *   description)
- * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
+ * @return {Promise.<Object>} the metadata for the first app that has the given
+ *   metadata_id
  */
 App.getMetadata = function (options) {
   // Get the list of apps
@@ -164,13 +167,13 @@ App.getMetadata = function (options) {
     courseId: options.courseId,
   })
     .then((apps) => {
-      // Find the first app that has this metadataId
+      // Find the first app that has this metadata_id
       let firstAppWithMetadataId;
       for (let i = 0; i < apps.length; i++) {
         if (
           apps[i].custom_fields
-          && apps[i].custom_fields.metadataId
-          && apps[i].custom_fields.metadataId === options.metadataId
+          && apps[i].custom_fields.metadata_id
+          && apps[i].custom_fields.metadata_id === options.metadata_id
         ) {
           // Found an app with this metadata id!
           firstAppWithMetadataId = apps[i];
@@ -178,7 +181,7 @@ App.getMetadata = function (options) {
         }
       }
       if (!firstAppWithMetadataId) {
-        // No apps with this metadataId could be found! Throw arror
+        // No apps with this metadata_id could be found! Throw arror
         throw new CACCLError({
           message: 'We could not find any apps with the given metadata id.',
           code: errorCodes.noAppWithMetadataFound,
@@ -211,23 +214,25 @@ App.getMetadata = function (options) {
     });
 };
 App.getMetadata.action = 'get metadata for an LTI app in a course';
-App.getMetadata.requiredParams = ['courseId', 'metadataId'];
+App.getMetadata.requiredParams = ['courseId', 'metadata_id'];
 
 /**
  * Updates the metadata for an LTI app in a course. Note: this endpoint requires
- *   that the app have a custom parameter called 'metadataId' with an identifier
- *   that we will use to refer to the metadata. If each installation of an app
- *   will have its own metadata, each installation should have a different
- *   metadataId. If all installations share the same metadata, they should all
- *   have the same metadataId. When updating metadata, we update the metadata
- *   for all apps with the given metadataId
+ *   that the app have a custom parameter called 'metadata_id' with an
+ *   identifier that we will use to refer to the metadata. If each installation
+ *   of an app will have its own metadata, each installation should have a
+ *   different metadata_id. If all installations share the same metadata, they
+ *   should all have the same metadata_id. When getting metadata, we return the
+ *   metadata for the first app we find that has this metadata_id.
+ *   Also note that the variable is 'metadata_id' all lowercase because launch
+ *   params are made lowercase.
  * @author Gabriel Abrams
  * @memberof api.course.app
  * @instance
  * @method updateMetadata
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id that holds the app
- * @param {number} options.metadataId - metadata identifier (see endpoint
+ * @param {number} options.metadata_id - metadata identifier (see endpoint
  *   description)
  * @param {object} [options.metadata={}] - json metadata object
  * @return {Promise.<Object[]>} Array of external tools (the apps that were updated) {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
@@ -242,16 +247,16 @@ App.updateMetadata = function (options) {
     courseId: options.courseId,
   })
     .then((apps) => {
-      // Find all apps with this metadataId
+      // Find all apps with this metadata_id
       appsToUpdate = apps.filter((app) => {
         return (
           app.custom_fields
-          && app.custom_fields.metadataId
-          && app.custom_fields.metadataId === options.metadataId
+          && app.custom_fields.metadata_id
+          && app.custom_fields.metadata_id === options.metadata_id
         );
       });
       if (appsToUpdate.length === 0) {
-        // No apps with this metadataId could be found! Throw arror
+        // No apps with this metadata_id could be found! Throw arror
         throw new CACCLError({
           message: 'We could not find any apps with the given metadata id.',
           code: errorCodes.noAppsToUpdateMetadata,
@@ -284,7 +289,7 @@ App.updateMetadata = function (options) {
     });
 };
 App.updateMetadata.action = 'get metadata for an LTI app in a course';
-App.updateMetadata.requiredParams = ['courseId', 'metadataId'];
+App.updateMetadata.requiredParams = ['courseId', 'metadata_id'];
 
 
 /*------------------------------------------------------------------------*/

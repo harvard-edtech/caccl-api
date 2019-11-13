@@ -186,11 +186,15 @@ window.lunrData = {
           "getmetadata",
           "identifi",
           "instal",
+          "launch",
+          "lowercas",
           "lti",
+          "made",
           "metadata",
-          "metadataid",
+          "metadata_id",
           "note",
           "option",
+          "param",
           "paramet",
           "promise.&lt;object&gt",
           "refer",
@@ -198,7 +202,8 @@ window.lunrData = {
           "return",
           "same",
           "share",
-          "us"
+          "us",
+          "variabl"
         ],
         "api.course.app.html#updateMetadata": [
           "api.course.app#updatemetadata",
@@ -211,24 +216,32 @@ window.lunrData = {
           "differ",
           "each",
           "endpoint",
+          "find",
+          "first",
           "function",
-          "given",
+          "get",
           "identifi",
           "instal",
+          "launch",
+          "lowercas",
           "lti",
+          "made",
           "metadata",
-          "metadataid",
+          "metadata_id",
           "note",
           "option",
+          "param",
           "paramet",
           "promise.&lt;array.&lt;object&gt;&gt",
           "refer",
           "requir",
+          "return",
           "same",
           "share",
           "updat",
           "updatemetadata",
-          "us"
+          "us",
+          "variabl"
         ],
         "api.course.app.html#getNavLaunchURL": [
           "api.course.app#getnavlaunchurl",
@@ -4373,11 +4386,11 @@ window.lunrData = {
                 },
                 "api.course.app.html#getMetadata": {
                   "ref": "api.course.app.html#getMetadata",
-                  "tf": 5.128205128205128
+                  "tf": 4.25531914893617
                 },
                 "api.course.app.html#updateMetadata": {
                   "ref": "api.course.app.html#updateMetadata",
-                  "tf": 5.263157894736842
+                  "tf": 4.25531914893617
                 }
               },
               "#": {
@@ -5594,11 +5607,11 @@ window.lunrData = {
                 "docs": {
                   "api.course.app.html#getMetadata": {
                     "ref": "api.course.app.html#getMetadata",
-                    "tf": 1.282051282051282
+                    "tf": 1.0638297872340425
                   },
                   "api.course.app.html#updateMetadata": {
                     "ref": "api.course.app.html#updateMetadata",
-                    "tf": 1.3157894736842104
+                    "tf": 1.0638297872340425
                   },
                   "api.other.html": {
                     "ref": "api.other.html",
@@ -5715,11 +5728,11 @@ window.lunrData = {
                     },
                     "api.course.app.html#getMetadata": {
                       "ref": "api.course.app.html#getMetadata",
-                      "tf": 1.282051282051282
+                      "tf": 1.0638297872340425
                     },
                     "api.course.app.html#updateMetadata": {
                       "ref": "api.course.app.html#updateMetadata",
-                      "tf": 1.3157894736842104
+                      "tf": 1.0638297872340425
                     },
                     "api.course.assignment.html": {
                       "ref": "api.course.assignment.html",
@@ -8523,11 +8536,11 @@ window.lunrData = {
                     "docs": {
                       "api.course.app.html#getMetadata": {
                         "ref": "api.course.app.html#getMetadata",
-                        "tf": 1.282051282051282
+                        "tf": 1.0638297872340425
                       },
                       "api.course.app.html#updateMetadata": {
                         "ref": "api.course.app.html#updateMetadata",
-                        "tf": 1.3157894736842104
+                        "tf": 1.0638297872340425
                       },
                       "api.course.gradebookColumn.html#list": {
                         "ref": "api.course.gradebookColumn.html#list",
@@ -9338,11 +9351,11 @@ window.lunrData = {
                     "docs": {
                       "api.course.app.html#getMetadata": {
                         "ref": "api.course.app.html#getMetadata",
-                        "tf": 1.282051282051282
+                        "tf": 1.0638297872340425
                       },
                       "api.course.app.html#updateMetadata": {
                         "ref": "api.course.app.html#updateMetadata",
-                        "tf": 1.3157894736842104
+                        "tf": 1.0638297872340425
                       }
                     }
                   }
@@ -9459,11 +9472,11 @@ window.lunrData = {
                           },
                           "api.course.app.html#getMetadata": {
                             "ref": "api.course.app.html#getMetadata",
-                            "tf": 1.282051282051282
+                            "tf": 1.0638297872340425
                           },
                           "api.course.app.html#updateMetadata": {
                             "ref": "api.course.app.html#updateMetadata",
-                            "tf": 1.3157894736842104
+                            "tf": 1.0638297872340425
                           },
                           "api.course.gradebookColumn.html#get": {
                             "ref": "api.course.gradebookColumn.html#get",
@@ -9632,11 +9645,11 @@ window.lunrData = {
                 "docs": {
                   "api.course.app.html#getMetadata": {
                     "ref": "api.course.app.html#getMetadata",
-                    "tf": 2.564102564102564
+                    "tf": 2.127659574468085
                   },
                   "api.course.app.html#updateMetadata": {
                     "ref": "api.course.app.html#updateMetadata",
-                    "tf": 2.631578947368421
+                    "tf": 2.127659574468085
                   }
                 }
               }
@@ -9911,11 +9924,11 @@ window.lunrData = {
                       },
                       "api.course.app.html#getMetadata": {
                         "ref": "api.course.app.html#getMetadata",
-                        "tf": 3.8461538461538463
+                        "tf": 3.1914893617021276
                       },
                       "api.course.app.html#updateMetadata": {
                         "ref": "api.course.app.html#updateMetadata",
-                        "tf": 3.9473684210526314
+                        "tf": 3.1914893617021276
                       }
                     }
                   },
@@ -9950,11 +9963,11 @@ window.lunrData = {
                         "docs": {
                           "api.course.app.html#getMetadata": {
                             "ref": "api.course.app.html#getMetadata",
-                            "tf": 1.282051282051282
+                            "tf": 1.0638297872340425
                           },
                           "api.course.app.html#updateMetadata": {
                             "ref": "api.course.app.html#updateMetadata",
-                            "tf": 1.3157894736842104
+                            "tf": 1.0638297872340425
                           }
                         }
                       }
@@ -10053,11 +10066,11 @@ window.lunrData = {
                   "docs": {
                     "api.course.app.html#getMetadata": {
                       "ref": "api.course.app.html#getMetadata",
-                      "tf": 1.282051282051282
+                      "tf": 1.0638297872340425
                     },
                     "api.course.app.html#updateMetadata": {
                       "ref": "api.course.app.html#updateMetadata",
-                      "tf": 1.3157894736842104
+                      "tf": 1.0638297872340425
                     }
                   }
                 }
@@ -10073,11 +10086,11 @@ window.lunrData = {
                     "docs": {
                       "api.course.app.html#getMetadata": {
                         "ref": "api.course.app.html#getMetadata",
-                        "tf": 1.282051282051282
+                        "tf": 1.0638297872340425
                       },
                       "api.course.app.html#updateMetadata": {
                         "ref": "api.course.app.html#updateMetadata",
-                        "tf": 1.3157894736842104
+                        "tf": 1.0638297872340425
                       }
                     }
                   }
@@ -10094,7 +10107,11 @@ window.lunrData = {
                     "docs": {
                       "api.course.app.html#getMetadata": {
                         "ref": "api.course.app.html#getMetadata",
-                        "tf": 1.282051282051282
+                        "tf": 1.0638297872340425
+                      },
+                      "api.course.app.html#updateMetadata": {
+                        "ref": "api.course.app.html#updateMetadata",
+                        "tf": 1.0638297872340425
                       },
                       "api.course.gradebookColumn.html#get": {
                         "ref": "api.course.gradebookColumn.html#get",
@@ -10769,11 +10786,11 @@ window.lunrData = {
                 "docs": {
                   "api.course.app.html#getMetadata": {
                     "ref": "api.course.app.html#getMetadata",
-                    "tf": 2.564102564102564
+                    "tf": 2.127659574468085
                   },
                   "api.course.app.html#updateMetadata": {
                     "ref": "api.course.app.html#updateMetadata",
-                    "tf": 2.631578947368421
+                    "tf": 2.127659574468085
                   }
                 }
               }
@@ -10789,11 +10806,11 @@ window.lunrData = {
                   "docs": {
                     "api.course.app.html#getMetadata": {
                       "ref": "api.course.app.html#getMetadata",
-                      "tf": 1.282051282051282
+                      "tf": 1.0638297872340425
                     },
                     "api.course.app.html#updateMetadata": {
                       "ref": "api.course.app.html#updateMetadata",
-                      "tf": 1.3157894736842104
+                      "tf": 1.0638297872340425
                     }
                   }
                 }
@@ -11021,7 +11038,11 @@ window.lunrData = {
                 },
                 "api.course.app.html#getMetadata": {
                   "ref": "api.course.app.html#getMetadata",
-                  "tf": 2.564102564102564
+                  "tf": 2.127659574468085
+                },
+                "api.course.app.html#updateMetadata": {
+                  "ref": "api.course.app.html#updateMetadata",
+                  "tf": 1.0638297872340425
                 },
                 "api.course.app.html#getNavLaunchURL": {
                   "ref": "api.course.app.html#getNavLaunchURL",
@@ -11402,23 +11423,6 @@ window.lunrData = {
                           }
                         }
                       }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "i": {
-            "docs": {},
-            "v": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "n": {
-                  "docs": {
-                    "api.course.app.html#updateMetadata": {
-                      "ref": "api.course.app.html#updateMetadata",
-                      "tf": 1.3157894736842104
                     }
                   }
                 }
@@ -12767,11 +12771,11 @@ window.lunrData = {
                 },
                 "api.course.app.html#getMetadata": {
                   "ref": "api.course.app.html#getMetadata",
-                  "tf": 1.282051282051282
+                  "tf": 1.0638297872340425
                 },
                 "api.course.app.html#updateMetadata": {
                   "ref": "api.course.app.html#updateMetadata",
-                  "tf": 1.3157894736842104
+                  "tf": 1.0638297872340425
                 },
                 "api.course.app.html#getNavLaunchURL": {
                   "ref": "api.course.app.html#getNavLaunchURL",
@@ -12794,6 +12798,14 @@ window.lunrData = {
                   "docs": {},
                   "h": {
                     "docs": {
+                      "api.course.app.html#getMetadata": {
+                        "ref": "api.course.app.html#getMetadata",
+                        "tf": 1.0638297872340425
+                      },
+                      "api.course.app.html#updateMetadata": {
+                        "ref": "api.course.app.html#updateMetadata",
+                        "tf": 1.0638297872340425
+                      },
                       "api.course.app.html#getNavLaunchURL": {
                         "ref": "api.course.app.html#getNavLaunchURL",
                         "tf": 8.333333333333332
@@ -12810,6 +12822,33 @@ window.lunrData = {
           },
           "o": {
             "docs": {},
+            "w": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {},
+                  "c": {
+                    "docs": {},
+                    "a": {
+                      "docs": {},
+                      "s": {
+                        "docs": {
+                          "api.course.app.html#getMetadata": {
+                            "ref": "api.course.app.html#getMetadata",
+                            "tf": 2.127659574468085
+                          },
+                          "api.course.app.html#updateMetadata": {
+                            "ref": "api.course.app.html#updateMetadata",
+                            "tf": 2.127659574468085
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "c": {
               "docs": {},
               "k": {
@@ -13856,7 +13895,11 @@ window.lunrData = {
                 "docs": {
                   "api.course.app.html#getMetadata": {
                     "ref": "api.course.app.html#getMetadata",
-                    "tf": 1.282051282051282
+                    "tf": 1.0638297872340425
+                  },
+                  "api.course.app.html#updateMetadata": {
+                    "ref": "api.course.app.html#updateMetadata",
+                    "tf": 1.0638297872340425
                   }
                 }
               }
@@ -13869,7 +13912,11 @@ window.lunrData = {
                   "docs": {
                     "api.course.app.html#getMetadata": {
                       "ref": "api.course.app.html#getMetadata",
-                      "tf": 1.282051282051282
+                      "tf": 1.0638297872340425
+                    },
+                    "api.course.app.html#updateMetadata": {
+                      "ref": "api.course.app.html#updateMetadata",
+                      "tf": 1.0638297872340425
                     }
                   }
                 }
@@ -14445,6 +14492,14 @@ window.lunrData = {
                 "docs": {},
                 "m": {
                   "docs": {
+                    "api.course.app.html#getMetadata": {
+                      "ref": "api.course.app.html#getMetadata",
+                      "tf": 1.0638297872340425
+                    },
+                    "api.course.app.html#updateMetadata": {
+                      "ref": "api.course.app.html#updateMetadata",
+                      "tf": 1.0638297872340425
+                    },
                     "api.other.html#endpoint": {
                       "ref": "api.other.html#endpoint",
                       "tf": 20
@@ -14456,11 +14511,11 @@ window.lunrData = {
                       "docs": {
                         "api.course.app.html#getMetadata": {
                           "ref": "api.course.app.html#getMetadata",
-                          "tf": 1.282051282051282
+                          "tf": 1.0638297872340425
                         },
                         "api.course.app.html#updateMetadata": {
                           "ref": "api.course.app.html#updateMetadata",
-                          "tf": 1.3157894736842104
+                          "tf": 1.0638297872340425
                         }
                       }
                     }
@@ -14819,6 +14874,24 @@ window.lunrData = {
         },
         "m": {
           "docs": {},
+          "a": {
+            "docs": {},
+            "d": {
+              "docs": {},
+              "e": {
+                "docs": {
+                  "api.course.app.html#getMetadata": {
+                    "ref": "api.course.app.html#getMetadata",
+                    "tf": 1.0638297872340425
+                  },
+                  "api.course.app.html#updateMetadata": {
+                    "ref": "api.course.app.html#updateMetadata",
+                    "tf": 1.0638297872340425
+                  }
+                }
+              }
+            }
+          },
           "e": {
             "docs": {},
             "t": {
@@ -14835,24 +14908,27 @@ window.lunrData = {
                         "docs": {
                           "api.course.app.html#getMetadata": {
                             "ref": "api.course.app.html#getMetadata",
-                            "tf": 7.6923076923076925
+                            "tf": 6.382978723404255
                           },
                           "api.course.app.html#updateMetadata": {
                             "ref": "api.course.app.html#updateMetadata",
-                            "tf": 7.894736842105263
+                            "tf": 6.382978723404255
                           }
                         },
-                        "i": {
+                        "_": {
                           "docs": {},
-                          "d": {
-                            "docs": {
-                              "api.course.app.html#getMetadata": {
-                                "ref": "api.course.app.html#getMetadata",
-                                "tf": 5.128205128205128
-                              },
-                              "api.course.app.html#updateMetadata": {
-                                "ref": "api.course.app.html#updateMetadata",
-                                "tf": 5.263157894736842
+                          "i": {
+                            "docs": {},
+                            "d": {
+                              "docs": {
+                                "api.course.app.html#getMetadata": {
+                                  "ref": "api.course.app.html#getMetadata",
+                                  "tf": 5.319148936170213
+                                },
+                                "api.course.app.html#updateMetadata": {
+                                  "ref": "api.course.app.html#updateMetadata",
+                                  "tf": 5.319148936170213
+                                }
                               }
                             }
                           }
@@ -14933,11 +15009,11 @@ window.lunrData = {
                 "docs": {
                   "api.course.app.html#getMetadata": {
                     "ref": "api.course.app.html#getMetadata",
-                    "tf": 1.282051282051282
+                    "tf": 2.127659574468085
                   },
                   "api.course.app.html#updateMetadata": {
                     "ref": "api.course.app.html#updateMetadata",
-                    "tf": 1.3157894736842104
+                    "tf": 2.127659574468085
                   },
                   "api.course.assignment.html#createOverride": {
                     "ref": "api.course.assignment.html#createOverride",
@@ -15041,11 +15117,11 @@ window.lunrData = {
             "docs": {
               "api.course.app.html#getMetadata": {
                 "ref": "api.course.app.html#getMetadata",
-                "tf": 1.282051282051282
+                "tf": 1.0638297872340425
               },
               "api.course.app.html#updateMetadata": {
                 "ref": "api.course.app.html#updateMetadata",
-                "tf": 1.3157894736842104
+                "tf": 1.0638297872340425
               }
             },
             "e": {
@@ -15193,7 +15269,7 @@ window.lunrData = {
                   "docs": {
                     "api.course.app.html#updateMetadata": {
                       "ref": "api.course.app.html#updateMetadata",
-                      "tf": 3.9473684210526314
+                      "tf": 1.0638297872340425
                     },
                     "api.course.assignment.html#update": {
                       "ref": "api.course.assignment.html#update",
@@ -15487,6 +15563,30 @@ window.lunrData = {
           "docs": {},
           "a": {
             "docs": {},
+            "r": {
+              "docs": {},
+              "i": {
+                "docs": {},
+                "a": {
+                  "docs": {},
+                  "b": {
+                    "docs": {},
+                    "l": {
+                      "docs": {
+                        "api.course.app.html#getMetadata": {
+                          "ref": "api.course.app.html#getMetadata",
+                          "tf": 1.0638297872340425
+                        },
+                        "api.course.app.html#updateMetadata": {
+                          "ref": "api.course.app.html#updateMetadata",
+                          "tf": 1.0638297872340425
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "l": {
               "docs": {},
               "u": {
@@ -16037,7 +16137,7 @@ window.lunrData = {
           }
         }
       },
-      "length": 1270
+      "length": 1283
     },
     "corpusTokens": [
       "account",
@@ -16358,7 +16458,6 @@ window.lunrData = {
       "getprofil",
       "getsubmiss",
       "getus",
-      "given",
       "global",
       "grade",
       "gradeabl",
@@ -16421,10 +16520,12 @@ window.lunrData = {
       "listus",
       "lock",
       "lockat",
+      "lowercas",
       "lti",
+      "made",
       "member",
       "metadata",
-      "metadataid",
+      "metadata_id",
       "method",
       "multipl",
       "navig",
@@ -16528,6 +16629,7 @@ window.lunrData = {
       "user.self#getprofil",
       "user.self#listcours",
       "valu",
+      "variabl",
       "wait",
       "within",
       "you'd"
@@ -16672,7 +16774,7 @@ window.lunrData = {
       "name": "getMetadata",
       "tags": "api.course.app#getMetadata course.app#getMetadata app#getMetadata getMetadata",
       "summary": "",
-      "description": "Gets the metadata for an LTI app in a course. Note: this endpoint requires that the app have a custom parameter called 'metadataId' with an identifier that we will use to refer to the metadata. If each installation of an app will have its own metadata, each installation should have a different metadataId. If all installations share the same metadata, they should all have the same metadataId. When getting metadata, we return the metadata for the first app we find that has this metadataId"
+      "description": "Gets the metadata for an LTI app in a course. Note: this endpoint requires that the app have a custom parameter called 'metadata_id' with an identifier that we will use to refer to the metadata. If each installation of an app will have its own metadata, each installation should have a different metadata_id. If all installations share the same metadata, they should all have the same metadata_id. When getting metadata, we return the metadata for the first app we find that has this metadata_id. Also note that the variable is 'metadata_id' all lowercase because launch params are made lowercase."
     },
     "api.course.app.html#updateMetadata": {
       "id": "api.course.app.html#updateMetadata",
@@ -16682,7 +16784,7 @@ window.lunrData = {
       "name": "updateMetadata",
       "tags": "api.course.app#updateMetadata course.app#updateMetadata app#updateMetadata updateMetadata",
       "summary": "",
-      "description": "Updates the metadata for an LTI app in a course. Note: this endpoint requires that the app have a custom parameter called 'metadataId' with an identifier that we will use to refer to the metadata. If each installation of an app will have its own metadata, each installation should have a different metadataId. If all installations share the same metadata, they should all have the same metadataId. When updating metadata, we update the metadata for all apps with the given metadataId"
+      "description": "Updates the metadata for an LTI app in a course. Note: this endpoint requires that the app have a custom parameter called 'metadata_id' with an identifier that we will use to refer to the metadata. If each installation of an app will have its own metadata, each installation should have a different metadata_id. If all installations share the same metadata, they should all have the same metadata_id. When getting metadata, we return the metadata for the first app we find that has this metadata_id. Also note that the variable is 'metadata_id' all lowercase because launch params are made lowercase."
     },
     "api.course.app.html#getNavLaunchURL": {
       "id": "api.course.app.html#getNavLaunchURL",
