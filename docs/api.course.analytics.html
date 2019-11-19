@@ -1,10 +1,9 @@
-<!-- start:source.tmpl.hbs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>User/Self.js</title>
+		<title>.course.analytics</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -14,7 +13,7 @@
 		<link type="text/css" rel="stylesheet" href="css/template.min.css">
 		<script type="text/javascript">
 			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
-			window.DOCLET_TOC_ENABLED = false;
+			window.DOCLET_TOC_ENABLED = true;
 			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
 </head>
@@ -73,81 +72,64 @@
 	</header>
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
-				<span class="kind">source</span>
-				<h1><span class="name">User/Self.js</span></h1>
+				<span class="kind">class</span>
+				<h1><span class="ancestors"><a href="api.course.html">.course</a>.</span><span class="name">analytics</span></h1>
 			</div>
 		</div>
 	<div class="container content">
 		<div class="row">
-			<div class="col-md-12 main-content">
-		<section class="source-section">
-			<article></article>
-			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
- * Functions for getting info on current user
- * @class api.user.self
- */
-
-const EndpointCategory = require('../../../classes/EndpointCategory');
-const prefix = require('../../common/prefix');
-const utils = require('../../common/utils');
-
-class Self extends EndpointCategory {
-  constructor(config) {
-    super(config, Self);
-  }
-}
-
-/*------------------------------------------------------------------------*/
-/*                             Self Endpoints                             */
-/*------------------------------------------------------------------------*/
-
-/**
- * Gets info on the current user
- * @author Gabriel Abrams
- * @method getProfile
- * @memberof api.user.self
- * @instance
- * @return {Promise.&lt;Object>} Canvas user object {@link https://canvas.instructure.com/doc/api/users.html#User}
- */
-Self.getProfile = function () {
-  return this.visitEndpoint({
-    path: `${prefix.v1}/users/self/profile`,
-    method: 'GET',
-  });
-};
-Self.getProfile.action = 'get info on the current user';
-
-/**
- * Gets the list of courses associated with the current user
- * @author Gabriel Abrams
- * @method listCourses
- * @memberof api.user.self
- * @instance
- * @param {object} options - object containing all arguments
- * @param {boolean} [options.includeTerm] - if truthy, term is included
- * @return {Promise.&lt;Object>} Canvas course object {@link https://canvas.instructure.com/doc/api/courses.html#Course}
- */
-Self.listCourses = function (options) {
-  return this.visitEndpoint({
-    path: `${prefix.v1}/courses`,
-    method: 'GET',
-    params: {
-      include: utils.genIncludesList({
-        term: options.includeTerm,
-      }),
-    },
-  });
-};
-Self.listCourses.action = 'get the list of courses associated with the current user';
-
-/*------------------------------------------------------------------------*/
-/*                                 Export                                 */
-/*------------------------------------------------------------------------*/
-
-module.exports = Self;
-</code></pre>
-		</section>
+			<div class="col-md-9 main-content">
+						<ol class="breadcrumb">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="list_class.html">Endpoints</a></li>
+							<li class="active"><a href="api.course.html">.course</a>.analytics</li>
+						</ol>
+					<section>
+							<dl class="symbol primary">
+								<dt class="symbol-title class collapsible-symbol expanded">
+			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">analytics</span><span class="signature-params">()</span><span class="signature-type"></span></h2>
+</dt>
+<dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
+	<div class="symbol-details-inner">
+			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Functions for getting course analytics</div>
+			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+							<!-- source -->
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Source</label>
+								<div class="col-sm-9">
+									<p class="form-control-static"><a href="Course_Analytics.js.html">Course/Analytics.js</a>, <a href="Course_Analytics.js.html#line-1">line 1</a></p>
+								</div>
+							</div>
+			
+			
+			
+			
+					</form>
+			</div>	</div>
+</dd>
+							</dl>
+							<article class="secondary">
+							</article>
+					</section>
 			</div>
+				<div class="col-md-3 side-content">
+					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
+				</div>
 		</div>
 	</div>
 	<footer>
@@ -180,4 +162,3 @@ module.exports = Self;
 	
 </body>
 </html>
-<!-- end:source.tmpl.hbs -->

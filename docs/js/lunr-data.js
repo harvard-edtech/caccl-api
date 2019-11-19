@@ -104,6 +104,15 @@ window.lunrData = {
           "promise.&lt;object&gt",
           "specif"
         ],
+        "api.course.analytics.html": [
+          "analyt",
+          "api.course.analyt",
+          "class",
+          "cours",
+          "course.analyt",
+          "function",
+          "get"
+        ],
         "api.course.app.html": [
           "api.course.app",
           "app",
@@ -902,19 +911,6 @@ window.lunrData = {
           "promise.&lt;object&gt",
           "set"
         ],
-        "api.course.groupSet.html#listGroups": [
-          "api.course.groupset#listgroup",
-          "course.groupset#listgroup",
-          "function",
-          "get",
-          "group",
-          "groupset#listgroup",
-          "list",
-          "listgroup",
-          "option",
-          "promise.&lt;array.&lt;object&gt;&gt",
-          "set"
-        ],
         "api.course.groupSet.html#getGroup": [
           "alia",
           "api.course.groupset#getgroup",
@@ -956,6 +952,19 @@ window.lunrData = {
           "promise.&lt;object&gt",
           "set",
           "specif"
+        ],
+        "api.course.groupSet.html#listGroups": [
+          "api.course.groupset#listgroup",
+          "course.groupset#listgroup",
+          "function",
+          "get",
+          "group",
+          "groupset#listgroup",
+          "list",
+          "listgroup",
+          "option",
+          "promise.&lt;array.&lt;object&gt;&gt",
+          "set"
         ],
         "api.course.page.html": [
           "api.course.pag",
@@ -1545,7 +1554,7 @@ window.lunrData = {
           "user.self#listcours"
         ]
       },
-      "length": 111
+      "length": 112
     },
     "tokenStore": {
       "root": {
@@ -1770,6 +1779,26 @@ window.lunrData = {
                               "docs": {},
                               "a": {
                                 "docs": {},
+                                "n": {
+                                  "docs": {},
+                                  "a": {
+                                    "docs": {},
+                                    "l": {
+                                      "docs": {},
+                                      "y": {
+                                        "docs": {},
+                                        "t": {
+                                          "docs": {
+                                            "api.course.analytics.html": {
+                                              "ref": "api.course.analytics.html",
+                                              "tf": 1100
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
                                 "p": {
                                   "docs": {},
                                   "p": {
@@ -4692,6 +4721,64 @@ window.lunrData = {
               }
             }
           },
+          "n": {
+            "docs": {},
+            "a": {
+              "docs": {},
+              "l": {
+                "docs": {},
+                "y": {
+                  "docs": {},
+                  "t": {
+                    "docs": {
+                      "api.course.analytics.html": {
+                        "ref": "api.course.analytics.html",
+                        "tf": 612.5
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "d": {
+              "docs": {},
+              "/": {
+                "docs": {},
+                "o": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "api.course.assignment.html#updateGrade": {
+                        "ref": "api.course.assignment.html#updateGrade",
+                        "tf": 10
+                      },
+                      "api.course.assignment.html#updateGrades": {
+                        "ref": "api.course.assignment.html#updateGrades",
+                        "tf": 5.555555555555555
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "s": {
+              "docs": {},
+              "w": {
+                "docs": {},
+                "e": {
+                  "docs": {},
+                  "r": {
+                    "docs": {
+                      "api.course.quiz.html#createShortAnswerQuestion": {
+                        "ref": "api.course.quiz.html#createShortAnswerQuestion",
+                        "tf": 6.25
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "s": {
             "docs": {},
             "s": {
@@ -5422,47 +5509,6 @@ window.lunrData = {
               }
             }
           },
-          "n": {
-            "docs": {},
-            "d": {
-              "docs": {},
-              "/": {
-                "docs": {},
-                "o": {
-                  "docs": {},
-                  "r": {
-                    "docs": {
-                      "api.course.assignment.html#updateGrade": {
-                        "ref": "api.course.assignment.html#updateGrade",
-                        "tf": 10
-                      },
-                      "api.course.assignment.html#updateGrades": {
-                        "ref": "api.course.assignment.html#updateGrades",
-                        "tf": 5.555555555555555
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "s": {
-              "docs": {},
-              "w": {
-                "docs": {},
-                "e": {
-                  "docs": {},
-                  "r": {
-                    "docs": {
-                      "api.course.quiz.html#createShortAnswerQuestion": {
-                        "ref": "api.course.quiz.html#createShortAnswerQuestion",
-                        "tf": 6.25
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
           "l": {
             "docs": {},
             "i": {
@@ -5637,6 +5683,10 @@ window.lunrData = {
                       "ref": "api.account.html",
                       "tf": 110
                     },
+                    "api.course.analytics.html": {
+                      "ref": "api.course.analytics.html",
+                      "tf": 110
+                    },
                     "api.course.app.html": {
                       "ref": "api.course.app.html",
                       "tf": 110
@@ -5708,6 +5758,10 @@ window.lunrData = {
                   "docs": {
                     "api.account.html#get": {
                       "ref": "api.account.html#get",
+                      "tf": 12.5
+                    },
+                    "api.course.analytics.html": {
+                      "ref": "api.course.analytics.html",
                       "tf": 12.5
                     },
                     "api.course.app.html": {
@@ -5997,6 +6051,26 @@ window.lunrData = {
                       "docs": {},
                       "a": {
                         "docs": {},
+                        "n": {
+                          "docs": {},
+                          "a": {
+                            "docs": {},
+                            "l": {
+                              "docs": {},
+                              "y": {
+                                "docs": {},
+                                "t": {
+                                  "docs": {
+                                    "api.course.analytics.html": {
+                                      "ref": "api.course.analytics.html",
+                                      "tf": 200
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
                         "p": {
                           "docs": {},
                           "p": {
@@ -10360,10 +10434,6 @@ window.lunrData = {
                   "ref": "api.course.groupSet.html#delete",
                   "tf": 16.666666666666664
                 },
-                "api.course.groupSet.html#listGroups": {
-                  "ref": "api.course.groupSet.html#listGroups",
-                  "tf": 10
-                },
                 "api.course.groupSet.html#getGroup": {
                   "ref": "api.course.groupSet.html#getGroup",
                   "tf": 6.25
@@ -10374,6 +10444,10 @@ window.lunrData = {
                 },
                 "api.course.groupSet.html#deleteGroup": {
                   "ref": "api.course.groupSet.html#deleteGroup",
+                  "tf": 10
+                },
+                "api.course.groupSet.html#listGroups": {
+                  "ref": "api.course.groupSet.html#listGroups",
                   "tf": 10
                 },
                 "api.course.rubric.html#list": {
@@ -11028,6 +11102,10 @@ window.lunrData = {
                   "ref": "api.account.html#get",
                   "tf": 12.5
                 },
+                "api.course.analytics.html": {
+                  "ref": "api.course.analytics.html",
+                  "tf": 12.5
+                },
                 "api.course.app.html#list": {
                   "ref": "api.course.app.html#list",
                   "tf": 10
@@ -11092,13 +11170,13 @@ window.lunrData = {
                   "ref": "api.course.groupSet.html#get",
                   "tf": 10
                 },
-                "api.course.groupSet.html#listGroups": {
-                  "ref": "api.course.groupSet.html#listGroups",
-                  "tf": 10
-                },
                 "api.course.groupSet.html#getGroup": {
                   "ref": "api.course.groupSet.html#getGroup",
                   "tf": 6.25
+                },
+                "api.course.groupSet.html#listGroups": {
+                  "ref": "api.course.groupSet.html#listGroups",
+                  "tf": 10
                 },
                 "api.course.page.html#list": {
                   "ref": "api.course.page.html#list",
@@ -11749,10 +11827,6 @@ window.lunrData = {
                       "ref": "api.course.groupSet.html#delete",
                       "tf": 16.666666666666664
                     },
-                    "api.course.groupSet.html#listGroups": {
-                      "ref": "api.course.groupSet.html#listGroups",
-                      "tf": 20
-                    },
                     "api.course.groupSet.html#getGroup": {
                       "ref": "api.course.groupSet.html#getGroup",
                       "tf": 12.5
@@ -11763,6 +11837,10 @@ window.lunrData = {
                     },
                     "api.course.groupSet.html#deleteGroup": {
                       "ref": "api.course.groupSet.html#deleteGroup",
+                      "tf": 20
+                    },
+                    "api.course.groupSet.html#listGroups": {
+                      "ref": "api.course.groupSet.html#listGroups",
                       "tf": 20
                     }
                   },
@@ -13126,10 +13204,6 @@ window.lunrData = {
                         "ref": "api.course.groupSet.html#delete",
                         "tf": 33.33333333333333
                       },
-                      "api.course.groupSet.html#listGroups": {
-                        "ref": "api.course.groupSet.html#listGroups",
-                        "tf": 33.33333333333333
-                      },
                       "api.course.groupSet.html#getGroup": {
                         "ref": "api.course.groupSet.html#getGroup",
                         "tf": 33.33333333333333
@@ -13140,6 +13214,10 @@ window.lunrData = {
                       },
                       "api.course.groupSet.html#deleteGroup": {
                         "ref": "api.course.groupSet.html#deleteGroup",
+                        "tf": 33.33333333333333
+                      },
+                      "api.course.groupSet.html#listGroups": {
+                        "ref": "api.course.groupSet.html#listGroups",
                         "tf": 33.33333333333333
                       },
                       "api.course.page.html#list": {
@@ -13449,6 +13527,10 @@ window.lunrData = {
                             "ref": "api.account.html#get",
                             "tf": 110
                           },
+                          "api.course.analytics.html": {
+                            "ref": "api.course.analytics.html",
+                            "tf": 12.5
+                          },
                           "api.course.app.html": {
                             "ref": "api.course.app.html",
                             "tf": 7.142857142857142
@@ -13665,10 +13747,6 @@ window.lunrData = {
                             "ref": "api.course.groupSet.html#delete",
                             "tf": 110
                           },
-                          "api.course.groupSet.html#listGroups": {
-                            "ref": "api.course.groupSet.html#listGroups",
-                            "tf": 110
-                          },
                           "api.course.groupSet.html#getGroup": {
                             "ref": "api.course.groupSet.html#getGroup",
                             "tf": 110
@@ -13679,6 +13757,10 @@ window.lunrData = {
                           },
                           "api.course.groupSet.html#deleteGroup": {
                             "ref": "api.course.groupSet.html#deleteGroup",
+                            "tf": 110
+                          },
+                          "api.course.groupSet.html#listGroups": {
+                            "ref": "api.course.groupSet.html#listGroups",
                             "tf": 110
                           },
                           "api.course.page.html": {
@@ -16137,7 +16219,7 @@ window.lunrData = {
           }
         }
       },
-      "length": 1283
+      "length": 1290
     },
     "corpusTokens": [
       "account",
@@ -16149,6 +16231,7 @@ window.lunrData = {
       "add",
       "admin",
       "alia",
+      "analyt",
       "and/or",
       "answer",
       "api",
@@ -16169,6 +16252,7 @@ window.lunrData = {
       "api.course#listteachingteammemb",
       "api.course#listteachingteammemberenrol",
       "api.course#listus",
+      "api.course.analyt",
       "api.course.app",
       "api.course.app#add",
       "api.course.app#get",
@@ -16319,6 +16403,7 @@ window.lunrData = {
       "course#listteachingteammemb",
       "course#listteachingteammemberenrol",
       "course#listus",
+      "course.analyt",
       "course.app",
       "course.app#add",
       "course.app#get",
@@ -16714,6 +16799,17 @@ window.lunrData = {
       "tags": "api.account#get account#get get",
       "summary": "",
       "description": "Gets info on a specific course"
+    },
+    "api.course.analytics.html": {
+      "id": "api.course.analytics.html",
+      "kind": "class",
+      "title": ".course.analytics",
+      "longname": "api.course.analytics",
+      "name": "analytics",
+      "tags": "api.course.analytics course.analytics analytics",
+      "summary": "",
+      "description": "Functions for getting course analytics",
+      "body": ""
     },
     "api.course.app.html": {
       "id": "api.course.app.html",
@@ -17262,16 +17358,6 @@ window.lunrData = {
       "summary": "",
       "description": "Deletes a group set"
     },
-    "api.course.groupSet.html#listGroups": {
-      "id": "api.course.groupSet.html#listGroups",
-      "kind": "function",
-      "title": "listGroups( options ) → {Promise.&lt;Array.&lt;Object&gt;&gt;}",
-      "longname": "api.course.groupSet#listGroups",
-      "name": "listGroups",
-      "tags": "api.course.groupSet#listGroups course.groupSet#listGroups groupSet#listGroups listGroups",
-      "summary": "",
-      "description": "Gets the list of groups in a group set"
-    },
     "api.course.groupSet.html#getGroup": {
       "id": "api.course.groupSet.html#getGroup",
       "kind": "function",
@@ -17301,6 +17387,16 @@ window.lunrData = {
       "tags": "api.course.groupSet#deleteGroup course.groupSet#deleteGroup groupSet#deleteGroup deleteGroup",
       "summary": "",
       "description": "Deletes a specific group from a group set"
+    },
+    "api.course.groupSet.html#listGroups": {
+      "id": "api.course.groupSet.html#listGroups",
+      "kind": "function",
+      "title": "listGroups( options ) → {Promise.&lt;Array.&lt;Object&gt;&gt;}",
+      "longname": "api.course.groupSet#listGroups",
+      "name": "listGroups",
+      "tags": "api.course.groupSet#listGroups course.groupSet#listGroups groupSet#listGroups listGroups",
+      "summary": "",
+      "description": "Gets the list of groups in a group set"
     },
     "api.course.page.html": {
       "id": "api.course.page.html",

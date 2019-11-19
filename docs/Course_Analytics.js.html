@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>User/Self.js</title>
+		<title>Course/Analytics.js</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -74,7 +74,7 @@
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
 				<span class="kind">source</span>
-				<h1><span class="name">User/Self.js</span></h1>
+				<h1><span class="name">Course/Analytics.js</span></h1>
 			</div>
 		</div>
 	<div class="container content">
@@ -83,68 +83,158 @@
 		<section class="source-section">
 			<article></article>
 			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
- * Functions for getting info on current user
- * @class api.user.self
+ * Functions for getting course analytics
+ * @class api.course.analytics
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
-const utils = require('../../common/utils');
 
-class Self extends EndpointCategory {
+class Analytics extends EndpointCategory {
   constructor(config) {
-    super(config, Self);
+    super(config, Analytics);
   }
 }
 
 /*------------------------------------------------------------------------*/
-/*                             Self Endpoints                             */
+/*                               Endpoints:                               */
 /*------------------------------------------------------------------------*/
 
+/* --------------------- User Participation --------------------- */
+
 /**
- * Gets info on the current user
+ * Gets participation data for a student in a course
  * @author Gabriel Abrams
- * @method getProfile
- * @memberof api.user.self
+ * @memberof api.course.analytics.getStudentParticipationData
  * @instance
- * @return {Promise.&lt;Object>} Canvas user object {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @method getStudentParticipationData
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {number} options.studentId - the id of the student to get analytics on
+ * @return {Promise.&lt;Object>} participation data {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.student_in_course_participation}
  */
-Self.getProfile = function () {
+Analytics.getStudentParticipationData = function (options) {
   return this.visitEndpoint({
-    path: `${prefix.v1}/users/self/profile`,
+    path: `${prefix.v1}/courses/${options.courseId}/analytics/users/${options.studentId}/activity`,
     method: 'GET',
   });
 };
-Self.getProfile.action = 'get info on the current user';
+Analytics.getStudentParticipationData.action = 'get participation data for a student in a course';
+Analytics.getStudentParticipationData.requiredParams = ['courseId', 'studentId'];
+
+/* --------------------- User Messaging Info -------------------- */
 
 /**
- * Gets the list of courses associated with the current user
+ * Gets messaging data for a student in a course
  * @author Gabriel Abrams
- * @method listCourses
- * @memberof api.user.self
+ * @memberof api.course.analytics.getStudentMessagingData
  * @instance
+ * @method getStudentMessagingData
  * @param {object} options - object containing all arguments
- * @param {boolean} [options.includeTerm] - if truthy, term is included
- * @return {Promise.&lt;Object>} Canvas course object {@link https://canvas.instructure.com/doc/api/courses.html#Course}
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {number} options.studentId - the id of the student to get analytics on
+ * @return {Promise.&lt;Object>} message data {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.student_in_course_messaging}
  */
-Self.listCourses = function (options) {
+Analytics.getStudentMessagingData = function (options) {
   return this.visitEndpoint({
-    path: `${prefix.v1}/courses`,
+    path: `${prefix.v1}/courses/${options.courseId}/analytics/users/${options.studentId}/communication`,
+    method: 'GET',
+  });
+};
+Analytics.getStudentMessagingData.action = 'get messaging data for a student in a course';
+Analytics.getStudentMessagingData.requiredParams = ['courseId', 'studentId'];
+
+/* ------------------ Daily Activity Summaries ------------------ */
+
+/**
+ * Gets a list of daily activity summaries for each day in a course
+ * @author Gabriel Abrams
+ * @memberof api.course.analytics.listDailyActivitySummaries
+ * @instance
+ * @method listDailyActivitySummaries
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @return {Promise.&lt;Object[]>} list of daily activity summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_participation}
+ */
+Analytics.listDailyActivitySummaries = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/analytics/activity`,
+    method: 'GET',
+  });
+};
+Analytics.listDailyActivitySummaries.action = 'get a list of daily activity summaries for each day in a course';
+Analytics.listDailyActivitySummaries.requiredParams = ['courseId'];
+
+/* -------------------- Assignment Summaries -------------------- */
+
+/**
+ * Gets a list of assignments summaries for all assignments in a course
+ * @author Gabriel Abrams
+ * @memberof api.course.analytics.listAssignmentSummaries
+ * @instance
+ * @method listAssignmentSummaries
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @return {Promise.&lt;Object[]>} list of assignment summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_assignments}
+ */
+Analytics.listAssignmentSummaries = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/analytics/assignments`,
+    method: 'GET',
+  });
+};
+Analytics.listAssignmentSummaries.action = 'get a list of assignment summaries for all assignments in a course';
+Analytics.listAssignmentSummaries.requiredParams = ['courseId'];
+
+/* ---------------------- Student Summaries --------------------- */
+
+/**
+ * Gets a list of student summaries for all students in a course
+ * @author Gabriel Abrams
+ * @memberof api.course.analytics.listStudentSummaries
+ * @instance
+ * @method listStudentSummaries
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @return {Promise.&lt;Object[]>} list of student summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_student_summaries}
+ */
+Analytics.listStudentSummaries = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/analytics/student_summaries`,
+    method: 'GET',
+  });
+};
+Analytics.listStudentSummaries.action = 'get a list of student summaries for all students in a course';
+Analytics.listStudentSummaries.requiredParams = ['courseId'];
+
+/**
+ * Gets a student summary for a student in a course
+ * @author Gabriel Abrams
+ * @memberof api.course.analytics.getStudentSummary
+ * @instance
+ * @method getStudentSummary
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {number} options.studentId - id of the user to get analytics for
+ * @return {Promise.&lt;Object>} student summary {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_student_summaries}
+ */
+Analytics.getStudentSummary = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/analytics/student_summaries`,
     method: 'GET',
     params: {
-      include: utils.genIncludesList({
-        term: options.includeTerm,
-      }),
+      student_id: options.studentId,
     },
   });
 };
-Self.listCourses.action = 'get the list of courses associated with the current user';
+Analytics.getStudentSummary.action = 'get a student summary for a student in a course';
+Analytics.getStudentSummary.requiredParams = ['courseId', 'studentId'];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */
 /*------------------------------------------------------------------------*/
 
-module.exports = Self;
+module.exports = Analytics;
 </code></pre>
 		</section>
 			</div>
