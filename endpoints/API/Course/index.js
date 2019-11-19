@@ -8,6 +8,7 @@ const prefix = require('../../common/prefix');
 const utils = require('../../common/utils');
 
 // Import subcategories
+const Analytics = require('./Analytics');
 const App = require('./App');
 const Assignment = require('./Assignment');
 const AssignmentGroup = require('./AssignmentGroup');
@@ -30,9 +31,10 @@ class Course extends EndpointCategory {
 /*                             Subcategories:                             */
 /*------------------------------------------------------------------------*/
 
+Course.analytics = Analytics;
+Course.app = App;
 Course.assignment = Assignment;
 Course.assignmentGroup = AssignmentGroup;
-Course.app = App;
 Course.discussionTopic = DiscussionTopic;
 Course.gradebookColumn = GradebookColumn;
 Course.group = Group;
