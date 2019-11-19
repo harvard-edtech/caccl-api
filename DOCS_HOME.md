@@ -5,6 +5,7 @@ A class that defines a set of Canvas endpoints that can be easily accessed. Each
 
 - [account](https://harvard-edtech.github.io/caccl-api/api.account.html)
 - [course](https://harvard-edtech.github.io/caccl-api/api.course.html)
+  - [analytics](https://harvard-edtech.github.io/caccl-api/api.course.analytics.html)
   - [app](https://harvard-edtech.github.io/caccl-api/api.course.app.html)
   - [assignment](https://harvard-edtech.github.io/caccl-api/api.course.assignment.html)
   - [assignmentGroup](https://harvard-edtech.github.io/caccl-api/api.course.assignmentGroup.html)
@@ -20,7 +21,7 @@ A class that defines a set of Canvas endpoints that can be easily accessed. Each
 
 ### Endpoint not listed?
 
-Use **[our custom endpoint function](https://harvard-edtech.github.io/caccl-api/api.other.endpoint.html)** to call _any Canvas endpoint_.
+Use **[our custom endpoint function](https://harvard-edtech.github.io/caccl-api/api.other.html)** to call _any Canvas endpoint_.
 
 Also, consider contributing back to our open source project and adding official support for that endpoint.
 
@@ -28,7 +29,7 @@ Also, consider contributing back to our open source project and adding official 
 
 If you set up your project with [caccl on npm](https://www.npmjs.com/package/caccl), you should _already_ have a caccl-api instance. We'll call that instance "api".
 
-All endpoint functions take a single object as their argument and return a promise. We recommend using _async-await_. See the following examples: 
+All endpoint functions take a single object as their argument and return a promise. We recommend using _async-await_. See the following examples:
 
 ```js
 // List the students in a course
