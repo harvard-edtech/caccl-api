@@ -33,6 +33,7 @@ Analytics.getStudentParticipationData = function (options) {
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/analytics/users/${options.studentId}/activity`,
     method: 'GET',
+    dontCache: true,
   });
 };
 Analytics.getStudentParticipationData.action = 'get participation data for a student in a course';
@@ -55,6 +56,7 @@ Analytics.getStudentMessagingData = function (options) {
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/analytics/users/${options.studentId}/communication`,
     method: 'GET',
+    dontCache: true,
   });
 };
 Analytics.getStudentMessagingData.action = 'get messaging data for a student in a course';
@@ -76,6 +78,7 @@ Analytics.listDailyActivitySummaries = function (options) {
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/analytics/activity`,
     method: 'GET',
+    dontCache: true,
   });
 };
 Analytics.listDailyActivitySummaries.action = 'get a list of daily activity summaries for each day in a course';
@@ -97,6 +100,7 @@ Analytics.listAssignmentSummaries = function (options) {
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/analytics/assignments`,
     method: 'GET',
+    dontCache: true,
   });
 };
 Analytics.listAssignmentSummaries.action = 'get a list of assignment summaries for all assignments in a course';
@@ -118,6 +122,7 @@ Analytics.listStudentSummaries = function (options) {
   return this.visitEndpoint({
     path: `${prefix.v1}/courses/${options.courseId}/analytics/student_summaries`,
     method: 'GET',
+    dontCache: true,
   });
 };
 Analytics.listStudentSummaries.action = 'get a list of student summaries for all students in a course';
@@ -141,6 +146,7 @@ Analytics.getStudentSummary = function (options) {
     params: {
       student_id: options.studentId,
     },
+    dontCache: true,
   });
 };
 Analytics.getStudentSummary.action = 'get a student summary for a student in a course';
