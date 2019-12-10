@@ -37,10 +37,8 @@ module.exports = (options) => {
     const checkStatus = () => {
       options.visitEndpoint({
         path: checkPath,
-        params: {
-          ignoreCache: true,
-          dontCache: true,
-        },
+        ignoreCache: true,
+        dontCache: true,
       })
         .then((statusResponse) => {
           // Detect issues

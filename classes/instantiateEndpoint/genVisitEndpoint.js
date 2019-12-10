@@ -63,7 +63,6 @@ module.exports = (config = {}) => {
       || config.dontCache
       || method !== 'GET'
       || requestInfo.dontCache
-      || params.dontCache
     );
     // ignoreCache - if truthy, does not look up cached value before sending
     //   request (must be true if no cache included or method is not 'GET')
@@ -72,7 +71,6 @@ module.exports = (config = {}) => {
       || config.ignoreCache
       || method !== 'GET'
       || requestInfo.ignoreCache
-      || params.ignoreCache
     );
 
     // Step 1: check for cached value
