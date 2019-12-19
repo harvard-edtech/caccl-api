@@ -32,6 +32,9 @@ Self.getProfile = function () {
   });
 };
 Self.getProfile.action = 'get info on the current user';
+Self.getProfile.scopes = [
+  'url:GET|/api/v1/users/:user_id/profile',
+];
 
 /**
  * Gets the list of courses associated with the current user
@@ -55,6 +58,9 @@ Self.listCourses = function (options) {
   });
 };
 Self.listCourses.action = 'get the list of courses associated with the current user';
+Self.listCourses.scopes = [
+  'url:GET|/api/v1/courses',
+];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

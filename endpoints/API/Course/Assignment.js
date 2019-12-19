@@ -58,6 +58,10 @@ Assignment.list = function (options) {
   });
 };
 Assignment.list.action = 'get the list of assignments in a course';
+Assignment.list.requiredParams = ['courseId'];
+Assignment.list.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments',
+];
 
 /**
  * Get info on a specific assignment in a course
@@ -84,6 +88,9 @@ Assignment.get = function (options) {
 };
 Assignment.get.action = 'get info on a specific assignment in a course';
 Assignment.get.requiredParams = ['courseId', 'assignmentId'];
+Assignment.get.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments/:id',
+];
 
 /**
  * Updates a Canvas assignment
@@ -168,6 +175,9 @@ Assignment.update = function (options) {
 };
 Assignment.update.action = 'update an assignment in a course';
 Assignment.update.requiredParams = ['courseId', 'assignmentId'];
+Assignment.update.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/assignments/:id',
+];
 
 /**
  * Creates a Canvas assignment
@@ -300,6 +310,10 @@ Assignment.create = function (options) {
 };
 Assignment.create.action = 'create a new assignment in a course';
 Assignment.create.requiredParams = ['courseId'];
+Assignment.create.scopes = [
+  'url:POST|/api/v1/courses/:course_id/assignments',
+  'url:GET|/api/v1/courses/:course_id/external_tools/:external_tool_id',
+];
 
 /**
  * Delete an assignment
@@ -320,6 +334,9 @@ Assignment.delete = function (options) {
 };
 Assignment.delete.action = 'delete an assignment from a course';
 Assignment.delete.requiredParams = ['courseId', 'assignmentId'];
+Assignment.delete.scopes = [
+  'url:DELETE|/api/v1/courses/:course_id/assignments/:id',
+];
 
 /*------------------------------------------------------------------------*/
 /*                            Grading Endpoints                           */
@@ -351,6 +368,9 @@ Assignment.listGradeableStudents = function (options) {
 };
 Assignment.listGradeableStudents.action = 'get the list of students who are gradeable in a specific assignment in a course';
 Assignment.listGradeableStudents.requiredParams = ['courseId', 'assignmentId'];
+Assignment.listGradeableStudents.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments/:assignment_id/gradeable_students',
+];
 
 /**
  * Adds a comment to a submission
@@ -380,6 +400,9 @@ Assignment.createSubmissionComment.requiredParams = [
   'courseId',
   'assignmentId',
   'studentId',
+];
+Assignment.createSubmissionComment.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id',
 ];
 
 /**
@@ -413,6 +436,9 @@ Assignment.updateGrade.requiredParams = [
   'courseId',
   'assignmentId',
   'studentId',
+];
+Assignment.updateGrade.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id',
 ];
 
 /**
@@ -699,6 +725,11 @@ Assignment.updateGrades.requiredParams = [
   'assignmentId',
   'gradeItems',
 ];
+Assignment.updateGrades.scopes = [
+  Assignment.get,
+  Assignment.getSubmission,
+  'url:POST|/api/v1/courses/:course_id/submissions/update_grades',
+];
 
 /*------------------------------------------------------------------------*/
 /*                      Assignment Override Endpoints                     */
@@ -723,6 +754,9 @@ Assignment.listOverrides = function (options) {
 };
 Assignment.listOverrides.action = 'get a list of assignment overrides for a specific assignment in a course';
 Assignment.listOverrides.requiredParams = ['courseId', 'assignmentId'];
+Assignment.listOverrides.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments/:assignment_id/overrides',
+];
 
 /**
  * Get a specific override on an assignment in a course
@@ -744,6 +778,9 @@ Assignment.getOverride = function (options) {
 };
 Assignment.getOverride.action = 'get a list of assignment overrides for a specific assignment in a course';
 Assignment.getOverride.requiredParams = ['courseId', 'assignmentId'];
+Assignment.getOverride.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments/:assignment_id/overrides/:id',
+];
 
 /**
  * Create assignment override. Note that if any dates (dueAt, unlockAt, or
@@ -830,6 +867,9 @@ Assignment.createOverride.requiredParams = [
   'courseId',
   'assignmentId',
 ];
+Assignment.createOverride.scopes = [
+  'url:POST|/api/v1/courses/:course_id/assignments/:assignment_id/overrides',
+];
 
 /**
  * Update an assignment override. Note: target can only be updated if the
@@ -903,6 +943,9 @@ Assignment.updateOverride.requiredParams = [
   'assignmentId',
   'overrideId',
 ];
+Assignment.updateOverride.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/assignments/:assignment_id/overrides/:id',
+];
 
 /**
  * Deletes an assignment override
@@ -934,6 +977,9 @@ Assignment.deleteOverride.requiredParams = [
   'assignmentId',
   'overrideId',
 ];
+Assignment.deleteOverride.scopes = [
+  'url:DELETE|/api/v1/courses/:course_id/assignments/:assignment_id/overrides/:id',
+];
 
 /*------------------------------------------------------------------------*/
 /*                     Assignment Submission Endpoints                    */
@@ -958,6 +1004,9 @@ const getCurrentUserId = (api, userId) => {
       return Promise.resolve(profile.id);
     });
 };
+getCurrentUserId.scopes = [
+  'url:GET|/api/v1/users/:user_id/profile',
+];
 
 // Endpoints
 
@@ -1027,6 +1076,9 @@ Assignment.listSubmissions = function (options) {
 };
 Assignment.listSubmissions.action = 'list the submissions to a specific assignment in a course';
 Assignment.listSubmissions.requiredParams = ['courseId', 'assignmentId'];
+Assignment.listSubmissions.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments/:assignment_id/submissions',
+];
 
 /**
  * Gets a single submission for an assignment
@@ -1064,6 +1116,9 @@ Assignment.getSubmission.requiredParams = [
   'courseId',
   'assignmentId',
   'studentId',
+];
+Assignment.getSubmission.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id',
 ];
 
 /**
@@ -1117,6 +1172,10 @@ Assignment.createTextSubmission.requiredParams = [
   'assignmentId',
   'text',
 ];
+Assignment.createTextSubmission.scopes = [
+  getCurrentUserId,
+  'url:POST|/api/v1/courses/:course_id/assignments/:assignment_id/submissions',
+];
 
 /**
  * Creates a url submission on behalf of the current user
@@ -1168,6 +1227,10 @@ Assignment.createURLSubmission.requiredParams = [
   'courseId',
   'assignmentId',
   'url',
+];
+Assignment.createURLSubmission.scopes = [
+  getCurrentUserId,
+  'url:POST|/api/v1/courses/:course_id/assignments/:assignment_id/submissions',
 ];
 
 /**
@@ -1322,6 +1385,11 @@ Assignment.createFileSubmission.requiredParams = [
   'courseId',
   'assignmentId',
   'filenames',
+];
+Assignment.createFileSubmission.scopes = [
+  getCurrentUserId,
+  'url:POST|/api/v1/courses/:course_id/assignments/:assignment_id/submissions',
+  'url:POST|/api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id/files',
 ];
 
 /*------------------------------------------------------------------------*/

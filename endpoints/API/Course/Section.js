@@ -42,6 +42,9 @@ Section.list = function (options) {
 };
 Section.list.action = 'get the list of sections in a course';
 Section.list.requiredParams = ['courseId'];
+Section.list.scopes = [
+  'url:GET|/api/v1/courses/:course_id/sections',
+];
 
 /**
  * Gets info on a specific section
@@ -69,6 +72,9 @@ Section.get = function (options) {
 };
 Section.get.action = 'get info on a specific section in a course';
 Section.get.requiredParams = ['courseId', 'sectionId'];
+Section.get.scopes = [
+  'url:GET|/api/v1/courses/:course_id/sections/:id',
+];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

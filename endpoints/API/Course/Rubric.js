@@ -35,6 +35,9 @@ Rubric.list = function (options) {
 };
 Rubric.list.action = 'list all the rubrics in a course';
 Rubric.list.requiredParams = ['courseId'];
+Rubric.list.scopes = [
+  'url:GET|/api/v1/courses/:course_id/rubrics',
+];
 
 /**
  * Gets info on a specific rubric in a course
@@ -66,6 +69,9 @@ Rubric.get = function (options) {
 };
 Rubric.get.action = 'get info on a specific rubric in a course';
 Rubric.get.requiredParams = ['courseId', 'rubricId'];
+Rubric.get.scopes = [
+  'url:GET|/api/v1/courses/:course_id/rubrics/:id',
+];
 
 /**
  * Creates a new rubric for grading with free form comments enabled and add it
@@ -151,6 +157,9 @@ Rubric.createFreeFormGradingRubricInAssignment.requiredParams = [
   'courseId',
   'assignmentId',
   'rubricItems',
+];
+Rubric.createFreeFormGradingRubricInAssignment.scopes = [
+  'url:POST|/api/v1/courses/:course_id/rubrics',
 ];
 
 /*------------------------------------------------------------------------*/

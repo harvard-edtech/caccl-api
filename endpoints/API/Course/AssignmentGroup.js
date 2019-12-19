@@ -35,6 +35,9 @@ AssignmentGroup.list = function (options) {
 };
 AssignmentGroup.list.action = 'list the assignment groups in a course';
 AssignmentGroup.list.requiredParams = ['courseId'];
+AssignmentGroup.list.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignment_groups',
+];
 
 /**
  * Gets info on a specific assignment group in a course
@@ -65,6 +68,9 @@ AssignmentGroup.get.requiredParams = [
   'courseId',
   'assignmentGroupId',
 ];
+AssignmentGroup.get.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignment_groups/:assignment_group_id',
+];
 
 /**
  * Updates an assignment group in a course
@@ -91,6 +97,9 @@ AssignmentGroup.update = function (options) {
 };
 AssignmentGroup.update.action = 'update an assignment group in a course';
 AssignmentGroup.update.requiredParams = ['courseId', 'assignmentGroupId'];
+AssignmentGroup.update.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/assignment_groups/:assignment_group_id',
+];
 
 /**
  * Create a new assignment group in a course
@@ -116,6 +125,9 @@ AssignmentGroup.create = function (options) {
 };
 AssignmentGroup.create.action = 'create a new assignment group in a course';
 AssignmentGroup.create.requiredParams = ['courseId', 'name'];
+AssignmentGroup.create.scopes = [
+  'url:POST|/api/v1/courses/:course_id/assignment_groups',
+];
 
 /**
  * Deletes an assignment group from a course
@@ -141,19 +153,18 @@ AssignmentGroup.delete = function (options) {
     },
   })
     .then((response) => {
-      // Uncache destination assignment group if applicable
-      if (options.moveAssignmentsTo) {
-        // Uncache the destination assignment group
-        return this.uncache(
-          [`${prefix.v1}/courses/${options.courseId}/assignment_groups/${options.moveAssignmentsTo}*`],
-          response
-        );
-      }
-      return Promise.resolve(response);
+      // Uncache the destination assignment group
+      return this.uncache(
+        [`${prefix.v1}/courses/${options.courseId}/assignment_groups/*`],
+        response
+      );
     });
 };
 AssignmentGroup.delete.action = 'delete an assignment group from a course';
 AssignmentGroup.delete.requiredParams = ['courseId', 'assignmentGroupId'];
+AssignmentGroup.delete.scopes = [
+  'url:DELETE|/api/v1/courses/:course_id/assignment_groups/:assignment_group_id',
+];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

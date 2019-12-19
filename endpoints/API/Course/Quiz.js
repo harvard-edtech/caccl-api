@@ -49,6 +49,9 @@ Quiz.list = function (options) {
 };
 Quiz.list.action = 'get the list of quizzes in a course';
 Quiz.list.requiredParams = ['courseId'];
+Quiz.list.scopes = [
+  'url:GET|/api/v1/courses/:course_id/quizzes',
+];
 
 /**
  * Get info on a specific quiz in a course
@@ -70,6 +73,9 @@ Quiz.get = function (options) {
 };
 Quiz.get.action = 'get info on a specific quiz in a course';
 Quiz.get.requiredParams = ['courseId', 'quizId'];
+Quiz.get.scopes = [
+  'url:GET|/api/v1/courses/:course_id/quizzes/:id',
+];
 
 /**
  * Updates a specific quiz in a course
@@ -202,6 +208,9 @@ Quiz.update = function (options) {
 };
 Quiz.update.action = 'update a specific quiz in a course';
 Quiz.update.requiredParams = ['courseId', 'quizId'];
+Quiz.update.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/quizzes/:id',
+];
 
 /**
  * Creates a new quiz in a course
@@ -326,6 +335,9 @@ Quiz.create = function (options) {
 };
 Quiz.create.action = 'update a specific quiz in a course';
 Quiz.create.requiredParams = ['courseId', 'title'];
+Quiz.create.scopes = [
+  'url:POST|/api/v1/courses/:course_id/quizzes',
+];
 
 /**
  * Deletes a quiz from a course
@@ -358,6 +370,9 @@ Quiz.delete = function (options) {
 };
 Quiz.delete.action = 'delete a specific quiz from a course';
 Quiz.delete.requiredParams = ['courseId', 'quizId'];
+Quiz.delete.scopes = [
+  'url:DELETE|/api/v1/courses/:course_id/quizzes/:id',
+];
 
 /*------------------------------------------------------------------------*/
 /*                         Quiz Question Endpoints                        */
@@ -383,6 +398,9 @@ Quiz.listQuestions = function (options) {
 };
 Quiz.listQuestions.action = 'get the list of questions in a specific quiz in a course';
 Quiz.listQuestions.requiredParams = ['courseId', 'quizId'];
+Quiz.listQuestions.scopes = [
+  'url:GET|/api/v1/courses/:course_id/quizzes/:quiz_id/questions',
+];
 
 /**
  * Creates a new multiple choice question and adds it to a quiz in a course
@@ -451,6 +469,9 @@ Quiz.createMultipleChoiceQuestion.requiredParams = [
   'pointsPossible',
   'answers',
 ];
+Quiz.createMultipleChoiceQuestion.scopes = [
+  'url:POST|/api/v1/courses/:course_id/quizzes/:quiz_id/questions',
+];
 
 /**
  * Creates a new essay question and adds it to a quiz in a course
@@ -505,6 +526,9 @@ Quiz.createEssayQuestion.requiredParams = [
   'name',
   'text',
   'pointsPossible',
+];
+Quiz.createEssayQuestion.scopes = [
+  'url:POST|/api/v1/courses/:course_id/quizzes/:quiz_id/questions',
 ];
 
 /**
@@ -561,6 +585,9 @@ Quiz.createShortAnswerQuestion.requiredParams = [
   'text',
   'pointsPossible',
 ];
+Quiz.createShortAnswerQuestion.scopes = [
+  'url:POST|/api/v1/courses/:course_id/quizzes/:quiz_id/questions',
+];
 
 /*------------------------------------------------------------------------*/
 /*                        Quiz Submission Endpoints                       */
@@ -589,6 +616,9 @@ Quiz.listSubmissions = function (options) {
 };
 Quiz.listSubmissions.action = 'get the list of submissions to a specific quiz in a course';
 Quiz.listSubmissions.requiredParams = ['courseId', 'quizId'];
+Quiz.listSubmissions.scopes = [
+  'url:GET|/api/v1/courses/:course_id/quizzes/:quiz_id/submissions',
+];
 
 /**
  * Gets info on a specific submission to a quiz in a course
@@ -617,6 +647,9 @@ Quiz.getSubmission.requiredParams = [
   'courseId',
   'quizId',
   'submissionId',
+];
+Quiz.getSubmission.scopes = [
+  'url:GET|/api/v1/courses/:course_id/quizzes/:quiz_id/submissions/:id',
 ];
 
 /**
@@ -694,6 +727,11 @@ Quiz.createSubmission.requiredParams = [
   'courseId',
   'quizId',
   'answers',
+];
+Quiz.createSubmission.scopes = [
+  'url:POST|/api/v1/courses/:course_id/quizzes/:quiz_id/submissions',
+  'url:POST|/api/v1/quiz_submissions/:quiz_submission_id/questions',
+  'url:POST|/api/v1/courses/:course_id/quizzes/:quiz_id/submissions/:id/complete',
 ];
 
 /*------------------------------------------------------------------------*/
@@ -899,10 +937,13 @@ Quiz.listQuestionGrades = function (options) {
 };
 Quiz.listQuestionGrades.action = 'list quiz question grades for a specific quiz in a course';
 Quiz.listQuestionGrades.requiredParams = ['courseId', 'quizId'];
+Quiz.listQuestionGrades.scopes = [
+  'url:POST|/api/v1/courses/:course_id/quizzes/:quiz_id/reports',
+  'url:GET|/api/v1/courses/:course_id/quizzes/:quiz_id/reports/:id',
+];
 
 /**
  * Updates the question grades for a specific submission to a quiz in a course
- * @version unstable
  * @author Gabriel Abrams
  * @method updateQuestionGrades
  * @memberof api.course.quiz
@@ -974,6 +1015,10 @@ Quiz.updateQuestionGrades.requiredParams = [
   'courseId',
   'quizId',
   'submissionId',
+];
+Quiz.updateQuestionGrades.scopes = [
+  Quiz.getSubmission,
+  'url:PUT|/api/v1/courses/:course_id/quizzes/:quiz_id/submissions/:id',
 ];
 
 /*------------------------------------------------------------------------*/

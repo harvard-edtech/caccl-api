@@ -41,6 +41,9 @@ Group.get = function (options) {
 };
 Group.get.action = 'get info on a specific group in a course';
 Group.get.requiredParams = ['groupId'];
+Group.get.scopes = [
+  'url:GET|/api/v1/groups/:group_id',
+];
 
 // NOTE: to create or delete a group, see endpoints in groupSets
 
@@ -66,6 +69,9 @@ Group.listMembers = function (options) {
 };
 Group.listMembers.action = 'get the list of members in a specific group';
 Group.listMembers.requiredParams = ['groupId'];
+Group.listMembers.scopes = [
+  'url:GET|/api/v1/groups/:group_id/users',
+];
 
 /**
  * Gets the list of members in a group
@@ -96,6 +102,9 @@ Group.updateMembers = function (options) {
 };
 Group.updateMembers.action = 'update the list of members in a group';
 Group.updateMembers.requiredParams = ['groupId'];
+Group.updateMembers.scopes = [
+  'url:PUT|/api/v1/groups/:group_id',
+];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

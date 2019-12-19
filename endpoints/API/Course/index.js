@@ -93,6 +93,9 @@ Course.get = function (options) {
 };
 Course.get.action = 'get info on a specific course';
 Course.get.requiredParams = ['courseId'];
+Course.get.scopes = [
+  'url:GET|/api/v1/courses/:id',
+];
 
 /*------------------------------------------------------------------------*/
 /*                               Enrollments                              */
@@ -156,6 +159,9 @@ Course.listEnrollments = function (options) {
 };
 Course.listEnrollments.action = 'get enrollments from a course';
 Course.listEnrollments.requiredParams = ['courseId'];
+Course.listEnrollments.scopes = [
+  'url:GET|/api/v1/courses/:course_id/enrollments',
+];
 
 /**
  * Gets the list of student enrollmentss in a course
@@ -180,6 +186,7 @@ Course.listStudentEnrollments = function (options) {
 };
 Course.listStudentEnrollments.action = 'get the list of student enrollments in a course';
 Course.listStudentEnrollments.requiredParams = ['courseId'];
+Course.listStudentEnrollments.scopes = [Course.listEnrollments];
 
 /**
  * Gets the list of TAs and Teacher enrollments in a course
@@ -204,6 +211,7 @@ Course.listTeachingTeamMemberEnrollments = function (options) {
 };
 Course.listTeachingTeamMemberEnrollments.action = 'get the list of TAs and Teacher enrollments in a course';
 Course.listTeachingTeamMemberEnrollments.requiredParams = ['courseId'];
+Course.listTeachingTeamMemberEnrollments.scopes = [Course.listEnrollments];
 
 /**
  * Gets the list of designer enrollments in a course
@@ -228,6 +236,7 @@ Course.listDesignerEnrollments = function (options) {
 };
 Course.listDesignerEnrollments.action = 'get the list of designer enrollments in a course';
 Course.listDesignerEnrollments.requiredParams = ['courseId'];
+Course.listDesignerEnrollments.scopes = [Course.listEnrollments];
 
 /**
  * Gets the list of observer enrollments in a course
@@ -252,6 +261,7 @@ Course.listObserverEnrollments = function (options) {
 };
 Course.listObserverEnrollments.action = 'get the list of observer enrollments in a course';
 Course.listObserverEnrollments.requiredParams = ['courseId'];
+Course.listObserverEnrollments.scopes = [Course.listEnrollments];
 
 /*------------------------------------------------------------------------*/
 /*                                  Users                                 */
@@ -293,6 +303,9 @@ Course.getUser = function (options) {
 };
 Course.getUser.action = 'get info on a user in a course';
 Course.getUser.requiredParams = ['courseId', 'userId'];
+Course.getUser.scopes = [
+  'url:GET|/api/v1/courses/:course_id/users/:id',
+];
 
 /**
  * Gets info on all users in a course
@@ -333,6 +346,9 @@ Course.listUsers = function (options) {
 };
 Course.listUsers.action = 'get info on all users in a course';
 Course.listUsers.requiredParams = ['courseId'];
+Course.listUsers.scopes = [
+  'url:GET|/api/v1/courses/:course_id/users',
+];
 
 /**
  * Gets the list of students in a course
@@ -361,6 +377,7 @@ Course.listStudents = function (options) {
 };
 Course.listStudents.action = 'get the list of students in a course';
 Course.listStudents.requiredParams = ['courseId'];
+Course.listStudents.scopes = [Course.listUsers];
 
 /**
  * Gets the list of TAs and Teachers in a course
@@ -389,6 +406,7 @@ Course.listTeachingTeamMembers = function (options) {
 };
 Course.listTeachingTeamMembers.action = 'get the list of TAs and Teachers in a course';
 Course.listTeachingTeamMembers.requiredParams = ['courseId'];
+Course.listTeachingTeamMembers.scopes = [Course.listUsers];
 
 /**
  * Gets the list of designers in a course
@@ -417,6 +435,7 @@ Course.listDesigners = function (options) {
 };
 Course.listDesigners.action = 'get the list of designers in a course';
 Course.listDesigners.requiredParams = ['courseId'];
+Course.listDesigners.scopes = [Course.listUsers];
 
 /**
  * Gets the list of observers in a course
@@ -445,6 +464,7 @@ Course.listObservers = function (options) {
 };
 Course.listObservers.action = 'get the list of observers in a course';
 Course.listObservers.requiredParams = ['courseId'];
+Course.listObservers.scopes = [Course.listUsers];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

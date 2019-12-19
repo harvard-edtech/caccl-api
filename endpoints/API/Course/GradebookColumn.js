@@ -50,6 +50,9 @@ GradebookColumn.list = function (options) {
 };
 GradebookColumn.list.action = 'get the list of gradebook columns in a course';
 GradebookColumn.list.requiredParams = ['courseId'];
+GradebookColumn.list.scopes = [
+  'url:GET|/api/v1/courses/:course_id/custom_gradebook_columns',
+];
 
 /**
  * Gets info on a specific gradebook column in a course. This is a simulated
@@ -91,6 +94,9 @@ GradebookColumn.get = function (options) {
 };
 GradebookColumn.get.action = 'get a specific gradebook column in a course';
 GradebookColumn.get.requiredParams = ['courseId', 'columnId'];
+GradebookColumn.get.scopes = [
+  'url:GET|/api/v1/courses/:course_id/custom_gradebook_columns',
+];
 
 /**
  * Updates a gradebook column's information
@@ -121,6 +127,9 @@ GradebookColumn.update = function (options) {
 };
 GradebookColumn.update.action = 'update a gradebook column\'s information';
 GradebookColumn.update.requiredParams = ['courseId', 'columnId'];
+GradebookColumn.update.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/custom_gradebook_columns/:id',
+];
 
 /**
  * Creates a new gradebook column in a course
@@ -151,6 +160,9 @@ GradebookColumn.create = function (options) {
 };
 GradebookColumn.create.action = 'create a new gradebook column in a course';
 GradebookColumn.create.requiredParams = ['courseId'];
+GradebookColumn.create.scopes = [
+  'url:POST|/api/v1/courses/:course_id/custom_gradebook_columns',
+];
 
 /**
  * Deletes a gradebook column from a course
@@ -171,6 +183,9 @@ GradebookColumn.delete = function (options) {
 };
 GradebookColumn.delete.action = 'delete a gradebook column from a course';
 GradebookColumn.delete.requiredParams = ['courseId', 'columnId'];
+GradebookColumn.delete.scopes = [
+  'url:DELETE|/api/v1/courses/:course_id/custom_gradebook_columns/:id',
+];
 
 /*------------------------------------------------------------------------*/
 /*                     Gradebook Column Data Endpoints                    */
@@ -198,6 +213,9 @@ GradebookColumn.listEntries = function (options) {
 };
 GradebookColumn.listEntries.action = 'get the list of entries in a specific gradebook column in a course';
 GradebookColumn.listEntries.requiredParams = ['courseId', 'columnId'];
+GradebookColumn.listEntries.scopes = [
+  'url:GET|/api/v1/courses/:course_id/custom_gradebook_columns/:id/data',
+];
 
 /**
  * Update a specific entry in a gradebook column
@@ -236,6 +254,9 @@ GradebookColumn.updateEntry.requiredParams = [
   'columnId',
   'studentId',
   'content',
+];
+GradebookColumn.updateEntry.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/custom_gradebook_columns/:id/data/:user_id',
 ];
 
 /**
@@ -291,6 +312,9 @@ GradebookColumn.updateEntries.requiredParams = [
   'courseId',
   'columnId',
   'entries',
+];
+GradebookColumn.updateEntries.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/custom_gradebook_column_data',
 ];
 
 /*------------------------------------------------------------------------*/

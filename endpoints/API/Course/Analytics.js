@@ -38,6 +38,9 @@ Analytics.getStudentParticipationData = function (options) {
 };
 Analytics.getStudentParticipationData.action = 'get participation data for a student in a course';
 Analytics.getStudentParticipationData.requiredParams = ['courseId', 'studentId'];
+Analytics.getStudentParticipationData.scopes = [
+  'url:GET|/api/v1/courses/:course_id/analytics/users/:student_id/activity',
+];
 
 /* --------------------- User Messaging Info -------------------- */
 
@@ -61,6 +64,9 @@ Analytics.getStudentMessagingData = function (options) {
 };
 Analytics.getStudentMessagingData.action = 'get messaging data for a student in a course';
 Analytics.getStudentMessagingData.requiredParams = ['courseId', 'studentId'];
+Analytics.getStudentMessagingData.scopes = [
+  'url:GET|/api/v1/courses/:course_id/analytics/users/:student_id/communication',
+];
 
 /* ------------------ Daily Activity Summaries ------------------ */
 
@@ -83,6 +89,9 @@ Analytics.listDailyActivitySummaries = function (options) {
 };
 Analytics.listDailyActivitySummaries.action = 'get a list of daily activity summaries for each day in a course';
 Analytics.listDailyActivitySummaries.requiredParams = ['courseId'];
+Analytics.listDailyActivitySummaries.scopes = [
+  'url:GET|/api/v1/courses/:course_id/analytics/activity',
+];
 
 /* -------------------- Assignment Summaries -------------------- */
 
@@ -105,6 +114,9 @@ Analytics.listAssignmentSummaries = function (options) {
 };
 Analytics.listAssignmentSummaries.action = 'get a list of assignment summaries for all assignments in a course';
 Analytics.listAssignmentSummaries.requiredParams = ['courseId'];
+Analytics.listAssignmentSummaries.scopes = [
+  'url:GET|/api/v1/courses/:course_id/analytics/assignments',
+];
 
 /* ---------------------- Student Summaries --------------------- */
 
@@ -127,6 +139,9 @@ Analytics.listStudentSummaries = function (options) {
 };
 Analytics.listStudentSummaries.action = 'get a list of student summaries for all students in a course';
 Analytics.listStudentSummaries.requiredParams = ['courseId'];
+Analytics.listStudentSummaries.scopes = [
+  'url:GET|/api/v1/courses/:course_id/analytics/student_summaries',
+];
 
 /**
  * Gets a student summary for a student in a course
@@ -151,6 +166,9 @@ Analytics.getStudentSummary = function (options) {
 };
 Analytics.getStudentSummary.action = 'get a student summary for a student in a course';
 Analytics.getStudentSummary.requiredParams = ['courseId', 'studentId'];
+Analytics.getStudentSummary.scopes = [
+  'url:GET|/api/v1/courses/:course_id/analytics/student_summaries',
+];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

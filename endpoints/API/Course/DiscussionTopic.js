@@ -57,6 +57,9 @@ DiscussionTopic.list = function (options) {
 };
 DiscussionTopic.list.action = 'get the list of discussion topics in a course';
 DiscussionTopic.list.requiredParams = ['courseId'];
+DiscussionTopic.list.scopes = [
+  'url:GET|/api/v1/courses/:course_id/discussion_topics',
+];
 
 /**
  * Creates a new discussion topic
@@ -114,6 +117,9 @@ DiscussionTopic.create = function (options) {
 };
 DiscussionTopic.create.action = 'create a discussion topic in a course';
 DiscussionTopic.create.requiredParams = ['courseId', 'title', 'message'];
+DiscussionTopic.create.scopes = [
+  'url:POST|/api/v1/courses/:course_id/discussion_topics',
+];
 
 /**
  * Deletes a discussion topic
@@ -135,6 +141,9 @@ DiscussionTopic.delete = function (options) {
 };
 DiscussionTopic.delete.action = 'delete a discussion topic from a course';
 DiscussionTopic.delete.requiredParams = ['courseId', 'topicId'];
+DiscussionTopic.delete.scopes = [
+  'url:DELETE|/api/v1/courses/:course_id/discussion_topics/:topic_id',
+];
 
 /**
  * Lists the entries in a discussion topic
@@ -156,6 +165,9 @@ DiscussionTopic.listEntries = function (options) {
 };
 DiscussionTopic.listEntries.action = 'list entries in a discussion topic in a course';
 DiscussionTopic.listEntries.requiredParams = ['courseId', 'topicId'];
+DiscussionTopic.listEntries.scopes = [
+  'url:GET|/api/v1/courses/:course_id/discussion_topics/:topic_id/entries',
+];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

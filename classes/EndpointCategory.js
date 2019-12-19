@@ -105,6 +105,9 @@ class EndpointCategory {
     });
   }
 
+  /**
+   * Function that should be overwritten. This function should never run.
+   */
   visitEndpoint() {
     // visitEndpoint is re-initialized each time an endpoint is called
     // see: classes/instantiateEndpoint/index.js

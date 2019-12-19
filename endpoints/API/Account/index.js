@@ -37,6 +37,8 @@ Account.get = function (options) {
   });
 };
 Account.get.action = 'get info on a specific account';
+Account.get.requiredParams = ['accountId'];
+Account.get.scopes = ['url:GET|/api/v1/accounts/:id'];
 
 /**
  * Get the list of accounts
@@ -53,6 +55,7 @@ Account.list = function () {
   });
 };
 Account.list.action = 'get the list of accounts';
+Account.list.scopes = ['url:GET|/api/v1/accounts'];
 
 /**
  * Gets the list of admins in an account
@@ -72,6 +75,8 @@ Account.listAdmins = function (options) {
   });
 };
 Account.listAdmins.action = 'get the list of admins in a specific account';
+Account.listAdmins.requiredParams = ['accountId'];
+Account.listAdmins.scopes = ['url:GET|/api/v1/accounts/:account_id/admins'];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

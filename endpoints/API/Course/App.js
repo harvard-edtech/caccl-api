@@ -10,7 +10,6 @@ const prefix = require('../../common/prefix');
 const utils = require('../../common/utils');
 const errorCodes = require('../../../errorCodes');
 
-
 class App extends EndpointCategory {
   constructor(config) {
     super(config, App);
@@ -53,6 +52,9 @@ App.list = function (options) {
 };
 App.list.action = 'get the list of apps installed into a course';
 App.list.requiredParams = ['courseId'];
+App.list.scopes = [
+  'url:GET|/api/v1/courses/:course_id/external_tools',
+];
 
 /**
  * Gets info on a single LTI tool
@@ -73,6 +75,9 @@ App.get = function (options) {
 };
 App.get.action = 'get info on a specific LTI app in a course';
 App.get.requiredParams = ['courseId', 'appId'];
+App.get.scopes = [
+  'url:GET|/api/v1/courses/:course_id/external_tools/:external_tool_id',
+];
 
 /**
  * Adds an LTI app to a Canvas course
@@ -115,6 +120,9 @@ App.add.requiredParams = [
   'secret',
   'xml',
 ];
+App.add.scopes = [
+  '/api/v1/courses/:course_id/external_tools',
+];
 
 /**
  * Removes an LTI app from a Canvas course
@@ -135,6 +143,9 @@ App.remove = function (options) {
 };
 App.remove.action = 'remove an LTI app from a course';
 App.remove.requiredParams = ['courseId', 'appId'];
+App.remove.scopes = [
+  'url:DELETE|/api/v1/courses/:course_id/external_tools/:external_tool_id',
+];
 
 /*------------------------------------------------------------------------*/
 /*                                Metadata                                */
@@ -215,6 +226,7 @@ App.getMetadata = function (options) {
 };
 App.getMetadata.action = 'get metadata for an LTI app in a course';
 App.getMetadata.requiredParams = ['courseId', 'metadata_id'];
+App.getMetadata.scopes = [App.list];
 
 /**
  * Updates the metadata for an LTI app in a course. Note: this endpoint requires
@@ -290,7 +302,10 @@ App.updateMetadata = function (options) {
 };
 App.updateMetadata.action = 'get metadata for an LTI app in a course';
 App.updateMetadata.requiredParams = ['courseId', 'metadata_id'];
-
+App.updateMetadata.scopes = [
+  App.list,
+  'url:PUT|/api/v1/courses/:course_id/external_tools/:external_tool_id',
+];
 
 /*------------------------------------------------------------------------*/
 /*                           Sessionless Launch                           */
@@ -321,6 +336,9 @@ App.getNavLaunchURL = function (options) {
 };
 App.getNavLaunchURL.action = 'get a sessionless navigation LTI launch url for an app in a course';
 App.getNavLaunchURL.requiredParams = ['courseId', 'appId'];
+App.getNavLaunchURL.scopes = [
+  'url:GET|/api/v1/courses/:course_id/external_tools/sessionless_launch',
+];
 
 /**
  * Gets a sessionless navigation LTI launch URL
@@ -351,6 +369,9 @@ App.getAssignmentLaunchURL = function (options) {
 };
 App.getAssignmentLaunchURL.action = 'get a sessionless assignment LTI launch url for an app in a course';
 App.getAssignmentLaunchURL.requiredParams = ['courseId', 'appId'];
+App.getAssignmentLaunchURL.scopes = [
+  'url:GET|/api/v1/courses/:course_id/external_tools/sessionless_launch',
+];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

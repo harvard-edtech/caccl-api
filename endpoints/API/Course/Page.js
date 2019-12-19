@@ -35,6 +35,9 @@ Page.list = function (options) {
 };
 Page.list.action = 'get the list of pages in a course';
 Page.list.requiredParams = ['courseId'];
+Page.list.scopes = [
+  'url:GET|/api/v1/courses/:course_id/pages',
+];
 
 /**
  * Get info on a specific page in a course
@@ -56,6 +59,9 @@ Page.get = function (options) {
 };
 Page.get.action = 'get info on a specific page in a course';
 Page.get.requiredParams = ['courseId', 'pageURL'];
+Page.get.scopes = [
+  'url:GET|/api/v1/courses/:course_id/pages/:url',
+];
 
 /**
  * Updates a Canvas page
@@ -97,6 +103,9 @@ Page.update = function (options) {
 };
 Page.update.action = 'update a specific page in a course';
 Page.update.requiredParams = ['courseId', 'pageURL'];
+Page.update.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/pages/:url',
+];
 
 /**
  * Creates a new page in a course
@@ -132,6 +141,9 @@ Page.create = function (options) {
 };
 Page.create.action = 'create a new page in a course';
 Page.create.requiredParams = ['courseId'];
+Page.create.scopes = [
+  'url:POST|/api/v1/courses/:course_id/pages/:url',
+];
 
 /**
  * Deletes a page from a course
@@ -152,6 +164,9 @@ Page.delete = function (options) {
 };
 Page.delete.action = 'delete a page from a course';
 Page.delete.requiredParams = ['courseId', 'pageURL'];
+Page.delete.scopes = [
+  'url:DELETE|/api/v1/courses/:course_id/pages/:url',
+];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */

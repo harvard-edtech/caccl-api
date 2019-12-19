@@ -43,5 +43,6 @@ Other.endpoint = function (options) {
 };
 Other.endpoint.action = 'call an endpoint';
 Other.endpoint.requiredParams = ['path'];
+Other.endpoint.scopes = [];
 
 module.exports = Other;
