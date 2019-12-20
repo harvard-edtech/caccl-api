@@ -121,7 +121,7 @@ App.add.requiredParams = [
   'xml',
 ];
 App.add.scopes = [
-  '/api/v1/courses/:course_id/external_tools',
+  'url:POST|/api/v1/courses/:course_id/external_tools',
 ];
 
 /**
