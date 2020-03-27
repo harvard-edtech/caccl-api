@@ -728,7 +728,7 @@ Assignment.updateGrades.requiredParams = [
 Assignment.updateGrades.scopes = [
   Assignment.get,
   Assignment.getSubmission,
-  'url:POST|/api/v1/courses/:course_id/submissions/update_grades',
+  'url:POST|/api/v1/courses/:course_id/assignments/:assignment_id/submissions/update_grades',
 ];
 
 /*------------------------------------------------------------------------*/
