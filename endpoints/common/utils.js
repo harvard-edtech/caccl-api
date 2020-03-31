@@ -67,6 +67,20 @@ module.exports = {
   },
 
   /**
+   * Returns true if defined and truthy, false if defined and falsy,
+   *   and excludes the param if undefined
+   * @author Gabe Abrams
+   * @param {object} [value] - the value to evaluate
+   * @return {object} the value to send to visitEndpoint
+   */
+  convertToBooleanIfDefined: (value) => {
+    if (value !== undefined) {
+      return !!value;
+    }
+    return EXCLUDED_PARAM;
+  },
+
+  /**
    * Returns a new list that only includes truthy elements of the array, if
    *   array has no truthy elements, an empty array is returned, if no
    *   array is included, returns a special value that indicates to the request
