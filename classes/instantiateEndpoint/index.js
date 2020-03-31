@@ -116,6 +116,7 @@ module.exports = (config = {}) => {
       ignoreCache: options.ignoreCache,
       sendRequest: options.sendRequest, // TODO: also allow default sendRequest
       startPage: options.startPage,
+      onNewPage: options.onNewPage,
     });
 
     // Run the endpoint
@@ -159,7 +160,7 @@ module.exports = (config = {}) => {
         newError = new CACCLError(err);
         newError.code = errorCodes.unnamedEndpointError;
       }
-
+   
       // Add on action to the error
       if (newError.message.startsWith('While attempting to ')) {
         // There's already an action. Add an umbrella action

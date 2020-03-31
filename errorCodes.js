@@ -6,7 +6,7 @@
 
 // Highest errors:
 // > CAPI24
-// > CANV14 (exclude 404, 500)
+// > CANV15 (exclude 404, 500)
 
 module.exports = {
   invalid_cache: 'CAPI1',
@@ -38,6 +38,7 @@ module.exports = {
   quizSubmissionAlreadyExists: 'CANV14',
   endpointNotFound: 'CANV404',
   canvasInternalError: 'CANV500',
+  termsOnlyInRootAccounts: 'CANV15',
 
   // Errors for caches
   sessionCacheNoSession: 'CAPI13',

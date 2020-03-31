@@ -24,10 +24,17 @@ const preProcessParams = require('./helpers/preProcessParams');
  * @param {boolean} [ignoreCache] - if truthy, we don't look to see if we have
  *   a cached value before requesting a new value from Canvas. Only valid if
  *   method is GET and cache is included
+ * @param {function} [onNewPage] - called when each page is received.
+ *   Called with the following arguments: page, pageNumber – where page is the
+ *   page contents and pageNumber is the number of the current page (starting
+ *   at page 1)
  * @param {function} [sendRequest=caccl-send-request instance] - a custom
  *   function that sends https requests (we recommend not including this)
  * @param {string} [authenticityToken] - An authenticity token
  *   to add to all requests no matter what (cannot be overridden)
+ * @param {function} [pagePostProcessor] - if included, this function is used
+ *   on each page before it is added to the list of pages. This is the default
+ *   value, can be added directly to the visitEndpoint call
  * @param {string}
  */
 module.exports = (config = {}) => {
@@ -48,7 +55,22 @@ module.exports = (config = {}) => {
   // Set up sendRequest
   const sendRequest = (config.sendRequest || defaultSendRequest);
 
-  // Return the visitEndpoint function
+  /**
+   * visitEndpoint function
+   * @param {string} [method=GET] - the http method
+   * @param {object} [params={}] - the request body
+   * @param {function} [pagePostProcessor] - if included, this function is used
+   *   on each page before it is added to the list of pages
+   * @param {boolean} [dontCache=default value] - if true, forces caccl to
+   *   not cache this value
+   * @param {boolean} [ignoreCache=default value] - if true,
+   *   forces caccl to ignore the cache when deciding whether to
+   *   request data from Canvas
+   * @param {function} [onNewPage] - called when each page is received.
+   *   Called with the following arguments: page, pageNumber – where page is the
+   *   page contents and pageNumber is the number of the current page (starting
+   *   at page 1)
+   */
   return (requestInfo = {}) => {
     /* ----------------- Extract request information ---------------- */
     const method = (requestInfo.method || 'GET');
@@ -71,6 +93,11 @@ module.exports = (config = {}) => {
       || config.ignoreCache
       || method !== 'GET'
       || requestInfo.ignoreCache
+    );
+    // pagePostProcessor
+    const pagePostProcessor = (
+      config.pagePostProcessor
+      || requestInfo.pagePostProcessor
     );
 
     // Step 1: check for cached value
@@ -130,6 +157,17 @@ module.exports = (config = {}) => {
                 }
                 // > 400 - Invalid syntax
                 if (response.status === 400) {
+                  // Terms only in root accounts
+                  if (
+                    response.body.message
+                    && response.body.message.includes('Terms only belong to root_accounts')
+                  ) {
+                    return reject(new CACCLError({
+                      message: 'We could not look up the list of terms because terms only belong to root accounts and this is not a root account.',
+                      code: errorCodes.termsOnlyInRootAccounts,
+                    }));
+                  }
+
                   // Compile errors into string
                   let errors;
                   try {
@@ -179,8 +217,21 @@ module.exports = (config = {}) => {
                   return reject(canvasError);
                 }
 
+                // Post-process the body
+                if (pagePostProcessor) {
+                  parsedBody = pagePostProcessor(parsedBody);
+                }
+
                 // Page is valid. Save it
                 pages.push(parsedBody);
+
+                // Send notifications
+                if (requestInfo.onNewPage) {
+                  requestInfo.onNewPage(parsedBody, pages.length);
+                }
+                if (config.onNewPage) {
+                  config.onNewPage(parsedBody, pages.length);
+                }
 
                 // Check for next page
                 let nextPagePath;
