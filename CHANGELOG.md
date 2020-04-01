@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.56] - 04/01/20
+
+Added new docs, account.listCourses and account.enrollmentTerm functions.
+
 ## [1.0.53] - 12/19/19
 
 Added information on scopes.
