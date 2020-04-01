@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with student groups within courses
- * @class api.course.group
+ * @namespace api.course.group
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
@@ -25,13 +25,14 @@ class Group extends EndpointCategory {
 
 /**
  * Gets info on a specific group in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method get
  * @memberof api.course.group
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.groupId - Canvas group Id
- * @return Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
+ * @return {Group} Canvas group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
 Group.get = function (options) {
   return this.visitEndpoint({
@@ -53,13 +54,14 @@ Group.get.scopes = [
 
 /**
  * Gets the list of members in a group
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listMembers
  * @memberof api.course.group
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.groupId - Canvas group Id
- * @return {Promise.<Object[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @return {User[]} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Group.listMembers = function (options) {
   return this.visitEndpoint({
@@ -75,15 +77,16 @@ Group.listMembers.scopes = [
 
 /**
  * Gets the list of members in a group
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method updateMembers
  * @memberof api.course.group
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.groupId - Canvas group Id
  * @param {array} [options.members=[]] - The list of user objects/user Ids that
  *   should be in the group
- * @return {Promise.<Object>} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
+ * @return {Group} Canvas Group {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
 Group.updateMembers = function (options) {
   return this.visitEndpoint({

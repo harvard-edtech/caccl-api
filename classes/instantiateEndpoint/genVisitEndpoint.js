@@ -9,7 +9,7 @@ const preProcessParams = require('./helpers/preProcessParams');
 
 /**
  * Generates a new visitEndpoint function
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @param {number} itemsPerPage - the number of items to request in each page
  * @param {number} maxPages - the maximum number of pages to request
  * @param {string} canvasHost - the Canvas host to send requests to

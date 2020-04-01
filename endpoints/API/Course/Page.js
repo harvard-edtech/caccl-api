@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with pages within courses
- * @class api.course.page
+ * @namespace api.course.page
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
@@ -19,13 +19,14 @@ class Page extends EndpointCategory {
 
 /**
  * Gets the list of pages in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method list
  * @memberof api.course.page
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
- * @return {Promise.<Object[]>} list of Canvas Pages {@link https://canvas.instructure.com/doc/api/pages.html#Page}
+ * @return {Page[]} list of Canvas Pages {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.list = function (options) {
   return this.visitEndpoint({
@@ -41,15 +42,16 @@ Page.list.scopes = [
 
 /**
  * Get info on a specific page in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method get
  * @memberof api.course.page
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {string} options.pageURL - Canvas page url (just the last part of
  *   path)
- * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
+ * @return {Page} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.get = function (options) {
   return this.visitEndpoint({
@@ -65,10 +67,11 @@ Page.get.scopes = [
 
 /**
  * Updates a Canvas page
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method update
  * @memberof api.course.page
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseID - Canvas course ID holding the page to
  *   update
@@ -83,7 +86,7 @@ Page.get.scopes = [
  *   page
  * @param {boolean} [options.frontPage=current value] - New front page status of
  *   page
- * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
+ * @return {Page} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.update = function (options) {
   return this.visitEndpoint({
@@ -109,10 +112,11 @@ Page.update.scopes = [
 
 /**
  * Creates a new page in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method create
  * @memberof api.course.page
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {string} [options.title=Untitled Page] - The title of the page
@@ -122,7 +126,7 @@ Page.update.scopes = [
  * @param {boolean} [options.published=false] - if true, publishes page upon
  *   creation
  * @param {boolean} [options.frontPage=false] - if true, sets page as front page
- * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
+ * @return {Page} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.create = function (options) {
   return this.visitEndpoint({
@@ -147,14 +151,15 @@ Page.create.scopes = [
 
 /**
  * Deletes a page from a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method delete
  * @memberof api.course.page
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {string} options.pageURL - Page url to delete (just last part of path)
- * @return {Promise.<Object>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
+ * @return {Page} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
  */
 Page.delete = function (options) {
   return this.visitEndpoint({

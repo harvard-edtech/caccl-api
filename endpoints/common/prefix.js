@@ -1,6 +1,6 @@
 /**
  * Prefixes for each version of the Canvas api
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @module endpoints/helpers/prefix
  * @see module: endpoints/helpers/prefix
  */

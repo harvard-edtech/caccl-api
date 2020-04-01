@@ -1,3 +1,8 @@
+/**
+ * Functions for users
+ * @namespace api.user
+ */
+
 const EndpointCategory = require('../../../classes/EndpointCategory');
 
 // Import subcategories:

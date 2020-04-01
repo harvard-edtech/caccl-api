@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with external LTI apps within courses
- * @class api.course.app
+ * @namespace api.course.app
  */
 
 const CACCLError = require('caccl-error');
@@ -28,15 +28,16 @@ class App extends EndpointCategory {
 
 /**
  * Gets the list of apps installed into a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @memberof api.course.app
  * @instance
+ * @async
  * @method list
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {boolean} [options.excludeParents] - If true, excludes tools
  *   installed in all accounts above the current context
- * @return {Promise.<Object[]>} list of external tools {@link https://canvas.instructure.com/doc/api/external_tools.html}
+ * @return {ExternalTool[]} list of external tools {@link https://canvas.instructure.com/doc/api/external_tools.html}
  */
 App.list = function (options) {
   const params = (
@@ -58,14 +59,15 @@ App.list.scopes = [
 
 /**
  * Gets info on a single LTI tool
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @memberof api.course.app
  * @instance
+ * @async
  * @method get
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.appId - The LTI app Id to get
- * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
+ * @return {ExternalTool} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
 App.get = function (options) {
   return this.visitEndpoint({
@@ -81,9 +83,10 @@ App.get.scopes = [
 
 /**
  * Adds an LTI app to a Canvas course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @memberof api.course.app
  * @instance
+ * @async
  * @method add
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to install into
@@ -94,7 +97,7 @@ App.get.scopes = [
  * @param {string} [options.description] - A human-readable description of the
  *   app
  * @param {string} [options.launchPrivacy] - 'public' by default
- * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
+ * @return {ExternalTool} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
 App.add = function (options) {
   return this.visitEndpoint({
@@ -126,14 +129,15 @@ App.add.scopes = [
 
 /**
  * Removes an LTI app from a Canvas course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @memberof api.course.app
  * @instance
+ * @async
  * @method remove
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to remove app from
  * @param {number} options.appId - The LTI app Id to remove
- * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
+ * @return {ExternalTool} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
 App.remove = function (options) {
   return this.visitEndpoint({
@@ -161,15 +165,16 @@ App.remove.scopes = [
  *   metadata for the first app we find that has this metadata_id.
  *   Also note that the variable is 'metadata_id' all lowercase because launch
  *   params are made lowercase.
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @memberof api.course.app
  * @instance
+ * @async
  * @method getMetadata
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id that holds the app
  * @param {number} options.metadata_id - metadata identifier (see endpoint
  *   description)
- * @return {Promise.<Object>} the metadata for the first app that has the given
+ * @return {object} the metadata for the first app that has the given
  *   metadata_id
  */
 App.getMetadata = function (options) {
@@ -238,16 +243,17 @@ App.getMetadata.scopes = [App.list];
  *   metadata for the first app we find that has this metadata_id.
  *   Also note that the variable is 'metadata_id' all lowercase because launch
  *   params are made lowercase.
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @memberof api.course.app
  * @instance
+ * @async
  * @method updateMetadata
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id that holds the app
  * @param {number} options.metadata_id - metadata identifier (see endpoint
  *   description)
  * @param {object} [options.metadata={}] - json metadata object
- * @return {Promise.<Object[]>} Array of external tools (the apps that were updated) {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
+ * @return {ExternalTool[]} Array of external tools (the apps that were updated) {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
 App.updateMetadata = function (options) {
   // Pre-process metadata
@@ -313,14 +319,15 @@ App.updateMetadata.scopes = [
 
 /**
  * Gets a sessionless navigation LTI launch URL
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @memberof api.course.app
  * @instance
+ * @async
  * @method getNavLaunchURL
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id that holds the app
  * @param {number} options.appId - The LTI app Id to get a launch URL for
- * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
+ * @return {ExternalTool} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
 App.getNavLaunchURL = function (options) {
   return this.visitEndpoint({
@@ -342,16 +349,17 @@ App.getNavLaunchURL.scopes = [
 
 /**
  * Gets a sessionless navigation LTI launch URL
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @memberof api.course.app
  * @instance
+ * @async
  * @method getAssignmentLaunchURL
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id that holds the app
  * @param {number} options.appId - The LTI app Id to get a launch URL for
  * @param {number} options.assignmentId - the Canvas assignment id to launch
  *   from
- * @return {Promise.<Object>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
+ * @return {ExternalTool} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
  */
 App.getAssignmentLaunchURL = function (options) {
   return this.visitEndpoint({

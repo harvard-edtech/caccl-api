@@ -1,90 +1,47 @@
-<!-- start:source.tmpl.hbs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-		<title>Course/Assignment.js</title>
-		<!--[if lt IE 9]>
-		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
-		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
-		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
-		<link type="text/css" rel="stylesheet" href="css/template.min.css">
-		<script type="text/javascript">
-			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
-			window.DOCLET_TOC_ENABLED = false;
-			window.DOCLET_AFILTER_ENABLED = false;
-		</script>
+    
+    <meta charset="utf-8">
+    <title>Course/Assignment.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<!-- start:navbar.hbs -->
-	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="index.html">
-					caccl-api
-				</a>
-				<!-- displayed on small devices -->
-				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div>
-			<div class="navbar-collapse collapse" id="topNavigation">
-				<ul class="nav navbar-nav">
-								<li class="dropdown">
-									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Endpoints<b class="caret"></b></a>
-									<ul class="dropdown-menu">
-											<li><a href="api.account.html">api.account</a></li>
-											<li><a href="api.course.html">api.course</a></li>
-											<li><a href="api.course.analytics.html">api.course.analytics</a></li>
-											<li><a href="api.course.app.html">api.course.app</a></li>
-											<li><a href="api.course.assignment.html">api.course.assignment</a></li>
-											<li><a href="api.course.assignmentGroup.html">api.course.assignmentGroup</a></li>
-											<li><a href="api.course.discussionTopic.html">api.course.discussionTopic</a></li>
-											<li><a href="api.course.gradebookColumn.html">api.course.gradebookColumn</a></li>
-											<li><a href="api.course.group.html">api.course.group</a></li>
-											<li><a href="api.course.groupSet.html">api.course.groupSet</a></li>
-											<li><a href="api.course.page.html">api.course.page</a></li>
-											<li><a href="api.course.quiz.html">api.course.quiz</a></li>
-											<li><a href="api.course.rubric.html">api.course.rubric</a></li>
-											<li><a href="api.course.section.html">api.course.section</a></li>
-											<li><a href="api.other.html">api.other</a></li>
-											<li><a href="api.user.self.html">api.user.self</a></li>
-									</ul>
-								</li>
-				</ul>
-					<!-- start:lunr-search-navbar.hbs -->
-					<form class="navbar-form navbar-right" role="search">
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
-							<div class="input-group-btn">
-								<button class="btn btn-default" id="lunr-search-submit">
-									<i class="glyphicon glyphicon-search"></i>
-								</button>
-							</div>
-						</div>
-					</form>
-					<!-- start:lunr-search-navbar.hbs -->		</div>
-		</div>
-	</header>
-	<!-- end:navbar.hbs -->		<div class="page-header">
-			<div class="container">
-				<span class="kind">source</span>
-				<h1><span class="name">Course/Assignment.js</span></h1>
-			</div>
-		</div>
-	<div class="container content">
-		<div class="row">
-			<div class="col-md-12 main-content">
-		<section class="source-section">
-			<article></article>
-			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav style="border-right: 2px solid #ccc; padding-bottom: 25px;" >
+    
+    <h2><a style="font-size: 30px;" href="index.html">CACCL API</a></h2><h3>Endpoint Functions</h3><ul><li><a href="api.account.html">api.account</a><ul class='methods'><li data-type='method'><a href="api.account.html#get">get</a></li><li data-type='method'><a href="api.account.html#list">list</a></li><li data-type='method'><a href="api.account.html#listAdmins">listAdmins</a></li><li data-type='method'><a href="api.account.html#listCourses">listCourses</a></li></ul></li><li><a href="api.account.enrollmentTerm.html">api.account.enrollmentTerm</a><ul class='methods'><li data-type='method'><a href="api.account.enrollmentTerm.html#get">get</a></li><li data-type='method'><a href="api.account.enrollmentTerm.html#list">list</a></li></ul></li><li><a href="api.course.html">api.course</a><ul class='methods'><li data-type='method'><a href="api.course.html#get">get</a></li><li data-type='method'><a href="api.course.html#getUser">getUser</a></li><li data-type='method'><a href="api.course.html#listDesignerEnrollments">listDesignerEnrollments</a></li><li data-type='method'><a href="api.course.html#listDesigners">listDesigners</a></li><li data-type='method'><a href="api.course.html#listEnrollments">listEnrollments</a></li><li data-type='method'><a href="api.course.html#listObserverEnrollments">listObserverEnrollments</a></li><li data-type='method'><a href="api.course.html#listObservers">listObservers</a></li><li data-type='method'><a href="api.course.html#listStudentEnrollments">listStudentEnrollments</a></li><li data-type='method'><a href="api.course.html#listStudents">listStudents</a></li><li data-type='method'><a href="api.course.html#listTeachingTeamMemberEnrollments">listTeachingTeamMemberEnrollments</a></li><li data-type='method'><a href="api.course.html#listTeachingTeamMembers">listTeachingTeamMembers</a></li><li data-type='method'><a href="api.course.html#listUsers">listUsers</a></li></ul></li><li><a href="api.course.analytics.html">api.course.analytics</a><ul class='methods'><li data-type='method'><a href="api.course.analytics.html#getStudentMessagingData">getStudentMessagingData</a></li><li data-type='method'><a href="api.course.analytics.html#getStudentParticipationData">getStudentParticipationData</a></li><li data-type='method'><a href="api.course.analytics.html#getStudentSummary">getStudentSummary</a></li><li data-type='method'><a href="api.course.analytics.html#listAssignmentSummaries">listAssignmentSummaries</a></li><li data-type='method'><a href="api.course.analytics.html#listDailyActivitySummaries">listDailyActivitySummaries</a></li><li data-type='method'><a href="api.course.analytics.html#listStudentSummaries">listStudentSummaries</a></li></ul></li><li><a href="api.course.app.html">api.course.app</a><ul class='methods'><li data-type='method'><a href="api.course.app.html#add">add</a></li><li data-type='method'><a href="api.course.app.html#get">get</a></li><li data-type='method'><a href="api.course.app.html#getAssignmentLaunchURL">getAssignmentLaunchURL</a></li><li data-type='method'><a href="api.course.app.html#getMetadata">getMetadata</a></li><li data-type='method'><a href="api.course.app.html#getNavLaunchURL">getNavLaunchURL</a></li><li data-type='method'><a href="api.course.app.html#list">list</a></li><li data-type='method'><a href="api.course.app.html#remove">remove</a></li><li data-type='method'><a href="api.course.app.html#updateMetadata">updateMetadata</a></li></ul></li><li><a href="api.course.assignment.html">api.course.assignment</a><ul class='methods'><li data-type='method'><a href="api.course.assignment.html#create">create</a></li><li data-type='method'><a href="api.course.assignment.html#createFileSubmission">createFileSubmission</a></li><li data-type='method'><a href="api.course.assignment.html#createOverride">createOverride</a></li><li data-type='method'><a href="api.course.assignment.html#createSubmissionComment">createSubmissionComment</a></li><li data-type='method'><a href="api.course.assignment.html#createTextSubmission">createTextSubmission</a></li><li data-type='method'><a href="api.course.assignment.html#createURLSubmission">createURLSubmission</a></li><li data-type='method'><a href="api.course.assignment.html#delete">delete</a></li><li data-type='method'><a href="api.course.assignment.html#deleteOverride">deleteOverride</a></li><li data-type='method'><a href="api.course.assignment.html#get">get</a></li><li data-type='method'><a href="api.course.assignment.html#getOverride">getOverride</a></li><li data-type='method'><a href="api.course.assignment.html#getSubmission">getSubmission</a></li><li data-type='method'><a href="api.course.assignment.html#list">list</a></li><li data-type='method'><a href="api.course.assignment.html#listGradeableStudents">listGradeableStudents</a></li><li data-type='method'><a href="api.course.assignment.html#listOverrides">listOverrides</a></li><li data-type='method'><a href="api.course.assignment.html#listSubmissions">listSubmissions</a></li><li data-type='method'><a href="api.course.assignment.html#update">update</a></li><li data-type='method'><a href="api.course.assignment.html#updateGrade">updateGrade</a></li><li data-type='method'><a href="api.course.assignment.html#updateGrades">updateGrades</a></li><li data-type='method'><a href="api.course.assignment.html#updateOverride">updateOverride</a></li></ul></li><li><a href="api.course.assignmentGroup.html">api.course.assignmentGroup</a><ul class='methods'><li data-type='method'><a href="api.course.assignmentGroup.html#create">create</a></li><li data-type='method'><a href="api.course.assignmentGroup.html#delete">delete</a></li><li data-type='method'><a href="api.course.assignmentGroup.html#get">get</a></li><li data-type='method'><a href="api.course.assignmentGroup.html#list">list</a></li><li data-type='method'><a href="api.course.assignmentGroup.html#update">update</a></li></ul></li><li><a href="api.course.discussionTopic.html">api.course.discussionTopic</a><ul class='methods'><li data-type='method'><a href="api.course.discussionTopic.html#create">create</a></li><li data-type='method'><a href="api.course.discussionTopic.html#delete">delete</a></li><li data-type='method'><a href="api.course.discussionTopic.html#list">list</a></li><li data-type='method'><a href="api.course.discussionTopic.html#listEntries">listEntries</a></li></ul></li><li><a href="api.course.gradebookColumn.html">api.course.gradebookColumn</a><ul class='methods'><li data-type='method'><a href="api.course.gradebookColumn.html#create">create</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#delete">delete</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#get">get</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#list">list</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#listEntries">listEntries</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#update">update</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#updateEntries">updateEntries</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#updateEntry">updateEntry</a></li></ul></li><li><a href="api.course.group.html">api.course.group</a><ul class='methods'><li data-type='method'><a href="api.course.group.html#get">get</a></li><li data-type='method'><a href="api.course.group.html#listMembers">listMembers</a></li><li data-type='method'><a href="api.course.group.html#updateMembers">updateMembers</a></li></ul></li><li><a href="api.course.groupSet.html">api.course.groupSet</a><ul class='methods'><li data-type='method'><a href="api.course.groupSet.html#create">create</a></li><li data-type='method'><a href="api.course.groupSet.html#createGroup">createGroup</a></li><li data-type='method'><a href="api.course.groupSet.html#delete">delete</a></li><li data-type='method'><a href="api.course.groupSet.html#deleteGroup">deleteGroup</a></li><li data-type='method'><a href="api.course.groupSet.html#get">get</a></li><li data-type='method'><a href="api.course.groupSet.html#getGroup">getGroup</a></li><li data-type='method'><a href="api.course.groupSet.html#list">list</a></li><li data-type='method'><a href="api.course.groupSet.html#listGroups">listGroups</a></li></ul></li><li><a href="api.course.page.html">api.course.page</a><ul class='methods'><li data-type='method'><a href="api.course.page.html#create">create</a></li><li data-type='method'><a href="api.course.page.html#delete">delete</a></li><li data-type='method'><a href="api.course.page.html#get">get</a></li><li data-type='method'><a href="api.course.page.html#list">list</a></li><li data-type='method'><a href="api.course.page.html#update">update</a></li></ul></li><li><a href="api.course.quiz.html">api.course.quiz</a><ul class='methods'><li data-type='method'><a href="api.course.quiz.html#create">create</a></li><li data-type='method'><a href="api.course.quiz.html#createEssayQuestion">createEssayQuestion</a></li><li data-type='method'><a href="api.course.quiz.html#createMultipleChoiceQuestion">createMultipleChoiceQuestion</a></li><li data-type='method'><a href="api.course.quiz.html#createShortAnswerQuestion">createShortAnswerQuestion</a></li><li data-type='method'><a href="api.course.quiz.html#createSubmission">createSubmission</a></li><li data-type='method'><a href="api.course.quiz.html#delete">delete</a></li><li data-type='method'><a href="api.course.quiz.html#get">get</a></li><li data-type='method'><a href="api.course.quiz.html#getSubmission">getSubmission</a></li><li data-type='method'><a href="api.course.quiz.html#list">list</a></li><li data-type='method'><a href="api.course.quiz.html#listQuestionGrades">listQuestionGrades</a></li><li data-type='method'><a href="api.course.quiz.html#listQuestions">listQuestions</a></li><li data-type='method'><a href="api.course.quiz.html#listSubmissions">listSubmissions</a></li><li data-type='method'><a href="api.course.quiz.html#update">update</a></li><li data-type='method'><a href="api.course.quiz.html#updateQuestionGrades">updateQuestionGrades</a></li></ul></li><li><a href="api.course.rubric.html">api.course.rubric</a><ul class='methods'><li data-type='method'><a href="api.course.rubric.html#createFreeFormGradingRubricInAssignment">createFreeFormGradingRubricInAssignment</a></li><li data-type='method'><a href="api.course.rubric.html#get">get</a></li><li data-type='method'><a href="api.course.rubric.html#list">list</a></li></ul></li><li><a href="api.course.section.html">api.course.section</a><ul class='methods'><li data-type='method'><a href="api.course.section.html#get">get</a></li><li data-type='method'><a href="api.course.section.html#list">list</a></li></ul></li><li><a href="api.other.html">api.other</a><ul class='methods'><li data-type='method'><a href="api.other.html#endpoint">endpoint</a></li></ul></li><li><a href="api.user.html">api.user</a></li><li><a href="api.user.self.html">api.user.self</a><ul class='methods'><li data-type='method'><a href="api.user.self.html#getProfile">getProfile</a></li><li data-type='method'><a href="api.user.self.html#listCourses">listCourses</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * Functions for interacting with assignments within courses
- * @class api.course.assignment
+ * @namespace api.course.assignment
  */
 
 const fs = require('fs');
@@ -121,16 +78,17 @@ class Assignment extends EndpointCategory {
 
 /**
  * Lists the assignments in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method list
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {boolean} [options.ignoreOverridesForDates] - if true, assignment
  *   dates are taken from the default dates instead of from the ones in
  *   overrides
- * @return {Promise.&lt;Object[]>} list of Canvas Assignments {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Assignment[]} list of Canvas Assignments {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.list = function (options) {
   return this.visitEndpoint({
@@ -142,20 +100,25 @@ Assignment.list = function (options) {
   });
 };
 Assignment.list.action = 'get the list of assignments in a course';
+Assignment.list.requiredParams = ['courseId'];
+Assignment.list.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments',
+];
 
 /**
  * Get info on a specific assignment in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method get
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.assignmentId - Canvas assignment Id
  * @param {boolean} [options.ignoreOverridesForDates] - if true, assignment
  *   dates are taken from the default dates instead of from the ones in
  *   overrides
- * @return {Promise.&lt;Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Assignment} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.get = function (options) {
   return this.visitEndpoint({
@@ -168,13 +131,17 @@ Assignment.get = function (options) {
 };
 Assignment.get.action = 'get info on a specific assignment in a course';
 Assignment.get.requiredParams = ['courseId', 'assignmentId'];
+Assignment.get.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments/:id',
+];
 
 /**
  * Updates a Canvas assignment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method update
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.assignmentId - Canvas assignment Id to update
@@ -208,7 +175,7 @@ Assignment.get.requiredParams = ['courseId', 'assignmentId'];
  *   true, students in groups can be given separate grades and when one student
  *   in a group gets a grade, other students do not get graded. Must be a
  *   boolean
- * @return {Promise.&lt;Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Assignment} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.update = function (options) {
   return this.visitEndpoint({
@@ -252,13 +219,17 @@ Assignment.update = function (options) {
 };
 Assignment.update.action = 'update an assignment in a course';
 Assignment.update.requiredParams = ['courseId', 'assignmentId'];
+Assignment.update.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/assignments/:id',
+];
 
 /**
  * Creates a Canvas assignment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method create
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to create an assignment
  *   in
@@ -302,7 +273,7 @@ Assignment.update.requiredParams = ['courseId', 'assignmentId'];
  * @param {boolean} [options.assignmentAppNewTab=false] - Only relevant if
  *   assignmentAppId is defined. If true, when a student clicks the assignment,
  *   their LTI session with the external tool will be opened in a new tab
- * @return {Promise.&lt;Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Assignment} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.create = function (options) {
   // Create params
@@ -384,17 +355,22 @@ Assignment.create = function (options) {
 };
 Assignment.create.action = 'create a new assignment in a course';
 Assignment.create.requiredParams = ['courseId'];
+Assignment.create.scopes = [
+  'url:POST|/api/v1/courses/:course_id/assignments',
+  'url:GET|/api/v1/courses/:course_id/external_tools/:external_tool_id',
+];
 
 /**
  * Delete an assignment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method delete
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - Canvas assignment Id
- * @return {Promise.&lt;Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Assignment} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.delete = function (options) {
   return this.visitEndpoint({
@@ -404,6 +380,9 @@ Assignment.delete = function (options) {
 };
 Assignment.delete.action = 'delete an assignment from a course';
 Assignment.delete.requiredParams = ['courseId', 'assignmentId'];
+Assignment.delete.scopes = [
+  'url:DELETE|/api/v1/courses/:course_id/assignments/:id',
+];
 
 /*------------------------------------------------------------------------*/
 /*                            Grading Endpoints                           */
@@ -411,14 +390,15 @@ Assignment.delete.requiredParams = ['courseId', 'assignmentId'];
 
 /**
  * List gradeable students for a specific assignment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listGradeableStudents
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.assignmentId - Canvas assignment Id to query
- * @return {Promise.&lt;Object[]>} list of Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @return {User[]} list of Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Assignment.listGradeableStudents = function (options) {
   return this.visitEndpoint({
@@ -435,20 +415,24 @@ Assignment.listGradeableStudents = function (options) {
 };
 Assignment.listGradeableStudents.action = 'get the list of students who are gradeable in a specific assignment in a course';
 Assignment.listGradeableStudents.requiredParams = ['courseId', 'assignmentId'];
+Assignment.listGradeableStudents.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments/:assignment_id/gradeable_students',
+];
 
 /**
  * Adds a comment to a submission
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createSubmissionComment
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - Canvas course Id
  * @param {number} options.studentId - Canvas student Id of the sub to comment
  *   on
  * @param {string} options.comment - The text of the comment
- * @return {Promise.&lt;Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createSubmissionComment = function (options) {
   return this.visitEndpoint({
@@ -465,13 +449,17 @@ Assignment.createSubmissionComment.requiredParams = [
   'assignmentId',
   'studentId',
 ];
+Assignment.createSubmissionComment.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id',
+];
 
 /**
  * Updates a student's grade and/or comment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method updateGrade
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course id
  * @param {number} options.assignmentId - Canvas assignment id
@@ -480,7 +468,7 @@ Assignment.createSubmissionComment.requiredParams = [
  *   student
  * @param {string} [options.comment] - the grader comment to leave on the
  *   submission
- * @return {Promise.&lt;Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.updateGrade = function (options) {
   return this.visitEndpoint({
@@ -498,13 +486,17 @@ Assignment.updateGrade.requiredParams = [
   'assignmentId',
   'studentId',
 ];
+Assignment.updateGrade.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id',
+];
 
 /**
  * Batch updates grades and/or comments. Also supports updating rubric items
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method updateGrades
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - Canvas assignment Id
@@ -513,7 +505,7 @@ Assignment.updateGrade.requiredParams = [
  *     studentId: &lt;student id>,
  *     points: &lt;optional, points to overwrite with>,
  *     comment: &lt;optional, comment to append (or overwrite if rubric comment)>,
- *     rubricId: &lt;optional, rubric item (overrall grade/comment if excluded)>
+ *     rubricId: &lt;optional, rubric item (overall grade/comment if excluded)>
  *   },...]
  * @param {boolean} [options.waitForCompletion=false] - If true, promise won't
  *   resolve until Canvas has finished updating the grades, instead of resolving
@@ -533,7 +525,7 @@ Assignment.updateGrade.requiredParams = [
  *     { grammar: ungraded, argument: ungraded, formatting: 9/10 }
  *   Note: merging is an added feature. By default, the Canvas API does not
  *   merge rubric assessments.
- * @return {Promise.&lt;Object>} Canvas Progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
+ * @return {Progress} Canvas Progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
  */
 Assignment.updateGrades = function (options) {
   // Create a promise chain so we can queue promises
@@ -783,6 +775,11 @@ Assignment.updateGrades.requiredParams = [
   'assignmentId',
   'gradeItems',
 ];
+Assignment.updateGrades.scopes = [
+  Assignment.get,
+  Assignment.getSubmission,
+  'url:POST|/api/v1/courses/:course_id/assignments/:assignment_id/submissions/update_grades',
+];
 
 /*------------------------------------------------------------------------*/
 /*                      Assignment Override Endpoints                     */
@@ -790,14 +787,15 @@ Assignment.updateGrades.requiredParams = [
 
 /**
  * Gets the list of overrides for an assignment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listOverrides
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course id to query
  * @param {number} options.assignmentId - Canvas assignment id to look up
- * @return {Promise.&lt;Object[]>} list of Canvas AssignmentOverrides {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {AssignmentOverride} list of Canvas AssignmentOverrides {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.listOverrides = function (options) {
   return this.visitEndpoint({
@@ -807,18 +805,22 @@ Assignment.listOverrides = function (options) {
 };
 Assignment.listOverrides.action = 'get a list of assignment overrides for a specific assignment in a course';
 Assignment.listOverrides.requiredParams = ['courseId', 'assignmentId'];
+Assignment.listOverrides.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments/:assignment_id/overrides',
+];
 
 /**
  * Get a specific override on an assignment in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method getOverride
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course id to query
  * @param {number} options.assignmentId - Canvas assignment id to query
  * @param {number} options.overrideId - Canvas override id to look up
- * @return {Promise.&lt;Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {AssignmentOverride} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.getOverride = function (options) {
   return this.visitEndpoint({
@@ -828,6 +830,9 @@ Assignment.getOverride = function (options) {
 };
 Assignment.getOverride.action = 'get a list of assignment overrides for a specific assignment in a course';
 Assignment.getOverride.requiredParams = ['courseId', 'assignmentId'];
+Assignment.getOverride.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments/:assignment_id/overrides/:id',
+];
 
 /**
  * Create assignment override. Note that if any dates (dueAt, unlockAt, or
@@ -839,10 +844,11 @@ Assignment.getOverride.requiredParams = ['courseId', 'assignmentId'];
  *   time in the future (even if everyone else can't submit because their lock
  *   date has passed). In short, it is not recommended to omit dates that are
  *   defined in the assignment.
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createOverride
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course id
  * @param {number} options.assignmentId - Canvas assignment id
@@ -864,7 +870,7 @@ Assignment.getOverride.requiredParams = ['courseId', 'assignmentId'];
  * @param {date} [options.lockAt=no lock date] - New lock date. If excluded,
  *   the target(s) of this override can see and submit the assignment at
  *   any point in the future (their lock date is the end of time)
- * @return {Promise.&lt;Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {AssignmentOverride} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.createOverride = function (options) {
   let { title } = options;
@@ -914,6 +920,9 @@ Assignment.createOverride.requiredParams = [
   'courseId',
   'assignmentId',
 ];
+Assignment.createOverride.scopes = [
+  'url:POST|/api/v1/courses/:course_id/assignments/:assignment_id/overrides',
+];
 
 /**
  * Update an assignment override. Note: target can only be updated if the
@@ -924,10 +933,11 @@ Assignment.createOverride.requiredParams = [
  *   if the previous override has a dueAt and the update does not, the updated
  *   override will have no dueAt date (the target(s) of the override will have
  *   no deadline).
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method updateOverride
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course id
  * @param {number} options.assignmentId - Canvas assignment id
@@ -945,7 +955,7 @@ Assignment.createOverride.requiredParams = [
  * @param {date} [options.lockAt=no lock date] - New lock date. If excluded,
  *   the target(s) of this override can see and submit the assignment at
  *   any point in the future (their lock date is the end of time)
- * @return {Promise.&lt;Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {AssignmentOverride} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.updateOverride = function (options) {
   // Pre-process dates
@@ -987,18 +997,22 @@ Assignment.updateOverride.requiredParams = [
   'assignmentId',
   'overrideId',
 ];
+Assignment.updateOverride.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/assignments/:assignment_id/overrides/:id',
+];
 
 /**
  * Deletes an assignment override
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method deleteOverride
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course id to query
  * @param {number} options.assignmentId - Canvas assignment id to query
  * @param {number} options.overrideId - Canvas override id to look up
- * @return {Promise.&lt;Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {AssignmentOverride} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.deleteOverride = function (options) {
   return this.visitEndpoint({
@@ -1018,6 +1032,9 @@ Assignment.deleteOverride.requiredParams = [
   'assignmentId',
   'overrideId',
 ];
+Assignment.deleteOverride.scopes = [
+  'url:DELETE|/api/v1/courses/:course_id/assignments/:assignment_id/overrides/:id',
+];
 
 /*------------------------------------------------------------------------*/
 /*                     Assignment Submission Endpoints                    */
@@ -1027,10 +1044,11 @@ Assignment.deleteOverride.requiredParams = [
 
 /**
  * Passes through or retrieves the current user's Canvas id
+ * @ignore
  * @param {API} api - Instance of caccl-api
  * @param {number} [userId] - The Canvas Id of the current user. Passed through
  *   by default if we already know it
- * @return {Promise.&lt;number>} Canvas Id of the current user
+ * @return {number} Canvas Id of the current user
  */
 const getCurrentUserId = (api, userId) => {
   // Resolve if we already have the user's id
@@ -1042,15 +1060,19 @@ const getCurrentUserId = (api, userId) => {
       return Promise.resolve(profile.id);
     });
 };
+getCurrentUserId.scopes = [
+  'url:GET|/api/v1/users/:user_id/profile',
+];
 
 // Endpoints
 
 /**
  * Lists the submissions to a specific assignment in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listSubmissions
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - The Canvas assignment Id to query
@@ -1062,7 +1084,7 @@ const getCurrentUserId = (api, userId) => {
  *   submission[i].user value with the submission's user information
  * @param {boolean} [options.includeTestStudent=true] - If truthy, includes
  *   dummy submission by test student (student view) if there is one
- * @return {Promise.&lt;Object[]>} list of Canvas submissions {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission[]} list of Canvas submissions {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.listSubmissions = function (options) {
   // Fetch the user info if we're not excluding user info OR if we're
@@ -1111,13 +1133,17 @@ Assignment.listSubmissions = function (options) {
 };
 Assignment.listSubmissions.action = 'list the submissions to a specific assignment in a course';
 Assignment.listSubmissions.requiredParams = ['courseId', 'assignmentId'];
+Assignment.listSubmissions.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments/:assignment_id/submissions',
+];
 
 /**
  * Gets a single submission for an assignment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method getSubmission
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - The Canvas assignment Id
@@ -1128,7 +1154,7 @@ Assignment.listSubmissions.requiredParams = ['courseId', 'assignmentId'];
  *   includes rubric assessments: breakdown of score for each rubric item
  * @param {boolean} [options.excludeUser=false] - If truthy, excludes
  *   submission[i].user value with the submission's user information
- * @return {Promise.&lt;Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.getSubmission = function (options) {
   return this.visitEndpoint({
@@ -1149,13 +1175,17 @@ Assignment.getSubmission.requiredParams = [
   'assignmentId',
   'studentId',
 ];
+Assignment.getSubmission.scopes = [
+  'url:GET|/api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id',
+];
 
 /**
  * Creates a text submission on behalf of the current user
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createTextSubmission
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - The Canvas assignment Id
@@ -1163,7 +1193,7 @@ Assignment.getSubmission.requiredParams = [
  * @param {number} [options.currentUserId] - The current user's Canvas Id.
  *   If not included, we call the current user endpoint
  * @param {string} [options.comment] - A text student comment to include
- * @return {Promise.&lt;Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createTextSubmission = function (options) {
   let submitterId;
@@ -1201,13 +1231,18 @@ Assignment.createTextSubmission.requiredParams = [
   'assignmentId',
   'text',
 ];
+Assignment.createTextSubmission.scopes = [
+  getCurrentUserId,
+  'url:POST|/api/v1/courses/:course_id/assignments/:assignment_id/submissions',
+];
 
 /**
  * Creates a url submission on behalf of the current user
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createURLSubmission
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - The Canvas assignment Id
@@ -1215,7 +1250,7 @@ Assignment.createTextSubmission.requiredParams = [
  * @param {number} [options.currentUserId] - The current user's Canvas Id.
  *   If not included, we call the current user endpoint
  * @param {string} [options.comment] - A text student comment to include
- * @return {Promise.&lt;Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createURLSubmission = function (options) {
   let submitterId;
@@ -1253,13 +1288,18 @@ Assignment.createURLSubmission.requiredParams = [
   'assignmentId',
   'url',
 ];
+Assignment.createURLSubmission.scopes = [
+  getCurrentUserId,
+  'url:POST|/api/v1/courses/:course_id/assignments/:assignment_id/submissions',
+];
 
 /**
  * Creates a file submission on behalf of the current user
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createFileSubmission
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - The Canvas assignment Id
@@ -1267,7 +1307,7 @@ Assignment.createURLSubmission.requiredParams = [
  * @param {number} [options.currentUserId] - The current user's Canvas Id.
  *   If not included, we call the current user endpoint
  * @param {string} [options.comment] - A text student comment to include
- * @return {Promise.&lt;Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createFileSubmission = function (options) {
   let submitterId;
@@ -1407,6 +1447,11 @@ Assignment.createFileSubmission.requiredParams = [
   'assignmentId',
   'filenames',
 ];
+Assignment.createFileSubmission.scopes = [
+  getCurrentUserId,
+  'url:POST|/api/v1/courses/:course_id/assignments/:assignment_id/submissions',
+  'url:POST|/api/v1/courses/:course_id/assignments/:assignment_id/submissions/:user_id/files',
+];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */
@@ -1414,38 +1459,27 @@ Assignment.createFileSubmission.requiredParams = [
 
 module.exports = Assignment;
 </code></pre>
-		</section>
-			</div>
-		</div>
-	</div>
-	<footer>
-				<div class="footer-option">Created by Gabriel Abrams at the Harvard Division of Continuing Education</div>
-				<div class="copyright">All code, materials, documentation, and other parts of this project under MIT license</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
-	</footer>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/clipboard.min.js"></script>
-	<script src="js/prism.min.js"></script>
-	<script src="js/template.min.js"></script>
-		<!-- start:lunr-search-modal.hbs -->
-		<div class="modal fade" id="lunr-search-modal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">Search results</h4>
-					</div>
-					<div class="modal-body" id="lunr-search-body">
-					</div>
-					<div class="modal-footer" id="lunr-search-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div>
-		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
-	
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+We use <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> and the <a href="https://github.com/clenemt/docdash">docdash</a> theme to generate our docs.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
 </body>
 </html>
-<!-- end:source.tmpl.hbs -->

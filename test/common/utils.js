@@ -28,7 +28,7 @@ module.exports = {
   /**
    * Checks whether a template matches a value (good for checking if a template
    *   matches a specific value)
-   * @author Gabriel Abrams
+   * @author Gabe Abrams
    * @memberof module: test/common/utils
    * @param {object} template - object template (see docs in
    *   /test/common/utils)
@@ -69,7 +69,7 @@ module.exports = {
   /**
    * Checks if a template matches any values in the list (good for checking if
    *   a template is found in a list)
-   * @author Gabriel Abrams
+   * @author Gabe Abrams
    * @memberof module: test/common/utils
    * @param {object} template - object template (see docs in
    *   /test/common/utils)
@@ -89,7 +89,7 @@ module.exports = {
   /**
    * Generates a string explaining which templates could not be found in the
    *   list (good for checking if multiple templates exist in a list)
-   * @author Gabriel Abrams
+   * @author Gabe Abrams
    * @memberof module: test/common/utils
    * @param {object} templates - object templates (see docs in
    *   /test/common/utils)
@@ -123,7 +123,7 @@ module.exports = {
 
   /**
    * Waits a given number of seconds
-   * @author Gabriel Abrams
+   * @author Gabe Abrams
    * @memberof module: test/common/utils
    * @param {float} seconds - the number of seconds to wait
    * @return {Promise} promise that resolves when the wait is complete
@@ -136,7 +136,7 @@ module.exports = {
 
   /**
    * Requires that a promise resolves in the given timeframe
-   * @author Gabriel Abrams
+   * @author Gabe Abrams
    * @memberof module: test/common/utils
    * @param {Promise} promise - the promise to watch
    * @param {float} [minSeconds] - the mininum number of seconds that must

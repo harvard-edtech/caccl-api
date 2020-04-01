@@ -1,7 +1,7 @@
 /**
  * Creates an endpoint function given the endpointCoreFunction (function),
  *   defaults, and settings
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @module classes/endpoint/genEndpointFunction
  * @see module: classes/endpoint/genEndpointFunction
  */
@@ -14,7 +14,7 @@ const genVisitEndpoint = require('./genVisitEndpoint');
 /**
  * Creates an endpoint function given the endpointCoreFunction (function),
  *   defaults, and settings
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @param {function} endpointCoreFunction - the core endpoint functionality
  *   as defined as a static function in an EndpointCategory subclass
  * @param {string} action - an english representation of the action

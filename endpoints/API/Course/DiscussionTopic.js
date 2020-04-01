@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with discussion topics within courses
- * @class api.course.discussionTopic
+ * @namespace api.course.discussionTopic
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
@@ -19,10 +19,11 @@ class DiscussionTopic extends EndpointCategory {
 
 /**
  * Gets the list of discussion topics
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method list
- * @memberof api.course.discussion
+ * @memberof api.course.discussionTopic
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {boolean} [options.includeAllDates=false] - If truthy, includes
@@ -37,7 +38,7 @@ class DiscussionTopic extends EndpointCategory {
  *   discussion topics to match and return
  * @param {string} [options.orderBy="position"] - If included, the results are
  *   ordered as instructed. Can be "position" or "recent_activity" or "title"
- * @return {Promise.<Object[]>} List of Canvas Discussion Topics {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
+ * @return {DiscussionTopic[]} List of Canvas Discussion Topics {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
  */
 DiscussionTopic.list = function (options) {
   return this.visitEndpoint({
@@ -63,10 +64,11 @@ DiscussionTopic.list.scopes = [
 
 /**
  * Creates a new discussion topic
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method create
- * @memberof api.course.discussion
+ * @memberof api.course.discussionTopic
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {string} options.title - title of the discussion
@@ -92,7 +94,7 @@ DiscussionTopic.list.scopes = [
  *   be allowed to rate entries.
  * @param {boolean} [options.requireInitialPost] - if true, then a user may not
  *   respond to other replies until that user has made an initial reply
- * @return {Promise.<Object>} A Canvas Discussion Topics {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
+ * @return {DiscussionTopic} A Canvas Discussion Topics {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
  */
 DiscussionTopic.create = function (options) {
   return this.visitEndpoint({
@@ -123,15 +125,16 @@ DiscussionTopic.create.scopes = [
 
 /**
  * Deletes a discussion topic
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method delete
- * @memberof api.course.discussion
+ * @memberof api.course.discussionTopic
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {string} options.topicId - the id of the Canvas discussion topic to
  *   delete
- * @return {Promise.<Object>} A Canvas Discussion Topics {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
+ * @return {DiscussionTopic} A Canvas Discussion Topic {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
  */
 DiscussionTopic.delete = function (options) {
   return this.visitEndpoint({
@@ -147,15 +150,16 @@ DiscussionTopic.delete.scopes = [
 
 /**
  * Lists the entries in a discussion topic
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listEntries
- * @memberof api.course.discussion
+ * @memberof api.course.discussionTopic
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {string} options.topicId - the id of the Canvas discussion topic to
  *   list entries in
- * @return {Promise.<Object>} A Canvas Discussion Topics {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
+ * @return {DiscussionTopic} A Canvas Discussion Topic {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
  */
 DiscussionTopic.listEntries = function (options) {
   return this.visitEndpoint({

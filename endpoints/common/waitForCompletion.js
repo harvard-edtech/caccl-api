@@ -1,6 +1,6 @@
 /**
  * Functionality to wait for Canvas progress object to complete
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @module endpoints/helpers/waitForCompletion
  * @see module: endpoints/helpers/waitForCompletion
  */
@@ -13,7 +13,7 @@ const errorCodes = require('../../errorCodes');
 /**
  * Creates a new promise that resolves when the task has been completed. The
  *   process pings Canvas every refreshMs milliseconds.
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @param {object} progress - a Canvas Progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
  *   that was returned from a request for a large change in Canvas (e.g., batch
  *   grade upload, batch gradebook column data change)

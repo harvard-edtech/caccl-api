@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with sections within courses
- * @class api.course.section
+ * @namespace api.course.section
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
@@ -19,7 +19,7 @@ class Section extends EndpointCategory {
 
 /**
  * Gets the list of sections in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method list
  * @memberof api.course.section
  * @instance
@@ -27,7 +27,7 @@ class Section extends EndpointCategory {
  * @param {number} options.courseId - Canvas course Id to query
  * @param {boolean} [options.includeStudents] - if true, the list of students
  *   from each section are included
- * @return {Promise.<Object[]>} list of Canvas Sections {@link https://canvas.instructure.com/doc/api/sections.html#Section}
+ * @return {Section[]} list of Canvas Sections {@link https://canvas.instructure.com/doc/api/sections.html#Section}
  */
 Section.list = function (options) {
   return this.visitEndpoint({
@@ -48,7 +48,7 @@ Section.list.scopes = [
 
 /**
  * Gets info on a specific section
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method get
  * @memberof api.course.section
  * @instance
@@ -57,7 +57,7 @@ Section.list.scopes = [
  * @param {number} options.sectionId - Section Id to retrieve
  * @param {boolean} [options.includeStudents] - if true, the list of students
  *   in the section are included
- * @return {Promise.<Object>} Canvas Section {@link https://canvas.instructure.com/doc/api/sections.html#Section}
+ * @return {Section} Canvas Section {@link https://canvas.instructure.com/doc/api/sections.html#Section}
  */
 Section.get = function (options) {
   return this.visitEndpoint({

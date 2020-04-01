@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with accounts
- * @class api.enrollmentTerm
+ * @namespace api.account.enrollmentTerm
  */
 
 const EndpointCategory = require('../../../../classes/EndpointCategory');
@@ -20,10 +20,11 @@ class EnrollmentTerm extends EndpointCategory {
 
 /**
  * List enrollment terms for a specific account
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method list
- * @memberof api.enrollmentTerm
+ * @memberof api.account.enrollmentTerm
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} [options.accountId=1] - Canvas account Id to list enrollment
  *   terms. If account is not a root account, we get info on the provided
@@ -35,7 +36,7 @@ class EnrollmentTerm extends EndpointCategory {
  *   that are in the given state
  * @param {boolean} [options.includeOverrides] - If true, include term start/end
  *   dates overridden for different enrollment types
- * @return {Promise.<Object[]>} List of enrollment terms {@link https://canvas.instructure.com/doc/api/enrollment_terms.html#EnrollmentTerm}
+ * @return {EnrollmentTerm[]} List of enrollment terms {@link https://canvas.instructure.com/doc/api/enrollment_terms.html#EnrollmentTerm}
  */
 EnrollmentTerm.list = function (options) {
   const attemptRequest = (accountId) => {
@@ -87,15 +88,16 @@ EnrollmentTerm.list.scopes = ['url:GET|/api/v1/accounts/:account_id/terms'];
 
 /**
  * Get an enrollment term
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method get
- * @memberof api.enrollmentTerm
+ * @memberof api.account.enrollmentTerm
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.accountId - the id for the Canvas account containing
  *   enrollment term
  * @param {number} options.enrollmentTermId - Canvas enrollment term id
- * @return {Promise.<Object>} An enrollment term {@link https://canvas.instructure.com/doc/api/enrollment_terms.html#EnrollmentTerm}
+ * @return {EnrollmentTerm} An enrollment term {@link https://canvas.instructure.com/doc/api/enrollment_terms.html#EnrollmentTerm}
  */
 EnrollmentTerm.get = function (options) {
   return this.visitEndpoint({

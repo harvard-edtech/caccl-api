@@ -1,6 +1,6 @@
 /**
  * Function that pre-processes request parameters for https requests
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @module classes/request/helpers/interpretCanvasError
  * @see module: classes/request/helpers/interpretCanvasError
  */
@@ -10,7 +10,7 @@ const EXCLUDED_VALUE = require('./valueThatsExcluded');
 
 /**
  * Recursively excludes values that match EXCLUDED_VALUE
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @param {object} value - object to preprocess
  * @return {object} pre-processed object with values excluded
  */
@@ -44,7 +44,7 @@ const _recursivelyExcludeParams = (obj) => {
 
 /**
  * Pre-processes request params/body
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @param {string} method - the https method we're using
  * @param {number} itemsPerPage - the number of items per page. Only valid for
  *   GET requests

@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with gradebook columns within courses
- * @class api.course.gradebookColumn
+ * @namespace api.course.gradebookColumn
  */
 
 const CACCLError = require('caccl-error');
@@ -29,15 +29,16 @@ class GradebookColumn extends EndpointCategory {
 
 /**
  * Gets the list of custom gradebook columns in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method list
  * @memberof api.course.gradebookColumn
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {boolean} [options.includeHidden=false] - If truthy, includes hidden
  *   gradebook columns as well.
- * @return {Promise.<Object[]>} List of Canvas CustomColumns {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
+ * @return {CustomColumn[]} List of Canvas CustomColumns {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
 GradebookColumn.list = function (options) {
   return this.visitEndpoint({
@@ -58,16 +59,17 @@ GradebookColumn.list.scopes = [
  * Gets info on a specific gradebook column in a course. This is a simulated
  *   endpoint: it does not exist. We are just pulling the list of columns and
  *   returning one element.
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method get
  * @memberof api.course.gradebookColumn
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.columnId - Canvas column Id to return
  * @param {boolean} [options.isHidden=false] - Must be set to true if the column
  *   you're retrieving is a hidden column.
- * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
+ * @return {CustomColumn} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
 GradebookColumn.get = function (options) {
   return this.api.course.gradebookColumn.list({
@@ -100,10 +102,11 @@ GradebookColumn.get.scopes = [
 
 /**
  * Updates a gradebook column's information
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method update
  * @memberof api.course.gradebookColumn
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course ID
  * @param {number} options.columnId - Canvas custom gradebook column ID to query
@@ -112,7 +115,7 @@ GradebookColumn.get.scopes = [
  *   column in the list of custom gradebook columns
  * @param {boolean} [options.hidden=current value] - If set, updates whether the
  *   custom gradebook column is hidden from everyone. Must be a boolean
- * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
+ * @return {CustomColumn} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
 GradebookColumn.update = function (options) {
   return this.visitEndpoint({
@@ -133,10 +136,11 @@ GradebookColumn.update.scopes = [
 
 /**
  * Creates a new gradebook column in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method create
  * @memberof api.course.gradebookColumn
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {string} [options.title=Untitled Column] - Title of new custom
@@ -145,7 +149,7 @@ GradebookColumn.update.scopes = [
  *   within the list of custom gradebook columns
  * @param {boolean} [options.hidden=false] - If truthy, hides the gradebook
  *   column from everyone, not just instructor as usual
- * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
+ * @return {CustomColumn} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
 GradebookColumn.create = function (options) {
   return this.visitEndpoint({
@@ -166,14 +170,15 @@ GradebookColumn.create.scopes = [
 
 /**
  * Deletes a gradebook column from a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method delete
  * @memberof api.course.gradebookColumn
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.columnId - Gradebook column Id
- * @return {Promise.<Object>} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
+ * @return {CustomColumn} Canvas CustomColumn {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#CustomColumn}
  */
 GradebookColumn.delete = function (options) {
   return this.visitEndpoint({
@@ -193,14 +198,15 @@ GradebookColumn.delete.scopes = [
 
 /**
  * Gets the list of entries in a specific gradebook column in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listEntries
  * @memberof api.course.gradebookColumn
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.columnId - Gradebook column Id
- * @return {Promise.<Object[]>} list of Canvas ColumnDatum objects {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum}
+ * @return {ColumnDatum[]} list of Canvas ColumnDatum objects {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum}
  */
 GradebookColumn.listEntries = function (options) {
   return this.visitEndpoint({
@@ -219,16 +225,17 @@ GradebookColumn.listEntries.scopes = [
 
 /**
  * Update a specific entry in a gradebook column
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method updateEntry
  * @memberof api.course.gradebookColumn
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.columnId - Gradebook column Id
  * @param {number} options.studentId - Canvas user id to update
  * @param {string} options.content - the new text for the user's column cell
- * @return {Promise.<Object>} Canvas ColumnData object {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum}
+ * @return {ColumnDatum} Canvas ColumnDatum object {@link https://canvas.instructure.com/doc/api/custom_gradebook_columns.html#ColumnDatum}
  */
 GradebookColumn.updateEntry = function (options) {
   // Send batch update request
@@ -261,10 +268,11 @@ GradebookColumn.updateEntry.scopes = [
 
 /**
  * Update the list of entries in a specific gradebook column in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method updateEntries
  * @memberof api.course.gradebookColumn
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.columnId - Gradebook column Id
@@ -274,7 +282,7 @@ GradebookColumn.updateEntry.scopes = [
  *   completion of batch update request
  * @param {number} [options.waitForCompletionTimeout=2] - Number of minutes to
  *   wait for completion of batch upload
- * @return {Promise.<Object>} Canvas progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
+ * @return {Progress} Canvas progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
  */
 GradebookColumn.updateEntries = function (options) {
   // Pre-process column data, adding gradebook column Id to each entry

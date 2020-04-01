@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with rubrics within courses
- * @class api.course.rubric
+ * @namespace api.course.rubric
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
@@ -19,13 +19,13 @@ class Rubric extends EndpointCategory {
 
 /**
  * Lists the set of rubrics in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method list
  * @memberof api.course.rubric
  * @instance
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to add the rubric to
- * @return {Promise.<Object[]>} list of Canvas Rubrics {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
+ * @return {Rubric[]} list of Canvas Rubrics {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
  */
 Rubric.list = function (options) {
   return this.visitEndpoint({
@@ -41,7 +41,7 @@ Rubric.list.scopes = [
 
 /**
  * Gets info on a specific rubric in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method get
  * @memberof api.course.rubric
  * @instance
@@ -55,7 +55,7 @@ Rubric.list.scopes = [
  *   ['full','comments_only']
  *   (full = entire assessment, comments_only = only comment part of
  *   assessment). Only valid if including assessments
- * @return {Promise.<Object>} Canvas Rubric {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
+ * @return {Rubric} Canvas Rubric {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
  */
 Rubric.get = function (options) {
   return this.visitEndpoint({
@@ -77,7 +77,7 @@ Rubric.get.scopes = [
  * Creates a new rubric for grading with free form comments enabled and add it
  *   to an assignment in a course.
  * @version unlisted
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createFreeFormGradingRubricInAssignment
  * @memberof api.course.rubric
  * @instance
@@ -87,7 +87,7 @@ Rubric.get.scopes = [
  * @param {array} options.rubricItems - List of rubric item objects:
  *   [{description, points, [longDescription]}, ...]
  * @param {string} [options.title=generated title] - Title of the new rubric
- * @return {Promise.<Object>} Canvas Rubric {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
+ * @return {Rubric} Canvas Rubric {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
  */
 Rubric.createFreeFormGradingRubricInAssignment = function (options) {
   // Infer points possible based on the rubric items

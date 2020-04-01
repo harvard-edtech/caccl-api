@@ -1,6 +1,6 @@
 /**
  * Functions for calling other endpoints not added to our support list of APIs
- * @class api.other
+ * @namespace api.other
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
@@ -17,7 +17,7 @@ class Other extends EndpointCategory {
 
 /**
  * Gets info on the current user
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method endpoint
  * @memberof api.other
  * @instance
@@ -26,7 +26,7 @@ class Other extends EndpointCategory {
  * @param {string} [method=GET] - the http method to use
  * @param {object} [params={}] - the get query params or the post/put/delete
  *   body params
- * @return {Promise.<Object>} Canvas object
+ * @return {object} Canvas object
  */
 Other.endpoint = function (options) {
   return this.visitEndpoint({

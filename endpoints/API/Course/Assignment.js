@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with assignments within courses
- * @class api.course.assignment
+ * @namespace api.course.assignment
  */
 
 const fs = require('fs');
@@ -37,16 +37,17 @@ class Assignment extends EndpointCategory {
 
 /**
  * Lists the assignments in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method list
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {boolean} [options.ignoreOverridesForDates] - if true, assignment
  *   dates are taken from the default dates instead of from the ones in
  *   overrides
- * @return {Promise.<Object[]>} list of Canvas Assignments {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Assignment[]} list of Canvas Assignments {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.list = function (options) {
   return this.visitEndpoint({
@@ -65,17 +66,18 @@ Assignment.list.scopes = [
 
 /**
  * Get info on a specific assignment in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method get
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.assignmentId - Canvas assignment Id
  * @param {boolean} [options.ignoreOverridesForDates] - if true, assignment
  *   dates are taken from the default dates instead of from the ones in
  *   overrides
- * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Assignment} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.get = function (options) {
   return this.visitEndpoint({
@@ -94,10 +96,11 @@ Assignment.get.scopes = [
 
 /**
  * Updates a Canvas assignment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method update
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.assignmentId - Canvas assignment Id to update
@@ -131,7 +134,7 @@ Assignment.get.scopes = [
  *   true, students in groups can be given separate grades and when one student
  *   in a group gets a grade, other students do not get graded. Must be a
  *   boolean
- * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Assignment} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.update = function (options) {
   return this.visitEndpoint({
@@ -181,10 +184,11 @@ Assignment.update.scopes = [
 
 /**
  * Creates a Canvas assignment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method create
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to create an assignment
  *   in
@@ -228,7 +232,7 @@ Assignment.update.scopes = [
  * @param {boolean} [options.assignmentAppNewTab=false] - Only relevant if
  *   assignmentAppId is defined. If true, when a student clicks the assignment,
  *   their LTI session with the external tool will be opened in a new tab
- * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Assignment} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.create = function (options) {
   // Create params
@@ -317,14 +321,15 @@ Assignment.create.scopes = [
 
 /**
  * Delete an assignment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method delete
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - Canvas assignment Id
- * @return {Promise.<Object>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
+ * @return {Assignment} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
  */
 Assignment.delete = function (options) {
   return this.visitEndpoint({
@@ -344,14 +349,15 @@ Assignment.delete.scopes = [
 
 /**
  * List gradeable students for a specific assignment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listGradeableStudents
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.assignmentId - Canvas assignment Id to query
- * @return {Promise.<Object[]>} list of Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @return {User[]} list of Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Assignment.listGradeableStudents = function (options) {
   return this.visitEndpoint({
@@ -374,17 +380,18 @@ Assignment.listGradeableStudents.scopes = [
 
 /**
  * Adds a comment to a submission
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createSubmissionComment
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - Canvas course Id
  * @param {number} options.studentId - Canvas student Id of the sub to comment
  *   on
  * @param {string} options.comment - The text of the comment
- * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createSubmissionComment = function (options) {
   return this.visitEndpoint({
@@ -407,10 +414,11 @@ Assignment.createSubmissionComment.scopes = [
 
 /**
  * Updates a student's grade and/or comment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method updateGrade
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course id
  * @param {number} options.assignmentId - Canvas assignment id
@@ -419,7 +427,7 @@ Assignment.createSubmissionComment.scopes = [
  *   student
  * @param {string} [options.comment] - the grader comment to leave on the
  *   submission
- * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.updateGrade = function (options) {
   return this.visitEndpoint({
@@ -443,10 +451,11 @@ Assignment.updateGrade.scopes = [
 
 /**
  * Batch updates grades and/or comments. Also supports updating rubric items
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method updateGrades
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - Canvas assignment Id
@@ -455,7 +464,7 @@ Assignment.updateGrade.scopes = [
  *     studentId: <student id>,
  *     points: <optional, points to overwrite with>,
  *     comment: <optional, comment to append (or overwrite if rubric comment)>,
- *     rubricId: <optional, rubric item (overrall grade/comment if excluded)>
+ *     rubricId: <optional, rubric item (overall grade/comment if excluded)>
  *   },...]
  * @param {boolean} [options.waitForCompletion=false] - If true, promise won't
  *   resolve until Canvas has finished updating the grades, instead of resolving
@@ -475,7 +484,7 @@ Assignment.updateGrade.scopes = [
  *     { grammar: ungraded, argument: ungraded, formatting: 9/10 }
  *   Note: merging is an added feature. By default, the Canvas API does not
  *   merge rubric assessments.
- * @return {Promise.<Object>} Canvas Progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
+ * @return {Progress} Canvas Progress object {@link https://canvas.instructure.com/doc/api/progress.html#Progress}
  */
 Assignment.updateGrades = function (options) {
   // Create a promise chain so we can queue promises
@@ -737,14 +746,15 @@ Assignment.updateGrades.scopes = [
 
 /**
  * Gets the list of overrides for an assignment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listOverrides
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course id to query
  * @param {number} options.assignmentId - Canvas assignment id to look up
- * @return {Promise.<Object[]>} list of Canvas AssignmentOverrides {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {AssignmentOverride} list of Canvas AssignmentOverrides {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.listOverrides = function (options) {
   return this.visitEndpoint({
@@ -760,15 +770,16 @@ Assignment.listOverrides.scopes = [
 
 /**
  * Get a specific override on an assignment in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method getOverride
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course id to query
  * @param {number} options.assignmentId - Canvas assignment id to query
  * @param {number} options.overrideId - Canvas override id to look up
- * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {AssignmentOverride} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.getOverride = function (options) {
   return this.visitEndpoint({
@@ -792,10 +803,11 @@ Assignment.getOverride.scopes = [
  *   time in the future (even if everyone else can't submit because their lock
  *   date has passed). In short, it is not recommended to omit dates that are
  *   defined in the assignment.
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createOverride
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course id
  * @param {number} options.assignmentId - Canvas assignment id
@@ -817,7 +829,7 @@ Assignment.getOverride.scopes = [
  * @param {date} [options.lockAt=no lock date] - New lock date. If excluded,
  *   the target(s) of this override can see and submit the assignment at
  *   any point in the future (their lock date is the end of time)
- * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {AssignmentOverride} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.createOverride = function (options) {
   let { title } = options;
@@ -880,10 +892,11 @@ Assignment.createOverride.scopes = [
  *   if the previous override has a dueAt and the update does not, the updated
  *   override will have no dueAt date (the target(s) of the override will have
  *   no deadline).
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method updateOverride
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course id
  * @param {number} options.assignmentId - Canvas assignment id
@@ -901,7 +914,7 @@ Assignment.createOverride.scopes = [
  * @param {date} [options.lockAt=no lock date] - New lock date. If excluded,
  *   the target(s) of this override can see and submit the assignment at
  *   any point in the future (their lock date is the end of time)
- * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {AssignmentOverride} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.updateOverride = function (options) {
   // Pre-process dates
@@ -949,15 +962,16 @@ Assignment.updateOverride.scopes = [
 
 /**
  * Deletes an assignment override
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method deleteOverride
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course id to query
  * @param {number} options.assignmentId - Canvas assignment id to query
  * @param {number} options.overrideId - Canvas override id to look up
- * @return {Promise.<Object>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
+ * @return {AssignmentOverride} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
  */
 Assignment.deleteOverride = function (options) {
   return this.visitEndpoint({
@@ -989,10 +1003,11 @@ Assignment.deleteOverride.scopes = [
 
 /**
  * Passes through or retrieves the current user's Canvas id
+ * @ignore
  * @param {API} api - Instance of caccl-api
  * @param {number} [userId] - The Canvas Id of the current user. Passed through
  *   by default if we already know it
- * @return {Promise.<number>} Canvas Id of the current user
+ * @return {number} Canvas Id of the current user
  */
 const getCurrentUserId = (api, userId) => {
   // Resolve if we already have the user's id
@@ -1012,10 +1027,11 @@ getCurrentUserId.scopes = [
 
 /**
  * Lists the submissions to a specific assignment in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listSubmissions
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - The Canvas assignment Id to query
@@ -1027,7 +1043,7 @@ getCurrentUserId.scopes = [
  *   submission[i].user value with the submission's user information
  * @param {boolean} [options.includeTestStudent=true] - If truthy, includes
  *   dummy submission by test student (student view) if there is one
- * @return {Promise.<Object[]>} list of Canvas submissions {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission[]} list of Canvas submissions {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.listSubmissions = function (options) {
   // Fetch the user info if we're not excluding user info OR if we're
@@ -1082,10 +1098,11 @@ Assignment.listSubmissions.scopes = [
 
 /**
  * Gets a single submission for an assignment
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method getSubmission
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - The Canvas assignment Id
@@ -1096,7 +1113,7 @@ Assignment.listSubmissions.scopes = [
  *   includes rubric assessments: breakdown of score for each rubric item
  * @param {boolean} [options.excludeUser=false] - If truthy, excludes
  *   submission[i].user value with the submission's user information
- * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.getSubmission = function (options) {
   return this.visitEndpoint({
@@ -1123,10 +1140,11 @@ Assignment.getSubmission.scopes = [
 
 /**
  * Creates a text submission on behalf of the current user
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createTextSubmission
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - The Canvas assignment Id
@@ -1134,7 +1152,7 @@ Assignment.getSubmission.scopes = [
  * @param {number} [options.currentUserId] - The current user's Canvas Id.
  *   If not included, we call the current user endpoint
  * @param {string} [options.comment] - A text student comment to include
- * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createTextSubmission = function (options) {
   let submitterId;
@@ -1179,10 +1197,11 @@ Assignment.createTextSubmission.scopes = [
 
 /**
  * Creates a url submission on behalf of the current user
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createURLSubmission
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - The Canvas assignment Id
@@ -1190,7 +1209,7 @@ Assignment.createTextSubmission.scopes = [
  * @param {number} [options.currentUserId] - The current user's Canvas Id.
  *   If not included, we call the current user endpoint
  * @param {string} [options.comment] - A text student comment to include
- * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createURLSubmission = function (options) {
   let submitterId;
@@ -1235,10 +1254,11 @@ Assignment.createURLSubmission.scopes = [
 
 /**
  * Creates a file submission on behalf of the current user
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createFileSubmission
  * @memberof api.course.assignment
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.assignmentId - The Canvas assignment Id
@@ -1246,7 +1266,7 @@ Assignment.createURLSubmission.scopes = [
  * @param {number} [options.currentUserId] - The current user's Canvas Id.
  *   If not included, we call the current user endpoint
  * @param {string} [options.comment] - A text student comment to include
- * @return {Promise.<Object>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ * @return {Submission} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
 Assignment.createFileSubmission = function (options) {
   let submitterId;

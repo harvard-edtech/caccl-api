@@ -1,402 +1,1992 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-		<title>account</title>
-		<!--[if lt IE 9]>
-		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
-		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
-		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
-		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
-		<link type="text/css" rel="stylesheet" href="css/template.min.css">
-		<script type="text/javascript">
-			window.TEMPLATE_OPTIONS = {"includeDate":false,"dateFormat":"Do MMM YYYY","systemName":"caccl-api","systemSummary":"A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Endpoints","summary":"All levels of endpoint objects."}],"footer":"Created by Gabriel Abrams at the Harvard Division of Continuing Education","copyright":"All code, materials, documentation, and other parts of this project under MIT license","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
-			window.DOCLET_TOC_ENABLED = true;
-			window.DOCLET_AFILTER_ENABLED = false;
-		</script>
+    
+    <meta charset="utf-8">
+    <title>account - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<!-- start:navbar.hbs -->
-	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="index.html">
-					caccl-api
-				</a>
-				<!-- displayed on small devices -->
-				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-			</div>
-			<div class="navbar-collapse collapse" id="topNavigation">
-				<ul class="nav navbar-nav">
-								<li class="dropdown">
-									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Endpoints<b class="caret"></b></a>
-									<ul class="dropdown-menu">
-											<li><a href="api.account.html">api.account</a></li>
-											<li><a href="api.course.html">api.course</a></li>
-											<li><a href="api.course.analytics.html">api.course.analytics</a></li>
-											<li><a href="api.course.app.html">api.course.app</a></li>
-											<li><a href="api.course.assignment.html">api.course.assignment</a></li>
-											<li><a href="api.course.assignmentGroup.html">api.course.assignmentGroup</a></li>
-											<li><a href="api.course.discussionTopic.html">api.course.discussionTopic</a></li>
-											<li><a href="api.course.gradebookColumn.html">api.course.gradebookColumn</a></li>
-											<li><a href="api.course.group.html">api.course.group</a></li>
-											<li><a href="api.course.groupSet.html">api.course.groupSet</a></li>
-											<li><a href="api.course.page.html">api.course.page</a></li>
-											<li><a href="api.course.quiz.html">api.course.quiz</a></li>
-											<li><a href="api.course.rubric.html">api.course.rubric</a></li>
-											<li><a href="api.course.section.html">api.course.section</a></li>
-											<li><a href="api.other.html">api.other</a></li>
-											<li><a href="api.user.self.html">api.user.self</a></li>
-									</ul>
-								</li>
-				</ul>
-					<!-- start:lunr-search-navbar.hbs -->
-					<form class="navbar-form navbar-right" role="search">
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
-							<div class="input-group-btn">
-								<button class="btn btn-default" id="lunr-search-submit">
-									<i class="glyphicon glyphicon-search"></i>
-								</button>
-							</div>
-						</div>
-					</form>
-					<!-- start:lunr-search-navbar.hbs -->		</div>
-		</div>
-	</header>
-	<!-- end:navbar.hbs -->		<div class="page-header">
-			<div class="container">
-				<span class="kind">class</span>
-				<h1><span class="name">account</span></h1>
-			</div>
-		</div>
-	<div class="container content">
-		<div class="row">
-			<div class="col-md-9 main-content">
-						<ol class="breadcrumb">
-							<li><a href="index.html">Home</a></li>
-							<li><a href="list_class.html">Endpoints</a></li>
-							<li class="active">account</li>
-						</ol>
-					<section>
-							<dl class="symbol primary">
-								<dt class="symbol-title class collapsible-symbol expanded">
-			<h2 class="class"><span class="signature-new">new&nbsp;</span><span class="name">account</span><span class="signature-params">()</span><span class="signature-type"></span></h2>
-</dt>
-<dd class="symbol-details class  collapsible-symbol expanded" style="max-height: 9999px;">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Functions for interacting with accounts</div>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Account_index.js.html">Account/index.js</a>, <a href="Account_index.js.html#line-1">line 1</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-							</dl>
-							<article class="secondary">
-									<h3>Methods</h3>
-									<dl class="symbol">
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="list" class="function public"><span class="name">list</span><span class="signature-params">()</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;Object>>}</span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Get the list of accounts</div>
-			</div>			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;Object>></span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description">list of Canvas accounts <a href="https://canvas.instructure.com/doc/api/accounts.html#Account">https://canvas.instructure.com/doc/api/accounts.html#Account</a></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- author -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Author</label>
-								<div class="col-sm-9">
-										<p class="form-control-static">Gabriel Abrams</p>
-								</div>
-							</div>
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Account_index.js.html">Account/index.js</a>, <a href="Account_index.js.html#line-41">line 41</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="listAdmins" class="function public"><span class="name">listAdmins</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Array.&lt;Object>>}</span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets the list of admins in an account</div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>options</code></td>
-							<td><span class="param-type">object</span></td>
-							<td class="last">
-									object containing all arguments
-										<table class="params table table-striped">
-											<thead>
-											<tr>
-													<th>Name</th>
-												<th>Type</th>
-												<th class="last">Description</th>
-											</tr>
-											</thead>
-											<tbody>
-												<tr>
-														<td><code>accountId</code></td>
-													<td><span class="param-type">number</span></td>
-													<td class="last">
-															Canvas acount Id to get the list of
-									  admins from
-													</td>
-												</tr>
-											</tbody>
-										</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Array.&lt;Object>></span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description">List of Canvas admins <a href="https://canvas.instructure.com/doc/api/admins.html#Admin">https://canvas.instructure.com/doc/api/admins.html#Admin</a></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- author -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Author</label>
-								<div class="col-sm-9">
-										<p class="form-control-static">Gabriel Abrams</p>
-								</div>
-							</div>
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Account_index.js.html">Account/index.js</a>, <a href="Account_index.js.html#line-57">line 57</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-											<hr/>
-											<dt class="symbol-title function public collapsible-symbol">
-			<h4 id="get" class="function public"><span class="name">get</span><span class="signature-params">( <span class="signature-param">options</span>&nbsp;)</span><span class="signature-type"> &rarr;&nbsp;{Promise.&lt;Object>}</span></h4>
-		</dt>
-<dd class="symbol-details function public  collapsible-symbol">
-	<div class="symbol-details-inner">
-			<div class="callout callout-primary"><h5>Description</h5>		<div class="description">Gets info on a specific course</div>
-			</div>			<div class="callout callout-info">
-				<h5>Parameters</h5>
-				<table class="params table table-striped">
-					<thead>
-					<tr>
-							<th>Name</th>
-						<th>Type</th>
-						<th class="last">Description</th>
-					</tr>
-					</thead>
-					<tbody>
-						<tr>
-								<td><code>options</code></td>
-							<td><span class="param-type">object</span></td>
-							<td class="last">
-									object containing all arguments
-										<table class="params table table-striped">
-											<thead>
-											<tr>
-													<th>Name</th>
-												<th>Type</th>
-												<th class="last">Description</th>
-											</tr>
-											</thead>
-											<tbody>
-												<tr>
-														<td><code>accountId</code></td>
-													<td><span class="param-type">number</span></td>
-													<td class="last">
-															Canvas acount Id to get info on
-													</td>
-												</tr>
-											</tbody>
-										</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="callout callout-success"><h5>Returns</h5>		<form class="form-horizontal returns">
-							<div class="form-group">
-								<label class="col-sm-3 control-label returns-type"><span class="param-type">Promise.&lt;Object></span></label>
-								<div class="col-sm-9">
-									<div class="form-control-static returns-description">Canvas account <a href="https://canvas.instructure.com/doc/api/accounts.html#Account">https://canvas.instructure.com/doc/api/accounts.html#Account</a></div>
-								</div>
-							</div>
-					</form>
-			</div>			<div class="callout callout-default"><h5>Details</h5>		<form class="form-horizontal details">
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-							<!-- author -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Author</label>
-								<div class="col-sm-9">
-										<p class="form-control-static">Gabriel Abrams</p>
-								</div>
-							</div>
-			
-			
-			
-							<!-- source -->
-							<div class="form-group">
-								<label class="col-sm-3 control-label">Source</label>
-								<div class="col-sm-9">
-									<p class="form-control-static"><a href="Account_index.js.html">Account/index.js</a>, <a href="Account_index.js.html#line-23">line 23</a></p>
-								</div>
-							</div>
-			
-			
-			
-			
-					</form>
-			</div>	</div>
-</dd>
-									</dl>
-							</article>
-					</section>
-			</div>
-				<div class="col-md-3 side-content">
-					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
-				</div>
-		</div>
-	</div>
-	<footer>
-				<div class="footer-option">Created by Gabriel Abrams at the Harvard Division of Continuing Education</div>
-				<div class="copyright">All code, materials, documentation, and other parts of this project under MIT license</div>
-			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
-	</footer>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/clipboard.min.js"></script>
-	<script src="js/prism.min.js"></script>
-	<script src="js/template.min.js"></script>
-		<!-- start:lunr-search-modal.hbs -->
-		<div class="modal fade" id="lunr-search-modal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">Search results</h4>
-					</div>
-					<div class="modal-body" id="lunr-search-body">
-					</div>
-					<div class="modal-footer" id="lunr-search-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-		</div>
-		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
-	
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav style="border-right: 2px solid #ccc; padding-bottom: 25px;" >
+    
+    <h2><a style="font-size: 30px;" href="index.html">CACCL API</a></h2><h3>Endpoint Functions</h3><ul><li><a href="api.account.html">api.account</a><ul class='methods'><li data-type='method'><a href="api.account.html#get">get</a></li><li data-type='method'><a href="api.account.html#list">list</a></li><li data-type='method'><a href="api.account.html#listAdmins">listAdmins</a></li><li data-type='method'><a href="api.account.html#listCourses">listCourses</a></li></ul></li><li><a href="api.account.enrollmentTerm.html">api.account.enrollmentTerm</a><ul class='methods'><li data-type='method'><a href="api.account.enrollmentTerm.html#get">get</a></li><li data-type='method'><a href="api.account.enrollmentTerm.html#list">list</a></li></ul></li><li><a href="api.course.html">api.course</a><ul class='methods'><li data-type='method'><a href="api.course.html#get">get</a></li><li data-type='method'><a href="api.course.html#getUser">getUser</a></li><li data-type='method'><a href="api.course.html#listDesignerEnrollments">listDesignerEnrollments</a></li><li data-type='method'><a href="api.course.html#listDesigners">listDesigners</a></li><li data-type='method'><a href="api.course.html#listEnrollments">listEnrollments</a></li><li data-type='method'><a href="api.course.html#listObserverEnrollments">listObserverEnrollments</a></li><li data-type='method'><a href="api.course.html#listObservers">listObservers</a></li><li data-type='method'><a href="api.course.html#listStudentEnrollments">listStudentEnrollments</a></li><li data-type='method'><a href="api.course.html#listStudents">listStudents</a></li><li data-type='method'><a href="api.course.html#listTeachingTeamMemberEnrollments">listTeachingTeamMemberEnrollments</a></li><li data-type='method'><a href="api.course.html#listTeachingTeamMembers">listTeachingTeamMembers</a></li><li data-type='method'><a href="api.course.html#listUsers">listUsers</a></li></ul></li><li><a href="api.course.analytics.html">api.course.analytics</a><ul class='methods'><li data-type='method'><a href="api.course.analytics.html#getStudentMessagingData">getStudentMessagingData</a></li><li data-type='method'><a href="api.course.analytics.html#getStudentParticipationData">getStudentParticipationData</a></li><li data-type='method'><a href="api.course.analytics.html#getStudentSummary">getStudentSummary</a></li><li data-type='method'><a href="api.course.analytics.html#listAssignmentSummaries">listAssignmentSummaries</a></li><li data-type='method'><a href="api.course.analytics.html#listDailyActivitySummaries">listDailyActivitySummaries</a></li><li data-type='method'><a href="api.course.analytics.html#listStudentSummaries">listStudentSummaries</a></li></ul></li><li><a href="api.course.app.html">api.course.app</a><ul class='methods'><li data-type='method'><a href="api.course.app.html#add">add</a></li><li data-type='method'><a href="api.course.app.html#get">get</a></li><li data-type='method'><a href="api.course.app.html#getAssignmentLaunchURL">getAssignmentLaunchURL</a></li><li data-type='method'><a href="api.course.app.html#getMetadata">getMetadata</a></li><li data-type='method'><a href="api.course.app.html#getNavLaunchURL">getNavLaunchURL</a></li><li data-type='method'><a href="api.course.app.html#list">list</a></li><li data-type='method'><a href="api.course.app.html#remove">remove</a></li><li data-type='method'><a href="api.course.app.html#updateMetadata">updateMetadata</a></li></ul></li><li><a href="api.course.assignment.html">api.course.assignment</a><ul class='methods'><li data-type='method'><a href="api.course.assignment.html#create">create</a></li><li data-type='method'><a href="api.course.assignment.html#createFileSubmission">createFileSubmission</a></li><li data-type='method'><a href="api.course.assignment.html#createOverride">createOverride</a></li><li data-type='method'><a href="api.course.assignment.html#createSubmissionComment">createSubmissionComment</a></li><li data-type='method'><a href="api.course.assignment.html#createTextSubmission">createTextSubmission</a></li><li data-type='method'><a href="api.course.assignment.html#createURLSubmission">createURLSubmission</a></li><li data-type='method'><a href="api.course.assignment.html#delete">delete</a></li><li data-type='method'><a href="api.course.assignment.html#deleteOverride">deleteOverride</a></li><li data-type='method'><a href="api.course.assignment.html#get">get</a></li><li data-type='method'><a href="api.course.assignment.html#getOverride">getOverride</a></li><li data-type='method'><a href="api.course.assignment.html#getSubmission">getSubmission</a></li><li data-type='method'><a href="api.course.assignment.html#list">list</a></li><li data-type='method'><a href="api.course.assignment.html#listGradeableStudents">listGradeableStudents</a></li><li data-type='method'><a href="api.course.assignment.html#listOverrides">listOverrides</a></li><li data-type='method'><a href="api.course.assignment.html#listSubmissions">listSubmissions</a></li><li data-type='method'><a href="api.course.assignment.html#update">update</a></li><li data-type='method'><a href="api.course.assignment.html#updateGrade">updateGrade</a></li><li data-type='method'><a href="api.course.assignment.html#updateGrades">updateGrades</a></li><li data-type='method'><a href="api.course.assignment.html#updateOverride">updateOverride</a></li></ul></li><li><a href="api.course.assignmentGroup.html">api.course.assignmentGroup</a><ul class='methods'><li data-type='method'><a href="api.course.assignmentGroup.html#create">create</a></li><li data-type='method'><a href="api.course.assignmentGroup.html#delete">delete</a></li><li data-type='method'><a href="api.course.assignmentGroup.html#get">get</a></li><li data-type='method'><a href="api.course.assignmentGroup.html#list">list</a></li><li data-type='method'><a href="api.course.assignmentGroup.html#update">update</a></li></ul></li><li><a href="api.course.discussionTopic.html">api.course.discussionTopic</a><ul class='methods'><li data-type='method'><a href="api.course.discussionTopic.html#create">create</a></li><li data-type='method'><a href="api.course.discussionTopic.html#delete">delete</a></li><li data-type='method'><a href="api.course.discussionTopic.html#list">list</a></li><li data-type='method'><a href="api.course.discussionTopic.html#listEntries">listEntries</a></li></ul></li><li><a href="api.course.gradebookColumn.html">api.course.gradebookColumn</a><ul class='methods'><li data-type='method'><a href="api.course.gradebookColumn.html#create">create</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#delete">delete</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#get">get</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#list">list</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#listEntries">listEntries</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#update">update</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#updateEntries">updateEntries</a></li><li data-type='method'><a href="api.course.gradebookColumn.html#updateEntry">updateEntry</a></li></ul></li><li><a href="api.course.group.html">api.course.group</a><ul class='methods'><li data-type='method'><a href="api.course.group.html#get">get</a></li><li data-type='method'><a href="api.course.group.html#listMembers">listMembers</a></li><li data-type='method'><a href="api.course.group.html#updateMembers">updateMembers</a></li></ul></li><li><a href="api.course.groupSet.html">api.course.groupSet</a><ul class='methods'><li data-type='method'><a href="api.course.groupSet.html#create">create</a></li><li data-type='method'><a href="api.course.groupSet.html#createGroup">createGroup</a></li><li data-type='method'><a href="api.course.groupSet.html#delete">delete</a></li><li data-type='method'><a href="api.course.groupSet.html#deleteGroup">deleteGroup</a></li><li data-type='method'><a href="api.course.groupSet.html#get">get</a></li><li data-type='method'><a href="api.course.groupSet.html#getGroup">getGroup</a></li><li data-type='method'><a href="api.course.groupSet.html#list">list</a></li><li data-type='method'><a href="api.course.groupSet.html#listGroups">listGroups</a></li></ul></li><li><a href="api.course.page.html">api.course.page</a><ul class='methods'><li data-type='method'><a href="api.course.page.html#create">create</a></li><li data-type='method'><a href="api.course.page.html#delete">delete</a></li><li data-type='method'><a href="api.course.page.html#get">get</a></li><li data-type='method'><a href="api.course.page.html#list">list</a></li><li data-type='method'><a href="api.course.page.html#update">update</a></li></ul></li><li><a href="api.course.quiz.html">api.course.quiz</a><ul class='methods'><li data-type='method'><a href="api.course.quiz.html#create">create</a></li><li data-type='method'><a href="api.course.quiz.html#createEssayQuestion">createEssayQuestion</a></li><li data-type='method'><a href="api.course.quiz.html#createMultipleChoiceQuestion">createMultipleChoiceQuestion</a></li><li data-type='method'><a href="api.course.quiz.html#createShortAnswerQuestion">createShortAnswerQuestion</a></li><li data-type='method'><a href="api.course.quiz.html#createSubmission">createSubmission</a></li><li data-type='method'><a href="api.course.quiz.html#delete">delete</a></li><li data-type='method'><a href="api.course.quiz.html#get">get</a></li><li data-type='method'><a href="api.course.quiz.html#getSubmission">getSubmission</a></li><li data-type='method'><a href="api.course.quiz.html#list">list</a></li><li data-type='method'><a href="api.course.quiz.html#listQuestionGrades">listQuestionGrades</a></li><li data-type='method'><a href="api.course.quiz.html#listQuestions">listQuestions</a></li><li data-type='method'><a href="api.course.quiz.html#listSubmissions">listSubmissions</a></li><li data-type='method'><a href="api.course.quiz.html#update">update</a></li><li data-type='method'><a href="api.course.quiz.html#updateQuestionGrades">updateQuestionGrades</a></li></ul></li><li><a href="api.course.rubric.html">api.course.rubric</a><ul class='methods'><li data-type='method'><a href="api.course.rubric.html#createFreeFormGradingRubricInAssignment">createFreeFormGradingRubricInAssignment</a></li><li data-type='method'><a href="api.course.rubric.html#get">get</a></li><li data-type='method'><a href="api.course.rubric.html#list">list</a></li></ul></li><li><a href="api.course.section.html">api.course.section</a><ul class='methods'><li data-type='method'><a href="api.course.section.html#get">get</a></li><li data-type='method'><a href="api.course.section.html#list">list</a></li></ul></li><li><a href="api.other.html">api.other</a><ul class='methods'><li data-type='method'><a href="api.other.html#endpoint">endpoint</a></li></ul></li><li><a href="api.user.html">api.user</a></li><li><a href="api.user.self.html">api.user.self</a><ul class='methods'><li data-type='method'><a href="api.user.self.html#getProfile">getProfile</a></li><li data-type='method'><a href="api.user.self.html#listCourses">listCourses</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        account
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Account_index.js.html">Account/index.js</a>, <a href="Account_index.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+                <div class="description usertext">Functions for interacting with accounts</div>
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+        <h3 class="subsection-title">Namespaces</h3>
+
+        <dl>
+            <dt><a href="api.account.enrollmentTerm.html">enrollmentTerm</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="get"><span class="type-signature">(async) </span>get<span class="signature">(options)</span><span class="type-signature"> &rarr; {Account}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Account_index.js.html">Account/index.js</a>, <a href="Account_index.js.html#line29">line 29</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Gabe Abrams</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    Gets info on a specific course
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object containing all arguments
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>accountId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Canvas account Id to get info on</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Canvas account <a href="https://canvas.instructure.com/doc/api/accounts.html#Account">https://canvas.instructure.com/doc/api/accounts.html#Account</a>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Account</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="list"><span class="type-signature">(async) </span>list<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;Account>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Account_index.js.html">Account/index.js</a>, <a href="Account_index.js.html#line50">line 50</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Gabe Abrams</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    Get the list of accounts
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    list of Canvas accounts <a href="https://canvas.instructure.com/doc/api/accounts.html#Account">https://canvas.instructure.com/doc/api/accounts.html#Account</a>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;Account></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="listAdmins"><span class="type-signature">(async) </span>listAdmins<span class="signature">(options)</span><span class="type-signature"> &rarr; {Array.&lt;Admin>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Account_index.js.html">Account/index.js</a>, <a href="Account_index.js.html#line68">line 68</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Gabe Abrams</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    Gets the list of admins in an account
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object containing all arguments
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>accountId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Canvas account Id to get the list of
+  admins from</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    List of Canvas admins <a href="https://canvas.instructure.com/doc/api/admins.html#Admin">https://canvas.instructure.com/doc/api/admins.html#Admin</a>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;Admin></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="listCourses"><span class="type-signature">(async) </span>listCourses<span class="signature">(options)</span><span class="type-signature"> &rarr; {Array.&lt;Course>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Account_index.js.html">Account/index.js</a>, <a href="Account_index.js.html#line90">line 90</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Gabe Abrams</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    Gets the list of active courses in an account
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">object containing all arguments
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>accountId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Canvas account Id to get the list of
+  courses from</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>teacherIds</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>all teachers</code>
+                
+                </td>
+            
+
+            <td class="description last">a list of teacher ids
+  to limit the search to</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subaccountIds</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;number></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>all subaccounts</code>
+                
+                </td>
+            
+
+            <td class="description last">a list of
+  subaccount ids to limit the search to</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hasEnrollments</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>no filter</code>
+                
+                </td>
+            
+
+            <td class="description last">if true, require that
+  the course has at least one enrollment, if false, require that the course
+  has no enrollments</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>atLeastOneTeacher</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">if true, only show
+  courses that have at least one teacher</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>atLeastOneStudent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">if true, only show
+  courses that have at least one student</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>atLeastOneTA</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">if true, only show
+  courses that have at least one TA</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>atLeastOneObserver</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">if true, only show
+  courses that have at least one observer</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>atLeastOneDesigner</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">if true, only show
+  courses that have at least one designer</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>published</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>no filter</code>
+                
+                </td>
+            
+
+            <td class="description last">if true, only show courses
+  that are published, if false, only show courses that are unpublished</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>completed</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>no filter</code>
+                
+                </td>
+            
+
+            <td class="description last">if true, only show courses
+  that are completed, if false, only show courses that are not completed</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>blueprint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>no filter</code>
+                
+                </td>
+            
+
+            <td class="description last">if true, only include
+  blueprint courses, if false, only show courses that are not blueprints</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>blueprintAssociated</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>no filter</code>
+                
+                </td>
+            
+
+            <td class="description last">if true, require
+  that the course be associated with a blueprint, if false, require that the
+  course not be associated with a blueprint</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>no filter</code>
+                
+                </td>
+            
+
+            <td class="description last">a list of states to limit the
+  search to. Allowed values: created, claimed, available, completed, deleted,
+  all</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>enrollmentTermId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>no filter</code>
+                
+                </td>
+            
+
+            <td class="description last">an enrollment term to
+  limit the scope of the search to</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>searchTerm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">a minimum 3 character string to search
+  the courses by (searches course name, code, or full id)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sortColumn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">the main data column to sort the
+  results by. Allowed values: course_name, sis_course_id, teacher,
+  account_name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sortOrder</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">the sort order to use: "asc" or "desc"</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startsBefore</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">date</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">If set, only return courses that start
+  before the value (inclusive) or their enrollment term starts before the
+  value (inclusive) or both the course's start_at and the enrollment term's
+  start_at are set to null. Format can be an ISO 8601 string or a Date
+  instance</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endsAfter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">date</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">If set, only return courses that end
+  after the value (inclusive) or their enrollment term ends after the value
+  (inclusive) or both the course's end_at and the enrollment term's end_at
+  are set to null. Format can be an ISO 8601 string or a Date
+  instance</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>includeSyllabus</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">if true, for each course,
+  include its syllabus</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>includeTerm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">if true, for each course,
+  include its term</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>includeCourseProgress</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">if true, for each course,
+  include its progress</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>includeStorageQuotaUsedMB</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">if true, for each
+  courses, include the number of megabytes of storage used</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>includeTotalStudents</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">if true, for each course,
+  include the total number of students</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>includeTeachers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">if true, for each course,
+  include the teachers</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>includeAccountName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">if true, for each course,
+  include its parent account name</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>includeConcluded</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">if true, for each course,
+  include whether the course has been concluded</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Array of Canvas courses <a href="https://canvas.instructure.com/doc/api/courses.html#Course">https://canvas.instructure.com/doc/api/courses.html#Course</a>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;Course></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+We use <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> and the <a href="https://github.com/clenemt/docdash">docdash</a> theme to generate our docs.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
 </body>
 </html>

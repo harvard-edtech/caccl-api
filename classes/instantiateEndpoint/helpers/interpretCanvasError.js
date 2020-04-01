@@ -1,7 +1,7 @@
 /**
  * Function that interprets a Canvas response and detects errors and turns them
  *   into human-readable errors
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @module classes/request/helpers/interpretCanvasError
  * @see module: classes/request/helpers/interpretCanvasError
  */
@@ -12,7 +12,7 @@ const errorCodes = require('../../../errorCodes');
 
 /**
  * Detects errors and turns them into human-readable errors
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @param {object} body - The JSON body of the Canvas response
  * @param {number} status - The https status of the response
  * @return {CACCLError|null} error if one was detected, null if no error

@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with accounts
- * @class api.account
+ * @namespace api.account
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
@@ -28,13 +28,14 @@ Account.enrollmentTerm = enrollmentTerm;
 
 /**
  * Gets info on a specific course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method get
  * @memberof api.account
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.accountId - Canvas account Id to get info on
- * @return {Promise.<Object>} Canvas account {@link https://canvas.instructure.com/doc/api/accounts.html#Account}
+ * @return {Account} Canvas account {@link https://canvas.instructure.com/doc/api/accounts.html#Account}
  */
 Account.get = function (options) {
   return this.visitEndpoint({
@@ -48,11 +49,12 @@ Account.get.scopes = ['url:GET|/api/v1/accounts/:id'];
 
 /**
  * Get the list of accounts
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method list
  * @memberof api.account
  * @instance
- * @return {Promise.<Object[]>} list of Canvas accounts {@link https://canvas.instructure.com/doc/api/accounts.html#Account}
+ * @async
+ * @return {Account[]} list of Canvas accounts {@link https://canvas.instructure.com/doc/api/accounts.html#Account}
  */
 Account.list = function () {
   return this.visitEndpoint({
@@ -65,14 +67,15 @@ Account.list.scopes = ['url:GET|/api/v1/accounts'];
 
 /**
  * Gets the list of admins in an account
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listAdmins
  * @memberof api.account
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.accountId - Canvas account Id to get the list of
  *   admins from
- * @return {Promise.<Object[]>} List of Canvas admins {@link https://canvas.instructure.com/doc/api/admins.html#Admin}
+ * @return {Admin[]} List of Canvas admins {@link https://canvas.instructure.com/doc/api/admins.html#Admin}
  */
 Account.listAdmins = function (options) {
   return this.visitEndpoint({
@@ -90,6 +93,7 @@ Account.listAdmins.scopes = ['url:GET|/api/v1/accounts/:account_id/admins'];
  * @method listCourses
  * @memberof api.account
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.accountId - Canvas account Id to get the list of
  *   courses from
@@ -156,7 +160,7 @@ Account.listAdmins.scopes = ['url:GET|/api/v1/accounts/:account_id/admins'];
  *   include its parent account name
  * @param {boolean} [options.includeConcluded] - if true, for each course,
  *   include whether the course has been concluded
- * @return {Promise.<Object[]>} Array of Canvas courses {@link https://canvas.instructure.com/doc/api/courses.html#Course}
+ * @return {Course[]} Array of Canvas courses {@link https://canvas.instructure.com/doc/api/courses.html#Course}
  */
 Account.listCourses = function (options) {
   // Pre-process enrollment types

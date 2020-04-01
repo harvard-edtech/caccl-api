@@ -1,6 +1,6 @@
 /**
  * Functions for getting course analytics
- * @class api.course.analytics
+ * @namespace api.course.analytics
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
@@ -20,14 +20,15 @@ class Analytics extends EndpointCategory {
 
 /**
  * Gets participation data for a student in a course
- * @author Gabriel Abrams
- * @memberof api.course.analytics.getStudentParticipationData
+ * @author Gabe Abrams
+ * @memberof api.course.analytics
  * @instance
+ * @async
  * @method getStudentParticipationData
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.studentId - the id of the student to get analytics on
- * @return {Promise.<Object>} participation data {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.student_in_course_participation}
+ * @return {UserInCourseParticipationData} participation data {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.student_in_course_participation}
  */
 Analytics.getStudentParticipationData = function (options) {
   return this.visitEndpoint({
@@ -46,14 +47,15 @@ Analytics.getStudentParticipationData.scopes = [
 
 /**
  * Gets messaging data for a student in a course
- * @author Gabriel Abrams
- * @memberof api.course.analytics.getStudentMessagingData
+ * @author Gabe Abrams
+ * @memberof api.course.analytics
  * @instance
+ * @async
  * @method getStudentMessagingData
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.studentId - the id of the student to get analytics on
- * @return {Promise.<Object>} message data {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.student_in_course_messaging}
+ * @return {UserInCourseMessagingData} message data {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.student_in_course_messaging}
  */
 Analytics.getStudentMessagingData = function (options) {
   return this.visitEndpoint({
@@ -72,13 +74,14 @@ Analytics.getStudentMessagingData.scopes = [
 
 /**
  * Gets a list of daily activity summaries for each day in a course
- * @author Gabriel Abrams
- * @memberof api.course.analytics.listDailyActivitySummaries
+ * @author Gabe Abrams
+ * @memberof api.course.analytics
  * @instance
+ * @async
  * @method listDailyActivitySummaries
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
- * @return {Promise.<Object[]>} list of daily activity summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_participation}
+ * @return {CourseLevelParticipationData} list of daily activity summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_participation}
  */
 Analytics.listDailyActivitySummaries = function (options) {
   return this.visitEndpoint({
@@ -97,13 +100,14 @@ Analytics.listDailyActivitySummaries.scopes = [
 
 /**
  * Gets a list of assignments summaries for all assignments in a course
- * @author Gabriel Abrams
- * @memberof api.course.analytics.listAssignmentSummaries
+ * @author Gabe Abrams
+ * @memberof api.course.analytics
  * @instance
+ * @async
  * @method listAssignmentSummaries
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
- * @return {Promise.<Object[]>} list of assignment summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_assignments}
+ * @return {CourseLevelAssignmentData} list of assignment summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_assignments}
  */
 Analytics.listAssignmentSummaries = function (options) {
   return this.visitEndpoint({
@@ -122,13 +126,14 @@ Analytics.listAssignmentSummaries.scopes = [
 
 /**
  * Gets a list of student summaries for all students in a course
- * @author Gabriel Abrams
- * @memberof api.course.analytics.listStudentSummaries
+ * @author Gabe Abrams
+ * @memberof api.course.analytics
  * @instance
+ * @async
  * @method listStudentSummaries
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
- * @return {Promise.<Object[]>} list of student summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_student_summaries}
+ * @return {CourseLevelStudentSummaries} list of student summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_student_summaries}
  */
 Analytics.listStudentSummaries = function (options) {
   return this.visitEndpoint({
@@ -145,14 +150,15 @@ Analytics.listStudentSummaries.scopes = [
 
 /**
  * Gets a student summary for a student in a course
- * @author Gabriel Abrams
- * @memberof api.course.analytics.getStudentSummary
+ * @author Gabe Abrams
+ * @memberof api.course.analytics
  * @instance
+ * @async
  * @method getStudentSummary
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.studentId - id of the user to get analytics for
- * @return {Promise.<Object>} student summary {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_student_summaries}
+ * @return {CourseLevelStudentSummary} student summary {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_student_summaries}
  */
 Analytics.getStudentSummary = function (options) {
   return this.visitEndpoint({

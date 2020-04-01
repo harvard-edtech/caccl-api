@@ -1,6 +1,6 @@
 /**
  * Functions for getting info on current user
- * @class api.user.self
+ * @namespace api.user.self
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
@@ -19,11 +19,11 @@ class Self extends EndpointCategory {
 
 /**
  * Gets info on the current user
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method getProfile
  * @memberof api.user.self
  * @instance
- * @return {Promise.<Object>} Canvas user object {@link https://canvas.instructure.com/doc/api/users.html#User}
+ * @return {User} Canvas user object {@link https://canvas.instructure.com/doc/api/users.html#User}
  */
 Self.getProfile = function () {
   return this.visitEndpoint({
@@ -38,13 +38,13 @@ Self.getProfile.scopes = [
 
 /**
  * Gets the list of courses associated with the current user
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listCourses
  * @memberof api.user.self
  * @instance
  * @param {object} options - object containing all arguments
  * @param {boolean} [options.includeTerm] - if truthy, term is included
- * @return {Promise.<Object>} Canvas course object {@link https://canvas.instructure.com/doc/api/courses.html#Course}
+ * @return {Course[]} list of Canvas courses {@link https://canvas.instructure.com/doc/api/courses.html#Course}
  */
 Self.listCourses = function (options) {
   return this.visitEndpoint({

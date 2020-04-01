@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with quizzes within courses
- * @class api.course.quiz
+ * @namespace api.course.quiz
  */
 
 const axios = require('axios');
@@ -33,13 +33,14 @@ class Quiz extends EndpointCategory {
 
 /**
  * Lists the quizzes in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method list
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
- * @return {Promise.<Object[]>} list of Canvas Quizzes {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
+ * @return {Quiz[]} list of Canvas Quizzes {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
 Quiz.list = function (options) {
   return this.visitEndpoint({
@@ -55,15 +56,16 @@ Quiz.list.scopes = [
 
 /**
  * Get info on a specific quiz in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method get
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.quizId - Canvas quiz Id (not the quiz's assignment
  *   Id)
- * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
+ * @return {Quiz} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
 Quiz.get = function (options) {
   return this.visitEndpoint({
@@ -79,10 +81,11 @@ Quiz.get.scopes = [
 
 /**
  * Updates a specific quiz in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method update
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to create the quiz in
  * @param {number} options.quizId - Canvas course Id to create the quiz in
@@ -139,7 +142,7 @@ Quiz.get.scopes = [
  *   (right after they turn in the quiz)
  * @param {boolean} [options.onlyVisibleToOverrides=current value] - If true,
  *   the quiz is only visible to students with overrides
- * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
+ * @return {Quiz} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
 Quiz.update = function (options) {
   return this.visitEndpoint({
@@ -214,10 +217,11 @@ Quiz.update.scopes = [
 
 /**
  * Creates a new quiz in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method create
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to create the quiz in
  * @param {string} options.title - Title of the new quiz
@@ -269,7 +273,7 @@ Quiz.update.scopes = [
  *   after they turn in the quiz)
  * @param {boolean} [options.onlyVisibleToOverrides=false] - If true, the quiz
  *   is only visible to students with overrides
- * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
+ * @return {Quiz} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
 Quiz.create = function (options) {
   return this.visitEndpoint({
@@ -341,15 +345,16 @@ Quiz.create.scopes = [
 
 /**
  * Deletes a quiz from a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method delete
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.quizId - Canvas quiz Id (not the quiz's assignment
  *   Id)
- * @return {Promise.<Object>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
+ * @return {Quiz} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
  */
 Quiz.delete = function (options) {
   return this.visitEndpoint({
@@ -380,15 +385,16 @@ Quiz.delete.scopes = [
 
 /**
  * Lists the questions in a specific quiz in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listQuestions
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.quizId - Canvas quiz Id (not the quiz's assignment
  *   Id)
- * @return {Promise.<Object[]>} list of Canvas QuizSubmissions {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
+ * @return {QuizSubmission[]} list of Canvas QuizSubmissions {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
 Quiz.listQuestions = function (options) {
   return this.visitEndpoint({
@@ -404,10 +410,11 @@ Quiz.listQuestions.scopes = [
 
 /**
  * Creates a new multiple choice question and adds it to a quiz in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createMultipleChoiceQuestion
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.quizId - Canvas quiz Id (not the quiz's assignment
@@ -426,7 +433,7 @@ Quiz.listQuestions.scopes = [
  *   student answers incorrectly
  * @param {string} [options.neutralComment=null] - Comment to display regardless
  *   of how the student answers
- * @return {Promise.<Object>} Canvas QuizQuestion {@link https://canvas.instructure.com/doc/api/quiz_questions.html#QuizQuestion}
+ * @return {QuizQuestion} Canvas QuizQuestion {@link https://canvas.instructure.com/doc/api/quiz_questions.html#QuizQuestion}
  */
 Quiz.createMultipleChoiceQuestion = function (options) {
   const params = {
@@ -475,10 +482,11 @@ Quiz.createMultipleChoiceQuestion.scopes = [
 
 /**
  * Creates a new essay question and adds it to a quiz in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createEssayQuestion
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.quizId - Canvas quiz Id (not the quiz's assignment
@@ -495,7 +503,7 @@ Quiz.createMultipleChoiceQuestion.scopes = [
  *   student answers incorrectly
  * @param {string} [options.neutralComment=null] - Comment to display regardless
  *   of how the student answers
- * @return {Promise.<Object>} Canvas QuizQuestion {@link https://canvas.instructure.com/doc/api/quiz_questions.html#QuizQuestion}
+ * @return {QuizQuestion} Canvas QuizQuestion {@link https://canvas.instructure.com/doc/api/quiz_questions.html#QuizQuestion}
  */
 Quiz.createEssayQuestion = function (options) {
   const params = {
@@ -533,10 +541,11 @@ Quiz.createEssayQuestion.scopes = [
 
 /**
  * Creates a new short answer question and adds it to a quiz in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createShortAnswerQuestion
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.quizId - Canvas quiz Id (not the quiz's assignment
@@ -553,7 +562,7 @@ Quiz.createEssayQuestion.scopes = [
  *   student answers incorrectly
  * @param {string} [options.neutralComment=null] - Comment to display regardless
  *   of how the student answers
- * @return {Promise.<Object>} Canvas QuizQuestion {@link https://canvas.instructure.com/doc/api/quiz_questions.html#QuizQuestion}
+ * @return {QuizQuestion} Canvas QuizQuestion {@link https://canvas.instructure.com/doc/api/quiz_questions.html#QuizQuestion}
  */
 Quiz.createShortAnswerQuestion = function (options) {
   const params = {
@@ -595,15 +604,16 @@ Quiz.createShortAnswerQuestion.scopes = [
 
 /**
  * Lists the submissions to a quiz in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listSubmissions
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.quizId - Canvas quiz Id (not the quiz's assignment
  *   Id)
- * @return {Promise.<Object[]>} list of Canvas QuizSubmissions {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
+ * @return {QuizSubmission[]} list of Canvas QuizSubmissions {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
 Quiz.listSubmissions = function (options) {
   return this.visitEndpoint({
@@ -622,16 +632,17 @@ Quiz.listSubmissions.scopes = [
 
 /**
  * Gets info on a specific submission to a quiz in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method getSubmission
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.quizId - Canvas quiz Id (not the quiz's assignment
  *   Id)
  * @param {number} options.submissionId - Canvas quiz submission Id
- * @return {Promise.<Object>} Canvas QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
+ * @return {QuizSubmission} Canvas QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
 Quiz.getSubmission = function (options) {
   return this.visitEndpoint({
@@ -655,10 +666,11 @@ Quiz.getSubmission.scopes = [
 /**
  * Creates a new submission to a specific quiz in a course on behalf of the
  *   current user
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method createSubmission
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id
  * @param {number} options.quizId - Canvas quiz Id (not the quiz's assignment
@@ -668,7 +680,7 @@ Quiz.getSubmission.scopes = [
  *   object is explained here: {@link https://canvas.instructure.com/doc/api/quiz_submission_questions.html#Question+Answer+Formats-appendix}
  * @param {string} [options.accessCode] - Access code for the quiz if it is
  *   locked
- * @return {Promise.<Object>} Canvas QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
+ * @return {QuizSubmission} Canvas QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
 Quiz.createSubmission = function (options) {
   // Start a new quiz-taking session
@@ -760,15 +772,16 @@ const reportColMap = {
 
 /**
  * Lists quiz question grades for a specific quiz in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method listQuestionGrades
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.quizId - Canvas quiz Id (not the quiz's assignment
  *   Id)
- * @return {Promise.<Object[]>} QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
+ * @return {QuizSubmission} QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
 Quiz.listQuestionGrades = function (options) {
   // Request a new quiz report
@@ -944,10 +957,11 @@ Quiz.listQuestionGrades.scopes = [
 
 /**
  * Updates the question grades for a specific submission to a quiz in a course
- * @author Gabriel Abrams
+ * @author Gabe Abrams
  * @method updateQuestionGrades
  * @memberof api.course.quiz
  * @instance
+ * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.courseId - Canvas course Id to query
  * @param {number} options.quizId - Canvas quiz Id (not the quiz's assignment
@@ -959,7 +973,7 @@ Quiz.listQuestionGrades.scopes = [
  *   of the question score/comment updates
  * @param {number} [options.attempt=most recent] - The attempt to update grades
  *   for. If excluded, we pull the user's submission to get the attempt number
- * @return {Promise.<Object[]>} QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
+ * @return {QuizSubmission} QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
  */
 Quiz.updateQuestionGrades = function (options) {
   // Get the current submission (so we can identify the attempt)
