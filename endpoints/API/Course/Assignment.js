@@ -1097,6 +1097,78 @@ Assignment.listSubmissions.scopes = [
 ];
 
 /**
+ * Lists the submissions for a batch of assignment/students in a course
+ * @author Gabe Abrams
+ * @method listAllSubmissions
+ * @memberof api.course.assignment
+ * @instance
+ * @async
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id
+ * @param {number[]} [options.studentIds=all students] - a list of
+ *   specific students to pull submissions for
+ * @param {number[]} [options.assignmentIds=all assignments] - a list of
+ *   assignments to get submissions for
+ * @param {Date} [options.submittedSince=beginning of time] - Exclude
+ *   submissions that were not submitted or were submitted before this date
+ * @param {Date} [options.gradedSince=beginning of time] - Exclude
+ *   submissions that were not graded or were graded before this date
+ * @param {string} [options.workflowState=all workflows] - a workflow state
+ *   to filter by. Allowed values: 'submitted', 'unsubmitted', 'graded', or
+ *   'pending_review'
+ * @param {string} [options.enrollmentState=all states except deleted] - an
+ *   enrollment state to filter by. Allowed values: 'active' or 'concluded'
+ * @param {boolean} [options.includeSubmissionHistory] - if true, submission
+ *   history is included
+ * @param {boolean} [options.includeComments] - if true, includes all comments
+ *   on submissions
+ * @param {boolean} [options.includeRubricAssessment] - if true,
+ *   rubric assessment is included
+ * @param {boolean} [options.includeAssignment] - if true, the assignment is
+ *   included for each submission
+ * @param {boolean} [options.includeTotalScores] - if true, include the total
+ *   scores
+ * @param {boolean} [options.includeVisibility] - if true, include visibility
+ * @param {boolean} [options.includeUser] - if true, include the user info
+ *   with each submission
+ * @return {Submission[]} list of submissions {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
+ */
+Assignment.listAllSubmissions = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/students/submissions`,
+    method: 'GET',
+    params: {
+      student_ids: (
+        options.studentIds
+          ? options.studentIds
+          : ['all']
+      ),
+      assignment_ids: options.assignmentIds,
+      submitted_since: utils.includeIfDate(options.submittedSince),
+      graded_since: utils.includeIfDate(options.gradedSince),
+      workflow_state: utils.includeIfTruthy(options.workflowState),
+      enrollment_state: utils.includeIfTruthy(options.enrollmentState),
+      include: utils.genIncludesList({
+        submission_history: options.includeSubmissionHistory,
+        submission_comments: options.includeComments,
+        rubric_assessment: options.includeRubricAssessment,
+        assignment: options.includeAssignment,
+        total_scores: options.includeTotalScores,
+        visibility: options.includeVisibility,
+        user: options.includeUser,
+      }),
+    },
+  });
+};
+Assignment.listAllSubmissions.action = 'list a batch of submissions in a course';
+Assignment.listAllSubmissions.requiredParams = ['courseId'];
+Assignment.listAllSubmissions.scopes = [
+  'url:GET|/api/v1/courses/:course_id/students/submissions',
+];
+
+
+
+/**
  * Gets a single submission for an assignment
  * @author Gabe Abrams
  * @method getSubmission
