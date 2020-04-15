@@ -1166,8 +1166,6 @@ Assignment.listAllSubmissions.scopes = [
   'url:GET|/api/v1/courses/:course_id/students/submissions',
 ];
 
-
-
 /**
  * Gets a single submission for an assignment
  * @author Gabe Abrams
