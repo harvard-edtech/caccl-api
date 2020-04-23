@@ -419,6 +419,66 @@ Course.listTeachingTeamMembers.requiredParams = ['courseId'];
 Course.listTeachingTeamMembers.scopes = [Course.listUsers];
 
 /**
+ * Gets the list of TAs in a course
+ * @author Gabe Abrams
+ * @method listTAs
+ * @memberof api.course
+ * @instance
+ * @async
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {string} [options.activeOnly=false] - If truthy, only active
+ *   enrollments included
+ * @param {boolean} [options.includeEmail] - If true, user email is included
+ * @param {boolean} [options.includeEnrollments] - If true, user's enrollments
+ *   in this course are included
+ * @param {boolean} [options.includeLocked] - If true, includes whether this
+ *   enrollment is locked
+ * @param {boolean} [options.includeAvatar] - If true, user avatar url is
+ *   included
+ * @param {boolean} [options.includeBio] - If true, user bio is included
+ * @return {User[]} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ */
+Course.listTAs = function (options) {
+  const newOptions = options;
+  newOptions.types = ['ta'];
+  return this.api.course.listUsers(newOptions);
+};
+Course.listTAs.action = 'get the list of TAs';
+Course.listTAs.requiredParams = ['courseId'];
+Course.listTAs.scopes = [Course.listUsers];
+
+/**
+ * Gets the list of teachers in a course
+ * @author Gabe Abrams
+ * @method listTeachers
+ * @memberof api.course
+ * @instance
+ * @async
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id to query
+ * @param {string} [options.activeOnly=false] - If truthy, only active
+ *   enrollments included
+ * @param {boolean} [options.includeEmail] - If true, user email is included
+ * @param {boolean} [options.includeEnrollments] - If true, user's enrollments
+ *   in this course are included
+ * @param {boolean} [options.includeLocked] - If true, includes whether this
+ *   enrollment is locked
+ * @param {boolean} [options.includeAvatar] - If true, user avatar url is
+ *   included
+ * @param {boolean} [options.includeBio] - If true, user bio is included
+ * @return {User[]} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
+ */
+Course.listTeachers = function (options) {
+  const newOptions = options;
+  newOptions.types = ['teacher'];
+  return this.api.course.listUsers(newOptions);
+};
+Course.listTeachers.action = 'get the list of teachers in a course';
+Course.listTeachers.requiredParams = ['courseId'];
+Course.listTeachers.scopes = [Course.listUsers];
+
+/**
  * Gets the list of designers in a course
  * @author Gabe Abrams
  * @method listDesigners
