@@ -13,7 +13,7 @@
   "templates": {
     "systemName": "caccl-api",
     "systemSummary": "A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.",
-    "footer": "Created by Gabe Abrams the Harvard Division of Continuing Education",
+    "footer": "Created by Gabe Abrams in the Harvard Division of Continuing Education",
     "copyright": "All code, materials, documentation, and other parts of this project under MIT license",
     "showTableOfContents": true,
     "includeDate": false,
