@@ -342,8 +342,8 @@ class QLItem {
  *   responses, only the first top-level paged connection is supported (nested
  *   pagination is not supported).
  * @author Gabe Abrams
- * @method get
- * @memberof api.course
+ * @method sendQuery
+ * @memberof api.graphQL
  * @instance
  * @async
  * @param {object} options - object containing all arguments
