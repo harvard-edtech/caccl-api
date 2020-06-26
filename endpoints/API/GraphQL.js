@@ -18,6 +18,7 @@ class GraphQL extends EndpointCategory {
 class QLItem {
   /**
    * Create a new QL Item
+   * @ignore
    * @author Gabe Abrams
    * @param {string|string[]} query - the query text or lines to parse
    * @param {boolean} [parentHasCursor] - if true, a parent has a cursor so
@@ -138,6 +139,7 @@ class QLItem {
 
   /**
    * Get info on the cursor
+   * @ignore
    * @author Gabe Abrams
    * @return {function} data merger that takes two arguments: current data and
    *   data returned from the new request and returns the merged data object
@@ -187,6 +189,7 @@ class QLItem {
 
   /**
    * Get the name of this item
+   * @ignore
    * @author Gabe Abrams
    * @return {string} name
    */
@@ -196,6 +199,7 @@ class QLItem {
 
   /**
    * Get the next query text
+   * @ignore
    * @author Gabe Abrams
    * @param {boolean} [isSubItem] - true if this item is a sub item
    * @return {string} text for the next query
@@ -287,6 +291,7 @@ class QLItem {
 
   /**
    * Ingest the response
+   * @ignore
    * @author Gabe Abrams
    * @param {object} data - the contents of the data object
    * @return {object} status in the form { cursorUpdated, hasNextPage }
