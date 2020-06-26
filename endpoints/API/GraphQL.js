@@ -4,7 +4,6 @@
  */
 
 const EndpointCategory = require('../../classes/EndpointCategory');
-const { stat } = require('fs');
 
 class GraphQL extends EndpointCategory {
   constructor(config) {
@@ -339,7 +338,9 @@ class QLItem {
 /*------------------------------------------------------------------------*/
 
 /**
- * Send a GraphQL request to Canvas and fetch all pages
+ * Send a GraphQL request to Canvas and fetch all pages. Note: for paged
+ *   responses, only the first top-level paged connection is supported (nested
+ *   pagination is not supported).
  * @author Gabe Abrams
  * @method get
  * @memberof api.course
@@ -354,7 +355,15 @@ class QLItem {
 GraphQL.sendQuery = function (options) {
   // Create a helper object
   const qlItem = new QLItem(options.query);
-  const mergeData = qlItem.getDataMerger();
+  const mergeData = (
+    qlItem.getDataMerger()
+    // Use replacer function if no merger
+    || (
+      (_, y) => {
+        return y;
+      }
+    )
+  );
 
   // Keep track of all data
   let allData;
