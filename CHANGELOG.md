@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.62] - 06/26/20
+
+Added graphQL request support.
+
 ## [1.0.56] - 04/01/20
 
 Added new docs, account.listCourses and account.enrollmentTerm functions.
