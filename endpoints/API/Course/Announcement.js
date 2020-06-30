@@ -18,6 +18,37 @@ class Announcement extends EndpointCategory {
 /*------------------------------------------------------------------------*/
 
 /**
+ * Create an announcement
+ * @author Gabe Abrams
+ * @memberof api.course.announcement
+ * @instance
+ * @async
+ * @method create
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id
+ * @param {string} options.title - the title of the announcement
+ * @param {string} options.message - the message of the announcement
+ * @return {DiscussionTopic} a discussion topic {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
+ */
+Announcement.create = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/discussion_topics`,
+    method: 'POST',
+    params: {
+      title: options.title,
+      message: options.message,
+      published: true,
+      is_announcement: true,
+    },
+  });
+};
+Announcement.create.action = 'create an announcement in a course';
+Announcement.create.requiredParams = ['courseId', 'title', 'message'];
+Announcement.create.scopes = [
+  'url:POST|/api/v1/courses/:course_id/discussion_topics',
+];
+
+/**
  * Gets the list of announcements in a course
  * @author Gabe Abrams
  * @memberof api.course.announcement
