@@ -87,7 +87,7 @@ NavMenuItem.update = function (options) {
 
   // Just return if no updates to be made
   if (Object.keys(params).length === 0) {
-    return;
+    return Promise.resolve();
   }
 
   // Get the list of nav menu items
