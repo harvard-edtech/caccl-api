@@ -3,10 +3,10 @@
  * @namespace api.course.navMenu
  */
 
+const CACCLError = require('caccl-error');
+
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
-const utils = require('../../common/utils');
-const CACCLError = require('caccl-error');
 const errorCodes = require('../../../errorCodes');
 
 class NavMenuItem extends EndpointCategory {
