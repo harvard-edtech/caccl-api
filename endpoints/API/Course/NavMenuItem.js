@@ -62,7 +62,9 @@ NavMenuItem.list.scopes = [
  * @param {string} [options.id] - the id of the item to move to the top of
  *   the menu. At least one of url, label, or id must be included. Case
  *   sensitive.
- * @param {boolean} [options.moveToTop] - if true, position is set to 1
+ * @param {boolean} [options.moveToTop] - if true, moves the given nav menu
+ *   item as high up in the nav menu as allowed by Canvas. At best, the position
+ *   will be set to 2 because position 1 is reserved for the "Home" item.
  * @param {number} [options.position] - the new position of the item (starts
  *   at 1)
  * @param {boolean} [options.hidden=false] - if true, menu item is hidden.
@@ -74,7 +76,7 @@ NavMenuItem.update = function (options) {
   const params = {};
   // > Add position
   if (options.moveToTop) {
-    params.position = 1;
+    params.position = 2;
   } else if (options.position) {
     params.position = options.position;
   }
@@ -148,12 +150,47 @@ NavMenuItem.update = function (options) {
         params.hidden = !!item.hidden;
       }
 
-      // Update the item
-      return this.visitEndpoint({
-        params,
-        path: `${prefix.v1}/courses/${options.courseId}/tabs/${item.id}`,
-        method: 'PUT',
-      });
+      /**
+       * Helper function to attempt a request
+       * @author Gabe Abrams
+       */
+      const makeAttempt = async () => {
+        // Update the item
+        return this.visitEndpoint({
+          params,
+          path: `${prefix.v1}/courses/${options.courseId}/tabs/${item.id}`,
+          method: 'PUT',
+        })
+          // Catch issues
+          .catch((err) => {
+            // Check for invalid location errors we can fix
+            if (
+              err.code === errorCodes.invalidTabLocation
+              && options.moveToTop
+            ) {
+              // Keep trying larger numbered positions
+              if (params.position >= items.length) {
+                // Already at the max position
+                throw new CACCLError({
+                  message: 'In an attempt to move a nav item to the top of the menu, we tried every position and Canvas denied the change.',
+                  code: errorCodes.triedAllTabLocations,
+                });
+              }
+
+              // We can still try the next position
+              // > Increment the position
+              params.position += 1;
+              // > Make the attempt
+              return makeAttempt();
+            }
+
+            // Other error. Rethrow it
+            throw err;
+          });
+      };
+
+      // Start attempts
+      return makeAttempt();
     });
 };
 NavMenuItem.update.action = 'update a nav menu item in a course';
