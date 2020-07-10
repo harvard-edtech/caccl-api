@@ -5,8 +5,8 @@
  */
 
 // Highest errors:
-// > CAPI24
-// > CANV15 (exclude 404, 500)
+// > CAPI25
+// > CANV16 (exclude 404, 500)
 
 module.exports = {
   invalid_cache: 'CAPI1',
@@ -39,6 +39,7 @@ module.exports = {
   endpointNotFound: 'CANV404',
   canvasInternalError: 'CANV500',
   termsOnlyInRootAccounts: 'CANV15',
+  invalidTabLocation: 'CANV16',
 
   // Errors for caches
   sessionCacheNoSession: 'CAPI13',
@@ -75,4 +76,8 @@ module.exports = {
   // course.quiz
   // > listQuestionGrades
   quizReportNoRows: 'CAPI21',
+
+  // course.navMenuItem
+  // > update
+  navItemNotFound: 'CAPI25',
 };

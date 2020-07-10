@@ -168,6 +168,14 @@ module.exports = (config = {}) => {
                     }));
                   }
 
+                  // Invalid tab location
+                  if (response.body.error && response.body.error === 'That tab location is invalid') {
+                    return reject(new CACCLError({
+                      message: 'The requested tab location is invalid.',
+                      code: errorCodes.invalidTabLocation,
+                    }));
+                  }
+
                   // Compile errors into string
                   let errors;
                   try {

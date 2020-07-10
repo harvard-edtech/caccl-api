@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Course/Analytics.js - Documentation</title>
+    <title>Course/NavMenuItem.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -40,188 +40,175 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Functions for getting course analytics
- * @namespace api.course.analytics
+ * Functions for interacting with course navigation menu items
+ * @namespace api.course.navMenu
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
+const utils = require('../../common/utils');
+const CACCLError = require('caccl-error');
+const errorCodes = require('../../../errorCodes');
 
-class Analytics extends EndpointCategory {
+class NavMenuItem extends EndpointCategory {
   constructor(config) {
-    super(config, Analytics);
+    super(config, NavMenuItem);
   }
 }
 
 /*------------------------------------------------------------------------*/
-/*                               Endpoints:                               */
+/*                            Nav Menu Endpoints                          */
 /*------------------------------------------------------------------------*/
 
-/* --------------------- User Participation --------------------- */
-
 /**
- * Gets participation data for a student in a course
+ * Lists the nav menu items in the course
  * @author Gabe Abrams
- * @memberof api.course.analytics
+ * @method list
+ * @memberof api.course.navMenuItem
  * @instance
  * @async
- * @method getStudentParticipationData
  * @param {object} options - object containing all arguments
- * @param {number} options.courseId - Canvas course Id to query
- * @param {number} options.studentId - the id of the student to get analytics on
- * @return {UserInCourseParticipationData} participation data {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.student_in_course_participation}
+ * @param {number} options.courseId - Canvas course Id
+ * @return {Tab[]} list of Canvas Tabs {@link https://canvas.instructure.com/doc/api/tabs.html#method.tabs.index}
  */
-Analytics.getStudentParticipationData = function (options) {
+NavMenuItem.list = function (options) {
   return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/analytics/users/${options.studentId}/activity`,
+    path: `${prefix.v1}/courses/${options.courseId}/tabs`,
     method: 'GET',
-    dontCache: true,
   });
 };
-Analytics.getStudentParticipationData.action = 'get participation data for a student in a course';
-Analytics.getStudentParticipationData.requiredParams = ['courseId', 'studentId'];
-Analytics.getStudentParticipationData.scopes = [
-  'url:GET|/api/v1/courses/:course_id/analytics/users/:student_id/activity',
-];
-
-/* --------------------- User Messaging Info -------------------- */
-
-/**
- * Gets messaging data for a student in a course
- * @author Gabe Abrams
- * @memberof api.course.analytics
- * @instance
- * @async
- * @method getStudentMessagingData
- * @param {object} options - object containing all arguments
- * @param {number} options.courseId - Canvas course Id to query
- * @param {number} options.studentId - the id of the student to get analytics on
- * @return {UserInCourseMessagingData} message data {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.student_in_course_messaging}
- */
-Analytics.getStudentMessagingData = function (options) {
-  return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/analytics/users/${options.studentId}/communication`,
-    method: 'GET',
-    dontCache: true,
-  });
-};
-Analytics.getStudentMessagingData.action = 'get messaging data for a student in a course';
-Analytics.getStudentMessagingData.requiredParams = ['courseId', 'studentId'];
-Analytics.getStudentMessagingData.scopes = [
-  'url:GET|/api/v1/courses/:course_id/analytics/users/:student_id/communication',
-];
-
-/* ------------------ Daily Activity Summaries ------------------ */
-
-/**
- * Gets a list of daily activity summaries for each day in a course
- * @author Gabe Abrams
- * @memberof api.course.analytics
- * @instance
- * @async
- * @method listDailyActivitySummaries
- * @param {object} options - object containing all arguments
- * @param {number} options.courseId - Canvas course Id to query
- * @return {CourseLevelParticipationData} list of daily activity summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_participation}
- */
-Analytics.listDailyActivitySummaries = function (options) {
-  return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/analytics/activity`,
-    method: 'GET',
-    dontCache: true,
-  });
-};
-Analytics.listDailyActivitySummaries.action = 'get a list of daily activity summaries for each day in a course';
-Analytics.listDailyActivitySummaries.requiredParams = ['courseId'];
-Analytics.listDailyActivitySummaries.scopes = [
-  'url:GET|/api/v1/courses/:course_id/analytics/activity',
-];
-
-/* -------------------- Assignment Summaries -------------------- */
-
-/**
- * Gets a list of assignments summaries for all assignments in a course
- * @author Gabe Abrams
- * @memberof api.course.analytics
- * @instance
- * @async
- * @method listAssignmentSummaries
- * @param {object} options - object containing all arguments
- * @param {number} options.courseId - Canvas course Id to query
- * @return {CourseLevelAssignmentData} list of assignment summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_assignments}
- */
-Analytics.listAssignmentSummaries = function (options) {
-  return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/analytics/assignments`,
-    method: 'GET',
-    dontCache: true,
-  });
-};
-Analytics.listAssignmentSummaries.action = 'get a list of assignment summaries for all assignments in a course';
-Analytics.listAssignmentSummaries.requiredParams = ['courseId'];
-Analytics.listAssignmentSummaries.scopes = [
-  'url:GET|/api/v1/courses/:course_id/analytics/assignments',
-];
-
-/* ---------------------- Student Summaries --------------------- */
-
-/**
- * Gets a list of student summaries for all students in a course
- * @author Gabe Abrams
- * @memberof api.course.analytics
- * @instance
- * @async
- * @method listStudentSummaries
- * @param {object} options - object containing all arguments
- * @param {number} options.courseId - Canvas course Id to query
- * @return {CourseLevelStudentSummaries} list of student summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_student_summaries}
- */
-Analytics.listStudentSummaries = function (options) {
-  return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/analytics/student_summaries`,
-    method: 'GET',
-    dontCache: true,
-  });
-};
-Analytics.listStudentSummaries.action = 'get a list of student summaries for all students in a course';
-Analytics.listStudentSummaries.requiredParams = ['courseId'];
-Analytics.listStudentSummaries.scopes = [
-  'url:GET|/api/v1/courses/:course_id/analytics/student_summaries',
+NavMenuItem.list.action = 'get the list of nav menu items in a course';
+NavMenuItem.list.requiredParams = ['courseId'];
+NavMenuItem.list.scopes = [
+  'url:GET|/api/v1/courses/:course_id/tabs',
 ];
 
 /**
- * Gets a student summary for a student in a course
+ * Update a nav menu item
  * @author Gabe Abrams
- * @memberof api.course.analytics
+ * @method update
+ * @memberof api.course.navMenuItem
  * @instance
  * @async
- * @method getStudentSummary
  * @param {object} options - object containing all arguments
- * @param {number} options.courseId - Canvas course Id to query
- * @param {number} options.studentId - id of the user to get analytics for
- * @return {CourseLevelStudentSummary} student summary {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_student_summaries}
+ * @param {number} options.courseId - Canvas course Id
+ * @param {string} [options.url] - a url string identifying the item
+ *   to move to the top of the menu. The url must either be a full url or
+ *   a path.
+ *   At least one of url, label, or id must
+ *   be included. Case insensitive
+ * @param {string} [options.label] - a text label identifying the item
+ *   to move to the top of the menu. At least one of url, label, or id must
+ *   be included. Case insensitive.
+ * @param {string} [options.id] - the id of the item to move to the top of
+ *   the menu. At least one of url, label, or id must be included. Case
+ *   sensitive.
+ * @param {boolean} [options.moveToTop] - if true, position is set to 1
+ * @param {number} [options.position] - the new position of the item (starts
+ *   at 1)
+ * @param {boolean} [options.hidden=false] - if true, menu item is hidden.
+ *   if false, menu item is made visible. if excluded, visibility is unchanged.
+ * @return {Tab} Canvas Tab {@link https://canvas.instructure.com/doc/api/tabs.html#method.tabs.index}
  */
-Analytics.getStudentSummary = function (options) {
-  return this.visitEndpoint({
-    path: `${prefix.v1}/courses/${options.courseId}/analytics/student_summaries`,
-    method: 'GET',
-    params: {
-      student_id: options.studentId,
-    },
-    dontCache: true,
-  });
+NavMenuItem.update = function (options) {
+  // Create the update object
+  const params = {};
+  // > Add position
+  if (options.moveToTop) {
+    params.position = 1;
+  } else if (options.position) {
+    params.position = options.position;
+  }
+  // > Add hidden
+  if (options.hidden !== undefined) {
+    params.hidden = !!options.hidden;
+  }
+
+  // Just return if no updates to be made
+  if (Object.keys(params).length === 0) {
+    return;
+  }
+
+  // Get the list of nav menu items
+  return this.api.course.navMenuItem.list({ courseId: options.courseId })
+    .then((items) => {
+      // Find the item we are looking for
+      let item;
+      for (let i = 0; i &lt; items.length; i++) {
+        // Match based on id
+        if (
+          options.id
+          &amp;&amp; (
+            String(items[i].id).trim()
+            === String(options.id).trim()
+          )
+        ) {
+          item = items[i];
+          break;
+        }
+        // Match based on url
+        if (
+          options.url
+          &amp;&amp; (
+            [
+              items[i].html_url.toLowerCase(),
+              items[i].full_url.toLowerCase(),
+            ].indexOf(options.url.toLowerCase()) >= 0
+          )
+        ) {
+          item = items[i];
+          break;
+        }
+        // Match based on label
+        if (
+          options.label
+          &amp;&amp; (
+            String(items[i].label)
+              .trim()
+              .toLowerCase()
+            === String(options.label)
+              .trim()
+              .toLowerCase()
+          )
+        ) {
+          item = items[i];
+          break;
+        }
+      }
+
+      // Error if no menu item found
+      if (!item) {
+        throw new CACCLError({
+          message: 'We could not find the menu item of interest.',
+          code: errorCodes.navItemNotFound,
+        });
+      }
+
+      // Keep same value for hidden field if unchanged
+      if (params.hidden === undefined) {
+        params.hidden = !!item.hidden;
+      }
+
+      // Update the item
+      return this.visitEndpoint({
+        params,
+        path: `${prefix.v1}/courses/${options.courseId}/tabs/${item.id}`,
+        method: 'PUT',
+      });
+    });
 };
-Analytics.getStudentSummary.action = 'get a student summary for a student in a course';
-Analytics.getStudentSummary.requiredParams = ['courseId', 'studentId'];
-Analytics.getStudentSummary.scopes = [
-  'url:GET|/api/v1/courses/:course_id/analytics/student_summaries',
+NavMenuItem.update.action = 'update a nav menu item in a course';
+NavMenuItem.update.requiredParams = ['courseId'];
+NavMenuItem.update.scopes = [
+  NavMenuItem.list,
+  'url:GET|/api/v1/courses/:course_id/tabs',
 ];
 
 /*------------------------------------------------------------------------*/
 /*                                 Export                                 */
 /*------------------------------------------------------------------------*/
 
-module.exports = Analytics;
+module.exports = NavMenuItem;
 </code></pre>
         </article>
     </section>
