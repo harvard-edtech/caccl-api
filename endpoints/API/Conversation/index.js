@@ -5,7 +5,6 @@
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
-const utils = require('../../common/utils');
 
 class Conversation extends EndpointCategory {
   constructor(config) {
@@ -34,23 +33,46 @@ class Conversation extends EndpointCategory {
  * @return {Conversation[]} Array of Canvas Conversations {@link https://canvas.instructure.com/doc/api/conversations.html#method.conversations.create}
  */
 Conversation.create = function (options) {
-  const params = {
-    recipients: options.recipientIds,
-    subject: options.subject,
-    body: options.body,
-    force_new: true,
-  };
+  // Separate recipients into batches of 100
+  const recipientBatches = [[]];
+  options.recipientIds.forEach((recipientId) => {
+    if (recipientBatches[recipientBatches.length - 1].length >= 100) {
+      // Batch full! Create a new batch
+      recipientBatches.push([]);
+    }
 
-  // Add context
-  if (options.courseId) {
-    params.context_code = `course_${options.courseId}`;
-  }
-
-  return this.visitEndpoint({
-    path: `${prefix.v1}/conversations`,
-    method: 'POST',
-    params,
+    // Add to the last batch
+    recipientBatches[recipientBatches.length - 1].push(recipientId);
   });
+
+  // Run in parallel
+  return (
+    // Create parallel tasks for each recipient batch
+    Promise.all(recipientBatches.map((recipients) => {
+      // Create params for this batch
+      const params = {
+        recipients,
+        subject: options.subject,
+        body: options.body,
+        force_new: true,
+      };
+
+      // Add context
+      if (options.courseId) {
+        params.context_code = `course_${options.courseId}`;
+      }
+
+      return this.visitEndpoint({
+        params,
+        path: `${prefix.v1}/conversations`,
+        method: 'POST',
+      });
+    }))
+      // Concatenate into one long list
+      .then((conversationBatches) => {
+        return [].concat(...conversationBatches);
+      })
+  );
 };
 Conversation.create.action = 'create a new conversation';
 Conversation.create.requiredParams = ['recipientIds', 'subject', 'body'];
