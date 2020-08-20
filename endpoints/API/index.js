@@ -2,6 +2,7 @@ const EndpointCategory = require('../../classes/EndpointCategory');
 
 // Import subcategories
 const Account = require('./Account');
+const Conversation = require('./Conversation');
 const Course = require('./Course');
 const GraphQL = require('./GraphQL');
 const Other = require('./Other');
@@ -19,6 +20,7 @@ class API extends EndpointCategory {
 
 /* @module course */
 API.account = Account;
+API.conversation = Conversation;
 API.course = Course;
 API.graphQL = GraphQL;
 API.other = Other;
