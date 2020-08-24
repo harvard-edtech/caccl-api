@@ -1,6 +1,6 @@
 /**
- * Functions for users
- * @namespace api.user
+ * Functions for conversations
+ * @namespace api.conversation
  */
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
