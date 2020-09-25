@@ -26,8 +26,8 @@ module.exports = (body, status) => {
       let firstErrorMessage;
       let firstErrorCode;
       try {
-        firstErrorMessage = body.errors[0].message;
-        firstErrorCode = body.errors[0].error_code;
+        firstErrorMessage = body.errors[0].message || '';
+        firstErrorCode = body.errors[0].error_code || '';
       } catch (err) {
         firstErrorMessage = '';
         firstErrorCode = '';
@@ -93,6 +93,14 @@ module.exports = (body, status) => {
           return new CACCLError({
             message: 'Unfortunately, we couldn\'t complete a task because the current user does not have the correct permissions. If you think this is an error, please try again.',
             code: errorCodes.userNotAuthorized,
+          });
+        }
+
+        // Invalid masquerade
+        if (body.errors && body.errors === 'Invalid as_user_id') {
+          return new CACCLError({
+            message: 'Either the user does not exist or you are not allowed to act as that user.',
+            code: errorCodes.cannotMasquerade,
           });
         }
 

@@ -6,7 +6,7 @@
 
 // Highest errors:
 // > CAPI25
-// > CANV17 (exclude 404, 500)
+// > CANV18 (exclude 404, 500)
 
 module.exports = {
   invalid_cache: 'CAPI1',
@@ -41,6 +41,7 @@ module.exports = {
   termsOnlyInRootAccounts: 'CANV15',
   invalidTabLocation: 'CANV16',
   triedAllTabLocations: 'CANV17',
+  cannotMasquerade: 'CANV18',
 
   // Errors for caches
   sessionCacheNoSession: 'CAPI13',
