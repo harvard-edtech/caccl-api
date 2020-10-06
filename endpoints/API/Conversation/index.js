@@ -20,7 +20,7 @@ class Conversation extends EndpointCategory {
  * Creates a Canvas conversation
  * @author Gabe Abrams
  * @method create
- * @memberof api.course.conversation
+ * @memberof api.conversation
  * @instance
  * @async
  * @param {object} options - object containing all arguments
