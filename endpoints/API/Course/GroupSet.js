@@ -3,6 +3,8 @@
  * @namespace api.course.groupSet
  */
 
+const async = require('async');
+
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
 const utils = require('../../common/utils');
@@ -148,18 +150,82 @@ GroupSet.delete.scopes = [
  * @async
  * @param {object} options - object containing all arguments
  * @param {number} options.groupSetId - Canvas group set Id to query
+ * @param {boolean} [options.includeMembers] - if true, after getting the list
+ *   of groups, CACCL requests each group's member list individually and adds
+ *   each array to the group as groups[i].members (an array of Canvas user
+ *   objects)
+ * @param {number} [options.parallelLimit=1] - the number of group membership
+ *   arrays to request in parallel (if 1 or undefined, memberships will be
+ *   requested serially). Only relevant if including members
  * @return {Group[]} list of Canvas Groups {@link https://canvas.instructure.com/doc/api/groups.html#Group}
  */
 GroupSet.listGroups = function (options) {
-  return this.visitEndpoint({
+  // Get the list of groups
+  const listGroupsPromise = this.visitEndpoint({
     path: `${prefix.v1}/group_categories/${options.groupSetId}/groups`,
     method: 'GET',
+  });
+
+  // Finish if not requesting members
+  if (!options.includeMembers) {
+    return listGroupsPromise;
+  }
+
+  // Individually request each group's members
+  const parallelLimit = (options.parallelLimit || 1);
+
+  /**
+   * Helper function that processes one group
+   * @author Gabe Abrams
+   * @param {object} group - a Canvas group
+   * @param {function} next - function to call when done
+   * @return {object} group with group.members added
+   */
+  const _addMembers = (group, next) => {
+    this.api.course.group.listMembers({
+      groupId: group.id,
+    })
+      // We got the list of members properly
+      .then((members) => {
+        // Add the members
+        const newGroup = group;
+        newGroup.members = members || [];
+
+        // Return the response
+        return next(null, newGroup);
+      })
+      // An error occurred
+      .catch((err) => {
+        return next(err);
+      });
+  };
+
+  // Run in parallel after getting the list of groups
+  return listGroupsPromise.then((groups) => {
+    return new Promise((resolve, reject) => {
+      async.mapLimit(
+        groups,
+        parallelLimit,
+        _addMembers,
+        (err, groupsWithMembers) => {
+          // Handle errors
+          if (err) {
+            return reject(err);
+          }
+
+          // Handle success
+          return resolve(groupsWithMembers);
+        }
+      );
+    });
   });
 };
 GroupSet.listGroups.action = 'get the list of groups in a group set';
 GroupSet.listGroups.requiredParams = ['groupSetId'];
 GroupSet.listGroups.scopes = [
   'url:GET|/api/v1/group_categories/:group_category_id/groups',
+  // Also required for requesting members:
+  'url:GET|/api/v1/groups/:group_id/users',
 ];
 
 /**
