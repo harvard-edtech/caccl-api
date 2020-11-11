@@ -1,6 +1,6 @@
 {
   "name": "caccl-api",
-  "version": "1.0.69",
+  "version": "1.0.70",
   "description": "A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.",
   "main": "index.js",
   "scripts": {
