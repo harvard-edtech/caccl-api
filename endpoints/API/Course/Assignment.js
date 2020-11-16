@@ -1041,7 +1041,7 @@ getCurrentUserId.scopes = [
  *   includes rubric assessments: breakdown of score for each rubric item
  * @param {boolean} [options.excludeUser=false] - If truthy, excludes
  *   submission[i].user value with the submission's user information
- * @param {boolean} [options.includeTestStudent=true] - If truthy, includes
+ * @param {boolean} [options.includeTestStudent=false] - If truthy, includes
  *   dummy submission by test student (student view) if there is one
  * @return {Submission[]} list of Canvas submissions {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
  */
@@ -1067,24 +1067,57 @@ Assignment.listSubmissions = function (options) {
 
   // Filter test student if applicable
   if (!options.includeTestStudent) {
-    return fetchPromise.then((response) => {
-      // Filter out test student
-      const realSubs = response.filter((sub) => {
-        return sub.user.name !== 'Test Student';
-      });
+    return (
+      fetchPromise
+        .then((response) => {
+          // Handle empty list case
+          if (!response || response.length === 0) {
+            return [];
+          }
 
-      if (options.excludeUser) {
-        // We had to request users just to filter out the test student but
-        // we the caller wanted to exclude users (remove them now)
-        return Promise.resolve(realSubs.map((sub) => {
-          const newSub = sub;
-          delete newSub.user;
-          return newSub;
-        }));
-      }
+          // Handle case where we still didn't get users (anonymous grading)
+          if (!response[0].user) {
+            // Need to separately pull the list of students in the course
+            return (
+              this.api.course.listStudents({ courseId: options.courseId })
+                .then((students) => {
+                  // Pre-process the students
+                  const idToIsRealStudent = {}; // studentId => true if real
+                  students.forEach((student) => {
+                    idToIsRealStudent[student.id] = true;
+                  });
 
-      return Promise.resolve(realSubs);
-    });
+                  // Filter the submissions and return
+                  return Promise.resolve(
+                    response
+                      .filter((sub) => {
+                        return idToIsRealStudent[sub.user_id];
+                      })
+                  );
+                })
+            );
+          }
+
+          // Handle normal case where we have user objects
+          const realSubs = response.filter((sub) => {
+            return sub.user.name !== 'Test Student';
+          });
+
+          // Remove user if needed
+          if (options.excludeUser) {
+            // We had to request users just to filter out the test student but
+            // we the caller wanted to exclude users (remove them now)
+            return Promise.resolve(realSubs.map((sub) => {
+              const newSub = sub;
+              delete newSub.user;
+              return newSub;
+            }));
+          }
+
+          // Just respond with the list of subs
+          return Promise.resolve(realSubs);
+        })
+    );
   }
 
   // Not filtering out test student. Just return fetchPromise
