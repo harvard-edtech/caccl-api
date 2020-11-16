@@ -1211,7 +1211,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line1325">line 1325</a>
+        <a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line1385">line 1385</a>
     </li></ul></dd>
     
 
@@ -2393,7 +2393,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line1211">line 1211</a>
+        <a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line1271">line 1271</a>
     </li></ul></dd>
     
 
@@ -2746,7 +2746,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line1268">line 1268</a>
+        <a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line1328">line 1328</a>
     </li></ul></dd>
     
 
@@ -4146,7 +4146,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line1169">line 1169</a>
+        <a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line1229">line 1229</a>
     </li></ul></dd>
     
 
@@ -4825,7 +4825,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line1099">line 1099</a>
+        <a href="Course_Assignment.js.html">Course/Assignment.js</a>, <a href="Course_Assignment.js.html#line1159">line 1159</a>
     </li></ul></dd>
     
 
@@ -6082,7 +6082,12 @@
 
 
 <div class="description usertext">
-    Lists the submissions to a specific assignment in a course
+    Lists the submissions to a specific assignment in a course. If the assignment
+  has anonymous grading turned on, to exclude the test user, we will also
+  pull the list of students in the course. If including the user object for
+  an anonymously graded assignment, fake user objects will be created where
+  each submissions[i].user object contains a isAnonymousUser boolean that is
+  true
 </div>
 
 
@@ -6383,7 +6388,7 @@
             
                 <td class="default">
                 
-                    <code>true</code>
+                    <code>false</code>
                 
                 </td>
             
