@@ -1026,7 +1026,12 @@ getCurrentUserId.scopes = [
 // Endpoints
 
 /**
- * Lists the submissions to a specific assignment in a course
+ * Lists the submissions to a specific assignment in a course. If the assignment
+ *   has anonymous grading turned on, to exclude the test user, we will also
+ *   pull the list of students in the course. If including the user object for
+ *   an anonymously graded assignment, fake user objects will be created where
+ *   each submissions[i].user object contains a isAnonymousUser boolean that is
+ *   true
  * @author Gabe Abrams
  * @method listSubmissions
  * @memberof api.course.assignment
@@ -1092,6 +1097,28 @@ Assignment.listSubmissions = function (options) {
                     response
                       .filter((sub) => {
                         return idToIsRealStudent[sub.user_id];
+                      })
+                      // Add in user objects if need-be
+                      .map((sub) => {
+                        if (options.excludeUser) {
+                          // All done!
+                          return sub;
+                        }
+
+                        // Add a fake user object
+                        const newSub = sub;
+                        newSub.user = {
+                          id: sub.user_id,
+                          name: `Anonymous #${sub.anonymous_id}`,
+                          created_at: (new Date()).toISOString(),
+                          sortable_name: `#${sub.anonymous_id}, Anonymous`,
+                          short_name: `Anonymous #${sub.anonymous_id}`,
+                          sis_user_id: null,
+                          login_id: null,
+                          avatar_url: 'https://i.pravatar.cc/300', // Fake pic
+                          isAnonymousUser: true,
+                        };
+                        return newSub;
                       })
                   );
                 })
