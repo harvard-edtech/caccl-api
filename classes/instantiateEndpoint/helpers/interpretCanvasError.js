@@ -69,7 +69,7 @@ module.exports = (body, status) => {
       // Unauthenticated
       if (body.status === 'unauthenticated') {
         return new CACCLError({
-          message: 'Unfortunately, we cannot access Canvas because we don\'t have an access token. If this error persists, please contact an admin.',
+          message: 'Your session has expired, we no longer have access to Canvas (no access token).',
           code: errorCodes.unauthenticated,
         });
       }
