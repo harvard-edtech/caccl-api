@@ -5,7 +5,6 @@
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
 const prefix = require('../../common/prefix');
-const utils = require('../../common/utils');
 
 // Import subcategories:
 const Self = require('./Self');
