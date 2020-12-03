@@ -91,6 +91,33 @@ User.listEmails.scopes = [
 ];
 
 /**
+ * Get a user's list of courses. Masquerade (act as user) ability is
+ *   required for this function
+ * @author Gabe Abrams
+ * @memberof api.user
+ * @instance
+ * @async
+ * @method listCourses
+ * @param {object} options - object containing all arguments
+ * @param {number} options.userId - the id of the user to get emails for
+ * @return {object[]} list of courses {@link https://canvas.instructure.com/doc/api/courses.html#Course}
+ */
+User.listCourses = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses`,
+    method: 'GET',
+    params: {
+      as_user_id: options.userId,
+    },
+  });
+};
+User.listCourses.action = 'get the list of courses for a user';
+User.listCourses.requiredParams = ['userId'];
+User.listCourses.scopes = [
+  'url:GET|/api/v1/users/:user_id/courses',
+];
+
+/**
  * Search a user
  * @author Gabe Abrams
  * @memberof api.user
