@@ -382,6 +382,38 @@ App.getAssignmentLaunchURL.scopes = [
 ];
 
 /*------------------------------------------------------------------------*/
+/*                               Navigation                               */
+/*------------------------------------------------------------------------*/
+
+/**
+ * Move an app near the top of the nav menu and make sure it's visible
+ * @author Gabe Abrams
+ * @memberof api.course.app
+ * @instance
+ * @async
+ * @method moveToTopOfNavMenu
+ * @param {object} options - object containing all arguments
+ * @param {number} options.courseId - Canvas course Id that holds the app
+ * @param {number} options.appId - The LTI app Id to get a launch URL for
+ * @return {object} Canvas tab {@link https://canvas.instructure.com/doc/api/tabs.html#Tab}
+ */
+App.moveToTopOfNavMenu = function (options) {
+  return this.visitEndpoint({
+    path: `${prefix.v1}/courses/${options.courseId}/tabs/context_external_tool_${options.appId}`,
+    method: 'PUT',
+    params: {
+      position: 2,
+      hidden: false,
+    },
+  });
+};
+App.moveToTopOfNavMenu.action = 'move an app near the top of the nav menu and make sure it\'s visible';
+App.moveToTopOfNavMenu.requiredParams = ['courseId', 'appId'];
+App.moveToTopOfNavMenu.scopes = [
+  'url:PUT|/api/v1/courses/:course_id/tabs/:tab_id',
+];
+
+/*------------------------------------------------------------------------*/
 /*                                 Export                                 */
 /*------------------------------------------------------------------------*/
 
