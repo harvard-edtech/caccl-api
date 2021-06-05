@@ -5,9 +5,11 @@
 
 const fs = require('fs');
 const path = require('path');
-const request = require('request');
 const urlLib = require('url');
 const async = require('async');
+const axios = require('axios');
+const FormData = require('form-data');
+const concatStream = require('concat-stream');
 const CACCLError = require('caccl-error');
 
 const EndpointCategory = require('../../../classes/EndpointCategory');
@@ -1429,30 +1431,54 @@ Assignment.createFileSubmission = function (options) {
           .then((response) => {
             // 2. Upload the file
             const uploadUrl = response.upload_url;
-            const formData = response.upload_params;
 
-            // Add file
-            formData.file = fs.createReadStream(filename);
+            // Create form data
+            const formData = new FormData();
+            formData.append(
+              'filename',
+              response.upload_params.filename
+            );
+            formData.append(
+              'content_type',
+              response.upload_params.content_type
+            );
+            formData.append(
+              'file',
+              fs.createReadStream(filename)
+            );
 
+            // Wait for FormData to be ready
+            return new Promise((resolve) => {
+              formData.pipe(
+                concatStream(
+                  { encoding: 'buffer' },
+                  (data) => {
+                    resolve({
+                      uploadUrl,
+                      formData: data,
+                      headers: formData.getHeaders(),
+                    });
+                  }
+                )
+              );
+            });
+          })
+          .then(({ uploadUrl, formData, headers }) => {
             // Send file to Canvas
-            return new Promise((uploadResolve, uploadReject) => {
-              // Use normal request library because we don't want to
-              // pre/post-process the request or add an access token
-              request.post({
-                formData,
-                url: uploadUrl,
-              }, (err, res) => {
-                // Detect upload error
+            // Use normal request library because we don't want to
+            // pre/post-process the request or add an access token
+            axios.post(
+              uploadUrl,
+              formData,
+              { headers }
+            )
+              .then((res) => {
                 if (
-                  err
-                  || !res
+                  !res
                   || !res.headers
                   || !res.headers.location
                 ) {
-                  return uploadReject(new CACCLError({
-                    message: `We could not upload the submission file to Canvas because an error occurred: "${err.message}". If this isn't expected, please contact an admin.`,
-                    code: errorCodes.submissionFileUploadFailed,
-                  }));
+                  throw new Error('no response from Canvas');
                 }
 
                 // Send POST request to activate the file
@@ -1472,8 +1498,13 @@ Assignment.createFileSubmission = function (options) {
                       code: errorCodes.submissionFileActivateFailed,
                     }));
                   });
+              })
+              .catch((err) => {
+                return next(new CACCLError({
+                  message: `We could not upload the submission file to Canvas because an error occurred: "${err.message}". If this isn't expected, please contact an admin.`,
+                  code: errorCodes.submissionFileUploadFailed,
+                }));
               });
-            });
           });
       };
 
