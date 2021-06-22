@@ -186,12 +186,12 @@
 <p>Caveat: all cached values will be deleted. Our cache is intelligently managed (create an assignment, list of assignments is uncached). Since we don't know how your other endpoint will affect cached data, we have to uncache everything.</p>
 <p>Also, consider contributing to this open-source project! Let's the endpoint to the list.</p>
 <p><strong>Think data has changed? Ignore the cache just this once:</strong></p>
-<p>If you think the data in Canvas changed but you don't want to turn of caching altogether, you can disable it for a single request using <code>dontCache</code>:</p>
+<p>If you think the data in Canvas changed but you don't want to turn of caching altogether, you can ignore the cache for a single request using <code>ignoreCache</code>:</p>
 <pre class="prettyprint source lang-js"><code>// Run this code every minute to update the assignment list
 // (maybe the user created another assignment)
 const assignments = await api.course.assignment.list({
   courseId: 48925,
-  dontCache: true,
+  ignoreCache: true,
 });
 </code></pre>
 <h1 style="display: flex; align-items: center;">

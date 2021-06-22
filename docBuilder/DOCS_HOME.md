@@ -99,14 +99,14 @@ Also, consider contributing to this open-source project! Let's the endpoint to t
 
 **Think data has changed? Ignore the cache just this once:**
 
-If you think the data in Canvas changed but you don't want to turn of caching altogether, you can disable it for a single request using `dontCache`:
+If you think the data in Canvas changed but you don't want to turn of caching altogether, you can ignore the cache for a single request using `ignoreCache`:
 
 ```js
 // Run this code every minute to update the assignment list
 // (maybe the user created another assignment)
 const assignments = await api.course.assignment.list({
   courseId: 48925,
-  dontCache: true,
+  ignoreCache: true,
 });
 ```
 
