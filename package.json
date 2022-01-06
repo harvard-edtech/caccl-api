@@ -44,7 +44,7 @@
     "concat-stream": "^2.0.0",
     "csv-parse": "^4.15.0",
     "form-data": "^4.0.0",
-    "parse-link-header": "^1.0.1",
+    "parse-link-header": "^2.0.0",
     "path": "^0.12.7",
     "prop-types": "^15.7.2",
     "qs": "^6.9.6",
