@@ -1,4 +1,4 @@
-declare type CanvasAccount = {
+interface CanvasAccount {
     id: number;
     name: string;
     uuid: string;
@@ -13,5 +13,5 @@ declare type CanvasAccount = {
     sis_import_id: number;
     lti_guid: string;
     workflow_state: string;
-};
+}
 export default CanvasAccount;

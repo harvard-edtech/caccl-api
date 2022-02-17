@@ -1,20 +1,20 @@
 import CanvasEnrollment from './CanvasEnrollment';
 import CanvasTerm from './CanvasTerm';
 
-type CanvasCourse = {
+interface CanvasCourse {
   // the unique identifier for the course
   id: number,
   // the SIS identifier for the course, if defined. This field is only included if
   // the user has permission to view SIS information.
-  sis_course_id?: string,
+  sis_course_id?: string | null,
   // the UUID of the course
   uuid: string,
   // the integration identifier for the course, if defined. This field is only
   // included if the user has permission to view SIS information.
-  integration_id?: any,
+  integration_id?: any | null,
   // the unique identifier for the SIS import. This field is only included if the
   // user has permission to manage SIS information.
-  sis_import_id?: number,
+  sis_import_id?: number | null,
   // the full name of the course
   name: string,
   // the course code
@@ -34,26 +34,26 @@ type CanvasCourse = {
   // the enrollment term associated with the course
   enrollment_term_id: number,
   // A list of grading periods associated with the course
-  grading_periods?: any[],
+  grading_periods?: any[] | null,
   // the grading standard associated with the course
-  grading_standard_id?: number,
+  grading_standard_id?: number | null,
   // the grade_passback_setting set on the course
-  grade_passback_setting?: string,
+  grade_passback_setting?: string | null,
   // the date the course was created.
   created_at: string,
   // the start date for the course, if applicable
-  start_at?: string,
+  start_at?: string | null,
   // the end date for the course, if applicable
-  end_at?: string,
+  end_at?: string | null,
   // the course-set locale, if applicable
-  locale?: string,
+  locale?: string | null,
   // A list of enrollments linking the current user to the course. for student
   // enrollments, grading information may be included if include[]=total_scores
-  enrollments?: CanvasEnrollment[],
+  enrollments?: CanvasEnrollment[] | null,
   // optional: the total number of active and invited students in the course
-  total_students?: number,
+  total_students?: number | null,
   // course calendar
-  calendar?: any,
+  calendar?: any | null,
   // the type of page that users will see when they first visit the course -
   // 'feed': Recent Activity Dashboard - 'wiki': Wiki Front Page - 'modules':
   // Course Modules/Sections Page - 'assignments': Course Assignments List -
@@ -67,13 +67,13 @@ type CanvasCourse = {
     | string
   ),
   // optional: user-generated HTML for the course syllabus
-  syllabus_body?: string,
+  syllabus_body?: string | null,
   // optional: the number of submissions needing grading returned only if the
   // current user has grading rights and include[]=needs_grading_count
-  needs_grading_count?: number,
+  needs_grading_count?: number | null,
   // optional: the enrollment term object for the course returned only if
   // include[]=term
-  term?: CanvasTerm,
+  term?: CanvasTerm | null,
   // optional: information on progress through the course returned only if
   // include[]=course_progress
   course_progress?: {
@@ -88,7 +88,7 @@ type CanvasCourse = {
     // date the course was completed. null if the course has not been completed by
     // this user
     completed_at?: (string | null),
-  },
+  } | null,
   // weight final grade based on assignment group percentages
   apply_assignment_group_weights: boolean,
   // optional: the permissions the user has for the course. returned only for a
@@ -96,7 +96,7 @@ type CanvasCourse = {
   permissions?: {
     create_discussion_topic: boolean,
     create_announcement: boolean,
-  },
+  } | null,
   is_public: boolean,
   is_public_to_auth_users: boolean,
   public_syllabus: boolean,
@@ -121,14 +121,14 @@ type CanvasCourse = {
   time_zone: string,
   // optional: whether the course is set as a Blueprint Course (blueprint fields
   // require the Blueprint Courses feature)
-  blueprint?: any,
+  blueprint?: any | null,
   // optional: Set of restrictions applied to all locked course objects
   blueprint_restrictions?: {
     content: boolean,
     points: boolean,
     due_dates: boolean,
     availability_dates: boolean,
-  },
+  } | null,
   // optional: Sets of restrictions differentiated by object type applied to
   // locked course objects
   blueprint_restrictions_by_object_type?: {
@@ -139,10 +139,10 @@ type CanvasCourse = {
     wiki_page: {
       content: boolean,
     },
-  },
+  } | null,
   // optional: whether the course is set as a template (requires the Course
   // Templates feature)
-  template?: boolean,
+  template?: boolean | null,
 };
 
 export default CanvasCourse;

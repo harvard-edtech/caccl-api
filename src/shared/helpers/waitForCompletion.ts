@@ -82,3 +82,5 @@ const waitForCompletion = async (
     }
   }
 };
+
+export default waitForCompletion;

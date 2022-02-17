@@ -22,7 +22,7 @@ declare const utils: {
      * @returns list of strings that were marked to be included
      */
     genIncludesList: (map: {
-        [x: string]: boolean;
+        [k: string]: boolean;
     }) => (string[] | undefined);
     /**
      * Returns the value if it's a boolean, otherwise returns a special value that

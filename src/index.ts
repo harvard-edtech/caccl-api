@@ -6,32 +6,45 @@ import API from './types/API';
 import genVisitEndpoint from './shared/genVisitEndpoint';
 import Account from './endpoints/Account';
 import InitPack from './shared/types/InitPack';
+import Conversation from './endpoints/Conversation';
+import Course from './endpoints/Course';
+import Other from './endpoints/Other';
+import User from './endpoints/User';
 
 /**
  * Initialize api
  * @author Gabe Abrams
- * @param [defaults] object containing all arguments
- * @param [defaults.numRetries=3] default number of retries per request
- * @param [defaults.itemsPerPage=100] default number of items to request
+ * @param [opts] object containing all defaults
+ * @param [opts.numRetries=3] default number of retries per request
+ * @param [opts.itemsPerPage=100] default number of items to request
  *   per page
- * @param [defaults.canvasHost=canvas.instructure.com] default hostname of
+ * @param [opts.canvasHost=canvas.instructure.com] default hostname of
  *   the Canvas instance to interact with
- * @param [defaults.pathPrefix] default path prefix to prepend to all
+ * @param [opts.pathPrefix] default path prefix to prepend to all
  *   requests
- * @param [defaults.accessToken] default access token to add to all
+ * @param [opts.accessToken] default access token to add to all
  *   requests
- * @param [defaults.authenticityToken] default authenticity token to
+ * @param [opts.authenticityToken] default authenticity token to
  *   add to all requests no matter what
  */
-const initAPI = (defaults: APIConfig) => {
+const initAPI = (
+  opts: {
+    numRetries?: number
+    itemsPerPage?: number,
+    canvasHost?: string,
+    pathPrefix?: string,
+    accessToken?: string,
+    authenticityToken?: string,
+  } = {},
+) => {
   // Initialize defaults
-  const processedDefaults = {
-    numRetries: (defaults.numRetries || 3),
-    itemsPerPage: (defaults.itemsPerPage || 100),
-    canvasHost: (defaults.canvasHost || 'canvas.instructure.com'),
-    pathPrefix: (defaults.pathPrefix || ''),
-    accessToken: (defaults.accessToken || undefined),
-    authenticityToken: (defaults.authenticityToken || undefined),
+  const processedDefaults: APIConfig = {
+    numRetries: (opts.numRetries || 3),
+    itemsPerPage: (opts.itemsPerPage || 100),
+    canvasHost: (opts.canvasHost || 'canvas.instructure.com'),
+    pathPrefix: (opts.pathPrefix || ''),
+    accessToken: (opts.accessToken || undefined),
+    authenticityToken: (opts.authenticityToken || undefined),
   };
 
   // Generate a visitEndpoint function
@@ -48,6 +61,10 @@ const initAPI = (defaults: APIConfig) => {
 
   // Initialize and add endpoint categories
   api.account = new Account(initPack);
+  api.conversation = new Conversation(initPack);
+  api.course = new Course(initPack);
+  api.other = new Other(initPack);
+  api.user = new User(initPack);
 
   // Return api instance
   return api;

@@ -14,7 +14,7 @@ type VisitEndpointFunc = (
       // Human-readable description of the task
       action: string,
       // Parameters/args/body to send with request
-      params?: { [k in string]: any },
+      params?: { [k: string]: any },
       // Opts from API caller
       config?: APIConfig,
       // If included, this function is used on each page before it is added to the

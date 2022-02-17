@@ -27,7 +27,7 @@ const utils = {
    * @returns list of strings that were marked to be included
    */
   genIncludesList: (
-    map: { [k in string]: boolean },
+    map: { [k: string]: boolean },
   ): (string[] | undefined) => {
     if (!map) {
       return undefined;

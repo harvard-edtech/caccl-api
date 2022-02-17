@@ -2,7 +2,7 @@
  * Canvas progress item
  * @author Gabe Abrams
  */
-declare type CanvasProgress = {
+interface CanvasProgress {
     id: number;
     context_id: number;
     context_type: string;
@@ -12,8 +12,8 @@ declare type CanvasProgress = {
     workflow_state: string;
     created_at: string;
     updated_at: string;
-    message?: string;
-    results?: any;
+    message?: string | null;
+    results?: any | null;
     url: string;
-};
+}
 export default CanvasProgress;

@@ -1,6 +1,6 @@
 import CanvasEnrollment from './CanvasEnrollment';
 
-type CanvasUser = {
+interface CanvasUser {
   // The ID of the user.
   id: number,
   // The name of the user.
@@ -34,21 +34,21 @@ type CanvasUser = {
   // Optional: This field can be requested with certain API calls, and will
   // return a list of the users active enrollments. See the List enrollments API
   // for more details about the format of these records.
-  enrollments?: CanvasEnrollment[],
+  enrollments?: CanvasEnrollment[] | null,
   // Optional: This field can be requested with certain API calls, and will
   // return the users primary email address.
-  email?: string,
+  email?: string | null,
   // Optional: This field can be requested with certain API calls, and will
   // return the users locale in RFC 5646 format.
-  locale?: string,
+  locale?: string | null,
   // Optional: This field is only returned in certain API calls, and will return
   // a timestamp representing the last time the user logged in to canvas.
-  last_login?: string,
+  last_login?: string | null,
   // Optional: This field is only returned in certain API calls, and will return
   // the IANA time zone name of the user's preferred timezone.
-  time_zone?: string,
+  time_zone?: string | null,
   // Optional: The user's bio.
-  bio?: string,
+  bio?: string | null,
 };
 
 export default CanvasUser;

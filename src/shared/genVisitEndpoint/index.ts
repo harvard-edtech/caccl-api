@@ -16,6 +16,7 @@ import ErrorCode from '../types/ErrorCode';
 // Import helpers
 import interpretCanvasError from './interpretCanvasError';
 import VisitEndpointFunc from '../types/VisitEndpointFunc';
+import removeUndefinedValues from './removeUndefinedValues';
 
 /**
  * Generate a visitEndpoint function
@@ -48,7 +49,7 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
     /*----------------------------------------*/
 
     // Create params
-    const updatedParams: { [k in string]: any } = {
+    const updatedParams: { [k: string]: any } = removeUndefinedValues({
       ...params,
       // Canvas access token
       access_token: (
@@ -75,7 +76,7 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
           )
           : undefined
       ),
-    };
+    });
 
     // Get settings
     const canvasHost = (config.canvasHost || defaults.canvasHost);

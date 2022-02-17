@@ -1,8 +1,8 @@
-type CanvasTerm = {
+interface CanvasTerm {
   id: number,
   name: string,
-  start_at?: string,
-  end_at?: string,
+  start_at?: string | null,
+  end_at?: string | null,
 };
 
 export default CanvasTerm;

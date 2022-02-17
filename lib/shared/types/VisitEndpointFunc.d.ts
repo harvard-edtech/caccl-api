@@ -8,7 +8,7 @@ declare type VisitEndpointFunc = ((opts: {
     method: ('GET' | 'POST' | 'PUT' | 'DELETE');
     action: string;
     params?: {
-        [k in string]: any;
+        [k: string]: any;
     };
     config?: APIConfig;
     pagePostProcessor?: (page: any, pageNumber: number) => any;

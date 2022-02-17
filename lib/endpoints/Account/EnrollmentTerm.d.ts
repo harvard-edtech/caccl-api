@@ -1,6 +1,6 @@
 /**
- * Functions for interacting with accounts
- * @namespace api.account
+ * Functions for interacting with enrollment terms
+ * @namespace api.enrollmentTerm
  */
 import EndpointCategory from '../../shared/EndpointCategory';
 import APIConfig from '../../shared/types/APIConfig';
@@ -24,7 +24,7 @@ declare class EnrollmentTerm extends EndpointCategory {
      *   that are in the given state
      * @param {boolean} [opts.includeOverrides] If true, include term start/end
      *   dates overridden for different enrollment types
-     * @return {EnrollmentTerm[]} List of enrollment terms {@link https://canvas.instructure.com/doc/api/enrollment_terms.html#EnrollmentTerm}
+     * @returns {CanvasEnrollmentTerm[]} List of enrollment terms {@link https://canvas.instructure.com/doc/api/enrollment_terms.html#EnrollmentTerm}
      */
     list(opts: {
         accountId: number;

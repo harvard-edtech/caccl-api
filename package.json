@@ -5,9 +5,8 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "build": "tsc --project ./tsconfig.json",
-    "build-docs": "rm -rf ./docBuilder/template;cp -r ./node_modules/docdash ./docBuilder/template; node ./docBuilder/updateBuilder.js;rm -rf ./docs;./node_modules/.bin/jsdoc -c ./docBuilder/jsdocConfig.json",
-    "build-types": "npx -p typescript tsc endpoints/API/**/*.js --declaration --allowJs --emitDeclarationOnly"
+    "build": "tsc --project ./tsconfig.json;npm run build-docs",
+    "build-docs": "rm -rf ./docBuilder/template;cp -r ./node_modules/docdash ./docBuilder/template; node ./docBuilder/updateBuilder.js;rm -rf ./docs;./node_modules/.bin/jsdoc -c ./docBuilder/jsdocConfig.json"
   },
   "repository": {
     "type": "git",
@@ -27,6 +26,7 @@
   },
   "homepage": "https://github.com/harvard-edtech/caccl-canvas-api#readme",
   "devDependencies": {
+    "@types/async": "^3.2.12",
     "@types/json5": "^2.2.0",
     "@types/node": "^17.0.17",
     "@types/parse-link-header": "^1.0.1",
@@ -42,13 +42,10 @@
   },
   "dependencies": {
     "async": "^2.6.3",
-    "axios": "^0.21.1",
     "caccl-error": "^2.0.0-beta.0",
     "caccl-send-request": "^2.0.0-beta.0",
-    "concat-stream": "^2.0.0",
     "csv-parse": "^4.15.0",
     "fast-clone": "^1.5.13",
-    "form-data": "^4.0.0",
     "parse-link-header": "^2.0.0",
     "url": "^0.11.0"
   }

@@ -1,4 +1,4 @@
-declare type CanvasEnrollment = {
+interface CanvasEnrollment {
     id: number;
     course_id: number;
     sis_course_id: string;
@@ -40,19 +40,19 @@ declare type CanvasEnrollment = {
     };
     override_grade: string;
     override_score: number;
-    unposted_current_grade?: string;
-    unposted_final_grade?: string;
-    unposted_current_score?: number;
+    unposted_current_grade?: string | null;
+    unposted_final_grade?: string | null;
+    unposted_current_score?: number | null;
     unposted_final_score: number;
-    has_grading_periods?: boolean;
+    has_grading_periods?: boolean | null;
     totals_for_all_grading_periods_option: boolean;
-    current_grading_period_title?: string;
-    current_grading_period_id?: number;
-    current_period_override_grade?: string;
-    current_period_override_score?: number;
-    current_period_unposted_current_score?: number;
-    current_period_unposted_final_score?: number;
-    current_period_unposted_current_grade?: string;
-    current_period_unposted_final_grade?: string;
-};
+    current_grading_period_title?: string | null;
+    current_grading_period_id?: number | null;
+    current_period_override_grade?: string | null;
+    current_period_override_score?: number | null;
+    current_period_unposted_current_score?: number | null;
+    current_period_unposted_final_score?: number | null;
+    current_period_unposted_current_grade?: string | null;
+    current_period_unposted_final_grade?: string | null;
+}
 export default CanvasEnrollment;

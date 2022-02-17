@@ -1,16 +1,16 @@
-declare type CanvasEnrollmentTerm = {
+interface CanvasEnrollmentTerm {
     id: number;
-    sis_term_id?: string;
-    sis_import_id?: number;
+    sis_term_id?: string | null;
+    sis_import_id?: number | null;
     name: string;
-    start_at?: string;
-    end_at?: string;
+    start_at?: string | null;
+    end_at?: string | null;
     workflow_state: ('active' | 'deleted');
     overrides: {
-        [k in string]: {
+        [k: string]: {
             start_at?: string;
             end_at?: string;
         };
     };
-};
+}
 export default CanvasEnrollmentTerm;

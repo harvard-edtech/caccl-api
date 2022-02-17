@@ -1,5 +1,5 @@
 import CanvasEnrollment from './CanvasEnrollment';
-declare type CanvasUser = {
+interface CanvasUser {
     id: number;
     name: string;
     sortable_name: string;
@@ -11,11 +11,11 @@ declare type CanvasUser = {
     integration_id: string;
     login_id: string;
     avatar_url?: string;
-    enrollments?: CanvasEnrollment[];
-    email?: string;
-    locale?: string;
-    last_login?: string;
-    time_zone?: string;
-    bio?: string;
-};
+    enrollments?: CanvasEnrollment[] | null;
+    email?: string | null;
+    locale?: string | null;
+    last_login?: string | null;
+    time_zone?: string | null;
+    bio?: string | null;
+}
 export default CanvasUser;

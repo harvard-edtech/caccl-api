@@ -1,4 +1,4 @@
-type CanvasAccount = {
+interface CanvasAccount {
   id: number,
   name: string,
   uuid: string,

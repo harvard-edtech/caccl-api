@@ -13,8 +13,7 @@ declare class Account extends EndpointCategory {
     enrollmentTerm: EnrollmentTerm;
     /**
      * Initialize endpoint category
-     * @param visitEndpoint function for visiting endpoints
-     * @param api top-level api instance
+     * @param initPack package of info for initializing the endpoint category
      */
     constructor(initPack: InitPack);
     /**
@@ -26,9 +25,9 @@ declare class Account extends EndpointCategory {
      * @async
      * @param {object} opts object containing all arguments
      * @param {number} opts.accountId Canvas account Id to get info on
-     * @param {object} [config] custom configuration for this specific endpoint
+     * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
-     * @returns {Account} Canvas account {@link https://canvas.instructure.com/doc/api/accounts.html#Account}
+     * @returns {Promise<CanvasAccount>} Canvas account {@link https://canvas.instructure.com/doc/api/accounts.html#Account}
      */
     get(opts: {
         accountId: number;
@@ -40,9 +39,9 @@ declare class Account extends EndpointCategory {
      * @memberof api.account
      * @instance
      * @async
-     * @param {object} [config] custom configuration for this specific endpoint
+     * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
-     * @returns {Account[]} list of Canvas accounts {@link https://canvas.instructure.com/doc/api/accounts.html#Account}
+     * @returns {Promise<CanvasAccount[]>} list of Canvas accounts {@link https://canvas.instructure.com/doc/api/accounts.html#Account}
      */
     list(config?: APIConfig): Promise<CanvasAccount[]>;
     /**
@@ -55,9 +54,9 @@ declare class Account extends EndpointCategory {
      * @param {object} opts object containing all arguments
      * @param {number} opts.accountId Canvas account Id to get the list of
      *   admins from
-     * @param {object} [config] custom configuration for this specific endpoint
+     * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
-     * @return {Admin[]} List of Canvas admins {@link https://canvas.instructure.com/doc/api/admins.html#Admin}
+     * @returns {Promise<CanvasAdmin[]>} List of Canvas admins {@link https://canvas.instructure.com/doc/api/admins.html#Admin}
      */
     listAdmins(opts: {
         accountId: number;
@@ -135,9 +134,9 @@ declare class Account extends EndpointCategory {
      *   include its parent account name
      * @param {boolean} [opts.includeConcluded] - if true, for each course,
      *   include whether the course has been concluded
-     * @param {object} [config] custom configuration for this specific endpoint
+     * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
-     * @returns {Course[]} Array of Canvas courses {@link https://canvas.instructure.com/doc/api/courses.html#Course}
+     * @returns {Promise<CanvasCourse[]>} Array of Canvas courses {@link https://canvas.instructure.com/doc/api/courses.html#Course}
      */
     listCourses(opts: {
         accountId: number;

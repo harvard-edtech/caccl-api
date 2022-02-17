@@ -1,4 +1,4 @@
-type CanvasEnrollment = {
+interface CanvasEnrollment {
   // The ID of the enrollment.
   id: number,
   // The unique id of the course.
@@ -102,15 +102,15 @@ type CanvasEnrollment = {
   // The user's current grade in the class including muted/unposted assignments.
   // Only included if user has permissions to view this grade, typically teachers,
   // TAs, and admins.
-  unposted_current_grade?: string,
+  unposted_current_grade?: string | null,
   // The user's final grade for the class including muted/unposted assignments.
   // Only included if user has permissions to view this grade, typically teachers,
   // TAs, and admins..
-  unposted_final_grade?: string,
+  unposted_final_grade?: string | null,
   // The user's current score in the class including muted/unposted assignments.
   // Only included if user has permissions to view this score, typically teachers,
   // TAs, and admins..
-  unposted_current_score?: number,
+  unposted_current_score?: number | null,
   // The user's final score for the class including muted/unposted assignments.
   // Only included if user has permissions to view this score, typically teachers,
   // TAs, and admins..
@@ -118,7 +118,7 @@ type CanvasEnrollment = {
   // optional: Indicates whether the course the enrollment belongs to has grading
   // periods set up. (applies only to student enrollments, and only available in
   // course endpoints)
-  has_grading_periods?: boolean,
+  has_grading_periods?: boolean | null,
   // optional: Indicates whether the course the enrollment belongs to has the
   // Display Totals for 'All Grading Periods' feature enabled. (applies only to
   // student enrollments, and only available in course endpoints)
@@ -127,23 +127,23 @@ type CanvasEnrollment = {
   // the course the enrollment belongs to does not have grading periods, or if no
   // currently active grading period exists, the value will be null. (applies only
   // to student enrollments, and only available in course endpoints)
-  current_grading_period_title?: string,
+  current_grading_period_title?: string | null,
   // optional: The id of the currently active grading period, if one exists. If
   // the course the enrollment belongs to does not have grading periods, or if no
   // currently active grading period exists, the value will be null. (applies only
   // to student enrollments, and only available in course endpoints)
-  current_grading_period_id?: number,
+  current_grading_period_id?: number | null,
   // The user's override grade for the current grading period.
-  current_period_override_grade?: string,
+  current_period_override_grade?: string | null,
   // The user's override score for the current grading period.
-  current_period_override_score?: number,
+  current_period_override_score?: number | null,
   // optional: The student's score in the course for the current grading period,
   // including muted/unposted assignments. Only included if user has permission to
   // view this score, typically teachers, TAs, and admins. If the course the
   // enrollment belongs to does not have grading periods, or if no currently
   // active grading period exists, the value will be null. (applies only to
   // student enrollments, and only available in course endpoints)
-  current_period_unposted_current_score?: number,
+  current_period_unposted_current_score?: number | null,
   // optional: The student's score in the course for the current grading period,
   // including muted/unposted assignments and including ungraded assignments with
   // a score of 0. Only included if user has permission to view this score,
@@ -151,21 +151,21 @@ type CanvasEnrollment = {
   // does not have grading periods, or if no currently active grading period
   // exists, the value will be null. (applies only to student enrollments, and
   // only available in course endpoints)
-  current_period_unposted_final_score?: number,
+  current_period_unposted_final_score?: number | null,
   // optional: The letter grade equivalent of
   // current_period_unposted_current_score, if available. Only included if user
   // has permission to view this grade, typically teachers, TAs, and admins. If
   // the course the enrollment belongs to does not have grading periods, or if no
   // currently active grading period exists, the value will be null. (applies only
   // to student enrollments, and only available in course endpoints)
-  current_period_unposted_current_grade?: string,
+  current_period_unposted_current_grade?: string | null,
   // optional: The letter grade equivalent of current_period_unposted_final_score,
   // if available. Only included if user has permission to view this grade,
   // typically teachers, TAs, and admins. If the course the enrollment belongs to
   // does not have grading periods, or if no currently active grading period
   // exists, the value will be null. (applies only to student enrollments, and
   // only available in course endpoints)
-  current_period_unposted_final_grade?: string,
+  current_period_unposted_final_grade?: string | null,
 };
 
 export default CanvasEnrollment;
