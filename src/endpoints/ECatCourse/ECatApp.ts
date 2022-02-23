@@ -367,7 +367,7 @@ class ECatApp extends EndpointCategory {
       appId: number,
     },
     config?: APIConfig,
-  ): Promise<CanvasExternalTool> {
+  ): Promise<string> {
     const response = await this.visitEndpoint({
       config,
       action: 'get a sessionless navigation LTI launch url for an app in a course',

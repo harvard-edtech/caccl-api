@@ -169,7 +169,7 @@ declare class ECatApp extends EndpointCategory {
     getNavLaunchURL(opts: {
         courseId: number;
         appId: number;
-    }, config?: APIConfig): Promise<CanvasExternalTool>;
+    }, config?: APIConfig): Promise<string>;
     /**
      * Gets a sessionless navigation LTI launch URL
      * @author Gabe Abrams
