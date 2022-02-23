@@ -1,15 +1,17 @@
 // Import shared types
 import APIConfig from './shared/types/APIConfig';
 import API from './types/API';
+import InitPack from './shared/types/InitPack';
 
 // Import shared helpers
 import genVisitEndpoint from './shared/genVisitEndpoint';
-import Account from './endpoints/Account';
-import InitPack from './shared/types/InitPack';
-import Conversation from './endpoints/Conversation';
-import Course from './endpoints/Course';
-import Other from './endpoints/Other';
-import User from './endpoints/User';
+
+// Import endpoint categories
+import ECatAccount from './endpoints/ECatAccount';
+import ECatConversation from './endpoints/ECatConversation';
+import ECatCourse from './endpoints/ECatCourse';
+import ECatOther from './endpoints/ECatOther';
+import ECatUser from './endpoints/ECatUser';
 
 /**
  * Initialize api
@@ -60,11 +62,11 @@ const initAPI = (
   };
 
   // Initialize and add endpoint categories
-  api.account = new Account(initPack);
-  api.conversation = new Conversation(initPack);
-  api.course = new Course(initPack);
-  api.other = new Other(initPack);
-  api.user = new User(initPack);
+  api.account = new ECatAccount(initPack);
+  api.conversation = new ECatConversation(initPack);
+  api.course = new ECatCourse(initPack);
+  api.other = new ECatOther(initPack);
+  api.user = new ECatUser(initPack);
 
   // Return api instance
   return api;

@@ -1,17 +1,17 @@
-import Account from '../endpoints/Account';
-import Conversation from '../endpoints/Conversation';
-import Course from '../endpoints/Course';
-import Other from '../endpoints/Other';
-import User from '../endpoints/User';
+import ECatAccount from '../endpoints/ECatAccount';
+import ECatConversation from '../endpoints/ECatConversation';
+import ECatCourse from '../endpoints/ECatCourse';
+import ECatOther from '../endpoints/ECatOther';
+import ECatUser from '../endpoints/ECatUser';
 /**
  * API structure type
  * @author Gabe Abrams
  */
 interface API {
-    account: Account;
-    course: Course;
-    conversation: Conversation;
-    other: Other;
-    user: User;
+    account: ECatAccount;
+    course: ECatCourse;
+    conversation: ECatConversation;
+    other: ECatOther;
+    user: ECatUser;
 }
 export default API;
