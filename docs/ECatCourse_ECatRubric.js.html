@@ -120,19 +120,22 @@ var ECatRubric = /** @class */ (function (_super) {
      * @method list
      * @memberof api.course.rubric
      * @instance
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to add the rubric to
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to add
+     *   the rubric to
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasRubric[]>} list of Canvas Rubrics {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
      */
     ECatRubric.prototype.list = function (opts, config) {
+        var _a;
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'list all the rubrics in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/rubrics"),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/rubrics"),
                         method: 'GET',
                     })];
             });
@@ -144,13 +147,14 @@ var ECatRubric = /** @class */ (function (_super) {
      * @method get
      * @memberof api.course.rubric
      * @instance
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to add the rubric to
-     * @param {number} opts.rubricId - Canvas course Id to add the rubric to
-     * @param {string} [opts.include] - Allowed values: ['assessments',
+     * @param {object} opts object containing all arguments
+     * @param {number} opts.rubricId Canvas course Id to add the rubric to
+     * @param {number} [opts.courseId=default course id] Canvas course Id to add
+     *   the rubric to
+     * @param {string} [opts.include] Allowed values: ['assessments',
      *   'graded_assessments', 'peer_assessments']. If excluded, no assessments
      *   will be included (default: none)
-     * @param {string} [opts.assessmentStyle=both omitted] - Allowed values:
+     * @param {string} [opts.assessmentStyle=both omitted] Allowed values:
      *   ['full','comments_only']
      *   (full = entire assessment, comments_only = only comment part of
      *   assessment). Only valid if including assessments
@@ -159,12 +163,13 @@ var ECatRubric = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasRubric>} Canvas Rubric {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
      */
     ECatRubric.prototype.get = function (opts, config) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'get info on a specific rubric in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/rubrics/").concat(opts.rubricId),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/rubrics/").concat(opts.rubricId),
                         method: 'GET',
                         params: {
                             include: utils_1.default.includeIfTruthy(opts.include),
@@ -181,21 +186,22 @@ var ECatRubric = /** @class */ (function (_super) {
      * @method createFreeFormGradingRubricInAssignment
      * @memberof api.course.rubric
      * @instance
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to add the rubric to
-     * @param {number} opts.assignmentId - Canvas course Id to add the rubric to
-     * @param {Array} opts.rubricItems - List of rubric item objects:
+     * @param {object} opts object containing all arguments
+     * @param {number} opts.assignmentId Canvas course Id to add the rubric to
+     * @param {Array} opts.rubricItems List of rubric item objects:
      *   [{description, points, [longDescription]}, ...]
-     * @param {string} [opts.title=generated title] - Title of the new rubric
+     * @param {number} [opts.courseId=default course id] Canvas course Id to add the rubric to
+     * @param {string} [opts.title=generated title] Title of the new rubric
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasRubric>} Canvas Rubric {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
      */
     ECatRubric.prototype.createFreeFormGradingRubricInAssignment = function (opts, config) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var pointsPossible, title, params, response;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         pointsPossible = 0;
                         opts.rubricItems.forEach(function (rubricItem) {
@@ -235,11 +241,11 @@ var ECatRubric = /** @class */ (function (_super) {
                                 config: config,
                                 action: 'create a new free form grading rubric and add it to a specific assignment in a course',
                                 params: params,
-                                path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/rubrics"),
+                                path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/rubrics"),
                                 method: 'POST',
                             })];
                     case 1:
-                        response = _a.sent();
+                        response = _b.sent();
                         return [2 /*return*/, response.rubric];
                 }
             });

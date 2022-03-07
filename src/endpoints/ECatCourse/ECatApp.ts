@@ -32,8 +32,8 @@ class ECatApp extends EndpointCategory {
    * @instance
    * @async
    * @method list
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {boolean} [opts.excludeParents] If true, excludes tools
    *   installed in all accounts above the current context
    * @param {APIConfig} [config] custom configuration for this specific endpoint
@@ -42,9 +42,9 @@ class ECatApp extends EndpointCategory {
    */
   public async list(
     opts: {
-      courseId: number,
+      courseId?: number,
       excludeParents?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasExternalTool[]> {
     const params = (
@@ -55,7 +55,7 @@ class ECatApp extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'get the list of apps installed into a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/external_tools`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/external_tools`,
       method: 'GET',
       params,
     });
@@ -69,23 +69,23 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method get
    * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id
    * @param {number} opts.appId The LTI app Id to get
+   * @param {number} [opts.courseId=default course id] Canvas course Id
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasExternalTool>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
    */
   public async get(
     opts: {
-      courseId: number,
       appId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasExternalTool> {
     return this.visitEndpoint({
       config,
       action: 'get info on a specific LTI app in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/external_tools/${opts.appId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/external_tools/${opts.appId}`,
       method: 'GET',
     });
   }
@@ -98,7 +98,6 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method add
    * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to install into
    * @param {string} opts.name The app name (for settings app list)
    * @param {string} opts.key Installation consumer key
    * @param {string} opts.secret Installation consumer secret
@@ -106,26 +105,27 @@ class ECatApp extends EndpointCategory {
    * @param {string} [opts.description] A human-readable description of the
    *   app
    * @param {string} [opts.launchPrivacy] 'public' by default
+   * @param {number} [opts.courseId=default course id] Canvas course Id to install into
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasExternalTool>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
    */
   public async add(
     opts: {
-      courseId: number,
       name: string,
       key: string,
       secret: string,
       xml: string,
       description?: string,
       launchPrivacy?: ('public' | 'anonymous' | 'members'),
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasExternalTool> {
     return this.visitEndpoint({
       config,
       action: 'add an LTI app to a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/external_tools`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/external_tools`,
       method: 'POST',
       params: {
         name: opts.name,
@@ -147,23 +147,24 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method remove
    * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to remove app from
    * @param {number} opts.appId The LTI app Id to remove
+   * @param {number} [opts.courseId=default course id] Canvas course Id to
+   *   remove app from
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasExternalTool>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
    */
   public async remove(
     opts: {
-      courseId: number,
       appId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasExternalTool> {
     return this.visitEndpoint({
       config,
       action: 'remove an LTI app from a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/external_tools/${opts.appId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/external_tools/${opts.appId}`,
       method: 'DELETE',
     });
   }
@@ -188,9 +189,10 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method getMetadata
    * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id that holds the app
    * @param {number} opts.metadata_id metadata identifier (see endpoint
    *   description)
+   * @param {number} [opts.courseId=default course id] Canvas course Id that
+   *   holds the app
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<object>} the metadata for the first app that has the given
@@ -198,15 +200,15 @@ class ECatApp extends EndpointCategory {
    */
   public async getMetadata(
     opts: {
-      courseId: number,
       metadata_id: string,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<{ [k: string]: any }> {
     // Get the list of apps
     const apps = await this.api.course.app.list(
       {
-        courseId: opts.courseId,
+        courseId: (opts.courseId ?? this.defaultCourseId),
       },
       config,
     );
@@ -273,19 +275,19 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method updateMetadata
    * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id that holds the app
    * @param {number} opts.metadata_id metadata identifier (see endpoint
    *   description)
    * @param {object} [opts.metadata={}] json metadata object
+   * @param {number} [opts.courseId=default course id] Canvas course Id that holds the app
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasExternalTool[]>} Array of external tools (the apps that were updated) {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
    */
   public async updateMetadata(
     opts: {
-      courseId: number,
       metadata_id: string,
       metadata?: { [k: string]: any },
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasExternalTool[]> {
@@ -295,10 +297,10 @@ class ECatApp extends EndpointCategory {
     // Get the list of apps
     const apps = await this.api.course.app.list(
       {
-        courseId: opts.courseId,
+        courseId: (opts.courseId ?? this.defaultCourseId),
       },
       config,
-    )
+    );
     
     // Find all apps with this metadata_id
     const appsToUpdate = apps.filter((app) => {
@@ -336,7 +338,7 @@ class ECatApp extends EndpointCategory {
           config,
           action: 'update metadata for an LTI app in a course',
           params,
-          path: `${API_PREFIX}/courses/${opts.courseId}/external_tools/${app.id}`,
+          path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/external_tools/${app.id}`,
           method: 'PUT',
         });
       })
@@ -355,23 +357,24 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method getNavLaunchURL
    * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id that holds the app
    * @param {number} opts.appId The LTI app Id to get a launch URL for
+   * @param {number} [opts.courseId=default course id] Canvas course Id that
+   *   holds the app
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<string>} launch URL
    */
   public async getNavLaunchURL(
     opts: {
-      courseId: number,
       appId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<string> {
     const response = await this.visitEndpoint({
       config,
       action: 'get a sessionless navigation LTI launch url for an app in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/external_tools/sessionless_launch`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/external_tools/sessionless_launch`,
       method: 'GET',
       params: {
         id: opts.appId,
@@ -389,9 +392,9 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method getAssignmentLaunchURL
    * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id that holds the app
    * @param {number} opts.appId The LTI app Id to get a launch URL for
    * @param {number} opts.assignmentId the Canvas assignment id to launch
+   * @param {number} [opts.courseId=default course id] Canvas course Id that holds the app
    *   from
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -399,16 +402,16 @@ class ECatApp extends EndpointCategory {
    */
   public async getAssignmentLaunchURL(
     opts: {
-      courseId: number,
       appId: number,
       assignmentId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<string> {
     const response = await this.visitEndpoint({
       config,
       action: 'get a sessionless assignment LTI launch url for an app in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/external_tools/sessionless_launch`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/external_tools/sessionless_launch`,
       method: 'GET',
       params: {
         id: opts.appId,
@@ -432,24 +435,25 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method moveToTopOfNavMenu
    * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id that holds the app
    * @param {number} opts.appId The LTI app Id to make visible and move near
    *   the top of the nav menu
+   * @param {number} [opts.courseId=default course id] Canvas course Id that
+   *   holds the app
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasTab>} Canvas tab {@link https://canvas.instructure.com/doc/api/tabs.html#Tab}
    */
   public async moveToTopOfNavMenu(
     opts: {
-      courseId: number,
       appId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasTab> {
     return this.visitEndpoint({
       config,
       action: 'move an app near the top of the nav menu and make sure it\'s visible',
-      path: `${API_PREFIX}/courses/${opts.courseId}/tabs/context_external_tool_${opts.appId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/tabs/context_external_tool_${opts.appId}`,
       method: 'PUT',
       params: {
         position: 2,

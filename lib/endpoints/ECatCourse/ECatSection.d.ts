@@ -12,16 +12,16 @@ declare class ECatSection extends EndpointCategory {
      * @method list
      * @memberof api.course.section
      * @instance
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
-     * @param {boolean} [opts.includeStudents] - if true, the list of students
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
+     * @param {boolean} [opts.includeStudents] if true, the list of students
      *   from each section are included
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasSection[]>} list of Canvas Sections {@link https://canvas.instructure.com/doc/api/sections.html#Section}
      */
-    list(opts: {
-        courseId: number;
+    list(opts?: {
+        courseId?: number;
         includeStudents?: boolean;
     }, config?: APIConfig): Promise<CanvasSection[]>;
     /**
@@ -30,18 +30,18 @@ declare class ECatSection extends EndpointCategory {
      * @method get
      * @memberof api.course.section
      * @instance
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
-     * @param {number} opts.sectionId - Section Id to retrieve
-     * @param {boolean} [opts.includeStudents] - if true, the list of students
+     * @param {object} opts object containing all arguments
+     * @param {number} opts.sectionId Section Id to retrieve
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
+     * @param {boolean} [opts.includeStudents] if true, the list of students
      *   in the section are included
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasSection>} Canvas Section {@link https://canvas.instructure.com/doc/api/sections.html#Section}
      */
     get(opts: {
-        courseId: number;
         sectionId: number;
+        courseId?: number;
         includeStudents?: boolean;
     }, config?: APIConfig): Promise<CanvasSection>;
 }

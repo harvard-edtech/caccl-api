@@ -13,14 +13,14 @@ declare class ECatAssignmentGroup extends EndpointCategory {
      * @instance
      * @async
      * @method list
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasAssignmentGroup[]>} list of Canvas AssignmentGroups {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
      */
-    list(opts: {
-        courseId: number;
+    list(opts?: {
+        courseId?: number;
     }, config?: APIConfig): Promise<CanvasAssignmentGroup[]>;
     /**
      * Gets info on a specific assignment group in a course
@@ -29,18 +29,18 @@ declare class ECatAssignmentGroup extends EndpointCategory {
      * @instance
      * @async
      * @method get
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
-     * @param {number} opts.assignmentGroupId - Assignment group to get
-     * @param {boolean} [opts.includeAssignments] - if true, the list of
+     * @param {object} opts object containing all arguments
+     * @param {number} opts.assignmentGroupId Assignment group to get
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
+     * @param {boolean} [opts.includeAssignments] if true, the list of
      *   assignments inside the group is included
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasAssignmentGroup>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
      */
     get(opts: {
-        courseId: number;
         assignmentGroupId: number;
+        courseId?: number;
         includeAssignments?: boolean;
     }, config?: APIConfig): Promise<CanvasAssignmentGroup>;
     /**
@@ -50,18 +50,18 @@ declare class ECatAssignmentGroup extends EndpointCategory {
      * @instance
      * @async
      * @method update
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
-     * @param {number} opts.assignmentGroupId - Assignment group to update
-     * @param {string} [opts.name=current value] - New assignment group name
-     * @param {number} [opts.weight=current value] - New weight
+     * @param {object} opts object containing all arguments
+     * @param {number} opts.assignmentGroupId Assignment group to update
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
+     * @param {string} [opts.name=current value] New assignment group name
+     * @param {number} [opts.weight=current value] New weight
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasAssignmentGroup>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
      */
     update(opts: {
-        courseId: number;
         assignmentGroupId: number;
+        courseId?: number;
         name?: string;
         weight?: number;
     }, config?: APIConfig): Promise<CanvasAssignmentGroup>;
@@ -72,17 +72,17 @@ declare class ECatAssignmentGroup extends EndpointCategory {
      * @instance
      * @async
      * @method create
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
-     * @param {string} opts.name - New assignment group name
-     * @param {number} [opts.weight=0] - Assignment group weight
+     * @param {object} opts object containing all arguments
+     * @param {string} opts.name New assignment group name
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
+     * @param {number} [opts.weight=0] Assignment group weight
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasAssignmentGroup>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
      */
     create(opts: {
-        courseId: number;
         name: string;
+        courseId?: number;
         weight?: number;
     }, config?: APIConfig): Promise<CanvasAssignmentGroup>;
     /**
@@ -92,10 +92,10 @@ declare class ECatAssignmentGroup extends EndpointCategory {
      * @instance
      * @async
      * @method delete
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
-     * @param {number} opts.assignmentGroupId - Assignment group to delete
-     * @param {number} [opts.moveAssignmentsTo] - Assignment group to move
+     * @param {object} opts object containing all arguments
+     * @param {number} opts.assignmentGroupId Assignment group to delete
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
+     * @param {number} [opts.moveAssignmentsTo] Assignment group to move
      *   assignments to. If this parameter isn't included, assignments in the
      *   assignment group will be deleted.
      * @param {APIConfig} [config] custom configuration for this specific endpoint
@@ -103,9 +103,9 @@ declare class ECatAssignmentGroup extends EndpointCategory {
      * @returns {Promise<CanvasAssignmentGroup>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
      */
     delete(opts: {
-        courseId: number;
         assignmentGroupId: number;
-        moveAssignmentsTo: number;
+        courseId?: number;
+        moveAssignmentsTo?: number;
     }, config?: APIConfig): Promise<CanvasAssignmentGroup>;
 }
 export default ECatAssignmentGroup;

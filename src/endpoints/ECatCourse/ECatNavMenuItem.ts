@@ -29,22 +29,22 @@ class ECatNavMenuItem extends EndpointCategory {
    * @memberof api.course.navMenuItem
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId] Canvas course Id
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasTab[]>} list of Canvas Tabs {@link https://canvas.instructure.com/doc/api/tabs.html#method.tabs.index}
    */
   public async list(
     opts: {
-      courseId: Number,
-    },
+      courseId?: number,
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasTab[]> {
     return this.visitEndpoint({
       config,
       action: 'get the list of nav menu items in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/tabs`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/tabs`,
       method: 'GET',
     });
   }
@@ -56,25 +56,25 @@ class ECatNavMenuItem extends EndpointCategory {
    * @memberof api.course.navMenuItem
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id
-   * @param {string} [opts.url] - a url string identifying the item
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id
+   * @param {string} [opts.url] a url string identifying the item
    *   to move to the top of the menu. The url must either be a full url or
    *   a path.
    *   At least one of url, label, or id must
    *   be included. Case insensitive
-   * @param {string} [opts.label] - a text label identifying the item
+   * @param {string} [opts.label] a text label identifying the item
    *   to move to the top of the menu. At least one of url, label, or id must
    *   be included. Case insensitive.
-   * @param {string} [opts.id] - the id of the item to move to the top of
+   * @param {string} [opts.id] the id of the item to move to the top of
    *   the menu. At least one of url, label, or id must be included. Case
    *   sensitive.
-   * @param {boolean} [opts.moveToTop] - if true, moves the given nav menu
+   * @param {boolean} [opts.moveToTop] if true, moves the given nav menu
    *   item as high up in the nav menu as allowed by Canvas. At best, the position
    *   will be set to 2 because position 1 is reserved for the "Home" item.
-   * @param {number} [opts.position] - the new position of the item (starts
+   * @param {number} [opts.position] the new position of the item (starts
    *   at 1)
-   * @param {boolean} [opts.hidden] - if true, menu item is hidden.
+   * @param {boolean} [opts.hidden] if true, menu item is hidden.
    *   if false, menu item is made visible. if excluded, visibility is unchanged.
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -82,14 +82,14 @@ class ECatNavMenuItem extends EndpointCategory {
    */
   public async update(
     opts: {
-      courseId: number,
+      courseId?: number,
       url?: string,
       label?: string,
       id?: string,
       moveToTop?: boolean,
       position?: number,
       hidden?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasTab> {
     // Create the update object
@@ -111,9 +111,12 @@ class ECatNavMenuItem extends EndpointCategory {
     }
 
     // Get the list of nav menu items
-    const tabs = await this.api.course.navMenuItem.list({
-      courseId: opts.courseId,
-    });
+    const tabs = await this.api.course.navMenuItem.list(
+      {
+        courseId: (opts.courseId ?? this.defaultCourseId)
+      },
+      config,
+    );
 
     // Find the item we are looking for
     let tab: CanvasTab;
@@ -177,7 +180,7 @@ class ECatNavMenuItem extends EndpointCategory {
           config,
           action: 'update a nav menu item in a course',
           params,
-          path: `${API_PREFIX}/courses/${opts.courseId}/tabs/${tab.id}`,
+          path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/tabs/${tab.id}`,
           method: 'PUT',
         });
 

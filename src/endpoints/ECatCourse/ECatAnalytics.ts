@@ -34,23 +34,23 @@ class ECatAnalytics extends EndpointCategory {
    * @async
    * @method getStudentParticipationData
    * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
    * @param {number} opts.studentId the id of the student to get analytics on
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasUserInCourseParticipationData>} participation data {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.student_in_course_participation}
    */
   public async getStudentParticipationData(
     opts: {
-      courseId: number,
       studentId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasUserInCourseParticipationData> {
     return this.visitEndpoint({
       config,
       action: 'get participation data for a student in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/analytics/users/${opts.studentId}/activity`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/analytics/users/${opts.studentId}/activity`,
       method: 'GET',
     });
   }
@@ -65,23 +65,23 @@ class ECatAnalytics extends EndpointCategory {
    * @async
    * @method getStudentMessagingData
    * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
    * @param {number} opts.studentId the id of the student to get analytics on
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasUserInCourseMessagingData>} message data {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.student_in_course_messaging}
    */
   public async getStudentMessagingData(
     opts: {
-      courseId: number,
       studentId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasUserInCourseMessagingData> {
     return this.visitEndpoint({
       config,
       action: 'get messaging data for a student in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/analytics/users/${opts.studentId}/communication`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/analytics/users/${opts.studentId}/communication`,
       method: 'GET',
     });
   }
@@ -95,22 +95,22 @@ class ECatAnalytics extends EndpointCategory {
    * @instance
    * @async
    * @method listDailyActivitySummaries
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasCourseLevelParticipationData>} list of daily activity summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_participation}
    */
   public async listDailyActivitySummaries(
     opts: {
-      courseId: number,
-    },
+      courseId?: number,
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasCourseLevelParticipationData> {
     return this.visitEndpoint({
       config,
       action: 'get a list of daily activity summaries for each day in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/analytics/activity`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/analytics/activity`,
       method: 'GET',
     });
   }
@@ -124,22 +124,22 @@ class ECatAnalytics extends EndpointCategory {
    * @instance
    * @async
    * @method listAssignmentSummaries
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasCourseLevelAssignmentData>} list of assignment summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_assignments}
    */
   public async listAssignmentSummaries(
     opts: {
-      courseId: number,
-    },
+      courseId?: number,
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasCourseLevelAssignmentData> {
     return this.visitEndpoint({
       config,
       action: 'get a list of assignment summaries for all assignments in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/analytics/assignments`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/analytics/assignments`,
       method: 'GET',
     });
   }
@@ -153,22 +153,22 @@ class ECatAnalytics extends EndpointCategory {
    * @instance
    * @async
    * @method listStudentSummaries
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasCourseLevelStudentSummaries>} list of student summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_student_summaries}
    */
   public async listStudentSummaries(
     opts: {
-      courseId: number,
-    },
+      courseId?: number,
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasCourseLevelStudentSummaries> {
     return this.visitEndpoint({
       config,
       action: 'get a list of student summaries for all students in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/analytics/student_summaries`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/analytics/student_summaries`,
       method: 'GET',
     });
   }
@@ -181,23 +181,23 @@ class ECatAnalytics extends EndpointCategory {
    * @async
    * @method getStudentSummary
    * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
    * @param {number} opts.studentId id of the user to get analytics for
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasCourseLevelStudentSummary>} student summary {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_student_summaries}
    */
   public async getStudentSummary(
     opts: {
-      courseId: number,
       studentId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasCourseLevelStudentSummary> {
     return this.visitEndpoint({
       config,
       action: 'get a student summary for a student in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/analytics/student_summaries`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/analytics/student_summaries`,
       method: 'GET',
       params: {
         student_id: opts.studentId,

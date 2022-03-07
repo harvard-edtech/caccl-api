@@ -38,22 +38,22 @@ class ECatQuiz extends EndpointCategory {
    * @memberof api.course.quiz
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasQuiz[]>} list of Canvas Quizzes {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
    */
   public async list(
     opts: {
-      courseId: number,
-    },
+      courseId?: number,
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasQuiz[]> {
     return this.visitEndpoint({
       config,
       action: 'get the list of quizzes in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes`,
       method: 'GET',
     });
   }
@@ -65,25 +65,25 @@ class ECatQuiz extends EndpointCategory {
    * @memberof api.course.quiz
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {number} opts.quizId - Canvas quiz Id (not the quiz's assignment
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.quizId Canvas quiz Id (not the quiz's assignment
    *   Id)
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasQuiz>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
    */
   public async get(
     opts: {
-      courseId: number,
       quizId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasQuiz> {
     return this.visitEndpoint({
       config,
       action: 'get info on a specific quiz in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes/${opts.quizId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}`,
       method: 'GET',
     });
   }
@@ -95,61 +95,62 @@ class ECatQuiz extends EndpointCategory {
    * @memberof api.course.quiz
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to create the quiz in
-   * @param {number} opts.quizId - Canvas course Id to create the quiz in
-   * @param {boolean} [opts.suppressNotification] - If true, does not
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.quizId Canvas course Id to create the quiz in
+   * @param {number} [opts.courseId=default course id] Canvas course Id to
+   *   create the quiz in
+   * @param {boolean} [opts.suppressNotification] If true, does not
    *   notify users that the quiz has been updated
-   * @param {string} [opts.title=current value] - New title of the quiz
-   * @param {string} [opts.description=current value] - New HTML description of
+   * @param {string} [opts.title=current value] New title of the quiz
+   * @param {string} [opts.description=current value] New HTML description of
    *   the quiz
-   * @param {string} [opts.type=current value] - Quiz type. Allowed values: [
+   * @param {string} [opts.type=current value] Quiz type. Allowed values: [
    *   'practice_quiz', 'assignment', 'graded_survey', 'survey']
-   * @param {date} [opts.dueAt=current value] - Date the quiz is due
-   * @param {date} [opts.lockAt=current value] - Date the quiz is lock
-   * @param {date} [opts.unlockAt=current value] - Date the quiz is unlock
-   * @param {boolean} [opts.published=current value] - If true, quiz is
+   * @param {date} [opts.dueAt=current value] Date the quiz is due
+   * @param {date} [opts.lockAt=current value] Date the quiz is lock
+   * @param {date} [opts.unlockAt=current value] Date the quiz is unlock
+   * @param {boolean} [opts.published=current value] If true, quiz is
    *   published
-   * @param {number} [opts.allowedAttempts=current value] - Number of times a
-   *   student is allowed to take the quiz. Set to -1 for unlimited attempts
-   * @param {string} [opts.scoringPolicy=current value] - Only valid if
+   * @param {number} [opts.allowedAttempts=current value] Number of times a
+   *   student is allowed to take the quiz. Set to1 for unlimited attempts
+   * @param {string} [opts.scoringPolicy=current value] Only valid if
    *   allowedAttempts > 1. Allowed values: ['keep_highest', 'keep_latest']
-   * @param {boolean} [opts.oneQuestionAtATime=current value] - If true, shows
+   * @param {boolean} [opts.oneQuestionAtATime=current value] If true, shows
    *   quiz to student one question at a time. Must be a boolean
-   * @param {boolean} [opts.cantGoBack=current value] - If true, shows quiz to
+   * @param {boolean} [opts.cantGoBack=current value] If true, shows quiz to
    *   student one question at a time. Must be a boolean
-   * @param {string} [opts.accessCode=current value] - If defined, restricts
+   * @param {string} [opts.accessCode=current value] If defined, restricts
    *   access to the quiz only to those with this access code
-   * @param {string} [opts.ipFilter=current value] - If defined, restricts
+   * @param {string} [opts.ipFilter=current value] If defined, restricts
    *   access to the quiz to computers in a specified IP range. Filters can be a
    *   comma-separated list of addresses, or an address followed by a mask
-   * @param {number} [opts.assignmentGroupId=current value] - The assignment
+   * @param {number} [opts.assignmentGroupId=current value] The assignment
    *   group to put the quiz into. Only valid if type is "assignment" or
    *   "graded_survey"
-   * @param {number} [opts.timeLimitMins=current value] - Time limit for the
+   * @param {number} [opts.timeLimitMins=current value] Time limit for the
    *   quiz in minutes
-   * @param {boolean} [opts.shuffleAnswers=current value] - If true, quiz
+   * @param {boolean} [opts.shuffleAnswers=current value] If true, quiz
    *   answers for multiple choice questions will be randomized for each student
-   * @param {string} [opts.hideResults=current value] - Allowed values:
+   * @param {string} [opts.hideResults=current value] Allowed values:
    *   ['always', 'until_after_last_attempt'], determines whether the student can
    *   see their own submission and other results
-   * @param {boolean} [opts.hideCorrectAnswers=current value] - Only valid if
+   * @param {boolean} [opts.hideCorrectAnswers=current value] Only valid if
    *   hideResults is not defined. If true, hides correct answers from students
    *   when results are viewed
-   * @param {boolean} [opts.showCorrectAnswersAfterLastAttempt=current value] -
+   * @param {boolean} [opts.showCorrectAnswersAfterLastAttempt=current value]
    *   Only valid if hideCorrectAnswers is not true and allowedAttemptes > 1. If
    *   true, hides correct answers from students when quiz results are viewed
    *   until they submit the last attempt for the quiz. Must be a boolean
-   * @param {date} [opts.showCorrectAnswersAt=current value] - Only valid if
+   * @param {date} [opts.showCorrectAnswersAt=current value] Only valid if
    *   hideCorrectAnswers is not true. If set, correct answers will only be
    *   visible after this date
-   * @param {date} [opts.hideCorrectAnswersAt=current value] - Only valid if
+   * @param {date} [opts.hideCorrectAnswersAt=current value] Only valid if
    *   hideCorrectAnswers is not true. If set, correct answers will stop being
    *   visible after this date has passed
-   * @param {boolean} [opts.oneTimeResults=current value] - Whether students
+   * @param {boolean} [opts.oneTimeResults=current value] Whether students
    *   should be prevented from viewing their quiz results past the first time
    *   (right after they turn in the quiz)
-   * @param {boolean} [opts.onlyVisibleToOverrides=current value] - If true,
+   * @param {boolean} [opts.onlyVisibleToOverrides=current value] If true,
    *   the quiz is only visible to students with overrides
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -157,8 +158,8 @@ class ECatQuiz extends EndpointCategory {
    */
   public async update(
     opts: {
-      courseId: number,
       quizId: number,
+      courseId?: number,
       suppressNotification?: boolean,
       title?: string,
       description?: string,
@@ -189,7 +190,7 @@ class ECatQuiz extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'update a specific quiz in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes/${opts.quizId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}`,
       method: 'PUT',
       params: {
         'quiz[title]': opts.title,
@@ -249,56 +250,57 @@ class ECatQuiz extends EndpointCategory {
    * @memberof api.course.quiz
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to create the quiz in
-   * @param {string} opts.title - Title of the new quiz
-   * @param {string} [opts.description=null] - HTML description of the quiz
-   * @param {string} [opts.type=null] - Quiz type. Allowed values: [
+   * @param {object} opts object containing all arguments
+   * @param {string} opts.title Title of the new quiz
+   * @param {number} [opts.courseId=default course id] Canvas course Id to
+   *   create the quiz in
+   * @param {string} [opts.description=null] HTML description of the quiz
+   * @param {string} [opts.type=null] Quiz type. Allowed values: [
    *   'practice_quiz', 'assignment', 'graded_survey', 'survey']
-   * @param {date} [opts.dueAt=null] - Date the quiz is due
-   * @param {date} [opts.lockAt=null] - Date the quiz is lock
-   * @param {date} [opts.unlockAt=null] - Date the quiz is unlock
-   * @param {boolean} [opts.published] - If true, quiz is published
-   * @param {number} [opts.allowedAttempts=1] - Number of times a student is
-   *   allowed to take the quiz. Set to -1 for unlimited attempts
-   * @param {string} [opts.scoringPolicy=keep_highest] - Only valid if
+   * @param {date} [opts.dueAt=null] Date the quiz is due
+   * @param {date} [opts.lockAt=null] Date the quiz is lock
+   * @param {date} [opts.unlockAt=null] Date the quiz is unlock
+   * @param {boolean} [opts.published] If true, quiz is published
+   * @param {number} [opts.allowedAttempts=1] Number of times a student is
+   *   allowed to take the quiz. Set to1 for unlimited attempts
+   * @param {string} [opts.scoringPolicy=keep_highest] Only valid if
    *   allowedAttempts > 1. Allowed values: ['keep_highest', 'keep_latest']
-   * @param {boolean} [opts.oneQuestionAtATime] - If true, shows quiz to
+   * @param {boolean} [opts.oneQuestionAtATime] If true, shows quiz to
    *   student one question at a time
-   * @param {boolean} [opts.cantGoBack] - If true, shows quiz to student
+   * @param {boolean} [opts.cantGoBack] If true, shows quiz to student
    *   one question at a time
-   * @param {string} [opts.accessCode] - If defined, restricts access to
+   * @param {string} [opts.accessCode] If defined, restricts access to
    *   the quiz only to those with this access code
-   * @param {string} [opts.ipFilter] - If defined, restricts access to
+   * @param {string} [opts.ipFilter] If defined, restricts access to
    *   the quiz to computers in a specified IP range. Filters can be a
    *   comma-separated list of addresses, or an address followed by a mask
-   * @param {number} [opts.assignmentGroupId=top assignment group] - The
+   * @param {number} [opts.assignmentGroupId=top assignment group] The
    *   assignment group to put the quiz into. Only valid if type is "assignment"
    *   or "graded_survey"
-   * @param {number} [opts.timeLimitMins=null] - Time limit for the quiz in
+   * @param {number} [opts.timeLimitMins=null] Time limit for the quiz in
    *   minutes
-   * @param {boolean} [opts.shuffleAnswers] - If true, quiz answers for
+   * @param {boolean} [opts.shuffleAnswers] If true, quiz answers for
    *   multiple choice questions will be randomized for each student
-   * @param {string} [opts.hideResults=not hidden] - Allowed values: ['always',
+   * @param {string} [opts.hideResults=not hidden] Allowed values: ['always',
    *   'until_after_last_attempt'], determines whether the student can see their
    *   own submission and other results
-   * @param {boolean} [opts.hideCorrectAnswers] - Only valid if
+   * @param {boolean} [opts.hideCorrectAnswers] Only valid if
    *   hideResults is not defined. If true, hides correct answers from students
    *   when results are viewed
-   * @param {boolean} [opts.showCorrectAnswersAfterLastAttempt] - Only
+   * @param {boolean} [opts.showCorrectAnswersAfterLastAttempt] Only
    *   valid if hideCorrectAnswers is not true and allowedAttemptes > 1. If true,
    *   hides correct answers from students when quiz results are viewed until
    *   they submit the last attempt for the quiz
-   * @param {date} [opts.showCorrectAnswersAt=null] - Only valid if
+   * @param {date} [opts.showCorrectAnswersAt=null] Only valid if
    *   hideCorrectAnswers is not true. If set, correct answers will only be
    *   visible after this date
-   * @param {date} [opts.hideCorrectAnswersAt=null] - Only valid if
+   * @param {date} [opts.hideCorrectAnswersAt=null] Only valid if
    *   hideCorrectAnswers is not true. If set, correct answers will stop being
    *   visible after this date has passed
-   * @param {boolean} [opts.oneTimeResults] - Whether students should be
+   * @param {boolean} [opts.oneTimeResults] Whether students should be
    *   prevented from viewing their quiz results past the first time (right
    *   after they turn in the quiz)
-   * @param {boolean} [opts.onlyVisibleToOverrides] - If true, the quiz
+   * @param {boolean} [opts.onlyVisibleToOverrides] If true, the quiz
    *   is only visible to students with overrides
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -306,8 +308,8 @@ class ECatQuiz extends EndpointCategory {
    */
   public async create(
     opts: {
-      courseId: number,
-      title?: string,
+      title: string,
+      courseId?: number,
       description?: string,
       type?: ('practice_quiz' | 'assignment' | 'graded_survey' | 'survey'),
       dueAt?: (Date | string),
@@ -336,7 +338,7 @@ class ECatQuiz extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'update a specific quiz in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes`,
       method: 'POST',
       params: {
         'quiz[title]': opts.title,
@@ -393,25 +395,25 @@ class ECatQuiz extends EndpointCategory {
    * @memberof api.course.quiz
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {number} opts.quizId - Canvas quiz Id (not the quiz's assignment
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.quizId Canvas quiz Id (not the quiz's assignment
    *   Id)
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasQuiz>} Canvas Quiz {@link https://canvas.instructure.com/doc/api/quizzes.html#Quiz}
    */
   public async delete(
     opts: {
-      courseId: number,
       quizId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasQuiz> {
     return this.visitEndpoint({
       config,
       action: 'delete a specific quiz from a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes/${opts.quizId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}`,
       method: 'DELETE',
     });
   }
@@ -427,25 +429,25 @@ class ECatQuiz extends EndpointCategory {
    * @memberof api.course.quiz
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {number} opts.quizId - Canvas quiz Id (not the quiz's assignment
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.quizId Canvas quiz Id (not the quiz's assignment
    *   Id)
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasQuizQuestion[]>} list of Canvas Quiz Questions {@link https://canvas.instructure.com/doc/api/quiz_questions.html}
    */
   public async listQuestions(
     opts: {
-      courseId: number,
       quizId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasQuizQuestion[]> {
     return this.visitEndpoint({
       config,
       action: 'get the list of questions in a specific quiz in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes/${opts.quizId}/questions`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}/questions`,
       method: 'GET',
     });
   }
@@ -457,23 +459,23 @@ class ECatQuiz extends EndpointCategory {
    * @memberof api.course.quiz
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {number} opts.quizId - Canvas quiz Id (not the quiz's assignment
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.quizId Canvas quiz Id (not the quiz's assignment
    *   Id)
-   * @param {string} opts.name - Name of the question
-   * @param {string} opts.text - The text of the question, as displayed to the
+   * @param {string} opts.name Name of the question
+   * @param {string} opts.text The text of the question, as displayed to the
    *   quiz taker
-   * @param {number} opts.pointsPossible - Maximum number of points
-   * @param {Array} opts.answers - Array of answers: [{ text, isCorrect,
+   * @param {number} opts.pointsPossible Maximum number of points
+   * @param {Array} opts.answers Array of answers: [{ text, isCorrect,
    *   comment }]
-   * @param {number} [opts.position=last] - Optional. Position of the question
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
+   * @param {number} [opts.position=last] Optional. Position of the question
    *   with respect to the other questions in the quiz
-   * @param {string} [opts.correctComment] - Comment to display if the
+   * @param {string} [opts.correctComment] Comment to display if the
    *   student answers correctly
-   * @param {string} [opts.incorrectComment] - Comment to display if the
+   * @param {string} [opts.incorrectComment] Comment to display if the
    *   student answers incorrectly
-   * @param {string} [opts.neutralComment] - Comment to display regardless
+   * @param {string} [opts.neutralComment] Comment to display regardless
    *   of how the student answers
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -481,7 +483,6 @@ class ECatQuiz extends EndpointCategory {
    */
   public async createMultipleChoiceQuestion(
     opts: {
-      courseId: number,
       quizId: number,
       name: string,
       text: string,
@@ -493,6 +494,7 @@ class ECatQuiz extends EndpointCategory {
           comment?: string,
         }
       )[],
+      courseId?: number,
       position?: number,
       correctComment?: string,
       incorrectComment?: string,
@@ -527,7 +529,7 @@ class ECatQuiz extends EndpointCategory {
       config,
       action: 'create a new multiple choice question and add it to a quiz in a course',
       params,
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes/${opts.quizId}/questions`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}/questions`,
       method: 'POST',
     });
   }
@@ -539,21 +541,21 @@ class ECatQuiz extends EndpointCategory {
    * @memberof api.course.quiz
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {number} opts.quizId - Canvas quiz Id (not the quiz's assignment
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.quizId Canvas quiz Id (not the quiz's assignment
    *   Id)
-   * @param {string} opts.name - Name of the question
-   * @param {string} opts.text - The text of the question, as displayed to the
+   * @param {string} opts.name Name of the question
+   * @param {string} opts.text The text of the question, as displayed to the
    *   quiz taker
-   * @param {number} opts.pointsPossible - Maximum number of points
-   * @param {number} [opts.position=last] - Optional. Position of the question
+   * @param {number} opts.pointsPossible Maximum number of points
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
+   * @param {number} [opts.position=last] Optional. Position of the question
    *   with respect to the other questions in the quiz
-   * @param {string} [opts.correctComment] - Comment to display if the
+   * @param {string} [opts.correctComment] Comment to display if the
    *   student answers correctly
-   * @param {string} [opts.incorrectComment] - Comment to display if the
+   * @param {string} [opts.incorrectComment] Comment to display if the
    *   student answers incorrectly
-   * @param {string} [opts.neutralComment] - Comment to display regardless
+   * @param {string} [opts.neutralComment] Comment to display regardless
    *   of how the student answers
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -561,11 +563,11 @@ class ECatQuiz extends EndpointCategory {
    */
   public async createEssayQuestion(
     opts: {
-      courseId: number,
       quizId: number,
       name: string,
       text: string,
       pointsPossible: number,
+      courseId?: number,
       position?: number,
       correctComment?: string,
       incorrectComment?: string,
@@ -590,7 +592,7 @@ class ECatQuiz extends EndpointCategory {
       config,
       action: 'create a new essay question and add it to a quiz in a course',
       params,
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes/${opts.quizId}/questions`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}/questions`,
       method: 'POST',
     });
   }
@@ -602,21 +604,21 @@ class ECatQuiz extends EndpointCategory {
    * @memberof api.course.quiz
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {number} opts.quizId - Canvas quiz Id (not the quiz's assignment
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.quizId Canvas quiz Id (not the quiz's assignment
    *   Id)
-   * @param {string} opts.name - Name of the question
-   * @param {string} opts.text - The text of the question, as displayed to the
+   * @param {string} opts.name Name of the question
+   * @param {string} opts.text The text of the question, as displayed to the
    *   quiz taker
-   * @param {number} opts.pointsPossible - Maximum number of points
-   * @param {number} [opts.position=last] - Optional. Position of the question
+   * @param {number} opts.pointsPossible Maximum number of points
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
+   * @param {number} [opts.position=last] Optional. Position of the question
    *   with respect to the other questions in the quiz
-   * @param {string} [opts.correctComment] - Comment to display if the
+   * @param {string} [opts.correctComment] Comment to display if the
    *   student answers correctly
-   * @param {string} [opts.incorrectComment] - Comment to display if the
+   * @param {string} [opts.incorrectComment] Comment to display if the
    *   student answers incorrectly
-   * @param {string} [opts.neutralComment] - Comment to display regardless
+   * @param {string} [opts.neutralComment] Comment to display regardless
    *   of how the student answers
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -624,11 +626,11 @@ class ECatQuiz extends EndpointCategory {
    */
   public async createShortAnswerQuestion(
     opts: {
-      courseId: number,
       quizId: number,
       name: string,
       text: string,
       pointsPossible: number,
+      courseId?: number,
       position?: number,
       correctComment?: string,
       incorrectComment?: string,
@@ -653,7 +655,7 @@ class ECatQuiz extends EndpointCategory {
       config,
       action: 'create a new short answer question and add it to a quiz in a course',
       params,
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes/${opts.quizId}/questions`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}/questions`,
       method: 'POST',
     });
   }
@@ -669,25 +671,25 @@ class ECatQuiz extends EndpointCategory {
    * @memberof api.course.quiz
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {number} opts.quizId - Canvas quiz Id (not the quiz's assignment
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.quizId Canvas quiz Id (not the quiz's assignment
    *   Id)
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasQuizSubmission[]>} list of Canvas QuizSubmissions {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
    */
   public async listSubmissions(
     opts: {
-      courseId: number,
       quizId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasQuizSubmission[]> {
     const response = await this.visitEndpoint({
       config,
       action: 'get the list of submissions to a specific quiz in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes/${opts.quizId}/submissions`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}/submissions`,
       method: 'GET',
     });
 
@@ -701,27 +703,27 @@ class ECatQuiz extends EndpointCategory {
    * @memberof api.course.quiz
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {number} opts.quizId - Canvas quiz Id (not the quiz's assignment
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.quizId Canvas quiz Id (not the quiz's assignment
    *   Id)
-   * @param {number} opts.submissionId - Canvas quiz submission Id
+   * @param {number} opts.submissionId Canvas quiz submission Id
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasQuizSubmission>} Canvas QuizSubmission {@link https://canvas.instructure.com/doc/api/quiz_submissions.html}
    */
   public async getSubmission(
     opts: {
-      courseId: number,
       quizId: number,
       submissionId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasQuizSubmission> {
     const response = await this.visitEndpoint({
       config,
       action: 'get the list of submissions to a specific quiz in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes/${opts.quizId}/submissions/${opts.submissionId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}/submissions/${opts.submissionId}`,
       method: 'GET',
     });
 
@@ -736,14 +738,14 @@ class ECatQuiz extends EndpointCategory {
    * @memberof api.course.quiz
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id
-   * @param {number} opts.quizId - Canvas quiz Id (not the quiz's assignment
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.quizId Canvas quiz Id (not the quiz's assignment
    *   Id)
-   * @param {object[]} opts.answers - List of answers to quiz questions:
+   * @param {object[]} opts.answers List of answers to quiz questions:
    *   [{id: <quiz_question_id>, answer: <answer_object>},...] where the answer
    *   object is explained here: {@link https://canvas.instructure.com/doc/api/quiz_submission_questions.html#Question+Answer+Formats-appendix}
-   * @param {string} [opts.accessCode] - Access code for the quiz if it is
+   * @param {number} [opts.courseId=default course id] Canvas course Id
+   * @param {string} [opts.accessCode] Access code for the quiz if it is
    *   locked
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -751,7 +753,6 @@ class ECatQuiz extends EndpointCategory {
    */
   public async createSubmission(
     opts: {
-      courseId: number,
       quizId: number,
       answers: (
         {
@@ -759,6 +760,7 @@ class ECatQuiz extends EndpointCategory {
           answer: any,
         }
       )[],
+      courseId?: number,
       accessCode?: string,
     },
     config?: APIConfig,
@@ -767,7 +769,7 @@ class ECatQuiz extends EndpointCategory {
     const startResponse = await this.visitEndpoint({
       config,
       action: 'start a new quiz-taking session',
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes/${opts.quizId}/submissions`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}/submissions`,
       method: 'POST',
       params: {
         access_code: utils.includeIfTruthy(opts.accessCode),
@@ -798,7 +800,7 @@ class ECatQuiz extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'wrap up a quiz submission',
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes/${opts.quizId}/submissions/${submissionId}/complete`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}/submissions/${submissionId}/complete`,
       method: 'POST',
       params: {
         attempt,
@@ -819,16 +821,16 @@ class ECatQuiz extends EndpointCategory {
    * @memberof api.course.quiz
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {number} opts.quizId - Canvas quiz Id (not the quiz's assignment
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.quizId Canvas quiz Id (not the quiz's assignment
    *   Id)
-   * @param {number} opts.submissionId - Canvas submission Id for a quiz
-   * @param {number} [opts.fudgePoints=current value] - The amount of
+   * @param {number} opts.submissionId Canvas submission Id for a quiz
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
+   * @param {number} [opts.fudgePoints=current value] The amount of
    *   positive/negative fudge points to apply to this submission
-   * @param {object} [opts.questions] - A map questionId => { score, comment }
+   * @param {object} [opts.questions] A map questionId => { score, comment }
    *   of the question score/comment updates
-   * @param {number} [opts.attempt=most recent] - The attempt to update grades
+   * @param {number} [opts.attempt=most recent] The attempt to update grades
    *   for. If excluded, we pull the user's submission to get the attempt number
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -836,9 +838,9 @@ class ECatQuiz extends EndpointCategory {
    */
   public async updateQuestionGrades(
     opts: {
-      courseId: number,
       quizId: number,
       submissionId: number,
+      courseId?: number,
       fudgePoints?: number,
       questions?: {
         [k in number]: {
@@ -856,7 +858,7 @@ class ECatQuiz extends EndpointCategory {
       // Attempt was not included. We have to look up their most recent attempt
       const sub = await this.api.course.quiz.getSubmission(
         {
-          courseId: opts.courseId,
+          courseId: (opts.courseId ?? this.defaultCourseId),
           quizId: opts.quizId,
           submissionId: opts.submissionId,
         },
@@ -889,7 +891,7 @@ class ECatQuiz extends EndpointCategory {
       config,
       action: 'update the question grades for a specific submission to a quiz in a course',
       params,
-      path: `${API_PREFIX}/courses/${opts.courseId}/quizzes/${opts.quizId}/submissions/${opts.submissionId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}/submissions/${opts.submissionId}`,
       method: 'PUT',
     });
 

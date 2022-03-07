@@ -28,22 +28,23 @@ class ECatRubric extends EndpointCategory {
    * @method list
    * @memberof api.course.rubric
    * @instance
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to add the rubric to
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to add
+   *   the rubric to
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasRubric[]>} list of Canvas Rubrics {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
    */
   public async list(
     opts: {
-      courseId: number,
-    },
+      courseId?: number,
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasRubric[]> {
     return this.visitEndpoint({
       config,
       action: 'list all the rubrics in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/rubrics`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/rubrics`,
       method: 'GET',
     });
   }
@@ -54,13 +55,14 @@ class ECatRubric extends EndpointCategory {
    * @method get
    * @memberof api.course.rubric
    * @instance
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to add the rubric to
-   * @param {number} opts.rubricId - Canvas course Id to add the rubric to
-   * @param {string} [opts.include] - Allowed values: ['assessments',
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.rubricId Canvas course Id to add the rubric to
+   * @param {number} [opts.courseId=default course id] Canvas course Id to add
+   *   the rubric to
+   * @param {string} [opts.include] Allowed values: ['assessments',
    *   'graded_assessments', 'peer_assessments']. If excluded, no assessments
    *   will be included (default: none)
-   * @param {string} [opts.assessmentStyle=both omitted] - Allowed values:
+   * @param {string} [opts.assessmentStyle=both omitted] Allowed values:
    *   ['full','comments_only']
    *   (full = entire assessment, comments_only = only comment part of
    *   assessment). Only valid if including assessments
@@ -70,8 +72,8 @@ class ECatRubric extends EndpointCategory {
    */
   public async get(
     opts: {
-      courseId: number,
       rubricId: number,
+      courseId?: number,
       include?: (
         'assessments'
         | 'graded_assessments'
@@ -84,7 +86,7 @@ class ECatRubric extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'get info on a specific rubric in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/rubrics/${opts.rubricId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/rubrics/${opts.rubricId}`,
       method: 'GET',
       params: {
         include: utils.includeIfTruthy(opts.include),
@@ -100,19 +102,18 @@ class ECatRubric extends EndpointCategory {
    * @method createFreeFormGradingRubricInAssignment
    * @memberof api.course.rubric
    * @instance
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to add the rubric to
-   * @param {number} opts.assignmentId - Canvas course Id to add the rubric to
-   * @param {Array} opts.rubricItems - List of rubric item objects:
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId Canvas course Id to add the rubric to
+   * @param {Array} opts.rubricItems List of rubric item objects:
    *   [{description, points, [longDescription]}, ...]
-   * @param {string} [opts.title=generated title] - Title of the new rubric
+   * @param {number} [opts.courseId=default course id] Canvas course Id to add the rubric to
+   * @param {string} [opts.title=generated title] Title of the new rubric
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasRubric>} Canvas Rubric {@link https://canvas.instructure.com/doc/api/rubrics.html#Rubric}
    */
   public async createFreeFormGradingRubricInAssignment(
     opts: {
-      courseId: number,
       assignmentId: number,
       rubricItems: (
         {
@@ -121,6 +122,7 @@ class ECatRubric extends EndpointCategory {
           longDescription?: string,
         }
       )[],
+      courseId?: number,
       title?: string,
     },
     config?: APIConfig,
@@ -180,7 +182,7 @@ class ECatRubric extends EndpointCategory {
       config,
       action: 'create a new free form grading rubric and add it to a specific assignment in a course',
       params,
-      path: `${API_PREFIX}/courses/${opts.courseId}/rubrics`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/rubrics`,
       method: 'POST',
     });
 

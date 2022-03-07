@@ -48,8 +48,8 @@ declare class ECatCourse extends EndpointCategory {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to get info on
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to get info on
      * @param {boolean} [opts.includeSyllabus] If truthy, includes
      *   syllabus body
      * @param {boolean} [opts.includeTerm] If truthy, includes term
@@ -69,8 +69,8 @@ declare class ECatCourse extends EndpointCategory {
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasCourse>} Canvas course {@link https://canvas.instructure.com/doc/api/courses.html#Course}
      */
-    get(opts: {
-        courseId: number;
+    get(opts?: {
+        courseId?: number;
         includeSyllabus?: boolean;
         includeTerm?: boolean;
         includeAccount?: boolean;
@@ -87,8 +87,8 @@ declare class ECatCourse extends EndpointCategory {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.types=all] list of enrollment types to include:
      *   ['student', 'ta', 'teacher', 'designer', 'observer']
      *   Defaults to all types.
@@ -102,8 +102,8 @@ declare class ECatCourse extends EndpointCategory {
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasEnrollment[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
      */
-    listEnrollments(opts: {
-        courseId: number;
+    listEnrollments(opts?: {
+        courseId?: number;
         types?: ('student' | 'ta' | 'teacher' | 'designer' | 'observer')[];
         activeOnly?: boolean;
         includeAvatar?: boolean;
@@ -116,8 +116,8 @@ declare class ECatCourse extends EndpointCategory {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {string} [opts.includeAvatar] If truthy, avatar_url is
@@ -128,8 +128,8 @@ declare class ECatCourse extends EndpointCategory {
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasEnrollment[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
      */
-    listStudentEnrollments(opts: {
-        courseId: number;
+    listStudentEnrollments(opts?: {
+        courseId?: number;
         activeOnly?: boolean;
         includeAvatar?: boolean;
         includeGroups?: boolean;
@@ -141,8 +141,8 @@ declare class ECatCourse extends EndpointCategory {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {string} [opts.includeAvatar] If truthy, avatar_url is
@@ -153,8 +153,8 @@ declare class ECatCourse extends EndpointCategory {
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasEnrollment[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
      */
-    listTeachingTeamMemberEnrollments(opts: {
-        courseId: number;
+    listTeachingTeamMemberEnrollments(opts?: {
+        courseId?: number;
         activeOnly?: boolean;
         includeAvatar?: boolean;
         includeGroups?: boolean;
@@ -166,8 +166,8 @@ declare class ECatCourse extends EndpointCategory {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {string} [opts.includeAvatar] If truthy, avatar_url is
@@ -178,8 +178,8 @@ declare class ECatCourse extends EndpointCategory {
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasEnrollment[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
      */
-    listDesignerEnrollments(opts: {
-        courseId: number;
+    listDesignerEnrollments(opts?: {
+        courseId?: number;
         activeOnly?: boolean;
         includeAvatar?: boolean;
         includeGroups?: boolean;
@@ -191,8 +191,8 @@ declare class ECatCourse extends EndpointCategory {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {string} [opts.includeAvatar] If truthy, avatar_url is
@@ -203,8 +203,8 @@ declare class ECatCourse extends EndpointCategory {
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasEnrollment[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
      */
-    listObserverEnrollments(opts: {
-        courseId: number;
+    listObserverEnrollments(opts?: {
+        courseId?: number;
         activeOnly?: boolean;
         includeAvatar?: boolean;
         includeGroups?: boolean;
@@ -217,8 +217,8 @@ declare class ECatCourse extends EndpointCategory {
      * @instance
      * @async
      * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
      * @param {number} opts.userId Canvas user Id to get
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {boolean} [opts.includeEmail] If true, user email is included
      * @param {boolean} [opts.includeEnrollments] If true, user's enrollments
      *   in this course are included
@@ -232,8 +232,8 @@ declare class ECatCourse extends EndpointCategory {
      * @returns {Promise<CanvasUser>} Canvas user {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
     getUser(opts: {
-        courseId: number;
         userId: number;
+        courseId?: number;
         includeEmail?: boolean;
         includeEnrollments?: boolean;
         includeLocked?: boolean;
@@ -247,8 +247,8 @@ declare class ECatCourse extends EndpointCategory {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.types=all] list of enrollment types to include:
      *   ['student', 'ta', 'teacher', 'designer', 'observer']
      *   Defaults to all types.
@@ -264,8 +264,8 @@ declare class ECatCourse extends EndpointCategory {
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasUser[]>} Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
-    listUsers(opts: {
-        courseId: number;
+    listUsers(opts?: {
+        courseId?: number;
         types?: ('student' | 'ta' | 'teacher' | 'designer' | 'observer')[];
         includeEmail?: boolean;
         includeEnrollments?: boolean;
@@ -280,8 +280,8 @@ declare class ECatCourse extends EndpointCategory {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -296,8 +296,8 @@ declare class ECatCourse extends EndpointCategory {
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasUser[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
-    listStudents(opts: {
-        courseId: number;
+    listStudents(opts?: {
+        courseId?: number;
         includeEmail?: boolean;
         includeEnrollments?: boolean;
         includeLocked?: boolean;
@@ -311,8 +311,8 @@ declare class ECatCourse extends EndpointCategory {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -327,8 +327,8 @@ declare class ECatCourse extends EndpointCategory {
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasUser[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
-    listTeachingTeamMembers(opts: {
-        courseId: number;
+    listTeachingTeamMembers(opts?: {
+        courseId?: number;
         includeEmail?: boolean;
         includeEnrollments?: boolean;
         includeLocked?: boolean;
@@ -342,8 +342,8 @@ declare class ECatCourse extends EndpointCategory {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -358,8 +358,8 @@ declare class ECatCourse extends EndpointCategory {
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasUser[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
-    listTAs(opts: {
-        courseId: number;
+    listTAs(opts?: {
+        courseId?: number;
         includeEmail?: boolean;
         includeEnrollments?: boolean;
         includeLocked?: boolean;
@@ -373,8 +373,8 @@ declare class ECatCourse extends EndpointCategory {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -389,8 +389,8 @@ declare class ECatCourse extends EndpointCategory {
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasUser[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
-    listTeachers(opts: {
-        courseId: number;
+    listTeachers(opts?: {
+        courseId?: number;
         includeEmail?: boolean;
         includeEnrollments?: boolean;
         includeLocked?: boolean;
@@ -404,8 +404,8 @@ declare class ECatCourse extends EndpointCategory {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -420,8 +420,8 @@ declare class ECatCourse extends EndpointCategory {
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasUser[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
-    listDesigners(opts: {
-        courseId: number;
+    listDesigners(opts?: {
+        courseId?: number;
         includeEmail?: boolean;
         includeEnrollments?: boolean;
         includeLocked?: boolean;
@@ -435,8 +435,8 @@ declare class ECatCourse extends EndpointCategory {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -451,8 +451,8 @@ declare class ECatCourse extends EndpointCategory {
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasUser[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
-    listObservers(opts: {
-        courseId: number;
+    listObservers(opts?: {
+        courseId?: number;
         includeEmail?: boolean;
         includeEnrollments?: boolean;
         includeLocked?: boolean;

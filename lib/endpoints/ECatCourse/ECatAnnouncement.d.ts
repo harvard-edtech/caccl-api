@@ -14,17 +14,17 @@ declare class ECatAnnouncement extends EndpointCategory {
      * @async
      * @method create
      * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id
      * @param {string} opts.title the title of the announcement
      * @param {string} opts.message the message of the announcement
+     * @param {number} [opts.courseId=default course id] Canvas course Id
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasDiscussionTopic>} a discussion topic {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
      */
     create(opts: {
-        courseId: number;
         title: string;
         message: string;
+        courseId?: number;
     }, config?: APIConfig): Promise<CanvasDiscussionTopic>;
     /**
      * Gets the list of announcements in a course

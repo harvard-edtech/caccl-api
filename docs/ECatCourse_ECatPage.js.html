@@ -121,19 +121,21 @@ var ECatPage = /** @class */ (function (_super) {
      * @memberof api.course.page
      * @instance
      * @async
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasPage[]>} list of Canvas Pages {@link https://canvas.instructure.com/doc/api/pages.html#Page}
      */
     ECatPage.prototype.list = function (opts, config) {
+        var _a;
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'get the list of pages in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/pages"),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/pages"),
                         method: 'GET',
                     })];
             });
@@ -146,21 +148,22 @@ var ECatPage = /** @class */ (function (_super) {
      * @memberof api.course.page
      * @instance
      * @async
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
-     * @param {string} opts.pageURL - Canvas page url (just the last part of
+     * @param {object} opts object containing all arguments
+     * @param {string} opts.pageURL Canvas page url (just the last part of
      *   path)
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasPage>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
      */
     ECatPage.prototype.get = function (opts, config) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'get info on a specific page in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/pages/").concat(opts.pageURL),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/pages/").concat(opts.pageURL),
                         method: 'GET',
                     })];
             });
@@ -173,31 +176,32 @@ var ECatPage = /** @class */ (function (_super) {
      * @memberof api.course.page
      * @instance
      * @async
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course ID holding the page to
+     * @param {object} opts object containing all arguments
      *   update
-     * @param {string} opts.pageURL - Canvas page url (just the last part of
+     * @param {string} opts.pageURL Canvas page url (just the last part of
      *   path)
-     * @param {boolean} [opts.notifyOfUpdate] - if true, send notification
-     * @param {string} [opts.title=current value] - New title of the page
-     * @param {string} [opts.body=current value] - New html body of the page
-     * @param {string} [opts.editingRoles=current value] - New usertype(s) who
+     * @param {number} [opts.courseId==default course id] Canvas course ID holding the page to
+     * @param {boolean} [opts.notifyOfUpdate] if true, send notification
+     * @param {string} [opts.title=current value] New title of the page
+     * @param {string} [opts.body=current value] New html body of the page
+     * @param {string} [opts.editingRoles=current value] New usertype(s) who
      *   can edit
-     * @param {boolean} [opts.published=current value] - New publish status of
+     * @param {boolean} [opts.published=current value] New publish status of
      *   page
-     * @param {boolean} [opts.frontPage=current value] - New front page status of
+     * @param {boolean} [opts.frontPage=current value] New front page status of
      *   page
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasPage>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
      */
     ECatPage.prototype.update = function (opts, config) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'update a specific page in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/pages/").concat(opts.pageURL),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/pages/").concat(opts.pageURL),
                         method: 'PUT',
                         params: {
                             'wiki_page[title]': utils_1.default.includeIfTruthy(opts.title),
@@ -218,26 +222,28 @@ var ECatPage = /** @class */ (function (_super) {
      * @memberof api.course.page
      * @instance
      * @async
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
-     * @param {string} [opts.title=Untitled Page] - The title of the page
-     * @param {string} [opts.body=null] - html body of the page
-     * @param {string} [opts.editingRoles=teachers] - usertype(s) who can edit
-     * @param {boolean} [opts.notifyOfUpdate] - if true, sends notification
-     * @param {boolean} [opts.published] - if true, publishes page upon
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
+     * @param {string} [opts.title=Untitled Page] The title of the page
+     * @param {string} [opts.body=null] html body of the page
+     * @param {string} [opts.editingRoles=teachers] usertype(s) who can edit
+     * @param {boolean} [opts.notifyOfUpdate] if true, sends notification
+     * @param {boolean} [opts.published] if true, publishes page upon
      *   creation
-     * @param {boolean} [opts.frontPage] - if true, sets page as front page
+     * @param {boolean} [opts.frontPage] if true, sets page as front page
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasPage>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
      */
     ECatPage.prototype.create = function (opts, config) {
+        var _a;
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'create a new page in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/pages"),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/pages"),
                         method: 'POST',
                         params: {
                             'wiki_page[title]': (opts.title || 'Untitled Page'),
@@ -258,20 +264,21 @@ var ECatPage = /** @class */ (function (_super) {
      * @memberof api.course.page
      * @instance
      * @async
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
-     * @param {string} opts.pageURL - Page url to delete (just last part of path)
+     * @param {object} opts object containing all arguments
+     * @param {string} opts.pageURL Page url to delete (just last part of path)
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasPage>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
      */
     ECatPage.prototype.delete = function (opts, config) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'delete a page from a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/pages/").concat(opts.pageURL),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/pages/").concat(opts.pageURL),
                         method: 'DELETE',
                     })];
             });

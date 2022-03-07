@@ -28,9 +28,9 @@ class ECatSection extends EndpointCategory {
    * @method list
    * @memberof api.course.section
    * @instance
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {boolean} [opts.includeStudents] - if true, the list of students
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
+   * @param {boolean} [opts.includeStudents] if true, the list of students
    *   from each section are included
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -38,15 +38,15 @@ class ECatSection extends EndpointCategory {
    */
   public async list(
     opts: {
-      courseId: number,
+      courseId?: number,
       includeStudents?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasSection[]> {
     return this.visitEndpoint({
       config,
       action: 'get the list of sections in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/sections`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/sections`,
       method: 'GET',
       params: {
         include: utils.genIncludesList({
@@ -62,10 +62,10 @@ class ECatSection extends EndpointCategory {
    * @method get
    * @memberof api.course.section
    * @instance
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {number} opts.sectionId - Section Id to retrieve
-   * @param {boolean} [opts.includeStudents] - if true, the list of students
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.sectionId Section Id to retrieve
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
+   * @param {boolean} [opts.includeStudents] if true, the list of students
    *   in the section are included
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -73,8 +73,8 @@ class ECatSection extends EndpointCategory {
    */
   public async get(
     opts: {
-      courseId: number,
       sectionId: number,
+      courseId?: number,
       includeStudents?: boolean,
     },
     config?: APIConfig,
@@ -82,7 +82,7 @@ class ECatSection extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'get info on a specific section in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/sections/${opts.sectionId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/sections/${opts.sectionId}`,
       method: 'GET',
       params: {
         include: utils.genIncludesList({

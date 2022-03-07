@@ -14,10 +14,10 @@ declare class ECatOther extends EndpointCategory {
      * @memberof api.other
      * @instance
      * @param {object} opts object containing all arguments
-     * @param {string} opts.path - the path of the endpoint to call
+     * @param {string} opts.path the path of the endpoint to call
      *   (e.g. /api/v1/courses), just the path: not the host or protocol
-     * @param {string} [opts.method=GET] - the http method to use
-     * @param {object} [opts.params={}] - the get query params or the post/put/delete
+     * @param {string} [opts.method=GET] the http method to use
+     * @param {object} [opts.params={}] the get query params or the post/put/delete
      *   body params
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)

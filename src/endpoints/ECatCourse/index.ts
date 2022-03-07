@@ -87,8 +87,8 @@ class ECatCourse extends EndpointCategory {
    * @memberof api.course
    * @instance
    * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to get info on
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to get info on
    * @param {boolean} [opts.includeSyllabus] If truthy, includes
    *   syllabus body
    * @param {boolean} [opts.includeTerm] If truthy, includes term
@@ -110,7 +110,7 @@ class ECatCourse extends EndpointCategory {
    */
   public async get(
     opts: {
-      courseId: number,
+      courseId?: number,
       includeSyllabus?: boolean,
       includeTerm?: boolean,
       includeAccount?: boolean,
@@ -119,13 +119,13 @@ class ECatCourse extends EndpointCategory {
       includeTeachers?: boolean,
       includeCourseImage?: boolean,
       includeNeedsGradingCount?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasCourse> {
     return this.visitEndpoint({
       config,
       action: 'get info on a specific course',
-      path: `${API_PREFIX}/courses/${opts.courseId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}`,
       method: 'GET',
       params: {
         include: utils.genIncludesList({
@@ -153,8 +153,8 @@ class ECatCourse extends EndpointCategory {
    * @memberof api.course
    * @instance
    * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {string} [opts.types=all] list of enrollment types to include:
    *   ['student', 'ta', 'teacher', 'designer', 'observer']
    *   Defaults to all types.
@@ -170,7 +170,7 @@ class ECatCourse extends EndpointCategory {
    */
   public async listEnrollments(
     opts: {
-      courseId: number,
+      courseId?: number,
       types?: (
         'student'
         | 'ta'
@@ -181,7 +181,7 @@ class ECatCourse extends EndpointCategory {
       activeOnly?: boolean,
       includeAvatar?: boolean,
       includeGroups?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasEnrollment[]> {
     // Create empty flexible params object
@@ -219,7 +219,7 @@ class ECatCourse extends EndpointCategory {
       config,
       action: 'get enrollments from a course',
       params,
-      path: `${API_PREFIX}/courses/${opts.courseId}/enrollments`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/enrollments`,
       method: 'GET',
     });
   }
@@ -231,8 +231,8 @@ class ECatCourse extends EndpointCategory {
    * @memberof api.course
    * @instance
    * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {string} [opts.activeOnly] If truthy, only active
    *   enrollments included
    * @param {string} [opts.includeAvatar] If truthy, avatar_url is
@@ -245,11 +245,11 @@ class ECatCourse extends EndpointCategory {
    */
   public async listStudentEnrollments(
     opts: {
-      courseId: number,
+      courseId?: number,
       activeOnly?: boolean,
       includeAvatar?: boolean,
       includeGroups?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasEnrollment[]> {
     return this.api.course.listEnrollments(
@@ -268,8 +268,8 @@ class ECatCourse extends EndpointCategory {
    * @memberof api.course
    * @instance
    * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {string} [opts.activeOnly] If truthy, only active
    *   enrollments included
    * @param {string} [opts.includeAvatar] If truthy, avatar_url is
@@ -282,11 +282,11 @@ class ECatCourse extends EndpointCategory {
    */
   public async listTeachingTeamMemberEnrollments(
     opts: {
-      courseId: number,
+      courseId?: number,
       activeOnly?: boolean,
       includeAvatar?: boolean,
       includeGroups?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasEnrollment[]> {
     return this.api.course.listEnrollments(
@@ -305,8 +305,8 @@ class ECatCourse extends EndpointCategory {
    * @memberof api.course
    * @instance
    * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {string} [opts.activeOnly] If truthy, only active
    *   enrollments included
    * @param {string} [opts.includeAvatar] If truthy, avatar_url is
@@ -319,11 +319,11 @@ class ECatCourse extends EndpointCategory {
    */
   public async listDesignerEnrollments(
     opts: {
-      courseId: number,
+      courseId?: number,
       activeOnly?: boolean,
       includeAvatar?: boolean,
       includeGroups?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasEnrollment[]> {
     return this.api.course.listEnrollments(
@@ -342,8 +342,8 @@ class ECatCourse extends EndpointCategory {
    * @memberof api.course
    * @instance
    * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {string} [opts.activeOnly] If truthy, only active
    *   enrollments included
    * @param {string} [opts.includeAvatar] If truthy, avatar_url is
@@ -356,11 +356,11 @@ class ECatCourse extends EndpointCategory {
    */
   public async listObserverEnrollments(
     opts: {
-      courseId: number,
+      courseId?: number,
       activeOnly?: boolean,
       includeAvatar?: boolean,
       includeGroups?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasEnrollment[]> {
     return this.api.course.listEnrollments(
@@ -384,8 +384,8 @@ class ECatCourse extends EndpointCategory {
    * @instance
    * @async
    * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
    * @param {number} opts.userId Canvas user Id to get
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {boolean} [opts.includeEmail] If true, user email is included
    * @param {boolean} [opts.includeEnrollments] If true, user's enrollments
    *   in this course are included
@@ -400,8 +400,8 @@ class ECatCourse extends EndpointCategory {
    */
   public async getUser(
     opts: {
-      courseId: number,
       userId: number,
+      courseId?: number,
       includeEmail?: boolean,
       includeEnrollments?: boolean,
       includeLocked?: boolean,
@@ -413,7 +413,7 @@ class ECatCourse extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'get info on a user in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/users/${opts.userId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/users/${opts.userId}`,
       method: 'GET',
       params: {
         include: utils.genIncludesList({
@@ -434,8 +434,8 @@ class ECatCourse extends EndpointCategory {
    * @memberof api.course
    * @instance
    * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {string} [opts.types=all] list of enrollment types to include:
    *   ['student', 'ta', 'teacher', 'designer', 'observer']
    *   Defaults to all types.
@@ -453,7 +453,7 @@ class ECatCourse extends EndpointCategory {
    */
   public async listUsers(
     opts: {
-      courseId: number,
+      courseId?: number,
       types?: (
         'student'
         | 'ta'
@@ -466,13 +466,13 @@ class ECatCourse extends EndpointCategory {
       includeLocked?: boolean,
       includeAvatar?: boolean,
       includeBio?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ) {
     return this.visitEndpoint({
       config,
       action: 'get info on all users in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/users`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/users`,
       method: 'GET',
       params: {
         enrollment_type: opts.types,
@@ -494,8 +494,8 @@ class ECatCourse extends EndpointCategory {
    * @memberof api.course
    * @instance
    * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {string} [opts.activeOnly] If truthy, only active
    *   enrollments included
    * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -512,13 +512,13 @@ class ECatCourse extends EndpointCategory {
    */
   public async listStudents(
     opts: {
-      courseId: number,
+      courseId?: number,
       includeEmail?: boolean,
       includeEnrollments?: boolean,
       includeLocked?: boolean,
       includeAvatar?: boolean,
       includeBio?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ) {
     return this.api.course.listUsers(
@@ -537,8 +537,8 @@ class ECatCourse extends EndpointCategory {
    * @memberof api.course
    * @instance
    * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {string} [opts.activeOnly] If truthy, only active
    *   enrollments included
    * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -555,13 +555,13 @@ class ECatCourse extends EndpointCategory {
    */
   public async listTeachingTeamMembers(
     opts: {
-      courseId: number,
+      courseId?: number,
       includeEmail?: boolean,
       includeEnrollments?: boolean,
       includeLocked?: boolean,
       includeAvatar?: boolean,
       includeBio?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ) {
     return this.api.course.listUsers(
@@ -580,8 +580,8 @@ class ECatCourse extends EndpointCategory {
    * @memberof api.course
    * @instance
    * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {string} [opts.activeOnly] If truthy, only active
    *   enrollments included
    * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -598,13 +598,13 @@ class ECatCourse extends EndpointCategory {
    */
   public async listTAs(
     opts: {
-      courseId: number,
+      courseId?: number,
       includeEmail?: boolean,
       includeEnrollments?: boolean,
       includeLocked?: boolean,
       includeAvatar?: boolean,
       includeBio?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ) {
     return this.api.course.listUsers(
@@ -623,8 +623,8 @@ class ECatCourse extends EndpointCategory {
    * @memberof api.course
    * @instance
    * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {string} [opts.activeOnly] If truthy, only active
    *   enrollments included
    * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -641,13 +641,13 @@ class ECatCourse extends EndpointCategory {
    */
   public async listTeachers(
     opts: {
-      courseId: number,
+      courseId?: number,
       includeEmail?: boolean,
       includeEnrollments?: boolean,
       includeLocked?: boolean,
       includeAvatar?: boolean,
       includeBio?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ) {
     return this.api.course.listUsers(
@@ -666,8 +666,8 @@ class ECatCourse extends EndpointCategory {
    * @memberof api.course
    * @instance
    * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {string} [opts.activeOnly] If truthy, only active
    *   enrollments included
    * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -684,13 +684,13 @@ class ECatCourse extends EndpointCategory {
    */
   public async listDesigners(
     opts: {
-      courseId: number,
+      courseId?: number,
       includeEmail?: boolean,
       includeEnrollments?: boolean,
       includeLocked?: boolean,
       includeAvatar?: boolean,
       includeBio?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ) {
     return this.api.course.listUsers(
@@ -709,8 +709,8 @@ class ECatCourse extends EndpointCategory {
    * @memberof api.course
    * @instance
    * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} opts.courseId Canvas course Id to query
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {string} [opts.activeOnly] If truthy, only active
    *   enrollments included
    * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -727,13 +727,13 @@ class ECatCourse extends EndpointCategory {
    */
   public async listObservers(
     opts: {
-      courseId: number,
+      courseId?: number,
       includeEmail?: boolean,
       includeEnrollments?: boolean,
       includeLocked?: boolean,
       includeAvatar?: boolean,
       includeBio?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ) {
     return this.api.course.listUsers(

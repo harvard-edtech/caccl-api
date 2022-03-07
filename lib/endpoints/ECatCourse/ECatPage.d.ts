@@ -13,14 +13,14 @@ declare class ECatPage extends EndpointCategory {
      * @memberof api.course.page
      * @instance
      * @async
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasPage[]>} list of Canvas Pages {@link https://canvas.instructure.com/doc/api/pages.html#Page}
      */
-    list(opts: {
-        courseId: number;
+    list(opts?: {
+        courseId?: number;
     }, config?: APIConfig): Promise<CanvasPage[]>;
     /**
      * Get info on a specific page in a course
@@ -29,17 +29,17 @@ declare class ECatPage extends EndpointCategory {
      * @memberof api.course.page
      * @instance
      * @async
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
-     * @param {string} opts.pageURL - Canvas page url (just the last part of
+     * @param {object} opts object containing all arguments
+     * @param {string} opts.pageURL Canvas page url (just the last part of
      *   path)
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasPage>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
      */
     get(opts: {
-        courseId: number;
         pageURL: string;
+        courseId?: number;
     }, config?: APIConfig): Promise<CanvasPage>;
     /**
      * Updates a Canvas page
@@ -48,27 +48,27 @@ declare class ECatPage extends EndpointCategory {
      * @memberof api.course.page
      * @instance
      * @async
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course ID holding the page to
+     * @param {object} opts object containing all arguments
      *   update
-     * @param {string} opts.pageURL - Canvas page url (just the last part of
+     * @param {string} opts.pageURL Canvas page url (just the last part of
      *   path)
-     * @param {boolean} [opts.notifyOfUpdate] - if true, send notification
-     * @param {string} [opts.title=current value] - New title of the page
-     * @param {string} [opts.body=current value] - New html body of the page
-     * @param {string} [opts.editingRoles=current value] - New usertype(s) who
+     * @param {number} [opts.courseId==default course id] Canvas course ID holding the page to
+     * @param {boolean} [opts.notifyOfUpdate] if true, send notification
+     * @param {string} [opts.title=current value] New title of the page
+     * @param {string} [opts.body=current value] New html body of the page
+     * @param {string} [opts.editingRoles=current value] New usertype(s) who
      *   can edit
-     * @param {boolean} [opts.published=current value] - New publish status of
+     * @param {boolean} [opts.published=current value] New publish status of
      *   page
-     * @param {boolean} [opts.frontPage=current value] - New front page status of
+     * @param {boolean} [opts.frontPage=current value] New front page status of
      *   page
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasPage>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
      */
     update(opts: {
-        courseId: number;
         pageURL: string;
+        courseId?: number;
         notifyOfUpdate?: boolean;
         title?: string;
         body?: string;
@@ -83,21 +83,21 @@ declare class ECatPage extends EndpointCategory {
      * @memberof api.course.page
      * @instance
      * @async
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
-     * @param {string} [opts.title=Untitled Page] - The title of the page
-     * @param {string} [opts.body=null] - html body of the page
-     * @param {string} [opts.editingRoles=teachers] - usertype(s) who can edit
-     * @param {boolean} [opts.notifyOfUpdate] - if true, sends notification
-     * @param {boolean} [opts.published] - if true, publishes page upon
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
+     * @param {string} [opts.title=Untitled Page] The title of the page
+     * @param {string} [opts.body=null] html body of the page
+     * @param {string} [opts.editingRoles=teachers] usertype(s) who can edit
+     * @param {boolean} [opts.notifyOfUpdate] if true, sends notification
+     * @param {boolean} [opts.published] if true, publishes page upon
      *   creation
-     * @param {boolean} [opts.frontPage] - if true, sets page as front page
+     * @param {boolean} [opts.frontPage] if true, sets page as front page
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasPage>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
      */
-    create(opts: {
-        courseId: number;
+    create(opts?: {
+        courseId?: number;
         title?: string;
         body?: string;
         editingRoles?: string;
@@ -112,16 +112,16 @@ declare class ECatPage extends EndpointCategory {
      * @memberof api.course.page
      * @instance
      * @async
-     * @param {object} opts - object containing all arguments
-     * @param {number} opts.courseId - Canvas course Id to query
-     * @param {string} opts.pageURL - Page url to delete (just last part of path)
+     * @param {object} opts object containing all arguments
+     * @param {string} opts.pageURL Page url to delete (just last part of path)
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasPage>} Canvas Page {@link https://canvas.instructure.com/doc/api/pages.html#Page}
      */
     delete(opts: {
-        courseId: number;
         pageURL: string;
+        courseId?: number;
     }, config?: APIConfig): Promise<CanvasPage>;
 }
 export default ECatPage;

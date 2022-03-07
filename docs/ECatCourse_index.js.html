@@ -167,8 +167,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to get info on
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to get info on
      * @param {boolean} [opts.includeSyllabus] If truthy, includes
      *   syllabus body
      * @param {boolean} [opts.includeTerm] If truthy, includes term
@@ -189,12 +189,14 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasCourse>} Canvas course {@link https://canvas.instructure.com/doc/api/courses.html#Course}
      */
     ECatCourse.prototype.get = function (opts, config) {
+        var _a;
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'get info on a specific course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId),
                         method: 'GET',
                         params: {
                             include: utils_1.default.genIncludesList({
@@ -222,8 +224,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.types=all] list of enrollment types to include:
      *   ['student', 'ta', 'teacher', 'designer', 'observer']
      *   Defaults to all types.
@@ -238,9 +240,11 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasEnrollment[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
      */
     ECatCourse.prototype.listEnrollments = function (opts, config) {
+        var _a;
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
             var params;
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 params = {};
                 // Pre-process enrollment types
                 if (opts.types) {
@@ -270,7 +274,7 @@ var ECatCourse = /** @class */ (function (_super) {
                         config: config,
                         action: 'get enrollments from a course',
                         params: params,
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/enrollments"),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/enrollments"),
                         method: 'GET',
                     })];
             });
@@ -283,8 +287,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {string} [opts.includeAvatar] If truthy, avatar_url is
@@ -296,6 +300,7 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasEnrollment[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
      */
     ECatCourse.prototype.listStudentEnrollments = function (opts, config) {
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.api.course.listEnrollments(__assign(__assign({}, opts), { types: ['student'] }), config)];
@@ -309,8 +314,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {string} [opts.includeAvatar] If truthy, avatar_url is
@@ -322,6 +327,7 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasEnrollment[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
      */
     ECatCourse.prototype.listTeachingTeamMemberEnrollments = function (opts, config) {
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.api.course.listEnrollments(__assign(__assign({}, opts), { types: ['ta', 'teacher'] }), config)];
@@ -335,8 +341,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {string} [opts.includeAvatar] If truthy, avatar_url is
@@ -348,6 +354,7 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasEnrollment[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
      */
     ECatCourse.prototype.listDesignerEnrollments = function (opts, config) {
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.api.course.listEnrollments(__assign(__assign({}, opts), { types: ['designer'] }), config)];
@@ -361,8 +368,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {string} [opts.includeAvatar] If truthy, avatar_url is
@@ -374,6 +381,7 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasEnrollment[]>} list of Canvas Enrollments {@link https://canvas.instructure.com/doc/api/enrollments.html#Enrollment}
      */
     ECatCourse.prototype.listObserverEnrollments = function (opts, config) {
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.api.course.listEnrollments(__assign(__assign({}, opts), { types: ['observer'] }), config)];
@@ -391,8 +399,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @instance
      * @async
      * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
      * @param {number} opts.userId Canvas user Id to get
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {boolean} [opts.includeEmail] If true, user email is included
      * @param {boolean} [opts.includeEnrollments] If true, user's enrollments
      *   in this course are included
@@ -406,12 +414,13 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasUser>} Canvas user {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
     ECatCourse.prototype.getUser = function (opts, config) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'get info on a user in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/users/").concat(opts.userId),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/users/").concat(opts.userId),
                         method: 'GET',
                         params: {
                             include: utils_1.default.genIncludesList({
@@ -433,8 +442,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.types=all] list of enrollment types to include:
      *   ['student', 'ta', 'teacher', 'designer', 'observer']
      *   Defaults to all types.
@@ -451,12 +460,14 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasUser[]>} Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
     ECatCourse.prototype.listUsers = function (opts, config) {
+        var _a;
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'get info on all users in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/users"),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/users"),
                         method: 'GET',
                         params: {
                             enrollment_type: opts.types,
@@ -479,8 +490,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -496,6 +507,7 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasUser[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
     ECatCourse.prototype.listStudents = function (opts, config) {
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.api.course.listUsers(__assign(__assign({}, opts), { types: ['student'] }), config)];
@@ -509,8 +521,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -526,6 +538,7 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasUser[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
     ECatCourse.prototype.listTeachingTeamMembers = function (opts, config) {
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.api.course.listUsers(__assign(__assign({}, opts), { types: ['ta', 'teacher'] }), config)];
@@ -539,8 +552,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -556,6 +569,7 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasUser[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
     ECatCourse.prototype.listTAs = function (opts, config) {
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.api.course.listUsers(__assign(__assign({}, opts), { types: ['ta'] }), config)];
@@ -569,8 +583,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -586,6 +600,7 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasUser[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
     ECatCourse.prototype.listTeachers = function (opts, config) {
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.api.course.listUsers(__assign(__assign({}, opts), { types: ['teacher'] }), config)];
@@ -599,8 +614,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -616,6 +631,7 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasUser[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
     ECatCourse.prototype.listDesigners = function (opts, config) {
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.api.course.listUsers(__assign(__assign({}, opts), { types: ['designer'] }), config)];
@@ -629,8 +645,8 @@ var ECatCourse = /** @class */ (function (_super) {
      * @memberof api.course
      * @instance
      * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.activeOnly] If truthy, only active
      *   enrollments included
      * @param {boolean} [opts.includeEmail] If true, user email is included
@@ -646,6 +662,7 @@ var ECatCourse = /** @class */ (function (_super) {
      * @returns {Promise&lt;CanvasUser[]>} list of Canvas Users {@link https://canvas.instructure.com/doc/api/users.html#User}
      */
     ECatCourse.prototype.listObservers = function (opts, config) {
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.api.course.listUsers(__assign(__assign({}, opts), { types: ['observer'] }), config)];

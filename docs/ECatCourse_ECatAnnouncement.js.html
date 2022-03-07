@@ -122,20 +122,21 @@ var ECatAnnouncement = /** @class */ (function (_super) {
      * @async
      * @method create
      * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id
      * @param {string} opts.title the title of the announcement
      * @param {string} opts.message the message of the announcement
+     * @param {number} [opts.courseId=default course id] Canvas course Id
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasDiscussionTopic>} a discussion topic {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
      */
     ECatAnnouncement.prototype.create = function (opts, config) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'create an announcement in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/discussion_topics"),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/discussion_topics"),
                         method: 'POST',
                         params: {
                             title: opts.title,

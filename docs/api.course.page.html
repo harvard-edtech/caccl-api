@@ -633,7 +633,7 @@
 
     
 
-    <h4 class="name" id="create"><span class="type-signature">(async) </span>create<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;CanvasPage>}</span></h4>
+    <h4 class="name" id="create"><span class="type-signature">(async) </span>create<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;CanvasPage>}</span></h4>
 
     
 
@@ -645,7 +645,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line173">line 173</a>
+        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line177">line 177</a>
     </li></ul></dd>
     
 
@@ -747,6 +747,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -801,6 +803,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -810,6 +814,8 @@
 
             
                 <td class="default">
+                
+                    <code>default course id</code>
                 
                 </td>
             
@@ -1429,7 +1435,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line213">line 213</a>
+        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line219">line 219</a>
     </li></ul></dd>
     
 
@@ -1554,7 +1560,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -1562,29 +1572,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course Id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -1602,10 +1589,61 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Page url to delete (just last part of path)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id to query</td>
         </tr>
 
     
@@ -1992,7 +2030,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line101">line 101</a>
+        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line103">line 103</a>
     </li></ul></dd>
     
 
@@ -2117,7 +2155,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -2125,29 +2167,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course Id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -2165,11 +2184,62 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas page url (just the last part of
   path)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id to query</td>
         </tr>
 
     
@@ -2520,7 +2590,7 @@
 
     
 
-    <h4 class="name" id="list"><span class="type-signature">(async) </span>list<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasPage>>}</span></h4>
+    <h4 class="name" id="list"><span class="type-signature">(async) </span>list<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasPage>>}</span></h4>
 
     
 
@@ -2634,6 +2704,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -2656,6 +2728,8 @@
 
         <th>Type</th>
 
+        
+        <th>Attributes</th>
         
 
         
@@ -2681,6 +2755,16 @@
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -3336,7 +3420,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line128">line 128</a>
+        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line131">line 131</a>
     </li></ul></dd>
     
 
@@ -3448,6 +3532,7 @@
             
 
             <td class="description last">object containing all arguments
+  update
                 <h6>Properties</h6>
                 
 
@@ -3473,42 +3558,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Canvas course ID holding the page to
-  update</td>
-        </tr>
-
     
 
         <tr>
@@ -3543,6 +3592,45 @@
 
             <td class="description last">Canvas page url (just the last part of
   path)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>=default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course ID holding the page to</td>
         </tr>
 
     
@@ -4477,7 +4565,7 @@
 
     
 
-    <h4 class="name" id="create"><span class="type-signature">(async) </span>create<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;CanvasPage>}</span></h4>
+    <h4 class="name" id="create"><span class="type-signature">(async) </span>create<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;CanvasPage>}</span></h4>
 
     
 
@@ -4489,7 +4577,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line173">line 173</a>
+        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line177">line 177</a>
     </li></ul></dd>
     
 
@@ -4591,6 +4679,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -4645,6 +4735,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -4654,6 +4746,8 @@
 
             
                 <td class="default">
+                
+                    <code>default course id</code>
                 
                 </td>
             
@@ -5273,7 +5367,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line213">line 213</a>
+        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line219">line 219</a>
     </li></ul></dd>
     
 
@@ -5398,7 +5492,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -5406,29 +5504,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course Id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -5446,10 +5521,61 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Page url to delete (just last part of path)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id to query</td>
         </tr>
 
     
@@ -5836,7 +5962,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line101">line 101</a>
+        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line103">line 103</a>
     </li></ul></dd>
     
 
@@ -5961,7 +6087,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -5969,29 +6099,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course Id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -6009,11 +6116,62 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas page url (just the last part of
   path)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id to query</td>
         </tr>
 
     
@@ -6364,7 +6522,7 @@
 
     
 
-    <h4 class="name" id="list"><span class="type-signature">(async) </span>list<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasPage>>}</span></h4>
+    <h4 class="name" id="list"><span class="type-signature">(async) </span>list<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasPage>>}</span></h4>
 
     
 
@@ -6478,6 +6636,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -6500,6 +6660,8 @@
 
         <th>Type</th>
 
+        
+        <th>Attributes</th>
         
 
         
@@ -6525,6 +6687,16 @@
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -7180,7 +7352,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line128">line 128</a>
+        <a href="ECatCourse_ECatPage.js.html">ECatCourse/ECatPage.js</a>, <a href="ECatCourse_ECatPage.js.html#line131">line 131</a>
     </li></ul></dd>
     
 
@@ -7292,6 +7464,7 @@
             
 
             <td class="description last">object containing all arguments
+  update
                 <h6>Properties</h6>
                 
 
@@ -7317,42 +7490,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Canvas course ID holding the page to
-  update</td>
-        </tr>
-
     
 
         <tr>
@@ -7387,6 +7524,45 @@
 
             <td class="description last">Canvas page url (just the last part of
   path)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>=default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course ID holding the page to</td>
         </tr>
 
     

@@ -6,6 +6,9 @@ import InitPack from './shared/types/InitPack';
 // Import shared helpers
 import genVisitEndpoint from './shared/genVisitEndpoint';
 
+// Import shared types
+import CACCLTag from './shared/types/CACCLTag';
+
 // Import endpoint categories
 import ECatAccount from './endpoints/ECatAccount';
 import ECatConversation from './endpoints/ECatConversation';
@@ -28,6 +31,8 @@ import ECatUser from './endpoints/ECatUser';
  *   requests
  * @param [opts.authenticityToken] default authenticity token to
  *   add to all requests no matter what
+ * @param [opts.defaultCourseId] default courseId to add to use if no courseId
+ *   is provided to course-specific requests
  */
 const initAPI = (
   opts: {
@@ -37,6 +42,7 @@ const initAPI = (
     pathPrefix?: string,
     accessToken?: string,
     authenticityToken?: string,
+    defaultCourseId?: number,
   } = {},
 ) => {
   // Initialize defaults
@@ -59,6 +65,7 @@ const initAPI = (
   const initPack: InitPack = {
     visitEndpoint,
     api,
+    defaultCourseId: opts.defaultCourseId,
   };
 
   // Initialize and add endpoint categories
@@ -71,5 +78,8 @@ const initAPI = (
   // Return api instance
   return api;
 };
+
+// Add CACCL tag
+initAPI.tag = CACCLTag.API;
 
 export default initAPI;

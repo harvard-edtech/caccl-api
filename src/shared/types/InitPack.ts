@@ -11,6 +11,8 @@ type InitPack = {
   visitEndpoint: VisitEndpointFunc,
   // Top-level api instance
   api: APIStructure,
+  // Default courseId if there is one
+  defaultCourseId?: number,
 };
 
 export default InitPack;

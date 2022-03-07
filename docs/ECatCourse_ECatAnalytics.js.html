@@ -121,19 +121,20 @@ var ECatAnalytics = /** @class */ (function (_super) {
      * @async
      * @method getStudentParticipationData
      * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
      * @param {number} opts.studentId the id of the student to get analytics on
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasUserInCourseParticipationData>} participation data {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.student_in_course_participation}
      */
     ECatAnalytics.prototype.getStudentParticipationData = function (opts, config) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'get participation data for a student in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/analytics/users/").concat(opts.studentId, "/activity"),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/analytics/users/").concat(opts.studentId, "/activity"),
                         method: 'GET',
                     })];
             });
@@ -148,19 +149,20 @@ var ECatAnalytics = /** @class */ (function (_super) {
      * @async
      * @method getStudentMessagingData
      * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
      * @param {number} opts.studentId the id of the student to get analytics on
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasUserInCourseMessagingData>} message data {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.student_in_course_messaging}
      */
     ECatAnalytics.prototype.getStudentMessagingData = function (opts, config) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'get messaging data for a student in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/analytics/users/").concat(opts.studentId, "/communication"),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/analytics/users/").concat(opts.studentId, "/communication"),
                         method: 'GET',
                     })];
             });
@@ -174,19 +176,21 @@ var ECatAnalytics = /** @class */ (function (_super) {
      * @instance
      * @async
      * @method listDailyActivitySummaries
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasCourseLevelParticipationData>} list of daily activity summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_participation}
      */
     ECatAnalytics.prototype.listDailyActivitySummaries = function (opts, config) {
+        var _a;
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'get a list of daily activity summaries for each day in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/analytics/activity"),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/analytics/activity"),
                         method: 'GET',
                     })];
             });
@@ -200,19 +204,21 @@ var ECatAnalytics = /** @class */ (function (_super) {
      * @instance
      * @async
      * @method listAssignmentSummaries
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasCourseLevelAssignmentData>} list of assignment summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_assignments}
      */
     ECatAnalytics.prototype.listAssignmentSummaries = function (opts, config) {
+        var _a;
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'get a list of assignment summaries for all assignments in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/analytics/assignments"),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/analytics/assignments"),
                         method: 'GET',
                     })];
             });
@@ -226,19 +232,21 @@ var ECatAnalytics = /** @class */ (function (_super) {
      * @instance
      * @async
      * @method listStudentSummaries
-     * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasCourseLevelStudentSummaries>} list of student summaries {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_student_summaries}
      */
     ECatAnalytics.prototype.listStudentSummaries = function (opts, config) {
+        var _a;
+        if (opts === void 0) { opts = {}; }
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'get a list of student summaries for all students in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/analytics/student_summaries"),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/analytics/student_summaries"),
                         method: 'GET',
                     })];
             });
@@ -252,19 +260,20 @@ var ECatAnalytics = /** @class */ (function (_super) {
      * @async
      * @method getStudentSummary
      * @param {object} opts object containing all arguments
-     * @param {number} opts.courseId Canvas course Id to query
      * @param {number} opts.studentId id of the user to get analytics for
+     * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise&lt;CanvasCourseLevelStudentSummary>} student summary {@link https://canvas.instructure.com/doc/api/analytics.html#method.analytics_api.course_student_summaries}
      */
     ECatAnalytics.prototype.getStudentSummary = function (opts, config) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
                 return [2 /*return*/, this.visitEndpoint({
                         config: config,
                         action: 'get a student summary for a student in a course',
-                        path: "".concat(API_PREFIX_1.default, "/courses/").concat(opts.courseId, "/analytics/student_summaries"),
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/analytics/student_summaries"),
                         method: 'GET',
                         params: {
                             student_id: opts.studentId,

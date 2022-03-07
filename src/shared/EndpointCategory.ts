@@ -10,6 +10,7 @@ import VisitEndpointFunc from './types/VisitEndpointFunc';
 class EndpointCategory {
   protected visitEndpoint: VisitEndpointFunc;
   protected api: APIStructure;
+  protected defaultCourseId: number;
 
   /**
    * Initialize the endpoint category
@@ -19,6 +20,7 @@ class EndpointCategory {
   constructor(initPack: InitPack) {
     this.visitEndpoint = initPack.visitEndpoint;
     this.api = initPack.api;
+    this.defaultCourseId = initPack.defaultCourseId;
   }
 }
 

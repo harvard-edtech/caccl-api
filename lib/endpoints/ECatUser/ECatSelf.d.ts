@@ -24,8 +24,8 @@ declare class ECatSelf extends EndpointCategory {
      * @method listCourses
      * @memberof api.user.self
      * @instance
-     * @param {object} opts - object containing all arguments
-     * @param {boolean} [opts.includeTerm] - if truthy, term is included
+     * @param {object} opts object containing all arguments
+     * @param {boolean} [opts.includeTerm] if truthy, term is included
      * @returns {Promise<CanvasCourse[]>} list of Canvas courses {@link https://canvas.instructure.com/doc/api/courses.html#Course}
      */
     listCourses(opts: {

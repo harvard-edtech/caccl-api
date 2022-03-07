@@ -755,7 +755,7 @@
 
     
 
-    <h4 class="name" id="get"><span class="type-signature">(async) </span>get<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;CanvasCourse>}</span></h4>
+    <h4 class="name" id="get"><span class="type-signature">(async) </span>get<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;CanvasCourse>}</span></h4>
 
     
 
@@ -869,6 +869,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -896,6 +898,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -921,6 +925,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -928,6 +934,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to get info on</td>
@@ -961,6 +973,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, includes
@@ -996,6 +1012,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, includes term</td>
         </tr>
@@ -1028,6 +1048,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, includes account
@@ -1063,6 +1087,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, includes
   public description</td>
@@ -1096,6 +1124,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, includes
@@ -1131,6 +1163,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, includes
   teachers</td>
@@ -1165,6 +1201,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, includes the
   course image</td>
@@ -1198,6 +1238,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy,
@@ -1773,7 +1817,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line345">line 345</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line353">line 353</a>
     </li></ul></dd>
     
 
@@ -1902,43 +1946,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course Id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -1966,8 +1981,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">Canvas user Id to get</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id to query</td>
         </tr>
 
     
@@ -1998,6 +2056,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user email is included</td>
@@ -2031,6 +2093,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -2066,6 +2132,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -2100,6 +2170,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -2133,6 +2207,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -2598,7 +2676,7 @@
 
     
 
-    <h4 class="name" id="listDesignerEnrollments"><span class="type-signature">(async) </span>listDesignerEnrollments<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
+    <h4 class="name" id="listDesignerEnrollments"><span class="type-signature">(async) </span>listDesignerEnrollments<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
 
     
 
@@ -2610,7 +2688,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line290">line 290</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line296">line 296</a>
     </li></ul></dd>
     
 
@@ -2712,6 +2790,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -2739,6 +2819,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -2764,6 +2846,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -2771,6 +2855,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -2804,6 +2894,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -2839,6 +2933,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, avatar_url is
   included</td>
@@ -2872,6 +2970,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, group_ids is
@@ -3438,7 +3540,7 @@
 
     
 
-    <h4 class="name" id="listDesigners"><span class="type-signature">(async) </span>listDesigners<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listDesigners"><span class="type-signature">(async) </span>listDesigners<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -3450,7 +3552,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line554">line 554</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line569">line 569</a>
     </li></ul></dd>
     
 
@@ -3552,6 +3654,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -3579,6 +3683,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -3604,6 +3710,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -3611,6 +3719,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -3644,6 +3758,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -3679,6 +3797,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user email is included</td>
         </tr>
@@ -3711,6 +3833,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -3746,6 +3872,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -3780,6 +3910,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -3813,6 +3947,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -4337,7 +4475,7 @@
 
     
 
-    <h4 class="name" id="listEnrollments"><span class="type-signature">(async) </span>listEnrollments<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
+    <h4 class="name" id="listEnrollments"><span class="type-signature">(async) </span>listEnrollments<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
 
     
 
@@ -4349,7 +4487,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line177">line 177</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line179">line 179</a>
     </li></ul></dd>
     
 
@@ -4451,6 +4589,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -4505,6 +4645,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -4514,6 +4656,8 @@
 
             
                 <td class="default">
+                
+                    <code>default course id</code>
                 
                 </td>
             
@@ -5136,7 +5280,7 @@
 
     
 
-    <h4 class="name" id="listObserverEnrollments"><span class="type-signature">(async) </span>listObserverEnrollments<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
+    <h4 class="name" id="listObserverEnrollments"><span class="type-signature">(async) </span>listObserverEnrollments<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
 
     
 
@@ -5148,7 +5292,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line316">line 316</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line323">line 323</a>
     </li></ul></dd>
     
 
@@ -5250,6 +5394,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -5277,6 +5423,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -5302,6 +5450,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -5309,6 +5459,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -5342,6 +5498,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -5377,6 +5537,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, avatar_url is
   included</td>
@@ -5410,6 +5574,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, group_ids is
@@ -5976,7 +6144,7 @@
 
     
 
-    <h4 class="name" id="listObservers"><span class="type-signature">(async) </span>listObservers<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listObservers"><span class="type-signature">(async) </span>listObservers<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -5988,7 +6156,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line584">line 584</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line600">line 600</a>
     </li></ul></dd>
     
 
@@ -6090,6 +6258,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -6117,6 +6287,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -6142,6 +6314,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -6149,6 +6323,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -6182,6 +6362,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -6217,6 +6401,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user email is included</td>
         </tr>
@@ -6249,6 +6437,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -6284,6 +6476,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -6318,6 +6514,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -6351,6 +6551,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -6816,7 +7020,7 @@
 
     
 
-    <h4 class="name" id="listStudentEnrollments"><span class="type-signature">(async) </span>listStudentEnrollments<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
+    <h4 class="name" id="listStudentEnrollments"><span class="type-signature">(async) </span>listStudentEnrollments<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
 
     
 
@@ -6828,7 +7032,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line238">line 238</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line242">line 242</a>
     </li></ul></dd>
     
 
@@ -6930,6 +7134,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -6957,6 +7163,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -6982,6 +7190,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -6989,6 +7199,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -7022,6 +7238,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -7057,6 +7277,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, avatar_url is
   included</td>
@@ -7090,6 +7314,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, group_ids is
@@ -7656,7 +7884,7 @@
 
     
 
-    <h4 class="name" id="listStudents"><span class="type-signature">(async) </span>listStudents<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listStudents"><span class="type-signature">(async) </span>listStudents<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -7668,7 +7896,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line434">line 434</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line445">line 445</a>
     </li></ul></dd>
     
 
@@ -7770,6 +7998,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -7797,6 +8027,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -7822,6 +8054,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -7829,6 +8063,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -7862,6 +8102,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -7897,6 +8141,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user email is included</td>
         </tr>
@@ -7929,6 +8177,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -7964,6 +8216,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -7998,6 +8254,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -8031,6 +8291,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -8596,7 +8860,7 @@
 
     
 
-    <h4 class="name" id="listTAs"><span class="type-signature">(async) </span>listTAs<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listTAs"><span class="type-signature">(async) </span>listTAs<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -8608,7 +8872,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line494">line 494</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line507">line 507</a>
     </li></ul></dd>
     
 
@@ -8710,6 +8974,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -8737,6 +9003,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -8762,6 +9030,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -8769,6 +9039,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -8802,6 +9078,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -8837,6 +9117,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user email is included</td>
         </tr>
@@ -8869,6 +9153,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -8904,6 +9192,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -8938,6 +9230,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -8971,6 +9267,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -9536,7 +9836,7 @@
 
     
 
-    <h4 class="name" id="listTeachers"><span class="type-signature">(async) </span>listTeachers<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listTeachers"><span class="type-signature">(async) </span>listTeachers<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -9548,7 +9848,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line524">line 524</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line538">line 538</a>
     </li></ul></dd>
     
 
@@ -9650,6 +9950,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -9677,6 +9979,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -9702,6 +10006,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -9709,6 +10015,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -9742,6 +10054,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -9777,6 +10093,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user email is included</td>
         </tr>
@@ -9809,6 +10129,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -9844,6 +10168,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -9878,6 +10206,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -9911,6 +10243,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -10376,7 +10712,7 @@
 
     
 
-    <h4 class="name" id="listTeachingTeamMemberEnrollments"><span class="type-signature">(async) </span>listTeachingTeamMemberEnrollments<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
+    <h4 class="name" id="listTeachingTeamMemberEnrollments"><span class="type-signature">(async) </span>listTeachingTeamMemberEnrollments<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
 
     
 
@@ -10388,7 +10724,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line264">line 264</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line269">line 269</a>
     </li></ul></dd>
     
 
@@ -10490,6 +10826,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -10517,6 +10855,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -10542,6 +10882,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -10549,6 +10891,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -10582,6 +10930,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -10617,6 +10969,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, avatar_url is
   included</td>
@@ -10650,6 +11006,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, group_ids is
@@ -11216,7 +11576,7 @@
 
     
 
-    <h4 class="name" id="listTeachingTeamMembers"><span class="type-signature">(async) </span>listTeachingTeamMembers<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listTeachingTeamMembers"><span class="type-signature">(async) </span>listTeachingTeamMembers<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -11228,7 +11588,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line464">line 464</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line476">line 476</a>
     </li></ul></dd>
     
 
@@ -11330,6 +11690,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -11357,6 +11719,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -11382,6 +11746,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -11389,6 +11755,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -11422,6 +11794,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -11457,6 +11833,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user email is included</td>
         </tr>
@@ -11489,6 +11869,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -11524,6 +11908,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -11558,6 +11946,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -11591,6 +11983,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -12189,7 +12585,7 @@
 
     
 
-    <h4 class="name" id="listUsers"><span class="type-signature">(async) </span>listUsers<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listUsers"><span class="type-signature">(async) </span>listUsers<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -12201,7 +12597,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line388">line 388</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line397">line 397</a>
     </li></ul></dd>
     
 
@@ -12303,6 +12699,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -12357,6 +12755,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -12366,6 +12766,8 @@
 
             
                 <td class="default">
+                
+                    <code>default course id</code>
                 
                 </td>
             
@@ -13421,7 +13823,7 @@
 
     
 
-    <h4 class="name" id="get"><span class="type-signature">(async) </span>get<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;CanvasCourse>}</span></h4>
+    <h4 class="name" id="get"><span class="type-signature">(async) </span>get<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;CanvasCourse>}</span></h4>
 
     
 
@@ -13535,6 +13937,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -13562,6 +13966,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -13587,6 +13993,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -13594,6 +14002,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to get info on</td>
@@ -13627,6 +14041,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, includes
@@ -13662,6 +14080,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, includes term</td>
         </tr>
@@ -13694,6 +14116,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, includes account
@@ -13729,6 +14155,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, includes
   public description</td>
@@ -13762,6 +14192,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, includes
@@ -13797,6 +14231,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, includes
   teachers</td>
@@ -13831,6 +14269,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, includes the
   course image</td>
@@ -13864,6 +14306,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy,
@@ -14439,7 +14885,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line345">line 345</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line353">line 353</a>
     </li></ul></dd>
     
 
@@ -14568,43 +15014,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course Id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -14632,8 +15049,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">Canvas user Id to get</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id to query</td>
         </tr>
 
     
@@ -14664,6 +15124,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user email is included</td>
@@ -14697,6 +15161,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -14732,6 +15200,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -14766,6 +15238,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -14799,6 +15275,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -15264,7 +15744,7 @@
 
     
 
-    <h4 class="name" id="listDesignerEnrollments"><span class="type-signature">(async) </span>listDesignerEnrollments<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
+    <h4 class="name" id="listDesignerEnrollments"><span class="type-signature">(async) </span>listDesignerEnrollments<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
 
     
 
@@ -15276,7 +15756,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line290">line 290</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line296">line 296</a>
     </li></ul></dd>
     
 
@@ -15378,6 +15858,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -15405,6 +15887,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -15430,6 +15914,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -15437,6 +15923,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -15470,6 +15962,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -15505,6 +16001,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, avatar_url is
   included</td>
@@ -15538,6 +16038,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, group_ids is
@@ -16104,7 +16608,7 @@
 
     
 
-    <h4 class="name" id="listDesigners"><span class="type-signature">(async) </span>listDesigners<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listDesigners"><span class="type-signature">(async) </span>listDesigners<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -16116,7 +16620,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line554">line 554</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line569">line 569</a>
     </li></ul></dd>
     
 
@@ -16218,6 +16722,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -16245,6 +16751,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -16270,6 +16778,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -16277,6 +16787,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -16310,6 +16826,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -16345,6 +16865,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user email is included</td>
         </tr>
@@ -16377,6 +16901,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -16412,6 +16940,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -16446,6 +16978,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -16479,6 +17015,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -17003,7 +17543,7 @@
 
     
 
-    <h4 class="name" id="listEnrollments"><span class="type-signature">(async) </span>listEnrollments<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
+    <h4 class="name" id="listEnrollments"><span class="type-signature">(async) </span>listEnrollments<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
 
     
 
@@ -17015,7 +17555,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line177">line 177</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line179">line 179</a>
     </li></ul></dd>
     
 
@@ -17117,6 +17657,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -17171,6 +17713,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -17180,6 +17724,8 @@
 
             
                 <td class="default">
+                
+                    <code>default course id</code>
                 
                 </td>
             
@@ -17802,7 +18348,7 @@
 
     
 
-    <h4 class="name" id="listObserverEnrollments"><span class="type-signature">(async) </span>listObserverEnrollments<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
+    <h4 class="name" id="listObserverEnrollments"><span class="type-signature">(async) </span>listObserverEnrollments<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
 
     
 
@@ -17814,7 +18360,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line316">line 316</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line323">line 323</a>
     </li></ul></dd>
     
 
@@ -17916,6 +18462,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -17943,6 +18491,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -17968,6 +18518,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -17975,6 +18527,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -18008,6 +18566,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -18043,6 +18605,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, avatar_url is
   included</td>
@@ -18076,6 +18642,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, group_ids is
@@ -18642,7 +19212,7 @@
 
     
 
-    <h4 class="name" id="listObservers"><span class="type-signature">(async) </span>listObservers<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listObservers"><span class="type-signature">(async) </span>listObservers<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -18654,7 +19224,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line584">line 584</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line600">line 600</a>
     </li></ul></dd>
     
 
@@ -18756,6 +19326,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -18783,6 +19355,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -18808,6 +19382,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -18815,6 +19391,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -18848,6 +19430,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -18883,6 +19469,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user email is included</td>
         </tr>
@@ -18915,6 +19505,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -18950,6 +19544,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -18984,6 +19582,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -19017,6 +19619,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -19482,7 +20088,7 @@
 
     
 
-    <h4 class="name" id="listStudentEnrollments"><span class="type-signature">(async) </span>listStudentEnrollments<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
+    <h4 class="name" id="listStudentEnrollments"><span class="type-signature">(async) </span>listStudentEnrollments<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
 
     
 
@@ -19494,7 +20100,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line238">line 238</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line242">line 242</a>
     </li></ul></dd>
     
 
@@ -19596,6 +20202,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -19623,6 +20231,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -19648,6 +20258,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -19655,6 +20267,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -19688,6 +20306,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -19723,6 +20345,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, avatar_url is
   included</td>
@@ -19756,6 +20382,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, group_ids is
@@ -20322,7 +20952,7 @@
 
     
 
-    <h4 class="name" id="listStudents"><span class="type-signature">(async) </span>listStudents<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listStudents"><span class="type-signature">(async) </span>listStudents<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -20334,7 +20964,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line434">line 434</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line445">line 445</a>
     </li></ul></dd>
     
 
@@ -20436,6 +21066,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -20463,6 +21095,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -20488,6 +21122,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -20495,6 +21131,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -20528,6 +21170,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -20563,6 +21209,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user email is included</td>
         </tr>
@@ -20595,6 +21245,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -20630,6 +21284,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -20664,6 +21322,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -20697,6 +21359,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -21262,7 +21928,7 @@
 
     
 
-    <h4 class="name" id="listTAs"><span class="type-signature">(async) </span>listTAs<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listTAs"><span class="type-signature">(async) </span>listTAs<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -21274,7 +21940,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line494">line 494</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line507">line 507</a>
     </li></ul></dd>
     
 
@@ -21376,6 +22042,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -21403,6 +22071,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -21428,6 +22098,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -21435,6 +22107,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -21468,6 +22146,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -21503,6 +22185,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user email is included</td>
         </tr>
@@ -21535,6 +22221,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -21570,6 +22260,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -21604,6 +22298,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -21637,6 +22335,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -22202,7 +22904,7 @@
 
     
 
-    <h4 class="name" id="listTeachers"><span class="type-signature">(async) </span>listTeachers<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listTeachers"><span class="type-signature">(async) </span>listTeachers<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -22214,7 +22916,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line524">line 524</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line538">line 538</a>
     </li></ul></dd>
     
 
@@ -22316,6 +23018,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -22343,6 +23047,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -22368,6 +23074,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -22375,6 +23083,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -22408,6 +23122,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -22443,6 +23161,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user email is included</td>
         </tr>
@@ -22475,6 +23197,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -22510,6 +23236,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -22544,6 +23274,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -22577,6 +23311,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -23042,7 +23780,7 @@
 
     
 
-    <h4 class="name" id="listTeachingTeamMemberEnrollments"><span class="type-signature">(async) </span>listTeachingTeamMemberEnrollments<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
+    <h4 class="name" id="listTeachingTeamMemberEnrollments"><span class="type-signature">(async) </span>listTeachingTeamMemberEnrollments<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasEnrollment>>}</span></h4>
 
     
 
@@ -23054,7 +23792,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line264">line 264</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line269">line 269</a>
     </li></ul></dd>
     
 
@@ -23156,6 +23894,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -23183,6 +23923,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -23208,6 +23950,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -23215,6 +23959,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -23248,6 +23998,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -23283,6 +24037,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, avatar_url is
   included</td>
@@ -23316,6 +24074,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, group_ids is
@@ -23882,7 +24644,7 @@
 
     
 
-    <h4 class="name" id="listTeachingTeamMembers"><span class="type-signature">(async) </span>listTeachingTeamMembers<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listTeachingTeamMembers"><span class="type-signature">(async) </span>listTeachingTeamMembers<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -23894,7 +24656,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line464">line 464</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line476">line 476</a>
     </li></ul></dd>
     
 
@@ -23996,6 +24758,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -24023,6 +24787,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -24048,6 +24814,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -24055,6 +24823,12 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
             
 
             <td class="description last">Canvas course Id to query</td>
@@ -24088,6 +24862,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, only active
@@ -24123,6 +24901,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user email is included</td>
         </tr>
@@ -24155,6 +24937,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user's enrollments
@@ -24190,6 +24976,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, includes whether this
   enrollment is locked</td>
@@ -24224,6 +25014,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If true, user avatar url is
   included</td>
@@ -24257,6 +25051,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If true, user bio is included</td>
@@ -24855,7 +25653,7 @@
 
     
 
-    <h4 class="name" id="listUsers"><span class="type-signature">(async) </span>listUsers<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
+    <h4 class="name" id="listUsers"><span class="type-signature">(async) </span>listUsers<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasUser>>}</span></h4>
 
     
 
@@ -24867,7 +25665,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line388">line 388</a>
+        <a href="ECatCourse_index.js.html">ECatCourse/index.js</a>, <a href="ECatCourse_index.js.html#line397">line 397</a>
     </li></ul></dd>
     
 
@@ -24969,6 +25767,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -25023,6 +25823,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -25032,6 +25834,8 @@
 
             
                 <td class="default">
+                
+                    <code>default course id</code>
                 
                 </td>
             

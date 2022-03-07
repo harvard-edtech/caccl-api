@@ -7,5 +7,6 @@ import VisitEndpointFunc from './VisitEndpointFunc';
 declare type InitPack = {
     visitEndpoint: VisitEndpointFunc;
     api: APIStructure;
+    defaultCourseId?: number;
 };
 export default InitPack;

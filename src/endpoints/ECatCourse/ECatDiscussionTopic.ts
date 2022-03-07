@@ -29,19 +29,19 @@ class ECatDiscussionTopic extends EndpointCategory {
    * @memberof api.course.discussionTopic
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {boolean} [opts.includeAllDates] - If truthy, includes
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId] Canvas course Id to query
+   * @param {boolean} [opts.includeAllDates] If truthy, includes
    *   all dates
-   * @param {boolean} [opts.includeSections] - If truthy, includes
+   * @param {boolean} [opts.includeSections] If truthy, includes
    *   sections
-   * @param {boolean} [opts.includeSectionsUserCount] - If truthy,
+   * @param {boolean} [opts.includeSectionsUserCount] If truthy,
    *   includes section user count
-   * @param {boolean} [opts.includeOverrides] - If truthy,
+   * @param {boolean} [opts.includeOverrides] If truthy,
    *   includes overrides
-   * @param {string} [opts.searchTerm] - If included, the partial title of the
+   * @param {string} [opts.searchTerm] If included, the partial title of the
    *   discussion topics to match and return
-   * @param {string} [opts.orderBy="position"] - If included, the results are
+   * @param {string} [opts.orderBy="position"] If included, the results are
    *   ordered as instructed. Can be "position" or "recent_activity" or "title"
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -49,20 +49,20 @@ class ECatDiscussionTopic extends EndpointCategory {
    */
   public async list(
     opts: {
-      courseId: number,
+      courseId?: number,
       includeAllDates?: boolean,
       includeSections?: boolean,
       includeSectionsUserCount?: boolean,
       includeOverrides?: boolean,
       searchTerm?: string,
       orderBy?: ('position' | 'recent_activity' | 'title'),
-    },
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasDiscussionTopic[]> {
     return this.visitEndpoint({
       config,
       action: 'get the list of discussion topics in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/discussion_topics`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/discussion_topics`,
       method: 'GET',
       params: {
         include: utils.genIncludesList({
@@ -84,30 +84,30 @@ class ECatDiscussionTopic extends EndpointCategory {
    * @memberof api.course.discussionTopic
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {string} opts.title - title of the discussion
-   * @param {string} opts.message - message of the discussion
-   * @param {string} [opts.discussionType="side_comment"] - the type of
+   * @param {object} opts object containing all arguments
+   * @param {string} opts.title title of the discussion
+   * @param {string} opts.message message of the discussion
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
+   * @param {string} [opts.discussionType="side_comment"] the type of
    *   discussion. Accepted values are 'side_comment', for discussions that
    *   only allow one level of nested comments, and 'threaded' for fully
    *   threaded discussions.
-   * @param {boolean} [opts.published] - if true, topic is published. If false,
+   * @param {boolean} [opts.published] if true, topic is published. If false,
    *   discussion topic is left in draft state
-   * @param {date} [opts.delayedPostAt] - if a date is given, the topic will
+   * @param {date} [opts.delayedPostAt] if a date is given, the topic will
    *   not be published until that time
-   * @param {boolean} [opts.allowRating] - if true, users can rate entries in
+   * @param {boolean} [opts.allowRating] if true, users can rate entries in
    *   this topic
-   * @param {date} [opts.lockAt] - if a date is given, the topic will be
+   * @param {date} [opts.lockAt] if a date is given, the topic will be
    *   scheduled to lock at the provided timestamp. If the date is in the past,
    *   the topic will be locked
-   * @param {boolean} [opts.pinned] - if true, this topic will be listed in
+   * @param {boolean} [opts.pinned] if true, this topic will be listed in
    *   the “Pinned Discussion” section
-   * @param {number} [opts.groupSetId] - if included, the topic will become a
+   * @param {number} [opts.groupSetId] if included, the topic will become a
    *   group discussion assigned to the group
-   * @param {boolean} [opts.onlyGradersCanRate] - if true, only graders will
+   * @param {boolean} [opts.onlyGradersCanRate] if true, only graders will
    *   be allowed to rate entries.
-   * @param {boolean} [opts.requireInitialPost] - if true, then a user may not
+   * @param {boolean} [opts.requireInitialPost] if true, then a user may not
    *   respond to other replies until that user has made an initial reply
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -115,9 +115,9 @@ class ECatDiscussionTopic extends EndpointCategory {
    */
   public async create(
     opts: {
-      courseId: number,
       title: string,
       message: string,
+      courseId?: number,
       discussionType?: ('side_comment' | 'threaded'),
       published?: boolean,
       delayedPostAt?: (Date | string),
@@ -133,7 +133,7 @@ class ECatDiscussionTopic extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'create a discussion topic in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/discussion_topics`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/discussion_topics`,
       method: 'POST',
       params: {
         title: opts.title,
@@ -162,25 +162,25 @@ class ECatDiscussionTopic extends EndpointCategory {
    * @memberof api.course.discussionTopic
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {string} opts.topicId - the id of the Canvas discussion topic to
+   * @param {object} opts object containing all arguments
+   * @param {string} opts.topicId the id of the Canvas discussion topic to
    *   delete
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasDiscussionTopic>} A Canvas Discussion Topic {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
    */
   public async delete(
     opts: {
-      courseId: number,
       topicId: string,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasDiscussionTopic> {
     return this.visitEndpoint({
       config,
       action: 'delete a discussion topic from a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/discussion_topics/${opts.topicId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/discussion_topics/${opts.topicId}`,
       method: 'DELETE',
     });
   }
@@ -192,25 +192,25 @@ class ECatDiscussionTopic extends EndpointCategory {
    * @memberof api.course.discussionTopic
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {string} opts.topicId - the id of the Canvas discussion topic to
+   * @param {object} opts object containing all arguments
+   * @param {string} opts.topicId the id of the Canvas discussion topic to
    *   list entries in
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasDiscussionTopic>} A Canvas Discussion Topic {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
    */
   public async listEntries(
     opts: {
-      courseId: number,
       topicId: string,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasDiscussionTopic> {
     return this.visitEndpoint({
       config,
       action: 'list entries in a discussion topic in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/discussion_topics/${opts.topicId}/entries`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/discussion_topics/${opts.topicId}/entries`,
       method: 'GET',
     });
   }

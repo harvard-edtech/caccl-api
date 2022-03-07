@@ -1229,7 +1229,7 @@
 
     
 
-    <h4 class="name" id="create"><span class="type-signature">(async) </span>create<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;CanvasAssignment>}</span></h4>
+    <h4 class="name" id="create"><span class="type-signature">(async) </span>create<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;CanvasAssignment>}</span></h4>
 
     
 
@@ -1241,7 +1241,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line226">line 226</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line231">line 231</a>
     </li></ul></dd>
     
 
@@ -1343,6 +1343,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -1397,6 +1399,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -1407,11 +1411,13 @@
             
                 <td class="default">
                 
+                    <code>default course id</code>
+                
                 </td>
             
 
-            <td class="description last">Canvas course Id to create an assignment
-  in</td>
+            <td class="description last">Canvas course Id to
+  create an assignment in</td>
         </tr>
 
     
@@ -2152,9 +2158,9 @@
 
             <td class="description last">If defined, the external
   tool that matches this id will be used for submissions. Also, the
-  submission types will be overwritten with ['external_tool'] and the student
-  will be redirected via LTI to the assignmentAppURL when they launch the
-  assignment</td>
+  submission types will be overwritten with ['external_tool'] and the
+  student will be redirected via LTI to the assignmentAppURL when they
+  launch the assignment</td>
         </tr>
 
     
@@ -2195,8 +2201,8 @@
 
             <td class="description last">The launch URL
   of the external tool. If not included and assignmentAppId is defined, we
-  will first request info on the external tool to get its launchURL and will
-  use that value here. Only relevant if assignmentAppId is defined.</td>
+  will first request info on the external tool to get its launchURL and
+  will use that value here. Only relevant if assignmentAppId is defined.</td>
         </tr>
 
     
@@ -2234,8 +2240,9 @@
             
 
             <td class="description last">Only relevant if
-  assignmentAppId is defined. If true, when a student clicks the assignment,
-  their LTI session with the external tool will be opened in a new tab</td>
+  assignmentAppId is defined. If true, when a student clicks the
+  assignment, their LTI session with the external tool will be opened in a
+  new tab</td>
         </tr>
 
     
@@ -2935,7 +2942,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line755">line 755</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line772">line 772</a>
     </li></ul></dd>
     
 
@@ -3084,41 +3091,6 @@
 
         <tr>
             
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Canvas course id</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>assignmentId</code></td>
             
 
@@ -3148,6 +3120,45 @@
             
 
             <td class="description last">Canvas assignment id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course id</td>
         </tr>
 
     
@@ -3858,7 +3869,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line401">line 401</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line412">line 412</a>
     </li></ul></dd>
     
 
@@ -3983,7 +3994,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -3991,29 +4006,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
     
 
         <tr>
@@ -4031,7 +4023,19 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas course Id</td>
@@ -4054,7 +4058,19 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas student Id of the sub to comment
@@ -4078,10 +4094,61 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">The text of the comment</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -4549,7 +4616,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1093">line 1093</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1117">line 1117</a>
     </li></ul></dd>
     
 
@@ -4678,43 +4745,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
     
 
         <tr>
@@ -4741,6 +4779,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">The Canvas assignment Id</td>
@@ -4773,8 +4815,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">The text body of the submission</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -4805,6 +4890,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">A text student comment to include</td>
@@ -5275,7 +5364,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1126">line 1126</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1151">line 1151</a>
     </li></ul></dd>
     
 
@@ -5404,43 +5493,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
     
 
         <tr>
@@ -5467,6 +5527,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">The Canvas assignment Id</td>
@@ -5499,8 +5563,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">The url of the submission</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -5531,6 +5638,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">A text student comment to include</td>
@@ -5919,7 +6030,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line338">line 338</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line346">line 346</a>
     </li></ul></dd>
     
 
@@ -6044,7 +6155,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -6052,29 +6167,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
     
 
         <tr>
@@ -6092,10 +6184,61 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas assignment Id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -6504,7 +6647,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line882">line 882</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line901">line 901</a>
     </li></ul></dd>
     
 
@@ -6629,7 +6772,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -6637,29 +6784,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -6677,7 +6801,19 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas assignment id to query</td>
@@ -6700,10 +6836,61 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas override id to look up</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course id to query</td>
         </tr>
 
     
@@ -7142,7 +7329,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line118">line 118</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line121">line 121</a>
     </li></ul></dd>
     
 
@@ -7271,43 +7458,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course Id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -7335,8 +7493,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">Canvas assignment Id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id to query</td>
         </tr>
 
     
@@ -7367,6 +7568,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">if true, assignment
@@ -7780,7 +7985,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line728">line 728</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line744">line 744</a>
     </li></ul></dd>
     
 
@@ -7905,7 +8110,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -7913,29 +8122,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -7953,7 +8139,19 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas assignment id to query</td>
@@ -7976,10 +8174,61 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas override id to look up</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course id to query</td>
         </tr>
 
     
@@ -8516,7 +8765,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1053">line 1053</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1076">line 1076</a>
     </li></ul></dd>
     
 
@@ -8645,43 +8894,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
     
 
         <tr>
@@ -8708,6 +8928,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">The Canvas assignment Id</td>
@@ -8740,8 +8964,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">The Canvas student Id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -8772,6 +9039,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, includes all
@@ -8807,6 +9078,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy,
   includes rubric assessments: breakdown of score for each rubric item</td>
@@ -8840,6 +9115,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, excludes
@@ -9239,7 +9518,7 @@
 
     
 
-    <h4 class="name" id="list"><span class="type-signature">(async) </span>list<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasAssignment>>}</span></h4>
+    <h4 class="name" id="list"><span class="type-signature">(async) </span>list<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasAssignment>>}</span></h4>
 
     
 
@@ -9353,6 +9632,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -9380,6 +9661,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -9405,6 +9688,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -9413,8 +9698,15 @@
             
 
             
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
 
-            <td class="description last">Canvas course Id to query</td>
+            <td class="description last">Canvas course Id to
+  query</td>
         </tr>
 
     
@@ -9445,6 +9737,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">if true, assignment
@@ -10322,7 +10618,7 @@
 
     
 
-    <h4 class="name" id="listAllSubmissions"><span class="type-signature">(async) </span>listAllSubmissions<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasSubmission>>}</span></h4>
+    <h4 class="name" id="listAllSubmissions"><span class="type-signature">(async) </span>listAllSubmissions<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasSubmission>>}</span></h4>
 
     
 
@@ -10334,7 +10630,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line983">line 983</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1004">line 1004</a>
     </li></ul></dd>
     
 
@@ -10436,6 +10732,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -10490,6 +10788,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -10499,6 +10799,8 @@
 
             
                 <td class="default">
+                
+                    <code>default course id</code>
                 
                 </td>
             
@@ -11395,7 +11697,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line367">line 367</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line376">line 376</a>
     </li></ul></dd>
     
 
@@ -11520,7 +11822,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -11528,29 +11834,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course Id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -11568,10 +11851,62 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas assignment Id to query</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id to
+  query</td>
         </tr>
 
     
@@ -11957,7 +12292,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line702">line 702</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line717">line 717</a>
     </li></ul></dd>
     
 
@@ -12082,7 +12417,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -12090,29 +12429,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -12130,10 +12446,61 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas assignment id to look up</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course id to query</td>
         </tr>
 
     
@@ -12680,7 +13047,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line912">line 912</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line932">line 932</a>
     </li></ul></dd>
     
 
@@ -12814,43 +13181,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
     
 
         <tr>
@@ -12878,8 +13216,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">The Canvas assignment Id to query</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -12910,6 +13291,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, includes all
@@ -12945,6 +13330,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy,
   includes rubric assessments: breakdown of score for each rubric item</td>
@@ -12979,6 +13368,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, excludes
   submission[i].user value with the submission's user information</td>
@@ -13012,6 +13405,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, includes
@@ -14145,7 +14542,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line150">line 150</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line154">line 154</a>
     </li></ul></dd>
     
 
@@ -14286,41 +14683,6 @@
 
         <tr>
             
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Canvas course Id to query</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>assignmentId</code></td>
             
 
@@ -14350,6 +14712,45 @@
             
 
             <td class="description last">Canvas assignment Id to update</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id to query</td>
         </tr>
 
     
@@ -15566,7 +15967,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line433">line 433</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line445">line 445</a>
     </li></ul></dd>
     
 
@@ -15695,43 +16096,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course id</td>
-        </tr>
-
     
 
         <tr>
@@ -15758,6 +16130,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas assignment id</td>
@@ -15790,8 +16166,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">Canvas student id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course id</td>
         </tr>
 
     
@@ -15822,6 +16241,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">the overall points to assign to the
@@ -15856,6 +16279,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">the grader comment to leave on the
@@ -16442,7 +16869,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line468">line 468</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line481">line 481</a>
     </li></ul></dd>
     
 
@@ -16583,41 +17010,6 @@
 
         <tr>
             
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>assignmentId</code></td>
             
 
@@ -16688,6 +17080,45 @@
     comment: <optional, comment to append (or overwrite if rubric comment)>,
     rubricId: <optional, rubric item (overall grade/comment if excluded)>
   },...]</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -17470,7 +17901,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line824">line 824</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line842">line 842</a>
     </li></ul></dd>
     
 
@@ -17618,41 +18049,6 @@
 
         <tr>
             
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Canvas course id</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>assignmentId</code></td>
             
 
@@ -17753,6 +18149,45 @@
 
             <td class="description last">List of Canvas student IDs being
   overridden</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course id</td>
         </tr>
 
     
@@ -19211,7 +19646,7 @@
 
     
 
-    <h4 class="name" id="create"><span class="type-signature">(async) </span>create<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;CanvasAssignment>}</span></h4>
+    <h4 class="name" id="create"><span class="type-signature">(async) </span>create<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;CanvasAssignment>}</span></h4>
 
     
 
@@ -19223,7 +19658,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line226">line 226</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line231">line 231</a>
     </li></ul></dd>
     
 
@@ -19325,6 +19760,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -19379,6 +19816,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -19389,11 +19828,13 @@
             
                 <td class="default">
                 
+                    <code>default course id</code>
+                
                 </td>
             
 
-            <td class="description last">Canvas course Id to create an assignment
-  in</td>
+            <td class="description last">Canvas course Id to
+  create an assignment in</td>
         </tr>
 
     
@@ -20134,9 +20575,9 @@
 
             <td class="description last">If defined, the external
   tool that matches this id will be used for submissions. Also, the
-  submission types will be overwritten with ['external_tool'] and the student
-  will be redirected via LTI to the assignmentAppURL when they launch the
-  assignment</td>
+  submission types will be overwritten with ['external_tool'] and the
+  student will be redirected via LTI to the assignmentAppURL when they
+  launch the assignment</td>
         </tr>
 
     
@@ -20177,8 +20618,8 @@
 
             <td class="description last">The launch URL
   of the external tool. If not included and assignmentAppId is defined, we
-  will first request info on the external tool to get its launchURL and will
-  use that value here. Only relevant if assignmentAppId is defined.</td>
+  will first request info on the external tool to get its launchURL and
+  will use that value here. Only relevant if assignmentAppId is defined.</td>
         </tr>
 
     
@@ -20216,8 +20657,9 @@
             
 
             <td class="description last">Only relevant if
-  assignmentAppId is defined. If true, when a student clicks the assignment,
-  their LTI session with the external tool will be opened in a new tab</td>
+  assignmentAppId is defined. If true, when a student clicks the
+  assignment, their LTI session with the external tool will be opened in a
+  new tab</td>
         </tr>
 
     
@@ -20917,7 +21359,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line755">line 755</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line772">line 772</a>
     </li></ul></dd>
     
 
@@ -21066,41 +21508,6 @@
 
         <tr>
             
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Canvas course id</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>assignmentId</code></td>
             
 
@@ -21130,6 +21537,45 @@
             
 
             <td class="description last">Canvas assignment id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course id</td>
         </tr>
 
     
@@ -21840,7 +22286,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line401">line 401</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line412">line 412</a>
     </li></ul></dd>
     
 
@@ -21965,7 +22411,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -21973,29 +22423,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
     
 
         <tr>
@@ -22013,7 +22440,19 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas course Id</td>
@@ -22036,7 +22475,19 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas student Id of the sub to comment
@@ -22060,10 +22511,61 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">The text of the comment</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -22531,7 +23033,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1093">line 1093</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1117">line 1117</a>
     </li></ul></dd>
     
 
@@ -22660,43 +23162,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
     
 
         <tr>
@@ -22723,6 +23196,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">The Canvas assignment Id</td>
@@ -22755,8 +23232,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">The text body of the submission</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -22787,6 +23307,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">A text student comment to include</td>
@@ -23257,7 +23781,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1126">line 1126</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1151">line 1151</a>
     </li></ul></dd>
     
 
@@ -23386,43 +23910,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
     
 
         <tr>
@@ -23449,6 +23944,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">The Canvas assignment Id</td>
@@ -23481,8 +23980,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">The url of the submission</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -23513,6 +24055,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">A text student comment to include</td>
@@ -23901,7 +24447,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line338">line 338</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line346">line 346</a>
     </li></ul></dd>
     
 
@@ -24026,7 +24572,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -24034,29 +24584,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
     
 
         <tr>
@@ -24074,10 +24601,61 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas assignment Id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -24486,7 +25064,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line882">line 882</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line901">line 901</a>
     </li></ul></dd>
     
 
@@ -24611,7 +25189,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -24619,29 +25201,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -24659,7 +25218,19 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas assignment id to query</td>
@@ -24682,10 +25253,61 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas override id to look up</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course id to query</td>
         </tr>
 
     
@@ -25124,7 +25746,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line118">line 118</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line121">line 121</a>
     </li></ul></dd>
     
 
@@ -25253,43 +25875,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course Id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -25317,8 +25910,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">Canvas assignment Id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id to query</td>
         </tr>
 
     
@@ -25349,6 +25985,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">if true, assignment
@@ -25762,7 +26402,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line728">line 728</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line744">line 744</a>
     </li></ul></dd>
     
 
@@ -25887,7 +26527,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -25895,29 +26539,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -25935,7 +26556,19 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas assignment id to query</td>
@@ -25958,10 +26591,61 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas override id to look up</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course id to query</td>
         </tr>
 
     
@@ -26498,7 +27182,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1053">line 1053</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1076">line 1076</a>
     </li></ul></dd>
     
 
@@ -26627,43 +27311,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
     
 
         <tr>
@@ -26690,6 +27345,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">The Canvas assignment Id</td>
@@ -26722,8 +27381,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">The Canvas student Id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -26754,6 +27456,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, includes all
@@ -26789,6 +27495,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy,
   includes rubric assessments: breakdown of score for each rubric item</td>
@@ -26822,6 +27532,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, excludes
@@ -27221,7 +27935,7 @@
 
     
 
-    <h4 class="name" id="list"><span class="type-signature">(async) </span>list<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasAssignment>>}</span></h4>
+    <h4 class="name" id="list"><span class="type-signature">(async) </span>list<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasAssignment>>}</span></h4>
 
     
 
@@ -27335,6 +28049,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -27362,6 +28078,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -27387,6 +28105,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -27395,8 +28115,15 @@
             
 
             
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
 
-            <td class="description last">Canvas course Id to query</td>
+            <td class="description last">Canvas course Id to
+  query</td>
         </tr>
 
     
@@ -27427,6 +28154,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">if true, assignment
@@ -28304,7 +29035,7 @@
 
     
 
-    <h4 class="name" id="listAllSubmissions"><span class="type-signature">(async) </span>listAllSubmissions<span class="signature">(opts, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasSubmission>>}</span></h4>
+    <h4 class="name" id="listAllSubmissions"><span class="type-signature">(async) </span>listAllSubmissions<span class="signature">(opts<span class="signature-attributes">opt</span>, config<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;CanvasSubmission>>}</span></h4>
 
     
 
@@ -28316,7 +29047,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line983">line 983</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line1004">line 1004</a>
     </li></ul></dd>
     
 
@@ -28418,6 +29149,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -28472,6 +29205,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -28481,6 +29216,8 @@
 
             
                 <td class="default">
+                
+                    <code>default course id</code>
                 
                 </td>
             
@@ -29377,7 +30114,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line367">line 367</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line376">line 376</a>
     </li></ul></dd>
     
 
@@ -29502,7 +30239,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -29510,29 +30251,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course Id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -29550,10 +30268,62 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas assignment Id to query</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id to
+  query</td>
         </tr>
 
     
@@ -29939,7 +30709,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line702">line 702</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line717">line 717</a>
     </li></ul></dd>
     
 
@@ -30064,7 +30834,11 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -30072,29 +30846,6 @@
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Canvas course id to query</td>
-        </tr>
-
     
 
         <tr>
@@ -30112,10 +30863,61 @@
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas assignment id to look up</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course id to query</td>
         </tr>
 
     
@@ -30662,7 +31464,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line912">line 912</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line932">line 932</a>
     </li></ul></dd>
     
 
@@ -30796,43 +31598,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
     
 
         <tr>
@@ -30860,8 +31633,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">The Canvas assignment Id to query</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -30892,6 +31708,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, includes all
@@ -30927,6 +31747,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy,
   includes rubric assessments: breakdown of score for each rubric item</td>
@@ -30961,6 +31785,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">If truthy, excludes
   submission[i].user value with the submission's user information</td>
@@ -30994,6 +31822,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">If truthy, includes
@@ -32127,7 +32959,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line150">line 150</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line154">line 154</a>
     </li></ul></dd>
     
 
@@ -32268,41 +33100,6 @@
 
         <tr>
             
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Canvas course Id to query</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>assignmentId</code></td>
             
 
@@ -32332,6 +33129,45 @@
             
 
             <td class="description last">Canvas assignment Id to update</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id to query</td>
         </tr>
 
     
@@ -33548,7 +34384,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line433">line 433</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line445">line 445</a>
     </li></ul></dd>
     
 
@@ -33677,43 +34513,14 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">Canvas course id</td>
-        </tr>
-
     
 
         <tr>
@@ -33740,6 +34547,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">Canvas assignment id</td>
@@ -33772,8 +34583,51 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">Canvas student id</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course id</td>
         </tr>
 
     
@@ -33804,6 +34658,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">the overall points to assign to the
@@ -33838,6 +34696,10 @@
                 </td>
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">the grader comment to leave on the
@@ -34424,7 +35286,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line468">line 468</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line481">line 481</a>
     </li></ul></dd>
     
 
@@ -34565,41 +35427,6 @@
 
         <tr>
             
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Canvas course Id</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>assignmentId</code></td>
             
 
@@ -34670,6 +35497,45 @@
     comment: <optional, comment to append (or overwrite if rubric comment)>,
     rubricId: <optional, rubric item (overall grade/comment if excluded)>
   },...]</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course Id</td>
         </tr>
 
     
@@ -35452,7 +36318,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line824">line 824</a>
+        <a href="ECatCourse_ECatAssignment.js.html">ECatCourse/ECatAssignment.js</a>, <a href="ECatCourse_ECatAssignment.js.html#line842">line 842</a>
     </li></ul></dd>
     
 
@@ -35600,41 +36466,6 @@
 
         <tr>
             
-                <td class="name"><code>courseId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-                <td class="default">
-                
-                </td>
-            
-
-            <td class="description last">Canvas course id</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>assignmentId</code></td>
             
 
@@ -35735,6 +36566,45 @@
 
             <td class="description last">List of Canvas student IDs being
   overridden</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>courseId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>default course id</code>
+                
+                </td>
+            
+
+            <td class="description last">Canvas course id</td>
         </tr>
 
     

@@ -45,9 +45,10 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {boolean} [opts.ignoreOverridesForDates] - if true, assignment
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to
+   *   query
+   * @param {boolean} [opts.ignoreOverridesForDates] if true, assignment
    *   dates are taken from the default dates instead of from the ones in
    *   overrides
    * @param {APIConfig} [config] custom configuration for this specific endpoint
@@ -56,15 +57,15 @@ class ECatAssignment extends EndpointCategory {
    */
   public async list(
     opts: {
-      courseId: number,
+      courseId?: number,
       ignoreOverridesForDates?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasAssignment[]> {
     return this.visitEndpoint({
       config,
       action: 'get the list of assignments in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments`,
       method: 'GET',
       params: {
         override_assignment_dates: !opts.ignoreOverridesForDates,
@@ -79,10 +80,10 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {number} opts.assignmentId - Canvas assignment Id
-   * @param {boolean} [opts.ignoreOverridesForDates] - if true, assignment
+   * @param {object} opts  object containing all arguments
+   * @param {number} opts.assignmentId  Canvas assignment Id
+   * @param {number} [opts.courseId=default course id]  Canvas course Id to query
+   * @param {boolean} [opts.ignoreOverridesForDates]  if true, assignment
    *   dates are taken from the default dates instead of from the ones in
    *   overrides
    * @param {APIConfig} [config] custom configuration for this specific endpoint
@@ -91,16 +92,16 @@ class ECatAssignment extends EndpointCategory {
    */
   public async get(
     opts: {
-      courseId: number,
       assignmentId: number,
       ignoreOverridesForDates?: boolean,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasAssignment> {
     return this.visitEndpoint({
       config,
       action: 'get info on a specific assignment in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}`,
       method: 'GET',
       params: {
         override_assignment_dates: !opts.ignoreOverridesForDates,
@@ -116,35 +117,35 @@ class ECatAssignment extends EndpointCategory {
    * @instance
    * @async
    * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {number} opts.assignmentId - Canvas assignment Id to update
-   * @param {string} [opts.name=current value] - The name of the assignment
-   * @param {number} [opts.pointsPossible=current value] - Points possible
-   * @param {date} [opts.dueAt=current value] - Due at datetime
-   * @param {date} [opts.lockAt=current value] - Due at datetime
-   * @param {date} [opts.unlockAt=current value] - Due at datetime
-   * @param {string} [opts.description=current value] - html description of
+   * @param {number} opts.assignmentId Canvas assignment Id to update
+   * @param {number} [opts.courseId=default course id] Canvas course Id to query
+   * @param {string} [opts.name=current value] The name of the assignment
+   * @param {number} [opts.pointsPossible=current value] Points possible
+   * @param {date} [opts.dueAt=current value] Due at datetime
+   * @param {date} [opts.lockAt=current value] Due at datetime
+   * @param {date} [opts.unlockAt=current value] Due at datetime
+   * @param {string} [opts.description=current value] html description of
    *   the assignment
-   * @param {string[]} [opts.submissionTypes=current value] - Submission type(s)
-   * @param {string} [opts.allowedExtensions=current value] - List of allowed
+   * @param {string[]} [opts.submissionTypes=current value] Submission type(s)
+   * @param {string} [opts.allowedExtensions=current value] List of allowed
    *   file extensions (exclude period). Online upload must be enabled
-   * @param {string} [opts.gradingType=current value] - Grading type
-   * @param {number} [opts.position=current value] - Position in assignment
+   * @param {string} [opts.gradingType=current value] Grading type
+   * @param {number} [opts.position=current value] Position in assignment
    *   list
-   * @param {boolean} [opts.published=current value] - If true, publish page
+   * @param {boolean} [opts.published=current value] If true, publish page
    *   upon creation. Must be a boolean
-   * @param {boolean} [opts.muted=current value] - If true, assignment is
+   * @param {boolean} [opts.muted=current value] If true, assignment is
    *   muted. Must be a boolean
-   * @param {number} [opts.groupSetId=current value] - Student group set Id
-   * @param {number} [opts.assignmentGroupId=current value] - Assignment group
+   * @param {number} [opts.groupSetId=current value] Student group set Id
+   * @param {number} [opts.assignmentGroupId=current value] Assignment group
    *   Id
-   * @param {boolean} [opts.peerReviewsEnabled=current value] - If true, users
+   * @param {boolean} [opts.peerReviewsEnabled=current value] If true, users
    *   asked to submit peer reviews. Must be a boolean
-   * @param {boolean} [opts.automaticPeerReviewsEnabled=current value] - If
+   * @param {boolean} [opts.automaticPeerReviewsEnabled=current value] If
    *   true, Canvas will automatically assign peer reviews. Must be a boolean
-   * @param {boolean} [opts.omitFromFinalGrade=current value] - If true,
+   * @param {boolean} [opts.omitFromFinalGrade=current value] If true,
    *   assignment is omitted from the final grade. Must be a boolean
-   * @param {boolean} [opts.gradeGroupStudentsIndividually=current value] - If
+   * @param {boolean} [opts.gradeGroupStudentsIndividually=current value] If
    *   true, students in groups can be given separate grades and when one student
    *   in a group gets a grade, other students do not get graded. Must be a
    *   boolean
@@ -154,8 +155,8 @@ class ECatAssignment extends EndpointCategory {
    */
   public async update(
     opts: {
-      courseId: number,
       assignmentId: number,
+      courseId?: number,
       name?: string,
       pointsPossible?: number,
       dueAt?: (Date | string),
@@ -198,7 +199,7 @@ class ECatAssignment extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'update an assignment in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}`,
       method: 'PUT',
       params: {
         'assignment[name]': utils.includeIfTruthy(opts.name),
@@ -244,56 +245,57 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to create an assignment
-   *   in
-   * @param {string} [opts.name=Unnamed Assignment] - The name of the
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to
+   *   create an assignment in
+   * @param {string} [opts.name=Unnamed Assignment] The name of the
    *   assignment
-   * @param {number} [opts.pointsPossible=null] - Points possible
-   * @param {date} [opts.dueAt=null] - Due at datetime
-   * @param {date} [opts.lockAt=null] - Due at datetime
-   * @param {date} [opts.unlockAt=null] - Due at datetime
-   * @param {string} [opts.description=null] - html description of
+   * @param {number} [opts.pointsPossible=null] Points possible
+   * @param {date} [opts.dueAt=null] Due at datetime
+   * @param {date} [opts.lockAt=null] Due at datetime
+   * @param {date} [opts.unlockAt=null] Due at datetime
+   * @param {string} [opts.description=null] html description of
    *   the assignment
-   * @param {string} [opts.submissionTypes=null] - Submission type(s)
-   * @param {string} [opts.allowedExtensions=any] - List of allowed file
+   * @param {string} [opts.submissionTypes=null] Submission type(s)
+   * @param {string} [opts.allowedExtensions=any] List of allowed file
    *   extensions (exclude period). Online upload must be enabled
-   * @param {string} [opts.gradingType=points] - Grading type
-   * @param {number} [opts.position=last] - Position in assignment list
-   * @param {boolean} [opts.published] - If true, publish page upon
+   * @param {string} [opts.gradingType=points] Grading type
+   * @param {number} [opts.position=last] Position in assignment list
+   * @param {boolean} [opts.published] If true, publish page upon
    *   creation
-   * @param {boolean} [opts.muted] - If true, assignment is muted
-   * @param {number} [opts.groupSetId=null] - Student group set Id
-   * @param {number} [opts.assignmentGroupId=top assignment group] - Assignment
+   * @param {boolean} [opts.muted] If true, assignment is muted
+   * @param {number} [opts.groupSetId=null] Student group set Id
+   * @param {number} [opts.assignmentGroupId=top assignment group] Assignment
    *   group Id
-   * @param {boolean} [opts.peerReviewsEnabled] - If true, users asked to
+   * @param {boolean} [opts.peerReviewsEnabled] If true, users asked to
    *   submit peer reviews
-   * @param {boolean} [opts.automaticPeerReviewsEnabled] - If true,
+   * @param {boolean} [opts.automaticPeerReviewsEnabled] If true,
    *   Canvas will automatically assign peer reviews
-   * @param {boolean} [opts.omitFromFinalGrade] - If true, assignment is
+   * @param {boolean} [opts.omitFromFinalGrade] If true, assignment is
    *   omitted from the final grade
-   * @param {boolean} [opts.gradeGroupStudentsIndividually] - If true,
+   * @param {boolean} [opts.gradeGroupStudentsIndividually] If true,
    *   students in groups can be given separate grades and when one student in a
    *   group gets a grade, other students do not get graded
-   * @param {string} [opts.assignmentAppId=null] - If defined, the external
+   * @param {string} [opts.assignmentAppId=null] If defined, the external
    *   tool that matches this id will be used for submissions. Also, the
-   *   submission types will be overwritten with ['external_tool'] and the student
-   *   will be redirected via LTI to the assignmentAppURL when they launch the
-   *   assignment
-   * @param {string} [opts.assignmentAppURL=tool launch url] - The launch URL
+   *   submission types will be overwritten with ['external_tool'] and the
+   *   student will be redirected via LTI to the assignmentAppURL when they
+   *   launch the assignment
+   * @param {string} [opts.assignmentAppURL=tool launch url] The launch URL
    *   of the external tool. If not included and assignmentAppId is defined, we
-   *   will first request info on the external tool to get its launchURL and will
-   *   use that value here. Only relevant if assignmentAppId is defined.
-   * @param {boolean} [opts.assignmentAppNewTab] - Only relevant if
-   *   assignmentAppId is defined. If true, when a student clicks the assignment,
-   *   their LTI session with the external tool will be opened in a new tab
+   *   will first request info on the external tool to get its launchURL and
+   *   will use that value here. Only relevant if assignmentAppId is defined.
+   * @param {boolean} [opts.assignmentAppNewTab] Only relevant if
+   *   assignmentAppId is defined. If true, when a student clicks the
+   *   assignment, their LTI session with the external tool will be opened in a
+   *   new tab
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasAssignment>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
    */
   public async create(
     opts: {
-      courseId: number,
+      courseId?: number,
       name?: string,
       pointsPossible?: number,
       dueAt?: (Date | string),
@@ -333,7 +335,7 @@ class ECatAssignment extends EndpointCategory {
       assignmentAppId?: number,
       assignmentAppURL?: string,
       assignmentAppNewTab?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasAssignment> {
     // Create params
@@ -396,10 +398,13 @@ class ECatAssignment extends EndpointCategory {
         );
       } else {
         // Need to fetch the launchURL
-        const app = await this.api.course.app.get({
-          courseId: opts.courseId,
-          appId: opts.assignmentAppId,
-        });
+        const app = await this.api.course.app.get(
+          {
+            courseId: (opts.courseId ?? this.defaultCourseId),
+            appId: opts.assignmentAppId,
+          },
+          config,
+        );
         params['assignment[external_tool_tag_attributes][url]'] = app.url;
       }
     } else {
@@ -412,7 +417,7 @@ class ECatAssignment extends EndpointCategory {
       config,
       action: 'create a new assignment in a course',
       params,
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments`,
       method: 'POST',
     });
   }
@@ -424,24 +429,24 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id
-   * @param {number} opts.assignmentId - Canvas assignment Id
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId Canvas assignment Id
+   * @param {number} [opts.courseId=default course id] Canvas course Id
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasAssignment>} Canvas Assignment {@link https://canvas.instructure.com/doc/api/assignments.html#Assignment}
    */
   public async delete(
     opts: {
-      courseId: number,
       assignmentId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasAssignment> {
     return this.visitEndpoint({
       config,
       action: 'delete an assignment from a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}`,
       method: 'DELETE',
     });
   }
@@ -457,24 +462,25 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id to query
-   * @param {number} opts.assignmentId - Canvas assignment Id to query
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId Canvas assignment Id to query
+   * @param {number} [opts.courseId=default course id] Canvas course Id to
+   *   query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasUser[]>} list of Canvas users {@link https://canvas.instructure.com/doc/api/users.html#User}
    */
   public async listGradeableStudents(
     opts: {
-      courseId: number,
       assignmentId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasUser[]> {
     const students: CanvasUser[] = await this.visitEndpoint({
       config,
       action: 'get the list of students who are gradeable in a specific assignment in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}/gradeable_students`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}/gradeable_students`,
       method: 'GET',
     });
 
@@ -490,29 +496,29 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id
-   * @param {number} opts.assignmentId - Canvas course Id
-   * @param {number} opts.studentId - Canvas student Id of the sub to comment
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId Canvas course Id
+   * @param {number} opts.studentId Canvas student Id of the sub to comment
    *   on
-   * @param {string} opts.comment - The text of the comment
+   * @param {string} opts.comment The text of the comment
+   * @param {number} [opts.courseId=default course id] Canvas course Id
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasSubmission>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
    */
   public async createSubmissionComment(
     opts: {
-      courseId: number,
       assignmentId: number,
       studentId: number,
       comment: string,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasSubmission> {
     return this.visitEndpoint({
       config,
       action: 'create a new comment on a submission',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}/submissions/${opts.studentId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}/submissions/${opts.studentId}`,
       method: 'PUT',
       params: {
         'comment[text_comment]': opts.comment,
@@ -527,13 +533,13 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course id
-   * @param {number} opts.assignmentId - Canvas assignment id
-   * @param {number} opts.studentId - Canvas student id
-   * @param {number} [opts.points] - the overall points to assign to the
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId Canvas assignment id
+   * @param {number} opts.studentId Canvas student id
+   * @param {number} [opts.courseId=default course id] Canvas course id
+   * @param {number} [opts.points] the overall points to assign to the
    *   student
-   * @param {string} [opts.comment] - the grader comment to leave on the
+   * @param {string} [opts.comment] the grader comment to leave on the
    *   submission
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -541,9 +547,9 @@ class ECatAssignment extends EndpointCategory {
    */
   public async updateGrade(
     opts: {
-      courseId: number,
       assignmentId: number,
       studentId: number,
+      courseId?: number,
       points?: number,
       comment?: string,
     },
@@ -552,7 +558,7 @@ class ECatAssignment extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'update student grade and/or comments for a specific assignment in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}/submissions/${opts.studentId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}/submissions/${opts.studentId}`,
       method: 'PUT',
       params: {
         'comment[text_comment]': utils.includeIfTruthy(opts.comment),
@@ -568,22 +574,22 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id
-   * @param {number} opts.assignmentId - Canvas assignment Id
-   * @param {Array} opts.gradeItems - List of grade items to upload to Canvas:
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId Canvas assignment Id
+   * @param {Array} opts.gradeItems List of grade items to upload to Canvas:
    *   [{
    *     studentId: <student id>,
    *     points: <optional, points to overwrite with>,
    *     comment: <optional, comment to append (or overwrite if rubric comment)>,
    *     rubricId: <optional, rubric item (overall grade/comment if excluded)>
    *   },...]
-   * @param {boolean} [opts.waitForCompletion] - If true, promise won't
+   * @param {number} [opts.courseId=default course id] Canvas course Id
+   * @param {boolean} [opts.waitForCompletion] If true, promise won't
    *   resolve until Canvas has finished updating the grades, instead of resolving
    *   once the grade changes have been queued
-   * @param {number} [opts.waitForCompletionTimeout=2] - The number of minutes
+   * @param {number} [opts.waitForCompletionTimeout=2] The number of minutes
    *   to wait before timing out the grade update job
-   * @param {boolean} [opts.dontMergeRubricItemUpdates] - When uploading
+   * @param {boolean} [opts.dontMergeRubricItemUpdates] When uploading
    *   grades to a rubric item, we intelligently merge rubric item updates with
    *   previous rubric assessments. For instance, if the assignment's rubric is:
    *     { grammar, argument, formatting }
@@ -602,7 +608,6 @@ class ECatAssignment extends EndpointCategory {
    */
   public async updateGrades(
     opts: {
-      courseId: number,
       assignmentId: number,
       gradeItems: (
         {
@@ -612,6 +617,7 @@ class ECatAssignment extends EndpointCategory {
           rubricId?: string,
         }
       )[],
+      courseId?: number,
       waitForCompletion?: boolean,
       waitForCompletionTimeout?: number,
       dontMergeRubricItemUpdates?: boolean,
@@ -633,10 +639,13 @@ class ECatAssignment extends EndpointCategory {
 
     // Pull assignment so we can get rubric information
     if (performRubricItemMerge) {
-      const assignment = await this.api.course.assignment.get({
-        courseId: opts.courseId,
-        assignmentId: opts.assignmentId,
-      });
+      const assignment = await this.api.course.assignment.get(
+        {
+          courseId: (opts.courseId ?? this.defaultCourseId),
+          assignmentId: opts.assignmentId,
+        },
+        config,
+      );
 
       // Make sure the assignment has a rubric
       if (!assignment.rubric) {
@@ -714,7 +723,7 @@ class ECatAssignment extends EndpointCategory {
           return this.api.course.assignment.getSubmission(
             {
               studentId,
-              courseId: opts.courseId,
+              courseId: (opts.courseId ?? this.defaultCourseId),
               assignmentId: opts.assignmentId,
               includeRubricAssessment: true,
               excludeUser: true, // Save request space
@@ -833,7 +842,7 @@ class ECatAssignment extends EndpointCategory {
       params,
       config,
       action: 'update student grades, comments, and/or rubric assessments for a specific assignment in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}/submissions/update_grades`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}/submissions/update_grades`,
       method: 'POST',
     });
 
@@ -861,24 +870,24 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course id to query
-   * @param {number} opts.assignmentId - Canvas assignment id to look up
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId Canvas assignment id to look up
+   * @param {number} [opts.courseId=default course id] Canvas course id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasAssignmentOverride[]>} list of Canvas AssignmentOverrides {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
    */
   public async listOverrides(
     opts: {
-      courseId: number,
       assignmentId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasAssignmentOverride[]> {
     return this.visitEndpoint({
       config,
       action: 'get a list of assignment overrides for a specific assignment in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}/overrides`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}/overrides`,
       method: 'GET',
     });
   }
@@ -890,26 +899,26 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course id to query
-   * @param {number} opts.assignmentId - Canvas assignment id to query
-   * @param {number} opts.overrideId - Canvas override id to look up
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId Canvas assignment id to query
+   * @param {number} opts.overrideId Canvas override id to look up
+   * @param {number} [opts.courseId=default course id] Canvas course id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasAssignmentOverride>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
    */
   public async getOverride(
     opts: {
-      courseId: number,
       assignmentId: number,
       overrideId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasAssignmentOverride> {
     return this.visitEndpoint({
       config,
       action: 'get a list of assignment overrides for a specific assignment in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}/overrides/${opts.overrideId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}/overrides/${opts.overrideId}`,
       method: 'GET',
     });
   }
@@ -929,25 +938,25 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course id
-   * @param {number} opts.assignmentId - Canvas assignment id
-   * @param {number[]} [opts.studentIds] - List of Canvas student IDs to override
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId Canvas assignment id
+   * @param {number} [opts.courseId=default course id] Canvas course id
+   * @param {number[]} [opts.studentIds] List of Canvas student IDs to override
    *   (Note: either studentIds, groupId, or sectionId must be included)
-   * @param {number} [opts.groupId] - Group to override, must be a group
+   * @param {number} [opts.groupId] Group to override, must be a group
    *   assignment (Note: either studentIds, groupId, or sectionId must be
    *   included)
-   * @param {number} [opts.sectionId] - Section to override (Note: either
+   * @param {number} [opts.sectionId] Section to override (Note: either
    *   studentIds, groupId, or sectionId must be included)
-   * @param {string} [opts.title=Override for X students] - Title of the
+   * @param {string} [opts.title=Override for X students] Title of the
    *   override
-   * @param {date} [opts.dueAt=no due date] - New due date. If excluded, the
+   * @param {date} [opts.dueAt=no due date] New due date. If excluded, the
    *   target(s) of this override have no due date (they can submit whenever they
    *   want without being marked as late)
-   * @param {date} [opts.unlockAt=no unlock date] - New unlock date. If
+   * @param {date} [opts.unlockAt=no unlock date] New unlock date. If
    *   excluded, the target(s) of this override can immediately see the assignment
    *   (their unlock date is the beginning of time)
-   * @param {date} [opts.lockAt=no lock date] - New lock date. If excluded,
+   * @param {date} [opts.lockAt=no lock date] New lock date. If excluded,
    *   the target(s) of this override can see and submit the assignment at
    *   any point in the future (their lock date is the end of time)
    * @param {APIConfig} [config] custom configuration for this specific endpoint
@@ -956,8 +965,8 @@ class ECatAssignment extends EndpointCategory {
    */
   public async createOverride(
     opts: {
-      courseId: number,
       assignmentId: number,
+      courseId?: number,
       studentIds?: number[],
       groupId?: number,
       sectionId?: number,
@@ -981,7 +990,7 @@ class ECatAssignment extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'create a new override for a specific assignment in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}/overrides`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}/overrides`,
       method: 'POST',
       params: {
         'assignment_override[title]': utils.includeIfTruthy(title),
@@ -1012,21 +1021,21 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course id
-   * @param {number} opts.assignmentId - Canvas assignment id
-   * @param {number} opts.overrideId - the override id to update
-   * @param {number[]} opts.studentIds - List of Canvas student IDs being
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId Canvas assignment id
+   * @param {number} opts.overrideId the override id to update
+   * @param {number[]} opts.studentIds List of Canvas student IDs being
    *   overridden
-   * @param {string} [opts.title=current value] - New title of the
+   * @param {number} [opts.courseId=default course id] Canvas course id
+   * @param {string} [opts.title=current value] New title of the
    *   override
-   * @param {date} [opts.dueAt=no due date] - New due date. If excluded, the
+   * @param {date} [opts.dueAt=no due date] New due date. If excluded, the
    *   target(s) of this override have no due date (they can submit whenever they
    *   want without being marked as late)
-   * @param {date} [opts.unlockAt=no unlock date] - New unlock date. If
+   * @param {date} [opts.unlockAt=no unlock date] New unlock date. If
    *   excluded, the target(s) of this override can immediately see the assignment
    *   (their unlock date is the beginning of time)
-   * @param {date} [opts.lockAt=no lock date] - New lock date. If excluded,
+   * @param {date} [opts.lockAt=no lock date] New lock date. If excluded,
    *   the target(s) of this override can see and submit the assignment at
    *   any point in the future (their lock date is the end of time)
    * @param {APIConfig} [config] custom configuration for this specific endpoint
@@ -1035,10 +1044,10 @@ class ECatAssignment extends EndpointCategory {
    */
   public async updateOverride(
     opts: {
-      courseId: number,
       assignmentId: number,
       overrideId: number,
       studentIds: number[],
+      courseId?: number,
       title?: string,
       dueAt?: (Date | string),
       unlockAt?: (Date | string),
@@ -1054,7 +1063,7 @@ class ECatAssignment extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'update an override for a specific assignment in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}/overrides/${opts.overrideId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}/overrides/${opts.overrideId}`,
       method: 'PUT',
       params: {
         'assignment_override[title]': utils.includeIfTruthy(opts.title),
@@ -1074,26 +1083,26 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course id to query
-   * @param {number} opts.assignmentId - Canvas assignment id to query
-   * @param {number} opts.overrideId - Canvas override id to look up
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId Canvas assignment id to query
+   * @param {number} opts.overrideId Canvas override id to look up
+   * @param {number} [opts.courseId=default course id] Canvas course id to query
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasAssignmentOverride>} Canvas AssignmentOverride {@link https://canvas.instructure.com/doc/api/assignments.html#AssignmentOverride}
    */
   public async deleteOverride(
     opts: {
-      courseId: number,
       assignmentId: number,
       overrideId: number,
+      courseId?: number,
     },
     config?: APIConfig,
   ): Promise<CanvasAssignmentOverride> {
     return this.visitEndpoint({
       config,
       action: 'delete an override for a specific assignment in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}/overrides/${opts.overrideId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}/overrides/${opts.overrideId}`,
       method: 'DELETE',
     });
   }
@@ -1114,16 +1123,16 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id
-   * @param {number} opts.assignmentId - The Canvas assignment Id to query
-   * @param {boolean} [opts.includeComments] - If truthy, includes all
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId The Canvas assignment Id to query
+   * @param {number} [opts.courseId=default course id] Canvas course Id
+   * @param {boolean} [opts.includeComments] If truthy, includes all
    *   comments on submissions
-   * @param {boolean} [opts.includeRubricAssessment] - If truthy,
+   * @param {boolean} [opts.includeRubricAssessment] If truthy,
    *   includes rubric assessments: breakdown of score for each rubric item
-   * @param {boolean} [opts.excludeUser] - If truthy, excludes
+   * @param {boolean} [opts.excludeUser] If truthy, excludes
    *   submission[i].user value with the submission's user information
-   * @param {boolean} [opts.includeTestStudent] - If truthy, includes
+   * @param {boolean} [opts.includeTestStudent] If truthy, includes
    *   dummy submission by test student (student view) if there is one. Note:
    *   if anonymous grading is enabled for this assignment, includeTestStudent
    *   will be true because we don't know which student is the test student
@@ -1133,8 +1142,8 @@ class ECatAssignment extends EndpointCategory {
    */
   public async listSubmissions(
     opts: {
-      courseId: number,
       assignmentId: number,
+      courseId?: number,
       includeComments?: boolean,
       includeRubricAssessment?: boolean,
       excludeUser?: boolean,
@@ -1152,7 +1161,7 @@ class ECatAssignment extends EndpointCategory {
     const subs: CanvasSubmission[] = await this.visitEndpoint({
       config,
       action: 'list the submissions to a specific assignment in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}/submissions`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}/submissions`,
       method: 'GET',
       params: {
         include: utils.genIncludesList({
@@ -1193,33 +1202,33 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id
-   * @param {number[]} [opts.studentIds=all students] - a list of
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id
+   * @param {number[]} [opts.studentIds=all students] a list of
    *   specific students to pull submissions for
-   * @param {number[]} [opts.assignmentIds=all assignments] - a list of
+   * @param {number[]} [opts.assignmentIds=all assignments] a list of
    *   assignments to get submissions for
-   * @param {Date} [opts.submittedSince=beginning of time] - Exclude
+   * @param {Date} [opts.submittedSince=beginning of time] Exclude
    *   submissions that were not submitted or were submitted before this date
-   * @param {Date} [opts.gradedSince=beginning of time] - Exclude
+   * @param {Date} [opts.gradedSince=beginning of time] Exclude
    *   submissions that were not graded or were graded before this date
-   * @param {string} [opts.workflowState=all workflows] - a workflow state
+   * @param {string} [opts.workflowState=all workflows] a workflow state
    *   to filter by. Allowed values: 'submitted', 'unsubmitted', 'graded', or
    *   'pending_review'
-   * @param {string} [opts.enrollmentState=all states except deleted] - an
+   * @param {string} [opts.enrollmentState=all states except deleted] an
    *   enrollment state to filter by. Allowed values: 'active' or 'concluded'
-   * @param {boolean} [opts.includeSubmissionHistory] - if true, submission
+   * @param {boolean} [opts.includeSubmissionHistory] if true, submission
    *   history is included
-   * @param {boolean} [opts.includeComments] - if true, includes all comments
+   * @param {boolean} [opts.includeComments] if true, includes all comments
    *   on submissions
-   * @param {boolean} [opts.includeRubricAssessment] - if true,
+   * @param {boolean} [opts.includeRubricAssessment] if true,
    *   rubric assessment is included
-   * @param {boolean} [opts.includeAssignment] - if true, the assignment is
+   * @param {boolean} [opts.includeAssignment] if true, the assignment is
    *   included for each submission
-   * @param {boolean} [opts.includeTotalScores] - if true, include the total
+   * @param {boolean} [opts.includeTotalScores] if true, include the total
    *   scores
-   * @param {boolean} [opts.includeVisibility] - if true, include visibility
-   * @param {boolean} [opts.includeUser] - if true, include the user info
+   * @param {boolean} [opts.includeVisibility] if true, include visibility
+   * @param {boolean} [opts.includeUser] if true, include the user info
    *   with each submission
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -1227,7 +1236,7 @@ class ECatAssignment extends EndpointCategory {
    */
   public async listAllSubmissions(
     opts: {
-      courseId: number,
+      courseId?: number,
       studentIds?: number[],
       assignmentIds?: number[],
       submittedSince?: (Date | string),
@@ -1246,13 +1255,13 @@ class ECatAssignment extends EndpointCategory {
       includeTotalScores?: boolean,
       includeVisibility?: boolean,
       includeUser?: boolean,
-    },
+    } = {},
     config?: APIConfig,
   ): Promise<CanvasSubmission[]> {
     return this.visitEndpoint({
       config,
       action: 'list a batch of submissions in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/students/submissions`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/students/submissions`,
       method: 'GET',
       params: {
         student_ids: (
@@ -1285,15 +1294,15 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id
-   * @param {number} opts.assignmentId - The Canvas assignment Id
-   * @param {number} opts.studentId - The Canvas student Id
-   * @param {boolean} [opts.includeComments] - If truthy, includes all
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId The Canvas assignment Id
+   * @param {number} opts.studentId The Canvas student Id
+   * @param {number} [opts.courseId=default course id] Canvas course Id
+   * @param {boolean} [opts.includeComments] If truthy, includes all
    *   comments on submissions
-   * @param {boolean} [opts.includeRubricAssessment] - If truthy,
+   * @param {boolean} [opts.includeRubricAssessment] If truthy,
    *   includes rubric assessments: breakdown of score for each rubric item
-   * @param {boolean} [opts.excludeUser] - If truthy, excludes
+   * @param {boolean} [opts.excludeUser] If truthy, excludes
    *   submission[i].user value with the submission's user information
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -1301,9 +1310,9 @@ class ECatAssignment extends EndpointCategory {
    */
   public async getSubmission(
     opts: {
-      courseId: number,
       assignmentId: number,
       studentId: number,
+      courseId?: number,
       includeComments?: boolean,
       includeRubricAssessment?: boolean,
       excludeUser?: boolean,
@@ -1313,7 +1322,7 @@ class ECatAssignment extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'get a specific submission to an assignment in a course',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}/submissions/${opts.studentId}`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}/submissions/${opts.studentId}`,
       method: 'GET',
       params: {
         include: utils.genIncludesList({
@@ -1332,20 +1341,20 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id
-   * @param {number} opts.assignmentId - The Canvas assignment Id
-   * @param {string} opts.text - The text body of the submission
-   * @param {string} [opts.comment] - A text student comment to include
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId The Canvas assignment Id
+   * @param {string} opts.text The text body of the submission
+   * @param {number} [opts.courseId=default course id] Canvas course Id
+   * @param {string} [opts.comment] A text student comment to include
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasSubmission>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
    */
   public async createTextSubmission(
     opts: {
-      courseId: number,
       assignmentId: number,
       text: string,
+      courseId?: number,
       comment?: string,
     },
     config?: APIConfig,
@@ -1353,7 +1362,7 @@ class ECatAssignment extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'create a text submission to a specific assignment in a course on behalf of the current user',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}/submissions`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}/submissions`,
       method: 'POST',
       params: {
         'comment[text_comment]':
@@ -1371,20 +1380,20 @@ class ECatAssignment extends EndpointCategory {
    * @memberof api.course.assignment
    * @instance
    * @async
-   * @param {object} opts - object containing all arguments
-   * @param {number} opts.courseId - Canvas course Id
-   * @param {number} opts.assignmentId - The Canvas assignment Id
-   * @param {string} opts.url - The url of the submission
-   * @param {string} [opts.comment] - A text student comment to include
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.assignmentId The Canvas assignment Id
+   * @param {string} opts.url The url of the submission
+   * @param {number} [opts.courseId=default course id] Canvas course Id
+   * @param {string} [opts.comment] A text student comment to include
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasSubmission>} Canvas submission {@link https://canvas.instructure.com/doc/api/submissions.html#Submission}
    */
   public async createURLSubmission(
     opts: {
-      courseId: number,
       assignmentId: number,
       url: string,
+      courseId?: number,
       comment?: string,
     },
     config?: APIConfig,
@@ -1392,7 +1401,7 @@ class ECatAssignment extends EndpointCategory {
     return this.visitEndpoint({
       config,
       action: 'create a url submission to a specific assignment in a course on behalf of the current user',
-      path: `${API_PREFIX}/courses/${opts.courseId}/assignments/${opts.assignmentId}/submissions`,
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/assignments/${opts.assignmentId}/submissions`,
       method: 'POST',
       params: {
         'comment[text_comment]':
