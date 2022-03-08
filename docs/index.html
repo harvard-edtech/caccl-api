@@ -67,14 +67,11 @@
   <div style="flex-grow: 1; height: 1px; background: #ccc; margin-left: 10px;">
   </div>
 </h1>
-<h2>1. Find the <code>api</code> instance</h2>
-<p>In your CACCL project, you should already have an instance. Read through the <a href="http://bit.ly/caccl">CACCL docs</a> to figure out how to access it. This differs slightly based on whether you're on the client or server. You can also create a new instance of the CACCL API (see &quot;How to create an api instance manually` below).</p>
+<h2>1. Get an <code>api</code> instance</h2>
+<p>In your CACCL project, you should have access to an <code>api</code> instance (via <code>getAPI</code>, for example). Read through the <a href="http://bit.ly/caccl">CACCL docs</a> to learn more.</p>
 <h2>2. Call an endpoint function</h2>
 <p>All endpoint functions are asynchronous, so we recommend using async/await syntax:</p>
-<pre class="prettyprint source lang-js"><code>const submissions = await api.course.assignment.listSubmissions({
-  courseId: 51048,
-  assignmentId: 12589,
-});
+<pre class="prettyprint source lang-ts"><code>const submissions = await api.course.listStudents();
 </code></pre>
 <h1 style="display: flex; align-items: center;">
   <div style="flex-grow: 1; height: 1px; background: #ccc; margin-right: 10px;">
@@ -157,74 +154,7 @@
 </code></pre>
 <p><strong>Hit <em>any</em> endpoint, even ones that aren't listed in our docs:</strong></p>
 <p>Use <code>api.other.endpoint(...)</code> to hit any endpoint in Canvas.</p>
-<p>If you find that you're using other endpoints frequently, please request that those endpoints be added to CACCL API as an official function.</p>
-<h2>How to create an <code>api</code> instance manually:</h2>
-<p>Import CACCL API and then initialize it with one <code>opts</code> argument:</p>
-<pre class="prettyprint source lang-js"><code>import initAPI from 'caccl-api';
-
-...
-
-initAPI({
-  accessToken: '1235~sldjfanbjdof8wuegljkafdg2839...',
-  canvasHost: 'canvas.harvard.edu',
-  ...
-});
-</code></pre>
-<p>All configuration options:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Argument</th>
-<th style="text-align:left">Type</th>
-<th style="text-align:left">Description</th>
-<th style="text-align:left">Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">opts</td>
-<td style="text-align:left">object</td>
-<td style="text-align:left">configuration options</td>
-<td style="text-align:left">all default values</td>
-</tr>
-<tr>
-<td style="text-align:left">opts.accessToken</td>
-<td style="text-align:left">string</td>
-<td style="text-align:left">access token to use for authentication</td>
-<td style="text-align:left">no token</td>
-</tr>
-<tr>
-<td style="text-align:left">opts.canvasHost</td>
-<td style="text-align:left">string</td>
-<td style="text-align:left">hostname for Canvas</td>
-<td style="text-align:left">canvas.instructure.com</td>
-</tr>
-<tr>
-<td style="text-align:left">opts.numRetries</td>
-<td style="text-align:left">number</td>
-<td style="text-align:left">number of times to retry failed network requests</td>
-<td style="text-align:left">3</td>
-</tr>
-<tr>
-<td style="text-align:left">opts.itemsPerPage</td>
-<td style="text-align:left">number</td>
-<td style="text-align:left">number of items to request in each page</td>
-<td style="text-align:left">100</td>
-</tr>
-<tr>
-<td style="text-align:left">opts.pathPrefix</td>
-<td style="text-align:left">string</td>
-<td style="text-align:left">prefix to add to all requests</td>
-<td style="text-align:left">auto-determined</td>
-</tr>
-<tr>
-<td style="text-align:left">opts.authenticityToken</td>
-<td style="text-align:left">string</td>
-<td style="text-align:left">Canvas authenticity token (we recommend that you use accessToken instead)</td>
-<td style="text-align:left">none</td>
-</tr>
-</tbody>
-</table></article>
+<p>If you find that you're using other endpoints frequently, please request that those endpoints be added to CACCL API as an official function.</p></article>
     </section>
 
 

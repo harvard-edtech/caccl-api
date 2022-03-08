@@ -1,11 +1,11 @@
 {
   "name": "caccl-api",
-  "version": "2.0.0-beta.10",
+  "version": "2.0.0-beta.15",
   "description": "A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "build": "tsc --project ./tsconfig.json;npm run build-docs",
+    "build": "tsc --project ./tsconfig.json;npm run build-docs && npm run build-docs",
     "build-docs": "rm -rf ./docBuilder/template;cp -r ./node_modules/docdash ./docBuilder/template; node ./docBuilder/updateBuilder.js;rm -rf ./docs;./node_modules/.bin/jsdoc -c ./docBuilder/jsdocConfig.json"
   },
   "repository": {
@@ -43,11 +43,10 @@
   },
   "dependencies": {
     "async": "^2.6.3",
-    "caccl-error": "^2.0.0-beta.0",
-    "caccl-send-request": "^2.0.0-beta.0",
+    "caccl-error": "^2.0.0-beta.15",
+    "caccl-send-request": "^2.0.0-beta.15",
     "csv-parse": "^4.15.0",
     "fast-clone": "^1.5.13",
-    "parse-link-header": "^2.0.0",
-    "url-parse": "^1.5.10"
+    "parse-link-header": "^2.0.0"
   }
 }

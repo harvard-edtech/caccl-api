@@ -4,7 +4,6 @@
  */
 
 // Import libs
-import URL from 'url-parse';
 import CACCLError from 'caccl-error';
 
 // Import shared types
@@ -38,8 +37,16 @@ const waitForCompletion = async (
   const timeoutMs = (60000 * (opts.timeoutMin || 2));
   const stopTime = (Date.now() + timeoutMs);
   // Prep to check
-  const progressURL = new URL(opts.progress.url);
-  const checkPath = progressURL.pathname;
+  const urlNoQuery = String(opts.progress.url).split('?')[0].split('#')[0];
+  const hostAndPath = (
+    urlNoQuery
+      // Remove protocol
+      .replace('http://', '')
+      .replace('https://', '')
+  );
+  const checkPath = (
+    hostAndPath.substring(hostAndPath.split('/')[0].length, hostAndPath.length)
+  );
 
   // Calculate the number of checks
   const refreshMs = (opts.refreshMs || 250);

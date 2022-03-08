@@ -12,19 +12,16 @@ This project is designed _by_ educators _for_ educators. Each endpoint is a blac
   </div>
 </h1>
 
-## 1. Find the `api` instance
+## 1. Get an `api` instance
 
-In your CACCL project, you should already have an instance. Read through the [CACCL docs](http://bit.ly/caccl) to figure out how to access it. This differs slightly based on whether you're on the client or server. You can also create a new instance of the CACCL API (see "How to create an api instance manually` below).
+In your CACCL project, you should have access to an `api` instance (via `getAPI`, for example). Read through the [CACCL docs](http://bit.ly/caccl) to learn more.
 
 ## 2. Call an endpoint function
 
 All endpoint functions are asynchronous, so we recommend using async/await syntax:
 
-```js
-const submissions = await api.course.assignment.listSubmissions({
-  courseId: 51048,
-  assignmentId: 12589,
-});
+```ts
+const submissions = await api.course.listStudents();
 ```
 
 <h1 style="display: flex; align-items: center;">
@@ -83,31 +80,3 @@ const allCourses = await api.account.listCourses({
 Use `api.other.endpoint(...)` to hit any endpoint in Canvas.
 
 If you find that you're using other endpoints frequently, please request that those endpoints be added to CACCL API as an official function.
-
-## How to create an `api` instance manually:
-
-Import CACCL API and then initialize it with one `opts` argument:
-
-```js
-import initAPI from 'caccl-api';
-
-...
-
-initAPI({
-  accessToken: '1235~sldjfanbjdof8wuegljkafdg2839...',
-  canvasHost: 'canvas.harvard.edu',
-  ...
-});
-```
-
-All configuration options:
-
-Argument | Type | Description | Default
-:--- | :--- | :--- | :---
-opts | object | configuration options | all default values
-opts.accessToken | string | access token to use for authentication | no token
-opts.canvasHost | string | hostname for Canvas | canvas.instructure.com
-opts.numRetries | number | number of times to retry failed network requests | 3
-opts.itemsPerPage | number | number of items to request in each page | 100
-opts.pathPrefix | string | prefix to add to all requests | auto-determined
-opts.authenticityToken | string | Canvas authenticity token (we recommend that you use accessToken instead) | none
