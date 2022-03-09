@@ -1,6 +1,3 @@
-// Import built-in libs
-import pathLib from 'path';
-
 // Import libs
 import parseLinkHeader from 'parse-link-header';
 import clone from 'fast-clone';
@@ -79,10 +76,10 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
     });
 
     // Get settings
-    const canvasHost = (config.canvasHost || defaults.canvasHost);
-    const numRetries = (config.numRetries || defaults.numRetries);
-    const maxPages = (config.maxPages || defaults.maxPages);
-    const pathPrefix = (config.pathPrefix || defaults.pathPrefix || '');
+    const canvasHost = (config.canvasHost ?? defaults.canvasHost);
+    const numRetries = (config.numRetries ?? defaults.numRetries);
+    const maxPages = (config.maxPages ?? defaults.maxPages);
+    const pathPrefix = (config.pathPrefix ?? defaults.pathPrefix ?? '');
     const { onNewPage } = config;
 
     /*----------------------------------------*/
@@ -114,7 +111,7 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
           method,
           numRetries,
           params: pageParams,
-          path: pathLib.join(pathPrefix, path),
+          path: `${pathPrefix}${path}`,
           host: canvasHost,
           // Ignore self-signed certificate if host is simulated Canvas
           ignoreSSLIssues: (canvasHost === 'localhost:8088'),
