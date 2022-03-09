@@ -1,6 +1,6 @@
 {
   "name": "caccl-api",
-  "version": "2.0.0-beta.16",
+  "version": "2.0.0-beta.17",
   "description": "A class that defines a set of smart Canvas endpoints that actually behave how you'd expect them to.",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -42,11 +42,8 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "async": "^2.6.3",
     "caccl-error": "^2.0.0-beta.15",
     "caccl-send-request": "^2.0.0-beta.15",
-    "csv-parse": "^4.15.0",
-    "fast-clone": "^1.5.13",
-    "parse-link-header": "^2.0.0"
+    "fast-clone": "^1.5.13"
   }
 }

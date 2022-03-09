@@ -1,5 +1,4 @@
 // Import libs
-import parseLinkHeader from 'parse-link-header';
 import clone from 'fast-clone';
 
 // Import CACCL libs
@@ -214,11 +213,22 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
         let anotherPageExists: boolean;
         try {
           const { link } = response.headers;
-          const parsedLinkHeader = parseLinkHeader(link);
-          const nextPageURL = parsedLinkHeader.next.url;
-          const host = nextPageURL.split('/')[2];
-          const nextPagePath = nextPageURL.split(host)[1];
-          anotherPageExists = (nextPageURL && nextPageURL.trim().length > 0);
+          // Go through all links and see if there's a next page
+          anotherPageExists = (
+            String(link ?? '')
+              .split(',')
+              .some((linkPart) => {
+                return (
+                  // This is the "next" link
+                  linkPart
+                    .toLowerCase()
+                    .trim()
+                    .endsWith('rel="next"')
+                  // The link exists
+                  && linkPart.split(';')[0].length > 2
+                );
+              })
+          );
         } catch (err) {
           anotherPageExists = false;
         }
