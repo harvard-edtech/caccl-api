@@ -37,7 +37,7 @@
     "mocha": "^7.2.0"
   },
   "dependencies": {
-    "async": "^2.6.3",
+    "async": "^3.2.2",
     "axios": "^0.21.1",
     "caccl-error": "^1.0.7",
     "caccl-send-request": "^1.0.15",
