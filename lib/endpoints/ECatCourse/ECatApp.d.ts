@@ -45,38 +45,50 @@ declare class ECatApp extends EndpointCategory {
         courseId?: number;
     }, config?: APIConfig): Promise<CanvasExternalTool>;
     /**
-     * Adds an LTi app either by its XML or by its clientId to a Canvas course.
-     *   If installing by XML, include: name, key, secret, xml, description.
-     *   If installing by clientId, include: clientId.
+     * Adds an LTi app by its XML to a Canvas course
      * @author Gabe Abrams
      * @memberof api.course.app
      * @instance
      * @async
-     * @method add
+     * @method addByXML
      * @param {object} opts object containing all arguments
-     * @param {string} [opts.name] The app name (for settings app list)
-     * @param {string} [opts.key] Installation consumer key
-     * @param {string} [opts.secret] Installation consumer secret
-     * @param {string} [opts.xml] XML configuration file, standard LTI format
-     * @param {string} [opts.description] A human-readable description of the
+     * @param {string} opts.name The app name (for settings app list)
+     * @param {string} opts.key Installation consumer key
+     * @param {string} opts.secret Installation consumer secret
+     * @param {string} opts.xml XML configuration file, standard LTI format
+     * @param {string} opts.description A human-readable description of the
      *   app
-     * @param {string} [opts.clientId] the client id of the app that is associated
+     * @param {number} [opts.courseId=default course id] Canvas course Id to install into
+     * @param {APIConfig} [config] custom configuration for this specific endpoint
+     *   call (overwrites defaults that were included when api was initialized)
+     * @returns {Promise<CanvasExternalTool>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
+     */
+    addByXML(opts: {
+        name: string;
+        key: string;
+        secret: string;
+        xml: string;
+        courseId?: number;
+    }, config?: APIConfig): Promise<CanvasExternalTool>;
+    /**
+     * Adds an LTi app by its clientId to a Canvas course
+     * @author Gabe Abrams
+     * @memberof api.course.app
+     * @instance
+     * @async
+     * @method addByClientId
+     * @param {object} opts object containing all arguments
+     * @param {string} opts.clientId the client id of the app that is associated
      *   with the Canvas instance containing the course of interest
      * @param {number} [opts.courseId=default course id] Canvas course Id to install into
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasExternalTool>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
      */
-    add(opts: ({
-        name: string;
-        key: string;
-        secret: string;
-        xml: string;
-        courseId?: number;
-    } | {
+    addByClientId(opts: {
         clientId: string;
         courseId?: number;
-    }), config?: APIConfig): Promise<CanvasExternalTool>;
+    }, config?: APIConfig): Promise<CanvasExternalTool>;
     /**
      * Add a redirect app to the navigation menu
      * @author Gabe Abrams

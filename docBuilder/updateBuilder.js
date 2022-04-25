@@ -64,6 +64,37 @@ modify(path.join(__dirname, 'template/publish.js'), (oldContents) => {
     'let nav = \'<h2><a style="font-size: 30px;" href="index.html">CACCL API</a></h2>\';'
   );
 
+  // Remove duplicates from nav
+  // contents = contents.replace(
+  //   'function buildNav(members) {',
+  //   `function buildNav(members) {
+  //     const nameToIsAdded = {};
+  //     members.namespaces = members.namespaces.filter((item) => {
+  //       console.log(item);
+  //       if (!nameToIsAdded[item.longname]) {
+  //         nameToIsAdded[item.longname] = true;
+  //         return true;
+  //       }
+  //       return false;
+  //     });
+  //   `,
+  // );
+  contents = contents.replace(
+    `var methods = find({kind:'function', memberof: item.longname});`,
+    `var methods = find({kind:'function', memberof: item.longname});
+
+    // Gabe: Remove duplicates from methods
+    var methodAdded = {}; // long name => true if added
+    methods = methods.filter((method) => {
+      if (!methodAdded[method.longname]) {
+        methodAdded[method.longname] = true;
+        return true;
+      }
+      return false;
+    });
+    `
+  )
+
   return contents;
 });
 

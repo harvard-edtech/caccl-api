@@ -91,67 +91,81 @@ class ECatApp extends EndpointCategory {
   }
 
   /**
-   * Adds an LTi app either by its XML or by its clientId to a Canvas course.
-   *   If installing by XML, include: name, key, secret, xml, description.
-   *   If installing by clientId, include: clientId.
+   * Adds an LTi app by its XML to a Canvas course
    * @author Gabe Abrams
    * @memberof api.course.app
    * @instance
    * @async
-   * @method add
+   * @method addByXML
    * @param {object} opts object containing all arguments
-   * @param {string} [opts.name] The app name (for settings app list)
-   * @param {string} [opts.key] Installation consumer key
-   * @param {string} [opts.secret] Installation consumer secret
-   * @param {string} [opts.xml] XML configuration file, standard LTI format
-   * @param {string} [opts.description] A human-readable description of the
+   * @param {string} opts.name The app name (for settings app list)
+   * @param {string} opts.key Installation consumer key
+   * @param {string} opts.secret Installation consumer secret
+   * @param {string} opts.xml XML configuration file, standard LTI format
+   * @param {string} opts.description A human-readable description of the
    *   app
-   * @param {string} [opts.clientId] the client id of the app that is associated
-   *   with the Canvas instance containing the course of interest
    * @param {number} [opts.courseId=default course id] Canvas course Id to install into
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasExternalTool>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
    */
-  public async add(
-    opts: (
-      | {
-        name: string,
-        key: string,
-        secret: string,
-        xml: string,
-        courseId?: number,
-      }
-      | {
-        clientId: string,
-        courseId?: number,
-      }
-    ),
+  public async addByXML(
+    opts: {
+      name: string,
+      key: string,
+      secret: string,
+      xml: string,
+      courseId?: number,
+    },
     config?: APIConfig,
   ): Promise<CanvasExternalTool> {
-    // Create params
-    let params: { [k: string]: string };
-    if ((opts as any).clientId) {
-      params = {
-        client_id: (opts as any).clientId,
-      };
-    } else {
-      params = {
-        name: (opts as any).name,
-        consumer_key: (opts as any).key,
-        shared_secret: (opts as any).secret,
-        config_type: 'by_xml',
-        config_xml: (opts as any).xml,
-      };
-    }
-
     // Add the app
     return this.visitEndpoint({
       config,
       action: 'add an LTI app to a course',
       path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/external_tools`,
       method: 'POST',
-      params,
+      params: {
+        name: opts.name,
+        consumer_key: opts.key,
+        shared_secret: opts.secret,
+        config_type: 'by_xml',
+        config_xml: opts.xml,
+      }
+    });
+  }
+
+  /**
+   * Adds an LTi app by its clientId to a Canvas course
+   * @author Gabe Abrams
+   * @memberof api.course.app
+   * @instance
+   * @async
+   * @method addByClientId
+   * @param {object} opts object containing all arguments
+   * @param {string} opts.clientId the client id of the app that is associated
+   *   with the Canvas instance containing the course of interest
+   * @param {number} [opts.courseId=default course id] Canvas course Id to install into
+   * @param {APIConfig} [config] custom configuration for this specific endpoint
+   *   call (overwrites defaults that were included when api was initialized)
+   * @returns {Promise<CanvasExternalTool>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
+   */
+  public async addByClientId(
+    opts: {
+      clientId: string,
+      courseId?: number,
+    },
+    config?: APIConfig,
+  ): Promise<CanvasExternalTool> {
+    // Add the app
+    return this.visitEndpoint({
+      config,
+      action: 'add an LTI app to a course',
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/external_tools`,
+      method: 'POST',
+      params: {
+        client_id: opts.clientId,
+      },
     });
   }
 
@@ -211,7 +225,7 @@ class ECatApp extends EndpointCategory {
     `;
 
     // Add the app
-    return this.api.course.app.add(
+    return this.api.course.app.addByXML(
       {
         name: opts.name,
         key: 'N/A',

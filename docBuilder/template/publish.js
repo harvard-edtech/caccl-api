@@ -331,6 +331,17 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
         items.forEach(function(item) {
             var displayName;
             var methods = find({kind:'function', memberof: item.longname});
+
+    // Gabe: Remove duplicates from methods
+    var methodAdded = {}; // long name => true if added
+    methods = methods.filter((method) => {
+      if (!methodAdded[method.longname]) {
+        methodAdded[method.longname] = true;
+        return true;
+      }
+      return false;
+    });
+    
             var members = find({kind:'member', memberof: item.longname});
             var conf = env && env.conf || {};
             var classes = '';

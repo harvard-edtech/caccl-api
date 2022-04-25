@@ -112,8 +112,6 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
           params: pageParams,
           path: `${pathPrefix}${path}`,
           host: canvasHost,
-          // Ignore self-signed certificate if host is simulated Canvas
-          ignoreSSLIssues: (canvasHost === 'localhost:8088'),
         });
 
         /*----------------------------------------*/
