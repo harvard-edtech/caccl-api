@@ -91,52 +91,135 @@ class ECatApp extends EndpointCategory {
   }
 
   /**
-   * Adds an LTI app to a Canvas course
+   * Adds an LTi app either by its XML or by its clientId to a Canvas course.
+   *   If installing by XML, include: name, key, secret, xml, description.
+   *   If installing by clientId, include: clientId.
    * @author Gabe Abrams
    * @memberof api.course.app
    * @instance
    * @async
    * @method add
    * @param {object} opts object containing all arguments
-   * @param {string} opts.name The app name (for settings app list)
-   * @param {string} opts.key Installation consumer key
-   * @param {string} opts.secret Installation consumer secret
-   * @param {string} opts.xml XML configuration file, standard LTI format
+   * @param {string} [opts.name] The app name (for settings app list)
+   * @param {string} [opts.key] Installation consumer key
+   * @param {string} [opts.secret] Installation consumer secret
+   * @param {string} [opts.xml] XML configuration file, standard LTI format
    * @param {string} [opts.description] A human-readable description of the
    *   app
-   * @param {string} [opts.launchPrivacy] 'public' by default
+   * @param {string} [opts.clientId] the client id of the app that is associated
+   *   with the Canvas instance containing the course of interest
    * @param {number} [opts.courseId=default course id] Canvas course Id to install into
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasExternalTool>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
    */
   public async add(
-    opts: {
-      name: string,
-      key: string,
-      secret: string,
-      xml: string,
-      description?: string,
-      launchPrivacy?: ('public' | 'anonymous' | 'members'),
-      courseId?: number,
-    },
+    opts: (
+      | {
+        name: string,
+        key: string,
+        secret: string,
+        xml: string,
+        courseId?: number,
+      }
+      | {
+        clientId: string,
+        courseId?: number,
+      }
+    ),
     config?: APIConfig,
   ): Promise<CanvasExternalTool> {
+    // Create params
+    let params: { [k: string]: string };
+    if ((opts as any).clientId) {
+      params = {
+        client_id: (opts as any).clientId,
+      };
+    } else {
+      params = {
+        name: (opts as any).name,
+        consumer_key: (opts as any).key,
+        shared_secret: (opts as any).secret,
+        config_type: 'by_xml',
+        config_xml: (opts as any).xml,
+      };
+    }
+
+    // Add the app
     return this.visitEndpoint({
       config,
       action: 'add an LTI app to a course',
       path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/external_tools`,
       method: 'POST',
-      params: {
-        name: opts.name,
-        privacy_level: opts.launchPrivacy || 'public',
-        consumer_key: opts.key,
-        shared_secret: opts.secret,
-        config_type: 'by_xml',
-        config_xml: opts.xml,
-        description: utils.includeIfTruthy(opts.description),
-      },
+      params,
     });
+  }
+
+  /**
+   * Add a redirect app to the navigation menu
+   * @author Gabe Abrams
+   * @memberof api.course.app
+   * @instance
+   * @async
+   * @method addRedirect
+   * @param {object} opts object containing all arguments
+   * @param {string} opts.name the name of the app as it shows up in the nav
+   *   menu
+   * @param {string} opts.url the url to direct the course to when they click the
+   *   redirect app
+   * @param {boolean} [opts.hiddenFromStudents] if true, hide the link from
+   *   students
+   * @param {boolean} [opts.dontOpenInNewTab] if true, redirect does not open in
+   *   another tab
+   * @param {number} [opts.courseId=default course id] Canvas course Id to install into
+   * @param {APIConfig} [config] custom configuration for this specific endpoint
+   *   call (overwrites defaults that were included when api was initialized)
+   * @returns {Promise<CanvasExternalTool>} Canvas external tool {@link https://canvas.instructure.com/doc/api/external_tools.html#method.external_tools.show}
+   */
+  public async addRedirect(
+    opts: {
+      name: string,
+      url: string,
+      hiddenFromStudents?: boolean,
+      dontOpenInNewTab?: boolean,
+      courseId?: number,
+    },
+    config?: APIConfig,
+  ): Promise<CanvasExternalTool> {
+    // Generate install XML
+    const xml = `
+<cartridge_basiclti_link xmlns="http://www.imsglobal.org/xsd/imslticc_v1p0" xmlns:blti="http://www.imsglobal.org/xsd/imsbasiclti_v1p0" xmlns:lticm="http://www.imsglobal.org/xsd/imslticm_v1p0" xmlns:lticp="http://www.imsglobal.org/xsd/imslticp_v1p0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/imslticc_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticc_v1p0.xsd http://www.imsglobal.org/xsd/imsbasiclti_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imsbasiclti_v1p0p1.xsd http://www.imsglobal.org/xsd/imslticm_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticm_v1p0.xsd http://www.imsglobal.org/xsd/imslticp_v1p0 http://www.imsglobal.org/xsd/lti/ltiv1p0/imslticp_v1p0.xsd">
+  <blti:title>Redirect Tool</blti:title>
+  <blti:description>Redirect: ${opts.name}</blti:description>
+  <blti:launch_url>https://www.edu-apps.org/redirect</blti:launch_url>
+  <blti:icon>https://www.edu-apps.org/assets/lti_redirect_engine/redirect_icon.png</blti:icon>
+  <blti:custom>
+    <lticm:property name="url">${opts.url}</lticm:property>
+  </blti:custom>
+  <blti:extensions platform="canvas.instructure.com">
+    <lticm:options name="course_navigation">
+      <lticm:property name="enabled">true</lticm:property>
+      <lticm:property name="visibility">${opts.hiddenFromStudents ? 'admins' : 'members'}</lticm:property>
+      <lticm:property name="windowTarget">${opts.dontOpenInNewTab ? '_self' : '_blank'}</lticm:property>
+    </lticm:options>
+    <lticm:property name="icon_url">https://www.edu-apps.org/assets/lti_redirect_engine/redirect_icon.png</lticm:property>
+    <lticm:property name="link_text"/>
+    <lticm:property name="privacy_level">anonymous</lticm:property>
+    <lticm:property name="tool_id">redirect ${opts.name}</lticm:property>
+  </blti:extensions>
+</cartridge_basiclti_link>
+    `;
+
+    // Add the app
+    return this.api.course.app.add(
+      {
+        name: opts.name,
+        key: 'N/A',
+        secret: 'N/A',
+        xml,
+      },
+      config,
+    );
   }
 
   /**
