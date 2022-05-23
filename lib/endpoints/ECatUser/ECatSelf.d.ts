@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with enrollment terms
- * @namespace api.enrollmentTerm
+ * @namespace api.user.self
  */
 import EndpointCategory from '../../shared/EndpointCategory';
 import APIConfig from '../../shared/types/APIConfig';

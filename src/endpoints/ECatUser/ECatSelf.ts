@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with enrollment terms
- * @namespace api.enrollmentTerm
+ * @namespace api.user.self
  */
 
 // Import shared classes
