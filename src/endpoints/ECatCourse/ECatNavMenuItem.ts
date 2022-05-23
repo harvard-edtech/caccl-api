@@ -1,6 +1,6 @@
 /**
  * Functions for interacting with course navigation menu items
- * @namespace api.course.navMenu
+ * @namespace api.course.navMenuItem
  */
 // Import caccl libs
 import CACCLError from 'caccl-error';
