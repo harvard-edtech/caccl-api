@@ -118,6 +118,43 @@ declare class ECatApp extends EndpointCategory {
         courseId?: number;
     }, config?: APIConfig): Promise<CanvasExternalTool>;
     /**
+     * Makes an app visible in the left-hand navigation menu if it was hidden
+     * @author Gabe Abrams
+     * @memberof api.course.app
+     * @instance
+     * @async
+     * @method showInNav
+     * @param {object} opts object containing all arguments
+     * @param {number} opts.appId The LTI app Id to make visible
+     * @param {boolean} [opts.putAtTop] if true, put the app at the top of
+     *   the left-hand nav menu
+     * @param {number} [opts.courseId=default course id] Canvas course Id for the
+     *   course containing the app
+     * @returns {Promise<CanvasTab>} Canvas tab {@link https://canvas.instructure.com/doc/api/tabs.html}
+     */
+    showInNav(opts: {
+        appId: number;
+        putAtTop?: boolean;
+        courseId?: number;
+    }, config?: APIConfig): Promise<CanvasTab>;
+    /**
+     * Hides an app from the left-hand navigation menu if it was visible
+     * @author Gabe Abrams
+     * @memberof api.course.app
+     * @instance
+     * @async
+     * @method hideFromNav
+     * @param {object} opts object containing all arguments
+     * @param {number} opts.appId The LTI app Id to hide
+     * @param {number} [opts.courseId=default course id] Canvas course Id for the
+     *   course containing the app
+     * @returns {Promise<CanvasTab>} Canvas tab {@link https://canvas.instructure.com/doc/api/tabs.html}
+     */
+    hideFromNav(opts: {
+        appId: number;
+        courseId?: number;
+    }, config?: APIConfig): Promise<CanvasTab>;
+    /**
      * Removes an LTI app from a Canvas course
      * @author Gabe Abrams
      * @memberof api.course.app

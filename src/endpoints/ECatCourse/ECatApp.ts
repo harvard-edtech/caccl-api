@@ -237,6 +237,76 @@ class ECatApp extends EndpointCategory {
   }
 
   /**
+   * Makes an app visible in the left-hand navigation menu if it was hidden
+   * @author Gabe Abrams
+   * @memberof api.course.app
+   * @instance
+   * @async
+   * @method showInNav
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.appId The LTI app Id to make visible
+   * @param {boolean} [opts.putAtTop] if true, put the app at the top of
+   *   the left-hand nav menu
+   * @param {number} [opts.courseId=default course id] Canvas course Id for the
+   *   course containing the app
+   * @returns {Promise<CanvasTab>} Canvas tab {@link https://canvas.instructure.com/doc/api/tabs.html}
+   */
+  public async showInNav(
+    opts: {
+      appId: number,
+      putAtTop?: boolean,
+      courseId?: number,
+    },
+    config?: APIConfig,
+  ): Promise<CanvasTab> {
+    return this.visitEndpoint({
+      config,
+      action: 'show an LTI app in the left-hand nav of a course',
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/tabs/context_external_tool_${opts.appId}`,
+      method: 'PUT',
+      params: {
+        hidden: false,
+        position: (
+          opts.putAtTop
+            ? 2
+            : undefined
+        ),
+      },
+    });
+  }
+
+  /**
+   * Hides an app from the left-hand navigation menu if it was visible
+   * @author Gabe Abrams
+   * @memberof api.course.app
+   * @instance
+   * @async
+   * @method hideFromNav
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.appId The LTI app Id to hide
+   * @param {number} [opts.courseId=default course id] Canvas course Id for the
+   *   course containing the app
+   * @returns {Promise<CanvasTab>} Canvas tab {@link https://canvas.instructure.com/doc/api/tabs.html}
+   */
+  public async hideFromNav(
+    opts: {
+      appId: number,
+      courseId?: number,
+    },
+    config?: APIConfig,
+  ): Promise<CanvasTab> {
+    return this.visitEndpoint({
+      config,
+      action: 'hide an LTI app from the left-hand nav of a course',
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/tabs/context_external_tool_${opts.appId}`,
+      method: 'PUT',
+      params: {
+        hidden: true,
+      },
+    });
+  }
+
+  /**
    * Removes an LTI app from a Canvas course
    * @author Gabe Abrams
    * @memberof api.course.app
