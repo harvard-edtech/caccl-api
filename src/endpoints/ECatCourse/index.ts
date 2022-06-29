@@ -25,6 +25,7 @@ import ECatApp from './ECatApp';
 import ECatAssignment from './ECatAssignment';
 import ECatAssignmentGroup from './ECatAssignmentGroup';
 import ECatDiscussionTopic from './ECatDiscussionTopic';
+import ECatFile from './ECatFile';
 import ECatGradebookColumn from './ECatGradebookColumn';
 import ECatGroup from './ECatGroup';
 import ECatGroupSet from './ECatGroupSet';
@@ -43,6 +44,7 @@ class ECatCourse extends EndpointCategory {
   public assignment: ECatAssignment;
   public assignmentGroup: ECatAssignmentGroup;
   public discussionTopic: ECatDiscussionTopic;
+  public file: ECatFile;
   public gradebookColumn: ECatGradebookColumn;
   public group: ECatGroup;
   public groupSet: ECatGroupSet;
@@ -66,6 +68,7 @@ class ECatCourse extends EndpointCategory {
     this.assignment = new ECatAssignment(initPack);
     this.assignmentGroup = new ECatAssignmentGroup(initPack);
     this.discussionTopic = new ECatDiscussionTopic(initPack);
+    this.file = new ECatFile(initPack);
     this.gradebookColumn = new ECatGradebookColumn(initPack);
     this.group = new ECatGroup(initPack);
     this.groupSet = new ECatGroupSet(initPack);
@@ -743,6 +746,49 @@ class ECatCourse extends EndpointCategory {
       },
       config,
     );
+  }
+
+  /*------------------------------------------------------------------------*/
+  /*                               Migrations                               */
+  /*------------------------------------------------------------------------*/
+
+  // TODO: add a function called "migrateContent" here
+
+  /**
+   * Perform a course content migration
+   * @author Gabe Abrams
+   * @method migrateContent
+   * @memberof api.course
+   * @instance
+   * @async
+   * @param {object} opts object containing all arguments
+   * @param {number} [opts.sourceCourseId=default course id] Canvas course Id of
+   *   the source course
+   * @param {number} opts.destinationCourse Canvas course Id of the destination
+   *   course
+   * // TODO: add the rest of your params
+   * @param {APIConfig} [config] custom configuration for this specific endpoint
+   *   call (overwrites defaults that were included when api was initialized)
+   * @returns {Promise<ADD CUSTOM RETURN TYPE>} DESCRIBE YOUR CUSTOM RETURN TYPE
+   */
+  public async list(
+    opts: {
+      sourceCourseId?: number,
+      destinationCourseId: number,
+      // TODO: list the rest of your arguments
+    },
+    config?: APIConfig,
+  ): Promise<ADD CUSTOM RETURN TYPE> {
+
+    // TODO: implement
+
+    // use this.visitEndpoint instead of api.other.endpoint
+    return this.visitEndpoint({
+      config,
+      action: 'perform a course content migration',
+      path: `${API_PREFIX}/ADD STUFF`,
+      method: 'GET',
+    });
   }
 }
 
