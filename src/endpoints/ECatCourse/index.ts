@@ -11,6 +11,7 @@ import APIConfig from '../../shared/types/APIConfig';
 import CanvasCourse from '../../types/CanvasCourse';
 import InitPack from '../../shared/types/InitPack';
 import CanvasEnrollment from '../../types/CanvasEnrollment';
+import {DateHandlingType, dayOfWeekToNumber, DateShiftOptions} from '../../shared/types/DateHandling';
 
 // Import shared helpers
 import utils from '../../shared/helpers/utils';
@@ -26,14 +27,22 @@ import ECatAssignment from './ECatAssignment';
 import ECatAssignmentGroup from './ECatAssignmentGroup';
 import ECatDiscussionTopic from './ECatDiscussionTopic';
 import ECatFile from './ECatFile';
+import ECatFolder from './ECatFolder';
 import ECatGradebookColumn from './ECatGradebookColumn';
 import ECatGroup from './ECatGroup';
 import ECatGroupSet from './ECatGroupSet';
+import ECatModule from './ECatModule';
 import ECatNavMenuItem from './ECatNavMenuItem';
 import ECatPage from './ECatPage';
 import ECatQuiz from './ECatQuiz';
 import ECatRubric from './ECatRubric';
 import ECatSection from './ECatSection';
+
+import { waitMs } from 'dce-reactkit';
+
+
+
+
 
 // Endpoint category
 class ECatCourse extends EndpointCategory {
@@ -45,9 +54,11 @@ class ECatCourse extends EndpointCategory {
   public assignmentGroup: ECatAssignmentGroup;
   public discussionTopic: ECatDiscussionTopic;
   public file: ECatFile;
+  public folder: ECatFolder;
   public gradebookColumn: ECatGradebookColumn;
   public group: ECatGroup;
   public groupSet: ECatGroupSet;
+  public module: ECatModule;
   public navMenuItem: ECatNavMenuItem;
   public page: ECatPage;
   public quiz: ECatQuiz;
@@ -69,15 +80,20 @@ class ECatCourse extends EndpointCategory {
     this.assignmentGroup = new ECatAssignmentGroup(initPack);
     this.discussionTopic = new ECatDiscussionTopic(initPack);
     this.file = new ECatFile(initPack);
+    this.folder = new ECatFolder(initPack);
     this.gradebookColumn = new ECatGradebookColumn(initPack);
     this.group = new ECatGroup(initPack);
     this.groupSet = new ECatGroupSet(initPack);
+    this.module = new ECatModule(initPack);
     this.navMenuItem = new ECatNavMenuItem(initPack);
     this.page = new ECatPage(initPack);
     this.quiz = new ECatQuiz(initPack);
     this.rubric = new ECatRubric(initPack);
     this.section = new ECatSection(initPack);
   }
+
+  
+
 
   /*------------------------------------------------------------------------*/
   /*                                 Course                                 */
@@ -748,15 +764,14 @@ class ECatCourse extends EndpointCategory {
     );
   }
 
+
   /*------------------------------------------------------------------------*/
   /*                               Migrations                               */
   /*------------------------------------------------------------------------*/
 
-  // TODO: add a function called "migrateContent" here
-
   /**
    * Perform a course content migration
-   * @author Gabe Abrams
+   * @author Yuen Ler Chow
    * @method migrateContent
    * @memberof api.course
    * @instance
@@ -766,30 +781,185 @@ class ECatCourse extends EndpointCategory {
    *   the source course
    * @param {number} opts.destinationCourse Canvas course Id of the destination
    *   course
-   * // TODO: add the rest of your params
+   * @param {object} opts.include object containing all items and their ids to include
+   * @param {number[]} opts.include.folderIds list of folder ids to include
+   * @param {number[]} opts.include.fileIds list of file ids to include
+   * @param {number[]} opts.include.attachmentIds list of attachment ids to include
+   * @param {number[]} opts.include.quizIds list of quiz ids to include
+   * @param {number[]} opts.include.assignmentIds list of assignment ids to include
+   *  @param {number[]} opts.include.announcementIds list of announcement ids to include
+   *  @param {number[]} opts.include.calendarEventIds list of calendar event ids to include
+   *  @param {number[]} opts.include.discussionIds list of discussion ids to include
+   * @param {number[]} opts.include.moduleIds list of module ids to include
+   *  @param {number[]} opts.include.moduleItemIds list of module item ids to include
+   *  @param {number[]} opts.include.pageIds list of page ids to include
+   *  @param {number[]} opts.include.rubricIds list of rubric ids to include
+   *  @param {DateShiftOptions} opts.dateShiftOptions options for shifting dates
+   *  @param {number} opts.timeout_ms maximum time in milliseconds to wait for course migration to finish
    * @param {APIConfig} [config] custom configuration for this specific endpoint
-   *   call (overwrites defaults that were included when api was initialized)
-   * @returns {Promise<ADD CUSTOM RETURN TYPE>} DESCRIBE YOUR CUSTOM RETURN TYPE
    */
-  public async list(
+  public async migrateContent(
     opts: {
-      sourceCourseId?: number,
+      sourceCourseId: number,
       destinationCourseId: number,
-      // TODO: list the rest of your arguments
+      include: {
+        folderIds: number[],
+        fileIds: number[],
+        attachmentIds: number[],
+        quizIds: number[],
+        assignmentIds: number[],
+        announcementIds: number[],
+        calendarEventIds: number[],
+        discussionTopicsIds: number[],
+        moduleIds: number[],
+        moduleItemIds: number[],
+        pageIds: number[],
+        rubricIds: number[],
+      },
+      dateShiftOptions: DateShiftOptions,
+      timeout_ms?: number,
     },
     config?: APIConfig,
-  ): Promise<ADD CUSTOM RETURN TYPE> {
+  ){
 
-    // TODO: implement
+    const {
+    sourceCourseId,
+    destinationCourseId,
+    include,
+    dateShiftOptions,
+    timeout_ms = 120000,
+  } = opts;
 
-    // use this.visitEndpoint instead of api.other.endpoint
-    return this.visitEndpoint({
-      config,
-      action: 'perform a course content migration',
-      path: `${API_PREFIX}/ADD STUFF`,
-      method: 'GET',
-    });
+  const {
+    folderIds,
+    fileIds,
+    attachmentIds,
+    quizIds,
+    assignmentIds,
+    announcementIds,
+    calendarEventIds,
+    discussionTopicsIds,
+    moduleIds,
+    moduleItemIds,
+    pageIds,
+    rubricIds,
+  } = include;
+  
+
+  const params : { [k : string]: any }
+  = {
+    migration_type: 'course_copy_importer',
+    settings: {
+      source_course_id: sourceCourseId,
+      overwrite_quizzes: true,
+    },
   }
+
+  params.select = {
+    folders: folderIds,
+    files: fileIds,
+    attachments: attachmentIds,
+    quizzes: quizIds,
+    assignments: assignmentIds,
+    announcements: announcementIds,
+    calendar_events: calendarEventIds,
+    discussion_topics: discussionTopicsIds,
+    modules: moduleIds,
+    module_items: moduleItemIds,
+    pages: pageIds,
+    rubrics: rubricIds,
+  }
+
+  if (dateShiftOptions.dateHandling === DateHandlingType.RemoveDates){
+    params.date_shift_options = {
+      remove_dates: true,
+    }
+  }
+  else if (dateShiftOptions.dateHandling === DateHandlingType.ShiftDates){
+      const {
+        oldStart,
+        oldEnd,
+        newStart,
+        newEnd,
+        daySubstitutionMap = {
+        },
+      } = dateShiftOptions;
+
+      const dayNumberSubstitutionMap: {[k : number]: number } = {};
+      Object.keys(daySubstitutionMap).forEach(k => {
+        dayNumberSubstitutionMap[dayOfWeekToNumber[k as keyof typeof daySubstitutionMap]] = dayOfWeekToNumber[daySubstitutionMap[k as keyof typeof daySubstitutionMap]];
+      }
+      )
+
+    params.date_shift_options = {
+      shift_dates: true,
+      old_start_date: oldStart,
+      old_end_date: oldEnd,
+      new_start_date: newStart,
+      new_end_date: newEnd,
+      day_substitutions: dayNumberSubstitutionMap,
+    }
+  }
+
+  try {
+    const contentMigration = await this.visitEndpoint({
+      path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations`,
+      action: 'perform a course content migration',
+      method: 'POST',
+      params,
+    });
+
+    let workflowState = 'running'
+    let migrationIssuesCount = 0
+    
+    const CHECK_INTERVAL_MS = 500
+    const numIterations = Math.ceil(timeout_ms/CHECK_INTERVAL_MS)
+    for (let i = 0; i < numIterations; i ++ ){
+      await waitMs(500);
+      const status = await this.visitEndpoint({
+        path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}`,
+        action: 'check the status of a content migration',
+        method: 'GET',
+      });
+      workflowState = status.workflow_state
+      migrationIssuesCount = status.migration_issues_count
+      
+      if (workflowState == 'completed' || workflowState == 'failed'){
+        break;
+      }
+    }
+    if (workflowState !== 'completed' && workflowState !== 'failed'){
+      throw new Error('Migration timeout');
+    }
+  
+    if (migrationIssuesCount > 0) {
+      const migrationIssues = await this.visitEndpoint({
+        path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}/migration_issues`,
+        action: 'get migration issues',
+        method: 'GET',
+      });
+
+      let errorMessage = ''
+      if (migrationIssuesCount === 1){
+        errorMessage = 'We ran into an error while migrating your course content: \n' + migrationIssues[0].description;
+      }
+      else{
+        errorMessage = `We ran into ${migrationIssuesCount} errors while migrating your course content: \n`;
+        for (let i = 0; i < migrationIssues.length; i ++){
+          if (i === migrationIssues.length - 1){
+            errorMessage += `${migrationIssues[i].description}\n`;
+          }
+          else{
+            errorMessage += `${i+1}. ${migrationIssues[i].description},\n`;
+          }
+        }
+      }
+      console.log(errorMessage);
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
 }
 
 /*------------------------------------------------------------------------*/
