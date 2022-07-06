@@ -11,7 +11,7 @@ import APIConfig from '../../shared/types/APIConfig';
 import CanvasCourse from '../../types/CanvasCourse';
 import InitPack from '../../shared/types/InitPack';
 import CanvasEnrollment from '../../types/CanvasEnrollment';
-import {DateHandlingType, dayOfWeekToNumber, DateShiftOptions} from '../../shared/types/DateHandling';
+import { DateHandlingType, dayOfWeekToNumber, DateShiftOptions } from '../../shared/types/DateHandling';
 
 // Import shared helpers
 import utils from '../../shared/helpers/utils';
@@ -37,10 +37,6 @@ import ECatPage from './ECatPage';
 import ECatQuiz from './ECatQuiz';
 import ECatRubric from './ECatRubric';
 import ECatSection from './ECatSection';
-
-
-
-
 
 // Endpoint category
 class ECatCourse extends EndpointCategory {
@@ -89,9 +85,6 @@ class ECatCourse extends EndpointCategory {
     this.rubric = new ECatRubric(initPack);
     this.section = new ECatSection(initPack);
   }
-
-  
-
 
   /*------------------------------------------------------------------------*/
   /*                                 Course                                 */
@@ -762,7 +755,6 @@ class ECatCourse extends EndpointCategory {
     );
   }
 
-
   /*------------------------------------------------------------------------*/
   /*                               Migrations                               */
   /*------------------------------------------------------------------------*/
@@ -793,7 +785,7 @@ class ECatCourse extends EndpointCategory {
    *  @param {number[]} opts.include.pageIds list of page ids to include
    *  @param {number[]} opts.include.rubricIds list of rubric ids to include
    *  @param {DateShiftOptions} opts.dateShiftOptions options for shifting dates
-   *  @param {number} opts.timeout_ms maximum time in milliseconds to wait for course migration to finish
+   *  @param {number} opts.timeoutMs maximum time in milliseconds to wait for course migration to finish
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    */
   public async migrateContent(
@@ -815,65 +807,60 @@ class ECatCourse extends EndpointCategory {
         rubricIds: number[],
       },
       dateShiftOptions: DateShiftOptions,
-      timeout_ms?: number,
+      timeoutMs?: number,
     },
-    config?: APIConfig,
-  ){
+  ) {
+    const {
+      sourceCourseId,
+      destinationCourseId,
+      include,
+      dateShiftOptions,
+      timeoutMs = 120000,
+    } = opts;
 
     const {
-    sourceCourseId,
-    destinationCourseId,
-    include,
-    dateShiftOptions,
-    timeout_ms = 120000,
-  } = opts;
+      folderIds,
+      fileIds,
+      attachmentIds,
+      quizIds,
+      assignmentIds,
+      announcementIds,
+      calendarEventIds,
+      discussionTopicsIds,
+      moduleIds,
+      moduleItemIds,
+      pageIds,
+      rubricIds,
+    } = include;
 
-  const {
-    folderIds,
-    fileIds,
-    attachmentIds,
-    quizIds,
-    assignmentIds,
-    announcementIds,
-    calendarEventIds,
-    discussionTopicsIds,
-    moduleIds,
-    moduleItemIds,
-    pageIds,
-    rubricIds,
-  } = include;
-  
+    const params : { [k : string]: any } = {
+      migration_type: 'course_copy_importer',
+      settings: {
+        source_course_id: sourceCourseId,
+        overwrite_quizzes: true,
+      },
+    };
 
-  const params : { [k : string]: any }
-  = {
-    migration_type: 'course_copy_importer',
-    settings: {
-      source_course_id: sourceCourseId,
-      overwrite_quizzes: true,
-    },
-  }
+    params.select = {
+      folders: folderIds,
+      files: fileIds,
+      attachments: attachmentIds,
+      quizzes: quizIds,
+      assignments: assignmentIds,
+      announcements: announcementIds,
+      calendar_events: calendarEventIds,
+      discussion_topics: discussionTopicsIds,
+      modules: moduleIds,
+      module_items: moduleItemIds,
+      pages: pageIds,
+      rubrics: rubricIds,
+    };
 
-  params.select = {
-    folders: folderIds,
-    files: fileIds,
-    attachments: attachmentIds,
-    quizzes: quizIds,
-    assignments: assignmentIds,
-    announcements: announcementIds,
-    calendar_events: calendarEventIds,
-    discussion_topics: discussionTopicsIds,
-    modules: moduleIds,
-    module_items: moduleItemIds,
-    pages: pageIds,
-    rubrics: rubricIds,
-  }
-
-  if (dateShiftOptions.dateHandling === DateHandlingType.RemoveDates){
-    params.date_shift_options = {
-      remove_dates: true,
-    }
-  }
-  else if (dateShiftOptions.dateHandling === DateHandlingType.ShiftDates){
+    if (dateShiftOptions.dateHandling === DateHandlingType.RemoveDates) {
+      params.date_shift_options = {
+        remove_dates: true,
+      };
+    } else if (dateShiftOptions.dateHandling === DateHandlingType.ShiftDates) {
       const {
         oldStart,
         oldEnd,
@@ -883,83 +870,82 @@ class ECatCourse extends EndpointCategory {
         },
       } = dateShiftOptions;
 
-      const dayNumberSubstitutionMap: {[k : number]: number } = {};
-      Object.keys(daySubstitutionMap).forEach(k => {
-        dayNumberSubstitutionMap[dayOfWeekToNumber[k as keyof typeof daySubstitutionMap]] = dayOfWeekToNumber[daySubstitutionMap[k as keyof typeof daySubstitutionMap]];
-      }
-      )
-
-    params.date_shift_options = {
-      shift_dates: true,
-      old_start_date: oldStart,
-      old_end_date: oldEnd,
-      new_start_date: newStart,
-      new_end_date: newEnd,
-      day_substitutions: dayNumberSubstitutionMap,
-    }
-  }
-
-  try {
-    const contentMigration = await this.visitEndpoint({
-      path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations`,
-      action: 'perform a course content migration',
-      method: 'POST',
-      params,
-    });
-
-    let workflowState = 'running'
-    let migrationIssuesCount = 0
-    
-    const CHECK_INTERVAL_MS = 500
-    const numIterations = Math.ceil(timeout_ms/CHECK_INTERVAL_MS)
-    for (let i = 0; i < numIterations; i ++ ){
-      await new Promise((resolve) => {
-        setTimeout(resolve, CHECK_INTERVAL_MS);
-      });
-      const status = await this.visitEndpoint({
-        path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}`,
-        action: 'check the status of a content migration',
-        method: 'GET',
-      });
-      workflowState = status.workflow_state
-      migrationIssuesCount = status.migration_issues_count
-      
-      if (workflowState == 'completed' || workflowState == 'failed'){
-        break;
-      }
-    }
-    if (workflowState !== 'completed' && workflowState !== 'failed'){
-      throw new Error('Migration timeout');
-    }
-  
-    if (migrationIssuesCount > 0) {
-      const migrationIssues = await this.visitEndpoint({
-        path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}/migration_issues`,
-        action: 'get migration issues',
-        method: 'GET',
+      const dayNumberSubstitutionMap: { [k : number]: number } = {};
+      Object.keys(daySubstitutionMap).forEach((k) => {
+        dayNumberSubstitutionMap[dayOfWeekToNumber[
+          k as keyof typeof daySubstitutionMap]
+        ] = dayOfWeekToNumber[daySubstitutionMap[k as keyof typeof daySubstitutionMap]];
       });
 
-      let errorMessage = ''
-      if (migrationIssuesCount === 1){
-        errorMessage = 'We ran into an error while migrating your course content: \n' + migrationIssues[0].description;
-      }
-      else{
-        errorMessage = `We ran into ${migrationIssuesCount} errors while migrating your course content: \n`;
-        for (let i = 0; i < migrationIssues.length; i ++){
-          if (i === migrationIssues.length - 1){
-            errorMessage += `${migrationIssues[i].description}\n`;
-          }
-          else{
-            errorMessage += `${i+1}. ${migrationIssues[i].description},\n`;
-          }
+      params.date_shift_options = {
+        shift_dates: true,
+        old_start_date: oldStart,
+        old_end_date: oldEnd,
+        new_start_date: newStart,
+        new_end_date: newEnd,
+        day_substitutions: dayNumberSubstitutionMap,
+      };
+    }
+
+    try {
+      const contentMigration = await this.visitEndpoint({
+        path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations`,
+        action: 'perform a course content migration',
+        method: 'POST',
+        params,
+      });
+
+      let workflowState = 'running';
+      let migrationIssuesCount = 0;
+
+      const CHECK_INTERVAL_MS = 500;
+      const numIterations = Math.ceil(timeoutMs / CHECK_INTERVAL_MS);
+      for (let i = 0; i < numIterations; i++) {
+        await new Promise((resolve) => {
+          setTimeout(resolve, CHECK_INTERVAL_MS);
+        });
+        const status = await this.visitEndpoint({
+          path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}`,
+          action: 'check the status of a content migration',
+          method: 'GET',
+        });
+        workflowState = status.workflow_state;
+        migrationIssuesCount = status.migration_issues_count;
+
+        if (workflowState === 'completed' || workflowState === 'failed') {
+          break;
         }
       }
-      console.log(errorMessage);
+      if (workflowState !== 'completed' && workflowState !== 'failed') {
+        throw new Error('Migration timeout');
+      }
+
+      if (migrationIssuesCount > 0) {
+        const migrationIssues = await this.visitEndpoint({
+          path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}/migration_issues`,
+          action: 'get migration issues',
+          method: 'GET',
+        });
+
+        let errorMessage = '';
+        if (migrationIssuesCount === 1) {
+          errorMessage = `We ran into an error while migrating your course content: \n${migrationIssues[0].description}`;
+        } else {
+          errorMessage = `We ran into ${migrationIssuesCount} errors while migrating your course content: \n`;
+          for (let i = 0; i < migrationIssues.length; i++) {
+            if (i === migrationIssues.length - 1) {
+              errorMessage += `${migrationIssues[i].description}\n`;
+            } else {
+              errorMessage += `${i + 1}. ${migrationIssues[i].description},\n`;
+            }
+          }
+        }
+        console.log(errorMessage);
+      }
+    } catch (err) {
+      console.log(err);
     }
-  } catch (err) {
-    console.log(err)
   }
-}
 }
 
 /*------------------------------------------------------------------------*/

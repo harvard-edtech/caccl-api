@@ -40,6 +40,6 @@ interface CanvasFolder {
   // if true, indicates this is a read-only folder containing files submitted to
   // assignments
   for_submissions: boolean,
-};
+}
 
 export default CanvasFolder;
