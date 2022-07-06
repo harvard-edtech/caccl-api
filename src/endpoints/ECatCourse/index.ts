@@ -38,8 +38,6 @@ import ECatQuiz from './ECatQuiz';
 import ECatRubric from './ECatRubric';
 import ECatSection from './ECatSection';
 
-import { waitMs } from 'dce-reactkit';
-
 
 
 
@@ -915,7 +913,9 @@ class ECatCourse extends EndpointCategory {
     const CHECK_INTERVAL_MS = 500
     const numIterations = Math.ceil(timeout_ms/CHECK_INTERVAL_MS)
     for (let i = 0; i < numIterations; i ++ ){
-      await waitMs(500);
+      await new Promise((resolve) => {
+        setTimeout(resolve, CHECK_INTERVAL_MS);
+      });
       const status = await this.visitEndpoint({
         path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}`,
         action: 'check the status of a content migration',
