@@ -80,6 +80,9 @@ enum ErrorCode {
   // course.navMenuItem
   // > update
   NavItemNotFound = 'CAPI25',
-};
+
+  MigrationTimeout = 'CAPI26',
+  MigrationIssue = 'CAPI28',
+}
 
 export default ErrorCode;

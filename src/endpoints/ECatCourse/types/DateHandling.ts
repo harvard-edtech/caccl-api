@@ -13,7 +13,7 @@ export enum DayOfWeek {
   Saturday = 'saturday',
 }
 
-export const dayOfWeekToNumber= {
+export const dayOfWeekToNumber = {
   [DayOfWeek.Sunday]: 0,
   [DayOfWeek.Monday]: 1,
   [DayOfWeek.Tuesday]: 2,
@@ -34,7 +34,7 @@ export type DateShiftOptions = (
       newStart: Date,
       newEnd: Date,
       daySubstitutionMap?: {
-        [k in DayOfWeek]: DayOfWeek 
+        [k in DayOfWeek]: DayOfWeek
       }
     }
-)
+);

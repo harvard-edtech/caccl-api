@@ -4,6 +4,8 @@
  */
 
 // Import shared classes
+import CACCLError from 'caccl-error';
+import ErrorCode from '../../shared/types/ErrorCode';
 import EndpointCategory from '../../shared/EndpointCategory';
 
 // Import shared types
@@ -11,7 +13,7 @@ import APIConfig from '../../shared/types/APIConfig';
 import CanvasCourse from '../../types/CanvasCourse';
 import InitPack from '../../shared/types/InitPack';
 import CanvasEnrollment from '../../types/CanvasEnrollment';
-import { DateHandlingType, dayOfWeekToNumber, DateShiftOptions } from '../../shared/types/DateHandling';
+import { DateHandlingType, dayOfWeekToNumber, DateShiftOptions } from './types/DateHandling';
 
 // Import shared helpers
 import utils from '../../shared/helpers/utils';
@@ -772,20 +774,16 @@ class ECatCourse extends EndpointCategory {
    * @param {number} opts.destinationCourse Canvas course Id of the destination
    *   course
    * @param {object} opts.include object containing all items and their ids to include
-   * @param {number[]} opts.include.folderIds list of folder ids to include
    * @param {number[]} opts.include.fileIds list of file ids to include
-   * @param {number[]} opts.include.attachmentIds list of attachment ids to include
    * @param {number[]} opts.include.quizIds list of quiz ids to include
    * @param {number[]} opts.include.assignmentIds list of assignment ids to include
-   *  @param {number[]} opts.include.announcementIds list of announcement ids to include
-   *  @param {number[]} opts.include.calendarEventIds list of calendar event ids to include
-   *  @param {number[]} opts.include.discussionIds list of discussion ids to include
+   * @param {number[]} opts.include.announcementIds list of announcement ids to include
+   * @param {number[]} opts.include.discussionIds list of discussion ids to include
    * @param {number[]} opts.include.moduleIds list of module ids to include
-   *  @param {number[]} opts.include.moduleItemIds list of module item ids to include
-   *  @param {number[]} opts.include.pageIds list of page ids to include
-   *  @param {number[]} opts.include.rubricIds list of rubric ids to include
-   *  @param {DateShiftOptions} opts.dateShiftOptions options for shifting dates
-   *  @param {number} opts.timeoutMs maximum time in milliseconds to wait for course migration to finish
+   * @param {number[]} opts.include.pageIds list of page ids to include
+   * @param {number[]} opts.include.rubricIds list of rubric ids to include
+   * @param {DateShiftOptions} opts.dateShiftOptions options for shifting dates
+   * @param {number} opts.timeoutMs = 2 minutes maximum time in milliseconds to wait for course migration to finish
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    */
   public async migrateContent(
@@ -793,16 +791,12 @@ class ECatCourse extends EndpointCategory {
       sourceCourseId: number,
       destinationCourseId: number,
       include: {
-        folderIds: number[],
         fileIds: number[],
-        attachmentIds: number[],
         quizIds: number[],
         assignmentIds: number[],
         announcementIds: number[],
-        calendarEventIds: number[],
         discussionTopicsIds: number[],
         moduleIds: number[],
-        moduleItemIds: number[],
         pageIds: number[],
         rubricIds: number[],
       },
@@ -815,25 +809,21 @@ class ECatCourse extends EndpointCategory {
       destinationCourseId,
       include,
       dateShiftOptions,
-      timeoutMs = 120000,
+      timeoutMs = 120000, // 2 minutes
     } = opts;
 
     const {
-      folderIds,
       fileIds,
-      attachmentIds,
       quizIds,
       assignmentIds,
       announcementIds,
-      calendarEventIds,
       discussionTopicsIds,
       moduleIds,
-      moduleItemIds,
       pageIds,
       rubricIds,
     } = include;
 
-    const params : { [k : string]: any } = {
+    const params: { [k: string]: any } = {
       migration_type: 'course_copy_importer',
       settings: {
         source_course_id: sourceCourseId,
@@ -842,16 +832,12 @@ class ECatCourse extends EndpointCategory {
     };
 
     params.select = {
-      folders: folderIds,
       files: fileIds,
-      attachments: attachmentIds,
       quizzes: quizIds,
       assignments: assignmentIds,
       announcements: announcementIds,
-      calendar_events: calendarEventIds,
       discussion_topics: discussionTopicsIds,
       modules: moduleIds,
-      module_items: moduleItemIds,
       pages: pageIds,
       rubrics: rubricIds,
     };
@@ -866,11 +852,10 @@ class ECatCourse extends EndpointCategory {
         oldEnd,
         newStart,
         newEnd,
-        daySubstitutionMap = {
-        },
+        daySubstitutionMap = {},
       } = dateShiftOptions;
 
-      const dayNumberSubstitutionMap: { [k : number]: number } = {};
+      const dayNumberSubstitutionMap: { [k: number]: number } = {};
       Object.keys(daySubstitutionMap).forEach((k) => {
         dayNumberSubstitutionMap[dayOfWeekToNumber[
           k as keyof typeof daySubstitutionMap]
@@ -917,7 +902,10 @@ class ECatCourse extends EndpointCategory {
         }
       }
       if (workflowState !== 'completed' && workflowState !== 'failed') {
-        throw new Error('Migration timeout');
+        throw new CACCLError({
+          message: 'Migration timed out',
+          code: ErrorCode.MigrationTimeout,
+        });
       }
 
       if (migrationIssuesCount > 0) {
@@ -929,21 +917,27 @@ class ECatCourse extends EndpointCategory {
 
         let errorMessage = '';
         if (migrationIssuesCount === 1) {
-          errorMessage = `We ran into an error while migrating your course content: \n${migrationIssues[0].description}`;
+          errorMessage = `We ran into an error while migrating your course content: ${migrationIssues[0].description}`;
         } else {
-          errorMessage = `We ran into ${migrationIssuesCount} errors while migrating your course content: \n`;
+          errorMessage = `We ran into ${migrationIssuesCount} errors while migrating your course content: `;
           for (let i = 0; i < migrationIssues.length; i++) {
             if (i === migrationIssues.length - 1) {
-              errorMessage += `${migrationIssues[i].description}\n`;
+              errorMessage += `and ${migrationIssues[i].description}.`;
             } else {
-              errorMessage += `${i + 1}. ${migrationIssues[i].description},\n`;
+              errorMessage += `${migrationIssues[i].description}, `;
             }
           }
         }
-        console.log(errorMessage);
+        throw new CACCLError({
+          message: errorMessage,
+          code: ErrorCode.MigrationIssue,
+        });
       }
     } catch (err) {
-      console.log(err);
+      throw new CACCLError({
+        message: err,
+        code: ErrorCode.MigrationIssue,
+      });
     }
   }
 }

@@ -1,7 +1,7 @@
 interface CanvasFolder {
-  // type of folder
+  // the type of Canvas object that contains the folder
   context_type: string,
-  // id of folder
+  // the id of the Canvas object that contains the folder
   context_id: number,
   // number of files in folder
   files_count: number,
@@ -9,11 +9,11 @@ interface CanvasFolder {
   position: number,
   // last updated
   updated_at: string,
-  // url to folders
+  // URL for the list of folders contained in this folder
   folders_url: string,
-  // url to files
+  // URL for the list of files contained in this folder
   files_url: string,
-  // full name of folder
+  // full path name of folder
   full_name: string,
   // lock date
   lock_at: string,
@@ -29,13 +29,13 @@ interface CanvasFolder {
   created_at: string,
   // unlock date
   unlock_at: string | null,
-  // hidden
+  // If true, folder is hidden from users
   hidden: boolean,
-  // hidden for user
+  // If true, folder is hidden from the current user
   hidden_for_user: boolean,
-  // whether the folder is locked
+  // If true, folder is locked
   locked: boolean,
-  // whether the folder is locked for user
+  // If true, folder is locked for the current user
   locked_for_user: boolean,
   // if true, indicates this is a read-only folder containing files submitted to
   // assignments
