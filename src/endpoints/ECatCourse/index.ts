@@ -774,16 +774,16 @@ class ECatCourse extends EndpointCategory {
    * @param {number} opts.destinationCourse Canvas course Id of the destination
    *   course
    * @param {object} opts.include object containing all items and their ids to include
-   * @param {number[]} opts.include.fileIds list of file ids to include
-   * @param {number[]} opts.include.quizIds list of quiz ids to include
-   * @param {number[]} opts.include.assignmentIds list of assignment ids to include
-   * @param {number[]} opts.include.announcementIds list of announcement ids to include
-   * @param {number[]} opts.include.discussionIds list of discussion ids to include
-   * @param {number[]} opts.include.moduleIds list of module ids to include
-   * @param {number[]} opts.include.pageIds list of page ids to include
-   * @param {number[]} opts.include.rubricIds list of rubric ids to include
+   * @param {number[]} [opts.include.fileIds = []] list of file ids to include
+   * @param {number[]} [opts.include.quizIds = []] list of quiz ids to include
+   * @param {number[]} [opts.include.assignmentIds = []] list of assignment ids to include
+   * @param {number[]} [opts.include.announcementIds = []] list of announcement ids to include
+   * @param {number[]} [opts.include.discussionIds = []] list of discussion ids to include
+   * @param {number[]} [opts.include.moduleIds = []] list of module ids to include
+   * @param {number[]} [opts.include.pageIds = []] list of page ids to include
+   * @param {number[]} [opts.include.rubricIds = []] list of rubric ids to include
    * @param {DateShiftOptions} opts.dateShiftOptions options for shifting dates
-   * @param {number} opts.timeoutMs = 2 minutes maximum time in milliseconds to wait for course migration to finish
+   * @param {number} [opts.timeoutMs = 2 minutes] maximum time in milliseconds to wait for course migration to finish
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    */
   public async migrateContent(
@@ -791,14 +791,14 @@ class ECatCourse extends EndpointCategory {
       sourceCourseId: number,
       destinationCourseId: number,
       include: {
-        fileIds: number[],
-        quizIds: number[],
-        assignmentIds: number[],
-        announcementIds: number[],
-        discussionTopicsIds: number[],
-        moduleIds: number[],
-        pageIds: number[],
-        rubricIds: number[],
+        fileIds?: number[],
+        quizIds?: number[],
+        assignmentIds?: number[],
+        announcementIds?: number[],
+        discussionTopicsIds?: number[],
+        moduleIds?: number[],
+        pageIds?: number[],
+        rubricIds?: number[],
       },
       dateShiftOptions: DateShiftOptions,
       timeoutMs?: number,
@@ -812,15 +812,16 @@ class ECatCourse extends EndpointCategory {
       timeoutMs = 120000, // 2 minutes
     } = opts;
 
+    // if the user didn't specify the ids for an item, just make it an empty array
     const {
-      fileIds,
-      quizIds,
-      assignmentIds,
-      announcementIds,
-      discussionTopicsIds,
-      moduleIds,
-      pageIds,
-      rubricIds,
+      fileIds = [],
+      quizIds = [],
+      assignmentIds = [],
+      announcementIds = [],
+      discussionTopicsIds = [],
+      moduleIds = [],
+      pageIds = [],
+      rubricIds = [],
     } = include;
 
     const params: { [k: string]: any } = {
@@ -842,6 +843,7 @@ class ECatCourse extends EndpointCategory {
       rubrics: rubricIds,
     };
 
+    // if we remove dates we don't need to provide start and end dates, but if we shift dates, we do
     if (dateShiftOptions.dateHandling === DateHandlingType.RemoveDates) {
       params.date_shift_options = {
         remove_dates: true,
@@ -857,9 +859,8 @@ class ECatCourse extends EndpointCategory {
 
       const dayNumberSubstitutionMap: { [k: number]: number } = {};
       Object.keys(daySubstitutionMap).forEach((k) => {
-        dayNumberSubstitutionMap[dayOfWeekToNumber[
-          k as keyof typeof daySubstitutionMap]
-        ] = dayOfWeekToNumber[daySubstitutionMap[k as keyof typeof daySubstitutionMap]];
+        const key = k as keyof typeof daySubstitutionMap;
+        dayNumberSubstitutionMap[dayOfWeekToNumber[key]] = dayOfWeekToNumber[daySubstitutionMap[key]];
       });
 
       params.date_shift_options = {
@@ -885,6 +886,8 @@ class ECatCourse extends EndpointCategory {
 
       const CHECK_INTERVAL_MS = 500;
       const numIterations = Math.ceil(timeoutMs / CHECK_INTERVAL_MS);
+
+      // continuously check every CHECK_INTERVAL_MS if the migration is finished, failed, or timed out
       for (let i = 0; i < numIterations; i++) {
         await new Promise((resolve) => {
           setTimeout(resolve, CHECK_INTERVAL_MS);
@@ -915,6 +918,7 @@ class ECatCourse extends EndpointCategory {
           method: 'GET',
         });
 
+        // generate the error message
         let errorMessage = '';
         if (migrationIssuesCount === 1) {
           errorMessage = `We ran into an error while migrating your course content: ${migrationIssues[0].description}`;
@@ -923,6 +927,8 @@ class ECatCourse extends EndpointCategory {
           for (let i = 0; i < migrationIssues.length; i++) {
             if (i === migrationIssues.length - 1) {
               errorMessage += `and ${migrationIssues[i].description}.`;
+            } else if (migrationIssues.length === 2) {
+              errorMessage += `${migrationIssues[i].description} `;
             } else {
               errorMessage += `${migrationIssues[i].description}, `;
             }

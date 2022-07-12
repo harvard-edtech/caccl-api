@@ -1,3 +1,7 @@
+/**
+ * Two ways to handle dates when performing a course migration.
+ * @author Yuen Ler Chow
+ */
 export enum DateHandlingType {
   ShiftDates = 'shift-dates',
   RemoveDates = 'remove-dates',
@@ -13,6 +17,10 @@ export enum DayOfWeek {
   Saturday = 'saturday',
 }
 
+/**
+ * Convert DayOfWeek to a number.
+ * @author Yuen Ler Chow
+ */
 export const dayOfWeekToNumber = {
   [DayOfWeek.Sunday]: 0,
   [DayOfWeek.Monday]: 1,
@@ -23,6 +31,10 @@ export const dayOfWeekToNumber = {
   [DayOfWeek.Saturday]: 6,
 };
 
+/**
+ * All the information needed to shift dates.
+ * @author Yuen Ler Chow
+ */
 export type DateShiftOptions = (
     {
       dateHandling: DateHandlingType.RemoveDates,
