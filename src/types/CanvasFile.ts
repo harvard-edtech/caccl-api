@@ -46,6 +46,6 @@ interface CanvasFile {
   // optional: url to the document preview. This url is specific to the user
   // making the api call. Only included in submission endpoints.
   preview_url?: null | string,
-};
+}
 
 export default CanvasFile;
