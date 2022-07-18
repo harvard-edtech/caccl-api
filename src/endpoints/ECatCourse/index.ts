@@ -824,6 +824,7 @@ class ECatCourse extends EndpointCategory {
       rubricIds = [],
     } = include;
 
+    // Create a params object that we'll dynamically fill with params depending on the request
     const params: { [k: string]: any } = {
       migration_type: 'course_copy_importer',
       settings: {
@@ -832,6 +833,7 @@ class ECatCourse extends EndpointCategory {
       },
     };
 
+    // Add selected ids to the request
     params.select = {
       files: fileIds,
       quizzes: quizIds,
@@ -857,12 +859,14 @@ class ECatCourse extends EndpointCategory {
         daySubstitutionMap = {},
       } = dateShiftOptions;
 
+      // Translate input (day week map) to number-based params that Canvas uses
       const dayNumberSubstitutionMap: { [k: number]: number } = {};
       Object.keys(daySubstitutionMap).forEach((k) => {
         const key = k as keyof typeof daySubstitutionMap;
         dayNumberSubstitutionMap[dayOfWeekToNumber[key]] = dayOfWeekToNumber[daySubstitutionMap[key]];
       });
 
+      // Add date shift info to the request
       params.date_shift_options = {
         shift_dates: true,
         old_start_date: oldStart,
@@ -881,17 +885,21 @@ class ECatCourse extends EndpointCategory {
         params,
       });
 
+      // Initialize status variables that are updated on each check
       let workflowState = 'running';
       let migrationIssuesCount = 0;
 
       const CHECK_INTERVAL_MS = 500;
+      // Calculate num iterations
       const numIterations = Math.ceil(timeoutMs / CHECK_INTERVAL_MS);
 
       // continuously check every CHECK_INTERVAL_MS if the migration is finished, failed, or timed out
       for (let i = 0; i < numIterations; i++) {
+        // Wait for CHECK_INTERVAL_MS
         await new Promise((resolve) => {
           setTimeout(resolve, CHECK_INTERVAL_MS);
         });
+        // Go to the api endpoint to get the status of the content migration
         const status = await this.visitEndpoint({
           path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}`,
           action: 'check the status of a content migration',
@@ -900,10 +908,12 @@ class ECatCourse extends EndpointCategory {
         workflowState = status.workflow_state;
         migrationIssuesCount = status.migration_issues_count;
 
+        // If the workflow is no longer running, end the loop
         if (workflowState === 'completed' || workflowState === 'failed') {
           break;
         }
       }
+      // Detect a timeout (if the workflow never left the pending state)
       if (workflowState !== 'completed' && workflowState !== 'failed') {
         throw new CACCLError({
           message: 'Migration timed out',
@@ -912,34 +922,48 @@ class ECatCourse extends EndpointCategory {
       }
 
       if (migrationIssuesCount > 0) {
+        // Go to the api endpoint to get a list of migration issues
         const migrationIssues = await this.visitEndpoint({
           path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}/migration_issues`,
           action: 'get migration issues',
           method: 'GET',
         });
 
-        // generate the error message
-        let errorMessage = '';
+        let errorsAsText: string;
+        // If there is only 1 issue, we simply print the issue.
+        // If there is more than 1, we need to concatenate these issues with commas + ands
         if (migrationIssuesCount === 1) {
-          errorMessage = `We ran into an error while migrating your course content: ${migrationIssues[0].description}`;
+          errorsAsText = migrationIssues[0].description;
+        } else if (migrationIssuesCount === 2) {
+          errorsAsText = `${migrationIssues[0].description} and ${migrationIssues[1].description}`;
         } else {
-          errorMessage = `We ran into ${migrationIssuesCount} errors while migrating your course content: `;
-          for (let i = 0; i < migrationIssues.length; i++) {
-            if (i === migrationIssues.length - 1) {
-              errorMessage += `and ${migrationIssues[i].description}.`;
-            } else if (migrationIssues.length === 2) {
-              errorMessage += `${migrationIssues[i].description} `;
-            } else {
-              errorMessage += `${migrationIssues[i].description}, `;
-            }
-          }
+          errorsAsText = (
+            migrationIssues
+            // Extract only the descriptions and add "and" to last item
+              .map((migrationIssue: any, i: number) => {
+                if (i === migrationIssues.length - 1) {
+                  return `and ${migrationIssue.description}`;
+                }
+                return migrationIssue.description;
+              })
+            // Put together
+              .join(', ')
+          );
         }
+
+        const errorMessage = `We ran into an error while migrating your course content: ${errorsAsText}.`;
+
         throw new CACCLError({
           message: errorMessage,
           code: ErrorCode.MigrationIssue,
         });
       }
     } catch (err) {
+      if (err instanceof CACCLError) {
+        // Rethrow the error (it's already in the right format)
+        throw err;
+      }
+      // An unknown error occurred. Throw a new error
       throw new CACCLError({
         message: err,
         code: ErrorCode.MigrationIssue,
