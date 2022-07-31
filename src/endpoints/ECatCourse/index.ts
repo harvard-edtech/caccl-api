@@ -830,6 +830,7 @@ class ECatCourse extends EndpointCategory {
       settings: {
         source_course_id: sourceCourseId,
         overwrite_quizzes: true,
+        // move_to_assignment_group_id: 198434,
       },
     };
 
@@ -969,6 +970,87 @@ class ECatCourse extends EndpointCategory {
         code: ErrorCode.MigrationIssue,
       });
     }
+    // After migrating content, we migrate the assignment groups
+    const assignments = await this.visitEndpoint({
+      path: `${API_PREFIX}/courses/${sourceCourseId}/assignments`,
+      action: 'get assignments',
+      method: 'GET',
+    });
+    const destinationAssignmentGroups = await this.visitEndpoint({
+      path: `${API_PREFIX}/courses/${destinationCourseId}/assignment_groups`,
+      action: 'get assignment groups',
+      method: 'GET',
+    });
+    const destinationAssignments = await this.visitEndpoint({
+      path: `${API_PREFIX}/courses/${destinationCourseId}/assignments`,
+      action: 'get assignments',
+      method: 'GET',
+    });
+    // mapping source group id to destination group id
+    const assignmentGroupMap: { [k: number]: number } = {};
+    assignments.forEach(async (assignment: any) => {
+      if (assignmentIds.includes(assignment.id)) {
+        // Get the assignment group id of the assignment
+        const assignmentGroupId = assignment.assignment_group_id;
+        let destinationAssignmentGroupId = assignmentGroupId;
+        // If the assignment group id is in the map, we use the map to get the destination group id
+        if (assignmentGroupMap[assignmentGroupId]) {
+          destinationAssignmentGroupId = assignmentGroupMap[assignmentGroupId];
+        } else {
+        // Get the assignment group name
+          const assignmentGroup = await this.visitEndpoint({
+            path: `${API_PREFIX}/courses/${sourceCourseId}/assignment_groups/${assignmentGroupId}`,
+            action: 'get assignment group',
+            method: 'GET',
+          });
+          const assignmentGroupName = assignmentGroup.name;
+          // Get the assignment group id of the assignment group name
+          let destinationAssignmentGroup = destinationAssignmentGroups.find(
+            (group: any) => { return group.name === assignmentGroupName; },
+          );
+          // if destination assignment group id is undefined, create a new assignment group
+          if (destinationAssignmentGroup === undefined) {
+            destinationAssignmentGroup = await this.visitEndpoint({
+              path: `${API_PREFIX}/courses/${destinationCourseId}/assignment_groups`,
+              action: 'create assignment group',
+              method: 'POST',
+              params: {
+                name: assignmentGroupName,
+              },
+            });
+          }
+          destinationAssignmentGroupId = destinationAssignmentGroup.id;
+          // Add the assignment group id to the map
+          assignmentGroupMap[assignmentGroupId] = destinationAssignmentGroupId;
+        }
+        // determine the id of the assignment in the new course by comparing assignment name and description
+        const destinationAssignment = destinationAssignments.find(
+          (destAssignment: any) => {
+            return destAssignment.name === assignment.name && destAssignment.description === assignment.description;
+          },
+        );
+        let destinationAssignmentId;
+        if (destinationAssignment === undefined) {
+          throw new CACCLError({
+            message: 'Could not find assignment in destination course',
+            code: ErrorCode.MigrationIssue,
+          });
+        } else {
+          destinationAssignmentId = destinationAssignment.id;
+        }
+        // Update the assignment group id of the assignment
+        await this.visitEndpoint({
+          path: `${API_PREFIX}/courses/${destinationCourseId}/assignments/${destinationAssignmentId}`,
+          action: 'update assignment',
+          method: 'PUT',
+          params: {
+            assignment: {
+              assignment_group_id: destinationAssignmentGroupId,
+            },
+          },
+        });
+      }
+    });
   }
 }
 
