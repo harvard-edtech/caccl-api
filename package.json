@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "caccl-error": "^2.0.2",
-    "caccl-send-request": "^2.0.2",
+    "caccl-send-request": "^2.0.3",
     "fast-clone": "^1.5.13"
   }
 }
