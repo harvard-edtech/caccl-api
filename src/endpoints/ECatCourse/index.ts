@@ -878,6 +878,20 @@ class ECatCourse extends EndpointCategory {
       };
     }
 
+    // iterate through each assignment and change the name to be current name + [id]
+    assignmentIds.forEach(async (id) => {
+      const { name } = await this.api.course.assignment.get({
+        assignmentId: id,
+        courseId: sourceCourseId,
+      });
+      this.api.course.assignment.update({
+        assignmentId: id,
+        courseId: sourceCourseId,
+        name: `${name}[${id}]`,
+      });
+    });
+
+    // Create the migration
     try {
       const contentMigration = await this.visitEndpoint({
         path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations`,
@@ -971,20 +985,14 @@ class ECatCourse extends EndpointCategory {
       });
     }
     // After migrating content, we migrate the assignment groups
-    const assignments = await this.visitEndpoint({
-      path: `${API_PREFIX}/courses/${sourceCourseId}/assignments`,
-      action: 'get assignments',
-      method: 'GET',
+    const assignments = await this.api.course.assignment.list({
+      courseId: sourceCourseId,
     });
-    const destinationAssignmentGroups = await this.visitEndpoint({
-      path: `${API_PREFIX}/courses/${destinationCourseId}/assignment_groups`,
-      action: 'get assignment groups',
-      method: 'GET',
+    const destinationAssignmentGroups = await this.api.course.assignmentGroup.list({
+      courseId: destinationCourseId,
     });
-    const destinationAssignments = await this.visitEndpoint({
-      path: `${API_PREFIX}/courses/${destinationCourseId}/assignments`,
-      action: 'get assignments',
-      method: 'GET',
+    const destinationAssignments = await this.api.course.assignment.list({
+      courseId: destinationCourseId,
     });
     // mapping source group id to destination group id
     const assignmentGroupMap: { [k: number]: number } = {};
@@ -998,10 +1006,9 @@ class ECatCourse extends EndpointCategory {
           destinationAssignmentGroupId = assignmentGroupMap[assignmentGroupId];
         } else {
         // Get the assignment group name
-          const assignmentGroup = await this.visitEndpoint({
-            path: `${API_PREFIX}/courses/${sourceCourseId}/assignment_groups/${assignmentGroupId}`,
-            action: 'get assignment group',
-            method: 'GET',
+          const assignmentGroup = await this.api.course.assignmentGroup.get({
+            assignmentGroupId,
+            courseId: sourceCourseId,
           });
           const assignmentGroupName = assignmentGroup.name;
           // Get the assignment group id of the assignment group name
@@ -1010,23 +1017,19 @@ class ECatCourse extends EndpointCategory {
           );
           // if destination assignment group id is undefined, create a new assignment group
           if (destinationAssignmentGroup === undefined) {
-            destinationAssignmentGroup = await this.visitEndpoint({
-              path: `${API_PREFIX}/courses/${destinationCourseId}/assignment_groups`,
-              action: 'create assignment group',
-              method: 'POST',
-              params: {
-                name: assignmentGroupName,
-              },
+            destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
+              courseId: destinationCourseId,
+              name: assignmentGroupName,
             });
           }
           destinationAssignmentGroupId = destinationAssignmentGroup.id;
           // Add the assignment group id to the map
           assignmentGroupMap[assignmentGroupId] = destinationAssignmentGroupId;
         }
-        // determine the id of the assignment in the new course by comparing assignment name and description
+        // determine the id of the assignment in the new course by comparing assignment name
         const destinationAssignment = destinationAssignments.find(
           (destAssignment: any) => {
-            return destAssignment.name === assignment.name && destAssignment.description === assignment.description;
+            return destAssignment.name === assignment.name;
           },
         );
         let destinationAssignmentId;
@@ -1038,16 +1041,19 @@ class ECatCourse extends EndpointCategory {
         } else {
           destinationAssignmentId = destinationAssignment.id;
         }
-        // Update the assignment group id of the assignment
-        await this.visitEndpoint({
-          path: `${API_PREFIX}/courses/${destinationCourseId}/assignments/${destinationAssignmentId}`,
-          action: 'update assignment',
-          method: 'PUT',
-          params: {
-            assignment: {
-              assignment_group_id: destinationAssignmentGroupId,
-            },
-          },
+        // Update the assignment group id of the assignment and remove the brackets from the name in the destination course
+        await this.api.course.assignment.update({
+          courseId: destinationCourseId,
+          assignmentId: destinationAssignmentId,
+          assignmentGroupId: destinationAssignmentGroupId,
+          name: assignment.name.replace(/\[.*?\]/g, ''),
+        });
+
+        // remove brackets from name in original course
+        await this.api.course.assignment.update({
+          courseId: sourceCourseId,
+          assignmentId: assignment.id,
+          name: assignment.name.replace(/\[.*?\]/g, ''),
         });
       }
     });
