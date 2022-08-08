@@ -887,7 +887,7 @@ class ECatCourse extends EndpointCategory {
       this.api.course.assignment.update({
         assignmentId: id,
         courseId: sourceCourseId,
-        name: `${name}[${id}]`,
+        name: `${name}#${id}`,
       });
     });
 
@@ -1041,19 +1041,22 @@ class ECatCourse extends EndpointCategory {
         } else {
           destinationAssignmentId = destinationAssignment.id;
         }
+        const parts = assignment.name.split('#');
+        const tag = parts[parts.length - 1];
+        const originalAssignmentName = assignment.name.substring(0, assignment.name.length - tag.length - 1);
         // Update the assignment group id of the assignment and remove the brackets from the name in the destination course
         await this.api.course.assignment.update({
           courseId: destinationCourseId,
           assignmentId: destinationAssignmentId,
           assignmentGroupId: destinationAssignmentGroupId,
-          name: assignment.name.replace(/\[.*?\]/g, ''),
+          name: originalAssignmentName,
         });
 
         // remove brackets from name in original course
         await this.api.course.assignment.update({
           courseId: sourceCourseId,
           assignmentId: assignment.id,
-          name: assignment.name.replace(/\[.*?\]/g, ''),
+          name: originalAssignmentName,
         });
       }
     });
