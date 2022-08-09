@@ -984,81 +984,114 @@ class ECatCourse extends EndpointCategory {
         code: ErrorCode.MigrationIssue,
       });
     }
-    // After migrating content, we migrate the assignment groups
-    const assignments = await this.api.course.assignment.list({
+    let sourceAssignments = await this.api.course.assignment.list({
       courseId: sourceCourseId,
     });
-    const destinationAssignmentGroups = await this.api.course.assignmentGroup.list({
-      courseId: destinationCourseId,
-    });
+    // filter sourceAssignments to only those that were migrated
+    sourceAssignments = sourceAssignments.filter((assignment) => { return assignmentIds.includes(assignment.id); });
+
     const destinationAssignments = await this.api.course.assignment.list({
       courseId: destinationCourseId,
     });
+
     // mapping source group id to destination group id
     const assignmentGroupMap: { [k: number]: number } = {};
-    assignments.forEach(async (assignment: any) => {
-      if (assignmentIds.includes(assignment.id)) {
-        // Get the assignment group id of the assignment
-        const assignmentGroupId = assignment.assignment_group_id;
-        let destinationAssignmentGroupId = assignmentGroupId;
-        // If the assignment group id is in the map, we use the map to get the destination group id
-        if (assignmentGroupMap[assignmentGroupId]) {
-          destinationAssignmentGroupId = assignmentGroupMap[assignmentGroupId];
-        } else {
-        // Get the assignment group name
-          const assignmentGroup = await this.api.course.assignmentGroup.get({
-            assignmentGroupId,
-            courseId: sourceCourseId,
-          });
-          const assignmentGroupName = assignmentGroup.name;
-          // Get the assignment group id of the assignment group name
-          let destinationAssignmentGroup = destinationAssignmentGroups.find(
-            (group: any) => { return group.name === assignmentGroupName; },
-          );
-          // if destination assignment group id is undefined, create a new assignment group
-          if (destinationAssignmentGroup === undefined) {
-            destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
-              courseId: destinationCourseId,
-              name: assignmentGroupName,
-            });
-          }
-          destinationAssignmentGroupId = destinationAssignmentGroup.id;
-          // Add the assignment group id to the map
-          assignmentGroupMap[assignmentGroupId] = destinationAssignmentGroupId;
-        }
-        // determine the id of the assignment in the new course by comparing assignment name
-        const destinationAssignment = destinationAssignments.find(
-          (destAssignment: any) => {
-            return destAssignment.name === assignment.name;
-          },
-        );
-        let destinationAssignmentId;
-        if (destinationAssignment === undefined) {
-          throw new CACCLError({
-            message: 'Could not find assignment in destination course',
-            code: ErrorCode.MigrationIssue,
-          });
-        } else {
-          destinationAssignmentId = destinationAssignment.id;
-        }
-        const parts = assignment.name.split('#');
-        const tag = parts[parts.length - 1];
-        const originalAssignmentName = assignment.name.substring(0, assignment.name.length - tag.length - 1);
-        // Update the assignment group id of the assignment and remove the brackets from the name in the destination course
-        await this.api.course.assignment.update({
-          courseId: destinationCourseId,
-          assignmentId: destinationAssignmentId,
-          assignmentGroupId: destinationAssignmentGroupId,
-          name: originalAssignmentName,
-        });
 
-        // remove brackets from name in original course
-        await this.api.course.assignment.update({
-          courseId: sourceCourseId,
-          assignmentId: assignment.id,
-          name: originalAssignmentName,
+    // mapping source assignment id to destination assignment id
+    const assignmentMap: { [k: number]: number } = {};
+    // iterate through each source assignment to determine the mapping
+    sourceAssignments.forEach((sourceAssignment) => {
+      const destinationAssignment = destinationAssignments.find((assignment) => {
+        return assignment.name === sourceAssignment.name;
+      });
+      if (destinationAssignment) {
+        assignmentMap[sourceAssignment.id] = destinationAssignment.id;
+      } else {
+        throw new CACCLError({
+          message: 'Could not find a migrated assignment in the destination course.',
+          code: ErrorCode.MigrationIssue,
         });
       }
+    });
+
+    // iterate through each assignment group in the source course and
+    // create the same assignment group in the destination course
+    const sourceAssignmentGroups = await this.api.course.assignmentGroup.list({
+      courseId: sourceCourseId,
+    });
+    const sourceAssignmentGroupIds = sourceAssignmentGroups.map((group) => { return group.id; });
+    sourceAssignmentGroupIds.forEach(async (sourceId) => {
+      const sourceAssignmentGroup = await this.api.course.assignmentGroup.get({
+        assignmentGroupId: sourceId,
+        courseId: sourceCourseId,
+      });
+      const destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
+        courseId: destinationCourseId,
+        name: sourceAssignmentGroup.name,
+        weight: sourceAssignmentGroup.group_weight,
+      });
+      // add the mapping to the map
+      assignmentGroupMap[sourceId] = destinationAssignmentGroup.id;
+    });
+
+    // iterate through each source assignment
+    sourceAssignments.forEach(async (sourceAssignment: any) => {
+      // Get the assignment group id of the assignment
+      const assignmentGroupId = sourceAssignment.assignment_group_id;
+      const destinationAssignmentGroupId = assignmentGroupMap[assignmentGroupId];
+      // throw an error if the assignment group id is not in the map
+      if (!destinationAssignmentGroupId) {
+        throw new CACCLError({
+          message: 'Could not find assignment group id in map',
+          code: ErrorCode.MigrationIssue,
+        });
+      }
+      // determine the id of the assignment in the new course by using the map
+      const destinationAssignmentId = assignmentMap[sourceAssignment.id];
+      // throw an error if the assignment id is not in the map
+      if (!destinationAssignmentId) {
+        throw new CACCLError({
+          message: 'Could not find assignment id in map',
+          code: ErrorCode.MigrationIssue,
+        });
+      }
+
+      const parts = sourceAssignment.name.split('#');
+      const tag = parts[parts.length - 1];
+      const originalAssignmentName = sourceAssignment.name.substring(0, sourceAssignment.name.length - tag.length - 1);
+      // Update the assignment group id of the assignment and remove the tag from the name in the destination course
+      await this.api.course.assignment.update({
+        courseId: destinationCourseId,
+        assignmentId: destinationAssignmentId,
+        assignmentGroupId: destinationAssignmentGroupId,
+        name: originalAssignmentName,
+      });
+
+      // remove tag from name in original course
+      await this.api.course.assignment.update({
+        courseId: sourceCourseId,
+        assignmentId: sourceAssignment.id,
+        name: originalAssignmentName,
+      });
+    });
+
+    // iterate through the source assignment groups and update the drop rules in the destination groups
+    const destinationAssignmentGroups = await this.api.course.assignmentGroup.list({
+      courseId: destinationCourseId,
+    });
+    sourceAssignmentGroupIds.forEach(async (sourceId) => {
+      const sourceAssignmentGroup = await this.api.course.assignmentGroup.get({
+        assignmentGroupId: sourceId,
+        courseId: sourceCourseId,
+      });
+      // use map to find destination assignment group id
+      const destinationAssignmentGroupId = assignmentGroupMap[sourceId];
+      // update destination assignment group
+      await this.api.course.assignmentGroup.update({
+        courseId: destinationCourseId,
+        assignmentGroupId: destinationAssignmentGroupId,
+        dropLowest: sourceAssignmentGroup.rules.drop_lowest,
+      });
     });
   }
 }
