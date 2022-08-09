@@ -97,6 +97,12 @@ class ECatAssignmentGroup extends EndpointCategory {
    * @param {number} [opts.courseId=default course id] Canvas course Id to query
    * @param {string} [opts.name=current value] New assignment group name
    * @param {number} [opts.weight=current value] New weight
+   * @param {number} [opts.dropLowest=0] number of lowest assignment scores to
+   *   drop
+   * @param {number} [opts.dropHighest=0] number of highest assignment scores to
+   *   drop
+   * @param {number[]} [opts.neverDrop] list of assignment ids to not drop in
+   *   the drop lowest/highest rule
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
    * @returns {Promise<CanvasAssignmentGroup>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
@@ -107,9 +113,36 @@ class ECatAssignmentGroup extends EndpointCategory {
       courseId?: number,
       name?: string,
       weight?: number,
+      dropLowest?: number,
+      dropHighest?: number,
+      neverDrop?: number[],
     },
     config?: APIConfig,
   ): Promise<CanvasAssignmentGroup> {
+    // Create rules
+    const {
+      dropLowest,
+      dropHighest,
+      neverDrop,
+    } = opts;
+    let rules: { [k: string]: (number | number[]) };
+    if (
+      (dropLowest && dropLowest > 0)
+      || (dropHighest && dropHighest > 0)
+    ) {
+      rules = {};
+      if (dropLowest) {
+        rules.drop_lowest = dropLowest;
+      }
+      if (dropHighest) {
+        rules.drop_highest = dropHighest;
+      }
+      if (neverDrop) {
+        rules.never_drop = neverDrop;
+      }
+    }
+
+    // Create assignment group
     return this.visitEndpoint({
       config,
       action: 'update an assignment group in a course',
@@ -118,6 +151,7 @@ class ECatAssignmentGroup extends EndpointCategory {
       params: {
         name: utils.includeIfTruthy(opts.name),
         group_weight: utils.includeIfNumber(opts.weight),
+        rules: utils.includeIfTruthy(rules),
       },
     });
   }
@@ -145,6 +179,7 @@ class ECatAssignmentGroup extends EndpointCategory {
     },
     config?: APIConfig,
   ): Promise<CanvasAssignmentGroup> {
+    // Create the assignment group
     return this.visitEndpoint({
       config,
       action: 'create a new assignment group in a course',
