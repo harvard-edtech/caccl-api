@@ -887,7 +887,7 @@ class ECatCourse extends EndpointCategory {
       this.api.course.assignment.update({
         assignmentId: id,
         courseId: sourceCourseId,
-        name: `${name}#${id}`,
+        name: `${name}#CurrentlyBeingMigrated#${id}`,
       });
     });
 
@@ -1020,19 +1020,48 @@ class ECatCourse extends EndpointCategory {
       courseId: sourceCourseId,
     });
     const sourceAssignmentGroupIds = sourceAssignmentGroups.map((group) => { return group.id; });
-    sourceAssignmentGroupIds.forEach(async (sourceId) => {
+    for (let i = 0; i < sourceAssignmentGroupIds.length; i++) {
+      const sourceId = sourceAssignmentGroupIds[i];
       const sourceAssignmentGroup = await this.api.course.assignmentGroup.get({
         assignmentGroupId: sourceId,
         courseId: sourceCourseId,
       });
-      const destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
-        courseId: destinationCourseId,
-        name: sourceAssignmentGroup.name,
-        weight: sourceAssignmentGroup.group_weight,
+      // check if apply_assignment_group_weights is true in the source course
+      const sourceCourse = await this.visitEndpoint({
+        path: `${API_PREFIX}/courses/${sourceCourseId}`,
+        action: 'get source course',
+        method: 'GET',
       });
+      const applyAssignmentGroupWeights = sourceCourse.apply_assignment_group_weights;
+
+      let destinationAssignmentGroup;
+      if (applyAssignmentGroupWeights) {
+        destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
+          courseId: destinationCourseId,
+          name: sourceAssignmentGroup.name,
+          weight: sourceAssignmentGroup.group_weight,
+        });
+        // set apply_assignment_group_weights to true in the destination course
+        await this.visitEndpoint({
+          path: `${API_PREFIX}/courses/${destinationCourseId}`,
+          action: 'set apply_assignment_group_weights to true',
+          method: 'PUT',
+          params: {
+            course: {
+              apply_assignment_group_weights: true,
+            },
+          },
+        });
+      } else {
+        destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
+          courseId: destinationCourseId,
+          name: sourceAssignmentGroup.name,
+        });
+      }
+
       // add the mapping to the map
       assignmentGroupMap[sourceId] = destinationAssignmentGroup.id;
-    });
+    }
 
     // iterate through each source assignment
     sourceAssignments.forEach(async (sourceAssignment: any) => {
@@ -1058,7 +1087,7 @@ class ECatCourse extends EndpointCategory {
 
       const parts = sourceAssignment.name.split('#');
       const tag = parts[parts.length - 1];
-      const originalAssignmentName = sourceAssignment.name.substring(0, sourceAssignment.name.length - tag.length - 1);
+      const originalAssignmentName = sourceAssignment.name.substring(0, sourceAssignment.name.length - (`#CurrentlyBeingMigrated#${tag}`).length);
       // Update the assignment group id of the assignment and remove the tag from the name in the destination course
       await this.api.course.assignment.update({
         courseId: destinationCourseId,
@@ -1076,9 +1105,6 @@ class ECatCourse extends EndpointCategory {
     });
 
     // iterate through the source assignment groups and update the drop rules in the destination groups
-    const destinationAssignmentGroups = await this.api.course.assignmentGroup.list({
-      courseId: destinationCourseId,
-    });
     sourceAssignmentGroupIds.forEach(async (sourceId) => {
       const sourceAssignmentGroup = await this.api.course.assignmentGroup.get({
         assignmentGroupId: sourceId,
@@ -1086,11 +1112,22 @@ class ECatCourse extends EndpointCategory {
       });
       // use map to find destination assignment group id
       const destinationAssignmentGroupId = assignmentGroupMap[sourceId];
+
+      // use the assignment map to map ids in sourceAssignmentGroup.rules.never_drop
+      let destinationNeverDrop: number[] = [];
+      if (sourceAssignmentGroup.rules.never_drop) {
+        destinationNeverDrop = sourceAssignmentGroup.rules.never_drop.map(
+          (id: number) => { return assignmentMap[id]; },
+        );
+      }
+
       // update destination assignment group
       await this.api.course.assignmentGroup.update({
         courseId: destinationCourseId,
         assignmentGroupId: destinationAssignmentGroupId,
         dropLowest: sourceAssignmentGroup.rules.drop_lowest,
+        dropHighest: sourceAssignmentGroup.rules.drop_highest,
+        neverDrop: destinationNeverDrop,
       });
     });
   }
