@@ -783,7 +783,7 @@ class ECatCourse extends EndpointCategory {
    * @param {number[]} [opts.include.pageIds = []] list of page ids to include
    * @param {number[]} [opts.include.rubricIds = []] list of rubric ids to include
    * @param {DateShiftOptions} opts.dateShiftOptions options for shifting dates
-   * @param {number} [opts.timeoutMs = 2 minutes] maximum time in milliseconds to wait for course migration to finish
+   * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds to wait for course migration to finish
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    */
   public async migrateContent(
@@ -809,7 +809,7 @@ class ECatCourse extends EndpointCategory {
       destinationCourseId,
       include,
       dateShiftOptions,
-      timeoutMs = 120000, // 2 minutes
+      timeoutMs = 300000, // 5 minutes
     } = opts;
 
     // if the user didn't specify the ids for an item, just make it an empty array
@@ -1033,7 +1033,8 @@ class ECatCourse extends EndpointCategory {
         method: 'GET',
       });
       const applyAssignmentGroupWeights = sourceCourse.apply_assignment_group_weights;
-
+      // TODO: check if the assignment group already exists in the destination course,
+      // in which we case we do not create a new assignment group
       let destinationAssignmentGroup;
       if (applyAssignmentGroupWeights) {
         destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
@@ -1041,23 +1042,23 @@ class ECatCourse extends EndpointCategory {
           name: sourceAssignmentGroup.name,
           weight: sourceAssignmentGroup.group_weight,
         });
-        // set apply_assignment_group_weights to true in the destination course
-        await this.visitEndpoint({
-          path: `${API_PREFIX}/courses/${destinationCourseId}`,
-          action: 'set apply_assignment_group_weights to true',
-          method: 'PUT',
-          params: {
-            course: {
-              apply_assignment_group_weights: true,
-            },
-          },
-        });
       } else {
         destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
           courseId: destinationCourseId,
           name: sourceAssignmentGroup.name,
         });
       }
+      // set apply_assignment_group_weights to true/false in the destination course
+      await this.visitEndpoint({
+        path: `${API_PREFIX}/courses/${destinationCourseId}`,
+        action: 'set apply_assignment_group_weights to true',
+        method: 'PUT',
+        params: {
+          course: {
+            apply_assignment_group_weights: applyAssignmentGroupWeights,
+          },
+        },
+      });
 
       // add the mapping to the map
       assignmentGroupMap[sourceId] = destinationAssignmentGroup.id;
