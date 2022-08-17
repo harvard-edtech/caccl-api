@@ -1033,8 +1033,10 @@ class ECatCourse extends EndpointCategory {
         method: 'GET',
       });
       const applyAssignmentGroupWeights = sourceCourse.apply_assignment_group_weights;
-      // TODO: check if the assignment group already exists in the destination course,
+      // TODO: check if the assignment group name already exists in the destination course,
       // in which we case we do not create a new assignment group
+      // instead, get the id of this matching assignment group and update weights if needed
+      // and also add this assignment group to the map
       let destinationAssignmentGroup;
       if (applyAssignmentGroupWeights) {
         destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
