@@ -137,7 +137,7 @@ class ECatAssignmentGroup extends EndpointCategory {
       if (dropHighest) {
         rules.drop_highest = dropHighest;
       }
-      if (neverDrop) {
+      if (neverDrop && neverDrop.length > 0) {
         rules.never_drop = neverDrop;
       }
     }
