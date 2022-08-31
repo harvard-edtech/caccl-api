@@ -830,7 +830,6 @@ class ECatCourse extends EndpointCategory {
       settings: {
         source_course_id: sourceCourseId,
         overwrite_quizzes: true,
-        // move_to_assignment_group_id: 198434,
       },
     };
 
