@@ -40,6 +40,8 @@ import ECatQuiz from './ECatQuiz';
 import ECatRubric from './ECatRubric';
 import ECatSection from './ECatSection';
 
+const assignmentTagPrefix = '#CurrentlyBeingMigrated#';
+
 // Endpoint category
 class ECatCourse extends EndpointCategory {
   // Sub-categories
@@ -878,7 +880,8 @@ class ECatCourse extends EndpointCategory {
     }
 
     // iterate through each assignment and change the name to be current name + [id]
-    assignmentIds.forEach(async (id) => {
+    for (let i = 0; i < assignmentIds.length; i++) {
+      const id = assignmentIds[i];
       const { name } = await this.api.course.assignment.get({
         assignmentId: id,
         courseId: sourceCourseId,
@@ -886,9 +889,9 @@ class ECatCourse extends EndpointCategory {
       this.api.course.assignment.update({
         assignmentId: id,
         courseId: sourceCourseId,
-        name: `${name}#CurrentlyBeingMigrated#${id}`,
+        name: `${name}${assignmentTagPrefix}${id}`,
       });
-    });
+    }
 
     // Create the migration
     try {
@@ -953,14 +956,14 @@ class ECatCourse extends EndpointCategory {
         } else {
           errorsAsText = (
             migrationIssues
-            // Extract only the descriptions and add "and" to last item
+              // Extract only the descriptions and add "and" to last item
               .map((migrationIssue: any, i: number) => {
                 if (i === migrationIssues.length - 1) {
                   return `and ${migrationIssue.description}`;
                 }
                 return migrationIssue.description;
               })
-            // Put together
+              // Put together
               .join(', ')
           );
         }
@@ -1008,7 +1011,7 @@ class ECatCourse extends EndpointCategory {
       } else {
         throw new CACCLError({
           message: 'Could not find a migrated assignment in the destination course.',
-          code: ErrorCode.MigrationIssue,
+          code: ErrorCode.CouldNotFindDestinationAssignment,
         });
       }
     });
@@ -1018,37 +1021,30 @@ class ECatCourse extends EndpointCategory {
     const sourceAssignmentGroups = await this.api.course.assignmentGroup.list({
       courseId: sourceCourseId,
     });
-    const sourceAssignmentGroupIds = sourceAssignmentGroups.map((group) => { return group.id; });
-    for (let i = 0; i < sourceAssignmentGroupIds.length; i++) {
-      const sourceId = sourceAssignmentGroupIds[i];
+    // check if apply_assignment_group_weights is true in the source course
+    const sourceCourse = await this.api.course.get({
+      courseId: sourceCourseId,
+    });
+    const applyAssignmentGroupWeights = sourceCourse.apply_assignment_group_weights;
+    for (let i = 0; i < sourceAssignmentGroups.length; i++) {
+      const sourceId = sourceAssignmentGroups[i].id;
       const sourceAssignmentGroup = await this.api.course.assignmentGroup.get({
         assignmentGroupId: sourceId,
         courseId: sourceCourseId,
       });
-      // check if apply_assignment_group_weights is true in the source course
-      const sourceCourse = await this.visitEndpoint({
-        path: `${API_PREFIX}/courses/${sourceCourseId}`,
-        action: 'get source course',
-        method: 'GET',
-      });
-      const applyAssignmentGroupWeights = sourceCourse.apply_assignment_group_weights;
       // TODO: check if the assignment group name already exists in the destination course,
       // in which we case we do not create a new assignment group
       // instead, get the id of this matching assignment group and update weights if needed
       // and also add this assignment group to the map
-      let destinationAssignmentGroup;
-      if (applyAssignmentGroupWeights) {
-        destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
-          courseId: destinationCourseId,
-          name: sourceAssignmentGroup.name,
-          weight: sourceAssignmentGroup.group_weight,
-        });
-      } else {
-        destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
-          courseId: destinationCourseId,
-          name: sourceAssignmentGroup.name,
-        });
-      }
+      const destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
+        courseId: destinationCourseId,
+        name: sourceAssignmentGroup.name,
+        weight: (
+          applyAssignmentGroupWeights
+            ? sourceAssignmentGroup.group_weight
+            : undefined
+        ),
+      });
       // set apply_assignment_group_weights to true/false in the destination course
       await this.visitEndpoint({
         path: `${API_PREFIX}/courses/${destinationCourseId}`,
@@ -1061,12 +1057,13 @@ class ECatCourse extends EndpointCategory {
         },
       });
 
-      // add the mapping to the map
+      // add assignment group mapping
       assignmentGroupMap[sourceId] = destinationAssignmentGroup.id;
     }
 
     // iterate through each source assignment
-    sourceAssignments.forEach(async (sourceAssignment: any) => {
+    for (let i = 0; i < sourceAssignments.length; i++) {
+      const sourceAssignment = sourceAssignments[i];
       // Get the assignment group id of the assignment
       const assignmentGroupId = sourceAssignment.assignment_group_id;
       const destinationAssignmentGroupId = assignmentGroupMap[assignmentGroupId];
@@ -1074,7 +1071,7 @@ class ECatCourse extends EndpointCategory {
       if (!destinationAssignmentGroupId) {
         throw new CACCLError({
           message: 'Could not find assignment group id in map',
-          code: ErrorCode.MigrationIssue,
+          code: ErrorCode.CouldNotFindDestinationAssignmentGroup,
         });
       }
       // determine the id of the assignment in the new course by using the map
@@ -1083,13 +1080,13 @@ class ECatCourse extends EndpointCategory {
       if (!destinationAssignmentId) {
         throw new CACCLError({
           message: 'Could not find assignment id in map',
-          code: ErrorCode.MigrationIssue,
+          code: ErrorCode.CouldNotFindDestinationAssignment,
         });
       }
-
+      // Remove tag from assignment names
       const parts = sourceAssignment.name.split('#');
       const tag = parts[parts.length - 1];
-      const originalAssignmentName = sourceAssignment.name.substring(0, sourceAssignment.name.length - (`#CurrentlyBeingMigrated#${tag}`).length);
+      const originalAssignmentName = sourceAssignment.name.substring(0, sourceAssignment.name.length - (`${assignmentTagPrefix}${tag}`).length);
       // Update the assignment group id of the assignment and remove the tag from the name in the destination course
       await this.api.course.assignment.update({
         courseId: destinationCourseId,
@@ -1104,16 +1101,13 @@ class ECatCourse extends EndpointCategory {
         assignmentId: sourceAssignment.id,
         name: originalAssignmentName,
       });
-    });
+    }
 
     // iterate through the source assignment groups and update the drop rules in the destination groups
-    sourceAssignmentGroupIds.forEach(async (sourceId) => {
-      const sourceAssignmentGroup = await this.api.course.assignmentGroup.get({
-        assignmentGroupId: sourceId,
-        courseId: sourceCourseId,
-      });
+    for (let i = 0; i < sourceAssignmentGroups.length; i++) {
+      const sourceAssignmentGroup = sourceAssignmentGroups[i];
       // use map to find destination assignment group id
-      const destinationAssignmentGroupId = assignmentGroupMap[sourceId];
+      const destinationAssignmentGroupId = assignmentGroupMap[sourceAssignmentGroup.id];
 
       // use the assignment map to map ids in sourceAssignmentGroup.rules.never_drop
       let destinationNeverDrop: number[] = [];
@@ -1131,7 +1125,7 @@ class ECatCourse extends EndpointCategory {
         dropHighest: sourceAssignmentGroup.rules.drop_highest,
         neverDrop: destinationNeverDrop,
       });
-    });
+    }
   }
 }
 
