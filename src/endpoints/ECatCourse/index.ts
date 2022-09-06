@@ -40,7 +40,15 @@ import ECatQuiz from './ECatQuiz';
 import ECatRubric from './ECatRubric';
 import ECatSection from './ECatSection';
 
+/*------------------------------------------------------------------------*/
+/*                                Constants                               */
+/*------------------------------------------------------------------------*/
+
 const assignmentTagPrefix = '#CurrentlyBeingMigrated#';
+
+/*------------------------------------------------------------------------*/
+/*                            Endpoint Category                           */
+/*------------------------------------------------------------------------*/
 
 // Endpoint category
 class ECatCourse extends EndpointCategory {
@@ -773,19 +781,26 @@ class ECatCourse extends EndpointCategory {
    * @param {object} opts object containing all arguments
    * @param {number} [opts.sourceCourseId=default course id] Canvas course Id of
    *   the source course
-   * @param {number} opts.destinationCourse Canvas course Id of the destination
-   *   course
-   * @param {object} opts.include object containing all items and their ids to include
+   * @param {number} opts.destinationCourseId Canvas course Id of the
+   *   destination course
+   * @param {object} opts.include object containing all items and their ids to
+   *   include
    * @param {number[]} [opts.include.fileIds = []] list of file ids to include
    * @param {number[]} [opts.include.quizIds = []] list of quiz ids to include
-   * @param {number[]} [opts.include.assignmentIds = []] list of assignment ids to include
-   * @param {number[]} [opts.include.announcementIds = []] list of announcement ids to include
-   * @param {number[]} [opts.include.discussionIds = []] list of discussion ids to include
-   * @param {number[]} [opts.include.moduleIds = []] list of module ids to include
+   * @param {number[]} [opts.include.assignmentIds = []] list of assignment ids
+   *   to include
+   * @param {number[]} [opts.include.announcementIds = []] list of announcement
+   *   ids to include
+   * @param {number[]} [opts.include.discussionIds = []] list of discussion ids
+   *   to include
+   * @param {number[]} [opts.include.moduleIds = []] list of module ids to
+   *   include
    * @param {number[]} [opts.include.pageIds = []] list of page ids to include
-   * @param {number[]} [opts.include.rubricIds = []] list of rubric ids to include
+   * @param {number[]} [opts.include.rubricIds = []] list of rubric ids to
+   *   include
    * @param {DateShiftOptions} opts.dateShiftOptions options for shifting dates
-   * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds to wait for course migration to finish
+   * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds
+   *   to wait for course migration to finish
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    */
   public async migrateContent(
@@ -814,7 +829,8 @@ class ECatCourse extends EndpointCategory {
       timeoutMs = 300000, // 5 minutes
     } = opts;
 
-    // if the user didn't specify the ids for an item, just make it an empty array
+    // If the user didn't specify the ids for an item,
+    // just make it an empty array
     const {
       fileIds = [],
       quizIds = [],
@@ -826,7 +842,8 @@ class ECatCourse extends EndpointCategory {
       rubricIds = [],
     } = include;
 
-    // Create a params object that we'll dynamically fill with params depending on the request
+    // Create a params object that we'll dynamically fill
+    // with params depending on the request
     const params: { [k: string]: any } = {
       migration_type: 'course_copy_importer',
       settings: {
@@ -847,7 +864,8 @@ class ECatCourse extends EndpointCategory {
       rubrics: rubricIds,
     };
 
-    // if we remove dates we don't need to provide start and end dates, but if we shift dates, we do
+    // if we remove dates we don't need to provide start and end dates,
+    // but if we shift dates, we do
     if (dateShiftOptions.dateHandling === DateHandlingType.RemoveDates) {
       params.date_shift_options = {
         remove_dates: true,
@@ -865,7 +883,9 @@ class ECatCourse extends EndpointCategory {
       const dayNumberSubstitutionMap: { [k: number]: number } = {};
       Object.keys(daySubstitutionMap).forEach((k) => {
         const key = k as keyof typeof daySubstitutionMap;
-        dayNumberSubstitutionMap[dayOfWeekToNumber[key]] = dayOfWeekToNumber[daySubstitutionMap[key]];
+        dayNumberSubstitutionMap[dayOfWeekToNumber[key]] = (
+          dayOfWeekToNumber[daySubstitutionMap[key]]
+        );
       });
 
       // Add date shift info to the request
@@ -879,7 +899,8 @@ class ECatCourse extends EndpointCategory {
       };
     }
 
-    // iterate through each assignment and change the name to be current name + [id]
+    // Iterate through each assignment and change the name to be
+    // current name + [id]
     for (let i = 0; i < assignmentIds.length; i++) {
       const id = assignmentIds[i];
       const { name } = await this.api.course.assignment.get({
@@ -910,7 +931,8 @@ class ECatCourse extends EndpointCategory {
       // Calculate num iterations
       const numIterations = Math.ceil(timeoutMs / CHECK_INTERVAL_MS);
 
-      // continuously check every CHECK_INTERVAL_MS if the migration is finished, failed, or timed out
+      // Continuously check every CHECK_INTERVAL_MS if the migration is
+      // finished, failed, or timed out
       for (let i = 0; i < numIterations; i++) {
         // Wait for CHECK_INTERVAL_MS
         await new Promise((resolve) => {
@@ -948,7 +970,8 @@ class ECatCourse extends EndpointCategory {
 
         let errorsAsText: string;
         // If there is only 1 issue, we simply print the issue.
-        // If there is more than 1, we need to concatenate these issues with commas + ands
+        // If there is more than 1, we need to concatenate these
+        // issues with commas + ands
         if (migrationIssuesCount === 1) {
           errorsAsText = migrationIssues[0].description;
         } else if (migrationIssuesCount === 2) {
@@ -990,7 +1013,9 @@ class ECatCourse extends EndpointCategory {
       courseId: sourceCourseId,
     });
     // filter sourceAssignments to only those that were migrated
-    sourceAssignments = sourceAssignments.filter((assignment) => { return assignmentIds.includes(assignment.id); });
+    sourceAssignments = sourceAssignments.filter((assignment) => {
+      return assignmentIds.includes(assignment.id);
+    });
 
     const destinationAssignments = await this.api.course.assignment.list({
       courseId: destinationCourseId,
@@ -1086,7 +1111,12 @@ class ECatCourse extends EndpointCategory {
       // Remove tag from assignment names
       const parts = sourceAssignment.name.split('#');
       const tag = parts[parts.length - 1];
-      const originalAssignmentName = sourceAssignment.name.substring(0, sourceAssignment.name.length - (`${assignmentTagPrefix}${tag}`).length);
+      const originalAssignmentName = sourceAssignment.name.substring(
+        // Start at beginning of name
+        0,
+        // Cut off the tag from the end
+        sourceAssignment.name.length - (`${assignmentTagPrefix}${tag}`).length,
+      );
       // Update the assignment group id of the assignment and remove the tag from the name in the destination course
       await this.api.course.assignment.update({
         courseId: destinationCourseId,
