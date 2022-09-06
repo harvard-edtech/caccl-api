@@ -55,6 +55,12 @@ declare class ECatAssignmentGroup extends EndpointCategory {
      * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {string} [opts.name=current value] New assignment group name
      * @param {number} [opts.weight=current value] New weight
+     * @param {number} [opts.dropLowest=0] number of lowest assignment scores to
+     *   drop
+     * @param {number} [opts.dropHighest=0] number of highest assignment scores to
+     *   drop
+     * @param {number[]} [opts.neverDrop] list of assignment ids to not drop in
+     *   the drop lowest/highest rule
      * @param {APIConfig} [config] custom configuration for this specific endpoint
      *   call (overwrites defaults that were included when api was initialized)
      * @returns {Promise<CanvasAssignmentGroup>} Canvas AssignmentGroup {@link https://canvas.instructure.com/doc/api/assignment_groups.html#AssignmentGroup}
@@ -64,6 +70,9 @@ declare class ECatAssignmentGroup extends EndpointCategory {
         courseId?: number;
         name?: string;
         weight?: number;
+        dropLowest?: number;
+        dropHighest?: number;
+        neverDrop?: number[];
     }, config?: APIConfig): Promise<CanvasAssignmentGroup>;
     /**
      * Create a new assignment group in a course
