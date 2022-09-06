@@ -11,3 +11,7 @@ Visit [the caccl-api docs](https://harvard-edtech.github.io/caccl-api/) for quic
 **C**omplete  
 **C**onnection  
 **L**ibrary  
+
+## Special Thanks
+
+Special thanks to [Yuen Ler Chow](https://github.com/yuenler) for his great work on various endpoints, specifically the course content migration endpoint.
