@@ -7,15 +7,19 @@ import APIConfig from '../../shared/types/APIConfig';
 import CanvasCourse from '../../types/CanvasCourse';
 import InitPack from '../../shared/types/InitPack';
 import CanvasEnrollment from '../../types/CanvasEnrollment';
+import { DateShiftOptions } from './types/DateHandling';
 import ECatAnalytics from './ECatAnalytics';
 import ECatAnnouncement from './ECatAnnouncement';
 import ECatApp from './ECatApp';
 import ECatAssignment from './ECatAssignment';
 import ECatAssignmentGroup from './ECatAssignmentGroup';
 import ECatDiscussionTopic from './ECatDiscussionTopic';
+import ECatFile from './ECatFile';
+import ECatFolder from './ECatFolder';
 import ECatGradebookColumn from './ECatGradebookColumn';
 import ECatGroup from './ECatGroup';
 import ECatGroupSet from './ECatGroupSet';
+import ECatModule from './ECatModule';
 import ECatNavMenuItem from './ECatNavMenuItem';
 import ECatPage from './ECatPage';
 import ECatQuiz from './ECatQuiz';
@@ -28,9 +32,12 @@ declare class ECatCourse extends EndpointCategory {
     assignment: ECatAssignment;
     assignmentGroup: ECatAssignmentGroup;
     discussionTopic: ECatDiscussionTopic;
+    file: ECatFile;
+    folder: ECatFolder;
     gradebookColumn: ECatGradebookColumn;
     group: ECatGroup;
     groupSet: ECatGroupSet;
+    module: ECatModule;
     navMenuItem: ECatNavMenuItem;
     page: ECatPage;
     quiz: ECatQuiz;
@@ -459,5 +466,53 @@ declare class ECatCourse extends EndpointCategory {
         includeAvatar?: boolean;
         includeBio?: boolean;
     }, config?: APIConfig): Promise<any>;
+    /**
+     * Perform a course content migration
+     * @author Yuen Ler Chow
+     * @method migrateContent
+     * @memberof api.course
+     * @instance
+     * @async
+     * @param {object} opts object containing all arguments
+     * @param {number} [opts.sourceCourseId=default course id] Canvas course Id of
+     *   the source course
+     * @param {number} opts.destinationCourseId Canvas course Id of the
+     *   destination course
+     * @param {object} opts.include object containing all items and their ids to
+     *   include
+     * @param {number[]} [opts.include.fileIds = []] list of file ids to include
+     * @param {number[]} [opts.include.quizIds = []] list of quiz ids to include
+     * @param {number[]} [opts.include.assignmentIds = []] list of assignment ids
+     *   to include
+     * @param {number[]} [opts.include.announcementIds = []] list of announcement
+     *   ids to include
+     * @param {number[]} [opts.include.discussionIds = []] list of discussion ids
+     *   to include
+     * @param {number[]} [opts.include.moduleIds = []] list of module ids to
+     *   include
+     * @param {number[]} [opts.include.pageIds = []] list of page ids to include
+     * @param {number[]} [opts.include.rubricIds = []] list of rubric ids to
+     *   include
+     * @param {DateShiftOptions} opts.dateShiftOptions options for shifting dates
+     * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds
+     *   to wait for course migration to finish
+     * @param {APIConfig} [config] custom configuration for this specific endpoint
+     */
+    migrateContent(opts: {
+        sourceCourseId: number;
+        destinationCourseId: number;
+        include: {
+            fileIds?: number[];
+            quizIds?: number[];
+            assignmentIds?: number[];
+            announcementIds?: number[];
+            discussionTopicsIds?: number[];
+            moduleIds?: number[];
+            pageIds?: number[];
+            rubricIds?: number[];
+        };
+        dateShiftOptions: DateShiftOptions;
+        timeoutMs?: number;
+    }): Promise<void>;
 }
 export default ECatCourse;

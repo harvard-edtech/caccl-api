@@ -4,7 +4,7 @@
  */
 
 // Highest errors =
-// > CAPI27
+// > CAPI30
 // > CANV18 (exclude 404, 500)
 
 enum ErrorCode {
@@ -80,6 +80,11 @@ enum ErrorCode {
   // course.navMenuItem
   // > update
   NavItemNotFound = 'CAPI25',
-};
+
+  MigrationTimeout = 'CAPI26',
+  MigrationIssue = 'CAPI28',
+  CouldNotFindDestinationAssignment = 'CAPI29',
+  CouldNotFindDestinationAssignmentGroup = 'CAPI30',
+}
 
 export default ErrorCode;

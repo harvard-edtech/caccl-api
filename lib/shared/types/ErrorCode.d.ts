@@ -48,6 +48,10 @@ declare enum ErrorCode {
     MetadataMalformed = "CAPI19",
     NoAppsToUpdateMetadata = "CAPI20",
     QuizReportNoRows = "CAPI21",
-    NavItemNotFound = "CAPI25"
+    NavItemNotFound = "CAPI25",
+    MigrationTimeout = "CAPI26",
+    MigrationIssue = "CAPI28",
+    CouldNotFindDestinationAssignment = "CAPI29",
+    CouldNotFindDestinationAssignmentGroup = "CAPI30"
 }
 export default ErrorCode;
