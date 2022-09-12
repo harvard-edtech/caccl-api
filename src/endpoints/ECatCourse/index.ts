@@ -1071,7 +1071,7 @@ class ECatCourse extends EndpointCategory {
         return assignmentGroup.name === sourceAssignmentGroup.name;
       });
       if (destinationAssignmentGroup) {
-        // update weights
+        // assignment group exists: update weights
         destinationAssignmentGroup = await this.api.course.assignmentGroup.update({
           courseId: destinationCourseId,
           assignmentGroupId: destinationAssignmentGroup.id,
@@ -1082,6 +1082,7 @@ class ECatCourse extends EndpointCategory {
           ),
         });
       } else {
+        // assignment group doesn't exist: create it, start it off with the weights
         destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
           courseId: destinationCourseId,
           name: sourceAssignmentGroup.name,
