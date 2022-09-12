@@ -1046,6 +1046,12 @@ class ECatCourse extends EndpointCategory {
     const sourceAssignmentGroups = await this.api.course.assignmentGroup.list({
       courseId: sourceCourseId,
     });
+
+    // Get the list of existing assignment groups in the destination course
+    const destinationAssignmentGroups = await this.api.course.assignmentGroup.list({
+      courseId: destinationCourseId,
+    });
+
     // check if apply_assignment_group_weights is true in the source course
     const sourceCourse = await this.api.course.get({
       courseId: sourceCourseId,
@@ -1057,19 +1063,35 @@ class ECatCourse extends EndpointCategory {
         assignmentGroupId: sourceId,
         courseId: sourceCourseId,
       });
-      // TODO: check if the assignment group name already exists in the destination course,
+      // Check if the assignment group name already exists in the destination course,
       // in which we case we do not create a new assignment group
       // instead, get the id of this matching assignment group and update weights if needed
       // and also add this assignment group to the map
-      const destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
-        courseId: destinationCourseId,
-        name: sourceAssignmentGroup.name,
-        weight: (
-          applyAssignmentGroupWeights
-            ? sourceAssignmentGroup.group_weight
-            : undefined
-        ),
+      let destinationAssignmentGroup = destinationAssignmentGroups.find((assignmentGroup) => {
+        return assignmentGroup.name === sourceAssignmentGroup.name;
       });
+      if (destinationAssignmentGroup) {
+        // update weights
+        destinationAssignmentGroup = await this.api.course.assignmentGroup.update({
+          courseId: destinationCourseId,
+          assignmentGroupId: destinationAssignmentGroup.id,
+          weight: (
+            applyAssignmentGroupWeights
+              ? sourceAssignmentGroup.group_weight
+              : undefined
+          ),
+        });
+      } else {
+        destinationAssignmentGroup = await this.api.course.assignmentGroup.create({
+          courseId: destinationCourseId,
+          name: sourceAssignmentGroup.name,
+          weight: (
+            applyAssignmentGroupWeights
+              ? sourceAssignmentGroup.group_weight
+              : undefined
+          ),
+        });
+      }
       // set apply_assignment_group_weights to true/false in the destination course
       await this.visitEndpoint({
         path: `${API_PREFIX}/courses/${destinationCourseId}`,
