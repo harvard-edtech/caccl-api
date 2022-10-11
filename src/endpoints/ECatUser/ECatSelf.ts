@@ -58,6 +58,7 @@ class ECatSelf extends EndpointCategory {
   public async listCourses(
     opts: {
       includeTerm?: boolean,
+      filterByRole?: 'teacher' | 'student' | 'ta' | 'observer' | 'designer',
     },
     config?: APIConfig,
   ): Promise<CanvasCourse[]> {
@@ -70,6 +71,7 @@ class ECatSelf extends EndpointCategory {
         include: utils.genIncludesList({
           term: opts.includeTerm,
         }),
+        enrollment_type: opts.filterByRole ? opts.filterByRole : undefined,
       },
     });
   }
