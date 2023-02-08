@@ -164,6 +164,52 @@ class ECatCourse extends EndpointCategory {
     });
   }
 
+  /**
+   * Update whether the course is published or not
+   * @author Gabe Abrams
+   * @method get
+   * @memberof api.course
+   * @instance
+   * @async
+   * @param {object} [opts] object containing all arguments
+   * @param {number} [opts.courseId=default course id] Canvas course Id to
+   *   modify
+   * @param {boolean} [opts.isPublished] if true, publish the course. Otherwise,
+   *   unpublish the course
+   */
+  public async updatePublishState(
+    opts: {
+      courseId?: number,
+      isPublished?: boolean,
+    } = {},
+    config?: APIConfig,
+  ): Promise<CanvasCourse> {
+    const course = await this.visitEndpoint({
+      config,
+      action: 'update the published state of a specific course',
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}`,
+      method: 'PUT',
+      params: {
+        'course[event]': (
+          opts.isPublished
+            ? 'offer'
+            : 'claim'
+        ),
+      },
+    });
+
+    // Throw an error if the state could not be changed
+    const nowPublished = (course.workflow_state !== 'unpublished');
+    if (nowPublished !== opts.isPublished) {
+      throw new CACCLError({
+        message: 'The course published state could not be updated, probably because the course already has graded content.',
+        code: ErrorCode.CoursePublishedStateNotUpdated,
+      });
+    }
+
+    return course;
+  }
+
   /*------------------------------------------------------------------------*/
   /*                               Enrollments                              */
   /*------------------------------------------------------------------------*/
