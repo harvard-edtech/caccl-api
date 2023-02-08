@@ -167,7 +167,7 @@ class ECatCourse extends EndpointCategory {
   /**
    * Update whether the course is published or not
    * @author Gabe Abrams
-   * @method get
+   * @method updatePublishState
    * @memberof api.course
    * @instance
    * @async
