@@ -1,5 +1,4 @@
 import API from './types/API';
-import CACCLTag from './shared/types/CACCLTag';
 /**
  * Initialize api
  * @author Gabe Abrams
@@ -18,16 +17,13 @@ import CACCLTag from './shared/types/CACCLTag';
  * @param [opts.defaultCourseId] default courseId to add to use if no courseId
  *   is provided to course-specific requests
  */
-declare const initAPI: {
-    (opts?: {
-        numRetries?: number;
-        itemsPerPage?: number;
-        canvasHost?: string;
-        pathPrefix?: string;
-        accessToken?: string;
-        authenticityToken?: string;
-        defaultCourseId?: number;
-    }): API;
-    tag: CACCLTag;
-};
+declare const initAPI: (opts?: {
+    numRetries?: number;
+    itemsPerPage?: number;
+    canvasHost?: string;
+    pathPrefix?: string;
+    accessToken?: string;
+    authenticityToken?: string;
+    defaultCourseId?: number;
+}) => API;
 export default initAPI;

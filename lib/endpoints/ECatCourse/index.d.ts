@@ -88,6 +88,23 @@ declare class ECatCourse extends EndpointCategory {
         includeNeedsGradingCount?: boolean;
     }, config?: APIConfig): Promise<CanvasCourse>;
     /**
+     * Update whether the course is published or not
+     * @author Gabe Abrams
+     * @method updatePublishState
+     * @memberof api.course
+     * @instance
+     * @async
+     * @param {object} [opts] object containing all arguments
+     * @param {number} [opts.courseId=default course id] Canvas course Id to
+     *   modify
+     * @param {boolean} [opts.isPublished] if true, publish the course. Otherwise,
+     *   unpublish the course
+     */
+    updatePublishState(opts?: {
+        courseId?: number;
+        isPublished?: boolean;
+    }, config?: APIConfig): Promise<CanvasCourse>;
+    /**
      * Gets the list of enrollments in a course
      * @author Gabe Abrams
      * @method listEnrollments

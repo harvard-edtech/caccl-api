@@ -36,6 +36,7 @@ declare enum ErrorCode {
     WaitForCompletionTimeout = "CAPI11",
     WaitForCompletionCheckError = "CAPI12",
     WaitForCompletionFailure = "CAPI23",
+    CoursePublishedStateNotUpdated = "CAPI31",
     SubmissionFileUploadFailed = "CAPI4",
     SubmissionFileActivateFailed = "CAPI5",
     SubmissionFileCheckFailed = "CAPI6",

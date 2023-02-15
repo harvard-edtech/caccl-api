@@ -4,7 +4,7 @@
  */
 
 // Highest errors =
-// > CAPI30
+// > CAPI31
 // > CANV18 (exclude 404, 500)
 
 enum ErrorCode {
@@ -52,6 +52,9 @@ enum ErrorCode {
 
   // Errors for specific endpoints
 
+  // course
+  // > updatePublishState
+  CoursePublishedStateNotUpdated = 'CAPI31',
   // course.assignment
   // > createSubmission
   SubmissionFileUploadFailed = 'CAPI4',

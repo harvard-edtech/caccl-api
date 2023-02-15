@@ -6,9 +6,6 @@ import InitPack from './shared/types/InitPack';
 // Import shared helpers
 import genVisitEndpoint from './shared/genVisitEndpoint';
 
-// Import shared types
-import CACCLTag from './shared/types/CACCLTag';
-
 // Import endpoint categories
 import ECatAccount from './endpoints/ECatAccount';
 import ECatConversation from './endpoints/ECatConversation';
@@ -78,8 +75,5 @@ const initAPI = (
   // Return api instance
   return api;
 };
-
-// Add CACCL tag
-initAPI.tag = CACCLTag.API;
 
 export default initAPI;
