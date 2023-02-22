@@ -110,6 +110,26 @@ declare class ECatDiscussionTopic extends EndpointCategory {
         courseId?: number;
     }, config?: APIConfig): Promise<CanvasDiscussionTopic>;
     /**
+     * Update whether a discussion topic is published or not
+     * @author Gabe Abrams
+     * @method updatePublishState
+     * @memberof api.course
+     * @instance
+     * @async
+     * @param {object} opts object containing all arguments
+     * @param {string} opts.topicId the id of the Canvas discussion topic to
+     *   update
+     * @param {number} [opts.courseId=default course id] Canvas course Id to
+     *   modify
+     * @param {boolean} [opts.isPublished] if true, publish the discussion topic.
+     *   Otherwise, unpublish it
+     */
+    updatePublishState(opts: {
+        topicId: string;
+        courseId?: number;
+        isPublished?: boolean;
+    }, config?: APIConfig): Promise<CanvasDiscussionTopic>;
+    /**
      * Lists the entries in a discussion topic
      * @author Gabe Abrams
      * @method listEntries

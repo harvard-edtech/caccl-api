@@ -186,6 +186,40 @@ class ECatDiscussionTopic extends EndpointCategory {
   }
 
   /**
+   * Update whether a discussion topic is published or not
+   * @author Gabe Abrams
+   * @method updatePublishState
+   * @memberof api.course
+   * @instance
+   * @async
+   * @param {object} opts object containing all arguments
+   * @param {string} opts.topicId the id of the Canvas discussion topic to
+   *   update
+   * @param {number} [opts.courseId=default course id] Canvas course Id to
+   *   modify
+   * @param {boolean} [opts.isPublished] if true, publish the discussion topic.
+   *   Otherwise, unpublish it
+   */
+  public async updatePublishState(
+    opts: {
+      topicId: string,
+      courseId?: number,
+      isPublished?: boolean,
+    },
+    config?: APIConfig,
+  ): Promise<CanvasDiscussionTopic> {
+    return this.visitEndpoint({
+      config,
+      action: 'update the published state of a specific discussion topic',
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/discussion_topics/${opts.topicId}`,
+      method: 'PUT',
+      params: {
+        published: !!opts.isPublished,
+      },
+    });
+  }
+
+  /**
    * Lists the entries in a discussion topic
    * @author Gabe Abrams
    * @method listEntries

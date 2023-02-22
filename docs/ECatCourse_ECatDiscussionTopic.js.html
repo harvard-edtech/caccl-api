@@ -254,6 +254,37 @@ var ECatDiscussionTopic = /** @class */ (function (_super) {
         });
     };
     /**
+     * Update whether a discussion topic is published or not
+     * @author Gabe Abrams
+     * @method updatePublishState
+     * @memberof api.course
+     * @instance
+     * @async
+     * @param {object} opts object containing all arguments
+     * @param {string} opts.topicId the id of the Canvas discussion topic to
+     *   update
+     * @param {number} [opts.courseId=default course id] Canvas course Id to
+     *   modify
+     * @param {boolean} [opts.isPublished] if true, publish the discussion topic.
+     *   Otherwise, unpublish it
+     */
+    ECatDiscussionTopic.prototype.updatePublishState = function (opts, config) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_b) {
+                return [2 /*return*/, this.visitEndpoint({
+                        config: config,
+                        action: 'update the published state of a specific discussion topic',
+                        path: "".concat(API_PREFIX_1.default, "/courses/").concat((_a = opts.courseId) !== null &amp;&amp; _a !== void 0 ? _a : this.defaultCourseId, "/discussion_topics/").concat(opts.topicId),
+                        method: 'PUT',
+                        params: {
+                            published: !!opts.isPublished,
+                        },
+                    })];
+            });
+        });
+    };
+    /**
      * Lists the entries in a discussion topic
      * @author Gabe Abrams
      * @method listEntries
