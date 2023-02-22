@@ -189,7 +189,7 @@ class ECatDiscussionTopic extends EndpointCategory {
    * Update whether a discussion topic is published or not
    * @author Gabe Abrams
    * @method updatePublishState
-   * @memberof api.course
+   * @memberof api.course.discussionTopic
    * @instance
    * @async
    * @param {object} opts object containing all arguments
