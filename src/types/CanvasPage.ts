@@ -1,4 +1,6 @@
 interface CanvasPage {
+  // Unique id for the page
+  page_id: number,
   // the unique locator for the page
   url: string,
   // the title of the page

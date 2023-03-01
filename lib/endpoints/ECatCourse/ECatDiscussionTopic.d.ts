@@ -117,7 +117,7 @@ declare class ECatDiscussionTopic extends EndpointCategory {
      * @instance
      * @async
      * @param {object} opts object containing all arguments
-     * @param {string} opts.topicId the id of the Canvas discussion topic to
+     * @param {number} opts.topicId the id of the Canvas discussion topic to
      *   update
      * @param {number} [opts.courseId=default course id] Canvas course Id to
      *   modify
@@ -125,7 +125,7 @@ declare class ECatDiscussionTopic extends EndpointCategory {
      *   Otherwise, unpublish it
      */
     updatePublishState(opts: {
-        topicId: string;
+        topicId: number;
         courseId?: number;
         isPublished?: boolean;
     }, config?: APIConfig): Promise<CanvasDiscussionTopic>;
