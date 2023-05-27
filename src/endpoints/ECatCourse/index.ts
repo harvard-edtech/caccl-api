@@ -41,12 +41,6 @@ import ECatRubric from './ECatRubric';
 import ECatSection from './ECatSection';
 
 /*------------------------------------------------------------------------*/
-/*                                Constants                               */
-/*------------------------------------------------------------------------*/
-
-const assignmentTagPrefix = '#CurrentlyBeingMigrated#';
-
-/*------------------------------------------------------------------------*/
 /*                            Endpoint Category                           */
 /*------------------------------------------------------------------------*/
 
@@ -1056,27 +1050,8 @@ class ECatCourse extends EndpointCategory {
       return assignmentIds.includes(assignment.id);
     });
 
-    const destinationAssignments = await this.api.course.assignment.list({
-      courseId: destinationCourseId,
-    });
-
     // mapping source group id to destination group id
     const assignmentGroupMap: { [k: number]: number } = {};
-
-    // iterate through each source assignment to determine the mapping
-    sourceAssignments.forEach((sourceAssignment) => {
-      const destinationAssignment = destinationAssignments.find((assignment) => {
-        return assignment.name === sourceAssignment.name;
-      });
-      if (destinationAssignment) {
-        assignmentMap[sourceAssignment.id] = destinationAssignment.id;
-      } else {
-        throw new CACCLError({
-          message: 'Could not find a migrated assignment in the destination course.',
-          code: ErrorCode.CouldNotFindDestinationAssignment,
-        });
-      }
-    });
 
     // iterate through each assignment group in the source course and
     // create the same assignment group in the destination course
