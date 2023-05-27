@@ -945,21 +945,7 @@ class ECatCourse extends EndpointCategory {
       };
     }
 
-    // Iterate through each assignment and change the name to be
-    // current name + [id]
-    for (let i = 0; i < assignmentIds.length; i++) {
-      const id = assignmentIds[i];
-      const { name } = await this.api.course.assignment.get({
-        assignmentId: id,
-        courseId: sourceCourseId,
-      });
-      this.api.course.assignment.update({
-        assignmentId: id,
-        courseId: sourceCourseId,
-        name: `${name}${assignmentTagPrefix}${id}`,
-      });
-    }
-
+    let assignmentMap: { [k: number]: number } = {};
     // Create the migration
     try {
       const contentMigration = await this.visitEndpoint({
@@ -1044,6 +1030,13 @@ class ECatCourse extends EndpointCategory {
           code: ErrorCode.MigrationIssue,
         });
       }
+      // mapping source assignment id to destination assignment id
+      const contentMapping = await this.visitEndpoint({
+        path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}/asset_id_mapping`,
+        action: 'get content mapping',
+        method: 'GET',
+      });
+      assignmentMap = contentMapping.assignments;
     } catch (err) {
       if (err instanceof CACCLError) {
         // Rethrow the error (it's already in the right format)
@@ -1070,8 +1063,6 @@ class ECatCourse extends EndpointCategory {
     // mapping source group id to destination group id
     const assignmentGroupMap: { [k: number]: number } = {};
 
-    // mapping source assignment id to destination assignment id
-    const assignmentMap: { [k: number]: number } = {};
     // iterate through each source assignment to determine the mapping
     sourceAssignments.forEach((sourceAssignment) => {
       const destinationAssignment = destinationAssignments.find((assignment) => {
@@ -1177,28 +1168,11 @@ class ECatCourse extends EndpointCategory {
           code: ErrorCode.CouldNotFindDestinationAssignment,
         });
       }
-      // Remove tag from assignment names
-      const parts = sourceAssignment.name.split('#');
-      const tag = parts[parts.length - 1];
-      const originalAssignmentName = sourceAssignment.name.substring(
-        // Start at beginning of name
-        0,
-        // Cut off the tag from the end
-        sourceAssignment.name.length - (`${assignmentTagPrefix}${tag}`).length,
-      );
       // Update the assignment group id of the assignment and remove the tag from the name in the destination course
       await this.api.course.assignment.update({
         courseId: destinationCourseId,
         assignmentId: destinationAssignmentId,
         assignmentGroupId: destinationAssignmentGroupId,
-        name: originalAssignmentName,
-      });
-
-      // remove tag from name in original course
-      await this.api.course.assignment.update({
-        courseId: sourceCourseId,
-        assignmentId: sourceAssignment.id,
-        name: originalAssignmentName,
       });
     }
 
