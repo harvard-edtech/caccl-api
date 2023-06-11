@@ -39,6 +39,7 @@ import ECatPage from './ECatPage';
 import ECatQuiz from './ECatQuiz';
 import ECatRubric from './ECatRubric';
 import ECatSection from './ECatSection';
+import CanvasMigrationIdMap from '../../types/CanvasMigrationIdMap';
 
 /*------------------------------------------------------------------------*/
 /*                            Endpoint Category                           */
@@ -842,6 +843,7 @@ class ECatCourse extends EndpointCategory {
    * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds
    *   to wait for course migration to finish
    * @param {APIConfig} [config] custom configuration for this specific endpoint
+   * @returns {Promise<CanvasMigrationIdMap>} map of ids from the source course to destination course
    */
   public async migrateContent(
     opts: {
@@ -860,7 +862,7 @@ class ECatCourse extends EndpointCategory {
       dateShiftOptions: DateShiftOptions,
       timeoutMs?: number,
     },
-  ) {
+  ): Promise<CanvasMigrationIdMap> {
     const {
       sourceCourseId,
       destinationCourseId,
@@ -881,6 +883,8 @@ class ECatCourse extends EndpointCategory {
       pageIds = [],
       rubricIds = [],
     } = include;
+
+    let contentMapping: CanvasMigrationIdMap = {};
 
     // Create a params object that we'll dynamically fill
     // with params depending on the request
@@ -939,7 +943,7 @@ class ECatCourse extends EndpointCategory {
       };
     }
 
-    let assignmentMap: { [k: number]: number } = {};
+    let assignmentMap: { [k: string]: string } = {};
     // Create the migration
     try {
       const contentMigration = await this.visitEndpoint({
@@ -1025,7 +1029,7 @@ class ECatCourse extends EndpointCategory {
         });
       }
       // mapping source assignment id to destination assignment id
-      const contentMapping = await this.visitEndpoint({
+      contentMapping = await this.visitEndpoint({
         path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}/asset_id_mapping`,
         action: 'get content mapping',
         method: 'GET',
@@ -1143,10 +1147,10 @@ class ECatCourse extends EndpointCategory {
           code: ErrorCode.CouldNotFindDestinationAssignment,
         });
       }
-      // Update the assignment group id of the assignment and remove the tag from the name in the destination course
+      // Update the assignment group id of the assignment
       await this.api.course.assignment.update({
         courseId: destinationCourseId,
-        assignmentId: destinationAssignmentId,
+        assignmentId: Number.parseInt(destinationAssignmentId, 10),
         assignmentGroupId: destinationAssignmentGroupId,
       });
     }
@@ -1161,7 +1165,7 @@ class ECatCourse extends EndpointCategory {
       let destinationNeverDrop: number[] = [];
       if (sourceAssignmentGroup.rules.never_drop) {
         destinationNeverDrop = sourceAssignmentGroup.rules.never_drop.map(
-          (id: number) => { return assignmentMap[id]; },
+          (id: number) => { return Number.parseInt(assignmentMap[id], 10); },
         );
       }
 
@@ -1174,6 +1178,7 @@ class ECatCourse extends EndpointCategory {
         neverDrop: destinationNeverDrop,
       });
     }
+    return contentMapping;
   }
 }
 
