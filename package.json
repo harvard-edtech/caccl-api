@@ -48,8 +48,8 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "caccl-error": "^2.2.9",
-    "caccl-send-request": "^2.2.9",
+    "caccl-error": "^2.2.10",
+    "caccl-send-request": "^2.2.10",
     "fast-clone": "^1.5.13"
   }
 }
