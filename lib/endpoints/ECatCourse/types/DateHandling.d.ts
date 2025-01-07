@@ -32,7 +32,7 @@ export declare const dayOfWeekToNumber: {
  * All the information needed to shift dates.
  * @author Yuen Ler Chow
  */
-export declare type DateShiftOptions = ({
+export type DateShiftOptions = ({
     dateHandling: DateHandlingType.RemoveDates;
 } | {
     dateHandling: DateHandlingType.ShiftDates;

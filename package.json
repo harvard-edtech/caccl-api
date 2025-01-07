@@ -6,7 +6,8 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "build": "rm -rf lib && tsc --project ./tsconfig.json && npm run build-docs",
-    "build-docs": "rm -rf ./docBuilder/template && cp -r ./node_modules/docdash ./docBuilder/template && node ./docBuilder/updateBuilder.js && rm -rf ./docs && ./node_modules/.bin/jsdoc -c ./docBuilder/jsdocConfig.json && echo \"\n\nDone!\""
+    "build-docs": "rm -rf ./docBuilder/template && cp -r ./node_modules/docdash ./docBuilder/template && node ./docBuilder/updateBuilder.js && rm -rf ./docs && ./node_modules/.bin/jsdoc -c ./docBuilder/jsdocConfig.json && echo \"\n\nDone!\"",
+    "sandbox": "npm run build && npx tsx ./sandbox.ts"
   },
   "repository": {
     "type": "git",
