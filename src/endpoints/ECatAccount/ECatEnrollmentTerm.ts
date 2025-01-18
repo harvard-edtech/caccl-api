@@ -52,7 +52,7 @@ class ECatEnrollmentTerm extends EndpointCategory {
   ): Promise<CanvasEnrollmentTerm[]> {
     /**
      * Helper that gets enrollment terms for an account
-     * @param [accountId=1] account id to query 
+     * @param [accountId=1] account id to query
      * @returns enrollment terms
      */
     const attemptRequest = async (
@@ -71,6 +71,7 @@ class ECatEnrollmentTerm extends EndpointCategory {
         pagePostProcessor: (page) => {
           return page.enrollment_terms;
         },
+        config,
       });
     };
 
@@ -129,7 +130,7 @@ class ECatEnrollmentTerm extends EndpointCategory {
       path: `${API_PREFIX}/accounts/${opts.accountId}/terms/${opts.enrollmentTermId}`,
       method: 'GET',
     });
-  };
+  }
 }
 
 /*------------------------------------------------------------------------*/

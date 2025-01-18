@@ -9,6 +9,8 @@ interface CanvasEnrollmentTerm {
   sis_import_id?: number | null,
   // The name of the term.
   name: string,
+  // Date that the term was created at
+  created_at: string,
   // The datetime of the start of the term.
   start_at?: string | null,
   // The datetime of the end of the term.
@@ -22,6 +24,6 @@ interface CanvasEnrollmentTerm {
       end_at?: string,
     }
   },
-};
+}
 
 export default CanvasEnrollmentTerm;

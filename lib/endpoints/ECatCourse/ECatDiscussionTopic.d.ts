@@ -137,7 +137,7 @@ declare class ECatDiscussionTopic extends EndpointCategory {
      * @instance
      * @async
      * @param {object} opts object containing all arguments
-     * @param {string} opts.topicId the id of the Canvas discussion topic to
+     * @param {number} opts.topicId the id of the Canvas discussion topic to
      *   list entries in
      * @param {number} [opts.courseId=default course id] Canvas course Id to query
      * @param {APIConfig} [config] custom configuration for this specific endpoint
@@ -145,7 +145,7 @@ declare class ECatDiscussionTopic extends EndpointCategory {
      * @returns {Promise<CanvasDiscussionTopic>} A Canvas Discussion Topic {@link https://canvas.instructure.com/doc/api/discussion_topics.html#DiscussionTopic}
      */
     listEntries(opts: {
-        topicId: string;
+        topicId: number;
         courseId?: number;
     }, config?: APIConfig): Promise<CanvasDiscussionTopic>;
 }
