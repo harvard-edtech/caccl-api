@@ -158,6 +158,7 @@ var ECatEnrollmentTerm = /** @class */ (function (_super) {
                                             pagePostProcessor: function (page) {
                                                 return page.enrollment_terms;
                                             },
+                                            config: config,
                                         })];
                                 });
                             });
@@ -211,7 +212,6 @@ var ECatEnrollmentTerm = /** @class */ (function (_super) {
             method: 'GET',
         });
     };
-    ;
     return ECatEnrollmentTerm;
 }(EndpointCategory_1.default));
 /*------------------------------------------------------------------------*/
