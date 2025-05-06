@@ -138,10 +138,6 @@ var ECatQuiz_1 = __importDefault(require("./ECatQuiz"));
 var ECatRubric_1 = __importDefault(require("./ECatRubric"));
 var ECatSection_1 = __importDefault(require("./ECatSection"));
 /*------------------------------------------------------------------------*/
-/*                                Constants                               */
-/*------------------------------------------------------------------------*/
-var assignmentTagPrefix = '#CurrentlyBeingMigrated#';
-/*------------------------------------------------------------------------*/
 /*                            Endpoint Category                           */
 /*------------------------------------------------------------------------*/
 // Endpoint category
@@ -764,15 +760,17 @@ var ECatCourse = /** @class */ (function (_super) {
      * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds
      *   to wait for course migration to finish
      * @param {APIConfig} [config] custom configuration for this specific endpoint
+     * @returns {Promise&lt;CanvasMigrationIdMap>} map of ids from the source course to destination course
      */
     ECatCourse.prototype.migrateContent = function (opts) {
         return __awaiter(this, void 0, void 0, function () {
-            var sourceCourseId, destinationCourseId, include, dateShiftOptions, _a, timeoutMs, _b, fileIds, _c, quizIds, _d, assignmentIds, _e, announcementIds, _f, discussionTopicsIds, _g, moduleIds, _h, pageIds, _j, rubricIds, params, oldStart, oldEnd, newStart, newEnd, _k, daySubstitutionMap_1, dayNumberSubstitutionMap_1, i, id, name_1, contentMigration, workflowState, migrationIssuesCount, CHECK_INTERVAL_MS_1, numIterations, i, status_1, migrationIssues_1, errorsAsText, errorMessage, err_1, sourceAssignments, destinationAssignments, assignmentGroupMap, assignmentMap, sourceAssignmentGroups, destinationAssignmentGroups, sourceCourse, applyAssignmentGroupWeights, _loop_1, this_1, i, i, sourceAssignment, assignmentGroupId, destinationAssignmentGroupId, destinationAssignmentId, parts, tag, originalAssignmentName, i, sourceAssignmentGroup, destinationAssignmentGroupId, destinationNeverDrop;
+            var sourceCourseId, destinationCourseId, include, dateShiftOptions, _a, timeoutMs, _b, fileIds, _c, quizIds, _d, assignmentIds, _e, announcementIds, _f, discussionTopicsIds, _g, moduleIds, _h, pageIds, _j, rubricIds, contentMapping, params, oldStart, oldEnd, newStart, newEnd, _k, daySubstitutionMap_1, dayNumberSubstitutionMap_1, assignmentMap, contentMigration, workflowState, migrationIssuesCount, CHECK_INTERVAL_MS_1, numIterations, i, status_1, migrationIssues_1, errorsAsText, errorMessage, err_1, sourceAssignments, assignmentGroupMap, sourceAssignmentGroups, destinationAssignmentGroups, sourceCourse, applyAssignmentGroupWeights, _loop_1, this_1, i, i, sourceAssignment, assignmentGroupId, destinationAssignmentGroupId, destinationAssignmentId, i, sourceAssignmentGroup, destinationAssignmentGroupId, destinationNeverDrop;
             return __generator(this, function (_l) {
                 switch (_l.label) {
                     case 0:
                         sourceCourseId = opts.sourceCourseId, destinationCourseId = opts.destinationCourseId, include = opts.include, dateShiftOptions = opts.dateShiftOptions, _a = opts.timeoutMs, timeoutMs = _a === void 0 ? 300000 : _a;
                         _b = include.fileIds, fileIds = _b === void 0 ? [] : _b, _c = include.quizIds, quizIds = _c === void 0 ? [] : _c, _d = include.assignmentIds, assignmentIds = _d === void 0 ? [] : _d, _e = include.announcementIds, announcementIds = _e === void 0 ? [] : _e, _f = include.discussionTopicsIds, discussionTopicsIds = _f === void 0 ? [] : _f, _g = include.moduleIds, moduleIds = _g === void 0 ? [] : _g, _h = include.pageIds, pageIds = _h === void 0 ? [] : _h, _j = include.rubricIds, rubricIds = _j === void 0 ? [] : _j;
+                        contentMapping = {};
                         params = {
                             migration_type: 'course_copy_importer',
                             settings: {
@@ -815,49 +813,31 @@ var ECatCourse = /** @class */ (function (_super) {
                                 day_substitutions: dayNumberSubstitutionMap_1,
                             };
                         }
-                        i = 0;
+                        assignmentMap = {};
                         _l.label = 1;
                     case 1:
-                        if (!(i &lt; assignmentIds.length)) return [3 /*break*/, 4];
-                        id = assignmentIds[i];
-                        return [4 /*yield*/, this.api.course.assignment.get({
-                                assignmentId: id,
-                                courseId: sourceCourseId,
-                            })];
-                    case 2:
-                        name_1 = (_l.sent()).name;
-                        this.api.course.assignment.update({
-                            assignmentId: id,
-                            courseId: sourceCourseId,
-                            name: "".concat(name_1).concat(assignmentTagPrefix).concat(id),
-                        });
-                        _l.label = 3;
-                    case 3:
-                        i++;
-                        return [3 /*break*/, 1];
-                    case 4:
-                        _l.trys.push([4, 13, , 14]);
+                        _l.trys.push([1, 11, , 12]);
                         return [4 /*yield*/, this.visitEndpoint({
                                 path: "".concat(API_PREFIX_1.default, "/courses/").concat(destinationCourseId, "/content_migrations"),
                                 action: 'perform a course content migration',
                                 method: 'POST',
                                 params: params,
                             })];
-                    case 5:
+                    case 2:
                         contentMigration = _l.sent();
                         workflowState = 'running';
                         migrationIssuesCount = 0;
                         CHECK_INTERVAL_MS_1 = 500;
                         numIterations = Math.ceil(timeoutMs / CHECK_INTERVAL_MS_1);
                         i = 0;
-                        _l.label = 6;
-                    case 6:
-                        if (!(i &lt; numIterations)) return [3 /*break*/, 10];
+                        _l.label = 3;
+                    case 3:
+                        if (!(i &lt; numIterations)) return [3 /*break*/, 7];
                         // Wait for CHECK_INTERVAL_MS
                         return [4 /*yield*/, new Promise(function (resolve) {
                                 setTimeout(resolve, CHECK_INTERVAL_MS_1);
                             })];
-                    case 7:
+                    case 4:
                         // Wait for CHECK_INTERVAL_MS
                         _l.sent();
                         return [4 /*yield*/, this.visitEndpoint({
@@ -865,19 +845,19 @@ var ECatCourse = /** @class */ (function (_super) {
                                 action: 'check the status of a content migration',
                                 method: 'GET',
                             })];
-                    case 8:
+                    case 5:
                         status_1 = _l.sent();
                         workflowState = status_1.workflow_state;
                         migrationIssuesCount = status_1.migration_issues_count;
                         // If the workflow is no longer running, end the loop
                         if (workflowState === 'completed' || workflowState === 'failed') {
-                            return [3 /*break*/, 10];
+                            return [3 /*break*/, 7];
                         }
-                        _l.label = 9;
-                    case 9:
+                        _l.label = 6;
+                    case 6:
                         i++;
-                        return [3 /*break*/, 6];
-                    case 10:
+                        return [3 /*break*/, 3];
+                    case 7:
                         // Detect a timeout (if the workflow never left the pending state)
                         if (workflowState !== 'completed' &amp;&amp; workflowState !== 'failed') {
                             throw new caccl_error_1.default({
@@ -885,13 +865,13 @@ var ECatCourse = /** @class */ (function (_super) {
                                 code: ErrorCode_1.default.MigrationTimeout,
                             });
                         }
-                        if (!(migrationIssuesCount > 0)) return [3 /*break*/, 12];
+                        if (!(migrationIssuesCount > 0)) return [3 /*break*/, 9];
                         return [4 /*yield*/, this.visitEndpoint({
                                 path: "".concat(API_PREFIX_1.default, "/courses/").concat(destinationCourseId, "/content_migrations/").concat(contentMigration.id, "/migration_issues"),
                                 action: 'get migration issues',
                                 method: 'GET',
                             })];
-                    case 11:
+                    case 8:
                         migrationIssues_1 = _l.sent();
                         errorsAsText = void 0;
                         // If there is only 1 issue, we simply print the issue.
@@ -920,8 +900,17 @@ var ECatCourse = /** @class */ (function (_super) {
                             message: errorMessage,
                             code: ErrorCode_1.default.MigrationIssue,
                         });
-                    case 12: return [3 /*break*/, 14];
-                    case 13:
+                    case 9: return [4 /*yield*/, this.visitEndpoint({
+                            path: "".concat(API_PREFIX_1.default, "/courses/").concat(destinationCourseId, "/content_migrations/").concat(contentMigration.id, "/asset_id_mapping"),
+                            action: 'get content mapping',
+                            method: 'GET',
+                        })];
+                    case 10:
+                        // mapping source assignment id to destination assignment id
+                        contentMapping = _l.sent();
+                        assignmentMap = contentMapping.assignments;
+                        return [3 /*break*/, 12];
+                    case 11:
                         err_1 = _l.sent();
                         if (err_1 instanceof caccl_error_1.default) {
                             // Rethrow the error (it's already in the right format)
@@ -932,51 +921,30 @@ var ECatCourse = /** @class */ (function (_super) {
                             message: err_1,
                             code: ErrorCode_1.default.MigrationIssue,
                         });
-                    case 14: return [4 /*yield*/, this.api.course.assignment.list({
+                    case 12: return [4 /*yield*/, this.api.course.assignment.list({
                             courseId: sourceCourseId,
                         })];
-                    case 15:
+                    case 13:
                         sourceAssignments = _l.sent();
                         // filter sourceAssignments to only those that were migrated
                         sourceAssignments = sourceAssignments.filter(function (assignment) {
                             return assignmentIds.includes(assignment.id);
                         });
-                        return [4 /*yield*/, this.api.course.assignment.list({
-                                courseId: destinationCourseId,
-                            })];
-                    case 16:
-                        destinationAssignments = _l.sent();
                         assignmentGroupMap = {};
-                        assignmentMap = {};
-                        // iterate through each source assignment to determine the mapping
-                        sourceAssignments.forEach(function (sourceAssignment) {
-                            var destinationAssignment = destinationAssignments.find(function (assignment) {
-                                return assignment.name === sourceAssignment.name;
-                            });
-                            if (destinationAssignment) {
-                                assignmentMap[sourceAssignment.id] = destinationAssignment.id;
-                            }
-                            else {
-                                throw new caccl_error_1.default({
-                                    message: 'Could not find a migrated assignment in the destination course.',
-                                    code: ErrorCode_1.default.CouldNotFindDestinationAssignment,
-                                });
-                            }
-                        });
                         return [4 /*yield*/, this.api.course.assignmentGroup.list({
                                 courseId: sourceCourseId,
                             })];
-                    case 17:
+                    case 14:
                         sourceAssignmentGroups = _l.sent();
                         return [4 /*yield*/, this.api.course.assignmentGroup.list({
                                 courseId: destinationCourseId,
                             })];
-                    case 18:
+                    case 15:
                         destinationAssignmentGroups = _l.sent();
                         return [4 /*yield*/, this.api.course.get({
                                 courseId: sourceCourseId,
                             })];
-                    case 19:
+                    case 16:
                         sourceCourse = _l.sent();
                         applyAssignmentGroupWeights = sourceCourse.apply_assignment_group_weights;
                         _loop_1 = function (i) {
@@ -1040,21 +1008,21 @@ var ECatCourse = /** @class */ (function (_super) {
                         };
                         this_1 = this;
                         i = 0;
-                        _l.label = 20;
-                    case 20:
-                        if (!(i &lt; sourceAssignmentGroups.length)) return [3 /*break*/, 23];
+                        _l.label = 17;
+                    case 17:
+                        if (!(i &lt; sourceAssignmentGroups.length)) return [3 /*break*/, 20];
                         return [5 /*yield**/, _loop_1(i)];
-                    case 21:
+                    case 18:
                         _l.sent();
-                        _l.label = 22;
-                    case 22:
+                        _l.label = 19;
+                    case 19:
                         i++;
-                        return [3 /*break*/, 20];
-                    case 23:
+                        return [3 /*break*/, 17];
+                    case 20:
                         i = 0;
-                        _l.label = 24;
-                    case 24:
-                        if (!(i &lt; sourceAssignments.length)) return [3 /*break*/, 28];
+                        _l.label = 21;
+                    case 21:
+                        if (!(i &lt; sourceAssignments.length)) return [3 /*break*/, 24];
                         sourceAssignment = sourceAssignments[i];
                         assignmentGroupId = sourceAssignment.assignment_group_id;
                         destinationAssignmentGroupId = assignmentGroupMap[assignmentGroupId];
@@ -1073,46 +1041,29 @@ var ECatCourse = /** @class */ (function (_super) {
                                 code: ErrorCode_1.default.CouldNotFindDestinationAssignment,
                             });
                         }
-                        parts = sourceAssignment.name.split('#');
-                        tag = parts[parts.length - 1];
-                        originalAssignmentName = sourceAssignment.name.substring(
-                        // Start at beginning of name
-                        0, 
-                        // Cut off the tag from the end
-                        sourceAssignment.name.length - ("".concat(assignmentTagPrefix).concat(tag)).length);
-                        // Update the assignment group id of the assignment and remove the tag from the name in the destination course
+                        // Update the assignment group id of the assignment
                         return [4 /*yield*/, this.api.course.assignment.update({
                                 courseId: destinationCourseId,
-                                assignmentId: destinationAssignmentId,
+                                assignmentId: Number.parseInt(destinationAssignmentId, 10),
                                 assignmentGroupId: destinationAssignmentGroupId,
-                                name: originalAssignmentName,
                             })];
-                    case 25:
-                        // Update the assignment group id of the assignment and remove the tag from the name in the destination course
+                    case 22:
+                        // Update the assignment group id of the assignment
                         _l.sent();
-                        // remove tag from name in original course
-                        return [4 /*yield*/, this.api.course.assignment.update({
-                                courseId: sourceCourseId,
-                                assignmentId: sourceAssignment.id,
-                                name: originalAssignmentName,
-                            })];
-                    case 26:
-                        // remove tag from name in original course
-                        _l.sent();
-                        _l.label = 27;
-                    case 27:
+                        _l.label = 23;
+                    case 23:
                         i++;
-                        return [3 /*break*/, 24];
-                    case 28:
+                        return [3 /*break*/, 21];
+                    case 24:
                         i = 0;
-                        _l.label = 29;
-                    case 29:
-                        if (!(i &lt; sourceAssignmentGroups.length)) return [3 /*break*/, 32];
+                        _l.label = 25;
+                    case 25:
+                        if (!(i &lt; sourceAssignmentGroups.length)) return [3 /*break*/, 28];
                         sourceAssignmentGroup = sourceAssignmentGroups[i];
                         destinationAssignmentGroupId = assignmentGroupMap[sourceAssignmentGroup.id];
                         destinationNeverDrop = [];
                         if (sourceAssignmentGroup.rules.never_drop) {
-                            destinationNeverDrop = sourceAssignmentGroup.rules.never_drop.map(function (id) { return assignmentMap[id]; });
+                            destinationNeverDrop = sourceAssignmentGroup.rules.never_drop.map(function (id) { return Number.parseInt(assignmentMap[id], 10); });
                         }
                         // update destination assignment group
                         return [4 /*yield*/, this.api.course.assignmentGroup.update({
@@ -1122,14 +1073,14 @@ var ECatCourse = /** @class */ (function (_super) {
                                 dropHighest: sourceAssignmentGroup.rules.drop_highest,
                                 neverDrop: destinationNeverDrop,
                             })];
-                    case 30:
+                    case 26:
                         // update destination assignment group
                         _l.sent();
-                        _l.label = 31;
-                    case 31:
+                        _l.label = 27;
+                    case 27:
                         i++;
-                        return [3 /*break*/, 29];
-                    case 32: return [2 /*return*/];
+                        return [3 /*break*/, 25];
+                    case 28: return [2 /*return*/, contentMapping];
                 }
             });
         });
