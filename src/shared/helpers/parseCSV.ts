@@ -1,5 +1,5 @@
 // Import CSV parser
-import * as csv from '@fast-csv/parse';
+import csv from '@fast-csv/parse';
 
 /**
  * Parse a CSV string
