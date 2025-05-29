@@ -1018,6 +1018,7 @@ class ECatQuiz extends EndpointCategory {
       'section',
       'section_id',
       'section_sis_id',
+      'sis_id',
     ];
     const questionHeaders: {
       index: number,
