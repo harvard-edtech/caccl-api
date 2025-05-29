@@ -1005,7 +1005,6 @@ class ECatQuiz extends EndpointCategory {
 
     // Parse the report file
     const { headers, rows } = await parseCSV(reportData);
-    console.log('Headers', headers, rows);
 
     // Discover the indices of certain columns
     let nameColIndex: number;
