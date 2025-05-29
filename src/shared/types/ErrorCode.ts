@@ -4,7 +4,7 @@
  */
 
 // Highest errors =
-// > CAPI31
+// > CAPI34
 // > CANV18 (exclude 404, 500)
 
 enum ErrorCode {
@@ -88,6 +88,11 @@ enum ErrorCode {
   MigrationIssue = 'CAPI28',
   CouldNotFindDestinationAssignment = 'CAPI29',
   CouldNotFindDestinationAssignmentGroup = 'CAPI30',
+
+  // course.quiz reports
+  QuizReportNoProgress = 'CAPI32',
+  QuizReportGenerationFailed = 'CAPI33',
+  QuizReportFormattingUnexpected = 'CAPI34',
 }
 
 export default ErrorCode;

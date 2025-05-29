@@ -53,6 +53,9 @@ declare enum ErrorCode {
     MigrationTimeout = "CAPI26",
     MigrationIssue = "CAPI28",
     CouldNotFindDestinationAssignment = "CAPI29",
-    CouldNotFindDestinationAssignmentGroup = "CAPI30"
+    CouldNotFindDestinationAssignmentGroup = "CAPI30",
+    QuizReportNoProgress = "CAPI32",
+    QuizReportGenerationFailed = "CAPI33",
+    QuizReportFormattingUnexpected = "CAPI34"
 }
 export default ErrorCode;

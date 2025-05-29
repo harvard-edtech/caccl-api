@@ -3,20 +3,30 @@
  * @namespace api.course.quiz
  */
 
+// Import caccl
+import CACCLError from 'caccl-error';
+
 // Import shared classes
+// eslint-disable-next-line import/no-cycle
 import EndpointCategory from '../../shared/EndpointCategory';
 
 // Import shared types
 import APIConfig from '../../shared/types/APIConfig';
-
-// Import shared helpers
-import utils from '../../shared/helpers/utils';
-
-// Import shared constants
-import API_PREFIX from '../../shared/constants/API_PREFIX';
+import ErrorCode from '../../shared/types/ErrorCode';
 import CanvasQuiz from '../../types/CanvasQuiz';
 import CanvasQuizQuestion from '../../types/CanvasQuizQuestion';
 import CanvasQuizSubmission from '../../types/CanvasQuizSubmission';
+import CanvasQuizReport from '../../types/CanvasQuizReport';
+
+// Import shared helpers
+import utils from '../../shared/helpers/utils';
+import waitForCompletion from '../../shared/helpers/waitForCompletion';
+
+// Import shared constants
+import API_PREFIX from '../../shared/constants/API_PREFIX';
+import CanvasParsedStudentAnalysisQuizReport from '../../types/CanvasParsedStudentAnalysisQuizReport';
+import parseCSV from '../../shared/helpers/parseCSV';
+import CanvasProgress from '../../types/CanvasProgress';
 
 // Endpoint category
 class ECatQuiz extends EndpointCategory {
@@ -207,7 +217,7 @@ class ECatQuiz extends EndpointCategory {
         'quiz[show_correct_answers]':
           !utils.includeIfBoolean(opts.hideCorrectAnswers),
         'quiz[show_correct_answers_last_attempt]': utils.includeIfBoolean(
-          opts.showCorrectAnswersAfterLastAttempt
+          opts.showCorrectAnswersAfterLastAttempt,
         ),
         'quiz[show_correct_answers_at]':
           utils.includeIfDate(opts.showCorrectAnswersAt),
@@ -502,7 +512,7 @@ class ECatQuiz extends EndpointCategory {
     },
     config?: APIConfig,
   ): Promise<CanvasQuizQuestion> {
-    const params: {[k: string]: any} = {
+    const params: { [k: string]: any } = {
       'question[question_name]': opts.name,
       'question[question_text]': opts.text,
       'question[question_type]': 'multiple_choice_question',
@@ -775,7 +785,7 @@ class ECatQuiz extends EndpointCategory {
         access_code: utils.includeIfTruthy(opts.accessCode),
       },
     });
-    
+
     // Get info on the new open submission
     const openSubmission = startResponse.quiz_submissions[0];
     const submissionId = openSubmission.id;
@@ -896,6 +906,311 @@ class ECatQuiz extends EndpointCategory {
     });
 
     return response.quiz_submissions[0];
+  }
+
+  /*------------------------------------------------------------------------*/
+  /* ------------------------------- Reports ------------------------------ */
+  /*------------------------------------------------------------------------*/
+
+  /**
+   * Get a student quiz report
+   * @author Gabe Abrams
+   * @method getQuizStudentReport
+   * @memberof api.course.quiz
+   * @instance
+   * @async
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.quizId Canvas quiz Id (not the quiz's assignment
+   *   Id)
+   * @param {number} [opts.courseId] Canvas course Id to query
+   * @param {number} [opts.waitForCompletionTimeout=2] Number of minutes to
+   *   wait for completion of batch upload
+   * @param {APIConfig} [config] custom configuration for this specific endpoint
+   *   call (overwrites defaults that were included when api was initialized)
+   * @returns {Promise<CanvasParsedStudentAnalysisQuizReport>} a parsed student quiz report in JSON form
+   */
+  public async getQuizStudentAnalysisReport(
+    opts: {
+      quizId: number,
+      courseId?: number,
+      waitForCompletionTimeout?: number,
+    },
+    config?: APIConfig,
+  ): Promise <CanvasParsedStudentAnalysisQuizReport> {
+    /* ------- Create Quiz Report ------- */
+
+    const quizReport = await this.visitEndpoint({
+      config,
+      action: 'create a new quiz report',
+      params: {
+        'quiz_report[report_type]': 'student_analysis',
+        include: ['progress'],
+      },
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}/reports`,
+      method: 'POST',
+    }) as CanvasQuizReport;
+
+    /* ------- Wait for Completion ------ */
+
+    // Get progress
+    const progressId = quizReport.progress_url?.split('/').pop();
+    const progress: CanvasProgress = await this.visitEndpoint({
+      config,
+      action: 'get the progress of a quiz report',
+      method: 'GET',
+      path: `${API_PREFIX}/progress/${progressId}`,
+    });
+
+    // Get progress for the report
+    if (!progress) {
+      throw new CACCLError({
+        message: 'Quiz report progress not found',
+        code: ErrorCode.QuizReportNoProgress,
+      });
+    }
+
+    // Wait for existing report to finish
+    try {
+      await waitForCompletion({
+        visitEndpoint: this.visitEndpoint,
+        progress,
+        timeoutMin: opts.waitForCompletionTimeout,
+      });
+    } catch (err) {
+      // Handle error
+      throw new CACCLError({
+        message: 'Quiz report generation failed',
+        code: ErrorCode.QuizReportGenerationFailed,
+      });
+    }
+
+    /* ----------- Get Report ----------- */
+
+    // Get the quiz report
+    const generatedReport = await this.visitEndpoint({
+      config,
+      action: 'retrieve a generated quiz report',
+      params: {
+        include: ['file'],
+      },
+      path: `/api/v1/courses/${opts.courseId ?? this.defaultCourseId}/quizzes/${opts.quizId}/reports/${quizReport.id}`,
+      method: 'GET',
+    }) as CanvasQuizReport;
+
+    // Download the file
+    const fileURL = generatedReport.file.url;
+    const reportData = await (await fetch(fileURL)).text();
+
+    /* ---------- Parse Report ---------- */
+
+    // Parse the report file
+    const { headers, rows } = await parseCSV(reportData);
+
+    // Discover the indices of certain columns
+    let nameColIndex: number;
+    let idColIndex: number;
+    let submittedColIndex: number;
+    let attemptColIndex: number; // optional
+    let numCorrectColIndex: number;
+    let numIncorrectColIndex: number;
+    let scoreColIndex: number;
+    const ignoredHeaders = [
+      'section',
+      'section_id',
+      'section_sis_id',
+    ];
+    const questionHeaders: {
+      index: number,
+      text: string,
+    }[] = [];
+    for (let i = 0; i < headers.length; i++) {
+      const header = headers[i];
+      if (header === 'name') {
+        nameColIndex = i;
+      } else if (header === 'id') {
+        idColIndex = i;
+      } else if (header === 'submitted') {
+        submittedColIndex = i;
+      } else if (header === 'attempt') {
+        attemptColIndex = i;
+      } else if (header === 'n correct') {
+        numCorrectColIndex = i;
+      } else if (header === 'n incorrect') {
+        numIncorrectColIndex = i;
+      } else if (header === 'score') {
+        scoreColIndex = i;
+      } else if (!ignoredHeaders.includes(header)) {
+        questionHeaders.push({
+          index: i,
+          text: header,
+        });
+      }
+    }
+
+    // Weird parsing error if required columns aren't present
+    if (
+      nameColIndex === undefined
+      || idColIndex === undefined
+      || submittedColIndex === undefined
+      || numCorrectColIndex === undefined
+      || numIncorrectColIndex === undefined
+      || scoreColIndex === undefined
+    ) {
+      throw new CACCLError({
+        message: 'The quiz report was missing some expected information.',
+        code: ErrorCode.QuizReportFormattingUnexpected,
+      });
+    }
+
+    // Weird parsing error if question headers aren't an even number
+    if (questionHeaders.length % 2 !== 0) {
+      throw new CACCLError({
+        message: 'The quiz report was formatted in an unexpected way.',
+        code: ErrorCode.QuizReportFormattingUnexpected,
+      });
+    }
+
+    // Parse question columns
+    const questionCols: {
+      questionId: number,
+      questionColIndex: number,
+      questionText: string,
+      questionScoreColIndex: number,
+      questionTotalScore: number,
+    }[] = [];
+    for (let i = 0; i < questionHeaders.length - 1; i += 2) {
+      // Question text formatting: 12345: Question Text
+      const {
+        index,
+        text,
+      } = questionHeaders[i];
+      const questionId = Number.parseInt(text.split(': ')[0], 10);
+      if (Number.isNaN(questionId)) {
+        throw new CACCLError({
+          message: 'The quiz report had an invalid question ID.',
+          code: ErrorCode.QuizReportFormattingUnexpected,
+        });
+      }
+      const questionColIndex = index;
+      const questionText = text.split(': ')[1];
+      const questionScoreColIndex = index + 1;
+      const questionTotalScore = parseFloat(questionHeaders[i + 1].text);
+      questionCols.push({
+        questionId,
+        questionColIndex,
+        questionText,
+        questionScoreColIndex,
+        questionTotalScore,
+      });
+    }
+
+    // Parse student rows
+    const studentReports = rows.map((row) => {
+      // Get the student's userId
+      const userId = Number.parseInt(row[idColIndex], 10);
+      if (Number.isNaN(userId)) {
+        throw new CACCLError({
+          message: 'The quiz report had an invalid CanvasId for a student.',
+          code: ErrorCode.QuizReportFormattingUnexpected,
+        });
+      }
+      // Get the student's full name
+      const userFullName = row[nameColIndex];
+      if (!userFullName) {
+        throw new CACCLError({
+          message: 'The quiz report had an invalid name for a student.',
+          code: ErrorCode.QuizReportFormattingUnexpected,
+        });
+      }
+      // Get the timestamp that the student submitted their quiz
+      const submittedAt = (new Date(row[submittedColIndex])).getTime();
+      if (Number.isNaN(submittedAt)) {
+        throw new CACCLError({
+          message: 'The quiz report had an invalid submission time for a student.',
+          code: ErrorCode.QuizReportFormattingUnexpected,
+        });
+      }
+      // Get the student's score
+      let score = parseFloat(row[scoreColIndex]);
+      if (Number.isNaN(score)) {
+        score = 0;
+      }
+      // Get the number of correct questions
+      const numCorrect = Number.parseInt(row[numCorrectColIndex], 10);
+      if (Number.isNaN(numCorrect)) {
+        throw new CACCLError({
+          message: 'The quiz report had an invalid number of correct questions for a student.',
+          code: ErrorCode.QuizReportFormattingUnexpected,
+        });
+      }
+      // Get the number of incorrect questions
+      const numIncorrect = Number.parseInt(row[numIncorrectColIndex], 10);
+      if (Number.isNaN(numIncorrect)) {
+        throw new CACCLError({
+          message: 'The quiz report had an invalid number of incorrect questions for a student.',
+          code: ErrorCode.QuizReportFormattingUnexpected,
+        });
+      }
+      // Get the student's attempt number
+      const attempt = (
+        attemptColIndex !== undefined
+          ? Number.parseInt(row[attemptColIndex], 10)
+          : 1
+      );
+      if (Number.isNaN(attempt)) {
+        throw new CACCLError({
+          message: 'The quiz report had an invalid attempt number for a student.',
+          code: ErrorCode.QuizReportFormattingUnexpected,
+        });
+      }
+
+      // Parse the student's responses
+      const responses: {
+        questionId: number,
+        response: string,
+        points: number,
+      }[] = [];
+      questionCols.forEach((questionCol) => {
+        const response = row[questionCol.questionColIndex] || '';
+        const points = parseFloat(row[questionCol.questionScoreColIndex]);
+        if (Number.isNaN(points)) {
+          throw new CACCLError({
+            message: 'The quiz report had an invalid score for a student on a question.',
+            code: ErrorCode.QuizReportFormattingUnexpected,
+          });
+        }
+        responses.push({
+          questionId: questionCol.questionId,
+          response,
+          points,
+        });
+      });
+
+      // Return the student report
+      return {
+        userId,
+        userFullName,
+        submittedAt,
+        score,
+        numCorrect,
+        numIncorrect,
+        attempt,
+        responses,
+      };
+    });
+
+    // Return the parsed report
+    const parsedReport: CanvasParsedStudentAnalysisQuizReport = {
+      quizId: opts.quizId,
+      questions: questionCols.map((questionCol) => {
+        return {
+          questionId: questionCol.questionId,
+          questionText: questionCol.questionText,
+        };
+      }),
+      studentReports,
+    };
+    return parsedReport;
   }
 }
 

@@ -189,7 +189,8 @@ const utils = {
       return Number.parseInt(
         ((item as any).id)
           ? (item as any).id
-          : item
+          : item,
+        10,
       );
     });
   },

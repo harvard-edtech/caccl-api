@@ -7,6 +7,7 @@ import APIConfig from '../../shared/types/APIConfig';
 import CanvasQuiz from '../../types/CanvasQuiz';
 import CanvasQuizQuestion from '../../types/CanvasQuizQuestion';
 import CanvasQuizSubmission from '../../types/CanvasQuizSubmission';
+import CanvasParsedStudentAnalysisQuizReport from '../../types/CanvasParsedStudentAnalysisQuizReport';
 declare class ECatQuiz extends EndpointCategory {
     /**
      * Lists the quizzes in a course
@@ -492,5 +493,27 @@ declare class ECatQuiz extends EndpointCategory {
         };
         attempt?: number;
     }, config?: APIConfig): Promise<CanvasQuizSubmission>;
+    /**
+     * Get a student quiz report
+     * @author Gabe Abrams
+     * @method getQuizStudentReport
+     * @memberof api.course.quiz
+     * @instance
+     * @async
+     * @param {object} opts object containing all arguments
+     * @param {number} opts.quizId Canvas quiz Id (not the quiz's assignment
+     *   Id)
+     * @param {number} [opts.courseId] Canvas course Id to query
+     * @param {number} [opts.waitForCompletionTimeout=2] Number of minutes to
+     *   wait for completion of batch upload
+     * @param {APIConfig} [config] custom configuration for this specific endpoint
+     *   call (overwrites defaults that were included when api was initialized)
+     * @returns {Promise<CanvasParsedStudentAnalysisQuizReport>} a parsed student quiz report in JSON form
+     */
+    getQuizStudentAnalysisReport(opts: {
+        quizId: number;
+        courseId?: number;
+        waitForCompletionTimeout?: number;
+    }, config?: APIConfig): Promise<CanvasParsedStudentAnalysisQuizReport>;
 }
 export default ECatQuiz;
