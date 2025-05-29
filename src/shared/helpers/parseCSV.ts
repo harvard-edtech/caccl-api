@@ -1,5 +1,5 @@
-// Import CSV parser
-import csv from '@fast-csv/parse';
+// Import csv parser
+import Papa from 'papaparse';
 
 /**
  * Parse a CSV string
@@ -11,34 +11,22 @@ const parseCSV = async (csvString: string): Promise<{
   headers: string[],
   rows: string[][],
 }> => {
-  const allRows: string[][] = await (new Promise((resolve, reject) => {
-    const rows: string[][] = [];
-    csv
-      .parseString(csvString, { headers: false })
-      .on('error', (error) => {
-        reject(new Error(`Failed to parse CSV: ${error.message}`));
-      })
-      .on('data', (singleRow) => {
-        rows.push(singleRow);
-      })
-      .on('end', () => {
-        resolve(rows);
-      });
-  }));
+  // Parse
+  const { data: allRows } = Papa.parse(
+    csvString.trim(),
+    {
+      header: false, // We want to treat the first row as headers
+      skipEmptyLines: true, // Skip empty lines
+      dynamicTyping: false, // Don't automatically convert types
+      delimiter: ',', // Specify the delimiter if needed
+    },
+  );
 
-  if (allRows.length === 0) {
-    return {
-      headers: [],
-      rows: [],
-    };
-  }
-  if (allRows.length === 1) {
-    return {
-      headers: allRows[0],
-      rows: [],
-    };
-  }
-  const [headers, ...rows] = allRows;
+  // Extract headers and rows
+  const headers: string[] = (allRows as string[][])[0] || [];
+  const rows: string[][] = (allRows as string[][]).slice(1);
+
+  // Return the headers and rows
   return {
     headers,
     rows,
