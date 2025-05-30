@@ -20,7 +20,6 @@ import CanvasQuizReport from '../../types/CanvasQuizReport';
 
 // Import shared helpers
 import utils from '../../shared/helpers/utils';
-import waitForCompletion from '../../shared/helpers/waitForCompletion';
 
 // Import shared constants
 import API_PREFIX from '../../shared/constants/API_PREFIX';
