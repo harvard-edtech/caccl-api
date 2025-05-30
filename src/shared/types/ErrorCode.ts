@@ -4,7 +4,7 @@
  */
 
 // Highest errors =
-// > CAPI34
+// > CAPI35
 // > CANV18 (exclude 404, 500)
 
 enum ErrorCode {
@@ -93,6 +93,7 @@ enum ErrorCode {
   QuizReportNoProgress = 'CAPI32',
   QuizReportGenerationFailed = 'CAPI33',
   QuizReportFormattingUnexpected = 'CAPI34',
+  QuizReportGenerationTimeout = 'CAPI35',
 }
 
 export default ErrorCode;

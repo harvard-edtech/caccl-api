@@ -954,36 +954,52 @@ class ECatQuiz extends EndpointCategory {
 
     // Get progress
     const progressId = quizReport.progress_url?.split('/').pop();
-    const progress: CanvasProgress = await this.visitEndpoint({
-      config,
-      action: 'get the progress of a quiz report',
-      method: 'GET',
-      path: `${API_PREFIX}/progress/${progressId}`,
-    });
+    const waitDurationSec = 30; // 30 seconds
+    const checkIntervalSec = 0.5;
+    const numChecks = (waitDurationSec / checkIntervalSec);
+    let timedOut = true;
+    for (let i = 0; i < numChecks; i++) {
+      // Check progress
+      const progress: CanvasProgress = await this.visitEndpoint({
+        config,
+        action: 'get the progress of a quiz report',
+        method: 'GET',
+        path: `${API_PREFIX}/progress/${progressId}`,
+      });
 
-    // Get progress for the report
-    if (!progress) {
-      throw new CACCLError({
-        message: 'Quiz report progress not found',
-        code: ErrorCode.QuizReportNoProgress,
+      // Get progress for the report
+      if (!progress) {
+        throw new CACCLError({
+          message: 'Quiz report progress not found',
+          code: ErrorCode.QuizReportNoProgress,
+        });
+      }
+
+      // Error if the report failed
+      if (progress.workflow_state === 'failed') {
+        throw new CACCLError({
+          message: 'Quiz report generation failed',
+          code: ErrorCode.QuizReportGenerationFailed,
+        });
+      }
+
+      // Break if the report is complete
+      if (progress.workflow_state === 'completed') {
+        timedOut = false;
+        break;
+      }
+
+      // Wait a bit before checking again
+      await new Promise((resolve) => {
+        setTimeout(resolve, checkIntervalSec * 1000);
       });
     }
-
-    // Wait for existing report to finish
-    try {
-      await waitForCompletion({
-        visitEndpoint: this.visitEndpoint,
-        progress,
-        timeoutMin: opts.waitForCompletionTimeout,
-      });
-    } catch (err) {
-      // Handle error
+    if (timedOut) {
       throw new CACCLError({
-        message: 'Quiz report generation failed',
-        code: ErrorCode.QuizReportGenerationFailed,
+        message: 'Quiz report generation timed out',
+        code: ErrorCode.QuizReportGenerationTimeout,
       });
     }
-
     /* ----------- Get Report ----------- */
 
     // Get the quiz report
