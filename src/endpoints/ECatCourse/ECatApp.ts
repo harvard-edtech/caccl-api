@@ -48,9 +48,9 @@ class ECatApp extends EndpointCategory {
     config?: APIConfig,
   ): Promise<CanvasExternalTool[]> {
     const params = (
-      !opts.excludeParents
+      opts.excludeParents
         ? { include_parents: false }
-        : {}
+        : { include_parents: true }
     );
     return this.visitEndpoint({
       config,
