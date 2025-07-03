@@ -74,7 +74,7 @@ class ECatUser extends EndpointCategory {
         as_user_id: opts.userId,
       },
     });
-    
+
     // Filter out non-email communication channels
     const emailChannels = channels.filter((channel) => {
       return (channel.type === 'email');

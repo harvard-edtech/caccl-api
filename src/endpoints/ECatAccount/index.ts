@@ -67,7 +67,7 @@ class ECatAccount extends EndpointCategory {
       path: `${API_PREFIX}/accounts/${opts.accountId}`,
       method: 'GET',
     });
-  };
+  }
 
   /**
    * Get the list of accounts in the Canvas instance
@@ -117,7 +117,7 @@ class ECatAccount extends EndpointCategory {
       path: `${API_PREFIX}/accounts/${opts.accountId}/admins`,
       method: 'GET',
     });
-  };
+  }
 
   /**
    * Gets the list of active courses in an account
@@ -269,6 +269,7 @@ class ECatAccount extends EndpointCategory {
     }
 
     return this.visitEndpoint({
+      config,
       path: `${API_PREFIX}/accounts/${opts.accountId}/courses`,
       method: 'GET',
       action: 'get the list of courses in a specific account',
@@ -279,7 +280,7 @@ class ECatAccount extends EndpointCategory {
         completed: utils.convertToBooleanIfDefined(opts.completed),
         blueprint: utils.convertToBooleanIfDefined(opts.blueprint),
         blueprint_associated: utils.convertToBooleanIfDefined(
-          opts.blueprintAssociated
+          opts.blueprintAssociated,
         ),
         by_teachers: utils.includeIfTruthy(opts.teacherIds),
         by_subaccounts: utils.includeIfTruthy(opts.subaccountIds),
@@ -302,7 +303,7 @@ class ECatAccount extends EndpointCategory {
         ends_after: utils.includeIfDate(opts.endsAfter),
       },
     });
-  };
+  }
 }
 
 /*------------------------------------------------------------------------*/

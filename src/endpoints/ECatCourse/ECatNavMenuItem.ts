@@ -113,7 +113,7 @@ class ECatNavMenuItem extends EndpointCategory {
     // Get the list of nav menu items
     const tabs = await this.api.course.navMenuItem.list(
       {
-        courseId: (opts.courseId ?? this.defaultCourseId)
+        courseId: (opts.courseId ?? this.defaultCourseId),
       },
       config,
     );
@@ -147,8 +147,16 @@ class ECatNavMenuItem extends EndpointCategory {
       if (
         opts.label
         && (
-          String(tabs[i].label).trim().toLowerCase()
-          === String(opts.label).trim().toLowerCase()
+          (
+            String(tabs[i].label)
+              .trim()
+              .toLowerCase()
+          )
+          === (
+            String(opts.label)
+              .trim()
+              .toLowerCase()
+          )
         )
       ) {
         tab = tabs[i];

@@ -144,7 +144,7 @@ class ECatGroupSet extends EndpointCategory {
       path: `${API_PREFIX}/group_categories/${opts.groupSetId}`,
       method: 'DELETE',
     });
-  };
+  }
 
   /*------------------------------------------------------------------------*/
   /*                   Endpoints for Groups in Group Sets                   */
@@ -192,7 +192,7 @@ class ECatGroupSet extends EndpointCategory {
     }
 
     // Add members in parallel
-    return await parallelLimit(
+    const results = await parallelLimit(
       groups.map((group) => {
         return async () => {
           if (group.users) {
@@ -213,6 +213,8 @@ class ECatGroupSet extends EndpointCategory {
       }),
       (opts.parallelLimit || 1),
     );
+
+    return results;
   }
 }
 

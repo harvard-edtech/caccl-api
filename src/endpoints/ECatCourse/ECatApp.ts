@@ -3,18 +3,17 @@
  * @namespace api.course.app
  */
 
+// Import caccl
+import CACCLError from 'caccl-error';
+
 // Import shared classes
 import EndpointCategory from '../../shared/EndpointCategory';
 
 // Import shared types
-import CACCLError from 'caccl-error';
 import ErrorCode from '../../shared/types/ErrorCode';
 import CanvasExternalTool from '../../types/CanvasExternalTool';
 import CanvasTab from '../../types/CanvasTab';
 import APIConfig from '../../shared/types/APIConfig';
-
-// Import shared helpers
-import utils from '../../shared/helpers/utils';
 
 // Import shared constants
 import API_PREFIX from '../../shared/constants/API_PREFIX';
@@ -131,7 +130,7 @@ class ECatApp extends EndpointCategory {
         shared_secret: opts.secret,
         config_type: 'by_xml',
         config_xml: opts.xml,
-      }
+      },
     });
   }
 
@@ -414,9 +413,9 @@ class ECatApp extends EndpointCategory {
     // Parse metadata
     try {
       const metadata = JSON.parse(
-        firstAppWithMetadataId.custom_fields.metadata
+        firstAppWithMetadataId.custom_fields.metadata,
       );
-      return Promise.resolve(metadata);
+      return metadata;
     } catch (err) {
       // Metadata malformed
       throw new CACCLError({
@@ -468,7 +467,7 @@ class ECatApp extends EndpointCategory {
       },
       config,
     );
-    
+
     // Find all apps with this metadata_id
     const appsToUpdate = apps.filter((app) => {
       return (
@@ -508,7 +507,7 @@ class ECatApp extends EndpointCategory {
           path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/external_tools/${app.id}`,
           method: 'PUT',
         });
-      })
+      }),
     );
   }
 

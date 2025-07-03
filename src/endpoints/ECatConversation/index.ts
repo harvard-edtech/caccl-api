@@ -82,12 +82,12 @@ class ECatConversation extends EndpointCategory {
           path: `${API_PREFIX}/conversations`,
           method: 'POST',
         });
-      })
+      }),
     );
 
     // Concatenate into one long list
-    return [].concat(...conversationBatches);;
-  };
+    return [].concat(...conversationBatches);
+  }
 }
 
 /*------------------------------------------------------------------------*/

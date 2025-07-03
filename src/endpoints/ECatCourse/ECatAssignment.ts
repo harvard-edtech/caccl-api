@@ -3,6 +3,9 @@
  * @namespace api.course.assignment
  */
 
+// Import caccl
+import CACCLError from 'caccl-error';
+
 // Import shared classes
 import EndpointCategory from '../../shared/EndpointCategory';
 
@@ -12,7 +15,6 @@ import CanvasAssignment from '../../types/CanvasAssignment';
 import CanvasUser from '../../types/CanvasUser';
 import CanvasSubmission from '../../types/CanvasSubmission';
 import CanvasProgress from '../../types/CanvasProgress';
-import CACCLError from 'caccl-error';
 import ErrorCode from '../../shared/types/ErrorCode';
 import CanvasAssignmentOverride from '../../types/CanvasAssignmentOverride';
 
@@ -214,7 +216,7 @@ class ECatAssignment extends EndpointCategory {
           utils.includeIfBoolean(opts.automaticPeerReviewsEnabled),
         'assignment[grade_group_students_individually]':
           utils.includeIfBoolean(
-            opts.gradeGroupStudentsIndividually
+            opts.gradeGroupStudentsIndividually,
           ),
         'assignment[description]':
           utils.includeIfTruthy(opts.description),
@@ -730,7 +732,7 @@ class ECatAssignment extends EndpointCategory {
             },
             config,
           );
-        }
+        };
       }),
       10,
     );
@@ -983,9 +985,9 @@ class ECatAssignment extends EndpointCategory {
     }
 
     // Pre-process dates
-    let dueAt = utils.includeIfDate(opts.dueAt) || null;
-    let unlockAt = utils.includeIfDate(opts.unlockAt) || null;
-    let lockAt = utils.includeIfDate(opts.lockAt) || null;
+    const dueAt = utils.includeIfDate(opts.dueAt) || null;
+    const unlockAt = utils.includeIfDate(opts.unlockAt) || null;
+    const lockAt = utils.includeIfDate(opts.lockAt) || null;
 
     return this.visitEndpoint({
       config,
@@ -1056,9 +1058,9 @@ class ECatAssignment extends EndpointCategory {
     config?: APIConfig,
   ): Promise<CanvasAssignmentOverride> {
     // Pre-process dates
-    let dueAt = utils.includeIfDate(opts.dueAt) || null;
-    let unlockAt = utils.includeIfDate(opts.unlockAt) || null;
-    let lockAt = utils.includeIfDate(opts.lockAt) || null;
+    const dueAt = utils.includeIfDate(opts.dueAt) || null;
+    const unlockAt = utils.includeIfDate(opts.unlockAt) || null;
+    const lockAt = utils.includeIfDate(opts.lockAt) || null;
 
     return this.visitEndpoint({
       config,
