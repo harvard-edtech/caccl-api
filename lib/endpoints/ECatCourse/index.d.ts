@@ -25,6 +25,7 @@ import ECatPage from './ECatPage';
 import ECatQuiz from './ECatQuiz';
 import ECatRubric from './ECatRubric';
 import ECatSection from './ECatSection';
+import CanvasMigrationIdMap from '../../types/CanvasMigrationIdMap';
 declare class ECatCourse extends EndpointCategory {
     analytics: ECatAnalytics;
     announcement: ECatAnnouncement;
@@ -514,6 +515,7 @@ declare class ECatCourse extends EndpointCategory {
      * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds
      *   to wait for course migration to finish
      * @param {APIConfig} [config] custom configuration for this specific endpoint
+     * @returns {Promise<CanvasMigrationIdMap>} map of ids from the source course to destination course
      */
     migrateContent(opts: {
         sourceCourseId: number;
@@ -530,6 +532,6 @@ declare class ECatCourse extends EndpointCategory {
         };
         dateShiftOptions: DateShiftOptions;
         timeoutMs?: number;
-    }): Promise<void>;
+    }): Promise<CanvasMigrationIdMap>;
 }
 export default ECatCourse;
