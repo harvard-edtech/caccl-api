@@ -117,7 +117,6 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
 
       // Send the request
       try {
-        console.log('Fetch page:', pageNumber, pageBookmark, updatedParamsWithBookmark);
         const response = await sendRequest({
           method,
           numRetries,
