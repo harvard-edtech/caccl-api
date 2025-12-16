@@ -51,8 +51,8 @@
   "dependencies": {
     "@fast-csv/parse": "^5.0.2",
     "@types/papaparse": "^5.3.16",
-    "caccl-error": "^2.3.4",
-    "caccl-send-request": "^2.3.4",
+    "caccl-error": "^2.4.0",
+    "caccl-send-request": "^2.4.0",
     "fast-clone": "^1.5.13",
     "papaparse": "^5.5.3"
   }
