@@ -223,6 +223,10 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
         try {
           const { link } = response.headers;
           // Go through all links and see if there's a next page
+          // Example:
+          // <https://canvas.harvard.edu/api/v1/courses/53450/users?page=bookmark:Acnbawijeflksdifhadnfkie>; rel="next",
+          // <https://canvas.harvard.edu/api/v1/courses/53450/users?page=bookmark:fbjsodifgoirughudhfiuahs>; rel="first",
+          // <https://canvas.harvard.edu/api/v1/courses/53450/users?page=bookmark:vgsdgfyweHDFShiudfhiause>; rel="last",
           const links = String(link ?? '').split(',');
           const nextPageLink = links.find((linkPart) => {
             return (
