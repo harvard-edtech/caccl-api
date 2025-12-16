@@ -1,4 +1,4 @@
-// Import libs
+// Import clone
 import clone from 'fast-clone';
 
 // Import CACCL libs
@@ -88,28 +88,39 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
     /**
      * Helper to fetch one page from Canvas
      * @author Gabe Abrams
-     * @param pageNumber the number of the page to fetch
-     * @returns { page, anotherPageExists }
+     * @param pageNumber the number of the page being fetched (1-indexed)
+     * @param pageBookmark the bookmark for the next page (if applicable)
+     * @returns { page, nextPageBookmark }
      */
     const fetchPage = async (
       pageNumber: number,
-    ): Promise<{
-      page: any,
-      anotherPageExists: boolean,
-    }> => {
-      // Add the page number to the request (if applicable)
-      const pageParams = clone(updatedParams);
-      if (pageNumber > 1) {
-        pageParams.page = pageNumber;
+      pageBookmark?: string,
+    ): Promise<(
+      | {
+        page: any;
+        nextPageNumber: undefined,
+        nextPageBookmark: undefined,
+      }
+      | {
+        page: any,
+        nextPageNumber: number,
+        nextPageBookmark: string,
+      }
+      )> => {
+      // Add page bookmark if there is one
+      let updatedParamsWithBookmark = updatedParams;
+      if (pageBookmark) {
+        // Clone params to avoid mutating original
+        updatedParamsWithBookmark = clone(updatedParams);
+        updatedParamsWithBookmark.page = `bookmark:${pageBookmark}`;
       }
 
       // Send the request
       try {
-        // Send request
         const response = await sendRequest({
           method,
           numRetries,
-          params: pageParams,
+          params: updatedParamsWithBookmark,
           path: `${pathPrefix}${path}`,
           host: canvasHost,
         });
@@ -121,7 +132,7 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
         // 404 - endpoint not found
         if (response.status === 404) {
           throw new CACCLError({
-            message: `The endpoint ${(canvasHost ? 'https://' + canvasHost : '')}${path} does not exist: Canvas responded with a 404 message. Please check your endpoint path.`,
+            message: `The endpoint ${(canvasHost ? `https://${canvasHost}` : '')}${path} does not exist: Canvas responded with a 404 message. Please check your endpoint path.`,
             code: ErrorCode.NotFound,
           });
         }
@@ -171,7 +182,7 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
         }
 
         // Parse body (if it's not already parsed)
-        let parsedBody;
+        let parsedBody: any;
         if (response.body && typeof response.body !== 'string') {
           // Body isn't a string. Assume it's already parsed
           parsedBody = response.body;
@@ -208,33 +219,58 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
         }
 
         // Check for next page
-        let anotherPageExists: boolean;
+        let nextPageBookmark: string | undefined;
         try {
           const { link } = response.headers;
           // Go through all links and see if there's a next page
-          anotherPageExists = (
-            String(link ?? '')
-              .split(',')
-              .some((linkPart) => {
-                return (
-                  // This is the "next" link
-                  linkPart
-                    .toLowerCase()
-                    .trim()
-                    .endsWith('rel="next"')
-                  // The link exists
-                  && linkPart.split(';')[0].length > 2
-                );
-              })
-          );
+          // Example:
+          // <https://canvas.harvard.edu/api/v1/courses/53450/users?page=bookmark:Acnbawijeflksdifhadnfkie>; rel="next",
+          // <https://canvas.harvard.edu/api/v1/courses/53450/users?page=bookmark:fbjsodifgoirughudhfiuahs>; rel="first",
+          // <https://canvas.harvard.edu/api/v1/courses/53450/users?page=bookmark:vgsdgfyweHDFShiudfhiause>; rel="last",
+          const links = String(link ?? '').split(',');
+          const nextPageLink = links.find((linkPart) => {
+            return (
+              // This is the "next" link
+              linkPart
+                .toLowerCase()
+                .trim()
+                .endsWith('rel="next"')
+              // The link exists
+              && linkPart.split(';')[0].length > 2
+            );
+          });
+
+          // Extract next page bookmark if it exists
+          if (nextPageLink) {
+            // Get URL from link
+            const urlPart = nextPageLink.split(';')[0].trim();
+            const url = urlPart.substring(1, urlPart.length - 1); // Remove < and >
+
+            // Parse URL
+            const urlObj = new URL(url);
+            const urlParams = urlObj.searchParams;
+
+            // Get bookmark
+            nextPageBookmark = urlParams.get('page')?.replace('bookmark:', '') || undefined;
+          }
         } catch (err) {
-          anotherPageExists = false;
+          nextPageBookmark = undefined;
         }
 
         // Return data
+        if (!nextPageBookmark) {
+          return {
+            page,
+            nextPageNumber: undefined,
+            nextPageBookmark: undefined,
+          };
+        }
+
+        // Return data with page info
         return {
           page,
-          anotherPageExists,
+          nextPageNumber: (pageNumber || 1) + 1,
+          nextPageBookmark,
         };
       } catch (err) {
         // Turn into CACCLError if not already
@@ -243,7 +279,7 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
           newError = new CACCLError(err);
           newError.code = ErrorCode.UnnamedEndpointError;
         }
-    
+
         // Add on action to the error
         if (newError.message.startsWith('While attempting to ')) {
           // There's already an action. Add an umbrella action
@@ -255,7 +291,7 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
             // Another umbrella action already exists. Replace it
             newError.message = newError.message.replace(
               currUmbrella[0],
-              newUmbrella
+              newUmbrella,
             );
           } else {
             const parts = newError.message.split(',');
@@ -272,26 +308,32 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
 
     // Iteratively get pages
     const pages: any[] = [];
-    let getNextPage: boolean = true;
     let nextPageNumber = 1;
-    while (getNextPage) {
+    let nextPageBookmark: string | undefined;
+    while (nextPageNumber === 1 || nextPageBookmark) {
       // Fetch the page
-      const {
-        page,
-        anotherPageExists,
-      } = await fetchPage(nextPageNumber)
+      const pageResults = await fetchPage(
+        nextPageNumber,
+        nextPageBookmark,
+      );
+
+      // Extract the page
+      const { page } = pageResults;
 
       // Add the page to the list
       pages.push(page);
 
       // Prepare for next page
       const allowedToFetchAnotherPage = (!maxPages || pages.length < maxPages);
+      const anotherPageExists = !!pageResults.nextPageBookmark;
       if (anotherPageExists && allowedToFetchAnotherPage) {
         // Getting next page
-        nextPageNumber += 1;
+        nextPageNumber = pageResults.nextPageNumber;
+        nextPageBookmark = pageResults.nextPageBookmark;
       } else {
         // Not getting next page
-        getNextPage = false;
+        nextPageBookmark = undefined;
+        nextPageNumber = undefined;
       }
     }
 
