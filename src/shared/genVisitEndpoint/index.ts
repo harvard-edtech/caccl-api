@@ -89,30 +89,36 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
      * Helper to fetch one page from Canvas
      * @author Gabe Abrams
      * @param pageNumber the number of the page being fetched (1-indexed)
-     * @param pageBookmark the bookmark for the next page (if applicable)
+     * @param [pageBookmark] the bookmark for the next page (if applicable)
      * @returns { page, nextPageBookmark }
      */
     const fetchPage = async (
       pageNumber: number,
       pageBookmark?: string,
     ): Promise<(
+      // If no next page
       | {
         page: any;
         nextPageNumber: undefined,
-        nextPageBookmark: undefined,
+        nextPageBookmark?: undefined,
       }
+      // If next page exists
       | {
         page: any,
         nextPageNumber: number,
-        nextPageBookmark: string,
+        nextPageBookmark?: string,
       }
       )> => {
       // Add page bookmark if there is one
       let updatedParamsWithBookmark = updatedParams;
-      if (pageBookmark) {
+      if (pageBookmark || pageNumber > 1) {
         // Clone params to avoid mutating original
         updatedParamsWithBookmark = clone(updatedParams);
-        updatedParamsWithBookmark.page = `bookmark:${pageBookmark}`;
+        updatedParamsWithBookmark.page = (
+          pageBookmark
+            ? `bookmark:${pageBookmark}`
+            : pageNumber
+        );
       }
 
       // Send the request
@@ -220,6 +226,7 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
 
         // Check for next page
         let nextPageBookmark: string | undefined;
+        let hasNextPage = false;
         try {
           const { link } = response.headers;
           // Go through all links and see if there's a next page
@@ -227,6 +234,10 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
           // <https://canvas.harvard.edu/api/v1/courses/53450/users?page=bookmark:Acnbawijeflksdifhadnfkie>; rel="next",
           // <https://canvas.harvard.edu/api/v1/courses/53450/users?page=bookmark:fbjsodifgoirughudhfiuahs>; rel="first",
           // <https://canvas.harvard.edu/api/v1/courses/53450/users?page=bookmark:vgsdgfyweHDFShiudfhiause>; rel="last",
+          // or
+          // <https://canvas.harvard.edu/api/v1/courses/53450/users?page=2>; rel="next",
+          // <https://canvas.harvard.edu/api/v1/courses/53450/users?page=1>; rel="first",
+          // <https://canvas.harvard.edu/api/v1/courses/53450/users?page=7>; rel="last",
           const links = String(link ?? '').split(',');
           const nextPageLink = links.find((linkPart) => {
             return (
@@ -241,7 +252,8 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
           });
 
           // Extract next page bookmark if it exists
-          if (nextPageLink) {
+          hasNextPage = !!nextPageLink;
+          if (hasNextPage) {
             // Get URL from link
             const urlPart = nextPageLink.split(';')[0].trim();
             const url = urlPart.substring(1, urlPart.length - 1); // Remove < and >
@@ -250,15 +262,23 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
             const urlObj = new URL(url);
             const urlParams = urlObj.searchParams;
 
-            // Get bookmark
-            nextPageBookmark = urlParams.get('page')?.replace('bookmark:', '') || undefined;
+            // Check if using a bookmark
+            const pageParam = urlParams.get('page') || '';
+            const isBookmark = pageParam.startsWith('bookmark:');
+            if (isBookmark) {
+              // Get bookmark
+              nextPageBookmark = urlParams.get('page')?.replace('bookmark:', '') || undefined;
+            } else {
+              // Not using bookmark - no bookmark to provide
+              nextPageBookmark = undefined;
+            }
           }
         } catch (err) {
           nextPageBookmark = undefined;
         }
 
         // Return data
-        if (!nextPageBookmark) {
+        if (!hasNextPage) {
           return {
             page,
             nextPageNumber: undefined,
