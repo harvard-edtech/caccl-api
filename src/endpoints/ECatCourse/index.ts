@@ -39,12 +39,7 @@ import ECatPage from './ECatPage';
 import ECatQuiz from './ECatQuiz';
 import ECatRubric from './ECatRubric';
 import ECatSection from './ECatSection';
-
-/*------------------------------------------------------------------------*/
-/*                                Constants                               */
-/*------------------------------------------------------------------------*/
-
-const assignmentTagPrefix = '#CurrentlyBeingMigrated#';
+import CanvasMigrationIdMap from '../../types/CanvasMigrationIdMap';
 
 /*------------------------------------------------------------------------*/
 /*                            Endpoint Category                           */
@@ -848,6 +843,7 @@ class ECatCourse extends EndpointCategory {
    * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds
    *   to wait for course migration to finish
    * @param {APIConfig} [config] custom configuration for this specific endpoint
+   * @returns {Promise<CanvasMigrationIdMap>} map of ids from the source course to destination course
    */
   public async migrateContent(
     opts: {
@@ -866,7 +862,7 @@ class ECatCourse extends EndpointCategory {
       dateShiftOptions: DateShiftOptions,
       timeoutMs?: number,
     },
-  ) {
+  ): Promise<CanvasMigrationIdMap> {
     const {
       sourceCourseId,
       destinationCourseId,
@@ -887,6 +883,8 @@ class ECatCourse extends EndpointCategory {
       pageIds = [],
       rubricIds = [],
     } = include;
+
+    let contentMapping: CanvasMigrationIdMap = {};
 
     // Create a params object that we'll dynamically fill
     // with params depending on the request
@@ -945,21 +943,7 @@ class ECatCourse extends EndpointCategory {
       };
     }
 
-    // Iterate through each assignment and change the name to be
-    // current name + [id]
-    for (let i = 0; i < assignmentIds.length; i++) {
-      const id = assignmentIds[i];
-      const { name } = await this.api.course.assignment.get({
-        assignmentId: id,
-        courseId: sourceCourseId,
-      });
-      this.api.course.assignment.update({
-        assignmentId: id,
-        courseId: sourceCourseId,
-        name: `${name}${assignmentTagPrefix}${id}`,
-      });
-    }
-
+    let assignmentMap: { [k: string]: string } = {};
     // Create the migration
     try {
       const contentMigration = await this.visitEndpoint({
@@ -1044,6 +1028,13 @@ class ECatCourse extends EndpointCategory {
           code: ErrorCode.MigrationIssue,
         });
       }
+      // mapping source assignment id to destination assignment id
+      contentMapping = await this.visitEndpoint({
+        path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}/asset_id_mapping`,
+        action: 'get content mapping',
+        method: 'GET',
+      });
+      assignmentMap = contentMapping.assignments;
     } catch (err) {
       if (err instanceof CACCLError) {
         // Rethrow the error (it's already in the right format)
@@ -1063,29 +1054,8 @@ class ECatCourse extends EndpointCategory {
       return assignmentIds.includes(assignment.id);
     });
 
-    const destinationAssignments = await this.api.course.assignment.list({
-      courseId: destinationCourseId,
-    });
-
     // mapping source group id to destination group id
     const assignmentGroupMap: { [k: number]: number } = {};
-
-    // mapping source assignment id to destination assignment id
-    const assignmentMap: { [k: number]: number } = {};
-    // iterate through each source assignment to determine the mapping
-    sourceAssignments.forEach((sourceAssignment) => {
-      const destinationAssignment = destinationAssignments.find((assignment) => {
-        return assignment.name === sourceAssignment.name;
-      });
-      if (destinationAssignment) {
-        assignmentMap[sourceAssignment.id] = destinationAssignment.id;
-      } else {
-        throw new CACCLError({
-          message: 'Could not find a migrated assignment in the destination course.',
-          code: ErrorCode.CouldNotFindDestinationAssignment,
-        });
-      }
-    });
 
     // iterate through each assignment group in the source course and
     // create the same assignment group in the destination course
@@ -1177,28 +1147,11 @@ class ECatCourse extends EndpointCategory {
           code: ErrorCode.CouldNotFindDestinationAssignment,
         });
       }
-      // Remove tag from assignment names
-      const parts = sourceAssignment.name.split('#');
-      const tag = parts[parts.length - 1];
-      const originalAssignmentName = sourceAssignment.name.substring(
-        // Start at beginning of name
-        0,
-        // Cut off the tag from the end
-        sourceAssignment.name.length - (`${assignmentTagPrefix}${tag}`).length,
-      );
-      // Update the assignment group id of the assignment and remove the tag from the name in the destination course
+      // Update the assignment group id of the assignment
       await this.api.course.assignment.update({
         courseId: destinationCourseId,
-        assignmentId: destinationAssignmentId,
+        assignmentId: Number.parseInt(destinationAssignmentId, 10),
         assignmentGroupId: destinationAssignmentGroupId,
-        name: originalAssignmentName,
-      });
-
-      // remove tag from name in original course
-      await this.api.course.assignment.update({
-        courseId: sourceCourseId,
-        assignmentId: sourceAssignment.id,
-        name: originalAssignmentName,
       });
     }
 
@@ -1212,7 +1165,7 @@ class ECatCourse extends EndpointCategory {
       let destinationNeverDrop: number[] = [];
       if (sourceAssignmentGroup.rules.never_drop) {
         destinationNeverDrop = sourceAssignmentGroup.rules.never_drop.map(
-          (id: number) => { return assignmentMap[id]; },
+          (id: number) => { return Number.parseInt(assignmentMap[id], 10); },
         );
       }
 
@@ -1225,6 +1178,7 @@ class ECatCourse extends EndpointCategory {
         neverDrop: destinationNeverDrop,
       });
     }
+    return contentMapping;
   }
 }
 
