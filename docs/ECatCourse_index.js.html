@@ -767,53 +767,46 @@ var ECatCourse = /** @class */ (function (_super) {
      */
     ECatCourse.prototype.migrateContent = function (opts) {
         return __awaiter(this, void 0, void 0, function () {
-            var sourceCourseId, destinationCourseId, include, dateShiftOptions, _a, timeoutMs, _b, fileIds, _c, quizIds, _d, assignmentIds, _e, announcementIds, _f, discussionTopicsIds, _g, moduleIds, _h, pageIds, _j, rubricIds, params, oldStart, oldEnd, newStart, newEnd, _k, daySubstitutionMap_1, dayNumberSubstitutionMap_1, i, id, name_1, contentMigration, workflowState, migrationIssuesCount, CHECK_INTERVAL_MS_1, numIterations, i, status_1, migrationIssues_1, errorsAsText, errorMessage, err_1, sourceAssignments, destinationAssignments, assignmentGroupMap, assignmentMap, sourceAssignmentGroups, destinationAssignmentGroups, sourceCourse, applyAssignmentGroupWeights, _loop_1, this_1, i, i, sourceAssignment, assignmentGroupId, destinationAssignmentGroupId, destinationAssignmentId, parts, tag, originalAssignmentName, i, sourceAssignmentGroup, destinationAssignmentGroupId, destinationNeverDrop;
+            var sourceCourseId, destinationCourseId, include, dateShiftOptions, _a, timeoutMs, _b, fileIds, _c, quizIds, _d, assignmentIds, _e, announcementIds, _f, discussionTopicsIds, _g, moduleIds, _h, pageIds, _j, rubricIds, shiftDatesOpts, params, _k, daySubstitutionMap_1, i, id, name_1, contentMigration, workflowState, migrationIssuesCount, CHECK_INTERVAL_MS_1, numIterations, i, status_1, migrationIssues_1, errorsAsText, errorMessage, err_1, sourceAssignments, destinationAssignments, assignmentGroupMap, assignmentMap, sourceAssignmentGroups, destinationAssignmentGroups, sourceCourse, applyAssignmentGroupWeights, _loop_1, this_1, i, i, sourceAssignment, assignmentGroupId, destinationAssignmentGroupId, destinationAssignmentId, parts, tag, originalAssignmentName, i, sourceAssignmentGroup, destinationAssignmentGroupId, destinationNeverDrop;
             return __generator(this, function (_l) {
                 switch (_l.label) {
                     case 0:
                         sourceCourseId = opts.sourceCourseId, destinationCourseId = opts.destinationCourseId, include = opts.include, dateShiftOptions = opts.dateShiftOptions, _a = opts.timeoutMs, timeoutMs = _a === void 0 ? 300000 : _a;
                         _b = include.fileIds, fileIds = _b === void 0 ? [] : _b, _c = include.quizIds, quizIds = _c === void 0 ? [] : _c, _d = include.assignmentIds, assignmentIds = _d === void 0 ? [] : _d, _e = include.announcementIds, announcementIds = _e === void 0 ? [] : _e, _f = include.discussionTopicsIds, discussionTopicsIds = _f === void 0 ? [] : _f, _g = include.moduleIds, moduleIds = _g === void 0 ? [] : _g, _h = include.pageIds, pageIds = _h === void 0 ? [] : _h, _j = include.rubricIds, rubricIds = _j === void 0 ? [] : _j;
+                        shiftDatesOpts = (dateShiftOptions.dateHandling === DateHandling_1.DateHandlingType.ShiftDates
+                            ? dateShiftOptions
+                            : undefined);
                         params = {
                             migration_type: 'course_copy_importer',
-                            settings: {
-                                source_course_id: sourceCourseId,
-                                overwrite_quizzes: true,
-                            },
+                            'settings[source_course_id]': sourceCourseId,
+                            'settings[overwrite_quizzes]': true,
+                            // Add selected ids to the request
+                            'select[files]': utils_1.default.includeTruthyElementsExcludeIfEmpty(fileIds),
+                            'select[quizzes]': utils_1.default.includeTruthyElementsExcludeIfEmpty(quizIds),
+                            'select[assignments]': utils_1.default.includeTruthyElementsExcludeIfEmpty(assignmentIds),
+                            'select[announcements]': utils_1.default.includeTruthyElementsExcludeIfEmpty(announcementIds),
+                            'select[discussion_topics]': utils_1.default.includeTruthyElementsExcludeIfEmpty(discussionTopicsIds),
+                            'select[modules]': utils_1.default.includeTruthyElementsExcludeIfEmpty(moduleIds),
+                            'select[pages]': utils_1.default.includeTruthyElementsExcludeIfEmpty(pageIds),
+                            'select[rubrics]': utils_1.default.includeTruthyElementsExcludeIfEmpty(rubricIds),
+                            // If we remove dates we don't need to provide start and end dates,
+                            // but if we shift dates, we do
+                            'date_shift_options[remove_dates]': utils_1.default.includeIfTruthy(dateShiftOptions.dateHandling === DateHandling_1.DateHandlingType.RemoveDates),
+                            'date_shift_options[shift_dates]': utils_1.default.includeIfTruthy(dateShiftOptions.dateHandling === DateHandling_1.DateHandlingType.ShiftDates),
+                            'date_shift_options[old_start_date]': utils_1.default.includeIfDate(shiftDatesOpts === null || shiftDatesOpts === void 0 ? void 0 : shiftDatesOpts.oldStart),
+                            'date_shift_options[old_end_date]': utils_1.default.includeIfDate(shiftDatesOpts === null || shiftDatesOpts === void 0 ? void 0 : shiftDatesOpts.oldEnd),
+                            'date_shift_options[new_start_date]': utils_1.default.includeIfDate(shiftDatesOpts === null || shiftDatesOpts === void 0 ? void 0 : shiftDatesOpts.newStart),
+                            'date_shift_options[new_end_date]': utils_1.default.includeIfDate(shiftDatesOpts === null || shiftDatesOpts === void 0 ? void 0 : shiftDatesOpts.newEnd),
                         };
-                        // Add selected ids to the request
-                        params.select = {
-                            files: fileIds,
-                            quizzes: quizIds,
-                            assignments: assignmentIds,
-                            announcements: announcementIds,
-                            discussion_topics: discussionTopicsIds,
-                            modules: moduleIds,
-                            pages: pageIds,
-                            rubrics: rubricIds,
-                        };
-                        // if we remove dates we don't need to provide start and end dates,
-                        // but if we shift dates, we do
-                        if (dateShiftOptions.dateHandling === DateHandling_1.DateHandlingType.RemoveDates) {
-                            params.date_shift_options = {
-                                remove_dates: true,
-                            };
-                        }
-                        else if (dateShiftOptions.dateHandling === DateHandling_1.DateHandlingType.ShiftDates) {
-                            oldStart = dateShiftOptions.oldStart, oldEnd = dateShiftOptions.oldEnd, newStart = dateShiftOptions.newStart, newEnd = dateShiftOptions.newEnd, _k = dateShiftOptions.daySubstitutionMap, daySubstitutionMap_1 = _k === void 0 ? {} : _k;
-                            dayNumberSubstitutionMap_1 = {};
+                        // Translate input (day of week map) to number-based params that Canvas uses
+                        if (shiftDatesOpts) {
+                            _k = shiftDatesOpts.daySubstitutionMap, daySubstitutionMap_1 = _k === void 0 ? {} : _k;
                             Object.keys(daySubstitutionMap_1).forEach(function (k) {
                                 var key = k;
-                                dayNumberSubstitutionMap_1[DateHandling_1.dayOfWeekToNumber[key]] = (DateHandling_1.dayOfWeekToNumber[daySubstitutionMap_1[key]]);
+                                var originalDayNum = DateHandling_1.dayOfWeekToNumber[key];
+                                var replacementDayNum = DateHandling_1.dayOfWeekToNumber[daySubstitutionMap_1[key]];
+                                params["date_shift_options[day_substitutions][".concat(originalDayNum, "]")] = replacementDayNum;
                             });
-                            // Add date shift info to the request
-                            params.date_shift_options = {
-                                shift_dates: true,
-                                old_start_date: oldStart,
-                                old_end_date: oldEnd,
-                                new_start_date: newStart,
-                                new_end_date: newEnd,
-                                day_substitutions: dayNumberSubstitutionMap_1,
-                            };
                         }
                         i = 0;
                         _l.label = 1;
@@ -1024,9 +1017,7 @@ var ECatCourse = /** @class */ (function (_super) {
                                             action: 'set apply_assignment_group_weights to true',
                                             method: 'PUT',
                                             params: {
-                                                course: {
-                                                    apply_assignment_group_weights: applyAssignmentGroupWeights,
-                                                },
+                                                'course[apply_assignment_group_weights]': applyAssignmentGroupWeights,
                                             },
                                         })];
                                     case 6:
