@@ -890,59 +890,60 @@ class ECatCourse extends EndpointCategory {
 
     // Create a params object that we'll dynamically fill
     // with params depending on the request
+    const shiftDatesOpts = (
+      dateShiftOptions.dateHandling === DateHandlingType.ShiftDates
+        ? dateShiftOptions
+        : undefined
+    );
+
     const params: { [k: string]: any } = {
       migration_type: 'course_copy_importer',
-      settings: {
-        source_course_id: sourceCourseId,
-        overwrite_quizzes: true,
-      },
+      'settings[source_course_id]': sourceCourseId,
+      'settings[overwrite_quizzes]': true,
+      // Add selected ids to the request
+      'select[files]':
+        utils.includeTruthyElementsExcludeIfEmpty(fileIds),
+      'select[quizzes]':
+        utils.includeTruthyElementsExcludeIfEmpty(quizIds),
+      'select[assignments]':
+        utils.includeTruthyElementsExcludeIfEmpty(assignmentIds),
+      'select[announcements]':
+        utils.includeTruthyElementsExcludeIfEmpty(announcementIds),
+      'select[discussion_topics]':
+        utils.includeTruthyElementsExcludeIfEmpty(discussionTopicsIds),
+      'select[modules]':
+        utils.includeTruthyElementsExcludeIfEmpty(moduleIds),
+      'select[pages]':
+        utils.includeTruthyElementsExcludeIfEmpty(pageIds),
+      'select[rubrics]':
+        utils.includeTruthyElementsExcludeIfEmpty(rubricIds),
+      // If we remove dates we don't need to provide start and end dates,
+      // but if we shift dates, we do
+      'date_shift_options[remove_dates]': utils.includeIfTruthy(
+        dateShiftOptions.dateHandling === DateHandlingType.RemoveDates,
+      ),
+      'date_shift_options[shift_dates]': utils.includeIfTruthy(
+        dateShiftOptions.dateHandling === DateHandlingType.ShiftDates,
+      ),
+      'date_shift_options[old_start_date]':
+        utils.includeIfDate(shiftDatesOpts?.oldStart),
+      'date_shift_options[old_end_date]':
+        utils.includeIfDate(shiftDatesOpts?.oldEnd),
+      'date_shift_options[new_start_date]':
+        utils.includeIfDate(shiftDatesOpts?.newStart),
+      'date_shift_options[new_end_date]':
+        utils.includeIfDate(shiftDatesOpts?.newEnd),
     };
 
-    // Add selected ids to the request
-    params.select = {
-      files: fileIds,
-      quizzes: quizIds,
-      assignments: assignmentIds,
-      announcements: announcementIds,
-      discussion_topics: discussionTopicsIds,
-      modules: moduleIds,
-      pages: pageIds,
-      rubrics: rubricIds,
-    };
-
-    // if we remove dates we don't need to provide start and end dates,
-    // but if we shift dates, we do
-    if (dateShiftOptions.dateHandling === DateHandlingType.RemoveDates) {
-      params.date_shift_options = {
-        remove_dates: true,
-      };
-    } else if (dateShiftOptions.dateHandling === DateHandlingType.ShiftDates) {
-      const {
-        oldStart,
-        oldEnd,
-        newStart,
-        newEnd,
-        daySubstitutionMap = {},
-      } = dateShiftOptions;
-
-      // Translate input (day week map) to number-based params that Canvas uses
-      const dayNumberSubstitutionMap: { [k: number]: number } = {};
+    // Translate input (day of week map) to number-based params that Canvas uses
+    if (shiftDatesOpts) {
+      const { daySubstitutionMap = {} } = shiftDatesOpts;
       Object.keys(daySubstitutionMap).forEach((k) => {
         const key = k as keyof typeof daySubstitutionMap;
-        dayNumberSubstitutionMap[dayOfWeekToNumber[key]] = (
-          dayOfWeekToNumber[daySubstitutionMap[key]]
-        );
+        const originalDayNum = dayOfWeekToNumber[key];
+        const replacementDayNum = dayOfWeekToNumber[daySubstitutionMap[key]];
+        params[`date_shift_options[day_substitutions][${originalDayNum}]`] = replacementDayNum;
       });
-
-      // Add date shift info to the request
-      params.date_shift_options = {
-        shift_dates: true,
-        old_start_date: oldStart,
-        old_end_date: oldEnd,
-        new_start_date: newStart,
-        new_end_date: newEnd,
-        day_substitutions: dayNumberSubstitutionMap,
-      };
     }
 
     // Iterate through each assignment and change the name to be
@@ -1145,9 +1146,7 @@ class ECatCourse extends EndpointCategory {
         action: 'set apply_assignment_group_weights to true',
         method: 'PUT',
         params: {
-          course: {
-            apply_assignment_group_weights: applyAssignmentGroupWeights,
-          },
+          'course[apply_assignment_group_weights]': applyAssignmentGroupWeights,
         },
       });
 
