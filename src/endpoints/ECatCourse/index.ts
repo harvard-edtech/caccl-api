@@ -888,6 +888,8 @@ class ECatCourse extends EndpointCategory {
       rubricIds = [],
     } = include;
 
+    // Create a params object that we'll dynamically fill
+    // with params depending on the request
     const shiftDatesOpts = (
       dateShiftOptions.dateHandling === DateHandlingType.ShiftDates
         ? dateShiftOptions
@@ -898,6 +900,7 @@ class ECatCourse extends EndpointCategory {
       migration_type: 'course_copy_importer',
       'settings[source_course_id]': sourceCourseId,
       'settings[overwrite_quizzes]': true,
+      // Add selected ids to the request
       'select[files]':
         utils.includeTruthyElementsExcludeIfEmpty(fileIds),
       'select[quizzes]':
@@ -914,6 +917,8 @@ class ECatCourse extends EndpointCategory {
         utils.includeTruthyElementsExcludeIfEmpty(pageIds),
       'select[rubrics]':
         utils.includeTruthyElementsExcludeIfEmpty(rubricIds),
+      // If we remove dates we don't need to provide start and end dates,
+      // but if we shift dates, we do
       'date_shift_options[remove_dates]': utils.includeIfTruthy(
         dateShiftOptions.dateHandling === DateHandlingType.RemoveDates,
       ),
@@ -930,6 +935,7 @@ class ECatCourse extends EndpointCategory {
         utils.includeIfDate(shiftDatesOpts?.newEnd),
     };
 
+    // Translate input (day of week map) to number-based params that Canvas uses
     if (shiftDatesOpts) {
       const { daySubstitutionMap = {} } = shiftDatesOpts;
       Object.keys(daySubstitutionMap).forEach((k) => {
