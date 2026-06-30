@@ -99,34 +99,33 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
       // If no next page
       | {
         page: any;
+        hasNextPage: false,
         nextPageNumber: undefined,
         nextPageBookmark?: undefined,
       }
       // If next page exists
       | {
         page: any,
+        hasNextPage: true,
         nextPageNumber: number,
         nextPageBookmark?: string,
       }
       )> => {
       // Add page bookmark if there is one
-      let updatedParamsWithBookmark = updatedParams;
-      if (pageBookmark || pageNumber > 1) {
-        // Clone params to avoid mutating original
-        updatedParamsWithBookmark = clone(updatedParams);
-        updatedParamsWithBookmark.page = (
-          pageBookmark
-            ? `bookmark:${pageBookmark}`
-            : pageNumber
-        );
-      }
+      const updatedParamsWithNewPage = clone(updatedParams);
+      // Clone params to avoid mutating original
+      updatedParamsWithNewPage.page = (
+        pageBookmark
+          ? `bookmark:${pageBookmark}`
+          : pageNumber
+      );
 
       // Send the request
       try {
         const response = await sendRequest({
           method,
           numRetries,
-          params: updatedParamsWithBookmark,
+          params: updatedParamsWithNewPage,
           path: `${pathPrefix}${path}`,
           host: canvasHost,
         });
@@ -253,7 +252,7 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
 
           // Extract next page bookmark if it exists
           hasNextPage = !!nextPageLink;
-          if (hasNextPage) {
+          if (hasNextPage && nextPageLink) {
             // Get URL from link
             const urlPart = nextPageLink.split(';')[0].trim();
             const url = urlPart.substring(1, urlPart.length - 1); // Remove < and >
@@ -281,6 +280,7 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
         if (!hasNextPage) {
           return {
             page,
+            hasNextPage: false,
             nextPageNumber: undefined,
             nextPageBookmark: undefined,
           };
@@ -289,15 +289,16 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
         // Return data with page info
         return {
           page,
+          hasNextPage: true,
           nextPageNumber: (pageNumber || 1) + 1,
           nextPageBookmark,
         };
       } catch (err) {
         // Turn into CACCLError if not already
-        let newError = err;
-        if (!err.isCACCLError) {
-          newError = new CACCLError(err);
-          newError.code = ErrorCode.UnnamedEndpointError;
+        let newError: Error | CACCLError = err as Error;
+        if (!(err as any ?? {}).isCACCLError) {
+          newError = new CACCLError(err as Error);
+          (newError as CACCLError).code = ErrorCode.UnnamedEndpointError;
         }
 
         // Add on action to the error
@@ -319,7 +320,7 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
             newError.message = parts.join(',');
           }
         } else {
-          newError.message = `While attempting to ${action}, we ran into an error: ${(err.message || 'unknown')}`;
+          newError.message = `While attempting to ${action}, we ran into an error: ${(err as Error).message || 'unknown'}`;
         }
 
         throw newError;
@@ -328,14 +329,21 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
 
     // Iteratively get pages
     const pages: any[] = [];
-    let nextPageNumber = 1;
+    let hasNextPage = true;
+    let nextPageNumber: number | undefined = 1;
     let nextPageBookmark: string | undefined;
-    while (nextPageNumber === 1 || nextPageBookmark) {
+    while (
+      nextPageNumber === 1
+      || hasNextPage
+    ) {
       // Fetch the page
       const pageResults = await fetchPage(
-        nextPageNumber,
+        nextPageNumber || 1,
         nextPageBookmark,
       );
+
+      // Update whether we have another page
+      hasNextPage = pageResults.hasNextPage;
 
       // Extract the page
       const { page } = pageResults;
@@ -345,8 +353,7 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
 
       // Prepare for next page
       const allowedToFetchAnotherPage = (!maxPages || pages.length < maxPages);
-      const anotherPageExists = !!pageResults.nextPageBookmark;
-      if (anotherPageExists && allowedToFetchAnotherPage) {
+      if (hasNextPage && allowedToFetchAnotherPage) {
         // Getting next page
         nextPageNumber = pageResults.nextPageNumber;
         nextPageBookmark = pageResults.nextPageBookmark;
@@ -354,6 +361,7 @@ const genVisitEndpoint = (defaults: SharedArgs) => {
         // Not getting next page
         nextPageBookmark = undefined;
         nextPageNumber = undefined;
+        hasNextPage = false;
       }
     }
 
