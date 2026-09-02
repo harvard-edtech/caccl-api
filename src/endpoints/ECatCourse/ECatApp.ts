@@ -68,7 +68,7 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method get
    * @param {object} opts object containing all arguments
-   * @param {number} opts.appId The LTI app Id to get
+   * @param {string} opts.appId The LTI app Id to get
    * @param {number} [opts.courseId=default course id] Canvas course Id
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    *   call (overwrites defaults that were included when api was initialized)
@@ -76,7 +76,7 @@ class ECatApp extends EndpointCategory {
    */
   public async get(
     opts: {
-      appId: number,
+      appId: string,
       courseId?: number,
     },
     config?: APIConfig,
@@ -243,7 +243,7 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method showInNav
    * @param {object} opts object containing all arguments
-   * @param {number} opts.appId The LTI app Id to make visible
+   * @param {string} opts.appId The LTI app Id to make visible
    * @param {boolean} [opts.putAtTop] if true, put the app at the top of
    *   the left-hand nav menu
    * @param {number} [opts.courseId=default course id] Canvas course Id for the
@@ -252,7 +252,7 @@ class ECatApp extends EndpointCategory {
    */
   public async showInNav(
     opts: {
-      appId: number,
+      appId: string,
       putAtTop?: boolean,
       courseId?: number,
     },
@@ -282,14 +282,14 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method hideFromNav
    * @param {object} opts object containing all arguments
-   * @param {number} opts.appId The LTI app Id to hide
+   * @param {string} opts.appId The LTI app Id to hide
    * @param {number} [opts.courseId=default course id] Canvas course Id for the
    *   course containing the app
    * @returns {Promise<CanvasTab>} Canvas tab {@link https://canvas.instructure.com/doc/api/tabs.html}
    */
   public async hideFromNav(
     opts: {
-      appId: number,
+      appId: string,
       courseId?: number,
     },
     config?: APIConfig,
@@ -313,7 +313,7 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method remove
    * @param {object} opts object containing all arguments
-   * @param {number} opts.appId The LTI app Id to remove
+   * @param {string} opts.appId The LTI app Id to remove
    * @param {number} [opts.courseId=default course id] Canvas course Id to
    *   remove app from
    * @param {APIConfig} [config] custom configuration for this specific endpoint
@@ -322,7 +322,7 @@ class ECatApp extends EndpointCategory {
    */
   public async remove(
     opts: {
-      appId: number,
+      appId: string,
       courseId?: number,
     },
     config?: APIConfig,
@@ -523,7 +523,7 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method getNavLaunchURL
    * @param {object} opts object containing all arguments
-   * @param {number} opts.appId The LTI app Id to get a launch URL for
+   * @param {string} opts.appId The LTI app Id to get a launch URL for
    * @param {number} [opts.courseId=default course id] Canvas course Id that
    *   holds the app
    * @param {APIConfig} [config] custom configuration for this specific endpoint
@@ -532,7 +532,7 @@ class ECatApp extends EndpointCategory {
    */
   public async getNavLaunchURL(
     opts: {
-      appId: number,
+      appId: string,
       courseId?: number,
     },
     config?: APIConfig,
@@ -558,7 +558,7 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method getAssignmentLaunchURL
    * @param {object} opts object containing all arguments
-   * @param {number} opts.appId The LTI app Id to get a launch URL for
+   * @param {string} opts.appId The LTI app Id to get a launch URL for
    * @param {number} opts.assignmentId the Canvas assignment id to launch
    * @param {number} [opts.courseId=default course id] Canvas course Id that holds the app
    *   from
@@ -568,7 +568,7 @@ class ECatApp extends EndpointCategory {
    */
   public async getAssignmentLaunchURL(
     opts: {
-      appId: number,
+      appId: string,
       assignmentId: number,
       courseId?: number,
     },
@@ -601,7 +601,7 @@ class ECatApp extends EndpointCategory {
    * @async
    * @method moveToTopOfNavMenu
    * @param {object} opts object containing all arguments
-   * @param {number} opts.appId The LTI app Id to make visible and move near
+   * @param {string} opts.appId The LTI app Id to make visible and move near
    *   the top of the nav menu
    * @param {number} [opts.courseId=default course id] Canvas course Id that
    *   holds the app
@@ -611,7 +611,7 @@ class ECatApp extends EndpointCategory {
    */
   public async moveToTopOfNavMenu(
     opts: {
-      appId: number,
+      appId: string,
       courseId?: number,
     },
     config?: APIConfig,

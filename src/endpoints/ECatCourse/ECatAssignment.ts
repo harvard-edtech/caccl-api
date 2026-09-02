@@ -334,7 +334,7 @@ class ECatAssignment extends EndpointCategory {
       automaticPeerReviewsEnabled?: boolean,
       omitFromFinalGrade?: boolean,
       gradeGroupStudentsIndividually?: boolean,
-      assignmentAppId?: number,
+      assignmentAppId?: string,
       assignmentAppURL?: string,
       assignmentAppNewTab?: boolean,
     } = {},
