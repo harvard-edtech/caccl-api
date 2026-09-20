@@ -484,6 +484,53 @@ declare class ECatCourse extends EndpointCategory {
         includeBio?: boolean;
     }, config?: APIConfig): Promise<any>;
     /**
+     * Wait for a content migration to reach one of a set of workflow states
+     * @author Yuen Ler Chow
+     * @param opts object containing all arguments
+     * @param opts.courseId Canvas course Id of the course being migrated into
+     * @param opts.contentMigrationId Canvas id of the content migration to watch
+     * @param opts.timeoutMs maximum time in milliseconds to wait for one of the
+     *   workflow states to be reached
+     * @param opts.workflowStatesToWaitFor workflow states to wait for
+     * @returns status of the content migration once it reached one of the states
+     */
+    private waitForContentMigration;
+    /**
+     * Throw an error describing the issues Canvas ran into while migrating, if
+     *   there were any
+     * @author Yuen Ler Chow
+     * @param opts object containing all arguments
+     * @param opts.courseId Canvas course Id of the course being migrated into
+     * @param opts.contentMigrationId Canvas id of the content migration to check
+     * @param opts.migrationIssuesCount number of issues Canvas ran into
+     */
+    private throwOnMigrationIssues;
+    /**
+     * Copy a course's settings into another course, leaving its content alone.
+     *   Canvas can't include settings in a migration that selects specific
+     *   content, so settings get a migration of their own: one that pauses to
+     *   ask what to import, and is then told to import nothing but the settings
+     * @author Yuen Ler Chow
+     * @method migrateCourseSettings
+     * @memberof api.course
+     * @instance
+     * @async
+     * @param {object} opts object containing all arguments
+     * @param {number} [opts.sourceCourseId=default course id] Canvas course Id of
+     *   the source course
+     * @param {number} opts.destinationCourseId Canvas course Id of the
+     *   destination course
+     * @param {number} [opts.timeoutMs = 1 minute] maximum time in milliseconds
+     *   to wait for each step of the migration to finish
+     * @param {APIConfig} [config] custom configuration for this specific endpoint
+     *   call (overwrites defaults that were included when api was initialized)
+     */
+    migrateCourseSettings(opts: {
+        sourceCourseId?: number;
+        destinationCourseId: number;
+        timeoutMs?: number;
+    }, config?: APIConfig): Promise<void>;
+    /**
      * Perform a course content migration
      * @author Yuen Ler Chow
      * @method migrateContent
