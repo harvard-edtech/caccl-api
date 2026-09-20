@@ -812,6 +812,213 @@ class ECatCourse extends EndpointCategory {
   /*------------------------------------------------------------------------*/
 
   /**
+   * Wait for a content migration to reach one of a set of workflow states
+   * @author Yuen Ler Chow
+   * @param opts object containing all arguments
+   * @param opts.courseId Canvas course Id of the course being migrated into
+   * @param opts.contentMigrationId Canvas id of the content migration to watch
+   * @param opts.timeoutMs maximum time in milliseconds to wait for one of the
+   *   workflow states to be reached
+   * @param opts.workflowStatesToWaitFor workflow states to wait for
+   * @returns status of the content migration once it reached one of the states
+   */
+  private async waitForContentMigration(
+    opts: {
+      courseId: number,
+      contentMigrationId: number,
+      timeoutMs: number,
+      workflowStatesToWaitFor: string[],
+    },
+  ) {
+    const CHECK_INTERVAL_MS = 500;
+    // Calculate num iterations
+    const numIterations = Math.ceil(opts.timeoutMs / CHECK_INTERVAL_MS);
+
+    // Continuously check every CHECK_INTERVAL_MS if the migration reached one
+    // of the workflow states we're waiting for
+    for (let i = 0; i < numIterations; i++) {
+      // Wait for CHECK_INTERVAL_MS
+      await new Promise((resolve) => {
+        setTimeout(resolve, CHECK_INTERVAL_MS);
+      });
+      // Go to the api endpoint to get the status of the content migration
+      const status = await this.visitEndpoint({
+        path: `${API_PREFIX}/courses/${opts.courseId}/content_migrations/${opts.contentMigrationId}`,
+        action: 'check the status of a content migration',
+        method: 'GET',
+      });
+
+      if (opts.workflowStatesToWaitFor.includes(status.workflow_state)) {
+        return status;
+      }
+    }
+
+    // None of the workflow states were reached in time
+    throw new CACCLError({
+      message: 'Migration timed out',
+      code: ErrorCode.MigrationTimeout,
+    });
+  }
+
+  /**
+   * Throw an error describing the issues Canvas ran into while migrating, if
+   *   there were any
+   * @author Yuen Ler Chow
+   * @param opts object containing all arguments
+   * @param opts.courseId Canvas course Id of the course being migrated into
+   * @param opts.contentMigrationId Canvas id of the content migration to check
+   * @param opts.migrationIssuesCount number of issues Canvas ran into
+   */
+  private async throwOnMigrationIssues(
+    opts: {
+      courseId: number,
+      contentMigrationId: number,
+      migrationIssuesCount: number,
+    },
+  ) {
+    // Nothing to report
+    if (!opts.migrationIssuesCount) {
+      return;
+    }
+
+    // Go to the api endpoint to get a list of migration issues
+    const migrationIssues = await this.visitEndpoint({
+      path: `${API_PREFIX}/courses/${opts.courseId}/content_migrations/${opts.contentMigrationId}/migration_issues`,
+      action: 'get migration issues',
+      method: 'GET',
+    });
+
+    let errorsAsText: string;
+    // If there is only 1 issue, we simply print the issue.
+    // If there is more than 1, we need to concatenate these
+    // issues with commas + ands
+    if (opts.migrationIssuesCount === 1) {
+      errorsAsText = migrationIssues[0].description;
+    } else if (opts.migrationIssuesCount === 2) {
+      errorsAsText = `${migrationIssues[0].description} and ${migrationIssues[1].description}`;
+    } else {
+      errorsAsText = (
+        migrationIssues
+          // Extract only the descriptions and add "and" to last item
+          .map((migrationIssue: any, i: number) => {
+            if (i === migrationIssues.length - 1) {
+              return `and ${migrationIssue.description}`;
+            }
+            return migrationIssue.description;
+          })
+          // Put together
+          .join(', ')
+      );
+    }
+
+    const errorMessage = `We ran into an error while migrating your course content: ${errorsAsText}.`;
+
+    throw new CACCLError({
+      message: errorMessage,
+      code: ErrorCode.MigrationIssue,
+    });
+  }
+
+  /**
+   * Copy a course's settings into another course, leaving its content alone.
+   *   Canvas can't include settings in a migration that selects specific
+   *   content, so settings get a migration of their own: one that pauses to
+   *   ask what to import, and is then told to import nothing but the settings
+   * @author Yuen Ler Chow
+   * @method migrateCourseSettings
+   * @memberof api.course
+   * @instance
+   * @async
+   * @param {object} opts object containing all arguments
+   * @param {number} [opts.sourceCourseId=default course id] Canvas course Id of
+   *   the source course
+   * @param {number} opts.destinationCourseId Canvas course Id of the
+   *   destination course
+   * @param {number} [opts.timeoutMs = 1 minute] maximum time in milliseconds
+   *   to wait for each step of the migration to finish
+   * @param {APIConfig} [config] custom configuration for this specific endpoint
+   *   call (overwrites defaults that were included when api was initialized)
+   */
+  public async migrateCourseSettings(
+    opts: {
+      sourceCourseId?: number,
+      destinationCourseId: number,
+      timeoutMs?: number,
+    },
+    config?: APIConfig,
+  ) {
+    const {
+      sourceCourseId = this.defaultCourseId,
+      destinationCourseId,
+      timeoutMs = 60000, // 1 minute
+    } = opts;
+
+    try {
+      // Start a migration that waits for us to choose what to import
+      const contentMigration = await this.visitEndpoint({
+        config,
+        path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations`,
+        action: 'start a migration of course settings',
+        method: 'POST',
+        params: {
+          migration_type: 'course_copy_importer',
+          'settings[source_course_id]': sourceCourseId,
+          selective_import: true,
+        },
+      });
+
+      // Wait for the migration to pause and ask what to import
+      const pausedStatus = await this.waitForContentMigration({
+        courseId: destinationCourseId,
+        contentMigrationId: contentMigration.id,
+        timeoutMs,
+        workflowStatesToWaitFor: ['waiting_for_select', 'failed'],
+      });
+      if (pausedStatus.workflow_state === 'failed') {
+        throw new CACCLError({
+          message: 'We ran into an error while migrating the course settings.',
+          code: ErrorCode.MigrationIssue,
+        });
+      }
+
+      // Import the course settings and nothing else
+      await this.visitEndpoint({
+        config,
+        path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}`,
+        action: 'migrate course settings',
+        method: 'PUT',
+        params: {
+          'copy[all_course_settings]': true,
+        },
+      });
+
+      // Wait for the settings to finish importing
+      const status = await this.waitForContentMigration({
+        courseId: destinationCourseId,
+        contentMigrationId: contentMigration.id,
+        timeoutMs,
+        workflowStatesToWaitFor: ['completed', 'failed'],
+      });
+
+      await this.throwOnMigrationIssues({
+        courseId: destinationCourseId,
+        contentMigrationId: contentMigration.id,
+        migrationIssuesCount: status.migration_issues_count,
+      });
+    } catch (err) {
+      if (err instanceof CACCLError) {
+        // Rethrow the error (it's already in the right format)
+        throw err;
+      }
+      // An unknown error occurred. Throw a new error
+      throw new CACCLError({
+        message: err,
+        code: ErrorCode.MigrationIssue,
+      });
+    }
+  }
+
+  /**
    * Perform a course content migration
    * @author Yuen Ler Chow
    * @method migrateContent
@@ -948,81 +1155,19 @@ class ECatCourse extends EndpointCategory {
         params,
       });
 
-      // Initialize status variables that are updated on each check
-      let workflowState = 'running';
-      let migrationIssuesCount = 0;
+      // Wait for the content to finish migrating
+      const status = await this.waitForContentMigration({
+        courseId: destinationCourseId,
+        contentMigrationId: contentMigration.id,
+        timeoutMs,
+        workflowStatesToWaitFor: ['completed', 'failed'],
+      });
 
-      const CHECK_INTERVAL_MS = 500;
-      // Calculate num iterations
-      const numIterations = Math.ceil(timeoutMs / CHECK_INTERVAL_MS);
-
-      // Continuously check every CHECK_INTERVAL_MS if the migration is
-      // finished, failed, or timed out
-      for (let i = 0; i < numIterations; i++) {
-        // Wait for CHECK_INTERVAL_MS
-        await new Promise((resolve) => {
-          setTimeout(resolve, CHECK_INTERVAL_MS);
-        });
-        // Go to the api endpoint to get the status of the content migration
-        const status = await this.visitEndpoint({
-          path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}`,
-          action: 'check the status of a content migration',
-          method: 'GET',
-        });
-        workflowState = status.workflow_state;
-        migrationIssuesCount = status.migration_issues_count;
-
-        // If the workflow is no longer running, end the loop
-        if (workflowState === 'completed' || workflowState === 'failed') {
-          break;
-        }
-      }
-      // Detect a timeout (if the workflow never left the pending state)
-      if (workflowState !== 'completed' && workflowState !== 'failed') {
-        throw new CACCLError({
-          message: 'Migration timed out',
-          code: ErrorCode.MigrationTimeout,
-        });
-      }
-
-      if (migrationIssuesCount > 0) {
-        // Go to the api endpoint to get a list of migration issues
-        const migrationIssues = await this.visitEndpoint({
-          path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}/migration_issues`,
-          action: 'get migration issues',
-          method: 'GET',
-        });
-
-        let errorsAsText: string;
-        // If there is only 1 issue, we simply print the issue.
-        // If there is more than 1, we need to concatenate these
-        // issues with commas + ands
-        if (migrationIssuesCount === 1) {
-          errorsAsText = migrationIssues[0].description;
-        } else if (migrationIssuesCount === 2) {
-          errorsAsText = `${migrationIssues[0].description} and ${migrationIssues[1].description}`;
-        } else {
-          errorsAsText = (
-            migrationIssues
-              // Extract only the descriptions and add "and" to last item
-              .map((migrationIssue: any, i: number) => {
-                if (i === migrationIssues.length - 1) {
-                  return `and ${migrationIssue.description}`;
-                }
-                return migrationIssue.description;
-              })
-              // Put together
-              .join(', ')
-          );
-        }
-
-        const errorMessage = `We ran into an error while migrating your course content: ${errorsAsText}.`;
-
-        throw new CACCLError({
-          message: errorMessage,
-          code: ErrorCode.MigrationIssue,
-        });
-      }
+      await this.throwOnMigrationIssues({
+        courseId: destinationCourseId,
+        contentMigrationId: contentMigration.id,
+        migrationIssuesCount: status.migration_issues_count,
+      });
     } catch (err) {
       if (err instanceof CACCLError) {
         // Rethrow the error (it's already in the right format)
