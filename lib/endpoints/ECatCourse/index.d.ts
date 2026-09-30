@@ -492,6 +492,10 @@ declare class ECatCourse extends EndpointCategory {
      * @param opts.timeoutMs maximum time in milliseconds to wait for one of the
      *   workflow states to be reached
      * @param opts.workflowStatesToWaitFor workflow states to wait for
+     * @param [opts.progressUrl] url of the migration's progress, from Canvas.
+     *   Only used if onProgress was provided
+     * @param [opts.onProgress] called with how far along the migration is, as a
+     *   percentage, each time the migration is checked on
      * @returns status of the content migration once it reached one of the states
      */
     private waitForContentMigration;
@@ -505,31 +509,6 @@ declare class ECatCourse extends EndpointCategory {
      * @param opts.migrationIssuesCount number of issues Canvas ran into
      */
     private throwOnMigrationIssues;
-    /**
-     * Copy a course's settings into another course, leaving its content alone.
-     *   Canvas can't include settings in a migration that selects specific
-     *   content, so settings get a migration of their own: one that pauses to
-     *   ask what to import, and is then told to import nothing but the settings
-     * @author Yuen Ler Chow
-     * @method migrateCourseSettings
-     * @memberof api.course
-     * @instance
-     * @async
-     * @param {object} opts object containing all arguments
-     * @param {number} [opts.sourceCourseId=default course id] Canvas course Id of
-     *   the source course
-     * @param {number} opts.destinationCourseId Canvas course Id of the
-     *   destination course
-     * @param {number} [opts.timeoutMs = 1 minute] maximum time in milliseconds
-     *   to wait for each step of the migration to finish
-     * @param {APIConfig} [config] custom configuration for this specific endpoint
-     *   call (overwrites defaults that were included when api was initialized)
-     */
-    migrateCourseSettings(opts: {
-        sourceCourseId?: number;
-        destinationCourseId: number;
-        timeoutMs?: number;
-    }, config?: APIConfig): Promise<void>;
     /**
      * Perform a course content migration
      * @author Yuen Ler Chow
@@ -558,6 +537,10 @@ declare class ECatCourse extends EndpointCategory {
      * @param {number[]} [opts.include.rubricIds = []] list of rubric ids to
      *   include
      * @param {DateShiftOptions} opts.dateShiftOptions options for shifting dates
+     * @param {boolean} [opts.includeCourseSettings] if true, also copy the source
+     *   course's settings into the destination course
+     * @param {function} [opts.onProgress] called with how far along the
+     *   migration is, as a percentage, while waiting for it to finish
      * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds
      *   to wait for course migration to finish
      * @param {APIConfig} [config] custom configuration for this specific endpoint
@@ -576,6 +559,8 @@ declare class ECatCourse extends EndpointCategory {
             rubricIds?: number[];
         };
         dateShiftOptions: DateShiftOptions;
+        includeCourseSettings?: boolean;
+        onProgress?: (percentComplete: number) => void;
         timeoutMs?: number;
     }): Promise<void>;
 }
