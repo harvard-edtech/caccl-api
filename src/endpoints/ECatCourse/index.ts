@@ -820,6 +820,10 @@ class ECatCourse extends EndpointCategory {
    * @param opts.timeoutMs maximum time in milliseconds to wait for one of the
    *   workflow states to be reached
    * @param opts.workflowStatesToWaitFor workflow states to wait for
+   * @param [opts.progressUrl] url of the migration's progress, from Canvas.
+   *   Only used if onProgress was provided
+   * @param [opts.onProgress] called with how far along the migration is, as a
+   *   percentage, each time the migration is checked on
    * @returns status of the content migration once it reached one of the states
    */
   private async waitForContentMigration(
@@ -828,6 +832,8 @@ class ECatCourse extends EndpointCategory {
       contentMigrationId: number,
       timeoutMs: number,
       workflowStatesToWaitFor: string[],
+      progressUrl?: string,
+      onProgress?: (percentComplete: number) => void,
     },
   ) {
     const CHECK_INTERVAL_MS = 500;
@@ -847,6 +853,22 @@ class ECatCourse extends EndpointCategory {
         action: 'check the status of a content migration',
         method: 'GET',
       });
+
+      // Let the caller show how far along the migration is. Canvas tracks this
+      // separately from the migration itself, so it takes another request
+      if (opts.onProgress && opts.progressUrl) {
+        const progressId = opts.progressUrl.split('/').pop();
+        try {
+          const progress = await this.visitEndpoint({
+            path: `${API_PREFIX}/progress/${progressId}`,
+            action: 'check the progress of a content migration',
+            method: 'GET',
+          });
+          opts.onProgress(Number(progress.completion) || 0);
+        } catch (err) {
+          // Progress is only for show: never fail the migration over it
+        }
+      }
 
       if (opts.workflowStatesToWaitFor.includes(status.workflow_state)) {
         return status;
@@ -949,6 +971,8 @@ class ECatCourse extends EndpointCategory {
    * @param {DateShiftOptions} opts.dateShiftOptions options for shifting dates
    * @param {boolean} [opts.includeCourseSettings] if true, also copy the source
    *   course's settings into the destination course
+   * @param {function} [opts.onProgress] called with how far along the
+   *   migration is, as a percentage, while waiting for it to finish
    * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds
    *   to wait for course migration to finish
    * @param {APIConfig} [config] custom configuration for this specific endpoint
@@ -969,6 +993,7 @@ class ECatCourse extends EndpointCategory {
       },
       dateShiftOptions: DateShiftOptions,
       includeCourseSettings?: boolean,
+      onProgress?: (percentComplete: number) => void,
       timeoutMs?: number,
     },
   ) {
@@ -978,6 +1003,7 @@ class ECatCourse extends EndpointCategory {
       include,
       dateShiftOptions,
       includeCourseSettings,
+      onProgress,
       timeoutMs = 300000, // 5 minutes
     } = opts;
 
@@ -1068,6 +1094,8 @@ class ECatCourse extends EndpointCategory {
         contentMigrationId: contentMigration.id,
         timeoutMs,
         workflowStatesToWaitFor: ['completed', 'failed'],
+        progressUrl: contentMigration.progress_url,
+        onProgress,
       });
 
       await this.throwOnMigrationIssues({
