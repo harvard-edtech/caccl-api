@@ -820,6 +820,10 @@ class ECatCourse extends EndpointCategory {
    * @param opts.timeoutMs maximum time in milliseconds to wait for one of the
    *   workflow states to be reached
    * @param opts.workflowStatesToWaitFor workflow states to wait for
+   * @param [opts.progressUrl] url of the migration's progress, from Canvas.
+   *   Only used if onProgress was provided
+   * @param [opts.onProgress] called with how far along the migration is, as a
+   *   percentage, each time the migration is checked on
    * @returns status of the content migration once it reached one of the states
    */
   private async waitForContentMigration(
@@ -828,6 +832,8 @@ class ECatCourse extends EndpointCategory {
       contentMigrationId: number,
       timeoutMs: number,
       workflowStatesToWaitFor: string[],
+      progressUrl?: string,
+      onProgress?: (percentComplete: number) => void,
     },
   ) {
     const CHECK_INTERVAL_MS = 500;
@@ -847,6 +853,22 @@ class ECatCourse extends EndpointCategory {
         action: 'check the status of a content migration',
         method: 'GET',
       });
+
+      // Let the caller show how far along the migration is. Canvas tracks this
+      // separately from the migration itself, so it takes another request
+      if (opts.onProgress && opts.progressUrl) {
+        const progressId = opts.progressUrl.split('/').pop();
+        try {
+          const progress = await this.visitEndpoint({
+            path: `${API_PREFIX}/progress/${progressId}`,
+            action: 'check the progress of a content migration',
+            method: 'GET',
+          });
+          opts.onProgress(Number(progress.completion) || 0);
+        } catch (err) {
+          // Progress is only for show: never fail the migration over it
+        }
+      }
 
       if (opts.workflowStatesToWaitFor.includes(status.workflow_state)) {
         return status;
@@ -920,105 +942,6 @@ class ECatCourse extends EndpointCategory {
   }
 
   /**
-   * Copy a course's settings into another course, leaving its content alone.
-   *   Canvas can't include settings in a migration that selects specific
-   *   content, so settings get a migration of their own: one that pauses to
-   *   ask what to import, and is then told to import nothing but the settings
-   * @author Yuen Ler Chow
-   * @method migrateCourseSettings
-   * @memberof api.course
-   * @instance
-   * @async
-   * @param {object} opts object containing all arguments
-   * @param {number} [opts.sourceCourseId=default course id] Canvas course Id of
-   *   the source course
-   * @param {number} opts.destinationCourseId Canvas course Id of the
-   *   destination course
-   * @param {number} [opts.timeoutMs = 1 minute] maximum time in milliseconds
-   *   to wait for each step of the migration to finish
-   * @param {APIConfig} [config] custom configuration for this specific endpoint
-   *   call (overwrites defaults that were included when api was initialized)
-   */
-  public async migrateCourseSettings(
-    opts: {
-      sourceCourseId?: number,
-      destinationCourseId: number,
-      timeoutMs?: number,
-    },
-    config?: APIConfig,
-  ) {
-    const {
-      sourceCourseId = this.defaultCourseId,
-      destinationCourseId,
-      timeoutMs = 60000, // 1 minute
-    } = opts;
-
-    try {
-      // Start a migration that waits for us to choose what to import
-      const contentMigration = await this.visitEndpoint({
-        config,
-        path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations`,
-        action: 'start a migration of course settings',
-        method: 'POST',
-        params: {
-          migration_type: 'course_copy_importer',
-          'settings[source_course_id]': sourceCourseId,
-          selective_import: true,
-        },
-      });
-
-      // Wait for the migration to pause and ask what to import
-      const pausedStatus = await this.waitForContentMigration({
-        courseId: destinationCourseId,
-        contentMigrationId: contentMigration.id,
-        timeoutMs,
-        workflowStatesToWaitFor: ['waiting_for_select', 'failed'],
-      });
-      if (pausedStatus.workflow_state === 'failed') {
-        throw new CACCLError({
-          message: 'We ran into an error while migrating the course settings.',
-          code: ErrorCode.MigrationIssue,
-        });
-      }
-
-      // Import the course settings and nothing else
-      await this.visitEndpoint({
-        config,
-        path: `${API_PREFIX}/courses/${destinationCourseId}/content_migrations/${contentMigration.id}`,
-        action: 'migrate course settings',
-        method: 'PUT',
-        params: {
-          'copy[all_course_settings]': true,
-        },
-      });
-
-      // Wait for the settings to finish importing
-      const status = await this.waitForContentMigration({
-        courseId: destinationCourseId,
-        contentMigrationId: contentMigration.id,
-        timeoutMs,
-        workflowStatesToWaitFor: ['completed', 'failed'],
-      });
-
-      await this.throwOnMigrationIssues({
-        courseId: destinationCourseId,
-        contentMigrationId: contentMigration.id,
-        migrationIssuesCount: status.migration_issues_count,
-      });
-    } catch (err) {
-      if (err instanceof CACCLError) {
-        // Rethrow the error (it's already in the right format)
-        throw err;
-      }
-      // An unknown error occurred. Throw a new error
-      throw new CACCLError({
-        message: err,
-        code: ErrorCode.MigrationIssue,
-      });
-    }
-  }
-
-  /**
    * Perform a course content migration
    * @author Yuen Ler Chow
    * @method migrateContent
@@ -1046,6 +969,10 @@ class ECatCourse extends EndpointCategory {
    * @param {number[]} [opts.include.rubricIds = []] list of rubric ids to
    *   include
    * @param {DateShiftOptions} opts.dateShiftOptions options for shifting dates
+   * @param {boolean} [opts.includeCourseSettings] if true, also copy the source
+   *   course's settings into the destination course
+   * @param {function} [opts.onProgress] called with how far along the
+   *   migration is, as a percentage, while waiting for it to finish
    * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds
    *   to wait for course migration to finish
    * @param {APIConfig} [config] custom configuration for this specific endpoint
@@ -1065,6 +992,8 @@ class ECatCourse extends EndpointCategory {
         rubricIds?: number[],
       },
       dateShiftOptions: DateShiftOptions,
+      includeCourseSettings?: boolean,
+      onProgress?: (percentComplete: number) => void,
       timeoutMs?: number,
     },
   ) {
@@ -1073,6 +1002,8 @@ class ECatCourse extends EndpointCategory {
       destinationCourseId,
       include,
       dateShiftOptions,
+      includeCourseSettings,
+      onProgress,
       timeoutMs = 300000, // 5 minutes
     } = opts;
 
@@ -1118,6 +1049,8 @@ class ECatCourse extends EndpointCategory {
         utils.includeTruthyElementsExcludeIfEmpty(pageIds),
       'select[rubrics]':
         utils.includeTruthyElementsExcludeIfEmpty(rubricIds),
+      'select[all_course_settings]':
+        utils.includeIfTruthy(includeCourseSettings),
       // If we remove dates we don't need to provide start and end dates,
       // but if we shift dates, we do
       'date_shift_options[remove_dates]': utils.includeIfTruthy(
@@ -1161,6 +1094,8 @@ class ECatCourse extends EndpointCategory {
         contentMigrationId: contentMigration.id,
         timeoutMs,
         workflowStatesToWaitFor: ['completed', 'failed'],
+        progressUrl: contentMigration.progress_url,
+        onProgress,
       });
 
       await this.throwOnMigrationIssues({
