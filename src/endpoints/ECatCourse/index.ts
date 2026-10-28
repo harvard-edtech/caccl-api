@@ -1047,6 +1047,8 @@ class ECatCourse extends EndpointCategory {
         utils.includeTruthyElementsExcludeIfEmpty(quizIds),
       'select[assignments]':
         utils.includeTruthyElementsExcludeIfEmpty(assignmentIds),
+      // NOTE: assignment groups are not part of the documented API
+      // but this does work as of 10/28/26
       'select[assignment_groups]':
         utils.includeTruthyElementsExcludeIfEmpty(assignmentGroupIds),
       'select[announcements]':

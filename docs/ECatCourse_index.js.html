@@ -879,6 +879,12 @@ var ECatCourse = /** @class */ (function (_super) {
      * @param {number[]} [opts.include.quizIds = []] list of quiz ids to include
      * @param {number[]} [opts.include.assignmentIds = []] list of assignment ids
      *   to include
+     * @param {number[]} [opts.include.assignmentGroupIds = []] list of assignment
+     *   group ids to include. Without these, Canvas puts every imported
+     *   assignment into one "Imported Assignments" group instead of recreating
+     *   the groups the assignments came from. Only the assignments listed in
+     *   assignmentIds are copied either way: a group that has none of them is
+     *   created empty
      * @param {number[]} [opts.include.announcementIds = []] list of announcement
      *   ids to include
      * @param {number[]} [opts.include.discussionIds = []] list of discussion ids
@@ -899,12 +905,12 @@ var ECatCourse = /** @class */ (function (_super) {
      */
     ECatCourse.prototype.migrateContent = function (opts) {
         return __awaiter(this, void 0, void 0, function () {
-            var sourceCourseId, destinationCourseId, include, dateShiftOptions, includeCourseSettings, onProgress, _a, timeoutMs, _b, fileIds, _c, quizIds, _d, assignmentIds, _e, announcementIds, _f, discussionTopicsIds, _g, moduleIds, _h, pageIds, _j, rubricIds, shiftDatesOpts, params, _k, daySubstitutionMap_1, contentMigration, status_2, err_2;
-            return __generator(this, function (_l) {
-                switch (_l.label) {
+            var sourceCourseId, destinationCourseId, include, dateShiftOptions, includeCourseSettings, onProgress, _a, timeoutMs, _b, fileIds, _c, quizIds, _d, assignmentIds, _e, assignmentGroupIds, _f, announcementIds, _g, discussionTopicsIds, _h, moduleIds, _j, pageIds, _k, rubricIds, shiftDatesOpts, params, _l, daySubstitutionMap_1, contentMigration, status_2, err_2;
+            return __generator(this, function (_m) {
+                switch (_m.label) {
                     case 0:
                         sourceCourseId = opts.sourceCourseId, destinationCourseId = opts.destinationCourseId, include = opts.include, dateShiftOptions = opts.dateShiftOptions, includeCourseSettings = opts.includeCourseSettings, onProgress = opts.onProgress, _a = opts.timeoutMs, timeoutMs = _a === void 0 ? 300000 : _a;
-                        _b = include.fileIds, fileIds = _b === void 0 ? [] : _b, _c = include.quizIds, quizIds = _c === void 0 ? [] : _c, _d = include.assignmentIds, assignmentIds = _d === void 0 ? [] : _d, _e = include.announcementIds, announcementIds = _e === void 0 ? [] : _e, _f = include.discussionTopicsIds, discussionTopicsIds = _f === void 0 ? [] : _f, _g = include.moduleIds, moduleIds = _g === void 0 ? [] : _g, _h = include.pageIds, pageIds = _h === void 0 ? [] : _h, _j = include.rubricIds, rubricIds = _j === void 0 ? [] : _j;
+                        _b = include.fileIds, fileIds = _b === void 0 ? [] : _b, _c = include.quizIds, quizIds = _c === void 0 ? [] : _c, _d = include.assignmentIds, assignmentIds = _d === void 0 ? [] : _d, _e = include.assignmentGroupIds, assignmentGroupIds = _e === void 0 ? [] : _e, _f = include.announcementIds, announcementIds = _f === void 0 ? [] : _f, _g = include.discussionTopicsIds, discussionTopicsIds = _g === void 0 ? [] : _g, _h = include.moduleIds, moduleIds = _h === void 0 ? [] : _h, _j = include.pageIds, pageIds = _j === void 0 ? [] : _j, _k = include.rubricIds, rubricIds = _k === void 0 ? [] : _k;
                         shiftDatesOpts = (dateShiftOptions.dateHandling === DateHandling_1.DateHandlingType.ShiftDates
                             ? dateShiftOptions
                             : undefined);
@@ -916,6 +922,9 @@ var ECatCourse = /** @class */ (function (_super) {
                             'select[files]': utils_1.default.includeTruthyElementsExcludeIfEmpty(fileIds),
                             'select[quizzes]': utils_1.default.includeTruthyElementsExcludeIfEmpty(quizIds),
                             'select[assignments]': utils_1.default.includeTruthyElementsExcludeIfEmpty(assignmentIds),
+                            // NOTE: assignment groups are not part of the documented API
+                            // but this does work as of 10/28/26
+                            'select[assignment_groups]': utils_1.default.includeTruthyElementsExcludeIfEmpty(assignmentGroupIds),
                             'select[announcements]': utils_1.default.includeTruthyElementsExcludeIfEmpty(announcementIds),
                             'select[discussion_topics]': utils_1.default.includeTruthyElementsExcludeIfEmpty(discussionTopicsIds),
                             'select[modules]': utils_1.default.includeTruthyElementsExcludeIfEmpty(moduleIds),
@@ -933,7 +942,7 @@ var ECatCourse = /** @class */ (function (_super) {
                         };
                         // Translate input (day of week map) to number-based params that Canvas uses
                         if (shiftDatesOpts) {
-                            _k = shiftDatesOpts.daySubstitutionMap, daySubstitutionMap_1 = _k === void 0 ? {} : _k;
+                            _l = shiftDatesOpts.daySubstitutionMap, daySubstitutionMap_1 = _l === void 0 ? {} : _l;
                             Object.keys(daySubstitutionMap_1).forEach(function (k) {
                                 var key = k;
                                 var originalDayNum = DateHandling_1.dayOfWeekToNumber[key];
@@ -941,9 +950,9 @@ var ECatCourse = /** @class */ (function (_super) {
                                 params["date_shift_options[day_substitutions][".concat(originalDayNum, "]")] = replacementDayNum;
                             });
                         }
-                        _l.label = 1;
+                        _m.label = 1;
                     case 1:
-                        _l.trys.push([1, 5, , 6]);
+                        _m.trys.push([1, 5, , 6]);
                         return [4 /*yield*/, this.visitEndpoint({
                                 path: "".concat(API_PREFIX_1.default, "/courses/").concat(destinationCourseId, "/content_migrations"),
                                 action: 'perform a course content migration',
@@ -951,7 +960,7 @@ var ECatCourse = /** @class */ (function (_super) {
                                 params: params,
                             })];
                     case 2:
-                        contentMigration = _l.sent();
+                        contentMigration = _m.sent();
                         return [4 /*yield*/, this.waitForContentMigration({
                                 courseId: destinationCourseId,
                                 contentMigrationId: contentMigration.id,
@@ -961,17 +970,17 @@ var ECatCourse = /** @class */ (function (_super) {
                                 onProgress: onProgress,
                             })];
                     case 3:
-                        status_2 = _l.sent();
+                        status_2 = _m.sent();
                         return [4 /*yield*/, this.throwOnMigrationIssues({
                                 courseId: destinationCourseId,
                                 contentMigrationId: contentMigration.id,
                                 migrationIssuesCount: status_2.migration_issues_count,
                             })];
                     case 4:
-                        _l.sent();
+                        _m.sent();
                         return [3 /*break*/, 6];
                     case 5:
-                        err_2 = _l.sent();
+                        err_2 = _m.sent();
                         if (err_2 instanceof caccl_error_1.default) {
                             // Rethrow the error (it's already in the right format)
                             throw err_2;
