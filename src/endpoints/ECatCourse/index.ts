@@ -959,6 +959,12 @@ class ECatCourse extends EndpointCategory {
    * @param {number[]} [opts.include.quizIds = []] list of quiz ids to include
    * @param {number[]} [opts.include.assignmentIds = []] list of assignment ids
    *   to include
+   * @param {number[]} [opts.include.assignmentGroupIds = []] list of assignment
+   *   group ids to include. Without these, Canvas puts every imported
+   *   assignment into one "Imported Assignments" group instead of recreating
+   *   the groups the assignments came from. Only the assignments listed in
+   *   assignmentIds are copied either way: a group that has none of them is
+   *   created empty
    * @param {number[]} [opts.include.announcementIds = []] list of announcement
    *   ids to include
    * @param {number[]} [opts.include.discussionIds = []] list of discussion ids
@@ -985,6 +991,7 @@ class ECatCourse extends EndpointCategory {
         fileIds?: number[],
         quizIds?: number[],
         assignmentIds?: number[],
+        assignmentGroupIds?: number[],
         announcementIds?: number[],
         discussionTopicsIds?: number[],
         moduleIds?: number[],
@@ -1013,6 +1020,7 @@ class ECatCourse extends EndpointCategory {
       fileIds = [],
       quizIds = [],
       assignmentIds = [],
+      assignmentGroupIds = [],
       announcementIds = [],
       discussionTopicsIds = [],
       moduleIds = [],
@@ -1039,6 +1047,8 @@ class ECatCourse extends EndpointCategory {
         utils.includeTruthyElementsExcludeIfEmpty(quizIds),
       'select[assignments]':
         utils.includeTruthyElementsExcludeIfEmpty(assignmentIds),
+      'select[assignment_groups]':
+        utils.includeTruthyElementsExcludeIfEmpty(assignmentGroupIds),
       'select[announcements]':
         utils.includeTruthyElementsExcludeIfEmpty(announcementIds),
       'select[discussion_topics]':
