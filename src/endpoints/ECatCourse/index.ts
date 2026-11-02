@@ -942,6 +942,45 @@ class ECatCourse extends EndpointCategory {
   }
 
   /**
+   * Get the map of source course asset ids to the ids of their counterparts in
+   *   the destination course, for a content migration. Canvas keeps this map
+   *   for the course pair, so it also covers items an earlier migration
+   *   brought over, and it's the only reliable way to find the copy of a
+   *   source item: a migration updates an item it already brought over
+   *   instead of making a second one, so the copy can't be spotted by looking
+   *   for ids that are new
+   * @author Yuen Ler Chow
+   * @method getContentMigrationAssetIdMapping
+   * @memberof api.course
+   * @instance
+   * @async
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.contentMigrationId Canvas id of the content migration
+   * @param {number} [opts.courseId=default course id] Canvas id of the course
+   *   that was migrated into
+   * @param {APIConfig} [config] custom configuration for this specific endpoint
+   *   call (overwrites defaults that were included when api was initialized)
+   * @returns {object} destination asset id, keyed by asset type and then by
+   *   source asset id, for example { assignments: { '123': '456' } }
+   */
+  public async getContentMigrationAssetIdMapping(
+    opts: {
+      contentMigrationId: number,
+      courseId?: number,
+    },
+    config?: APIConfig,
+  ): Promise<{
+    [assetType: string]: { [sourceAssetId: string]: string }
+  }> {
+    return this.visitEndpoint({
+      config,
+      action: 'get the asset id mapping for a content migration',
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/content_migrations/${opts.contentMigrationId}/asset_id_mapping`,
+      method: 'GET',
+    });
+  }
+
+  /**
    * Perform a course content migration
    * @author Yuen Ler Chow
    * @method migrateContent
@@ -982,6 +1021,9 @@ class ECatCourse extends EndpointCategory {
    * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds
    *   to wait for course migration to finish
    * @param {APIConfig} [config] custom configuration for this specific endpoint
+   * @returns {object} the content migration once it finished. Its id is needed
+   *   to ask Canvas which items the migration produced, via
+   *   api.course.getContentMigrationAssetIdMapping
    */
   public async migrateContent(
     opts: {
@@ -1003,7 +1045,12 @@ class ECatCourse extends EndpointCategory {
       onProgress?: (percentComplete: number) => void,
       timeoutMs?: number,
     },
-  ) {
+  ): Promise<{
+    id: number,
+    workflow_state: string,
+    migration_issues_count?: number,
+    [k: string]: any,
+  }> {
     const {
       sourceCourseId,
       destinationCourseId,
@@ -1115,6 +1162,9 @@ class ECatCourse extends EndpointCategory {
         contentMigrationId: contentMigration.id,
         migrationIssuesCount: status.migration_issues_count,
       });
+
+      // The caller needs the id to look up what the migration produced
+      return status;
     } catch (err) {
       if (err instanceof CACCLError) {
         // Rethrow the error (it's already in the right format)
