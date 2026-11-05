@@ -13,6 +13,8 @@ import APIConfig from '../../shared/types/APIConfig';
 import CanvasCourse from '../../types/CanvasCourse';
 import InitPack from '../../shared/types/InitPack';
 import CanvasEnrollment from '../../types/CanvasEnrollment';
+import CanvasContentMigration from '../../types/CanvasContentMigration';
+import CanvasMigrationIssue from '../../types/CanvasMigrationIssue';
 import { DateHandlingType, dayOfWeekToNumber, DateShiftOptions } from './types/DateHandling';
 
 // Import shared helpers
@@ -883,61 +885,84 @@ class ECatCourse extends EndpointCategory {
   }
 
   /**
-   * Throw an error describing the issues Canvas ran into while migrating, if
-   *   there were any
+   * List the issues Canvas ran into while migrating
    * @author Yuen Ler Chow
    * @param opts object containing all arguments
    * @param opts.courseId Canvas course Id of the course being migrated into
    * @param opts.contentMigrationId Canvas id of the content migration to check
    * @param opts.migrationIssuesCount number of issues Canvas ran into
+   * @returns the issues, or an empty list if there weren't any
    */
-  private async throwOnMigrationIssues(
+  private async listMigrationIssues(
     opts: {
       courseId: number,
       contentMigrationId: number,
-      migrationIssuesCount: number,
+      migrationIssuesCount?: number,
     },
-  ) {
+  ): Promise<CanvasMigrationIssue[]> {
     // Nothing to report
     if (!opts.migrationIssuesCount) {
-      return;
+      return [];
     }
 
     // Go to the api endpoint to get a list of migration issues
-    const migrationIssues = await this.visitEndpoint({
+    return this.visitEndpoint({
       path: `${API_PREFIX}/courses/${opts.courseId}/content_migrations/${opts.contentMigrationId}/migration_issues`,
       action: 'get migration issues',
       method: 'GET',
     });
+  }
 
-    let errorsAsText: string;
-    // If there is only 1 issue, we simply print the issue.
-    // If there is more than 1, we need to concatenate these
-    // issues with commas + ands
-    if (opts.migrationIssuesCount === 1) {
-      errorsAsText = migrationIssues[0].description;
-    } else if (opts.migrationIssuesCount === 2) {
-      errorsAsText = `${migrationIssues[0].description} and ${migrationIssues[1].description}`;
-    } else {
-      errorsAsText = (
-        migrationIssues
-          // Extract only the descriptions and add "and" to last item
-          .map((migrationIssue: any, i: number) => {
-            if (i === migrationIssues.length - 1) {
-              return `and ${migrationIssue.description}`;
-            }
-            return migrationIssue.description;
-          })
-          // Put together
-          .join(', ')
-      );
-    }
-
-    const errorMessage = `We ran into an error while migrating your course content: ${errorsAsText}.`;
-
-    throw new CACCLError({
-      message: errorMessage,
-      code: ErrorCode.MigrationIssue,
+  /**
+   * Get the map of source course asset ids to the ids of their counterparts in
+   *   the destination course, for a content migration. Canvas keeps this map
+   *   for the course pair, so it also covers items an earlier migration
+   *   brought over, and it's the only reliable way to find the copy of a
+   *   source item: a migration updates an item it already brought over
+   *   instead of making a second one, so the copy can't be spotted by looking
+   *   for ids that are new
+   * @author Yuen Ler Chow
+   * @method getContentMigrationAssetIdMapping
+   * @memberof api.course
+   * @instance
+   * @async
+   * @param {object} opts object containing all arguments
+   * @param {number} opts.contentMigrationId Canvas id of the content migration
+   * @param {number} [opts.courseId=default course id] Canvas id of the course
+   *   that was migrated into
+   * @param {APIConfig} [config] custom configuration for this specific endpoint
+   *   call (overwrites defaults that were included when api was initialized)
+   * @returns {object} keyed by asset type (assignments, discussion_topics,
+   *   files, modules, module_items, pages, quizzes, verifiers). Each type holds
+   *   two kinds of entries. Assets from this migration's source course are
+   *   keyed by their source id and map straight to the destination id, for
+   *   example { assignments: { '123': '456' } }. Other entries are keyed by
+   *   Canvas's own migration id ("g" and 32 hex characters) and hold an object
+   *   with an empty source and the destination's details, so they can't be
+   *   traced back to a source asset
+   */
+  public async getContentMigrationAssetIdMapping(
+    opts: {
+      contentMigrationId: number,
+      courseId?: number,
+    },
+    config?: APIConfig,
+  ): Promise<{
+    [assetType: string]: {
+      [sourceAssetIdOrMigrationId: string]: (
+        | string
+        | {
+          source: { [k: string]: any },
+          destination: { id: string, [k: string]: any },
+        }
+      ),
+    },
+  }> {
+    return this.visitEndpoint({
+      config,
+      action: 'get the asset id mapping for a content migration',
+      path: `${API_PREFIX}/courses/${opts.courseId ?? this.defaultCourseId}/content_migrations/${opts.contentMigrationId}/asset_id_mapping`,
+      method: 'GET',
     });
   }
 
@@ -982,6 +1007,13 @@ class ECatCourse extends EndpointCategory {
    * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds
    *   to wait for course migration to finish
    * @param {APIConfig} [config] custom configuration for this specific endpoint
+   * @returns {object} { contentMigration, migrationIssues }: the content
+   *   migration once it finished, and the issues Canvas ran into. Issues are
+   *   returned rather than thrown because Canvas still migrates the content
+   *   when it reports them (a broken link, a question bank the user can't
+   *   reach), so it's up to the caller to decide what to do about each one.
+   *   The migration's id is needed to ask Canvas which items it produced, via
+   *   api.course.getContentMigrationAssetIdMapping
    */
   public async migrateContent(
     opts: {
@@ -1003,7 +1035,10 @@ class ECatCourse extends EndpointCategory {
       onProgress?: (percentComplete: number) => void,
       timeoutMs?: number,
     },
-  ) {
+  ): Promise<{
+    contentMigration: CanvasContentMigration,
+    migrationIssues: CanvasMigrationIssue[],
+  }> {
     const {
       sourceCourseId,
       destinationCourseId,
@@ -1110,11 +1145,17 @@ class ECatCourse extends EndpointCategory {
         onProgress,
       });
 
-      await this.throwOnMigrationIssues({
+      const migrationIssues = await this.listMigrationIssues({
         courseId: destinationCourseId,
         contentMigrationId: contentMigration.id,
         migrationIssuesCount: status.migration_issues_count,
       });
+
+      // The caller needs the id to look up what the migration produced
+      return {
+        contentMigration: status,
+        migrationIssues,
+      };
     } catch (err) {
       if (err instanceof CACCLError) {
         // Rethrow the error (it's already in the right format)
