@@ -914,44 +914,6 @@ class ECatCourse extends EndpointCategory {
   }
 
   /**
-   * Create an error describing the issues Canvas ran into while migrating
-   * @author Yuen Ler Chow
-   * @param migrationIssues the issues Canvas ran into (at least one)
-   * @returns error to throw
-   */
-  private genMigrationIssuesError(
-    migrationIssues: CanvasMigrationIssue[],
-  ): CACCLError {
-    let errorsAsText: string;
-    // If there is only 1 issue, we simply print the issue.
-    // If there is more than 1, we need to concatenate these
-    // issues with commas + ands
-    if (migrationIssues.length === 1) {
-      errorsAsText = migrationIssues[0].description;
-    } else if (migrationIssues.length === 2) {
-      errorsAsText = `${migrationIssues[0].description} and ${migrationIssues[1].description}`;
-    } else {
-      errorsAsText = (
-        migrationIssues
-          // Extract only the descriptions and add "and" to last item
-          .map((migrationIssue, i) => {
-            if (i === migrationIssues.length - 1) {
-              return `and ${migrationIssue.description}`;
-            }
-            return migrationIssue.description;
-          })
-          // Put together
-          .join(', ')
-      );
-    }
-
-    return new CACCLError({
-      message: `We ran into an error while migrating your course content: ${errorsAsText}.`,
-      code: ErrorCode.MigrationIssue,
-    });
-  }
-
-  /**
    * Get the map of source course asset ids to the ids of their counterparts in
    *   the destination course, for a content migration. Canvas keeps this map
    *   for the course pair, so it also covers items an earlier migration
@@ -1044,16 +1006,13 @@ class ECatCourse extends EndpointCategory {
    *   migration is, as a percentage, while waiting for it to finish
    * @param {number} [opts.timeoutMs = 5 minutes] maximum time in milliseconds
    *   to wait for course migration to finish
-   * @param {boolean} [opts.returnMigrationIssues] if true, issues Canvas ran
-   *   into are returned instead of thrown. Canvas still migrates the content
-   *   when it reports issues (a broken link, a question bank the user can't
-   *   reach), so a caller that wants to carry on needs the migration back
-   *   rather than an error
    * @param {APIConfig} [config] custom configuration for this specific endpoint
    * @returns {object} { contentMigration, migrationIssues }: the content
-   *   migration once it finished, and the issues Canvas ran into (empty unless
-   *   returnMigrationIssues is true). The migration's id is needed to ask
-   *   Canvas which items it produced, via
+   *   migration once it finished, and the issues Canvas ran into. Issues are
+   *   returned rather than thrown because Canvas still migrates the content
+   *   when it reports them (a broken link, a question bank the user can't
+   *   reach), so it's up to the caller to decide what to do about each one.
+   *   The migration's id is needed to ask Canvas which items it produced, via
    *   api.course.getContentMigrationAssetIdMapping
    */
   public async migrateContent(
@@ -1075,7 +1034,6 @@ class ECatCourse extends EndpointCategory {
       includeCourseSettings?: boolean,
       onProgress?: (percentComplete: number) => void,
       timeoutMs?: number,
-      returnMigrationIssues?: boolean,
     },
   ): Promise<{
     contentMigration: CanvasContentMigration,
@@ -1089,7 +1047,6 @@ class ECatCourse extends EndpointCategory {
       includeCourseSettings,
       onProgress,
       timeoutMs = 300000, // 5 minutes
-      returnMigrationIssues,
     } = opts;
 
     // If the user didn't specify the ids for an item,
@@ -1193,11 +1150,6 @@ class ECatCourse extends EndpointCategory {
         contentMigrationId: contentMigration.id,
         migrationIssuesCount: status.migration_issues_count,
       });
-
-      // Unless the caller wants to handle them, issues are errors
-      if (migrationIssues.length > 0 && !returnMigrationIssues) {
-        throw this.genMigrationIssuesError(migrationIssues);
-      }
 
       // The caller needs the id to look up what the migration produced
       return {
